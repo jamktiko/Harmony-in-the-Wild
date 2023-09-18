@@ -106,20 +106,24 @@ public class FoxMove : MonoBehaviour
             {
                 if (cameraMove.X == 0)
                 {
+                    timer = 0;
                     //running animation here
                 }
 
                 else if (cameraMove.X > 0.05)
                 {
+                    timer = 0;
                     //turning right animation here
                 }
                 else if (cameraMove.X < -0.05)
                 {
-                   //turning left animation here
+                    timer = 0;
+                    //turning left animation here
                 }
             }
             else if (Vertical < 0)
             {
+                timer = 0;
                 //walking back animation here
             }
         }
@@ -155,6 +159,7 @@ public class FoxMove : MonoBehaviour
         //Movement.Normalize();
         if (GroundCheck()&&Input.GetButtonDown("Jump"))
         {
+            timer = 0;
             MovementJump.y = jumpforce;
             Jump = MovementJump;
             Debug.Log("hi");
