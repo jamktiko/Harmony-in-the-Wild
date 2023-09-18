@@ -29,6 +29,7 @@ public class FoxMove : MonoBehaviour
     bool sprinting;
     public bool canSwim = false;
     [SerializeField] GameObject diaUI;
+    public bool test = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -55,30 +56,28 @@ public class FoxMove : MonoBehaviour
         x= Input.GetAxis("Horizontal") * Speed * Time.deltaTime;
         if (GroundCheck())
         {
+            test = true;
+            //next 2 lines to remove
             animator.SetBool("Jump", false);
+            animator.SetBool("Idle", true);
 
-            //if (Horizontal == 0 && Vertical == 0 && cameraMove.X == 0)
-            //{
-            //    animator.SetBool("RunLeft", false);
-            //    animator.SetBool("RunRight", false);
-            //    animator.SetBool("Run", false);
-            //    animator.SetBool("RunBack", false);
-            //    animator.SetBool("Idle", true);
-            //    timer++;
-            //    if (timer > 400 && animator.GetBool("CanSit") != true)
-            //    {
-            //        animator.SetBool("CanSit", true);
-            //    }
-            //}
+            //idle animation here
+
             if (Input.GetKey(KeyCode.LeftShift)&&!sprinting)
             {
                 sprinting = true;
+
+                //running animation here
+
                 animator.speed = 1.4f;
                 Speed = 5;
             }
             else
             {
                 Speed = 4;
+
+                //walking animation here
+
                 animator.speed = 1f;
                 sprinting = false;
             }
@@ -88,79 +87,62 @@ public class FoxMove : MonoBehaviour
             }
             if (Vertical==0&&Horizontal==0)
             {
-                foreach (AnimatorControllerParameter item in animatorBools)
-                {
-                    animator.SetBool(item.name, false);
-                }
-                animator.SetBool("Idle", true);
+                //foreach (AnimatorControllerParameter item in animatorBools)
+                //{
+                //    animator.SetBool(item.name, false);
+                //}
+                
+                //idle animation here
+
                 timer++;
                 if (timer > 400 && animator.GetBool("CanSit") != true)
                 {
-                    animator.SetBool("Idle", false);
-                    animator.SetBool("CanSit", true);
+                    //sitting down animation here
                 }
             }
             else if (Vertical > 0 || Horizontal > 0 || Horizontal < 0)
             {
                 if (cameraMove.X == 0)
                 {
-                    timer = 0;
-                    animator.SetBool("RunLeft", false);
-                    animator.SetBool("RunRight", false);
-                    animator.SetBool("CanSit", false);
-                    animator.SetBool("RunBack", false);
-                    animator.SetBool("Idle", false);
-                    animator.SetBool("Run", true);
+                    //running animation here
                 }
 
                 else if (cameraMove.X > 0.05)
                 {
-                    timer = 0;
-                    animator.SetBool("Run", false);
-                    animator.SetBool("CanSit", false);
-                    animator.SetBool("RunLeft", false);
-                    animator.SetBool("RunRight", true);
+                    //turning right animation here
                 }
                 else if (cameraMove.X < -0.05)
                 {
-                    timer = 0;
-                    animator.SetBool("Run", false);
-                    animator.SetBool("CanSit", false);
-                    animator.SetBool("RunLeft", true);
-                    animator.SetBool("RunRight", false);
+                   //turning left animation here
                 }
             }
             else if (Vertical < 0)
             {
-                timer = 0;
-                animator.SetBool("CanSit", false);
-                animator.SetBool("Idle", false);
-                animator.SetBool("Run", false);
-                animator.SetBool("RunBack", true);
+                //walking back animation here
             }
         }
         else if (WaterCheck())
         {
-            foreach (AnimatorControllerParameter item in animatorBools)
-            {
-                animator.SetBool(item.name, false);
-            }
-            animator.SetBool("Run", true);
-            animator.speed = 0.5f;
+            //foreach (AnimatorControllerParameter item in animatorBools)
+            //{
+            //    animator.SetBool(item.name, false);
+            //}
+
+            //swimming animation here
+
+
         }
         else if (!GroundCheck())
         {
-            foreach (AnimatorControllerParameter item in animatorBools)
-            {
-                animator.SetBool(item.name, false);
-            }
-            animator.SetBool("Jump",true);
+            test=false;
+            //foreach (AnimatorControllerParameter item in animatorBools)
+            //{
+            //    animator.SetBool(item.name, false);
+            //}
+
+            //jumping animation here
+
         }
-        //else
-        //{
-        //    animator.SetBool("RunLeft", false);
-        //    animator.SetBool("RunRight", false);
-        //}
         
         Vector3 Movement = Cam.transform.right * Horizontal + Cam.transform.forward * Vertical;
         Vector3 MovementJump = new Vector3(0, 0, 0);
@@ -211,7 +193,7 @@ public class FoxMove : MonoBehaviour
     {
         enableGravity = false;
         yield return new WaitForSeconds(0.2f);
-        animator.SetBool("Jump", false);
+        //turn off jumping
         enableGravity = true;
     }
     bool WaterCheck()
