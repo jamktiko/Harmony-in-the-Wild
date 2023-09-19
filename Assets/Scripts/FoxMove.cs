@@ -28,13 +28,14 @@ public class FoxMove : MonoBehaviour
     Vector3 Jump = new Vector3(0, 0, 0);
     bool sprinting;
     public bool canSwim = false;
-    [SerializeField] GameObject diaUI;
+    public bool canGlide = false;
     public bool test = false;
+    public bool glider = false;
+    [SerializeField]private float GlidingSpeed;
+
     // Start is called before the first frame update
     void Start()
     {
-        //diaUI = Resources.FindObjectsOfTypeAll<DialogueUI>().First().gameObject;
-        //diaUI.SetActive(true);
         Controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         cameraMove = GetComponentInChildren<CameraMove>();
@@ -56,6 +57,7 @@ public class FoxMove : MonoBehaviour
         x= Input.GetAxis("Horizontal") * Speed * Time.deltaTime;
         if (GroundCheck())
         {
+            glider = false;
             test = true;
             //next 2 lines to remove
             animator.SetBool("Jump", false);
@@ -104,20 +106,24 @@ public class FoxMove : MonoBehaviour
             {
                 if (cameraMove.X == 0)
                 {
+                    timer = 0;
                     //running animation here
                 }
 
                 else if (cameraMove.X > 0.05)
                 {
+                    timer = 0;
                     //turning right animation here
                 }
                 else if (cameraMove.X < -0.05)
                 {
-                   //turning left animation here
+                    timer = 0;
+                    //turning left animation here
                 }
             }
             else if (Vertical < 0)
             {
+                timer = 0;
                 //walking back animation here
             }
         }
@@ -135,6 +141,10 @@ public class FoxMove : MonoBehaviour
         else if (!GroundCheck())
         {
             test=false;
+            if (Input.GetButtonDown("Jump")&&canGlide)
+            {
+                glider = true;
+            }
             //foreach (AnimatorControllerParameter item in animatorBools)
             //{
             //    animator.SetBool(item.name, false);
@@ -147,18 +157,26 @@ public class FoxMove : MonoBehaviour
         Vector3 Movement = Cam.transform.right * Horizontal + Cam.transform.forward * Vertical;
         Vector3 MovementJump = new Vector3(0, 0, 0);
         //Movement.Normalize();
-        if (GroundCheck()&&Input.GetButton("Jump"))
+        if (GroundCheck()&&Input.GetButtonDown("Jump"))
         {
+            timer = 0;
             MovementJump.y = jumpforce;
             Jump = MovementJump;
             Debug.Log("hi");
-            
+
             enableGravity = false;
             StartCoroutine(disableGravity());
         }
         else if (enableGravity)
         {
-            Jump.y -= gravity * Time.deltaTime;
+            if (glider) 
+            {
+                Jump.y -= GlidingSpeed * Time.deltaTime;
+            }
+            else
+            {
+                Jump.y -= gravity * Time.deltaTime;
+            }
         }
         Controller.Move(Jump * Time.deltaTime*jumpSpeed);
 
