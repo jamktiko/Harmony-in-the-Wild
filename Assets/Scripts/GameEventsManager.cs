@@ -11,7 +11,6 @@ public class GameEventsManager : MonoBehaviour
     private void Awake()
     {
         // create singleton
-
         if(instance != null)
         {
             Debug.LogError("There is more than one Game Events Manager in the scene");
@@ -20,7 +19,6 @@ public class GameEventsManager : MonoBehaviour
         instance = this;
 
         // initialize the events
-
         questEvents = new QuestEvents();
     }
 }
