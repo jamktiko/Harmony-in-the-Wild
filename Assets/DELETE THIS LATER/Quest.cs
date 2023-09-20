@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Quest
 {
-    public QuestInfoSO info;
+    public QuestScriptableObject info;
 
     public QuestState state;
 
     private int currentQuestStepIndex;
 
-    public Quest(QuestInfoSO questInfo)
+    public Quest(QuestScriptableObject questInfo)
     {
         info = questInfo;
         state = QuestState.REQUIREMENTS_NOT_MET;
@@ -26,7 +26,7 @@ public class Quest
 
     public bool CurrentStepExists()
     {
-        return currentQuestStepIndex < info.questStepPrefabs.Length;
+        return currentQuestStepIndex < info.QuestStepPrefabs.Length;
     }
 
     public void InstantiateCurrentQuestStep(Transform parentTransform)
@@ -46,7 +46,7 @@ public class Quest
 
         if (CurrentStepExists())
         {
-            questStepPrefab = info.questStepPrefabs[currentQuestStepIndex];
+            questStepPrefab = info.QuestStepPrefabs[currentQuestStepIndex];
         }
 
         else
