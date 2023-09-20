@@ -53,7 +53,7 @@ public class QuestManager : MonoBehaviour
         // start true and prove to be false
         bool meetsRequirements = true;
 
-        foreach(QuestInfoSO prerequisiteQuestInfo in quest.info.questPrerequisites)
+        foreach(QuestScriptableObject prerequisiteQuestInfo in quest.info.questPrerequisites)
         {
             if(GetQuestById(prerequisiteQuestInfo.id).state != QuestState.FINISHED)
             {
@@ -117,12 +117,12 @@ public class QuestManager : MonoBehaviour
     private Dictionary<string, Quest> CreateQuestMap()
     {
         // load all QuestInfoSOs in path Assets/Resources/Quests
-        QuestInfoSO[] allQuests = Resources.LoadAll<QuestInfoSO>("Quests");
+        QuestScriptableObject[] allQuests = Resources.LoadAll<QuestScriptableObject>("Quests");
 
         // create the quest map
         Dictionary<string, Quest> idToQuestMap = new Dictionary<string, Quest>();
 
-        foreach(QuestInfoSO questInfo in allQuests)
+        foreach(QuestScriptableObject questInfo in allQuests)
         {
             if (idToQuestMap.ContainsKey(questInfo.id))
             {
