@@ -20,8 +20,6 @@ public class Quest
     public void MoveToNextStep()
     {
         currentQuestStepIndex++;
-
-
     }
 
     public bool CurrentStepExists()

@@ -167,7 +167,11 @@ public class FoxMove : MonoBehaviour
             enableGravity = false;
             StartCoroutine(disableGravity());
 
-            FindObjectOfType<TestJumpQuestStep>().JumpProgress();
+            // FOR TESTING PURPORSES ONLY, REMOVE LATER WHEN NO LONGER NEEDED!!
+            if (QuestManager.instance.CheckQuestState("TestJumpQuest").Equals(QuestState.IN_PROGRESS))
+            {
+                FindObjectOfType<TestJumpQuestStep>().JumpProgress();
+            }
         }
         else if (enableGravity)
         {

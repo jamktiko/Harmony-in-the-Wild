@@ -6,8 +6,17 @@ public class QuestManager : MonoBehaviour
 {
     private Dictionary<string, Quest> questMap;
 
+    public static QuestManager instance;
+
     private void Awake()
     {
+        if(instance != null)
+        {
+            Debug.LogWarning("There is more than one Quest Manager.");
+        }
+
+        instance = this;
+
         // initialize quest map
         questMap = CreateQuestMap();   
     }
@@ -102,7 +111,6 @@ public class QuestManager : MonoBehaviour
 
     private void FinishQuest(string id)
     {
-        Debug.Log("Finish Quest: " + id);
         Quest quest = GetQuestById(id);
         ClaimRewards(quest);
         ChangeQuestState(quest.info.id, QuestState.FINISHED);
@@ -111,7 +119,8 @@ public class QuestManager : MonoBehaviour
     private void ClaimRewards(Quest quest)
     {
         Debug.Log("Quest " + quest.info.id + " has been completed.");
-        //Debug.Log("You gained " + quest.info.testPoints + " points from completing the quest.");
+
+        GameEventsManager.instance.playerEvents.ExperienceGained(quest.info.ExperienceReward);
     }
 
     private Dictionary<string, Quest> CreateQuestMap()
@@ -145,5 +154,12 @@ public class QuestManager : MonoBehaviour
         }
 
         return quest;
+    }
+
+    public QuestState CheckQuestState(string id)
+    {
+        Quest quest = GetQuestById(id);
+
+        return quest.state;
     }
 }
