@@ -8,6 +8,8 @@ public class QuestManager : MonoBehaviour
 
     public static QuestManager instance;
 
+    private int CurrentPlayerLevel;
+
     private void Awake()
     {
         if(instance != null)
@@ -26,6 +28,7 @@ public class QuestManager : MonoBehaviour
         GameEventsManager.instance.questEvents.onStartQuest += StartQuest;
         GameEventsManager.instance.questEvents.onAdvanceQuest += AdvanceQuest;
         GameEventsManager.instance.questEvents.onFinishQuest += FinishQuest;
+        GameEventsManager.instance.playerEvents.onExperienceGained += PlayerLevelChange;
     }
 
     private void OnDisable()
@@ -33,6 +36,7 @@ public class QuestManager : MonoBehaviour
         GameEventsManager.instance.questEvents.onStartQuest -= StartQuest;
         GameEventsManager.instance.questEvents.onAdvanceQuest -= AdvanceQuest;
         GameEventsManager.instance.questEvents.onFinishQuest -= FinishQuest;
+        GameEventsManager.instance.playerEvents.onExperienceGained -= PlayerLevelChange;
     }
 
     private void Start()
@@ -56,12 +60,20 @@ public class QuestManager : MonoBehaviour
             }
         }
     }
+    private void PlayerLevelChange(int Level) 
+    {
+        CurrentPlayerLevel = Level;
+    }
 
     private bool CheckRequirementsMet(Quest quest)
     {
         // start true and prove to be false
         bool meetsRequirements = true;
 
+        if (CurrentPlayerLevel<quest.info.levelRequirement)
+        {
+            meetsRequirements = false;
+        }
         foreach(QuestScriptableObject prerequisiteQuestInfo in quest.info.questPrerequisites)
         {
             if(GetQuestById(prerequisiteQuestInfo.id).state != QuestState.FINISHED)

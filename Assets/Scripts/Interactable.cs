@@ -6,20 +6,14 @@ public class Interactable : MonoBehaviour
 {
     [SerializeField] bool isActive = false;
     [SerializeField] public bool used = false;
-    [SerializeField] CollectableCounter collectableCounter;
-    // Start is called before the first frame update
-    void Start()
-    {
-        collectableCounter = GameObject.Find("CollectableCounter").GetComponent<CollectableCounter>();
-    }
-
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E)&&isActive)
+        if (Input.GetKeyDown(KeyCode.E)&&isActive&& QuestManager.instance.CheckQuestState("BunnyQuest").Equals(QuestState.IN_PROGRESS))
         {
             used = true;
-            collectableCounter.Counter++;
+            FindObjectOfType<CollectableQuestStep>().CollectableProgress();
+            Debug.Log("object found!");
             Destroy(gameObject);
         }
     }
