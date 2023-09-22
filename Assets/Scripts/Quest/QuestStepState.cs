@@ -14,6 +14,6 @@ public class QuestStepState
 
     public QuestStepState()
     {
-        this.state = "";
+        state = "";
     }
 }

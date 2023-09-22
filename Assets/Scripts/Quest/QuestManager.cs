@@ -28,6 +28,9 @@ public class QuestManager : MonoBehaviour
         GameEventsManager.instance.questEvents.onStartQuest += StartQuest;
         GameEventsManager.instance.questEvents.onAdvanceQuest += AdvanceQuest;
         GameEventsManager.instance.questEvents.onFinishQuest += FinishQuest;
+
+        GameEventsManager.instance.questEvents.onQuestStepStateChange += QuestStepStateChange;
+
         GameEventsManager.instance.playerEvents.onExperienceGained += PlayerLevelChange;
     }
 
@@ -36,6 +39,9 @@ public class QuestManager : MonoBehaviour
         GameEventsManager.instance.questEvents.onStartQuest -= StartQuest;
         GameEventsManager.instance.questEvents.onAdvanceQuest -= AdvanceQuest;
         GameEventsManager.instance.questEvents.onFinishQuest -= FinishQuest;
+
+        GameEventsManager.instance.questEvents.onQuestStepStateChange -= QuestStepStateChange;
+
         GameEventsManager.instance.playerEvents.onExperienceGained -= PlayerLevelChange;
     }
 
@@ -135,6 +141,13 @@ public class QuestManager : MonoBehaviour
         GameEventsManager.instance.playerEvents.ExperienceGained(quest.info.ExperienceReward);
     }
 
+    private void QuestStepStateChange(string id, int stepIndex, QuestStepState questStepState)
+    {
+        Quest quest = GetQuestById(id);
+        quest.StoreQuestStepState(questStepState, stepIndex);
+        ChangeQuestState(id, quest.state);
+    }
+
     private Dictionary<string, Quest> CreateQuestMap()
     {
         // load all QuestInfoSOs in path Assets/Resources/Quests
@@ -173,5 +186,21 @@ public class QuestManager : MonoBehaviour
         Quest quest = GetQuestById(id);
 
         return quest.state;
+    }
+
+    private void OnApplicationQuit()
+    {
+        foreach(Quest quest in questMap.Values)
+        {
+            QuestData questData = quest.GetQuestData();
+            Debug.Log(quest.info.id);
+            Debug.Log("state: " + questData.state);
+            Debug.Log("index: " + questData.questStepIndex);
+            foreach(QuestStepState stepState in questData.questStepStates)
+
+            {
+                Debug.Log("step state: " + stepState.state);
+            }
+        }
     }
 }

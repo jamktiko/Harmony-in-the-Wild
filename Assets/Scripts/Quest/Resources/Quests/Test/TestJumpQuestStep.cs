@@ -9,11 +9,21 @@ public class TestJumpQuestStep : QuestStep
 
     public void JumpProgress()
     {
-        jumps++;
+        if(jumps < jumpsNeeded)
+        {
+            jumps++;
+            UpdateState();
+        }
 
-        if(jumps >= jumpsNeeded)
+        if (jumps >= jumpsNeeded)
         {
             FinishQuestStep();
         }
+    }
+
+    private void UpdateState()
+    {
+        string state = jumps.ToString();
+        ChangeState(state);
     }
 }

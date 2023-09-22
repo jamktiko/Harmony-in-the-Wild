@@ -9,10 +9,17 @@ public class CollectableQuestStep : QuestStep
     public void CollectableProgress()
     {
         itemsCollected++;
+        UpdateState();
 
         if (itemsCollected >= itemToComplete)
         {
             FinishQuestStep();
         }
+    }
+
+    private void UpdateState()
+    {
+        string state = itemsCollected.ToString();
+        ChangeState(state);
     }
 }

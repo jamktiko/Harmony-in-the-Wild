@@ -9,12 +9,20 @@ public class Quest
     public QuestState state;
 
     private int currentQuestStepIndex;
+    private QuestStepState[] questStepStates;
 
     public Quest(QuestScriptableObject questInfo)
     {
         info = questInfo;
         state = QuestState.REQUIREMENTS_NOT_MET;
         currentQuestStepIndex = 0;
+        questStepStates = new QuestStepState[info.QuestStepPrefabs.Length];
+
+        // initialize all the quest step states so they won't be null in the beginning
+        for(int i = 0; i < questStepStates.Length; i++)
+        {
+            questStepStates[i] = new QuestStepState();
+        }
     }
 
     public void MoveToNextStep()
@@ -34,7 +42,7 @@ public class Quest
         if(questStepPrefab != null)
         {
             QuestStep questStep = Object.Instantiate(questStepPrefab, parentTransform).GetComponent<QuestStep>();
-            questStep.InitializeQuestStep(info.id);
+            questStep.InitializeQuestStep(info.id, currentQuestStepIndex);
         }
     }
 
@@ -53,5 +61,23 @@ public class Quest
         }
 
         return questStepPrefab;
+    }
+
+    public void StoreQuestStepState(QuestStepState questStepState, int stepIndex)
+    {
+        if(stepIndex < questStepStates.Length)
+        {
+            questStepStates[stepIndex].state = questStepState.state;
+        }
+
+        else
+        {
+            Debug.LogWarning("Tried to access quest step data, but stepIndex was out of range: Quest Id = " + info.id + ", Step Index = " + stepIndex);
+        }
+    }
+
+    public QuestData GetQuestData()
+    {
+        return new QuestData(state, currentQuestStepIndex, questStepStates);
     }
 }
