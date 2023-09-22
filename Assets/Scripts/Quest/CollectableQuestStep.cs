@@ -22,4 +22,10 @@ public class CollectableQuestStep : QuestStep
         string state = itemsCollected.ToString();
         ChangeState(state);
     }
+
+    protected override void SetQuestStepState(string state)
+    {
+        itemsCollected = System.Int32.Parse(state);
+        UpdateState();
+    }
 }

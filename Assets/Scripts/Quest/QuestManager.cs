@@ -50,6 +50,13 @@ public class QuestManager : MonoBehaviour
         // broadcast the initial state of all quests on startup
         foreach(Quest quest in questMap.Values)
         {
+            // initialize any loaded quest steps
+            if(quest.state == QuestState.IN_PROGRESS)
+            {
+                quest.InstantiateCurrentQuestStep(transform);
+            }
+
+            // broadcast the initial state of all quests
             GameEventsManager.instance.questEvents.QuestStateChange(quest);
         }
     }
@@ -156,14 +163,29 @@ public class QuestManager : MonoBehaviour
         // create the quest map
         Dictionary<string, Quest> idToQuestMap = new Dictionary<string, Quest>();
 
-        foreach(QuestScriptableObject questInfo in allQuests)
+        // load loaded data from Save Manager
+        List<string> loadedQuestData = SaveManager.instance.FetchLoadedData("quest");
+
+        int currentQuestSOIndex = 0;
+
+        foreach (QuestScriptableObject questInfo in allQuests)
         {
             if (idToQuestMap.ContainsKey(questInfo.id))
             {
                 Debug.LogWarning("Duplicate ID found when creating quest map: " + questInfo.id);
             }
 
-            idToQuestMap.Add(questInfo.id, new Quest(questInfo));
+            if(loadedQuestData.Count > 0)
+            {
+                idToQuestMap.Add(questInfo.id, LoadQuest(questInfo, loadedQuestData[currentQuestSOIndex]));
+            }
+
+            else
+            {
+                idToQuestMap.Add(questInfo.id, LoadQuest(questInfo, null));
+            }
+
+            currentQuestSOIndex++;
         }
 
         return idToQuestMap;
@@ -188,19 +210,57 @@ public class QuestManager : MonoBehaviour
         return quest.state;
     }
 
-    private void OnApplicationQuit()
+    public List<string> CollectQuestDataForSaving()
     {
+        List<string> allQuestData = new List<string>();
+        int i = 0;
+
         foreach(Quest quest in questMap.Values)
         {
-            QuestData questData = quest.GetQuestData();
-            Debug.Log(quest.info.id);
-            Debug.Log("state: " + questData.state);
-            Debug.Log("index: " + questData.questStepIndex);
-            foreach(QuestStepState stepState in questData.questStepStates)
+            string savedQuestData = GetSerializedQuestData(quest);
+            allQuestData.Add(savedQuestData);
 
-            {
-                Debug.Log("step state: " + stepState.state);
-            }
+            i++;
         }
+
+        Debug.Log(allQuestData);
+
+        return allQuestData;
+    }
+
+    private string GetSerializedQuestData(Quest quest)
+    {
+        string serializedData = "";
+
+        try
+        {
+            QuestData questData = quest.GetQuestData();
+            serializedData = JsonUtility.ToJson(questData);
+        }
+
+        catch (System.Exception e)
+        {
+            Debug.LogError("Failed to save quest with id " + quest.info.id + ": " + e);
+        }
+
+        return serializedData;
+    }
+
+    private Quest LoadQuest(QuestScriptableObject questInfo, string serializedData)
+    {
+        Quest quest = null;
+
+        try
+        {
+            QuestData questData = JsonUtility.FromJson<QuestData>(serializedData);
+            quest = new Quest(questInfo, questData.state, questData.questStepIndex, questData.questStepStates);
+        }
+
+        catch
+        {
+            quest = new Quest(questInfo);
+        }
+
+        return quest;
     }
 }

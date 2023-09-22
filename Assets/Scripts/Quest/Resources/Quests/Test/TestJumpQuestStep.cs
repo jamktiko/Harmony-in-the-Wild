@@ -26,4 +26,10 @@ public class TestJumpQuestStep : QuestStep
         string state = jumps.ToString();
         ChangeState(state);
     }
+
+    protected override void SetQuestStepState(string state)
+    {
+        jumps = System.Int32.Parse(state);
+        UpdateState();
+    }
 }
