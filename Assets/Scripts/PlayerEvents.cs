@@ -1,4 +1,5 @@
 using System;
+using static PlayerManager;
 
 public class PlayerEvents
 {
@@ -7,7 +8,7 @@ public class PlayerEvents
     // refer to this event when GETTING new experience for example after completing a quest
     public void ExperienceGained(int newExperience)
     {
-        if(onExperienceGained != null)
+        if (onExperienceGained != null)
         {
             onExperienceGained(newExperience);
         }
@@ -18,9 +19,17 @@ public class PlayerEvents
     // refer to this event when experience HAS BEEN UPDATED and the results need to be shown for example in UI
     public void ExperienceChanged(int currentExperience)
     {
-        if(onExperienceChanged != null)
+        if (onExperienceChanged != null)
         {
             onExperienceChanged(currentExperience);
+        }
+    }
+    public event Action<int> onAbilityGet;
+    public void AbilityGet(int index)
+    {
+        if (onAbilityGet != null)
+        {
+            onAbilityGet(index);
         }
     }
 }
