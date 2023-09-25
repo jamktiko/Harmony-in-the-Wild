@@ -92,7 +92,7 @@ public class SaveManager : MonoBehaviour
         return data;
     }
 
-    public Dictionary<int, bool> FetchLoadedAbilityData()
+    public List<bool> FetchLoadedAbilityData()
     {
         return gameData.abilityData;
     }

@@ -32,7 +32,6 @@ public class FoxMove : MonoBehaviour
     public bool test = false;
     public bool glider = false;
     [SerializeField]private float GlidingSpeed;
-    [SerializeField] private PlayerManager playerManager;
 
     // Start is called before the first frame update
     void Start()
@@ -47,7 +46,6 @@ public class FoxMove : MonoBehaviour
                 animatorBools.Add(item);
             }
         }
-        playerManager=FindObjectOfType<PlayerManager>();
     }
 
     // Update is called once per frame
@@ -200,7 +198,7 @@ public class FoxMove : MonoBehaviour
         }
         if (!canGlide)
         {
-            canGlide = playerManager.abilityValues[1];
+            canGlide = PlayerManager.instance.abilityValues[0];
         }
     }
     bool GroundCheck()

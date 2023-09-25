@@ -6,5 +6,5 @@ using UnityEngine;
 public class GameData
 {
     public List<string> questData;
-    public Dictionary<int, bool> abilityData;
+    public List<bool> abilityData;
 }

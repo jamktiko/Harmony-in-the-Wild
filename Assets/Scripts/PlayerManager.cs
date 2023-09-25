@@ -9,20 +9,18 @@ public class PlayerManager : MonoBehaviour
 {
     [SerializeField] private int experience;
     [SerializeField] public int Level;
-    
+
     [Header("Abilities")]
-    [SerializeField]
-    public Dictionary<int,bool> abilityValues = new Dictionary<int, bool>()
-    {
-    { 1,false }, //Glider
-    { 2,false }, //Swimming
-    { 3,false }, //ChargeJump
-    };
+    public List<bool> abilityValues = new List<bool>();
 
     public static PlayerManager instance;
 
     private void Awake()
     {
+        for (int i = 0; i < 8; i++) 
+        {
+            abilityValues.Add(false);
+        }
         if (instance != null)
         {
             Debug.LogWarning("There is more than one Player Manager.");
@@ -34,7 +32,6 @@ public class PlayerManager : MonoBehaviour
     private void OnEnable()
     {
         GameEventsManager.instance.playerEvents.onExperienceGained += ExperienceGained;
-
     }
 
     private void OnDisable()
@@ -62,7 +59,7 @@ public class PlayerManager : MonoBehaviour
         return Level;
     }
 
-    public Dictionary<int, bool> CollectAbilityDataForSaving()
+    public List<bool> CollectAbilityDataForSaving()
     {
         return abilityValues;
     }
