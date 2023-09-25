@@ -11,6 +11,7 @@ public class SaveManager : MonoBehaviour
     public static SaveManager instance;
 
     private List<string> questData;
+    private List<string> abilityData;
 
     private void Awake()
     {
@@ -66,6 +67,7 @@ public class SaveManager : MonoBehaviour
     private void FetchDataForSaving()
     {
         questData = QuestManager.instance.CollectQuestDataForSaving();
+        // abilityData = PlayerManager.instance.CollectAbilityData();
     }
     
     public List<string> FetchLoadedData(string dataType)
@@ -78,6 +80,14 @@ public class SaveManager : MonoBehaviour
             {
                 case "quest":
                     data = questData;
+                    break;
+
+                case "ability":
+                    data = abilityData;
+                    break;
+
+                default:
+                    Debug.LogWarning("No type match found when trying to load saved data for " + dataType);
                     break;
             }
         }

@@ -6,4 +6,5 @@ using UnityEngine;
 public class GameData
 {
     public List<string> questData;
+    public List<string> abilityData;
 }
