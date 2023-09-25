@@ -36,7 +36,6 @@ private void OnEnable()
 
         Debug.Log("Current experience: " + experience);
         LevelCheck();
-        getAbility(1);
     }
     public void getAbility(int index)
     {
