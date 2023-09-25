@@ -5,12 +5,20 @@ using UnityEngine;
 public abstract class QuestStep : MonoBehaviour
 {
     private bool isFinished =false;
-    // Start is called before the first frame update
+
     private string questId;
 
-    public void InitializeQuestStep(string id)
+    private int stepIndex;
+
+    public void InitializeQuestStep(string id, int stepIndex, string questStepState)
     {
         questId = id;
+        this.stepIndex = stepIndex;
+
+        if(questStepState != null && questStepState != "")
+        {
+            SetQuestStepState(questStepState);
+        }
     }
     protected void FinishQuestStep()
     {
@@ -23,4 +31,11 @@ public abstract class QuestStep : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    protected void ChangeState(string newState)
+    {
+        GameEventsManager.instance.questEvents.QuestStepStateChange(questId, stepIndex, new QuestStepState(newState));
+    }
+
+    protected abstract void SetQuestStepState(string state);
 }
