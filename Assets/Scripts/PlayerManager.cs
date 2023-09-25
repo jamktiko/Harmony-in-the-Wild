@@ -18,7 +18,20 @@ public class PlayerManager : MonoBehaviour
     { 2,false }, //Swimming
     { 3,false }, //ChargeJump
     };
-private void OnEnable()
+
+    public static PlayerManager instance;
+
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Debug.LogWarning("There is more than one Player Manager.");
+        }
+
+        instance = this;
+    }
+
+    private void OnEnable()
     {
         GameEventsManager.instance.playerEvents.onExperienceGained += ExperienceGained;
 
@@ -47,5 +60,15 @@ private void OnEnable()
         Level = experience / 100;
         Debug.Log("Player leveled up to level "+Level);
         return Level;
+    }
+
+    public Dictionary<int, bool> CollectAbilityDataForSaving()
+    {
+        return abilityValues;
+    }
+
+    private void LoadAbilities()
+    {
+        abilityValues = SaveManager.instance.FetchLoadedAbilityData();
     }
 }

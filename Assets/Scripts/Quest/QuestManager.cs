@@ -217,21 +217,6 @@ public class QuestManager : MonoBehaviour
         return quest.state;
     }
 
-    private void OnApplicationQuit()
-    {
-        foreach(Quest quest in questMap.Values)
-        {
-            QuestData questData = quest.GetQuestData();
-            Debug.Log(quest.info.id);
-            Debug.Log("state: " + questData.state);
-            Debug.Log("index: " + questData.questStepIndex);
-            foreach(QuestStepState stepState in questData.questStepStates)
-
-            {
-                Debug.Log("step state: " + stepState.state);
-            }
-        }
-    }
     private void AbilityGet(int index) 
     {
         playerManager.abilityValues[index] = true;

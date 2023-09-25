@@ -10,8 +10,7 @@ public class SaveManager : MonoBehaviour
 
     public static SaveManager instance;
 
-    private List<string> questData;
-    private List<string> abilityData;
+    private GameData gameData = new GameData();
 
     private void Awake()
     {
@@ -44,7 +43,8 @@ public class SaveManager : MonoBehaviour
         FileStream file = File.Create(saveFilePath);
         GameData dataToSave = new GameData();
 
-        dataToSave.questData = questData;
+        dataToSave.questData = gameData.questData;
+        dataToSave.abilityData = gameData.abilityData;
 
         bf.Serialize(file, dataToSave);
 
@@ -60,14 +60,15 @@ public class SaveManager : MonoBehaviour
             GameData loadedData = (GameData)bf.Deserialize(file);
             file.Close();
 
-            questData = loadedData.questData;
+            gameData.questData = loadedData.questData;
+            gameData.abilityData = loadedData.abilityData;
         }
     }
 
     private void FetchDataForSaving()
     {
-        questData = QuestManager.instance.CollectQuestDataForSaving();
-        // abilityData = PlayerManager.instance.CollectAbilityData();
+        gameData.questData = QuestManager.instance.CollectQuestDataForSaving();
+        gameData.abilityData = PlayerManager.instance.CollectAbilityDataForSaving();
     }
     
     public List<string> FetchLoadedData(string dataType)
@@ -79,11 +80,7 @@ public class SaveManager : MonoBehaviour
             switch (dataType)
             {
                 case "quest":
-                    data = questData;
-                    break;
-
-                case "ability":
-                    data = abilityData;
+                    data = gameData.questData;
                     break;
 
                 default:
@@ -93,5 +90,10 @@ public class SaveManager : MonoBehaviour
         }
 
         return data;
+    }
+
+    public Dictionary<int, bool> FetchLoadedAbilityData()
+    {
+        return gameData.abilityData;
     }
 }
