@@ -10,6 +10,8 @@ public class QuestManager : MonoBehaviour
 
     private int CurrentPlayerLevel;
 
+    [SerializeField]private PlayerManager playerManager;
+
     private void Awake()
     {
         if(instance != null)
@@ -20,7 +22,8 @@ public class QuestManager : MonoBehaviour
         instance = this;
 
         // initialize quest map
-        questMap = CreateQuestMap();   
+        questMap = CreateQuestMap();  
+        playerManager= FindObjectOfType<PlayerManager>();
     }
 
     private void OnEnable()
@@ -32,6 +35,7 @@ public class QuestManager : MonoBehaviour
         GameEventsManager.instance.questEvents.onQuestStepStateChange += QuestStepStateChange;
 
         GameEventsManager.instance.playerEvents.onExperienceGained += PlayerLevelChange;
+        GameEventsManager.instance.playerEvents.onAbilityGet += AbilityGet;
     }
 
     private void OnDisable()
@@ -43,6 +47,7 @@ public class QuestManager : MonoBehaviour
         GameEventsManager.instance.questEvents.onQuestStepStateChange -= QuestStepStateChange;
 
         GameEventsManager.instance.playerEvents.onExperienceGained -= PlayerLevelChange;
+        GameEventsManager.instance.playerEvents.onAbilityGet -= AbilityGet;
     }
 
     private void Start()
@@ -139,6 +144,7 @@ public class QuestManager : MonoBehaviour
         Quest quest = GetQuestById(id);
         ClaimRewards(quest);
         ChangeQuestState(quest.info.id, QuestState.FINISHED);
+        
     }
 
     private void ClaimRewards(Quest quest)
@@ -146,6 +152,7 @@ public class QuestManager : MonoBehaviour
         Debug.Log("Quest " + quest.info.id + " has been completed.");
 
         GameEventsManager.instance.playerEvents.ExperienceGained(quest.info.ExperienceReward);
+        AbilityGet(quest.info.AbilityReward);
     }
 
     private void QuestStepStateChange(string id, int stepIndex, QuestStepState questStepState)
@@ -208,6 +215,26 @@ public class QuestManager : MonoBehaviour
         Quest quest = GetQuestById(id);
 
         return quest.state;
+    }
+
+    private void OnApplicationQuit()
+    {
+        foreach(Quest quest in questMap.Values)
+        {
+            QuestData questData = quest.GetQuestData();
+            Debug.Log(quest.info.id);
+            Debug.Log("state: " + questData.state);
+            Debug.Log("index: " + questData.questStepIndex);
+            foreach(QuestStepState stepState in questData.questStepStates)
+
+            {
+                Debug.Log("step state: " + stepState.state);
+            }
+        }
+    }
+    private void AbilityGet(int index) 
+    {
+        playerManager.abilityValues[index] = true;
     }
 
     public List<string> CollectQuestDataForSaving()
