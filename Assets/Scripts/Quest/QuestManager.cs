@@ -235,8 +235,6 @@ public class QuestManager : MonoBehaviour
             i++;
         }
 
-        Debug.Log(allQuestData);
-
         return allQuestData;
     }
 

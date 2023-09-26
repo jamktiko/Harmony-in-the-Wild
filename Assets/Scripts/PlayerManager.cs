@@ -11,22 +11,23 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] public int Level;
 
     [Header("Abilities")]
-    public List<bool> abilityValues = new List<bool>();
+    public List<bool> abilityValues;
 
     public static PlayerManager instance;
 
     private void Awake()
     {
-        for (int i = 0; i < 8; i++) 
-        {
-            abilityValues.Add(false);
-        }
         if (instance != null)
         {
             Debug.LogWarning("There is more than one Player Manager.");
         }
 
         instance = this;
+    }
+
+    private void Start()
+    {
+        LoadAbilities();
     }
 
     private void OnEnable()

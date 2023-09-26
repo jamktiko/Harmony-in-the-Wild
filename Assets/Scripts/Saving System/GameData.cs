@@ -8,3 +8,9 @@ public class GameData
     public List<string> questData;
     public List<bool> abilityData;
 }
+
+/*public enum GameDataType
+{
+    QuestData,
+    AbilityData
+}*/

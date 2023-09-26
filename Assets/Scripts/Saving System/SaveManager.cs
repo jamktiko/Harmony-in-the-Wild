@@ -94,6 +94,23 @@ public class SaveManager : MonoBehaviour
 
     public List<bool> FetchLoadedAbilityData()
     {
-        return gameData.abilityData;
+        List<bool> data = new List<bool>();
+
+        // fetch the saved data from the file if there is a previous save
+        if (File.Exists(saveFilePath))
+        {
+            data = gameData.abilityData;
+        }
+
+        // if there isn't, return an empty list
+        else
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                data.Add(false);
+            }
+        }
+
+        return data;
     }
 }
