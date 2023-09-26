@@ -31,6 +31,9 @@ public class FoxMove : MonoBehaviour
     public bool canGlide = false;
     public bool test = false;
     public bool glider = false;
+    public bool hasChargedJump = false;
+    public bool canChargedJump=false;
+    [SerializeField] private float chargeJumpTimer;
     [SerializeField]private float GlidingSpeed;
 
     // Start is called before the first frame update
@@ -55,6 +58,11 @@ public class FoxMove : MonoBehaviour
         float Vertical = Input.GetAxis("Vertical") * Speed * Time.deltaTime;
         y= Input.GetAxis("Vertical") * Speed * Time.deltaTime;
         x= Input.GetAxis("Horizontal") * Speed * Time.deltaTime;
+        if (hasChargedJump&&Input.GetKeyDown(KeyCode.H))
+        {
+            Debug.Log("lol");
+            canChargedJump=!canChargedJump;
+        }
         if (GroundCheck())
         {
             glider = false;
@@ -145,6 +153,7 @@ public class FoxMove : MonoBehaviour
             {
                 glider = true;
             }
+
             //foreach (AnimatorControllerParameter item in animatorBools)
             //{
             //    animator.SetBool(item.name, false);
@@ -157,7 +166,7 @@ public class FoxMove : MonoBehaviour
         Vector3 Movement = Cam.transform.right * Horizontal + Cam.transform.forward * Vertical;
         Vector3 MovementJump = new Vector3(0, 0, 0);
         //Movement.Normalize();
-        if (GroundCheck()&&Input.GetButtonDown("Jump"))
+        if (GroundCheck()&&Input.GetButtonDown("Jump")&&!canChargedJump)
         {
             timer = 0;
             MovementJump.y = jumpforce;
@@ -166,6 +175,22 @@ public class FoxMove : MonoBehaviour
 
             enableGravity = false;
             StartCoroutine(disableGravity());
+
+            // FOR TESTING PURPORSES ONLY, REMOVE LATER WHEN NO LONGER NEEDED!!
+            if (QuestManager.instance.CheckQuestState("TestJumpQuest").Equals(QuestState.IN_PROGRESS))
+            {
+                FindObjectOfType<TestJumpQuestStep>().JumpProgress();
+            }
+        }
+        else if (GroundCheck() && Input.GetButton("Jump") && canChargedJump)
+        {
+            if (chargeJumpTimer<5f)
+            {
+                chargeJumpTimer = chargeJumpTimer + 0.05f;
+            }
+            
+
+            timer = 0;
 
             // FOR TESTING PURPORSES ONLY, REMOVE LATER WHEN NO LONGER NEEDED!!
             if (QuestManager.instance.CheckQuestState("TestJumpQuest").Equals(QuestState.IN_PROGRESS))
@@ -184,9 +209,7 @@ public class FoxMove : MonoBehaviour
                 Jump.y -= gravity * Time.deltaTime;
             }
         }
-        Controller.Move(Jump * Time.deltaTime*jumpSpeed);
-
-        Controller.Move(Movement*Speed);
+        
         if (Movement.magnitude != 0f)
         {
             transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * Cam.GetComponent<CameraMove>().sensivity * Time.deltaTime);
@@ -196,10 +219,25 @@ public class FoxMove : MonoBehaviour
             transform.rotation = Quaternion.Lerp(transform.rotation, CamRotation, 0.1f);
 
         }
+        if (chargeJumpTimer!=0&&Input.GetButtonUp("Jump"))
+        {
+            MovementJump.y = chargeJumpTimer;
+            Jump = MovementJump;
+            enableGravity = false;
+            StartCoroutine(disableGravity());
+            chargeJumpTimer = 0;
+        }
         if (!canGlide)
         {
             canGlide = PlayerManager.instance.abilityValues[0];
         }
+        if (!hasChargedJump) 
+        {
+            hasChargedJump = PlayerManager.instance.abilityValues[1];
+        }
+        Controller.Move(Jump * Time.deltaTime * jumpSpeed);
+
+        Controller.Move(Movement * Speed);
     }
     bool GroundCheck()
     {
