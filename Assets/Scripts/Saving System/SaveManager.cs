@@ -33,6 +33,11 @@ public class SaveManager : MonoBehaviour
         {
             SaveGame();
         }
+
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            DeleteSave();
+        }
     }
 
     private void SaveGame()
@@ -112,5 +117,12 @@ public class SaveManager : MonoBehaviour
         }
 
         return data;
+    }
+
+    private void DeleteSave()
+    {
+        File.Delete(saveFilePath);
+
+        Debug.LogError("The save file has been deleted. Please restart the game to avoid any errors.");
     }
 }
