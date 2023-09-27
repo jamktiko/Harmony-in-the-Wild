@@ -1,0 +1,6015 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Node Index </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Node Index ">
+    <meta name="generator" content="docfx 2.59.4.0">
+    
+    <link rel="stylesheet" href="https://mapgraph.insanescatterbrain.com/styles/docfx.vendor.css">
+    <link rel="stylesheet" href="https://mapgraph.insanescatterbrain.com/styles/featherlight.min.css">
+    <link rel="stylesheet" href="https://mapgraph.insanescatterbrain.com/styles/docfx.css">
+    <link rel="stylesheet" href="https://mapgraph.insanescatterbrain.com/styles/main.css">
+    <meta property="docfx:navrel" content="toc">
+    <meta property="docfx:tocrel" content="toc">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="index.html">
+                Home
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+                
+                <ul class="nav level1 navbar-nav">
+                      <li>
+                          <a href="manual/getting_started.html" title="Manual">Manual</a>
+                      </li>
+                      <li>
+                          <a href="nodes.html" title="Node Index">Node Index</a>
+                      </li>
+                      <li>
+                          <a href="api/InsaneScatterbrain.html" title="API">API</a>
+                      </li>
+                      <li>
+                          <a href="changelog.html" title="Changelog">Changelog</a>
+                      </li>
+                </ul>    </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+
+<div class="node-index zoomable-images">
+<h1 id="node-index">Node Index</h1>
+<h2 id="area-nodes">Area Nodes</h2>
+<h3 id="add-random-edges">Add Random Edges</h3>
+<p>Adds randomly picked edges from the set of provided edges to the area graph.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Area Graph</td>
+            <td>AreaGraph</td>
+            <td>The area graph to randomly add edges to.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Edges</td>
+            <td>AreaGraphEdge[]</td>
+            <td>
+                The set of edges to randomly pick from.
+            </td>
+            <td>true</td>
+        </tr>
+        <tr>
+            <td>Percentage</td>
+            <td>float</td>
+            <td>
+                The percentage of set of edges to use.
+            </td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Min. Edges</td>
+            <td>int</td>
+            <td>
+                The minimum number of edges to add.
+            </td>
+            <td>&lt;optional&gt;</td>
+        </tr>
+        <tr>
+            <td>Max. Edges</td>
+            <td>int</td>
+            <td>
+                The maximum number of edges to add.
+            </td>
+            <td>&lt;optional&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Area Graph</td>
+            <td>AreaGraph</td>
+            <td colspan="2">The area graph with randomly edges added.</td>
+        </tr>
+    </tbody>
+</table>
+<p><img src="images/nodes/add_random_edges.png" alt="Add Random Edges"></p>
+<h3 id="areas-centroid-points">Areas Centroid Points</h3>
+<p>Gets the center points from the given areas.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Areas</td>
+            <td>Area[]</td>
+            <td>The areas to get the centroid points of.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Centroid Points</td>
+            <td>Vector2Int[]</td>
+            <td colspan="2">The set of centroid points of the given areas.</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="areas-special-border-points">Areas Special Border Points</h3>
+<p>Gets the most top, left, right, bottom, top left, top right, bottom left and bottom right points for each area.</p>
+<p>This can be useful for placing items or doors in certain parts of an area, for example.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Areas</td>
+            <td>Area[]</td>
+            <td>The areas to get the special border points of.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Top Left</td>
+            <td>Vector2Int[]</td>
+            <td colspan="2">The set of the top left point for each area.</td>
+        </tr>
+        <tr>
+            <td>Top</td>
+            <td>Vector2Int[]</td>
+            <td colspan="2">The set of the top point for each area.</td>
+        </tr>
+        <tr>
+            <td>Top Right</td>
+            <td>Vector2Int[]</td>
+            <td colspan="2">The set of the top right point for each area.</td>
+        </tr>
+        <tr>
+            <td>Left</td>
+            <td>Vector2Int[]</td>
+            <td colspan="2">The set of the left point for each area.</td>
+        </tr>
+        <tr>
+            <td>Right</td>
+            <td>Vector2Int[]</td>
+            <td colspan="2">The set of the right point for each area.</td>
+        </tr>
+        <tr>
+            <td>Bottom Left</td>
+            <td>Vector2Int[]</td>
+            <td colspan="2">The set of the bottom left point for each area.</td>
+        </tr>
+        <tr>
+            <td>Bottom</td>
+            <td>Vector2Int[]</td>
+            <td colspan="2">The set of the bottom point for each area.</td>
+        </tr>
+        <tr>
+            <td>Bottom Right</td>
+            <td>Vector2Int[]</td>
+            <td colspan="2">The set of the bottom right point for each area.</td>
+        </tr>
+        <tr>
+            <td>All</td>
+            <td>Vector2Int[]</td>
+            <td colspan="2">The combined set of all the special border points.</td>
+        </tr>
+    </tbody>
+</table>
+<p><img src="images/nodes/areas_special_border_points_bsp.png" alt="Areas Special Border Points (Rectangles)"><br>
+<em>Example of points from rectangular areas.</em></p>
+<p><img src="images/nodes/areas_special_border_points_caves.png" alt="Areas Special Border Points (Caves)"><br>
+<em>Example of points from more cave-like areas.</em></p>
+<h3 id="connect-area-graph-centroids">Connect Area Graph (Centroids)</h3>
+<p>Pairs the centroid positions of each connected area pair in an area graph.</p>
+<p><strong>Example usage</strong>: Pairing this node with a Draw Connections node to make sure that all areas of a map are connected.</p>
+<p><strong>Limitations</strong>: This node is not a good option for connecting areas that have a concave shape, as the centroid of a concave shape is not
+guaranteed to be inside of the shape itself.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Area Graph</td>
+            <td>AreaGraph</td>
+            <td>The graph of connected areas to find centroid pairs for.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Connected Points</td>
+            <td>Pair&lt;Vector2Int&gt;[]</td>
+            <td colspan="2">A set of point pairs, where each point is the centroid of an area.</td>
+        </tr>
+    </tbody>
+</table>
+<p><img src="images/nodes/connect_area_graph_centroids.png" alt="Connect Area Graph (Centroids)"></p>
+<h3 id="connect-area-graph-closest-border-points">Connect Area Graph (Closest Border Points)</h3>
+<p>Pairs the closest border positions of each connected area pair in an area graph.</p>
+<p><strong>Example usage</strong>: Pairing this node with a Draw Connections node to make sure that all areas of a map are connected.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Area Graph</td>
+            <td>AreaGraph</td>
+            <td>The graph of connected areas to find closest border point pairs for.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Connected Points</td>
+            <td>Pair&lt;Vector2Int&gt;[]</td>
+            <td colspan="2">A set of point pairs, where each point is the point on the area's border that's closest to the other area.</td>
+        </tr>
+    </tbody>
+</table>
+<p><img src="images/nodes/connect_area_graph_closest_border_points.png" alt="Connect Area Graph (Closest Border Points)"></p>
+<h3 id="connect-area-graph-random-points">Connect Area Graph (Random Points)</h3>
+<p>Pairs random positions of each connected area pair in an area graph.</p>
+<p><strong>Example usage</strong>: Pairing this node with a Draw Connections node to make sure that all areas of a map are connected.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Area Graph</td>
+            <td>AreaGraph</td>
+            <td>The graph of connected areas to find random point pairs for.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Connected Points</td>
+            <td>Pair&lt;Vector2Int&gt;[]</td>
+            <td colspan="2">A set of point pairs, where each point is a random point of the area it represents.</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="extract-areas">Extract Areas</h3>
+<p>Extracts areas of a certain color from a texture.</p>
+<p><strong>Example usage</strong>: Connecting this node with a Generate Area Graph, Connect Area Graph and a Draw Connections node, to make sure all areas in a
+map are reachable.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td>The texture to extract areas from.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Color To Extract</td>
+            <td>Color32</td>
+            <td>Areas of this color will be extracted from the texture.</td>
+            <td>rgba(0,0,0,0)</td>
+        </tr>
+        <tr>
+            <td>Min. Area Size</td>
+            <td>int</td>
+            <td>
+                If connected, areas consisting of less points than the given min. area size, will be omitted from the set outputted by the Areas out port.
+            </td>
+            <td>&lt;optional&gt;</td>
+        </tr>
+        <tr>
+            <td>Max. Area Size</td>
+            <td>int</td>
+            <td>
+                If connected, areas consisting of more points than the given max. area size, will be omitted from the set outputted by the Areas out port.
+            </td>
+            <td>&lt;optional&gt;</td>
+        </tr>
+        <tr>
+            <td>Connect Diagonals?</td>
+            <td>bool</td>
+            <td>
+                If set to true, pixels that are diagonal neighbours and are of the given color to extract, are considered to be part of the same area.<br>
+                If set to false, only pixels that are horizontal or vertical neighbours can be considered to be part of the same area.
+            </td>
+            <td>false</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Areas</td>
+            <td>Area[]</td>
+            <td colspan="2">The areas extracted from the texture.</td>
+        </tr>
+        <tr>
+            <td>Outer Areas</td>
+            <td>Area[]</td>
+            <td colspan="2">A subset of the extracted areas, containing only the areas that are in contact with the texture's bounds.</td>
+        </tr>
+        <tr>
+            <td>Inner Areas</td>
+            <td>Area[]</td>
+            <td colspan="2">A subset of the extracted areas, containing only the areas that aren't in contact with the texture's bounds.</td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td colspan="2">A texture that contains only the extracted areas.</td>
+        </tr>
+    </tbody>
+</table>
+<p><img src="images/nodes/extract_areas.png" alt="Extract Areas"></p>
+<h3 id="generate-area-graph">Generate Area Graph</h3>
+<p>Generates a connected area graph from the given areas.</p>
+<p><strong>Example usage</strong>: Connecting this node with a Connect Area Graph and a Draw Connections node, to make sure all areas in a
+map are reachable.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Areas</td>
+            <td>Area[]</td>
+            <td>The set of areas to create a connected graph for.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Area Graph</td>
+            <td>AreaGraph</td>
+            <td colspan="2">The connected area graph.</td>
+        </tr>
+    </tbody>
+</table>
+<p><img src="images/nodes/generate_area_graph.png" alt="Generate Area Graph"></p>
+<h3 id="generate-area-graph-minimum">Generate Area Graph (Minimum)</h3>
+<p>Generates a minimum spanning tree area graph from the given connected area graph.</p>
+<p>What this means, is that that it will basically remove any edges from the original graph that
+aren't necessary to keep all areas interconnected with each other, in such a way that the
+remaining edges have a total length that's as small as possible.</p>
+<p><strong>Example usage</strong>: Placing this node between a Generate Area Graph and Connect Area Graph node, to make sure there aren't more
+connections than necessary to connect all areas.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Area Graph</td>
+            <td>AreaGraph</td>
+            <td>The area graph to create a MST area graph from.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Precise?</td>
+            <td>bool</td>
+            <td>
+                If true, a precise check is used for determining which areas are closer together, based on comparing all their border points. It leads to more accurate results, 
+                but is way more expensive in terms of performance.<br>
+                If false, a simple check is used to compare the distance between centroids, which should be precise enough in most cases.
+            </td>
+            <td>false</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>MST Area Graph</td>
+            <td>AreaGraph</td>
+            <td colspan="2">The MST area graph.</td>
+        </tr>
+        <tr>
+            <td>Unused Edges</td>
+            <td>AreaGraphEdge[]</td>
+            <td colspan="2">
+                The edges that are *not* used to connect the graph.
+            </td>
+        </tr>
+    </tbody>
+</table>
+<p><img src="images/nodes/generate_area_graph_mst.png" alt="Generate Area Graph (Minimum)"></p>
+<h3 id="generate-area-graph-random">Generate Area Graph (Random)</h3>
+<p>Generates a random spanning tree area graph, using randomly picked edges.</p>
+<p>It's similar to the Generate Area Graph (MST), but it provides a more random result, due to the fact that
+it's not guaranteed to have the smallest total edge length possible to connect the graph.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Area Graph</td>
+            <td>AreaGraph</td>
+            <td>The area graph to create a RST area graph from.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>MST Area Graph</td>
+            <td>AreaGraph</td>
+            <td colspan="2">The RST area graph.</td>
+        </tr>
+        <tr>
+            <td>Unused Edges</td>
+            <td>AreaGraphEdge[]</td>
+            <td colspan="2">
+                The edges that are *not* used to connect the graph.
+            </td>
+        </tr>
+    </tbody>
+</table>
+<p><img src="images/nodes/generate_area_graph_random.png" alt="Generate Area Graph (Random)"></p>
+<h3 id="merge-areas">Merge Areas</h3>
+<p>Merges two sets of areas into one. Any overlapping or neighbouring areas will be merged into a single area.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Areas A</td>
+            <td>Area[]</td>
+            <td>The first set of areas to merge.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Areas B</td>
+            <td>Area[]</td>
+            <td>The second set of areas to merge.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Connect Diagonals?</td>
+            <td>bool</td>
+            <td>
+                If set to true, area points that are diagonal neighbours are considered to be part of the same area.<br>
+                If set to false, only area points that are horizontal or vertical neighbours can be considered to be part of the same area.
+            </td>
+            <td>false</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Areas</td>
+            <td>Area[]</td>
+            <td colspan="2">The merged set of areas.</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="split-connections-manhattan">Split Connections Manhattan</h3>
+<p>Takes a set of connections and splits any connections that aren't perfectly horizontal or vertical and  splits them
+into two connections that do.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Connected Points</td>
+            <td>Pair&lt;Vector2Int&gt;[]</td>
+            <td>The set of connections to split.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Manhattan Connected Points</td>
+            <td>Pair&lt;Vector2Int&gt;[]</td>
+            <td colspan="2">The split connections.</td>
+        </tr>
+        <tr>
+            <td>Horizontal Connections</td>
+            <td>Pair&lt;Vector2Int&gt;[]</td>
+            <td colspan="2">The set of only the horizontal connections.</td>
+        </tr>
+        <tr>
+            <td>Vertical Connections</td>
+            <td>Pair&lt;Vector2Int&gt;[]</td>
+            <td colspan="2">The set of only the vertical connections.</td>
+        </tr>
+    </tbody>
+</table>
+<p><img src="images/nodes/split_connections_manhattan.png" alt="Split Connections Manhattan"></p>
+<h2 id="bsp-nodes">BSP Nodes</h2>
+<h3 id="bsp-leaf-center-points">BSP Leaf Center Points</h3>
+<p>Gets the center points for each BSP leaf node.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>BSP Tree</td>
+            <td>BspTree</td>
+            <td>The BSP tree to extract the leafs' center points from.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Center Points</td>
+            <td>Vector2Int[]</td>
+            <td colspan="2">The set of center points of each leaf of the BSP tree.</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="random-bsp-rooms">Random BSP Rooms</h3>
+<p>Generates a room/rectangle within the bounds of each BSP leaf node.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>BSP Tree</td>
+            <td>BspTree</td>
+            <td>The BSP tree to create rooms from.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Margin</td>
+            <td>int</td>
+            <td>The minimal margin that should separate generated rooms.</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Min. Room To Node Ratio</td>
+            <td>float</td>
+            <td>
+                The minimal amount of space the room should take compared to the BSP node, in percentages.<br>
+                For example: if set to 50 the generated room will fill up at least 50% of the BSP node's space.
+            </td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Max. Room To Node Ratio</td>
+            <td>float</td>
+            <td>
+                The maximum amount of space the room should take compared to the BSP node, in percentages.<br>
+                For example: if set to 50 the generated room will fill up at most 50% of the BSP node's space.
+            </td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Rectangles</td>
+            <td>RectInt[]</td>
+            <td colspan="2">The set of rectangles that represent the generated rooms.</td>
+        </tr>
+    </tbody>
+</table>
+<p><img src="images/nodes/random_bsp_rooms.png" alt="Random BSP Rooms"></p>
+<h3 id="random-bsp-tree">Random BSP Tree</h3>
+<p>Generates a random binary space partitioning tree.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Size</td>
+            <td>Vector2Int</td>
+            <td>The size of space the BSP tree should cover.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Min. Number of Divisions</td>
+            <td>int</td>
+            <td>
+                The minimal number of times spaces should be divided.<br>
+                For example: if set to 2, spaces will be divided at least twice, the first division will split the space into two, the second division
+                will split those two spaces into two each, resulting into a minimal total of 4 spaces.
+            </td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Max. Number of Divisions</td>
+            <td>int</td>
+            <td>
+                The maximum number of times spaces should be divided.<br>
+                For example: if set to 2, spaces will be divided at most twice, the first division will split the space into two, the second division
+                will split those two spaces into two each, resulting into a maximum total of 4 spaces.
+            </td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Min. Divide Offset Percentage</td>
+            <td>float</td>
+            <td>
+                This determines where a space can be split, in percentages.<br>
+                For example: if set to 40, each time a space is divided, the maximum size difference is that one of the spaces will cover
+                40% of the parent space and the other will cover 60% of the parent space. Setting it to 30 will increase that size different to a
+                30%-70% split.
+            </td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>BSP Tree</td>
+            <td>BspTree</td>
+            <td colspan="2">The random BSP tree.</td>
+        </tr>
+    </tbody>
+</table>
+<p><img src="images/nodes/random_bsp_tree.png" alt="Random BSP Tree"></p>
+<h2 id="color-nodes">Color Nodes</h2>
+<h3 id="named-color">Named Color</h3>
+<p>Provides a color from the graph's named color set, by the given name, selected through the dropdown field.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Color</td>
+            <td>Color32</td>
+            <td colspan="2">The color that matches the selected name.</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="replace-color">Replace Color</h3>
+<p>Replaces all pixels of one color with another color.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td>The texture to replace a color on.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Find</td>
+            <td>Color32</td>
+            <td>The color to replace.</td>
+            <td>rgba(0,0,0,0)</td>
+        </tr>
+        <tr>
+            <td>Replace</td>
+            <td>Color32</td>
+            <td>The color to replace the "Find" color with.</td>
+            <td>rgba(0,0,0,0)</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td colspan="2">The texture with the Find color replaced with the Replace color.</td>
+        </tr>
+    </tbody>
+</table>
+<p><img src="images/nodes/replace_color.png" alt="Replace Color"></p>
+<h3 id="transparent-color">Transparent Color</h3>
+<p>Provides a transparent color.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Transparent Color</td>
+            <td>Color32</td>
+            <td colspan="2">The transparent color: rgba(0,0,0,0)</td>
+        </tr>
+    </tbody>
+</table>
+<h2 id="constant-nodes">Constant Nodes</h2>
+<p>The constant node outputs a constant value that can be set in the graph editor.</p>
+<h2 id="convert-nodes">Convert Nodes</h2>
+<h3 id="areas-to-points">Areas To Points</h3>
+<p>Outputs all the points that make up the given areas.</p>
+<p><strong>Example usage</strong>: Convert a set of areas to a set of points to use as input for nodes that expect a set of points instead of a set of areas.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Areas</td>
+            <td>Area[]</td>
+            <td>The set of areas to convert to a set of points.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Points</td>
+            <td>Vector2Int[]</td>
+            <td colspan="2">The set of points that the areas contain.</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="connected-points-to-points">Connected Points To Points</h3>
+<p>Unpairs the connected points and returns them in a single set, any duplicates are omitted.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Connected Points</td>
+            <td>Pair&lt;Vector2Int&gt;[]</td>
+            <td>The connected points to convert to a set of points.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Points</td>
+            <td>Vector2Int[]</td>
+            <td colspan="2">The points.</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="points-to-areas">Points To Areas</h3>
+<p>Converts a set of points into areas. Connected points will be added to the same area.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Points</td>
+            <td>Vector2Int[]</td>
+            <td>The points to convert to areas.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Connect Diagonals?</td>
+            <td>bool</td>
+            <td>If true, points that are connected diagonally are considered to be part of the same area.</td>
+            <td>false</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Areas</td>
+            <td>Area[]</td>
+            <td colspan="2">The areas where each area contains a point.</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="rectangles-to-areas">Rectangles To Areas</h3>
+<p>Generates areas from a set of rectangles. Connecting or overlapping areas will be considered as part of the same area.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Rectangles</td>
+            <td>RectInt[]</td>
+            <td>A set of rectangles to convert to areas.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Connect Diagonals?</td>
+            <td>bool</td>
+            <td>If true, rectangles that are connected diagonally are considered to be part of the same area.</td>
+            <td>false</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Areas</td>
+            <td>Area[]</td>
+            <td colspan="2">A set of areas for each rectangle.</td>
+        </tr>
+    </tbody>
+</table>
+<h2 id="drawing-nodes">Drawing Nodes</h2>
+<h3 id="draw-areas">Draw Areas</h3>
+<p>Draws the given areas in the specified color onto the texture.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td>The texture to draw the areas on.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Areas</td>
+            <td>Area[]</td>
+            <td>The areas to draw.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Color</td>
+            <td>Color32</td>
+            <td>The draw color.</td>
+            <td>rgba(0,0,0,0)</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td colspan="2">The texture with the areas drawn.</td>
+        </tr>
+    </tbody>
+</table>
+<p><img src="images/nodes/draw_areas.png" alt="Draw Areas"></p>
+<h3 id="draw-border">Draw Border</h3>
+<p>Draws a border of the given color on the other edge of the texture.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td>The texture to add a border to.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Width</td>
+            <td>int</td>
+            <td>The border's width.</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>Border Color</td>
+            <td>Color32</td>
+            <td>The border's color.</td>
+            <td>rgba(0,0,0,0)</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td colspan="2">The texture with the border drawn onto it.</td>
+        </tr>
+    </tbody>
+</table>
+<p><img src="images/nodes/draw_border.png" alt="Draw Border"></p>
+<h3 id="draw-circles">Draw Circles</h3>
+<p>Draws circles around the provided center points.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td>The texture to draw cicles on.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Center Points</td>
+            <td>Vector2Int[]</td>
+            <td>The points to used as the circle centers.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Radius</td>
+            <td>int</td>
+            <td>The circle radius.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Draw Color</td>
+            <td>Color32</td>
+            <td>The circle's color.</td>
+            <td>rgba(0,0,0,0)</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td colspan="2">The texture with the circles drawn onto it.</td>
+        </tr>
+    </tbody>
+</table>
+<p><img src="images/nodes/draw_circles.png" alt="Draw Circles"></p>
+<h3 id="draw-connections-biased-random-walk">Draw Connections (Biased Random Walk)</h3>
+<p>Draws connections between each pair of points, using a biased random walk algorithm. This results into non-straight random paths
+between the connection points.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td>The texture to draw the connections on.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Connected Points</td>
+            <td>Pair&lt;Vector2Int&gt;[]</td>
+            <td>Pairs of points to draw connections between.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Draw Color</td>
+            <td>Color32</td>
+            <td>The color used to draw the connections.</td>
+            <td>rgba(0,0,0,0)</td>
+        </tr>
+        <tr>
+            <td>Carve Radius</td>
+            <td>int</td>
+            <td>The width of the connection, or radius of the circle to carve with.</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>Direction Bias (%)</td>
+            <td>float</td>
+            <td>
+                The bias the walk algorithm has towards its target point. 
+                0% is no bias at all, meaning it will walk around the texture until it happens to run into the target point.
+                100% is complete bias, meaning it will walk towards the target point as quickly as possible.
+            </td>
+            <td>50%</td>
+        </tr>
+        <tr>
+            <td>Randomness (%)</td>
+            <td>float</td>
+            <td>
+                The chance the algorithm will prefer taking a (biased) random step towards its target point over moving to
+                the best next point to get towards it target point.
+                0% will never prefer taking a random step, but will always pick the quickest way to the target position.
+                100% will always prefer taking a random step.
+            </td>
+            <td>0%</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td colspan="2">The texture with the connections drawn onto it.</td>
+        </tr>
+    </tbody>
+</table>
+<p><img src="images/nodes/draw_connections_biased_random_walk.png" alt="Draw Connections (Biased Random Walk)"></p>
+<h3 id="draw-connections-manhattan">Draw Connections (Manhattan)</h3>
+<p>Draws connecting lines between each pair of points, using only horizontal and vertical lines.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td>The texture to draw the connections on.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Connected Points</td>
+            <td>Pair&lt;Vector2Int&gt;[]</td>
+            <td>Pairs of points to draw connections between.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Draw Color</td>
+            <td>Color32</td>
+            <td>The color used to draw the connections.</td>
+            <td>rgba(0,0,0,0)</td>
+        </tr>
+        <tr>
+            <td>Connection Width</td>
+            <td>int</td>
+            <td>The thickness of the connection lines drawn.</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td colspan="2">The texture with the connections drawn onto it.</td>
+        </tr>
+    </tbody>
+</table>
+<p><img src="images/nodes/draw_connections_manhattan.png" alt="Draw Connections (Manhattan)"></p>
+<h3 id="draw-connections-shortest-path">Draw Connections (Shortest Path)</h3>
+<p>Draws connecting lines between each pair of points.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td>The texture to draw the connections on.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Connected Points</td>
+            <td>Pair&lt;Vector2Int&gt;[]</td>
+            <td>Pairs of points to draw connections between.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Draw Color</td>
+            <td>Color32</td>
+            <td>The color used to draw the connections.</td>
+            <td>rgba(0,0,0,0)</td>
+        </tr>
+        <tr>
+            <td>Width</td>
+            <td>int</td>
+            <td>The thickness of the connection lines drawn.</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td colspan="2">The texture with the connections drawn onto it.</td>
+        </tr>
+    </tbody>
+</table>
+<p><img src="images/nodes/draw_connections_shortest_path.png" alt="Draw Connections (Shortest Path)"></p>
+<h3 id="draw-grid">Draw Grid</h3>
+<p>Draws grid lines onto a texture, the lines are seperated by cells of a given size.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td>The texture to draw on.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Cell Size</td>
+            <td>Vector2Int</td>
+            <td>The size of the cells between the lines.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Line Width</td>
+            <td>int</td>
+            <td>The thickness of the lines drawn.</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>Color</td>
+            <td>Color32</td>
+            <td>The color to draw the lines with.</td>
+            <td>rgba(0,0,0,0)</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td colspan="2">The resulting texture.</td>
+        </tr>
+    </tbody>
+</table>
+<p><img src="images/nodes/draw_grid.png" alt="Draw Grid"></p>
+<h3 id="draw-noise-threshold">Draw Noise Threshold</h3>
+<p>Draws the given color at each position that has an associated noise value above (or below) the given threshold.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td>The texture to draw on.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Noise Data</td>
+            <td>float[]</td>
+            <td>The noise data.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Draw Color</td>
+            <td>Color32</td>
+            <td>The color to draw.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Threshold</td>
+            <td>float</td>
+            <td>
+                The threshold value above (or below) which the point will be filled with the given color, in percentages.<br>
+                For example, if the threshold is set at 60% and the noise value for a particular point is above 0.6 it will be filled with the
+                given color. If the noise value is below 0.6 it will keep its original color.
+            </td>
+            <td>50</td>
+        </tr>
+        <tr>
+            <td>Below Threshold?</td>
+            <td>bool</td>
+            <td>If set to true, a color will be filled with the given color whenever the corresponding noise data is <i>below</i> the threshold instead of above.</td>
+            <td>false</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td colspan="2">The resulting texture.</td>
+        </tr>
+    </tbody>
+</table>
+<p><img src="images/nodes/draw_noise_threshold.png" alt="Draw Noise Threshold"></p>
+<h3 id="draw-outline">Draw Outline</h3>
+<p>Draws outlines around colored areas (meaning the non-transparent parts).</p>
+<p><strong>Limitations</strong>: Outlines are drawn around opaque pixels. This means that if you want to draw colors around certain areas that are not
+surrounded by transparency, it won't work. To achieve this, you'll want to extract the color first using an Extract Color node
+and use that node's texture output to draw the outline on. You can then use the Stamp node to stamp the result on top of the original
+texture.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td>The texture to draw outlines on.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Outline Color</td>
+            <td>Color32</td>
+            <td>The outline's color.</td>
+            <td>rgba(0,0,0,0)</td>
+        </tr>
+        <tr>
+            <td>Color To Outline</td>
+            <td>Color32</td>
+            <td>The color to outline. If not connected, all non-transparant points are outlined.</td>
+            <td>&lt;Optional&gt;</td>
+        </tr>
+        <tr>
+            <td>Overlap?</td>
+            <td>bool</td>
+            <td>
+                If true, it draws an inline of the areas, meaning that it draws the "outline" on
+                the inside of the colored areas.
+            </td>
+            <td>false</td>
+        </tr>
+        <tr>
+            <td>Corners?</td>
+            <td>bool</td>
+            <td>
+                If true, the corner points are drawn.<br>
+                If false, they are omitted.<br>
+                For example, this shape:<br>
+                <pre>
+                    ###</pre>
+                If true, would be outlined like this:<br>
+                <pre>
+                    *****
+                    *###*
+                    *****</pre>
+                If false, the outline would look like this:<br>
+                <pre>
+                     ***
+                    *###*
+                     ***</pre>
+            </td>
+            <td>false</td>
+        </tr>
+        <tr>
+            <td>Width</td>
+            <td>int</td>
+            <td>The thickness of the drawn outline.</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>Width Top</td>
+            <td>int</td>
+            <td>The thickness of the top part of the outline.</td>
+            <td>Width</td>
+        </tr>
+        <tr>
+            <td>Width Bottom</td>
+            <td>int</td>
+            <td>The thickness of the bottom part of the outline.</td>
+            <td>Width</td>
+        </tr>
+        <tr>
+            <td>Width Left</td>
+            <td>int</td>
+            <td>The thickness of the left part of the outline.</td>
+            <td>Width</td>
+        </tr>
+        <tr>
+            <td>Width Right</td>
+            <td>int</td>
+            <td>The thickness of the right part of the outline.</td>
+            <td>Width</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td colspan="2">The texture with the connections drawn onto it.</td>
+        </tr>
+    </tbody>
+</table>
+<p><img src="images/nodes/draw_outline.png" alt="Draw Outline"></p>
+<h3 id="draw-points">Draw Points</h3>
+<p>Applies the color to the given pixel positions.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td>The texture to draw the points on.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Draw Color</td>
+            <td>Color32</td>
+            <td>The color to draw the points with.</td>
+            <td>rgba(0,0,0,0)</td>
+        </tr>
+        <tr>
+            <td>Points</td>
+            <td>Vector2Int[]</td>
+            <td>The set of points to draw onto the texture.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td colspan="2">The texture with the points drawn onto it.</td>
+        </tr>
+    </tbody>
+</table>
+<p><img src="images/nodes/draw_points.png" alt="Draw Outline"></p>
+<h3 id="draw-rectangles">Draw Rectangles</h3>
+<p>Draws rectangles on the texture in the specified color.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td>The texture to draw the rectangles on.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Rectangles</td>
+            <td>RectInt[]</td>
+            <td>The set of rectangles to draw onto the texture.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Draw Color</td>
+            <td>Color32</td>
+            <td>The color to draw the rectangles with.</td>
+            <td>rgba(0,0,0,0)</td>
+        </tr>
+        <tr>
+            <td>Outline Only?</td>
+            <td>bool</td>
+            <td>
+                If true, only the rectangle outlines will be drawn.<br>
+                If false, the rectangles will be drawn filled.
+            </td>
+            <td>false</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td colspan="2">The texture with the rectangles drawn onto it.</td>
+        </tr>
+    </tbody>
+</table>
+<p><img src="images/nodes/draw_rectangles.png" alt="Draw Rectangles"></p>
+<h3 id="stamp">Stamp</h3>
+<p>Stamps one texture on top of another.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td>The texture to stamp on.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Stamp</td>
+            <td>TextureData</td>
+            <td>The texture to stamp with.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Offset</td>
+            <td>Vector2Int</td>
+            <td>
+                The offset where the origin of the stamp is with respect to that of the target texture.
+            </td>
+            <td>0,0</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td colspan="2">The texture with the stamp texture drawn on top of it.</td>
+        </tr>
+    </tbody>
+</table>
+<p><img src="images/nodes/stamp.png" alt="Stamp"></p>
+<h2 id="gameobject-nodes">GameObject Nodes</h2>
+<h3 id="replace-gameobject-children">Replace GameObject Children</h3>
+<p>Destroys all existing children from the parent and adds the provided children.</p>
+<p>This is used for adding generated GameObjects (the children) to a container GameObject (the parent).</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Parent</td>
+            <td>GameObject</td>
+            <td>The gameobject to become the parent of the Children.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Children</td>
+            <td>GameObject[]</td>
+            <td>The objects to add as children to the Parent object.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Use XZ Plane</td>
+            <td>bool</td>
+            <td>If set to true, the generated game objects will be placed on the XZ plane, instead of the default XY.</td>
+            <td>false</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="texture-to-child-gameobjects">Texture To Child GameObjects</h3>
+<p>Generates the GameObjects from the prefab set, based on the texture. Then it places them in the scene under the parent object.
+Any objects under the parent object are removed.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td>The texture to convert to prefabs.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Prefab Set</td>
+            <td>PrefabSet</td>
+            <td>The set containing the prefabs to generate.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Parent</td>
+            <td>GameObject</td>
+            <td>The parent gameobject.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Use XZ Plane</td>
+            <td>bool</td>
+            <td>If set to true, the generated game objects will be placed on the XZ plane, instead of the default XY.</td>
+            <td>false</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="texture-to-gameobjects">Texture To GameObjects</h3>
+<p>Generates the GameObjects from the prefab set, based on the texture.</p>
+<p><strong>Please note:</strong>
+Unlike the Replace GameObject Children node,
+Texture To GameObjects doesn't assign the GameObjects it generates to the scene and only exist in the array. Since this is technically not actually possible (in Unity a GameObject
+cannot exist outside of a scene), the GameObjects are added temporarily to the scene and are destroyed after the graph is done being processed, resulting in any references to those
+GameObjects being null now.</p>
+<p>In order to keep to those GameObjects around after processing of the Graph has finished, they need to be explicitly added to the scene using a Replace GameObject Children or your own
+custom node. For the latter, please note that any GameObjects generated by the Texture To GameObjects node are marked to be destroyed, even if you explicitly assign them
+to the scene with a node of your own. So make sure you add clones of those GameObjects to the scene instead.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td>The texture to convert to prefabs.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Prefab Set</td>
+            <td>PrefabSet</td>
+            <td>The set containing the prefabs to generate.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>GameObjects</td>
+            <td>GameObject[]</td>
+            <td colspan="2">The gameobjects generated from the prefabs.</td>
+        </tr>
+    </tbody>
+</table>
+<h2 id="mask-nodes">Mask Nodes</h2>
+<h3 id="apply-mask">Apply Mask</h3>
+<p>Applies a mask to a texture, meaning that it replaces colors with transparency if their position is masked.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td>The texture to apply the mask to.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Mask</td>
+            <td>Mask</td>
+            <td>The Mask to apply to the Texture.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td colspan="2">The texture with masked points replaced with transparency.</td>
+        </tr>
+    </tbody>
+</table>
+<p><img src="images/nodes/apply_mask.png" alt="Apply Mask"></p>
+<h3 id="invert-mask">Invert Mask</h3>
+<p>Inverts the given mask, meaning that the unmasked points of the given mask are masked points in the inverted mask.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Mask</td>
+            <td>Mask</td>
+            <td>The mask to invert.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Bounds</td>
+            <td>Vector2Int</td>
+            <td>
+                The mask's bounds.<br>
+                <br>
+                These bounds are necessary, because a mask only contains data about unmasked points. So when you invert the mask, 
+                all the unmasked points will become masked points and all the other points within the given bounds are the unmasked 
+                points of the new mask.
+            </td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Inverted Mask</td>
+            <td>Mask</td>
+            <td colspan="2">The inverted mask.</td>
+        </tr>
+    </tbody>
+</table>
+<p><img src="images/nodes/invert_mask.png" alt="Invert Mask"></p>
+<h3 id="merge-masks">Merge Masks</h3>
+<p>Merges two masks together into a single mask.</p>
+<p>The resulting mask has the combined masked points of Mask A and Mask B.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Mask A</td>
+            <td>Mask</td>
+            <td>One of the masks to merge.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Mask B</td>
+            <td>Mask</td>
+            <td>The second of the masks to merge.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Merged Mask</td>
+            <td>Mask</td>
+            <td colspan="2">The merged mask.</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="subtract-mask">Subtract Mask</h3>
+<p>Subtracts the masked points of Mask B from Mask A.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Mask</td>
+            <td>Mask</td>
+            <td>The mask to subtract the other mask from.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Subtract</td>
+            <td>Mask</td>
+            <td>The mask to subtract.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Bounds</td>
+            <td>Vector2Int</td>
+            <td>
+                The mask's bounds.
+            </td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Mask</td>
+            <td>Mask</td>
+            <td colspan="2">The mask masking the same points as Mask A minus the points of Mask B.</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="texture-to-mask">Texture To Mask</h3>
+<p>Create a mask from the texture. Any non-transparent pixels will be considered to be masked.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td>The texture to apply the mask to.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Inverse?</td>
+            <td>bool</td>
+            <td>The Mask to apply to the Texture.</td>
+            <td>false</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Mask</td>
+            <td>Mask</td>
+            <td colspan="2">The resulting mask, where the opaque points are considered to be masked.</td>
+        </tr>
+    </tbody>
+</table>
+<p><img src="images/nodes/texture_to_mask.png" alt="Texture To Mask"></p>
+<h2 id="math-nodes">Math Nodes</h2>
+<h3 id="addition">Addition</h3>
+<h4 id="add-float">Add (Float)</h4>
+<p>Adds B to A.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>float</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>float</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>float</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h4 id="add-int">Add (Int)</h4>
+<p>Adds B to A.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>int</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>int</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>int</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h4 id="add-float-to-vector2">Add Float To Vector2</h4>
+<p>Adds B to all components of A.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>Vector2</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>float</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>Vector2</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h4 id="add-float-to-vector3">Add Float To Vector3</h4>
+<p>Adds B to all components of A.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>Vector3</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>float</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>Vector3</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h4 id="add-int-to-vector2int">Add Int To Vector2Int</h4>
+<p>Adds B to all components of A.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>Vector2Int</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>int</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>Vector2Int</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h4 id="add-int-to-vector3int">Add Int To Vector3Int</h4>
+<p>Adds B to all components of A.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>Vector3Int</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>int</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>Vector3Int</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h4 id="add-vector2int">Add (Vector2Int)</h4>
+<p>Adds B to A.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>Vector2Int</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>Vector2Int</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>Vector2Int</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h4 id="add-vector2">Add (Vector2)</h4>
+<p>Adds B to A.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>Vector2</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>Vector2</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>Vector2</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h4 id="add-vector3int">Add (Vector3Int)</h4>
+<p>Adds B to A.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>Vector3Int</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>Vector3Int</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>Vector3Int</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h4 id="add-vector3">Add (Vector3)</h4>
+<p>Adds B to A.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>Vector3</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>Vector3</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>Vector3</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="clamping">Clamping</h3>
+<h4 id="clamp-float">Clamp (Float)</h4>
+<p>Clamps the value between the min. and max. value. This means that any value below the min. value will be set to the min. value
+and any value above the max. value will be set to the max. value.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Value</td>
+            <td>float</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Min</td>
+            <td>float</td>
+            <td>The clamping lower bound.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Max</td>
+            <td>float</td>
+            <td>The clamping upper bound.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>float</td>
+            <td colspan="2">The clamped result.</td>
+        </tr>
+    </tbody>
+</table>
+<h4 id="clamp-int">Clamp (Int)</h4>
+<p>Clamps the value between the min. and max. value. This means that any value below the min. value will be set to the min. value
+and any value above the max. value will be set to the max. value.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Value</td>
+            <td>int</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Min</td>
+            <td>int</td>
+            <td>The clamping lower bound.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Max</td>
+            <td>int</td>
+            <td>The clamping upper bound.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>int</td>
+            <td colspan="2">The clamped result.</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="division">Division</h3>
+<h4 id="divide-float">Divide (Float)</h4>
+<p>Divides A by B.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>float</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>float</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>float</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h4 id="divide-int">Divide (Int)</h4>
+<p>Divides A by B.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>int</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>int</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>int</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h4 id="divide-vector2-by-float">Divide Vector2 By Float</h4>
+<p>Divides all components of A by B.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>Vector2</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>float</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>Vector2</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h4 id="divide-vector3-by-float">Divide Vector3 By Float</h4>
+<p>Divides all components of Vector3 A by float B.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>Vector3</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>float</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>Vector3</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h4 id="divide-vector2int-by-int">Divide Vector2Int By Int</h4>
+<p>Divides all components of A by B.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>Vector2Int</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>int</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>Vector2Int</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h4 id="divide-vector3int-by-int">Divide Vector3Int By Int</h4>
+<p>Divides all components of A by B.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>Vector3Int</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>int</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>Vector3Int</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h4 id="divide-vector2int">Divide (Vector2Int)</h4>
+<p>Divides A by B.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>Vector2Int</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>Vector2Int</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>Vector2Int</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h4 id="divide-vector2">Divide (Vector2)</h4>
+<p>Divides A by B.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>Vector2</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>Vector2</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>Vector2</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h4 id="divide-vector3int">Divide (Vector3Int)</h4>
+<p>Divides A by B.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>Vector3Int</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>Vector3Int</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>Vector3Int</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h4 id="divide-vector3">Divide (Vector3)</h4>
+<p>Divides A by B.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>Vector3</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>Vector3</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>Vector3</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="max">Max</h3>
+<h4 id="max-float">Max (Float)</h4>
+<p>Picks the highest of the two numbers and outputs it.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>float</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>float</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>float</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h4 id="max-int">Max (Int)</h4>
+<p>Picks the highest of the two numbers and outputs it.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>int</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>int</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>int</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="min">Min</h3>
+<h4 id="min-float">Min (Float)</h4>
+<p>Picks the lowest of the two numbers and outputs it.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>float</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>float</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>float</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h4 id="min-int">Min (Int)</h4>
+<p>Picks the lowest of the two numbers and outputs it.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>int</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>int</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>int</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="multiplication">Multiplication</h3>
+<h4 id="multiply-float">Multiply (Float)</h4>
+<p>Multiplies A by B.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>float</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>float</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>float</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h4 id="multiply-int">Multiply (Int)</h4>
+<p>Multiplies A by B.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>int</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>int</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>int</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h4 id="multiply-vector2-by-float">Multiply Vector2 By Float</h4>
+<p>Multiplies all components of A by B.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>Vector2</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>float</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>Vector2</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h4 id="multiply-vector3-by-float">Multiply Vector3 By Float</h4>
+<p>Multiplies all components of Vector3 A by float B.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>Vector3</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>float</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>Vector3</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h4 id="multiply-vector2int-by-int">Multiply Vector2Int By Int</h4>
+<p>Multiplies all components of A by B.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>Vector2Int</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>int</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>Vector2Int</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h4 id="multiply-vector3int-by-int">Multiply Vector3Int By Int</h4>
+<p>Multiplies all components of A by B.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>Vector3Int</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>int</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>Vector3Int</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h4 id="multiply-vector2int">Multiply (Vector2Int)</h4>
+<p>Multiplies A by B.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>Vector2Int</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>Vector2Int</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>Vector2Int</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h4 id="multiply-vector2">Multiply (Vector2)</h4>
+<p>Multiplies A by B.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>Vector2</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>Vector2</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>Vector2</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h4 id="multiply-vector3int">Multiply (Vector3Int)</h4>
+<p>Multiplies A by B.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>Vector3Int</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>Vector3Int</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>Vector3Int</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h4 id="multiply-vector3">Multiply (Vector3)</h4>
+<p>Multiplies A by B.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>Vector3</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>Vector3</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>Vector3</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="power">Power</h3>
+<p>Outputs Value to the power of Power.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Value</td>
+            <td>float</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Power</td>
+            <td>float</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>float</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="square-root">Square Root</h3>
+<p>Outputs the square root of Value.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Value</td>
+            <td>float</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>float</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="subtraction">Subtraction</h3>
+<h4 id="subtract-float">Subtract (Float)</h4>
+<p>Subtracts B from A.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>float</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>float</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>float</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h4 id="subtract-int">Subtract (Int)</h4>
+<p>Subtracts B from A.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>int</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>int</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>int</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h4 id="subtract-float-from-vector2">Subtract Float From Vector2</h4>
+<p>Subtracts B from all components of A.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>Vector2</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>float</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>Vector2</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h4 id="subtract-float-from-vector3">Subtract Float From Vector3</h4>
+<p>Subtracts B from all components of A.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>Vector3</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>float</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>Vector3</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h4 id="subtract-int-from-vector2int">Subtract Int From Vector2Int</h4>
+<p>Subtracts B from all components of A.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>Vector2Int</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>int</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>Vector2Int</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h4 id="subtract-int-from-vector3int">Subtract Int From Vector3Int</h4>
+<p>Subtracts B from all components of A.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>Vector3Int</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>int</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>Vector3Int</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h4 id="subtract-vector2int">Subtract (Vector2Int)</h4>
+<p>Subtracts B from A.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>Vector2Int</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>Vector2Int</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>Vector2Int</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h4 id="subtract-vector2">Subtract (Vector2)</h4>
+<p>Subtracts B from A.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>Vector2</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>Vector2</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>Vector2</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h4 id="subtract-vector3int">Subtract (Vector3Int)</h4>
+<p>Subtracts B from A.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>Vector3Int</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>Vector3Int</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>Vector3Int</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h4 id="subtract-vector3">Subtract (Vector3)</h4>
+<p>Subtracts B from A.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>Vector3</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>Vector3</td>
+            <td></td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>Vector3</td>
+            <td colspan="2">The result.</td>
+        </tr>
+    </tbody>
+</table>
+<h2 id="parameter-nodes">Parameter Nodes</h2>
+<h3 id="input-parameters">Input parameters</h3>
+<p>An input node is used to output the value of an associated input parameter.</p>
+<h3 id="output-parameters">Output parameters</h3>
+<p>The output node is used to take a value from the script graph and output it as part of the return value when done processing the script graph.</p>
+<h2 id="point-nodes">Point Nodes</h2>
+<h3 id="corner-points">Corner Points</h3>
+<p>Finds corner points out of the set of points and outputs those points.</p>
+<p>A corner point is defined as a point in the set of input points that has at least one diagonal neighbour
+point that isn't in the set of input points and the two neighbour points they share are either both in the
+input set or neither of them are.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Points</td>
+            <td>Vector2Int[]</td>
+            <td>The set of points to get corner points from.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Corner Points</td>
+            <td>Vector2Int[]</td>
+            <td colspan="2">A subset of Points that are considered to be corner points.</td>
+        </tr>
+    </tbody>
+</table>
+<p><img src="images/nodes/corner_points.png" alt="Corner Points"></p>
+<h3 id="extract-points">Extract Points</h3>
+<p>Extracts all points of a given color.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td>The texture to extract the points from.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Color To Extract</td>
+            <td>Color32</td>
+            <td>The color to extract.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Points</td>
+            <td>Vector2Int[]</td>
+            <td colspan="2">The extracted points.</td>
+        </tr>
+    </tbody>
+</table>
+<p><img src="images/nodes/extract_points.png" alt="Extract Points"></p>
+<h3 id="extract-points-with-neighbours">Extract Points With Neighbours</h3>
+<p>Extracts points that have neighbours with a given color.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td>The texture to extract points from.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Extract Color</td>
+            <td>Color32</td>
+            <td>The color to extract.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Neighbour Color</td>
+            <td>Color32</td>
+            <td>The color the neighbours should (or shouldn't) for the point to be extracted.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Left?</td>
+            <td>bool</td>
+            <td>
+                If true, points with the Extract Color need to have a left neighbour with the Neighbour Color, for it to be extracted.
+            </td>
+            <td>false</td>
+        </tr>
+        <tr>
+            <td>Right?</td>
+            <td>bool</td>
+            <td>
+                If true, points with the Extract Color need to have a right neighbour with the Neighbour Color, for it to be extracted.
+            </td>
+            <td>false</td>
+        </tr>
+        <tr>
+            <td>Top?</td>
+            <td>bool</td>
+            <td>
+                If true, points with the Extract Color need to have a top neighbour with the Neighbour Color, for it to be extracted.
+            </td>
+            <td>false</td>
+        </tr>
+        <tr>
+            <td>Bottom?</td>
+            <td>bool</td>
+            <td>
+                If true, points with the Extract Color need to have a bottom neighbour with the Neighbour Color, for it to be extracted.
+            </td>
+            <td>false</td>
+        </tr>
+        <tr>
+            <td>Inverse?</td>
+            <td>bool</td>
+            <td>
+                If true, it inverses the meaning of the other boolean ports. Meaning that if "Left?" is set to true, for example, only
+                points with a left neighbour that <b>don't</b> match the Neighbour Color will be extracted.
+            </td>
+            <td>false</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Points</td>
+            <td>Vector2Int[]</td>
+            <td colspan="2">The extracted points.</td>
+        </tr>
+    </tbody>
+</table>
+<p><img src="images/nodes/extract_points_with_neighbours.png" alt="Extract Points With Neighbours"></p>
+<h3 id="merge-points">Merge Points</h3>
+<p>Merges two arrays of points together into a single set.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Points A</td>
+            <td>Vector2Int[]</td>
+            <td>Set of points to merge with Points B.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Points B</td>
+            <td>Vector2Int[]</td>
+            <td>Set of points to merge with Points A.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Points</td>
+            <td>Vector2Int[]</td>
+            <td colspan="2">A set of points consisting of points that are either part of Points A or Points B.</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="random-points">Random Points</h3>
+<p>Provides a set of random points within the given bounds.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Bounds</td>
+            <td>Vector2Int</td>
+            <td>The bounds from which the random points are picked.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Mask</td>
+            <td>Mask</td>
+            <td>If set, the points masked will be excluded from the set of possible random points.</td>
+            <td>&lt;optional&gt;</td>
+        </tr>
+        <tr>
+            <td>Percentage</td>
+            <td>float</td>
+            <td>
+                The percentage of random points to pick from the set of possible points.<br>
+                For example, if set to 50, half of the possible points are picked at random.
+            </td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Max. placements</td>
+            <td>int</td>
+            <td>If set, only this number of points will be picked.</td>
+            <td>&lt;optional&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Points</td>
+            <td>Vector2Int[]</td>
+            <td colspan="2">A set of random points.</td>
+        </tr>
+        <tr>
+            <td>Mask</td>
+            <td>Mask</td>
+            <td colspan="2">A mask, masking the random points. It's merged with the input mask, if one is set.</td>
+        </tr>
+    </tbody>
+</table>
+<p><img src="images/nodes/random_points.png" alt="Random Points"></p>
+<h2 id="random-nodes">Random Nodes</h2>
+<h3 id="random-bool">Random Bool</h3>
+<p>Outputs random boolean value.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Constant?</td>
+            <td>bool</td>
+            <td>
+                If true, the random value will be consistent for each connected in port.<br>
+                If false, the random value will be different for each connected in port.
+            </td>
+            <td>false</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Value</td>
+            <td>bool</td>
+            <td colspan="2">The random boolean value.</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="random-color">Random Color</h3>
+<p>Outputs a random color.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Constant?</td>
+            <td>bool</td>
+            <td>
+                If true, the random value will be consistent for each connected in port.<br>
+                If false, the random value will be different for each connected in port.
+            </td>
+            <td>false</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Value</td>
+            <td>Color32</td>
+            <td colspan="2">The random Color value.</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="random-float">Random Float</h3>
+<p>Outputs a random float value.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Min.</td>
+            <td>float</td>
+            <td>The minimum value of the range to pick a random float from.</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Max.</td>
+            <td>float</td>
+            <td>The maximum value of the range to pick a random float from.</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Constant?</td>
+            <td>bool</td>
+            <td>
+                If true, the random value will be consistent for each connected in port.<br>
+                If false, the random value will be different for each connected in port.
+            </td>
+            <td>false</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Value</td>
+            <td>float</td>
+            <td colspan="2">The random float value.</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="random-int">Random Int</h3>
+<p>Outputs a random integer value.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Min.</td>
+            <td>int</td>
+            <td>The minimum value of the range to pick a random integer from.</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Max.</td>
+            <td>int</td>
+            <td>The maximum value of the range to pick a random integer from.</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Constant?</td>
+            <td>bool</td>
+            <td>
+                If true, the random value will be consistent for each connected in port.<br>
+                If false, the random value will be different for each connected in port.
+            </td>
+            <td>false</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Value</td>
+            <td>int</td>
+            <td colspan="2">The random integer value.</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="random-vector2int">Random Vector2Int</h3>
+<p>Outputs a random Vector2Int value.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Min.</td>
+            <td>Vector2Int</td>
+            <td>The minimum value of the range to pick a random Vector2Int from.</td>
+            <td>0,0</td>
+        </tr>
+        <tr>
+            <td>Max.</td>
+            <td>Vector2Int</td>
+            <td>The maximum value of the range to pick a random Vector2Int from.</td>
+            <td>0,0</td>
+        </tr>
+        <tr>
+            <td>Constant?</td>
+            <td>bool</td>
+            <td>
+                If true, the random value will be consistent for each connected in port.<br>
+                If false, the random value will be different for each connected in port.
+            </td>
+            <td>false</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Value</td>
+            <td>Vector2Int</td>
+            <td colspan="2">The Vector2Int integer value.</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="random-vector2">Random Vector2</h3>
+<p>Outputs a random Vector2 value.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Min.</td>
+            <td>Vector2</td>
+            <td>The minimum value of the range to pick a random Vector2 from.</td>
+            <td>0,0</td>
+        </tr>
+        <tr>
+            <td>Max.</td>
+            <td>Vector2</td>
+            <td>The maximum value of the range to pick a random Vector2 from.</td>
+            <td>0,0</td>
+        </tr>
+        <tr>
+            <td>Constant?</td>
+            <td>bool</td>
+            <td>
+                If true, the random value will be consistent for each connected in port.<br>
+                If false, the random value will be different for each connected in port.
+            </td>
+            <td>false</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Value</td>
+            <td>Vector2</td>
+            <td colspan="2">The random Vector2 value.</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="random-vector3int">Random Vector3Int</h3>
+<p>Outputs a random Vector3Int value.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Min.</td>
+            <td>Vector3Int</td>
+            <td>The minimum value of the range to pick a random Vector3Int from.</td>
+            <td>0,0,0</td>
+        </tr>
+        <tr>
+            <td>Max.</td>
+            <td>Vector3Int</td>
+            <td>The maximum value of the range to pick a random Vector3Int from.</td>
+            <td>0,0,0</td>
+        </tr>
+        <tr>
+            <td>Constant?</td>
+            <td>bool</td>
+            <td>
+                If true, the random value will be consistent for each connected in port.<br>
+                If false, the random value will be different for each connected in port.
+            </td>
+            <td>false</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Value</td>
+            <td>Vector3Int</td>
+            <td colspan="2">The random Vector3Int value.</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="random-vector3">Random Vector3</h3>
+<p>Outputs a random Vector3 value.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Min.</td>
+            <td>Vector3</td>
+            <td>The minimum value of the range to pick a random Vector3 from.</td>
+            <td>0,0,0</td>
+        </tr>
+        <tr>
+            <td>Max.</td>
+            <td>Vector3</td>
+            <td>The maximum value of the range to pick a random Vector3 from.</td>
+            <td>0,0,0</td>
+        </tr>
+        <tr>
+            <td>Constant?</td>
+            <td>bool</td>
+            <td>
+                If true, the random value will be consistent for each connected in port.<br>
+                If false, the random value will be different for each connected in port.
+            </td>
+            <td>false</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Value</td>
+            <td>Vector3</td>
+            <td colspan="2">The random Vector3 value.</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="random-rng-state">Random RNG State</h3>
+<p>Outputs a random RNG state.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Constant?</td>
+            <td>bool</td>
+            <td>
+                If true, the random value will be consistent for each connected in port.<br>
+                If false, the random value will be different for each connected in port.
+            </td>
+            <td>false</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Value</td>
+            <td>RngState</td>
+            <td colspan="2">The random RNG state.</td>
+        </tr>
+    </tbody>
+</table>
+<h2 id="rectangle-nodes">Rectangle Nodes</h2>
+<h3 id="random-rectangles">Random Rectangles</h3>
+<p>Creates random rectangles within the given bounds.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Size</td>
+            <td>Vector2Int</td>
+            <td>The bounds between which the rectangles should be generated.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Mask</td>
+            <td>Mask</td>
+            <td>A mask where rectangles should not be placed.</td>
+            <td>&lt;optional&gt;</td>
+        </tr>
+        <tr>
+            <td>Min. Fill Percentage</td>
+            <td>float</td>
+            <td>How much of the bounds should min. be filled with rectangles, in percentages.</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Max. Fill Percentage</td>
+            <td>float</td>
+            <td>How much of the bounds should max. be filled with rectangles, in percentages.</td>
+            <td>100</td>
+        </tr>
+        <tr>
+            <td>Max. Rectangles</td>
+            <td>int</td>
+            <td>The max. number of rectangles that should be placed.</td>
+            <td>&lt;optional&gt;</td>
+        </tr>
+        <tr>
+            <td>Min. Width</td>
+            <td>int</td>
+            <td>The minimum width of each rectangle.</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Max. Width</td>
+            <td>int</td>
+            <td>The maximum width of each rectangle.</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Min. Height</td>
+            <td>int</td>
+            <td>The minimum height of each rectangle.</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Max. Height</td>
+            <td>int</td>
+            <td>The maximum height of each rectangle.</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Overlap?</td>
+            <td>bool</td>
+            <td>If set to true, rectangles can be placed to overlap each other.</td>
+            <td>false</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Rectangles</td>
+            <td>RectInt[]</td>
+            <td colspan="2">The set of random rectangles.</td>
+        </tr>
+        <tr>
+            <td>Mask</td>
+            <td>Mask</td>
+            <td colspan="2">A mask, masking all the points occupied by the random rectangles. It's merged with the input mask, if one is set.</td>
+        </tr>
+    </tbody>
+</table>
+<p><img src="images/nodes/random_rectangles.png" alt="Random Rectangles"></p>
+<h3 id="rectangle-center-points">Rectangle Center Points</h3>
+<p>Gets the center points from rectangles.</p>
+<p><strong>Limitations</strong>: The center points aren't when the dimensions of a rectangle are even, due to the fact we're working with integers.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Rectangles</td>
+            <td>RectInt[]</td>
+            <td>The set of rectangles to extract the center points from.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Center Points</td>
+            <td>Vector2Int[]</td>
+            <td colspan="2">The (approximate) center points of the given rectangles.</td>
+        </tr>
+    </tbody>
+</table>
+<h2 id="texture-nodes">Texture Nodes</h2>
+<h3 id="cellular-automata-smoothing">Cellular Automata Smoothing</h3>
+<p>Applies cellular automata smoothing on the provided texture.</p>
+<p><strong>Example use</strong>: Pair with a Randomly Fill Texture node to create cave-like structures.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td>The texture to apply the cellular automata smoothing to.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Number of Passes</td>
+            <td>int</td>
+            <td>
+                The number of times the smoothing should be applied to the texture. A higher number will result in a smoother result, 
+                but will also increase the performance cost.
+            </td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Fill Color</td>
+            <td>Color32</td>
+            <td>The color used for the filled pixels (or "alive cells").</td>
+            <td>rgba(0,0,0,0)</td>
+        </tr>
+        <tr>
+            <td>Empty Color</td>
+            <td>Color32</td>
+            <td>The color used for the empty pixels (or "dead cells").</td>
+            <td>rgba(0,0,0,0)</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td colspan="2">The smoothed texture.</td>
+        </tr>
+    </tbody>
+</table>
+<p><img src="images/nodes/cellular_automata_smoothing.png" alt="Cellular Automata Smoothing"></p>
+<h3 id="change-texture-size">Change Texture Size</h3>
+<p>Resizes a texture to the given size. Similar to the <a href="#resize-texture">Resize Texture node</a>, but instead of passing the new size, you pass
+the change in size.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td>The texture to resize.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Size Change</td>
+            <td>Vector2Int</td>
+            <td>The amount to increase (or decrease if it's a negative value) the texture's size with.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td colspan="2">The resized texture.</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="current-or-empty-texture">Current Or Empty Texture</h3>
+<p>Variant of the Empty Texture node. If a texture is provided, it simply pass it through the Texture out port.
+Otherwise it provides an empty texture filled with the provided color (transparent if none provided) of the given size.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td>The current texture to pass.</td>
+            <td>&lt;required, if Size is not provided.&gt;</td>
+        </tr>
+        <tr>
+            <td>Size</td>
+            <td>Vector2Int</td>
+            <td>The desired size of the new texture.</td>
+            <td>&lt;required, if Texture is not provided.&gt;</td>
+        </tr>
+        <tr>
+            <td>Default Color</td>
+            <td>Color32</td>
+            <td>The color to fill all the pixels with.</td>
+            <td>rgba(0,0,0,0)</td>
+        </tr>
+        <tr>
+            <td>Mask</td>
+            <td>Mask</td>
+            <td>Masked points will not be filled and will remain transparent.</td>
+            <td>&lt;optional&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Empty Texture</td>
+            <td>TextureData</td>
+            <td colspan="2">The new texture.</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="data-to-texture">Data To Texture</h3>
+<p>Converts a MapGraph TextureData object to a Texture2D object.</p>
+<p>Map Graph works with its own TextureData object, to avoid some of the limitations that come with working on a
+Texture2D object directly. This node can be used to convert TextureData back into a Texture2D object, to pass
+through an output parameter, for example.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Data</td>
+            <td>TextureData</td>
+            <td>The TextureData object to convert to a Texture2D.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>Texture2D</td>
+            <td colspan="2">The resulting Texture2D object.</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="empty-texture">Empty Texture</h3>
+<p>Provides an empty texture filled with the provided color (transparent if none provided) of the given size.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Size</td>
+            <td>Vector2Int</td>
+            <td>The desired size of the new texture.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Default Color</td>
+            <td>Color32</td>
+            <td>The color to fill all the pixels with.</td>
+            <td>rgba(0,0,0,0)</td>
+        </tr>
+        <tr>
+            <td>Mask</td>
+            <td>Mask</td>
+            <td>Masked points will not be filled and will remain transparent.</td>
+            <td>&lt;optional&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Empty Texture</td>
+            <td>TextureData</td>
+            <td colspan="2">The new texture.</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="extract-color">Extract Color</h3>
+<p>Extracts the given color from the provided texture and outputs a texture with only that color. In addition, a mask is outputted
+that masks all the points that have that color.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td>The texture to extract the color from.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Color To Extract</td>
+            <td>Color32</td>
+            <td>The color to extract from the provided texture.</td>
+            <td>rgba(0,0,0,0)</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td colspan="2">The texture with the extract color.</td>
+        </tr>
+        <tr>
+            <td>Mask</td>
+            <td>Mask</td>
+            <td colspan="2">Mask that masks all the points with the color to extract.</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="flip-texture">Flip Texture</h3>
+<p>Flips the given texture on the X and/or Y axis.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td>The texture to flip.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Horizontal</td>
+            <td>bool</td>
+            <td>Whether to flip the texture horizontally.</td>
+            <td>false</td>
+        </tr>
+        <tr>
+            <td>Vertical</td>
+            <td>bool</td>
+            <td>Whether to flip the texture vertically.</td>
+            <td>false</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td colspan="2">The flipped texture.</td>
+        </tr>
+    </tbody>
+</table>
+<p><img src="images/nodes/flip_texture.png" alt="Flip Texture"></p>
+<h3 id="perlin-noise-fill-texture">Perlin Noise Fill Texture</h3>
+<p>Fills the texture with a random Perlin noise pattern.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td>The texture to add perlin noise to.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Mask</td>
+            <td>Mask</td>
+            <td>Mask containing points not to fill.</td>
+            <td>&lt;optional&gt;</td>
+        </tr>
+        <tr>
+            <td>Filled Color</td>
+            <td>Color32</td>
+            <td>
+                The color to fill pixels with that have a perlin noise value higher than the set threshold.<br>
+                If not assigned, the original color will be kept intact for these pixels.
+            </td>
+            <td>&lt;optional&gt;</td>
+        </tr>
+        <tr>
+            <td>Empty Color</td>
+            <td>Color32</td>
+            <td>
+                The color to fill pixels with that have a perlin noise value lower than the set threshold.<br>
+                If not assigned, the original color will be kept intact for these pixels.
+            </td>
+            <td>&lt;optional&gt;</td>
+        </tr>
+        <tr>
+            <td>Scale</td>
+            <td>float</td>
+            <td>The scale of the perlin noise pattern. The result will look more "zoomed out" the higher the value is.</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>Points Per Unit</td>
+            <td>Vector2Int</td>
+            <td>
+                If a PPU is set, the PPU will be used to normalized point coordinates, instead of the texture's dimensions.
+                Basically, this is an alternative way to scale the output, giving a consistent scale independent of the texture dimensions.
+            </td>
+            <td>&lt;optional&gt;</td>
+        </tr>
+        <tr>
+            <td>Threshold</td>
+            <td>float</td>
+            <td>
+                Determines which parts of the pattern will be consider filled and which parts will be considered empty.<br>
+                Every pixel with a noise value above this value, will be considered filled. The rest will be considered empty.
+                This value is in percentages, 0 being the lowest possible threshold and 100 being the heighest.
+            </td>
+            <td>50</td>
+        </tr>
+        <tr>
+            <td>Coordinates</td>
+            <td>Vector2Int</td>
+            <td>
+                Get the noise based on this position. Useful if you want to be able to generate chunks that neatly fit together.
+            </td>
+            <td>0,0</td>
+        </tr>
+        <tr>
+            <td>RNG State</td>
+            <td>RngState</td>
+            <td>
+                Passing a RNG state to this node, will get random values based on that RNG State, instead the graph assigned RNG state.
+                Useful if you want to be able to generate chunks that neatly fit together.
+            </td>
+            <td>&lt;optional&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td colspan="2">The texture with perlin noise added to it.</td>
+        </tr>
+        <tr>
+            <td>Mask</td>
+            <td>Mask</td>
+            <td colspan="2">
+                Mask that's masking all the non-transparent points drawn by this node, plus the points masked by the input mask (if set).
+            </td>
+        </tr>
+        <tr>
+            <td>Noise Data</td>
+            <td>float[]</td>
+            <td colspan="2">
+                The random noise value for each position between 0.0 and 1.0.                
+            </td>
+        </tr>
+    </tbody>
+</table>
+<p><img src="images/nodes/perlin_noise_fill_texture.png" alt="Randomly Fill Texture"></p>
+<h3 id="random-walker">Random Walker</h3>
+<p>Uses a random walk algorithm to draw a random pattern onto a texture.</p>
+<p>The random walk starts at a given point and moves into a random direction (up, down, left or right).
+It will do the same from the next point and will repeat this step until the fill percentage has been reached. The walker doesn't move
+to points it has already visited. If it gets stuck (meaning either the neighbouring points have already been visited or lay outside of
+the texture's bounds), a border point of the area made up by visited points will be found on the that still has valid neighbours and
+the walk will continue from there.</p>
+<p><strong>Limitations:</strong> The walker tends to get slower as the fill percentage gets higher, due to the fact that it will spent
+more time finding the next valid point as the number of possible valid points gets smaller.</p>
+<p><strong>Example usage:</strong> This is a great way to generate a path/pattern that's guaranteed to consist of a single area (meaning it's all connected).</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td>The texture to randomly fill.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Fill Percentage</td>
+            <td>float</td>
+            <td>The percentage of the texture that should be filled with the given color.</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Start</td>
+            <td>Vector2Int</td>
+            <td>Point to start walking from.</td>
+            <td>The default start point will be the center of the texture, where x = width / 2 and y = height / 2.</td>
+        </tr>
+        <tr>
+            <td>Color</td>
+            <td>Color32</td>
+            <td>The color to draw with.</td>
+            <td>rgba(0,0,0,0)</td>
+        </tr>
+        <tr>
+            <td>Carve Radius</td>
+            <td>int</td>
+            <td>The width of the connection, or radius of the circle to carve with.</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td colspan="2">The texture after the random walker has .</td>
+        </tr>
+    </tbody>
+</table>
+<p><img src="images/nodes/random_walker.png" alt="Random Walker"></p>
+<h3 id="randomly-fill-texture">Randomly Fill Texture</h3>
+<p>Randomly fills pixels with the given color.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td>The texture to randomly fill.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Mask</td>
+            <td>Mask</td>
+            <td>A mask, to mask off positions from being filled.</td>
+            <td>&lt;optional&gt;</td>
+        </tr>
+        <tr>
+            <td>Fill Percentage</td>
+            <td>float</td>
+            <td>The percentage of the texture that should be filled with the given color.</td>
+            <td>100 if Max. placements is connected, 0 otherwise.</td>
+        </tr>
+        <tr>
+            <td>Draw Color</td>
+            <td>Color32</td>
+            <td>The color to randomly fill the texture with.</td>
+            <td>rgba(0,0,0,0)</td>
+        </tr>
+        <tr>
+            <td>Min. placements</td>
+            <td>int</td>
+            <td>The minimum number of pixels to fill.</td>
+            <td>&lt;optional&gt;</td>
+        </tr>
+        <tr>
+            <td>Max. placements</td>
+            <td>int</td>
+            <td>The maximum number of pixels to fill.</td>
+            <td>&lt;optional&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td colspan="2">The randomly filled texture.</td>
+        </tr>
+        <tr>
+            <td>Mask</td>
+            <td>Mask</td>
+            <td colspan="2">A mask with the randomly filled points masked off, merged with the input masked if assigned.</td>
+        </tr>
+        <tr>
+            <td>Placements</td>
+            <td>Vector2Int[]</td>
+            <td colspan="2">The set of points that have been filled.</td>
+        </tr>
+    </tbody>
+</table>
+<p><img src="images/nodes/randomly_fill_texture.png" alt="Randomly Fill Texture"></p>
+<h3 id="resize-texture">Resize Texture</h3>
+<p>Resizes a texture to the given size.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td>The texture to resize.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Size</td>
+            <td>Vector2Int</td>
+            <td>The texture's new size</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td colspan="2">The resized texture.</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="rotate-texture">Rotate Texture</h3>
+<p>Rotates the texture around a point.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td>The texture to rotate.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Angle</td>
+            <td>float</td>
+            <td>The number of degrees to rotate the texture.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Rotate Around</td>
+            <td>Vector2</td>
+            <td>The rotate around point is the center of the texture, defined as x = (width - 1) / 2 and y = (height -1) / 2.</td>
+            <td>false</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td colspan="2">The rotated texture.</td>
+        </tr>
+    </tbody>
+</table>
+<p><img src="images/nodes/rotate_texture.png" alt="Rotate Texture"></p>
+<h3 id="scale-texture">Scale Texture</h3>
+<p>Scales the texture by the given ratio.</p>
+<p><strong>Example usage</strong>: This node can be useful for working with tilemaps of different sizes, for example.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td>The texture to scale.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Scale</td>
+            <td>float</td>
+            <td>The factor to scale the texture by. 2 would double its size, where 0.5 would half it.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td colspan="2">The scaled texture.</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="scale-texture-vector2">Scale Texture (Vector2)</h3>
+<p>Scales the texture by the given ratio. Similar to the Scale Texture node, but supports different scales for width (x) and height (y).</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td>The texture to scale.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Scale</td>
+            <td>Vector2Int</td>
+            <td>
+                The factor to scale the texture by. 2 would double its size, where 0.5 would half it. 
+                X is the scale factor for width. Y is the scale factor for height.
+            </td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td colspan="2">The scaled texture.</td>
+        </tr>
+    </tbody>
+</table>
+<p><img src="images/nodes/scale_texture_vector2.png" alt="Scale Texture (Vector2)"></p>
+<h3 id="scale-texture-to">Scale Texture To</h3>
+<p>Scales the texture to the given size.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td>The texture to scale.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Target Size</td>
+            <td>Vector2Int</td>
+            <td>The size to scale to.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td colspan="2">The scaled texture.</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="shift-texture">Shift Texture</h3>
+<p>Moves all the pixels inside the texture by the given amount inside the texture. Pixels that would &quot;fall off&quot;
+will be placed move onto the other side of the texture.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td>The texture to shift.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Shift By</td>
+            <td>Vector2Int</td>
+            <td>The amount to move each pixel by.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td colspan="2">The texture after its pixels have been shifted.</td>
+        </tr>
+    </tbody>
+</table>
+<p><img src="images/nodes/shift_texture.png" alt="Shift Texture"></p>
+<h3 id="texture-size">Texture Size</h3>
+<p>Outputs the texture's width and height.</p>
+<p>This can be useful to be able to get after scaling a texture, for example.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td>The texture to get the size of.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Size</td>
+            <td>Vector2Int</td>
+            <td colspan="2">The texture's size.</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="texture-to-data">Texture To Data</h3>
+<p>Converts a Texture2D to a TextureData object.</p>
+<p>Map Graph works with its own TextureData object, to avoid some of the limitations that come with working on a
+Texture2D object directly.</p>
+<p><strong>Example use</strong>: Converting a Texture2D passed through an input parameter.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>Texture2D</td>
+            <td>The Texture2D object to convert to a TextureData object.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Data</td>
+            <td>TextureData</td>
+            <td colspan="2">The TextureData object.</td>
+        </tr>
+    </tbody>
+</table>
+<p><img src="images/nodes/texture_to_data.png" alt="Texture To Data"></p>
+<h3 id="waveform-function-collapse">Waveform Function Collapse</h3>
+<p>Generates a texture of specified size that is locally similar to a training sample texture.</p>
+<p>You can check out the original algorithm here: <a href="https://github.com/mxgmn/WaveFunctionCollapse">https://github.com/mxgmn/WaveFunctionCollapse</a></p>
+<p>Or an (easier to understand) explanation here: <a href="https://www.procjam.com/tutorials/wfc/">https://www.procjam.com/tutorials/wfc/</a></p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Sample Texture</td>
+            <td>TextureData</td>
+            <td>The training sample texture.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Output Size</td>
+            <td>Vector2Int</td>
+            <td>The desired size of the generated output.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>N</td>
+            <td>int</td>
+            <td>
+                Each NxN subset of pixels of the output texture, should exist inside the training sample.<br>
+                This means that a higher N will allow for capturing bigger features from the training sample, at the cost of more performance.
+            </td>
+            <td>3</td>
+        </tr>
+        <tr>
+            <td>Tileable Sample?</td>
+            <td>bool</td>
+            <td>Is the provided training sample a tileable texture?</td>
+            <td>false</td>
+        </tr>
+        <tr>
+            <td>Tileable Output?</td>
+            <td>bool</td>
+            <td>Should the resulting output texture be tileable?</td>
+            <td>false</td>
+        </tr>
+        <tr>
+            <td>Reflectional Symmetry?</td>
+            <td>bool</td>
+            <td>
+                If true, the sampled patterns to generate the output from, will include reflected versions of those patterns. This will add more
+                variety, but might not look good depending on the training sample and desired output.
+            </td>
+            <td>false</td>
+        </tr>
+        <tr>
+            <td>Rotational Symmetry</td>
+            <td>RotationalSymmetry</td>
+            <td>
+                If set to Two Way, the sampled patterns to generate the output from, will include 180 rotated versions of those samples.<br>
+                If set to Four way, the sampled patterns to generate the output from, will include 90, 180 and 270 rotated versions of those samples.<br>
+                If set to None, no rotated variations will be used.
+            </td>
+            <td>None</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td colspan="2">The output texture, generated based on the training sample texture.</td>
+        </tr>
+    </tbody>
+</table>
+<p><img src="images/nodes/waveform_function_collapse.png" alt="Waveform Function Collapse"></p>
+<p>Sample: <img src="images/nodes/wfc_sample.png" alt="WFC Sample"></p>
+<h2 id="tilemap-nodes">Tilemap Nodes</h2>
+<h3 id="copy-tilemap-data">Copy Tilemap Data</h3>
+<p>Copies the tilemap data from the TilemapData object over to the Tilemap instance.</p>
+<p><strong>Example use</strong>: Copy generated tilemap data to a Tilemap in a scene.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Data Source</td>
+            <td>TilemapData</td>
+            <td>The tilemap data to copy to the tilemap.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Tilemap</td>
+            <td>Tilemap</td>
+            <td>The tilemap to copy the tilemap data to.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="merge-tilemaps">Merge Tilemaps</h3>
+<p>Merges two tilemaps together. Tiles in tilemap B overwrite tiles in tilemap A.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Tilemap A</td>
+            <td>TilemapData</td>
+            <td>Tilemap to merge with Tilemap B.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Tilemap B</td>
+            <td>TilemapData</td>
+            <td>
+                Tilemap to merge with Tilemap A. If they both have a tile in the same position, the tile in this tilemap is added to the Merged Tilemap
+                instead of the one in the Tilemap A.
+            </td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Merged Tilemap</td>
+            <td>TextureData</td>
+            <td colspan="2">The TextureData object.</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="randomly-stamp-tilemaps">Randomly Stamp Tilemaps</h3>
+<p>Randomly stamps the given tilemap onto the the texture. Useful when you want to use pre-defined tilemap chunks to generate maps from.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Bounds</td>
+            <td>Vector2Int</td>
+            <td>The bounds between which to stamp tilemaps.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Tilemap Set</td>
+            <td>TilemapSet</td>
+            <td>The tilemap set to pick the tilemaps to stamp from.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Tilemap Type Name</td>
+            <td>string</td>
+            <td>The tilemap type to randomly pick tilemap entries from to stamp with.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Mask</td>
+            <td>Mask</td>
+            <td>If set, the masked points will not be stamped on.</td>
+            <td>&lt;optional&gt;</td>
+        </tr>
+        <tr>
+            <td>Min. Fill Percentage</td>
+            <td>float</td>
+            <td>The min. percentage of the bounds that should be filled with tilemaps.</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Max. Fill Percentage</td>
+            <td>float</td>
+            <td>The max. percentage of the bounds that should be filled with tilemaps.</td>
+            <td>100</td>
+        </tr>
+        <tr>
+            <td>Max. placements</td>
+            <td>int</td>
+            <td>If set, this is the maximum number of tilemaps that will be stamped.</td>
+            <td>&lt;optional&gt;</td>
+        </tr>
+        <tr>
+            <td>Margin</td>
+            <td>int</td>
+            <td>The minimal margin between stamped tilemaps.</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Precise Margin?</td>
+            <td>bool</td>
+            <td>
+                If false, the margin is based on the tilemap's bounding box, meaning it doesn't take any empty tiles into consideration.<br>
+                If true, the margin is determined by calculating the outline around all filled tiles in the tilemap. This results in a more
+                accurate margin, but is computationally more expensive.
+            </td>
+            <td>false</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Tilemap</td>
+            <td>TilemapData</td>
+            <td colspan="2">A tilemap containing all the stamped tilemaps</td>
+        </tr>
+        <tr>
+            <td>Placements</td>
+            <td>Vector2Int[]</td>
+            <td colspan="2">The positions of all tiles have been placed.</td>
+        </tr>
+        <tr>
+            <td>Margin Placements</td>
+            <td>Vector2Int[]</td>
+            <td colspan="2">The positions that are considered to be morgin around the placed tiles.</td>
+        </tr>
+        <tr>
+            <td>Empty Points</td>
+            <td>Vector2Int[]</td>
+            <td colspan="2">
+                The set of points within the tilemap's bounding box that don't contain a tile.
+                This will only contain points if "Precise Margin?" is false.
+            </td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="texture-to-tilemap">Texture To Tilemap</h3>
+<p>Generates a tilemap from a texture. Using the graph's named color set, the pixel colors are translated to tile that has the same name as the color
+in the named color set. The data is copied over to the given tilemap object.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td>The texture to convert to a tilemap.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Tileset</td>
+            <td>Tileset</td>
+            <td>The tileset with tiles to use.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Tilemap</td>
+            <td>Tilemap</td>
+            <td>The tilemap to fill.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Offset</td>
+            <td>Vector2Int</td>
+            <td>The coordinates where to start placing the tiles into the tilemap.</td>
+            <td>0,0</td>
+        </tr>
+        <tr>
+            <td>Prevent Clear?</td>
+            <td>bool</td>
+            <td>If set to true, the tilemap will **not** be clear before adding the tiles.</td>
+            <td>false</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="texture-to-tilemap-data">Texture To Tilemap Data</h3>
+<p>Generates a tilemap from a texture. Using the graph's named color set, the pixel colors are translated to tile that has the same name as the color
+in the named color set.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td>The texture to convert to a tilemap.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Tileset</td>
+            <td>Tileset</td>
+            <td>The tileset with tiles to use.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Tilemap</td>
+            <td>TilemapData</td>
+            <td colspan="2">The resulting tilemap.</td>
+        </tr>
+        <tr>
+            <td>Offset</td>
+            <td>Vector2Int</td>
+            <td>The coordinates where to start placing the tiles into the tilemap.</td>
+            <td>0,0</td>
+        </tr>
+        <tr>
+            <td>Prevent Clear?</td>
+            <td>bool</td>
+            <td>If set to true, the tilemap will **not** be clear before adding the tiles.</td>
+            <td>false</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="tilemap-to-data">Tilemap To Data</h3>
+<p>Converts tilemap to a tilemap data object.</p>
+<p>Map Graph works with its own TilemapData object, to avoid some of the limitations that come with working on a
+Tilemap object directly.</p>
+<p><strong>Example use</strong>: Converting a Tilemap passed through an input parameter.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Tilemap</td>
+            <td>Tilemap</td>
+            <td>The tilemap to convert to a texture.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Data</td>
+            <td>TilemapData</td>
+            <td colspan="2">The resulting texture.</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="tilemap-to-texture">Tilemap To Texture</h3>
+<p>Generates a texture from a tilemap. Tile names are used to lookup the associated color from the graph's named color set.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Tilemap</td>
+            <td>Tilemap</td>
+            <td>The tilemap to convert to a texture.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td>Tileset</td>
+            <td>Tileset</td>
+            <td>The tileset used to lookup tile names and match them with the right named color.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Texture</td>
+            <td>TextureData</td>
+            <td colspan="2">The resulting texture.</td>
+        </tr>
+    </tbody>
+</table>
+<h2 id="variable-nodes">Variable Nodes</h2>
+<h3 id="vector2int-floats">Vector2Int (Floats)</h3>
+<p>Creates a Vector2Int from two floats. The floats are rounded to int.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>x</td>
+            <td>float</td>
+            <td>The value used for the x-coordinate, rounded to the nearest int.</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>y</td>
+            <td>float</td>
+            <td>The value used for the y-coordinate, rounded to the nearest int.</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Output</td>
+            <td>Vector2Int</td>
+            <td colspan="2">The resulting Vector2Int.</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="vector2int-ints">Vector2Int (Ints)</h3>
+<p>Creates a Vector2Int from to integers.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>x</td>
+            <td>int</td>
+            <td>The value used for the x-coordinate.</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>y</td>
+            <td>int</td>
+            <td>The value used for the y-coordinate.</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>Output</td>
+            <td>Vector2Int</td>
+            <td colspan="2">The resulting Vector2Int.</td>
+        </tr>
+    </tbody>
+</table>
+<p><img src="images/nodes/vector2int_ints.png" alt="Vector2Int (Ints)"></p>
+<h3 id="split-vector2int">Split Vector2Int</h3>
+<p>Gets the Vector2Int's x and y components as integers.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Port</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" class="port-direction"><b>In</b></td>
+        </tr>
+        <tr>
+            <td>Vector2Int</td>
+            <td>Vector2Int</td>
+            <td>The Vector2Int to get the components from.</td>
+            <td>&lt;required&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="port-direction"><b>Out</b></td>
+        </tr>
+        <tr>
+            <td>x</td>
+            <td>int</td>
+            <td colspan="2">The x-coordinate as int.</td>
+        </tr>
+        <tr>
+            <td>y</td>
+            <td>int</td>
+            <td colspan="2">The y-coordinate as int.</td>
+        </tr>
+    </tbody>
+</table>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="https://mapgraph.insanescatterbrain.com/styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="https://mapgraph.insanescatterbrain.com/styles/featherlight.min.js"></script>
+    <script type="text/javascript" src="https://mapgraph.insanescatterbrain.com/styles/docfx.js"></script>
+    <script type="text/javascript" src="https://mapgraph.insanescatterbrain.com/styles/main.js"></script>
+  </body>
+</html>

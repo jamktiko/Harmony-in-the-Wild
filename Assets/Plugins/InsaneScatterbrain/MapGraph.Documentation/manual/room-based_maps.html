@@ -1,0 +1,368 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Room-based maps </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Room-based maps ">
+    <meta name="generator" content="docfx 2.59.4.0">
+    
+    <link rel="stylesheet" href="https://mapgraph.insanescatterbrain.com/styles/docfx.vendor.css">
+    <link rel="stylesheet" href="https://mapgraph.insanescatterbrain.com/styles/featherlight.min.css">
+    <link rel="stylesheet" href="https://mapgraph.insanescatterbrain.com/styles/docfx.css">
+    <link rel="stylesheet" href="https://mapgraph.insanescatterbrain.com/styles/main.css">
+    <meta property="docfx:navrel" content="../toc">
+    <meta property="docfx:tocrel" content="toc">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                Home
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+                
+                <ul class="nav level1 navbar-nav">
+                      <li>
+                          <a href="../manual/getting_started.html" title="Manual">Manual</a>
+                      </li>
+                      <li>
+                          <a href="../nodes.html" title="Node Index">Node Index</a>
+                      </li>
+                      <li>
+                          <a href="../api/InsaneScatterbrain.html" title="API">API</a>
+                      </li>
+                      <li>
+                          <a href="../changelog.html" title="Changelog">Changelog</a>
+                      </li>
+                </ul>    </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div>
+              <div class="sidetoc">
+                <div class="toc manual" id="toc">
+                  
+                  <ul class="nav level1">
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="creating_your_first_map_graph.html" title="Tutorials" class="">Tutorials</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <span class="expand-stub"></span>
+                            <a href="creating_your_first_map_graph.html" title="Creating your first map generator" class="">Creating your first map generator</a>
+                              
+                              <ul class="nav level3">
+                                <li class="">
+                                  <a href="creating_your_first_map_graph.html" title="1. Creating your first map graph" class="">1. Creating your first map graph</a>
+                                </li>
+                                <li class="">
+                                  <a href="running_a_graph_at_runtime.html" title="2. Running a graph at runtime" class="">2. Running a graph at runtime</a>
+                                </li>
+                                <li class="">
+                                  <a href="adding_more_nodes.html" title="3. Adding more nodes" class="">3. Adding more nodes</a>
+                                </li>
+                                <li class="">
+                                  <a href="object_placement.html" title="4. Object placement" class="">4. Object placement</a>
+                                </li>
+                              </ul>  </li>
+                          <li class="">
+                            <span class="expand-stub"></span>
+                            <a href="cave-like_maps.html" title="Basic map types" class="">Basic map types</a>
+                              
+                              <ul class="nav level3">
+                                <li class="">
+                                  <a href="cave-like_maps.html" title="&#8226; Cave-like maps" class="">&#8226; Cave-like maps</a>
+                                </li>
+                                <li class="active">
+                                  <a href="room-based_maps.html" title="&#8226; Room-based maps" class="active">&#8226; Room-based maps</a>
+                                </li>
+                                <li class="">
+                                  <a href="sample-based_maps.html" title="&#8226; Sample-based maps" class="">&#8226; Sample-based maps</a>
+                                </li>
+                                <li class="">
+                                  <a href="combining_map_types.html" title="&#8226; Combining map types" class="">&#8226; Combining map types</a>
+                                </li>
+                              </ul>  </li>
+                          <li class="">
+                            <span class="expand-stub"></span>
+                            <a href="linked_named_color_sets.html" title="More Tutorials" class="">More Tutorials</a>
+                              
+                              <ul class="nav level3">
+                                <li class="">
+                                  <a href="using_prefabs_instead_of_tilemaps.html" title="&#8226; Using prefabs instead of tilemaps" class="">&#8226; Using prefabs instead of tilemaps</a>
+                                </li>
+                                <li class="">
+                                  <a href="changing_type_entry_probability.html" title="&#8226; Changing tile/prefab/tilemap set probabilities (weighted random)" class="">&#8226; Changing tile/prefab/tilemap set probabilities (weighted random)</a>
+                                </li>
+                                <li class="">
+                                  <a href="linked_named_color_sets.html" title="&#8226; Linking a named color set to tilesets/prefab sets" class="">&#8226; Linking a named color set to tilesets/prefab sets</a>
+                                </li>
+                                <li class="">
+                                  <a href="groups.html" title="&#8226; Organizing nodes into groups" class="">&#8226; Organizing nodes into groups</a>
+                                </li>
+                                <li class="">
+                                  <a href="notes.html" title="&#8226; Adding notes &amp; comments" class="">&#8226; Adding notes &amp; comments</a>
+                                </li>
+                                <li class="">
+                                  <a href="running_a_graph_within_a_graph.html" title="&#8226; Running a graph within a graph (Sub graphs)" class="">&#8226; Running a graph within a graph (Sub graphs)</a>
+                                </li>
+                                <li class="">
+                                  <a href="tilemap_sets.html" title="&#8226; Tilemap Sets" class="">&#8226; Tilemap Sets</a>
+                                </li>
+                                <li class="">
+                                  <a href="optimization_tips.html" title="&#8226; Optimization tips" class="">&#8226; Optimization tips</a>
+                                </li>
+                                <li class="">
+                                  <a href="static_seed.html" title="&#8226; Static seed (daily challenges)" class="">&#8226; Static seed (daily challenges)</a>
+                                </li>
+                                <li class="">
+                                  <a href="running_a_graph_asynchronously.html" title="&#8226; Running a graph asynchronously/multi-threaded" class="">&#8226; Running a graph asynchronously/multi-threaded</a>
+                                </li>
+                                <li class="">
+                                  <a href="object_pooling.html" title="&#8226; Object pooling" class="">&#8226; Object pooling</a>
+                                </li>
+                                <li class="">
+                                  <a href="unity_rule_tiles.html" title="&#8226; Tips for rule tiles" class="">&#8226; Tips for rule tiles</a>
+                                </li>
+                                <li class="">
+                                  <a href="save_load_maps.html" title="&#8226; Saving and loading maps" class="">&#8226; Saving and loading maps</a>
+                                </li>
+                              </ul>  </li>
+                          <li class="">
+                            <span class="expand-stub"></span>
+                            <a href="creating_your_first_map_graph.html" title="Tutorials for coders" class="">Tutorials for coders</a>
+                              
+                              <ul class="nav level3">
+                                <li class="">
+                                  <a href="running_graphs_from_scripts.html" title="&#8226; Running graphs from scripts" class="">&#8226; Running graphs from scripts</a>
+                                </li>
+                                <li class="">
+                                  <a href="output_parameters.html" title="&#8226; Output parameters" class="">&#8226; Output parameters</a>
+                                </li>
+                                <li class="">
+                                  <a href="creating_your_own_nodes.html" title="&#8226; Creating your own nodes" class="">&#8226; Creating your own nodes</a>
+                                </li>
+                                <li class="">
+                                  <a href="creating_your_own_node_views.html" title="&#8226; Creating your own node views" class="">&#8226; Creating your own node views</a>
+                                </li>
+                                <li class="">
+                                  <a href="adding_a_constant_node_type.html" title="&#8226; Adding a constant node type" class="">&#8226; Adding a constant node type</a>
+                                </li>
+                              </ul>  </li>
+                        </ul>  </li>
+                    <li class="">
+                      <a href="sample_project.html" title="Sample Project" class="">Sample Project</a>
+                    </li>
+                    <li class="">
+                      <a href="troubleshooting.html" title="Troubleshooting" class="">Troubleshooting</a>
+                    </li>
+                    <li class="">
+                      <a href="support.html" title="Support" class="">Support</a>
+                    </li>
+                  </ul>        </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+
+<div class="zoomable-images">
+<h1 id="room-based-maps">Room-based maps</h1>
+<p>There are a couple of different ways to go about creating room-based maps. We'll look at doing this by generating random
+rectangles, by using random BSP trees and Waveform Function Collapse (WFC).</p>
+<h2 id="random-rectangles">Random Rectangles</h2>
+<p>The easiest way to create rooms, is to just generate some random rectangles.</p>
+<p>Here is a basic example graph:
+<img src="../images/tutorials/room-based_maps/random_rectangles_basic_example.png" alt="Random rectangles basic example">
+<em>This graph creates rooms by filling a 50x50 area for approximately 20% with random rectangles. The rectangles have a minimum
+size of 4x4 and a maximum size of 8x8. These rectangles are then drawn as floors on top of a texture that's filled with the
+color representing walls.</em></p>
+<p>By default the randomly placed rectangles don't overlap. You can change this behaviour by setting &quot;Overlap?&quot; to true,
+like this:
+<img src="../images/tutorials/room-based_maps/random_rectangles_overlap.png" alt="Random rectangles overlap"></p>
+<h2 id="bsp-trees">BSP Trees</h2>
+<p>Another way to generate room-based maps, is to use Binary Space Partitioning (or BSP) trees. Simply put, a
+BSP tree divides an area (or space) into smaller spaces, by dividing a space into two spaces (hence the &quot;binary&quot; part)
+and splitting the resulting two spaces again, until the targeted number of divisions to make has been reached.</p>
+<p>Here is a basic example graph:
+<img src="../images/tutorials/room-based_maps/bsp_tree_basic_example.png" alt="BSP Tree basic example">
+<em>This graph creates rooms by first generating a BSP Tree, which divides a space of 50x50 into 16 smaller spaces. The
+<a href="../nodes.html#random-bsp-rooms">Random BSP Rooms</a> node then takes these spaces and generates a rectangle inside each of them, which are then drawn onto
+a texture in the same way as in the Random Rectangles example graph.</em></p>
+<p>The advantage of this approach is that the resulting rooms will be guaranteed to be evenly distributed. The downside
+may be that it results in maps looking more alike than ones that you would create using a <a href="../nodes.html#random-rectangles">Random Rectangles</a> node.</p>
+<h3 id="number-of-divisions">Number of divisions</h3>
+<p>The <a href="../nodes.html#random-bsp-tree">Random BSP Tree</a> node will pick a number between Min. Number of Divisions and Max. Number of Divisions, the space will
+be divided that number of times. So in order to increase/decrease the number of spaces/rooms you want, you can
+increase/decrease these values.</p>
+<p>The number of spaces you will end up will 2 by the power of the number of divisions. In the example above: 2^4
+divisions = 16 spaces.</p>
+<table>
+    <tr>
+        <td>Less divisions (3)</td>
+        <td>More divisions (5)</td>
+    </tr>
+    <tr>
+        <td>
+            <img alt="Less divisions" src="../images/tutorials/room-based_maps/bsp_tree_less_divisions.png">
+        </td>
+        <td>
+            <img alt="More divisions" src="../images/tutorials/room-based_maps/bsp_tree_more_divisions.png">
+        </td>
+    </tr>
+</table>
+<p>If the Min. Number of Divisions and Max. Number of Divisions are set to the same value, it will result in the the same
+number of spaces/rooms each time the graph is run (though the divisions will be different). The greater the difference
+between these values, the more variety there will be in the number of spaces/rooms each time the graph is run.</p>
+<h3 id="variety-in-space-sizes">Variety in space sizes</h3>
+<p>The Min. Divide Offset Percentage basically describes the maximum allowed size difference between two spaces, as the result
+of a division, can have with respect to each other. The value in the example, 40, means that neither space will take up
+less than 40% of the space they originate from.</p>
+<table>
+    <tr>
+        <td>Min. Divide Offset 25%</td>
+        <td>Min. Divide Offset 50%</td>
+    </tr>
+    <tr>
+        <td class="col-50">
+            <img alt="Min. Divide Offset 25%" src="../images/tutorials/room-based_maps/bsp_tree_divide_offset_25.png">
+            <i>
+                Each time a space is split, neither of resulting spaces should be smaller than 25% of that original space.
+            </i>
+        </td>
+        <td class="col-50">
+            <img alt="Min. Divide Offset 50%" src="../images/tutorials/room-based_maps/bsp_tree_divide_offset_50.png">
+            <i>
+                Each time a space is split, neither of the resulting spaces should be smaller than 50%. This results in spaces
+                being split evenly each time a division is made.
+            </i>
+        </td>
+    </tr>
+</table>
+<h3 id="room-sizes">Room sizes</h3>
+<p>The <a href="../nodes.html#random-bsp-rooms">Random BSP Rooms</a> node generates random rectangles for each space inside of the BSP tree.
+By adjusting the values for Min. Room To Node Ratio and Max. Room To Node Ratio, the generated rooms will be either smaller
+or larger. The room to node ratio is a percentage that describes what amount of its space the generated rectangle should
+cover.</p>
+<table>
+    <tr>
+        <td>Smaller Room to Node Ratio (20)</td>
+        <td>Bigger Room to Node Ratio (80)</td>
+    </tr>
+    <tr>
+        <td class="col-50">
+            <img alt="Smaller Rooms" src="../images/tutorials/room-based_maps/bsp_tree_smaller_rooms.png">
+        </td>
+        <td class="col-50">
+            <img alt="Bigger Rooms" src="../images/tutorials/room-based_maps/bsp_tree_bigger_rooms.png">
+        </td>
+    </tr>
+</table>
+<h3 id="room-margins">Room margins</h3>
+<p>As you may notice, some of the rooms are touching, merging together. This might not be what you want and you can avoid this
+by setting a Margin value.</p>
+<table>
+    <tr>
+        <td>Margin of 1</td>
+        <td>Margin of 3</td>
+    </tr>
+    <tr>
+        <td class="col-50">
+            <img alt="Small margin" src="../images/tutorials/room-based_maps/bsp_tree_small_margin.png">
+        </td>
+        <td class="col-50">
+            <img alt="Big margin" src="../images/tutorials/room-based_maps/bsp_tree_big_margin.png">
+        </td>
+    </tr>
+</table>
+<h2 id="waveform-function-collapse-wfc">Waveform Function Collapse (WFC)</h2>
+<p>WFC is an algorithm that's able to generate all kinds of random patterns based on a provided sample texture. To learn more about
+the WFC node, please check out the <a href="../nodes.html#waveform-function-collapse">node index</a>.</p>
+<p><img src="../images/tutorials/room-based_maps/wfc_example.png" alt="WFC example"></p>
+<p>Here is the sample used (room-sample):
+<img src="../images/tutorials/room-based_maps/wfc_example_sample.png" alt="WFC sample"></p>
+<h2 id="connecting-rooms">Connecting rooms</h2>
+<p>We've already seen how to connect different areas in
+<a href="adding_more_nodes.html#drawing-connections">this section of the &quot;Adding more nodes&quot; tutorial</a>.</p>
+<p>However, the <a href="../nodes.html#draw-connections-shortest-path">Draw Connections (Shortest Path)</a> node used there, is probably
+not what you want to use here. Instead, you can use the <a href="../nodes.html#draw-connections-manhattan">Draw Connections (Manhattan)</a>
+variant, to draw connections by only using horizontal and vertical lines, like this:</p>
+<p><img src="../images/tutorials/room-based_maps/connecting_rooms.png" alt="Connecting rooms"></p>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="https://mapgraph.insanescatterbrain.com/styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="https://mapgraph.insanescatterbrain.com/styles/featherlight.min.js"></script>
+    <script type="text/javascript" src="https://mapgraph.insanescatterbrain.com/styles/docfx.js"></script>
+    <script type="text/javascript" src="https://mapgraph.insanescatterbrain.com/styles/main.js"></script>
+  </body>
+</html>

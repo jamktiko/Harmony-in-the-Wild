@@ -1,0 +1,829 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Changelog </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Changelog ">
+    <meta name="generator" content="docfx 2.59.4.0">
+    
+    <link rel="stylesheet" href="https://mapgraph.insanescatterbrain.com/styles/docfx.vendor.css">
+    <link rel="stylesheet" href="https://mapgraph.insanescatterbrain.com/styles/featherlight.min.css">
+    <link rel="stylesheet" href="https://mapgraph.insanescatterbrain.com/styles/docfx.css">
+    <link rel="stylesheet" href="https://mapgraph.insanescatterbrain.com/styles/main.css">
+    <meta property="docfx:navrel" content="toc">
+    <meta property="docfx:tocrel" content="toc">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="index.html">
+                Home
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+                
+                <ul class="nav level1 navbar-nav">
+                      <li>
+                          <a href="manual/getting_started.html" title="Manual">Manual</a>
+                      </li>
+                      <li>
+                          <a href="nodes.html" title="Node Index">Node Index</a>
+                      </li>
+                      <li>
+                          <a href="api/InsaneScatterbrain.html" title="API">API</a>
+                      </li>
+                      <li>
+                          <a href="changelog.html" title="Changelog">Changelog</a>
+                      </li>
+                </ul>    </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+
+<div class="changelog">
+<h1 id="changelog">Changelog</h1>
+<p><strong>Always backup your project before updating Map Graph!</strong></p>
+<h2 id="version-1242">Version 1.24.2</h2>
+<ul>
+<li>Fixed issue where deleting an item from a list, with focus on the name field, would cause the newly selected item
+after deletion to be renamed to the deleted item.</li>
+</ul>
+<h2 id="version-1241">Version 1.24.1</h2>
+<ul>
+<li>Improved output consistency when using a static seed, particular using multi-threaded options. More specifically, when
+a type entry from a (tile/prefab/tilemap) set is randomly picked for placement, it should now be the same every<br>
+time when using the same seed.</li>
+<li>Fixed issue where the &quot;Port is unconnected&quot; warning wouldn't go away after connecting the affected port.</li>
+<li>Fixed issue that could cause Unity to crash after stopping the Visual Studio debugger followed by a domain reload.</li>
+</ul>
+<h2 id="version-124">Version 1.24</h2>
+<ul>
+<li>Added Texture To Noise Data node.</li>
+<li>Made various change to improve multi-threading support, most importantly:
+<ul>
+<li>Temporary objects are now only removed after all graph processors have completed, this avoids accidentally removing
+objects that are still being used by other processors.</li>
+<li>Made improvements to avoid different threads keep processing the graph after exiting play mode, which could cause
+changes to be applied in edit mode by graph processors that were started in play mode and would cause the editor to freeze
+when re-entering play mode.</li>
+</ul>
+</li>
+</ul>
+<h2 id="version-1231">Version 1.23.1</h2>
+<ul>
+<li>Fixed issue where the Random BSP Tree node view would throw an exception if one of the node leafs has a width or height of 0.</li>
+<li>Fixed issue with the &quot;Run on Awake&quot; option, that could cause a crash on startup in standalone builds.</li>
+</ul>
+<h2 id="version-123">Version 1.23</h2>
+<ul>
+<li>Added the Noise node. It's build around the FastNoise Lite library, which is now included with Map Graph. Check out the FastNoise Lite documentation for more information: <a href="https://github.com/Auburn/FastNoiseLite">https://github.com/Auburn/FastNoiseLite</a></li>
+<li>Added a button to switch between a noise data preview and a texture data preview on the Perlin Noise Fill Texture node view.</li>
+</ul>
+<h2 id="version-1223">Version 1.22.3</h2>
+<ul>
+<li>Fixed bug that would draw lines on the Random BSP Rooms node's preview image and log an error, in situations where the rooms would be 1 in size in either dimension.</li>
+<li>Fixed bug where the Replace Color node would throw an exception when find and replace colors were the same, whereas it should output the input texture and log a warning.</li>
+<li>Fixed the &quot;Connected Caves (Cellular Automata)&quot; subgraph so that it now works correctly with non-transparent texture input.</li>
+</ul>
+<h2 id="version-1222">Version 1.22.2</h2>
+<ul>
+<li>Fixed a bug that caused the weights on set entries to not get saved correctly, resulting in only the first entry being used.</li>
+</ul>
+<h2 id="version-1221">Version 1.22.1</h2>
+<ul>
+<li>Fixed a bug that would break the tile/prefab/tilemap set inspectors.</li>
+</ul>
+<h2 id="version-122">Version 1.22</h2>
+<ul>
+<li>Added weights to prefab, tile and tilemap set types. Changing the weight of an entry will change the probability of it being used when generating a map.</li>
+<li>Min. and max. zoom level can now be set in the new settings window. Which you can find under Tools &gt; Map Graph &gt; Open Editor Settings.</li>
+<li>Added the Subtract Mask node, for subtracting one mask from another.</li>
+<li>Made modifications to the initialization scripts to avoid situations where the importing of Map Graph assets gets unnecessarily
+triggered in newer versions of Unity.</li>
+<li>Manual: Added &quot;Changing tile/prefab/tilemap set probabilities (weighted random)&quot; page.</li>
+<li>Manual: Fixed dead link on the Tilemap Sets page.</li>
+<li>Manual: Added section about coordinate system to the &quot;Creating your own nodes&quot; page.</li>
+</ul>
+<h2 id="version-1211">Version 1.21.1</h2>
+<ul>
+<li>Fixed issue where changes to input parameters wouldn't persist if the Map Graph Runner component was part of a prefab.</li>
+</ul>
+<h2 id="version-121">Version 1.21</h2>
+<p>Map Graph now requires the Editor Coroutines package. This is usually installed by default in new Unity versions. If it's
+not Map Graph will install it for you.</p>
+<ul>
+<li><p>When running a graph asynchronously, the execution of code that needs to run on the main thread will now be spread over multiple frames by default,
+to further reduce freezing and stuttering.</p>
+<p>The time spend on each frame can be changed on the Graph Runner component, by adjusting the &quot;Target Time Per Frame&quot; setting.</p>
+<p>If you wish to restore the previous behaviour, you can uncheck the &quot;Enable Main Thread Time Per Frame Limit&quot; setting on the Graph Runner component.</p>
+</li>
+<li><p>There's now a OnProgress event on the Graph Runner component, which you can hook into to track the progress of the graph processing.</p>
+</li>
+<li><p>Fixed issue that kept the &quot;Prevent Clear?&quot; option on the Texture To Tilemap node from working correctly.</p>
+</li>
+<li><p>Manual: Updated the create your own node section to the manual.</p>
+</li>
+<li><p>Manual: Updated the section on running a graph asynchronously to the manual.</p>
+</li>
+<li><p>Manual: Added a section on how to use the new OnProgress event.</p>
+</li>
+</ul>
+<h2 id="version-1201">Version 1.20.1</h2>
+<ul>
+<li>Input parameters of type Pair<vector2int> can now be assigned from the inspector.</vector2int></li>
+<li>Input parameter array foldouts now open/close when clicking the label as well as the arrow icon.</li>
+<li>Input parameters array fields are now accompanied by a element count field, for easy resizing.</li>
+<li>Fixed bug where deleting an item from a input parameter of array would trigger a warning and corrupt the array.</li>
+</ul>
+<h2 id="version-120">Version 1.20</h2>
+<ul>
+<li>Input parameters of array types are now assignable in the inspector, if the element type was already assignable in its singular form.</li>
+<li>Map Graph's serializer now uses invariant culture to serialize objects, to fix an issue where certain types, such as floats,
+wouldn't get stored correctly depending on the system's culture settings.</li>
+<li>Added &quot;All&quot; out port to the Areas Special Border Points node that contains all the special border points in a single set.</li>
+<li>Random BSP Rooms node now checks if a room is at least 1x1 in size.</li>
+<li>Removed the Mask and Placements output parameters from the Cellular Automata Texture subgraph, as they returned the results of the
+internal Randomly Fill Texture node, which is confusing.</li>
+<li>The &quot;New Update&quot; window now has a button to open the package manager and the Open Asset Store button has been reduced in size.</li>
+</ul>
+<h2 id="version-1194">Version 1.19.4</h2>
+<ul>
+<li>Added a link to the Map Graph Discord server to the about window.</li>
+<li>The &quot;New Version&quot; window should no longer open in a too small size.</li>
+<li>Ports of SaveData now have their own color and are square like for other object types.</li>
+<li>Added tooltips for the options on the Map Graph Runner component.</li>
+<li>Updated DeBroglie to version 2.0.0, which should result in better performance when using WFC.</li>
+<li>Updated Delaunator to version 1.0.10.</li>
+<li>Updated QuikGraph to version 2.5.</li>
+<li>Unity no longer needs to fix the namespaces when importing Map Graph in a project using Unity 2022.1 or newer.</li>
+<li>Manual: Updated node index.</li>
+<li>Manual: Updated troubleshooting page.</li>
+</ul>
+<h2 id="version-1193">Version 1.19.3</h2>
+<ul>
+<li><p>Added the &quot;Map Graph/Tile&quot; option to the create menu to replace the &quot;Tile&quot; option that was removed by Unity.
+This allows creating single Tile assets again, without the need for creating a tile palette.</p>
+</li>
+<li><p>Fixed bug where Map Graph wouldn't run in multi-threaded mode in the editor with the project's build platform set to WebGL.</p>
+<p>Multi-threading will still be disabled when in play mode, to simulate this limitation of WebGL builds.</p>
+</li>
+<li><p>Manual: Updated the Getting Started tutorials.</p>
+</li>
+<li><p>Manual: Updated troubleshooting page.</p>
+</li>
+<li><p>Manual: Added information about using Unity's Rule Tile system to generate game objects, instead of tiles.</p>
+</li>
+<li><p>Manual: Added a section about creating multiple layers using game objects to the &quot;Using prefabs instead of tilemaps&quot; page.</p>
+</li>
+<li><p>Made various minor refactoring changes.</p>
+</li>
+</ul>
+<h2 id="version-1192">Version 1.19.2</h2>
+<ul>
+<li>Fixed broken WebGL builds, caused by the DLL conflict fix. The new solution should now resolve possible DLL conflicts without breaking WebGL builds.</li>
+<li>Floats assigned to Vector2Ints are now rounded down in certain cases, to avoid situations where they might be rounded up to a point that doesn't
+exist within a texture or bounds.</li>
+<li>Made some improvements to drawing lines, so that the result is more consistent.</li>
+<li>Improved the way exceptions are handled so that debugger features like failed node highlighting works more reliably.</li>
+<li>Map Graph's installed and latest versions are now displayed in Map Graph's about window.</li>
+<li>Attempting to set a color outside of the texture's bounds now throws an exception with a more concrete error message.</li>
+</ul>
+<h2 id="version-1191">Version 1.19.1</h2>
+<ul>
+<li>The included 3rd party DLLs should no longer cause conflicts with other versions of those DLLs that might exist in the project.</li>
+<li>Added missing license file.</li>
+<li>Manual: Fixed issue where documentation would get generated for non-Map Graph APIs.</li>
+</ul>
+<h2 id="version-119">Version 1.19</h2>
+<ul>
+<li>Implemented system to save and load texture data.</li>
+<li>Fixed &quot;Expression is always false&quot; warning.</li>
+<li>Manual: Added the &quot;Saving and loading maps&quot; tutorial.</li>
+</ul>
+<h2 id="version-118">Version 1.18</h2>
+<ul>
+<li>Added following subgraphs:
+<ul>
+<li>Areas/Connect Rectangles (Centroid)</li>
+<li>Base/Connected BSP Rooms</li>
+<li>Base/Connected Caves (Cellular Automata)</li>
+<li>Base/Connected Equal Rooms</li>
+</ul>
+</li>
+<li>Added ability to create custom preview behaviours for subgraphs.</li>
+<li>Added custom preview behaviour for the Random BSP Rooms subgraph.</li>
+<li>Added the Vector2Int To Vector2 node.</li>
+<li>Moved the Random BSP Rooms node to the BSP category.</li>
+<li>Renamed &quot;Node Comment&quot; option to &quot;Add Comment&quot;.</li>
+<li>Attempting to copy input/output nodes from one graph to another no longer throws an exception and triggers a warning instead.</li>
+<li>Attempting to copy a connection between two nodes where one of the nodes won't exist in the destination graph will be skipped instead of throwing an exception.</li>
+<li>The updater system no longer tries to update Map Graph assets when entering playmode.</li>
+<li>Fixed bug that could cause the updater system to throw a null reference exception.</li>
+<li>Fixed issue where attempting to add a comment to a node wouldn't work in certain versions of Unity.</li>
+<li>Fixed issue where creating a new constant node with a text input wouldn't autofocus that textfield in certain versions of Unity.</li>
+<li>Fixed explicit in port types on the Multiply (Vector2) node.</li>
+<li>Sample Project: Added more comments and groups to some of the examples so that they're easier to read and understand.</li>
+</ul>
+<h2 id="version-1172">Version 1.17.2</h2>
+<ul>
+<li>Renaming a graph now reloads the editors to reflect the new names of subgraphs.</li>
+<li>Fixed several issues that would throw exceptions when using a 0x0 or 1x1 texture size.</li>
+<li>Changed a line of code that required a C# version higher than 7.3, so that Map Graph is now compatible again with C# 7.3.</li>
+<li>Added missing initializations for ports on newer nodes to avoid unnecessary warnings about this.</li>
+</ul>
+<h2 id="version-1171">Version 1.17.1</h2>
+<ul>
+<li>Note theme and font options now get persisted.</li>
+<li>Fixed issue where dropping a connection on the canvas from a reference node wouldn't automatically open the node creation menu.</li>
+<li>Multiple graph runners running the same graph will now never try to run the same graph at the same time, as it currently isn't supported and causes issues.</li>
+<li>Right-clicking a note in the graph editor no longer shows the Add Node and Add Group options.</li>
+<li>Right-clicking a note in the graph editor now shows the correct text &quot;Note&quot; instead of &quot;Node&quot; on option such as &quot;Duplicate Note&quot;.</li>
+<li>Fixed bug where notes in a copied selection wouldn't be included in the selection after pasting.</li>
+<li>Manual: Updated the &quot;Adding Notes&quot; page (now the &quot;Adding Notes &amp; Comments&quot; page).</li>
+<li>Manual: Updated the node index to include the nodes that were added in v1.17.</li>
+</ul>
+<h2 id="version-117">Version 1.17</h2>
+<ul>
+<li>Nodes can now be copy/pasted from one graph to another.</li>
+<li>When a reference node and the node it's referring to are copy/pasted together, the copy of the reference node will now refer to the copy of node it's referring to.</li>
+<li>Added &quot;Coordinates&quot; in port to the Perlin Noise Fill Texture node, allowing for chunk-based generation.</li>
+<li>Added &quot;Points Per Unit&quot; in port to the Perlin Noise Fill Texture node. If a PPU is set, instead of the texture's dimensions, the PPU will be used to normalized point coordinates.</li>
+<li>Added &quot;RNG State&quot; in port to the Perlin Noise Fill Texture node. Passing a RNG state to this node, will make the node use that RNG state, instead the graph assigned RNG state.</li>
+<li>Added math nodes: Clamp (Float), Clamp (Int), Max (Float), Max (Int), Min (Float), Min (Int), Power, Square Root</li>
+<li>Sample Project: Added &quot;Perlin Noise Chunks&quot; example.</li>
+</ul>
+<h2 id="version-116">Version 1.16</h2>
+<ul>
+<li>Added notes that can be added through the new right-click menu option &quot;Add Note&quot;. <strong>Only available on Unity 2020.1 and higher.</strong></li>
+<li>It's now possible to create reference nodes for process graph/subgraph nodes.</li>
+<li>Renamed the &quot;Add Note&quot; option on the nodes to &quot;Add Comment&quot; to distinguish between the notes on nodes and the new standalone notes.</li>
+<li>Added Draw Random Circles node, to generate random circles and draw them in a single step on a new or existing texture.</li>
+<li>Added a subgraph version of the Draw Border node, to draw the border in a single step on a new or existing texture.</li>
+<li>Added a subgraph version of the Random BSP Rooms node, to generate BSP rectangles in a single step.</li>
+<li>Added a subgraph version of the Generate Area Graph (Minimum) node, to generate a MST Area Graph in a single step.</li>
+<li>Added Mask out port to the Draw Border node.</li>
+<li>Added Mask out port to the Draw Points node.</li>
+<li>Added preview image to the empty texture node view.</li>
+<li>Right-clicking a reference node now shows the &quot;Show Original Node&quot; option, to easily navigate to the original node.</li>
+<li>Updated parts of sample project to use the new subgraph nodes.</li>
+</ul>
+<h2 id="version-115">Version 1.15</h2>
+<ul>
+<li>Added Draw Random Rectangles node, to generate random rectangles and draw them in a single step on a new or existing texture.</li>
+<li>Added Draw Random Points node, to generate random points and draw them in a single step on a new or existing texture.</li>
+<li>Added Current Or Empty Texture node, to create a new texture or pass through a texture provided. Mostly useful for sub graphs.</li>
+<li>Added Scale Texture To node, to scale to a specific size. Helpful to deal with precision loss when scaling a texture back to its original size, for example.</li>
+<li>Added Extract Color node, to easier extract a color and/or the mask, in a single step.</li>
+<li>&quot;Min. Fill Percentage&quot; ports have been added to the Random Rectangles and Randomly Stamp Tilemap nodes.</li>
+<li>Randomly Stamp Tilemap node's &quot;Fill Percentage&quot; is now actually called &quot;Max. Fill Percentage&quot;. Also updated documentation to reflect the name and behaviour change.</li>
+</ul>
+<h2 id="version-1142">Version 1.14.2</h2>
+<ul>
+<li>Fixed parameter list undo/redo behaviours
+<ul>
+<li>Adding a parameter is now undoable and redoable.</li>
+<li>Undoing the deletion of a parameter on a graph that's being used as sub graph, now properly restores the matching port on the affected nodes.</li>
+</ul>
+</li>
+<li>Deleting a graph asset that's used as a sub graph, now reloads all the editor windows, to reflect that change without having to reload the editor windows manually.</li>
+<li>Deleting a graph asset now closes its graph editor windows.</li>
+</ul>
+<h2 id="version-1141">Version 1.14.1</h2>
+<ul>
+<li>Fixed bug where node execution time label wouldn't get updated with object pooling disabled.</li>
+<li>Preparable objects, such as tilemap sets, assigned to a constant node are now prepared before running the graph.</li>
+<li>Adding the same tile/prefab to a set no longer triggers an exception when deserializing that set.</li>
+<li>Fixed bug where the Rectangles To Areas node would only add the outline points of the rectangles to their respective areas.</li>
+<li>Empty entries are now removed from sets when its editor gets disabled.</li>
+<li>Ports no longer get disconnected when their name is changed.</li>
+<li>The Random Rectangles and Randomly Stamp Tilemap nodes &quot;Fill Percentage&quot; has been renamed and fixed to function as &quot;Max. Fill Percentage&quot; as originally intended.</li>
+<li>Fixed bug where the Rectangles To Areas node would convert the rectangles to areas with their width and height reversed.</li>
+</ul>
+<h2 id="version-114">Version 1.14</h2>
+<ul>
+<li><p>Graph runners now have the option &quot;Enable Multi-threading&quot;. Checking this option, will process nodes simultaneously on different threads wherever possible.</p>
+</li>
+<li><p>Introduced a pooling system to reduce memory allocations, which should avoid GC issues when generating during gameplay.</p>
+</li>
+<li><p>Map Graph now uses its own random number generation system, instead of .NET's System.Random.</p>
+</li>
+<li><p>Static random seeds can now be set as either an integer or GUID.</p>
+</li>
+<li><p>Area graphs are now generated using a modified version of the Delaunator library, instead of the MIConvexHull library.
+This improves performance and reduces the number of memory allocations.</p>
+</li>
+<li><p>Added addition/subtraction/multiplication/division nodes for int, float, Vector2, Vector2Int, Vector3 and Vector3int types.</p>
+<p>These can be found under Math in the node creation menu.</p>
+</li>
+<li><p>Added the &quot;Run On Awake&quot; option to the graph runner.</p>
+</li>
+<li><p>Added two options to the Create menu to quickly create all the assets needed for either a tilemap-based or prefab-based Map Graph system.
+The new options are available in the Create menu under &quot;Map Graph/Default Assets&quot;.</p>
+</li>
+<li><p>Fixed a bug where the Texture To Data node would fail when executed on a non-main thread.</p>
+</li>
+<li><p>Fixed bug where the last item in a data set list was selected by default, with newer versions of Unity.</p>
+</li>
+<li><p>Fixed autofocussing input fields on new nodes for newer versions of Unity.</p>
+</li>
+<li><p>Fixed issue where pasting would paste a previous selection of nodes, instead of the current one.</p>
+</li>
+<li><p>The script graph runner's inspector now gets repainted manually after it's done running a graph, to avoid situations where inspector remains
+disabled until the mouse enters the inspector.</p>
+</li>
+<li><p>Added a label on the graph runner inspector to display the latest execution time.</p>
+</li>
+<li><p>Renamed &quot;Merge Areas Node&quot; to &quot;Merge Areas&quot;.</p>
+</li>
+<li><p>Manual: Added &quot;Using prefabs instead of tilemaps&quot; tutorial.</p>
+</li>
+<li><p>Manual: Added &quot;Placing pre-designed tilemaps&quot; tutorial.</p>
+</li>
+<li><p>Manual: Updated out-dated tutorials.</p>
+</li>
+<li><p>Manual: Added Areas Special Points to the node index.</p>
+</li>
+<li><p>Manual: Updated &quot;Running a graph asynchronously&quot; tutorial to include information about multi-threading.</p>
+</li>
+<li><p>Manual: Added &quot;Object Pooling&quot; tutorial.</p>
+</li>
+</ul>
+<h2 id="version-1131">Version 1.13.1</h2>
+<ul>
+<li>Fixed an issue where an exception would occur when processing a graph asynchronously.</li>
+<li>Manual: Updated node index to reflect v1.13 changes.</li>
+</ul>
+<h2 id="version-113">Version 1.13</h2>
+<ul>
+<li>Improved performance of the Texture To Tilemap and Texture To Tilemap Data nodes.</li>
+<li>Added Areas Special Border Points node.</li>
+<li>Added &quot;Min. placements&quot; in port to the Randomly Fill Texture node.</li>
+<li>Added &quot;Min. Area Size&quot; in port to the Extract Areas node.</li>
+<li>Points To Areas node now merges connected points into a single area, instead of simply outputting a single area for each point.</li>
+<li>Added &quot;Connect Diagonals?&quot; in port to the Points To Areas node.</li>
+<li>Rectangles To Areas node now merges connected rectangles into a single area, instead of simply outputting a single area for each rectangle.</li>
+<li>Added &quot;Connect Diagonals?&quot; in port to the Rectangles To Areas node.</li>
+<li>Added &quot;Min. Edges&quot; and &quot;Max. Edges&quot; in ports to the Add Random Edges node.</li>
+<li>In ports on graph nodes now require a connection if any of the corresponding input nodes in sub graph
+are connected to a port that requires a connection.</li>
+<li>Named Color node no longer has the first color as default value.</li>
+<li>Areas To Points node will no longer output duplicate nodes.</li>
+<li>Draw Areas node's Color in port is no longer required and will use transparency to draw with by default instead, similar to other nodes.</li>
+<li>Replace Color node will now log a warning if the find and replace colors are the same.</li>
+<li>Refactored nodes so that they're no longer directly coupled to a graph object.</li>
+<li>Various small performance improvements.</li>
+<li>Implemented more custom exceptions to help with troubleshooting.</li>
+<li>Updated MIConvexHull to latest version.</li>
+</ul>
+<h2 id="version-1121">Version 1.12.1</h2>
+<ul>
+<li>Fixed bug where generating an area graph would throw a NullReferenceException in certain situations.</li>
+<li>Fixed auto focus on new constant node fields.</li>
+<li>Fixed bug where creating connections from a newly added port onto the canvas, wouldn't open the
+node creation menu.</li>
+<li>Positions of empty group nodes now get properly persisted.</li>
+<li>Fixed bug where adding parameters wouldn't update the ports on any open associated graph nodes, if
+it was the first input or output parameter added.</li>
+</ul>
+<h2 id="version-112">Version 1.12</h2>
+<ul>
+<li>Added Carve Radius in port to Draw Connections (Biased Random Walk) node behaviour, allowing for drawing connections of varying widths.</li>
+<li>Added Carve Radius in port to Random Walker node.</li>
+<li>Fixed a bug where the &quot;Remove Note&quot; option would show up for new nodes, instead of the &quot;Add Note&quot; option.</li>
+<li>Added the Color To Outline port to the Draw Outline node. Setting a color to this port will outline a specific color,
+instead of any non-transparent pixel.</li>
+<li>Added Split Into Manhattan Connections node.</li>
+<li>Added Extract Points node.</li>
+<li>Added Extract Points With Neighbours node.</li>
+<li>Sample Project: Added Platformer example.</li>
+<li>Changing a group's name to an empty string will now show as &quot;[Untitled]&quot; so that it remains easily selectable.</li>
+</ul>
+<h2 id="version-111">Version 1.11</h2>
+<ul>
+<li>Added group nodes.</li>
+<li>Nodes and selections of nodes can now be cut, copy, pasted and duplicated.</li>
+<li>Duplicate nodes are now referred to as Reference nodes, to avoid confusion with the new duplication options.</li>
+<li>Holding CTRL while selecting will now exclude edges from the selection. Pressing CTRL+E will do the same for the current selection.</li>
+</ul>
+<h2 id="version-1101">Version 1.10.1</h2>
+<ul>
+<li>Renamed MapGraphValidator to ScriptGraphValidator.</li>
+<li>Validator no longer attempts to disconnect ports that have no connection.</li>
+<li>Fixed bug where changing a tile type entry would keep a reference to the old tile around.</li>
+<li>Manual: updated v1.10 changes.</li>
+<li>Manual: Added manual page about using notes.</li>
+<li>Sample Project: Removed note from example, instead adding the manual page.</li>
+</ul>
+<h2 id="version-110">Version 1.10</h2>
+<ul>
+<li><p>The sub graph system has been reworked. Instead of adding Process Graph nodes, graphs can now be added to the node creation menu, so
+that they can be added as nodes.</p>
+<p>Graphs can be added to the node creation menu by flagging it as such in the graph's inspector.</p>
+<p>Nodes based on graphs are prefixed &quot;(G)&quot; in the node creation menu to differentiate them from other nodes.</p>
+<p>Existing Process Graph nodes will continue to function, but can no longer be added directly.</p>
+</li>
+<li><p>Default graphs have been added to use as sub graphs. These graphs are meant to avoid having to repeat some very common sequences of nodes.
+These are the graphs that have been added:</p>
+<ul>
+<li>Extract Area Graph (Minimum)</li>
+<li>Extract Areas &amp; Draw Connections (Biased Random Walk)</li>
+<li>Extract Areas &amp; Draw Connections (Manhattan)</li>
+<li>Extract Areas &amp; Draw Connections (Shortest Path)</li>
+<li>BSP Rooms Texture</li>
+<li>Cave System Texture</li>
+<li>Cellular Automata Texture</li>
+<li>Perlin Noise Texture</li>
+<li>Random Rectangles Texture</li>
+</ul>
+</li>
+<li><p>Notes can now be added to nodes, by right-clicking a node and selecting Add Note.</p>
+</li>
+<li><p>Added Use XZ Plane port to the Replace GameObject Children node, which allows gameobjects to be placed on the XZ plane instead of the default XY plane.</p>
+</li>
+<li><p>Input nodes inside a sub graph are no longer considered to be connected, when its port isn't connected in the main graph.</p>
+</li>
+<li><p>Added Mask port to the Empty Texture node.</p>
+</li>
+<li><p>Renamed the &quot;Texture To Tilemap&quot; to &quot;Texture To Tilemap Data&quot;.</p>
+</li>
+<li><p>Added a new Texture To Tilemap node that combines the functionality of the Texture To Tilemap Data and Copy Tilemap Data nodes.</p>
+</li>
+<li><p>Added Texture To Child GameObjects node that combines the functionality of the Texture To GameObjects and Replace Game Objects Children nodes.</p>
+</li>
+<li><p>Graphs now get validated (and repaired, if necessary) before they get loaded into the graph editor. This process removes connections to, and
+duplicates of, nodes that no longer exist (for whatever reason), which would cause the graph to fail to load inside the editor.</p>
+</li>
+<li><p>The node creation menu is now wider to fit bigger node names.</p>
+</li>
+<li><p>Fixed a bug where the editor windows wouldn't load properly if a multiple windows are opened for the same graph.</p>
+</li>
+<li><p>The constant and parameter node categories are now marked with a dot in the node creation menu to make them stand out as categories that aren't sorted
+alphabetically.</p>
+</li>
+<li><p>Sample project: Example graphs have now been updated to use the default sub graphs.</p>
+</li>
+<li><p>Sample project: The 3D Layers example's gameobjects now gets placed on the XZ plane instead of the XY plane.</p>
+</li>
+</ul>
+<h2 id="version-19">Version 1.9</h2>
+<ul>
+<li>Added Flip Texture node.</li>
+<li>Added Rotate Texture node.</li>
+<li>Added Split Vector2Int node.</li>
+<li>Added Offset in port to the Stamp node.</li>
+<li>Added Mask support to the Perlin Noise Fill Texture node.</li>
+<li>Renamed Generate Area Graph (MST) to Generate Area Graph (Minimum).</li>
+<li>Sample Project: Added RTS example.</li>
+<li>Manual: Updated the node index.</li>
+</ul>
+<h2 id="version-18">Version 1.8</h2>
+<ul>
+<li>Added Generate Area Graph (Random) node.</li>
+<li>Added Add Random Edges node.</li>
+<li>Added Unused Edges out port to the Generate Area Graph (MST) node.</li>
+<li>Added Draw Connections (Biased Random Walk) node.</li>
+<li>Moved the Connected Points To Points node to the Convert category.</li>
+<li>Manual: Added the nodes added in v1.7 to the node index.</li>
+<li>Manual: Added a section about the Random Walker to the &quot;Basic Map types &gt; Cave-like maps&quot; page.</li>
+<li>Manual: Added sections to the troubleshooting page and the &quot;Creating your own nodes&quot; page about the proper use of Rng inside a Map Graph node.</li>
+</ul>
+<h2 id="version-17">Version 1.7</h2>
+<ul>
+<li>Added Random Walker node.</li>
+<li>Added the Scale Texture (Vector2) node. It's similar to the normal Scale Texture node, except you can assign different scales for the width (x) and height (y).</li>
+<li>Added Shift Texture node.</li>
+<li>Added Draw Grid node.</li>
+<li>Added Resize Texture and Change Texture Size nodes.</li>
+<li>Added Areas Centroid Points node.</li>
+<li>Added Connected Points To Points node.</li>
+<li>Added the [ExplicitInPortTypes] and [ExplicitOutPortTypes] attributes, which can be assigned to a node class to explicitly register port types on it.
+This can be used to make sure that these nodes show up in the node search menu when filtering by port type, when the ports have not been added using
+the [InPort] or [OutPort] attributes, but by means of the AddIn and AddOut methods instead. (An example of this are the RandomNode classes.) This will
+also make sure that you can add input/output parameters of those types.</li>
+<li>The Max. value for the Random Int, Random Vector2Int, Random Vector3Int nodes are now inclusive, as originally intended.</li>
+<li>The Draw Connections (Shortest Path) node's Width port now has a default value of 1, when unconnected, instead of being required.</li>
+<li>Sample Project: Added Roguelike (Equal Rooms) example.</li>
+</ul>
+<h2 id="version-162">Version 1.6.2</h2>
+<ul>
+<li>Changed the way the Process Graph node's ports are updated whenever the selected graph's parameters are changed, in such a way that it doesn't have
+to reload the entire graph editor window each time a parameter is added/removed/renamed/moved. The previous method was slow and caused a bug
+that would make the Unity editor freeze in certain situations.</li>
+<li>Name fields will now get unfocused before deleting an item from a list (such as a list of input parameters or tile types), as this was causing
+the deleted item's name to stay in the name field, causing unintended renaming of the item selected after deletion, giving it the name
+of the deleted item.</li>
+<li>In addition to highlighting a node in the graph editor when it triggers an exception when processed, it will now also be highlighted whenever
+it causes an error to be logged.</li>
+</ul>
+<h2 id="version-161">Version 1.6.1</h2>
+<ul>
+<li>The Process Graph node now uses default values for unconnected in ports, just like regular nodes do.</li>
+<li>Focus is now given to the first input field of a node, when it's first created.</li>
+<li>Fixed issue where deleting a parameter from a graph would sometimes throw an exception.</li>
+<li>Manual: Updated sample project credits section.</li>
+<li>Manual: Updated node index.</li>
+<li>Manual: Updated outdated tutorial texts.</li>
+</ul>
+<h2 id="version-16">Version 1.6</h2>
+<ul>
+<li>Adding nodes to a graph is now done through a searchable window, which is accessible through the new &quot;Add Node&quot; option in the context menu
+or by pressing spacebar.</li>
+<li>Dragging a connection from a port into empty space, will now open up the &quot;Add Node&quot; menu, showing only the options compatible with that port.
+If a node is then created, the port will be connected to the first compatible port on the newly created node.</li>
+<li>The Perlin Noise Fill Texture node now has a Noise Data output port, containing the noise values generated for each point.</li>
+<li>The Draw Noise Threshold node has been added. It takes Noise Data and draws the given color at each point with a noise value above (or below) a
+given threshold onto a texture.</li>
+<li>Whenever a node throws an exception, the graph is now automatically opened in the editor with the failing node centered and marked red.</li>
+<li>Whenever a node fails a check, the graph is now automatically opened in the editor with the failing nodes centered and marked yellow.</li>
+<li>The Merge Areas node has been added. It takes two sets of area and merges it into one. Any overlapping areas will be merged into a single area.</li>
+<li>The Invert Mask node has been added.</li>
+<li>Added the &quot;3D Layers&quot; sample to the sample project.</li>
+<li>Whenever a graph asset gets renamed, the title of its editor window, is now updated to reflect the new name.</li>
+<li>The Areas To Points, Points To Areas and Rects To Areas nodes have been moved to a new &quot;Convert&quot; category.</li>
+<li>Improved fill percentage accuracy on the Random Rectangles node, especially when overlap is enabled.</li>
+<li>Fixed a bug where selecting a different graph on the Process Graph node, would add another help (?) button.</li>
+<li>Fixed a bug where a graph could break when changing the graph on a Process Graph node, while it's still connected to other nodes.</li>
+<li>Marked Process Graph nodes as not-duplicable for now, as it doesn't work correctly.</li>
+<li>Fixed a bug where renaming a type in a tileset or prefab set to an already existing name, wouldn't revert the action properly, leaving the set
+in an invalid state.</li>
+<li>Fixed a bug where deleting a prefab set or tileset linked to a named color set, would cause that named color set's inspector to break.</li>
+<li>Fixed a bug where the selection of a color on a Named Color node from a linked named color set, wouldn't persist.</li>
+</ul>
+<h2 id="version-153">Version 1.5.3</h2>
+<ul>
+<li>Fixed bug where the &quot;Constant?&quot; in port was missing from the random value nodes, causing a NullReferenceException.</li>
+<li>If a node's class is inheriting from another node, the [InPort] and [OutPort] attributes from its parents are now also used for the child node.</li>
+</ul>
+<h2 id="version-152">Version 1.5.2</h2>
+<ul>
+<li>Fixed bug where an exception would be thrown when removing the first or last type of a tile or prefab set.</li>
+<li>Replaced the default reorderable list headers with custom ones, as the default ones didn't show up in more recent versions of Unity.</li>
+<li>The &quot;Pick a set&quot; window will no longer erroneously trigger the validation check when closing the window without a selection.</li>
+<li>Manual: Added the &quot;Basic map types&quot; pages.</li>
+<li>Manual: Added the &quot;Linking a named color set to tilesets/prefab sets&quot; page.</li>
+<li>Manual: Added the &quot;Tips for rule tiles&quot; page.</li>
+<li>Manual: Updated the &quot;Creating your first map generator&quot; tutorials.</li>
+</ul>
+<h2 id="version-151">Version 1.5.1</h2>
+<ul>
+<li>Added help buttons to nodes in the editor that link to the node's documentation on the node index page.</li>
+<li>Manual: Improved the node index page by adding descriptions about a node's ports.</li>
+<li>Manual: Added images to the node index as visual examples of what these nodes do.</li>
+<li>The Draw Connections (Manhattan) node's Connection Width is now optional with a default value of 1.</li>
+<li>Cleaned up unused variables in the Randomly Stamp Tilemaps node.</li>
+<li>Moved TextureToMaskNodeView and ProcessGraphNode to the correct namespaces.</li>
+<li>Random Points node's Percentage port now requires a connection, instead of the Mask port.</li>
+</ul>
+<h2 id="version-15">Version 1.5</h2>
+<ul>
+<li>Added Waveform Function Collapse node.</li>
+<li>Named Color Sets can now be linked to Tilesets and Prefab Sets, meaning that for every tile/prefab type, a named color will be
+added automatically. Whenever a type in a linked set gets added/removed/renamed, it will be synchronized with any linked Named
+Color Sets accordingly.</li>
+<li>Each graph now gets opened in its own editor window.</li>
+<li>Editor window now displays the opened graph's name as the window's title.</li>
+<li>The script graph runner and script graph input components are now displayed as Map Graph Runner and Map Graph Input in the components menu.
+They are moved from the &quot;Scripts&quot; to the &quot;Map Graph&quot; category.</li>
+<li>Added a &quot;Add to Scene&quot; button to the Map Graph inspector, which adds a new game object with a Graph Runner component
+to the current scene and assigns the selected graph to it.</li>
+<li>Added a &quot;Map Graph/Graph Runner&quot; option to the GameObject create menu, which adds a new game object with a Graph Runner
+component to the current scene.</li>
+<li>Added Tilemap To Data node, which converts a Tilemap object to a TilemapData object.</li>
+<li>Added a preview image to the Texture To Mask node.</li>
+<li>Graph runner's Processed event is now also available as Unity Event in the inspector.</li>
+<li>Set a minimal width of 20 pixels for text input fields in the graph editor, so they're easier to select when they're empty or contain
+only one character.</li>
+<li>Sample Project: Added a basic Waveform Function Collapse example.</li>
+</ul>
+<h2 id="version-14">Version 1.4</h2>
+<ul>
+<li><p>Added the Process Graph node, to process other graphs inside a graph (Sub graphs).</p>
+</li>
+<li><p>Added the [InPort] and [OutPort] attributes as a new way for adding ports to nodes.</p>
+</li>
+<li><p>Adding more parameter types is now possible by using the new [InPort] and [OutPort] attributes.
+The types of these ports will be added as a possible input or output parameter type.</p>
+<p>Please note that this only works when using the these attributes. Using the AddIn or AddOut methods will not add
+the types as possible parameter types.</p>
+</li>
+<li><p>An out port can now also be connected to an in port with a type that is a parent of the out port's type.</p>
+</li>
+<li><p>TextureData now uses a standard Color32 array instead of a native array, to avoid issues with disposing (or lack there of) when using
+texture data as an output parameter.</p>
+</li>
+<li><p>Manual: Updated the &quot;Creating your own nodes&quot; page.</p>
+</li>
+<li><p>Manual: Added a page explaining how to use sub graphs.</p>
+</li>
+</ul>
+<h2 id="version-131">Version 1.3.1</h2>
+<ul>
+<li><p>The Random BSP Rooms node no longer attempts to make rooms smaller than 1x1 in size, which causes a StackOverflowException.</p>
+</li>
+<li><p>A duplicate node can no longer be connected to the node that it's a duplicate of.</p>
+</li>
+<li><p>The Texture output on the Extract Areas node is no longer the same as the Texture input.
+Instead it only outputs the colors for the extracted areas, as intended.</p>
+</li>
+<li><p>The text field of the first new type in a tileset or tilemap set is no longer unresponsive until the asset is reselected in the project window.</p>
+</li>
+<li><p>Fields of constant nodes with multiple fields (like vectors) are now placed below each other instead of beside each other.</p>
+<p>This is to avoid an issue with Unity's flexing behaviour, where change in a field's width gets distributed over all the fields on that row
+instead of just the field that should have its width increased, causing the contents to be cut off.</p>
+</li>
+<li><p>Improved the workaround for exceptions thrown by the MIConvexHull library, as it didn't catch all cases.</p>
+</li>
+<li><p>Fixed bug where changes wouldn't show in the graph editor, if the editor was already opened on Unity startup.</p>
+</li>
+<li><p>Initialization script now sets graphs dirty to ensure that any changes are always persisted in standalone builds.</p>
+</li>
+<li><p>Sample Project: Removed unused named color and tile type from the Race Track example.</p>
+</li>
+<li><p>Manual: Added the tilesets, used in the new sample project examples, to the sample project page's credits section.</p>
+</li>
+<li><p>Manual: Updated the &quot;Important Considerations&quot; section of the &quot;Creating your own nodes&quot; page.</p>
+</li>
+</ul>
+<h2 id="version-13">Version 1.3</h2>
+<ul>
+<li>Sample Project: Added RPG example.</li>
+<li>Sample Project: Added hex strategy example.</li>
+<li>Sample Project: Added race track example.</li>
+<li>Added nodes for getting random values, specifically:
+<ul>
+<li>Random Bool</li>
+<li>Random Color</li>
+<li>Random Float</li>
+<li>Random Int</li>
+<li>Random Vector2</li>
+<li>Random Vector2Int</li>
+<li>Random Vector3</li>
+<li>Random Vector3Int</li>
+</ul>
+</li>
+<li>Added Perlin Noise Fill Texture node, which fills a texture with a Perlin noise pattern.</li>
+<li>Added Corner Points node, which extracts and outputs the corner points from a set of points.</li>
+<li>Added Areas To Points node.</li>
+<li>Added Draw Areas node.</li>
+<li>Added Texture Size node (useful to get a texture's size after scaling it, for example).</li>
+<li>Added extra Width ports to the Draw Outline node for different outline thickness on different sides.</li>
+<li>Added Connect Diagonals port to the Extract Areas node. If set to true, diagonally
+neighbouring pixels will be considered to be part of the same area.</li>
+<li>Added Outer Areas and Inner Areas output ports to the Extract Areas node, to differentiate between nodes that are touching
+the outer bounds and ones that aren't.</li>
+<li>Default width when drawing connections is now 1 instead of 0.</li>
+<li>Fixed bug where the graph editor would no longer show changes after having switched to another window.</li>
+<li>Fixed bug where changes to a tilemap wouldn't get persisted after running a graph in the editor.</li>
+<li>Fixed bug where the input parameter's ID would be displayed in the &quot;parameter is not assigned&quot; warning, instead of its name.</li>
+<li>Fixed bug where the changes to object set (Tilesets, Tilemap sets, Prefab sets) entries wouldn't get persisted.</li>
+<li>Implemented a workaround for a bug in the MIConvexHull library that would trigger a ConvexHullGenerationException in
+the Generate Area Graph node.</li>
+</ul>
+<h2 id="version-121-1">Version 1.2.1</h2>
+<ul>
+<li>The graph editor no longer breaks when unsetting a loaded Graph's Named Color Set, if that graph contains any Named Color nodes.
+Instead the Named Color nodes' values get set to &quot;[None]&quot;.</li>
+<li>Fixed undoing/redoing removing entries from a Tileset type, Prefab Set type or Tilemap Set type.</li>
+<li>A Named Color node's selected value now gets correctly restored after undoing the deletion of that particular value.</li>
+<li>Input components now show a more specific warning when no runner is set or no parameter is selected, instead of showing a generic error.</li>
+<li>A more specific error is now logged whenever a Tileset type, Prefab Set type or Tilemap Set type doesn't contain any entries.</li>
+</ul>
+<h2 id="version-12">Version 1.2</h2>
+<ul>
+<li>Improved Map Graph's inspectors, such that list items such as parameters and named colors
+can now be renamed and reordered, among other improvements.</li>
+<li>Added the Scale Texture node, for the up or downscaling of textures, which can be used to work with
+tilemap grids of different sizes, for example.</li>
+<li>Fixed bug where the Randomly Fill Texture node's output mask wouldn't work, if no mask was provided as input.</li>
+<li>Added instructions to the manual on how to install the sample project manually, as an alternative to the automatic
+install script.</li>
+<li>Added a credits section to the sample project page of the manual, crediting the creators of the assets
+used in the sample project.</li>
+<li>Added a missing change to the changelog for v1.1.2: Added optional port for setting the outline's width on the
+Draw Outline node.</li>
+</ul>
+<h2 id="version-112-1">Version 1.1.2</h2>
+<ul>
+<li>Made changes to how the Randomly Stamp Tilemaps node stamps tilemaps. It no longer stamps the empty
+tiles within the tilemap prefab's bounding rectangle, removing any existing tiles at those points.<br><br>
+<strong>Please note: This change might impact your existing Map Graphs' output, as these empty tiles are no longer
+included in the points gotten from the Placements output port. Instead you can now get them from the new Empty Points port.</strong></li>
+<li>Added the Empty Points output port to the Randomly Stamp Tilemaps node, containing any empty tiles
+spaces within the stamped tilemap prefab's bounding rectangle.</li>
+<li>Added the &quot;Create/Map Graph/Tilemap Prefab&quot; option to the Create menu, which creates a new tilemap prefab with
+all the required components, as a more convenient way of creating entries for Tilemap Sets.</li>
+<li>Added the Map Graph Tilemap Prefab component with a Lock Shape option for tilemap prefabs with hexagonal grids.
+Enabling Lock Shape on a tilemap prefab will make adjustments to tile coordinates when it's stamped onto another tilemap, so
+that its shape stays the same whether it's placed on rows with different offsets or not.<br><br>
+More info about this issue in this forum post:
+<a href="https://forum.unity.com/threads/released-map-graph-node-based-random-map-generation.944568/#post-6681352">https://forum.unity.com/threads/released-map-graph-node-based-random-map-generation.944568/#post-6681352</a></li>
+<li>Added the optional &quot;Precise Margin?&quot; input port to the Randomly Stamp Tilemaps node.
+Settings this to true will create a more accurate margin outline around stamped tilemaps,
+instead of the default bounding rectangle, at the expense of performance.</li>
+<li>Added the Merge Points node, which takes two sets of points and merges them together into one set.</li>
+<li>Added optional port for setting the outline's width on the Draw Outline node.</li>
+</ul>
+<h2 id="version-111-1">Version 1.1.1</h2>
+<ul>
+<li>Improved the sample project installation script, so that it doesn't trigger errors when installed in a project using the 2D template.</li>
+<li>Made changes to &quot;New Update&quot; window to put more emphasize on the backup notice.</li>
+<li>Added a text file in the folder where the Samples.unitypackage file is located, containing installation instructions.</li>
+</ul>
+<h2 id="version-11">Version 1.1</h2>
+<ul>
+<li>Added a new example to the sample project to demonstrate how to create rectangular shaped rooms using BSP nodes.</li>
+<li>Added checks before running a graph to output more specific error messages whenever an input parameter is unassigned or port need to be connected,
+instead of the generic NullReferenceException messages.</li>
+<li>Added the &quot;Skip Checks&quot; option to the Script Graph Runner component. When enabled the newly added port and input parameter checks are not performed.</li>
+<li>The graph view no longer gets rebuild completely each time a node is added or removed. This would make the graph editor unresponsive for a short moment.
+This was especially noticeable for larger graphs.</li>
+</ul>
+<h2 id="version-102">Version 1.0.2</h2>
+<ul>
+<li>Both backspace and delete keys will now delete the selected elements in the Map Graph editor.</li>
+<li>Added &quot;Delete&quot; and &quot;Delete Selection&quot; actions to the context menu in the Map Graph editor.</li>
+<li>Fixed a mistake in the manual, so that it now accurately shows which key to use to delete nodes.</li>
+</ul>
+<h2 id="version-101">Version 1.0.1</h2>
+<ul>
+<li>Fixed bug where a NullReferenceException would occur when adding a type to a prefab or tilemap set,
+before that set has ever been deserialized.</li>
+</ul>
+<h2 id="version-10">Version 1.0</h2>
+<ul>
+<li>Initial release</li>
+</ul>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="https://mapgraph.insanescatterbrain.com/styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="https://mapgraph.insanescatterbrain.com/styles/featherlight.min.js"></script>
+    <script type="text/javascript" src="https://mapgraph.insanescatterbrain.com/styles/docfx.js"></script>
+    <script type="text/javascript" src="https://mapgraph.insanescatterbrain.com/styles/main.js"></script>
+  </body>
+</html>

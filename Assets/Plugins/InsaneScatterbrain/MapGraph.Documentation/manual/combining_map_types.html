@@ -1,0 +1,308 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Combining map types </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Combining map types ">
+    <meta name="generator" content="docfx 2.59.4.0">
+    
+    <link rel="stylesheet" href="https://mapgraph.insanescatterbrain.com/styles/docfx.vendor.css">
+    <link rel="stylesheet" href="https://mapgraph.insanescatterbrain.com/styles/featherlight.min.css">
+    <link rel="stylesheet" href="https://mapgraph.insanescatterbrain.com/styles/docfx.css">
+    <link rel="stylesheet" href="https://mapgraph.insanescatterbrain.com/styles/main.css">
+    <meta property="docfx:navrel" content="../toc">
+    <meta property="docfx:tocrel" content="toc">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                Home
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+                
+                <ul class="nav level1 navbar-nav">
+                      <li>
+                          <a href="../manual/getting_started.html" title="Manual">Manual</a>
+                      </li>
+                      <li>
+                          <a href="../nodes.html" title="Node Index">Node Index</a>
+                      </li>
+                      <li>
+                          <a href="../api/InsaneScatterbrain.html" title="API">API</a>
+                      </li>
+                      <li>
+                          <a href="../changelog.html" title="Changelog">Changelog</a>
+                      </li>
+                </ul>    </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div>
+              <div class="sidetoc">
+                <div class="toc manual" id="toc">
+                  
+                  <ul class="nav level1">
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="creating_your_first_map_graph.html" title="Tutorials" class="">Tutorials</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <span class="expand-stub"></span>
+                            <a href="creating_your_first_map_graph.html" title="Creating your first map generator" class="">Creating your first map generator</a>
+                              
+                              <ul class="nav level3">
+                                <li class="">
+                                  <a href="creating_your_first_map_graph.html" title="1. Creating your first map graph" class="">1. Creating your first map graph</a>
+                                </li>
+                                <li class="">
+                                  <a href="running_a_graph_at_runtime.html" title="2. Running a graph at runtime" class="">2. Running a graph at runtime</a>
+                                </li>
+                                <li class="">
+                                  <a href="adding_more_nodes.html" title="3. Adding more nodes" class="">3. Adding more nodes</a>
+                                </li>
+                                <li class="">
+                                  <a href="object_placement.html" title="4. Object placement" class="">4. Object placement</a>
+                                </li>
+                              </ul>  </li>
+                          <li class="">
+                            <span class="expand-stub"></span>
+                            <a href="cave-like_maps.html" title="Basic map types" class="">Basic map types</a>
+                              
+                              <ul class="nav level3">
+                                <li class="">
+                                  <a href="cave-like_maps.html" title="&#8226; Cave-like maps" class="">&#8226; Cave-like maps</a>
+                                </li>
+                                <li class="">
+                                  <a href="room-based_maps.html" title="&#8226; Room-based maps" class="">&#8226; Room-based maps</a>
+                                </li>
+                                <li class="">
+                                  <a href="sample-based_maps.html" title="&#8226; Sample-based maps" class="">&#8226; Sample-based maps</a>
+                                </li>
+                                <li class="active">
+                                  <a href="combining_map_types.html" title="&#8226; Combining map types" class="active">&#8226; Combining map types</a>
+                                </li>
+                              </ul>  </li>
+                          <li class="">
+                            <span class="expand-stub"></span>
+                            <a href="linked_named_color_sets.html" title="More Tutorials" class="">More Tutorials</a>
+                              
+                              <ul class="nav level3">
+                                <li class="">
+                                  <a href="using_prefabs_instead_of_tilemaps.html" title="&#8226; Using prefabs instead of tilemaps" class="">&#8226; Using prefabs instead of tilemaps</a>
+                                </li>
+                                <li class="">
+                                  <a href="changing_type_entry_probability.html" title="&#8226; Changing tile/prefab/tilemap set probabilities (weighted random)" class="">&#8226; Changing tile/prefab/tilemap set probabilities (weighted random)</a>
+                                </li>
+                                <li class="">
+                                  <a href="linked_named_color_sets.html" title="&#8226; Linking a named color set to tilesets/prefab sets" class="">&#8226; Linking a named color set to tilesets/prefab sets</a>
+                                </li>
+                                <li class="">
+                                  <a href="groups.html" title="&#8226; Organizing nodes into groups" class="">&#8226; Organizing nodes into groups</a>
+                                </li>
+                                <li class="">
+                                  <a href="notes.html" title="&#8226; Adding notes &amp; comments" class="">&#8226; Adding notes &amp; comments</a>
+                                </li>
+                                <li class="">
+                                  <a href="running_a_graph_within_a_graph.html" title="&#8226; Running a graph within a graph (Sub graphs)" class="">&#8226; Running a graph within a graph (Sub graphs)</a>
+                                </li>
+                                <li class="">
+                                  <a href="tilemap_sets.html" title="&#8226; Tilemap Sets" class="">&#8226; Tilemap Sets</a>
+                                </li>
+                                <li class="">
+                                  <a href="optimization_tips.html" title="&#8226; Optimization tips" class="">&#8226; Optimization tips</a>
+                                </li>
+                                <li class="">
+                                  <a href="static_seed.html" title="&#8226; Static seed (daily challenges)" class="">&#8226; Static seed (daily challenges)</a>
+                                </li>
+                                <li class="">
+                                  <a href="running_a_graph_asynchronously.html" title="&#8226; Running a graph asynchronously/multi-threaded" class="">&#8226; Running a graph asynchronously/multi-threaded</a>
+                                </li>
+                                <li class="">
+                                  <a href="object_pooling.html" title="&#8226; Object pooling" class="">&#8226; Object pooling</a>
+                                </li>
+                                <li class="">
+                                  <a href="unity_rule_tiles.html" title="&#8226; Tips for rule tiles" class="">&#8226; Tips for rule tiles</a>
+                                </li>
+                                <li class="">
+                                  <a href="save_load_maps.html" title="&#8226; Saving and loading maps" class="">&#8226; Saving and loading maps</a>
+                                </li>
+                              </ul>  </li>
+                          <li class="">
+                            <span class="expand-stub"></span>
+                            <a href="creating_your_first_map_graph.html" title="Tutorials for coders" class="">Tutorials for coders</a>
+                              
+                              <ul class="nav level3">
+                                <li class="">
+                                  <a href="running_graphs_from_scripts.html" title="&#8226; Running graphs from scripts" class="">&#8226; Running graphs from scripts</a>
+                                </li>
+                                <li class="">
+                                  <a href="output_parameters.html" title="&#8226; Output parameters" class="">&#8226; Output parameters</a>
+                                </li>
+                                <li class="">
+                                  <a href="creating_your_own_nodes.html" title="&#8226; Creating your own nodes" class="">&#8226; Creating your own nodes</a>
+                                </li>
+                                <li class="">
+                                  <a href="creating_your_own_node_views.html" title="&#8226; Creating your own node views" class="">&#8226; Creating your own node views</a>
+                                </li>
+                                <li class="">
+                                  <a href="adding_a_constant_node_type.html" title="&#8226; Adding a constant node type" class="">&#8226; Adding a constant node type</a>
+                                </li>
+                              </ul>  </li>
+                        </ul>  </li>
+                    <li class="">
+                      <a href="sample_project.html" title="Sample Project" class="">Sample Project</a>
+                    </li>
+                    <li class="">
+                      <a href="troubleshooting.html" title="Troubleshooting" class="">Troubleshooting</a>
+                    </li>
+                    <li class="">
+                      <a href="support.html" title="Support" class="">Support</a>
+                    </li>
+                  </ul>        </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+
+<div class="zoomable-images">
+<h1 id="combining-map-types">Combining map types</h1>
+<p>Using the basic techniques to create cave-like or room-based maps is a good starting point, but to really make your map
+generators your own, you can combine these basic techniques to create your own map types and/or variations.</p>
+<p>If you haven't checked out the <a href="cave-like_maps.html">&quot;Cave-like maps&quot;</a>, <a href="room-based_maps.html">&quot;Room-based maps&quot;</a>
+and <a href="sample-based_maps.html">&quot;Sample-based maps&quot;</a> pages, you might want to do that now, as it will make this page easier to
+understand.</p>
+<p>We'll look at a couple of examples that demonstrate how you can create different results by using a combination of different
+map types.</p>
+<h2 id="cave-like-rooms">Cave-like rooms</h2>
+<p>Say, we're creating a map for a game that's going to contain some sort of underground dwelling.</p>
+<p>Creating a basic room-based map would work, but the rectangles are too perfectly square and doesn't give us the underground vibe
+we're looking for. A basic cave-like map would give of us that underground vibe, but doesn't give us any rooms to work with.
+In order to get the best of both worlds, we simply combine these to methods together in a single graph.</p>
+<p>First, we start out by creating a basic room-based map, using a random BSP tree (as described on the
+<a href="room-based_maps.html#bsp-trees">&quot;Room-based maps&quot; page</a>):
+<img src="../images/tutorials/combining_multiple_map_types/cave-like_rooms_example_rooms.png" alt="Cave-like rooms example rooms"></p>
+<p>Secondly, we'll add some noise to the texture using the Randomly Fill Texture node and smooth that out using the Cellular Automata
+Smoothing node (this is the same method used in the <a href="adding_more_nodes.html">&quot;Creating your first map generator&quot; tutorial</a>.):
+<img src="../images/tutorials/combining_multiple_map_types/cave-like_rooms_example.png" alt="Cave-like rooms example rooms"></p>
+<p>And just like that, now we have some nice looking cave-like rooms!</p>
+<p>We can make the rooms more or less cave-like by adjusting the fill percentage:</p>
+<table>
+    <tr>
+        <td>Lower Fill Percentage (20)</td>
+        <td>Higher Fill Percentage (40)</td>
+    </tr>
+    <tr>
+        <td>
+            <img alt="Cave-like rooms - less cave-like" src="../images/tutorials/combining_multiple_map_types/cave-like_rooms_example_less_cave-like.png">
+        </td>
+        <td>
+            <img alt="Cave-like rooms - more cave-like" src="../images/tutorials/combining_multiple_map_types/cave-like_rooms_example_more_cave-like.png">
+        </td>
+    </tr>
+</table>
+<h2 id="cave-variation">Cave variation</h2>
+<p>Cellular automata and Perlin noise are great ways to generate cave-like structures. However, the variations you get from
+using only these techniques, is limited. By combining them with other techniques, we can create a result that fits our
+specific use case better.</p>
+<p>In this example, we want to create a cave-like level that roughly consists of 4 open areas, evenly distributed
+over the map. Perlin noise alone won't give us the type of open areas we're looking for and neither Perlin noise and cellular
+automata allows us to guarantee a certain number of open areas or that they will be evenly distributed.</p>
+<p>We'll start out by splitting the space into four chunks, using a random BSP tree:
+<img src="../images/tutorials/combining_multiple_map_types/cave_variation_example_rooms.png" alt="Cave variation example rooms"></p>
+<p>We're using the four rooms/rectangles as our basis for the caves, to ensure the even distribution and the open spaces. We can now
+add some Perlin noise and smooth it out using cellular automata smoothing to create the caves:
+<img src="../images/tutorials/combining_multiple_map_types/cave_variation_example.png" alt="Cave variation example"></p>
+<p>While we're still using the same techniques as before, by connecting them together in this manner we've created
+a different variation and created some basic &quot;rules&quot; our maps will adhere to.</p>
+<h2 id="next-steps">Next steps</h2>
+<p>Hopefully, these examples have demonstrated how we're able to combine the basic map types to create our own variations.</p>
+<p>This is just the start of what you can do to customize your map generator, though. While the cave-like,
+room-based and sample-based maps are likely going to be the basis of a lot of your map generation (though not necessarily),
+there are a lot of other nodes you can use to create more variety with (or different types of maps entirely!).</p>
+<p>As a simple example: let's take our Cave Variation example and use circles instead of rectangles, by simply
+replacing the Draw Rectangles node with a Rectangles Center Points node and a Draw Circles node. Like so:
+<img src="../images/tutorials/combining_multiple_map_types/cave_variation_example_circle_variation.png" alt="Cave variation example (circle variation)"></p>
+<p>This changes the output, in a subtle, but noticeable way. And there are a great many things you can do (subtle, or otherwise) that
+will change the output of your map generator.</p>
+<p>Now might be a good time to take a (or another) look at the <a href="sample_project.html">sample project</a> and look at the example
+graphs and how the nodes interact with each other to create all the different kinds of maps that are showcased there!</p>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="https://mapgraph.insanescatterbrain.com/styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="https://mapgraph.insanescatterbrain.com/styles/featherlight.min.js"></script>
+    <script type="text/javascript" src="https://mapgraph.insanescatterbrain.com/styles/docfx.js"></script>
+    <script type="text/javascript" src="https://mapgraph.insanescatterbrain.com/styles/main.js"></script>
+  </body>
+</html>

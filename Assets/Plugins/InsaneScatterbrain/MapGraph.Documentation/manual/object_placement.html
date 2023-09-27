@@ -1,0 +1,425 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Object placement </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Object placement ">
+    <meta name="generator" content="docfx 2.59.4.0">
+    
+    <link rel="stylesheet" href="https://mapgraph.insanescatterbrain.com/styles/docfx.vendor.css">
+    <link rel="stylesheet" href="https://mapgraph.insanescatterbrain.com/styles/featherlight.min.css">
+    <link rel="stylesheet" href="https://mapgraph.insanescatterbrain.com/styles/docfx.css">
+    <link rel="stylesheet" href="https://mapgraph.insanescatterbrain.com/styles/main.css">
+    <meta property="docfx:navrel" content="../toc">
+    <meta property="docfx:tocrel" content="toc">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                Home
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+                
+                <ul class="nav level1 navbar-nav">
+                      <li>
+                          <a href="../manual/getting_started.html" title="Manual">Manual</a>
+                      </li>
+                      <li>
+                          <a href="../nodes.html" title="Node Index">Node Index</a>
+                      </li>
+                      <li>
+                          <a href="../api/InsaneScatterbrain.html" title="API">API</a>
+                      </li>
+                      <li>
+                          <a href="../changelog.html" title="Changelog">Changelog</a>
+                      </li>
+                </ul>    </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div>
+              <div class="sidetoc">
+                <div class="toc manual" id="toc">
+                  
+                  <ul class="nav level1">
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="creating_your_first_map_graph.html" title="Tutorials" class="">Tutorials</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <span class="expand-stub"></span>
+                            <a href="creating_your_first_map_graph.html" title="Creating your first map generator" class="">Creating your first map generator</a>
+                              
+                              <ul class="nav level3">
+                                <li class="">
+                                  <a href="creating_your_first_map_graph.html" title="1. Creating your first map graph" class="">1. Creating your first map graph</a>
+                                </li>
+                                <li class="">
+                                  <a href="running_a_graph_at_runtime.html" title="2. Running a graph at runtime" class="">2. Running a graph at runtime</a>
+                                </li>
+                                <li class="">
+                                  <a href="adding_more_nodes.html" title="3. Adding more nodes" class="">3. Adding more nodes</a>
+                                </li>
+                                <li class="active">
+                                  <a href="object_placement.html" title="4. Object placement" class="active">4. Object placement</a>
+                                </li>
+                              </ul>  </li>
+                          <li class="">
+                            <span class="expand-stub"></span>
+                            <a href="cave-like_maps.html" title="Basic map types" class="">Basic map types</a>
+                              
+                              <ul class="nav level3">
+                                <li class="">
+                                  <a href="cave-like_maps.html" title="&#8226; Cave-like maps" class="">&#8226; Cave-like maps</a>
+                                </li>
+                                <li class="">
+                                  <a href="room-based_maps.html" title="&#8226; Room-based maps" class="">&#8226; Room-based maps</a>
+                                </li>
+                                <li class="">
+                                  <a href="sample-based_maps.html" title="&#8226; Sample-based maps" class="">&#8226; Sample-based maps</a>
+                                </li>
+                                <li class="">
+                                  <a href="combining_map_types.html" title="&#8226; Combining map types" class="">&#8226; Combining map types</a>
+                                </li>
+                              </ul>  </li>
+                          <li class="">
+                            <span class="expand-stub"></span>
+                            <a href="linked_named_color_sets.html" title="More Tutorials" class="">More Tutorials</a>
+                              
+                              <ul class="nav level3">
+                                <li class="">
+                                  <a href="using_prefabs_instead_of_tilemaps.html" title="&#8226; Using prefabs instead of tilemaps" class="">&#8226; Using prefabs instead of tilemaps</a>
+                                </li>
+                                <li class="">
+                                  <a href="changing_type_entry_probability.html" title="&#8226; Changing tile/prefab/tilemap set probabilities (weighted random)" class="">&#8226; Changing tile/prefab/tilemap set probabilities (weighted random)</a>
+                                </li>
+                                <li class="">
+                                  <a href="linked_named_color_sets.html" title="&#8226; Linking a named color set to tilesets/prefab sets" class="">&#8226; Linking a named color set to tilesets/prefab sets</a>
+                                </li>
+                                <li class="">
+                                  <a href="groups.html" title="&#8226; Organizing nodes into groups" class="">&#8226; Organizing nodes into groups</a>
+                                </li>
+                                <li class="">
+                                  <a href="notes.html" title="&#8226; Adding notes &amp; comments" class="">&#8226; Adding notes &amp; comments</a>
+                                </li>
+                                <li class="">
+                                  <a href="running_a_graph_within_a_graph.html" title="&#8226; Running a graph within a graph (Sub graphs)" class="">&#8226; Running a graph within a graph (Sub graphs)</a>
+                                </li>
+                                <li class="">
+                                  <a href="tilemap_sets.html" title="&#8226; Tilemap Sets" class="">&#8226; Tilemap Sets</a>
+                                </li>
+                                <li class="">
+                                  <a href="optimization_tips.html" title="&#8226; Optimization tips" class="">&#8226; Optimization tips</a>
+                                </li>
+                                <li class="">
+                                  <a href="static_seed.html" title="&#8226; Static seed (daily challenges)" class="">&#8226; Static seed (daily challenges)</a>
+                                </li>
+                                <li class="">
+                                  <a href="running_a_graph_asynchronously.html" title="&#8226; Running a graph asynchronously/multi-threaded" class="">&#8226; Running a graph asynchronously/multi-threaded</a>
+                                </li>
+                                <li class="">
+                                  <a href="object_pooling.html" title="&#8226; Object pooling" class="">&#8226; Object pooling</a>
+                                </li>
+                                <li class="">
+                                  <a href="unity_rule_tiles.html" title="&#8226; Tips for rule tiles" class="">&#8226; Tips for rule tiles</a>
+                                </li>
+                                <li class="">
+                                  <a href="save_load_maps.html" title="&#8226; Saving and loading maps" class="">&#8226; Saving and loading maps</a>
+                                </li>
+                              </ul>  </li>
+                          <li class="">
+                            <span class="expand-stub"></span>
+                            <a href="creating_your_first_map_graph.html" title="Tutorials for coders" class="">Tutorials for coders</a>
+                              
+                              <ul class="nav level3">
+                                <li class="">
+                                  <a href="running_graphs_from_scripts.html" title="&#8226; Running graphs from scripts" class="">&#8226; Running graphs from scripts</a>
+                                </li>
+                                <li class="">
+                                  <a href="output_parameters.html" title="&#8226; Output parameters" class="">&#8226; Output parameters</a>
+                                </li>
+                                <li class="">
+                                  <a href="creating_your_own_nodes.html" title="&#8226; Creating your own nodes" class="">&#8226; Creating your own nodes</a>
+                                </li>
+                                <li class="">
+                                  <a href="creating_your_own_node_views.html" title="&#8226; Creating your own node views" class="">&#8226; Creating your own node views</a>
+                                </li>
+                                <li class="">
+                                  <a href="adding_a_constant_node_type.html" title="&#8226; Adding a constant node type" class="">&#8226; Adding a constant node type</a>
+                                </li>
+                              </ul>  </li>
+                        </ul>  </li>
+                    <li class="">
+                      <a href="sample_project.html" title="Sample Project" class="">Sample Project</a>
+                    </li>
+                    <li class="">
+                      <a href="troubleshooting.html" title="Troubleshooting" class="">Troubleshooting</a>
+                    </li>
+                    <li class="">
+                      <a href="support.html" title="Support" class="">Support</a>
+                    </li>
+                  </ul>        </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="object-placement">Object placement</h1>
+
+<p>In the previous tutorial we extended our map graph to output some nice cave-like maps.</p>
+<p>In this tutorial we're going to populate our maps by adding a player character and some enemies.</p>
+<h2 id="preparing-assets">Preparing assets</h2>
+<p>We need to create two more tiles, one for the player character and one for the enemies.</p>
+<p>Let's start by importing two images for those tiles. Like before, you can download the ones I doodled up <a href="https://mapgraph.insanescatterbrain.com/files/player_enemy_sprites.zip">here</a> or
+find and import some prettier ones. Just make sure they are perfectly square for the purposes of this tutorial.</p>
+<p>Now use these textures to:</p>
+<ol>
+<li>Create a <strong>Player</strong> and <strong>Enemy</strong> tile.</li>
+<li>Add <strong>Player</strong> and <strong>Enemy</strong> tile types to the tileset and add the tiles to those tile types.</li>
+<li>Add colors named <strong>Player</strong> and <strong>Enemy</strong> to the <strong>Named Color Set</strong>.</li>
+</ol>
+<blockquote>
+<p>If you need a reminder on how to do all this, check out <a href="creating_your_first_map_graph.html#preparing-the-assets">this section of the first tutorial</a>.</p>
+<p>If you've linked the tileset to the named color set, you can skip step 3, it should be done automatically. Though you might want to assign a different color.</p>
+</blockquote>
+<p>Next, we need another tilemap to layer our player and enemy tiles on top of our existing floor tiles.</p>
+<ol>
+<li>In the hierarchy window, select the <strong>Grid</strong> object that contains the existing tilemap.</li>
+<li>Add another tilemap, by selecting <strong>GameObject/2D Object/Tilemap</strong>.
+<blockquote>
+<p>Depending on your version of Unity, it might be under <strong>GameObject/2D Object/Tilemap/Rectangular</strong> instead.</p>
+</blockquote>
+</li>
+<li>Give it a more descriptive name, something like <strong>Object Layer</strong>.</li>
+<li>Select the new tilemap.</li>
+<li>In the inspector, find the <strong>Order in Layer</strong> field and set it to 1.
+<blockquote>
+<p>This makes sure that everything in this tilemap/layer is drawn on top of the other tilemap containing our floor and wall tiles.</p>
+</blockquote>
+</li>
+</ol>
+<p><video muted="" loop="" controls="" src="https://mapgraph.insanescatterbrain.com/videos/object_placement_preparing_assets.mp4"></video></p>
+<p>Create a new input parameter, called <strong>Objects</strong>, for the new tilemap on the Map Graph asset and assign the new tilemap to it on the <strong>Map Graph Runner</strong> component.</p>
+<blockquote>
+<p>If you need a reminder on how to do this, check out <a href="creating_your_first_map_graph.html#adding-and-assigning-parameters">this section of the first tutorial</a></p>
+</blockquote>
+<h2 id="adding-the-player-character">Adding the player character</h2>
+<p>Ok, now that all the assets are in order. Open up the Map Graph again, so we can start randomly adding a player character to our map.</p>
+<ol>
+<li>Add a new <strong>Empty Texture</strong> node.</li>
+<li>Connect the existing <strong>Vector2Int</strong> constant node to the <strong>Size</strong> input port.
+<blockquote>
+<p>We want it to be of the same size as the other <strong>Empty Texture</strong> node.</p>
+</blockquote>
+</li>
+<li>Leave the <strong>Default Color</strong> port unconnected, so that the default color will be transparent.</li>
+<li>Add a <strong>Randomly Fill Texture</strong> node.</li>
+<li>Connect its <strong>Texture</strong> input port to the new <strong>Empty Texture</strong> node's <strong>Empty Texture</strong> port.</li>
+<li>Add a <strong>Named Color</strong> node, set its value to <strong>Player</strong> and connect it to the <strong>Draw Color</strong> port on the new <strong>Randomly Fill Texture</strong> node.</li>
+<li>Add a int constant node, set its value to 1 and connect it to the <strong>Max. placements</strong> port on the new <strong>Randomly Fill Texture</strong> node.
+<blockquote>
+<p>This will make sure we only place one player character.</p>
+</blockquote>
+</li>
+<li>Add a <strong>Texture To Tilemap Data</strong> node and connect its <strong>Texture</strong> input port to the new <strong>Randomly Fill Texture</strong> node's output port.</li>
+<li>Add a node for the <strong>Tiles</strong> input parameter and assign it to the <strong>Tileset</strong> input port.</li>
+<li>Add a <strong>Copy Tilemap Data</strong> node.</li>
+<li>Connect its <strong>Data Source</strong> port to the <strong>Tilemap</strong> port of the new <strong>Texture To Tilemap Data</strong> node.</li>
+<li>Add a node for the <strong>Objects</strong> input parameter and connect it to the <strong>Copy To Target</strong> port.</li>
+</ol>
+<p><video muted="" loop="" controls="" src="https://mapgraph.insanescatterbrain.com/videos/adding_player_character_1.mp4"></video></p>
+<p>Run the graph and you'll see our player character being placed at a random position. However, there's a problem. If you run the graph a couple of times, you'll probably
+notice that the player gets placed on wall tiles as well as floor tiles, but we want to restrict the player character placement to the floor tiles. We can restrict placement
+to certain areas, by using a <strong>Mask</strong>. Let's do this now:</p>
+<ol>
+<li>Add a <strong>Replace Color</strong> node, by selecting <strong>Colors/Replace Color</strong>.</li>
+<li>Connect its <strong>Texture</strong> input port to the <strong>Texture</strong> output port of the <strong>Draw Connections (Shortest Path)</strong> node.</li>
+<li>Create a <strong>Named Color</strong>, set its value to <strong>Floor</strong> and connect it to the <strong>Find</strong> port on the <strong>Replace Color</strong> node.</li>
+<li>Leave the <strong>Replace</strong> port empty.
+<blockquote>
+<p>This will replace the <strong>Find</strong> color with the <strong>Replace</strong> color. In this case the <strong>Floor</strong> color will be replace with transparency (because the <strong>Replace</strong> port
+is unconnected.)</p>
+</blockquote>
+</li>
+<li>Add a <strong>Texture To Mask</strong> node, by selecting <strong>Masks/Texture To Mask</strong>.</li>
+<li>Connect its <strong>Texture</strong> input port to the <strong>Texture</strong> output port of the <strong>Replace Color</strong> node.
+<blockquote>
+<p>This will generate a <strong>Mask</strong>, masking all pixels that are not transparent.</p>
+</blockquote>
+</li>
+<li>Connect the <strong>Texture To Mask</strong> node's <strong>Mask</strong> output port to the new <strong>Randomly Fill Texture</strong> node's <strong>Mask</strong> input port.</li>
+</ol>
+<p><video muted="" loop="" controls="" src="https://mapgraph.insanescatterbrain.com/videos/adding_player_character_2.mp4"></video></p>
+<p>Now run the graph a couple of times and you'll notice that the player character no longer gets spawned inside the walls!</p>
+<h2 id="reference-nodes">Reference Nodes</h2>
+<p>This is probably a good time to explain how to create reference nodes.</p>
+<p>During the last section you'll probably have noticed that it's becoming increasingly harder to connect nodes to each other without crossing lines or having lines
+that are very long, making the graph look very messy and hard to read. This will get worse as the graph gets bigger and more complex. To help you keep your
+graphs tidy and readable, you can make reference nodes.</p>
+<p>Reference nodes represent the output part of the node that it's referring to, so you can connect it to nodes that would be hard to connect to the original node
+in a way that's not messy.</p>
+<blockquote>
+<p>Other methods for keeping your graphs organized are by using <a href="groups.html">groups</a> or <a href="running_a_graph_within_a_graph.html">sub graphs</a>.</p>
+</blockquote>
+<p>Let's create a reference node of the <strong>Texture To Mask</strong> node:</p>
+<ol>
+<li>Right-click the <strong>Texture To Mask</strong> node.</li>
+<li>Select <strong>Create Reference Node</strong>.
+<blockquote>
+<p>The reference node will appear on top of the original one.</p>
+</blockquote>
+</li>
+<li>Drag the the <strong>reference node</strong> to a new position, so that it's easier to connect it to the new <strong>Randomly Fill Texture</strong> node.</li>
+<li>Connect the <strong>reference node</strong> to the <strong>Mask</strong> port on the new <strong>Randomly Fill Texture</strong> node.</li>
+</ol>
+<blockquote>
+<p>Reference nodes always have a <b>*</b> at the end of their name.</p>
+</blockquote>
+<blockquote>
+<p>If you hover the mouse pointer over the reference nodes, its original node will be highlighted.</p>
+</blockquote>
+<blockquote>
+<p>If you hover the mouse pointer over the original node, its reference nodes will be highlighted.</p>
+</blockquote>
+<p><video muted="" loop="" controls="" src="https://mapgraph.insanescatterbrain.com/videos/reference_nodes.mp4"></video></p>
+<h2 id="adding-enemies">Adding enemies</h2>
+<p>Let's move on to placing enemies:</p>
+<ol>
+<li>Add another <strong>Randomly Fill Texture</strong> node.</li>
+<li>Connect its <strong>Texture</strong> input port to the <strong>Texture</strong> output port of the previously created <strong>Randomly Fill Texture</strong> node.</li>
+<li>Connect its <strong>Mask</strong> input port to the <strong>Mask</strong> output port of the previously created <strong>Randomly Fill Texture</strong> node.
+<blockquote>
+<p>The <strong>Randomly Fill Texture</strong> outputs a <strong>Mask</strong> that masks the pixels it fills, in addition to the pixels masked by the <strong>Mask</strong> that is connected to the <strong>Mask</strong>
+input port (if any). This will make sure that the enemies don't spawn in the wall and don't overwrite the player character placement.</p>
+</blockquote>
+</li>
+<li>Add a float constant node, set its value to <strong>100</strong> (for now) and connect it to <strong>Fill Percentage</strong> on the new <strong>Randomly Fill Texture</strong> node.</li>
+<li>Add a <strong>Named Color</strong> node, set its value to <strong>Enemy</strong> and connect it to the <strong>Draw Color</strong> input port of the new <strong>Randomly Fill Texture</strong> node.</li>
+<li>Connect its <strong>Texture</strong> output port to the newest <strong>Texture To Tilemap Data</strong> node's <strong>Texture</strong> input port.</li>
+</ol>
+<p><video muted="" loop="" controls="" src="https://mapgraph.insanescatterbrain.com/videos/adding_enemies_1.mp4"></video></p>
+<p>Run the graph and now your level is completely filled with enemies!</p>
+<p>Ok, that's probably a little much, but lets use this opportunity to spot a possible issue. The enemies can spawn right next to the player, which depending
+on your game may or may not be what you want. Let's assume that this creates an unfair situation here and solve this problem by creating a little bit of a buffer zone
+around the the player:</p>
+<ol>
+<li>Add a <strong>Draw Circles</strong> node (under <strong>Drawing/Draw Circles</strong>).</li>
+<li>Connect its <strong>Center Points</strong> input port to the <strong>Placements</strong> output port of the <strong>Randomly Fill Texture</strong> used to place the player character.
+<blockquote>
+<p>The <strong>Placements</strong> port outputs all the points that its <strong>Randomly Fill Texture</strong> node has filled. In this case, a single point,
+representing the player's position.</p>
+</blockquote>
+</li>
+<li>Connect its <strong>Texture</strong> input port to the <strong>Texture</strong> output port of the <strong>Replace Color</strong> node.
+<blockquote>
+<p>You'll probably want to use another reference node here.</p>
+</blockquote>
+</li>
+<li>Add an int constant node and set its value to 5.
+<blockquote>
+<p>This will create a buffer zone of 5 pixels between the player character and the enemies.</p>
+</blockquote>
+</li>
+<li>Add a constant color node and set it to any color you want.
+<blockquote>
+<p>You can also use a <strong>Named Color</strong> node if you want. Any color will do really as long as it's not transparent.</p>
+</blockquote>
+</li>
+<li>Add another <strong>Texture To Mask</strong> node.</li>
+<li>Connect its <strong>Texture</strong> input port to the <strong>Draw Circles</strong> node's <strong>Texture</strong> output port.</li>
+<li>Connect its <strong>Mask</strong> output port to the <strong>Mask</strong> input port to the <strong>Randomly Fill Texture</strong> used to for enemy placement.</li>
+</ol>
+<p><video muted="" loop="" controls="" src="https://mapgraph.insanescatterbrain.com/videos/adding_enemies_2.mp4"></video></p>
+<p>If you now run the graph again, you'll notice the buffer zone around the player where enemies won't be placed anymore.</p>
+<p>Now that that's fixed, set the <strong>Fill Percentage</strong> of the <strong>Randomly Fill Texture</strong> node responsible for placing enemies, to something more practical, such as 1.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Great, you're now familiar with Map Graph's basics!</p>
+<p>Obviously, this is just the tip of the iceberg of what you can achieve with Map Graph.</p>
+<h2 id="next-steps">Next steps</h2>
+<p>You can take a look at the &quot;<a href="cave-like_maps.html">Basic map types</a>&quot; section, to learn more about creating different types of maps.</p>
+<p>You can also take a look at the examples in the <a href="sample_project.html">sample project</a>, most of which use (or a combination of) those map types,
+among other things, such as generating (3D) GameObjects from prefabs instead of tilemaps.</p>
+<p>You can also check out some tutorials on more specific topics. You can find those in the left side menu under &quot;<a href="linked_named_color_sets.html">More tutorials</a>&quot;.</p>
+<p>If you want a complete overview of all the available nodes, please check out the <a href="../nodes.html">node index</a>.</p>
+<p>But most importantly, start experimenting! You can take what we've created here and simply start changing the numbers on some of the constants or add some more nodes,
+connect them in different ways to see what happens. Or you can create a new graph and try to create something completely different!</p>
+<p>If you need help or want to request a tutorial about a certain subject, please don't hesitate to reach out using one of the channels mentioned in the
+<a href="support.html">support section</a>.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="https://mapgraph.insanescatterbrain.com/styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="https://mapgraph.insanescatterbrain.com/styles/featherlight.min.js"></script>
+    <script type="text/javascript" src="https://mapgraph.insanescatterbrain.com/styles/docfx.js"></script>
+    <script type="text/javascript" src="https://mapgraph.insanescatterbrain.com/styles/main.js"></script>
+  </body>
+</html>

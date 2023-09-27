@@ -1,0 +1,386 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Adding more nodes </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Adding more nodes ">
+    <meta name="generator" content="docfx 2.59.4.0">
+    
+    <link rel="stylesheet" href="https://mapgraph.insanescatterbrain.com/styles/docfx.vendor.css">
+    <link rel="stylesheet" href="https://mapgraph.insanescatterbrain.com/styles/featherlight.min.css">
+    <link rel="stylesheet" href="https://mapgraph.insanescatterbrain.com/styles/docfx.css">
+    <link rel="stylesheet" href="https://mapgraph.insanescatterbrain.com/styles/main.css">
+    <meta property="docfx:navrel" content="../toc">
+    <meta property="docfx:tocrel" content="toc">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                Home
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+                
+                <ul class="nav level1 navbar-nav">
+                      <li>
+                          <a href="../manual/getting_started.html" title="Manual">Manual</a>
+                      </li>
+                      <li>
+                          <a href="../nodes.html" title="Node Index">Node Index</a>
+                      </li>
+                      <li>
+                          <a href="../api/InsaneScatterbrain.html" title="API">API</a>
+                      </li>
+                      <li>
+                          <a href="../changelog.html" title="Changelog">Changelog</a>
+                      </li>
+                </ul>    </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div>
+              <div class="sidetoc">
+                <div class="toc manual" id="toc">
+                  
+                  <ul class="nav level1">
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="creating_your_first_map_graph.html" title="Tutorials" class="">Tutorials</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <span class="expand-stub"></span>
+                            <a href="creating_your_first_map_graph.html" title="Creating your first map generator" class="">Creating your first map generator</a>
+                              
+                              <ul class="nav level3">
+                                <li class="">
+                                  <a href="creating_your_first_map_graph.html" title="1. Creating your first map graph" class="">1. Creating your first map graph</a>
+                                </li>
+                                <li class="">
+                                  <a href="running_a_graph_at_runtime.html" title="2. Running a graph at runtime" class="">2. Running a graph at runtime</a>
+                                </li>
+                                <li class="active">
+                                  <a href="adding_more_nodes.html" title="3. Adding more nodes" class="active">3. Adding more nodes</a>
+                                </li>
+                                <li class="">
+                                  <a href="object_placement.html" title="4. Object placement" class="">4. Object placement</a>
+                                </li>
+                              </ul>  </li>
+                          <li class="">
+                            <span class="expand-stub"></span>
+                            <a href="cave-like_maps.html" title="Basic map types" class="">Basic map types</a>
+                              
+                              <ul class="nav level3">
+                                <li class="">
+                                  <a href="cave-like_maps.html" title="&#8226; Cave-like maps" class="">&#8226; Cave-like maps</a>
+                                </li>
+                                <li class="">
+                                  <a href="room-based_maps.html" title="&#8226; Room-based maps" class="">&#8226; Room-based maps</a>
+                                </li>
+                                <li class="">
+                                  <a href="sample-based_maps.html" title="&#8226; Sample-based maps" class="">&#8226; Sample-based maps</a>
+                                </li>
+                                <li class="">
+                                  <a href="combining_map_types.html" title="&#8226; Combining map types" class="">&#8226; Combining map types</a>
+                                </li>
+                              </ul>  </li>
+                          <li class="">
+                            <span class="expand-stub"></span>
+                            <a href="linked_named_color_sets.html" title="More Tutorials" class="">More Tutorials</a>
+                              
+                              <ul class="nav level3">
+                                <li class="">
+                                  <a href="using_prefabs_instead_of_tilemaps.html" title="&#8226; Using prefabs instead of tilemaps" class="">&#8226; Using prefabs instead of tilemaps</a>
+                                </li>
+                                <li class="">
+                                  <a href="changing_type_entry_probability.html" title="&#8226; Changing tile/prefab/tilemap set probabilities (weighted random)" class="">&#8226; Changing tile/prefab/tilemap set probabilities (weighted random)</a>
+                                </li>
+                                <li class="">
+                                  <a href="linked_named_color_sets.html" title="&#8226; Linking a named color set to tilesets/prefab sets" class="">&#8226; Linking a named color set to tilesets/prefab sets</a>
+                                </li>
+                                <li class="">
+                                  <a href="groups.html" title="&#8226; Organizing nodes into groups" class="">&#8226; Organizing nodes into groups</a>
+                                </li>
+                                <li class="">
+                                  <a href="notes.html" title="&#8226; Adding notes &amp; comments" class="">&#8226; Adding notes &amp; comments</a>
+                                </li>
+                                <li class="">
+                                  <a href="running_a_graph_within_a_graph.html" title="&#8226; Running a graph within a graph (Sub graphs)" class="">&#8226; Running a graph within a graph (Sub graphs)</a>
+                                </li>
+                                <li class="">
+                                  <a href="tilemap_sets.html" title="&#8226; Tilemap Sets" class="">&#8226; Tilemap Sets</a>
+                                </li>
+                                <li class="">
+                                  <a href="optimization_tips.html" title="&#8226; Optimization tips" class="">&#8226; Optimization tips</a>
+                                </li>
+                                <li class="">
+                                  <a href="static_seed.html" title="&#8226; Static seed (daily challenges)" class="">&#8226; Static seed (daily challenges)</a>
+                                </li>
+                                <li class="">
+                                  <a href="running_a_graph_asynchronously.html" title="&#8226; Running a graph asynchronously/multi-threaded" class="">&#8226; Running a graph asynchronously/multi-threaded</a>
+                                </li>
+                                <li class="">
+                                  <a href="object_pooling.html" title="&#8226; Object pooling" class="">&#8226; Object pooling</a>
+                                </li>
+                                <li class="">
+                                  <a href="unity_rule_tiles.html" title="&#8226; Tips for rule tiles" class="">&#8226; Tips for rule tiles</a>
+                                </li>
+                                <li class="">
+                                  <a href="save_load_maps.html" title="&#8226; Saving and loading maps" class="">&#8226; Saving and loading maps</a>
+                                </li>
+                              </ul>  </li>
+                          <li class="">
+                            <span class="expand-stub"></span>
+                            <a href="creating_your_first_map_graph.html" title="Tutorials for coders" class="">Tutorials for coders</a>
+                              
+                              <ul class="nav level3">
+                                <li class="">
+                                  <a href="running_graphs_from_scripts.html" title="&#8226; Running graphs from scripts" class="">&#8226; Running graphs from scripts</a>
+                                </li>
+                                <li class="">
+                                  <a href="output_parameters.html" title="&#8226; Output parameters" class="">&#8226; Output parameters</a>
+                                </li>
+                                <li class="">
+                                  <a href="creating_your_own_nodes.html" title="&#8226; Creating your own nodes" class="">&#8226; Creating your own nodes</a>
+                                </li>
+                                <li class="">
+                                  <a href="creating_your_own_node_views.html" title="&#8226; Creating your own node views" class="">&#8226; Creating your own node views</a>
+                                </li>
+                                <li class="">
+                                  <a href="adding_a_constant_node_type.html" title="&#8226; Adding a constant node type" class="">&#8226; Adding a constant node type</a>
+                                </li>
+                              </ul>  </li>
+                        </ul>  </li>
+                    <li class="">
+                      <a href="sample_project.html" title="Sample Project" class="">Sample Project</a>
+                    </li>
+                    <li class="">
+                      <a href="troubleshooting.html" title="Troubleshooting" class="">Troubleshooting</a>
+                    </li>
+                    <li class="">
+                      <a href="support.html" title="Support" class="">Support</a>
+                    </li>
+                  </ul>        </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="adding-more-nodes">Adding more nodes</h1>
+
+<p>Ok, we've got a working map generator now, but the maps it generates aren't very exciting yet.
+So we're going to make it a bit more interesting by adding some more nodes to the graph.</p>
+<h2 id="creating-a-cave-like-map">Creating a cave-like map</h2>
+<p>Start by opening up the Map Graph editor again.</p>
+<p>First, we're going to add a <strong>Cellular Automata Smoothing</strong> node. This is a great node for creating cave-like patterns:</p>
+<ol>
+<li>Right-click inside the editor and select <strong>Add Node</strong> and <strong>Textures/Cellular Automata Smoothing</strong>.</li>
+<li>Place the new node between the <strong>Randomly Fill Texture</strong> node and the <strong>Texture To Tilemap Data</strong> node.</li>
+<li>Connect the <strong>Texture</strong> output port of the <strong>Randomly Fill Texture</strong> node to the <strong>Texture</strong> input port on the
+<strong>Cellular Automata Smoothing</strong> node.</li>
+<li>Connect the <strong>Cellular Automata Smoothing</strong> node's <strong>Texture</strong> output port to the <strong>Texture</strong> input port of the
+<strong>Texture To Tilemap Data</strong> node.</li>
+</ol>
+<p>Create a constant integer node:</p>
+<ol>
+<li>Open the node creation menu and select <strong>Constant/int</strong>.</li>
+<li>Set the node's value to 5.</li>
+<li>Connect the constant node's output port to the <strong>Number of Passes</strong> port.
+<blockquote>
+<p>The number of passes determines how smooth the result is going to be, at the cost of performance.
+Having just 1 pass takes the least amount of time to run, but it's also going to give the least smooth result.</p>
+</blockquote>
+</li>
+</ol>
+<p>We're also going to need to change the fill percentage, as the current 10% will get completely smoothed away:</p>
+<ol>
+<li>Change the value of the float constant node connected to <strong>Fill Percentage</strong> to 50.</li>
+</ol>
+<p><video muted="" loop="" controls="" src="https://mapgraph.insanescatterbrain.com/videos/adding_more_nodes_1.mp4"></video></p>
+<p>Add two more <strong>Named Color</strong> nodes:</p>
+<ol>
+<li>Open the node creation menu and select <strong>Colors/Named Color</strong>.</li>
+<li>Set its value to <strong>Wall</strong>.</li>
+<li>Connect it to the <strong>Fill Color</strong> port on the <strong>Cellular Automata Smoothing</strong> node.</li>
+<li>Create another <strong>Named Color</strong> node.</li>
+<li>Set its value to <strong>Floor</strong>.</li>
+<li>Connect it to the <strong>Empty Color</strong> port on the <strong>Cellular Automata Smoothing</strong> node.</li>
+</ol>
+<p><video muted="" loop="" controls="" src="https://mapgraph.insanescatterbrain.com/videos/adding_more_nodes_2.mp4"></video></p>
+<p>Go back and to the scene view and run the graph runner again.</p>
+<p><video muted="" loop="" controls="" src="https://mapgraph.insanescatterbrain.com/videos/adding_more_nodes_3.mp4"></video></p>
+<p>Now it's beginning to look like a real map!</p>
+<p>Run the graph a couple of more times and you might notice two obvious issues with the maps it generates.</p>
+<ol>
+<li>It creates rooms that aren't connected to each other with floor tiles, meaning that some spaces would be unreachable.</li>
+<li>The outer edge can contain floor tiles meaning that once you have a player character running around, they could walk off of the map.</li>
+</ol>
+<h2 id="drawing-a-border">Drawing a border</h2>
+<p>To fix the latter issue, we're going to draw a border of wall tiles:</p>
+<ol>
+<li>In the graph editor, open the node creation menu and select <strong>Add Node</strong> and <strong>Drawing/Draw Border</strong>.</li>
+<li>Connect the <strong>Texture</strong> input port to the <strong>Randomly Fill Texture</strong> node's <strong>Texture</strong> output port.</li>
+<li>Connect the <strong>Texture</strong> output port to the <strong>Cellular Automata Smoothing</strong> node's <strong>Texture</strong> input port.</li>
+<li>Add a constant integer node, by opening the node creation menu and selecting <strong>Constants/int</strong></li>
+<li>Give it a value of 1.</li>
+<li>Connect it to the <strong>Width</strong> input port on the <strong>Draw Border</strong> node.</li>
+<li>Add another <strong>Named Color</strong> node and set its value to <strong>Wall</strong>.</li>
+<li>Connect it to the <strong>Border Color</strong> port.</li>
+</ol>
+<p><video muted="" loop="" controls="" src="https://mapgraph.insanescatterbrain.com/videos/adding_more_nodes_4.mp4"></video></p>
+<p>If you run the graph again, you'll notice that the map will always have a border of wall tiles on the outer edge of it.</p>
+<p><video muted="" loop="" controls="" src="https://mapgraph.insanescatterbrain.com/videos/adding_more_nodes_5.mp4"></video></p>
+<h2 id="drawing-connections">Drawing connections</h2>
+<p>That's one issue solved! Now to make sure that all the floor tiles are always connected to each other:</p>
+<ol>
+<li>Add an <strong>Extract Areas</strong> node, by selecting <strong>Areas/Extract Areas</strong>.</li>
+<li>Connect its <strong>Texture</strong> input port to the <strong>Cellular Automata Smoothing</strong> node's <strong>Texture</strong> output port.</li>
+<li>Add a <strong>Named Color</strong> node and set its value to <strong>Floor</strong>.</li>
+<li>Connect it to the <strong>Color To Extract</strong> port on the <strong>Extract Areas</strong> node.</li>
+<li>Add a <strong>Generate Area Graph</strong> node, by selecting <strong>Areas/Generate Area Graph</strong>.</li>
+<li>Connect the <strong>Area</strong> ports of the <strong>Generate Area Graph</strong> node and the <strong>Extract Area</strong> node to each other.</li>
+</ol>
+<p><video muted="" loop="" controls="" src="https://mapgraph.insanescatterbrain.com/videos/adding_more_nodes_6.mp4"></video></p>
+<p>If you run the graph now, you won't see any difference for the generated maps yet (as we don't do anything yet with the output
+of the new nodes), but you can see the preview images on the nodes in the Map Graph editor.</p>
+<blockquote>
+<p>The <strong>Extract Areas</strong> node's preview  will display the areas it has extracted. White pixels represent the inside of each
+area and the borders are represented by gray pixels.</p>
+</blockquote>
+<blockquote>
+<p>The <strong>Generate Area Graph</strong> node's preview displays a visual representation of the area graph that it generates by showing
+the edges between the areas. We can use these edges to create connections between all the areas:</p>
+</blockquote>
+<p>Next:</p>
+<ol>
+<li>Add a <strong>Connect Area Graph (Closest Border Points)</strong>, by selecting <strong>Areas/Connect Area Graph (Closest Border Points).</strong>
+<blockquote>
+<p>There are a couple of different <strong>Connect Area Graph</strong> nodes. This particular one, connects each pair of areas by
+finding the border point on each area that result in the shortest possible connection between the two areas.</p>
+</blockquote>
+</li>
+<li>Connect the <strong>Area Graph</strong> ports of the <strong>Connect Area Graph (Closest Border Points)</strong> and <strong>Generate Area Graph</strong> nodes
+to each other.</li>
+<li>Add a <strong>Draw Connections (Shortest Path)</strong> node, by selecting <strong>Drawing/Draw Connections (Shortest Path)</strong>.
+<blockquote>
+<p><strong>Connect Area Graph</strong> creates pairs of points that should connect areas to each other. The <strong>Draw Connections</strong> node
+does the actual drawing of those connections onto the texture.</p>
+</blockquote>
+</li>
+<li>Connect the <strong>Connected Points</strong> ports on the <strong>Draw Connections (Shortest Path)</strong> node and the
+<strong>Connect Area Graph (Closest Border Points)</strong> node to each other.</li>
+<li>Connect the <strong>Cellular Automata Smoothing</strong> node's <strong>Texture</strong> output port to the <strong>Draw Connections (Shortest Path)</strong> node's
+<strong>Texture</strong> input port.</li>
+<li>Connect the <strong>Draw Connections (Shortest Path)</strong> node's <strong>Texture</strong> output port to the <strong>Texture</strong> input port of the
+<strong>Texture To Tilemap Data</strong> node.</li>
+<li>Add a <strong>Named Color</strong> node and set its value to <strong>Floor</strong></li>
+<li>Connect it to <strong>Draw Color</strong> input port on the <strong>Draw Connections (Shortest Path)</strong> node.</li>
+<li>Add a constant integer node, by selecting <strong>Constant/int</strong> and set its value to 3.</li>
+<li>Connect the constant int node's output port to the <strong>Width</strong> input port on the <strong>Draw Connections (Shortest Path)</strong> node
+<blockquote>
+<p>This determines how wide the connections will be between each area. Setting it to a value of 3 makes the connections 3 pixels wide.</p>
+</blockquote>
+</li>
+</ol>
+<p><video muted="" loop="" controls="" src="https://mapgraph.insanescatterbrain.com/videos/adding_more_nodes_7.mp4"></video></p>
+<p>Run the graph again. And you'll see that everything is now connected!</p>
+<p><video muted="" loop="" controls="" src="https://mapgraph.insanescatterbrain.com/videos/adding_more_nodes_8.mp4"></video></p>
+<p>However, you might notice that the number of connections is more than what is required to connect everything together,
+which might not be what you want, depending on your use case.</p>
+<p>If you want the least possible amount of connections possible, you can add another node. Namely, the generate area graph (MST) node:</p>
+<blockquote>
+<p>MST (Minimum Spanning Tree) basically means that it will connect the areas together in the least amount of connections required.</p>
+</blockquote>
+<ol>
+<li>Add a <strong>Generate Area Graph (Minimum)</strong> node, by selecting <strong>Areas/Generate Area Graph (Minimum)</strong>.</li>
+<li>Place it between and connect it to the <strong>Generate Area Graph</strong> and the <strong>Connect Area Graph (Closest Border Points)</strong> nodes.</li>
+</ol>
+<p><video muted="" loop="" controls="" src="https://mapgraph.insanescatterbrain.com/videos/adding_more_nodes_9.mp4"></video></p>
+<blockquote>
+<p>Many of these nodes can be replaced by subgraph nodes instead, such as a <strong>Extract Areas &amp; Draw Connections</strong> or a <strong>Connected Caves</strong> nodes.
+You can also create your own subgraphs to reuse a specific sequence of node, without having to recreate that sequence each time.
+You can find more about subgraphs on the <a href="running_a_graph_within_a_graph.html">&quot;Running a graph within a graph (Sub graphs)&quot; page</a>.</p>
+</blockquote>
+<h2 id="next-steps">Next steps</h2>
+<p>Nice! The generated maps are a lot more interesting now.</p>
+<p>They're still a bit empty though, so the next tutorial will show how to handle random placement of things like player
+characters, enemies and items.</p>
+<blockquote>
+<p><a href="object_placement.html">4. Object Placement</a></p>
+</blockquote>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="https://mapgraph.insanescatterbrain.com/styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="https://mapgraph.insanescatterbrain.com/styles/featherlight.min.js"></script>
+    <script type="text/javascript" src="https://mapgraph.insanescatterbrain.com/styles/docfx.js"></script>
+    <script type="text/javascript" src="https://mapgraph.insanescatterbrain.com/styles/main.js"></script>
+  </body>
+</html>
