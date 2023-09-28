@@ -9,9 +9,16 @@ public class Freeze : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F) && PlayerManager.instance.abilityValues[7])
         {
             ActivateFreeze();
+        }
+
+        // NOTE FOR TESTING ONLY, REMOVE LATER
+        if(Input.GetKey(KeyCode.F) && Input.GetKeyDown(KeyCode.R))
+        {
+            PlayerManager.instance.getAbility(7);
+            Debug.Log("Freeze has been unlocked.");
         }
     }
 
