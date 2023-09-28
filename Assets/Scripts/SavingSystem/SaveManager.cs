@@ -34,7 +34,7 @@ public class SaveManager : MonoBehaviour
             SaveGame();
         }
 
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKey(KeyCode.X) && Input.GetKeyDown(KeyCode.Z))
         {
             DeleteSave();
         }

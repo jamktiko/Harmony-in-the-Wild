@@ -15,16 +15,14 @@ public class DialogueManager : MonoBehaviour
     [Header("Dialogue UI")]
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private TextMeshProUGUI speakerText;
-    [SerializeField] private GameObject continueButton;
 
     [Header("Quest Choices")]
+    [SerializeField] private bool choiceAvailable;
+    [SerializeField] private int currentChoiceIndex;
     [SerializeField] private GameObject[] choiceButtons;
 
     [Header("Public Values for References")]
     public bool dialogueIsPlaying;
-
-    //[Header("Debugging")]
-
 
     // private variables, no need to show in the inspector
 
@@ -66,6 +64,45 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (dialogueIsPlaying)
+        {
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                // if there is a choice to make, choose the current choice
+                if (choiceAvailable)
+                {
+                    MakeChoice(currentChoiceIndex);
+                }
+
+                // if there is no choice to make, continue dialogue
+                else
+                {
+                    ContinueDialogue();
+                }
+            }
+
+            else if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                // if there is a choice available upper on the list, mark it as selected
+                if(currentChoiceIndex > 0)
+                {
+                    ChangeCurrentChoice(currentChoiceIndex - 1);
+                }
+            }
+
+            else if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                // if there is a choice available down on the list, mark it as selected
+                if (currentChoiceIndex < currentStory.currentChoices.Count - 1)
+                {
+                    ChangeCurrentChoice(currentChoiceIndex + 1);
+                }
+            }
+        }
+    }
+
     public void StartDialogue(TextAsset inkJSON)
     {
         currentStory = new Story(inkJSON.text);
@@ -79,8 +116,6 @@ public class DialogueManager : MonoBehaviour
     {
         if (currentStory.canContinue)
         {
-            Debug.Log("Dialogue about to continue.");
-
             dialogueText.text = currentStory.Continue();
 
             HandleTags(currentStory.currentTags);
@@ -96,19 +131,18 @@ public class DialogueManager : MonoBehaviour
 
     private void DisplayChoices()
     {
-        List<Choice> currentChoices = currentStory.currentChoices;
-
-        // hide continue button if there are choices available, otherwise show the button
-
-        if(currentChoices.Count > 0)
+        // change bool for input tracking
+        if(currentStory.currentChoices.Count <= 0)
         {
-            continueButton.SetActive(false);
+            choiceAvailable = false;
         }
 
         else
         {
-            continueButton.SetActive(true);
+            choiceAvailable = true;
         }
+
+        List<Choice> currentChoices = currentStory.currentChoices;
 
         // check if the UI can hold all the written choice options
 
@@ -132,6 +166,19 @@ public class DialogueManager : MonoBehaviour
         {
             choiceButtons[i].SetActive(false);
         }
+
+        // set the first choice option as selected
+        ChangeCurrentChoice(0);
+    }
+
+    private void ChangeCurrentChoice(int index)
+    {
+        // make last current choice button normal
+        choiceButtons[currentChoiceIndex].GetComponent<Image>().color = Color.white;
+
+        // make new current choice button with contrast color
+        currentChoiceIndex = index;
+        choiceButtons[index].GetComponent<Image>().color = Color.green;
     }
 
     public void MakeChoice(int choiceIndex)

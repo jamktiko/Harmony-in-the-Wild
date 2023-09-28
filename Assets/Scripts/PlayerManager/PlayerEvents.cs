@@ -32,4 +32,15 @@ public class PlayerEvents
             onAbilityGet(index);
         }
     }
+
+    public event Action onGhostSpeakActivated;
+
+    // refer to this event when player gets Ghost Speak so all the ghosts in the game are enabled
+    public void GhostSpeakActivated()
+    {
+        if (onGhostSpeakActivated != null)
+        {
+            onGhostSpeakActivated();
+        }
+    }
 }

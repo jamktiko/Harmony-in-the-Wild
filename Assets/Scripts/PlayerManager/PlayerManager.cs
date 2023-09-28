@@ -51,6 +51,11 @@ public class PlayerManager : MonoBehaviour
     public void getAbility(int index)
     {
         abilityValues[index] = true;
+
+        if(index == 5)
+        {
+            GameEventsManager.instance.playerEvents.GhostSpeakActivated();
+        }
         
     }
     public int LevelCheck() 
