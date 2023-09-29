@@ -2,7 +2,9 @@ using HeneGames.DialogueSystem;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.PackageManager;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class FoxMove : MonoBehaviour
 {
@@ -16,11 +18,14 @@ public class FoxMove : MonoBehaviour
     [SerializeField] float y;
     [SerializeField] CameraMove cameraMove;
     [SerializeField]Transform fox;
+    [SerializeField] Transform LookAt;
     float rotation;
     public Vector3 boxSize;
     public float maxDistance;
+    [SerializeField] float viewDistance;
     public LayerMask GroundLayerMask;
     public LayerMask WaterLayerMask;
+    [SerializeField]LayerMask Moveable;
     public float jumpforce = 10f;
     public float timer = 0f;
     [SerializeField] bool enableGravity=true;
@@ -35,6 +40,16 @@ public class FoxMove : MonoBehaviour
     public bool canChargedJump=false;
     [SerializeField] private float chargeJumpTimer;
     [SerializeField]private float GlidingSpeed;
+    [SerializeField] Material grabbableMat;
+    [SerializeField] Material grabbedMat;
+    [SerializeField] Material OriginialMat;
+    private bool grabbed;
+    [SerializeField]private GameObject grabbedGameObject;
+
+    public Transform GrabPosition;
+    [SerializeField]private int grabTimer;
+    [SerializeField]private TelegrabObject TelegrabObject;
+    private bool isHighlighted;
 
     // Start is called before the first frame update
     void Start()
@@ -176,7 +191,7 @@ public class FoxMove : MonoBehaviour
             enableGravity = false;
             StartCoroutine(disableGravity());
 
-            // FOR TESTING PURPORSES ONLY, REMOVE LATER WHEN NO LONGER NEEDED!!
+            //FOR TESTING PURPORSES ONLY, REMOVE LATER WHEN NO LONGER NEEDED!!
             if (QuestManager.instance.CheckQuestState("TestJumpQuest").Equals(QuestState.IN_PROGRESS))
             {
                 FindObjectOfType<TestJumpQuestStep>().JumpProgress();
@@ -238,6 +253,49 @@ public class FoxMove : MonoBehaviour
         Controller.Move(Jump * Time.deltaTime * jumpSpeed);
 
         Controller.Move(Movement * Speed);
+        //Telegrab ability
+        if (grabbed && Input.GetKeyDown(KeyCode.B))
+        {
+
+            grabbedGameObject.transform.gameObject.GetComponent<MeshRenderer>().material = TelegrabObject.TelegrabMaterial;
+
+            grabbedGameObject.transform.parent = null;
+            grabbedGameObject.transform.GetComponent<Rigidbody>().isKinematic = false;
+            grabTimer = 0;
+            //grabbedGameObject = null;
+            grabbed = false;
+            //isHighlighted = false;
+
+        }
+        RaycastHit hitInfo;
+        if (Physics.Raycast(LookAt.position, LookAt.forward, out hitInfo, viewDistance, Moveable) && !grabbed)
+        {
+
+            Debug.DrawLine(LookAt.position, hitInfo.point);
+            if (!grabbed)
+            {
+                //isHighlighted = true;
+                    //hitInfo.transform.gameObject.GetComponent<MeshRenderer>().material = grabbableMat;
+                if (Input.GetKeyDown(KeyCode.V))
+                {
+                    grabbedGameObject = hitInfo.transform.gameObject;
+                    TelegrabObject = hitInfo.transform.gameObject.GetComponent<TelegrabObject>();
+                    grabbedGameObject.GetComponent<MeshRenderer>().material = grabbedMat;
+                    grabbedGameObject.transform.parent = GrabPosition;
+                    grabbedGameObject.transform.position = GrabPosition.position;
+                    grabbedGameObject.transform.GetComponent<Rigidbody>().isKinematic = true;
+                    grabbedGameObject.transform.rotation = Quaternion.identity;
+                    grabbed = true;
+
+                }
+            }
+
+
+        }
+    }
+    private void LateUpdate()
+    {
+        
     }
     bool GroundCheck()
     {
