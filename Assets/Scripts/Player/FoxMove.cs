@@ -2,7 +2,6 @@ using HeneGames.DialogueSystem;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.PackageManager;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
@@ -43,6 +42,7 @@ public class FoxMove : MonoBehaviour
     [SerializeField] Material grabbableMat;
     [SerializeField] Material grabbedMat;
     [SerializeField] Material OriginialMat;
+    public bool canTeleGrab;
     private bool grabbed;
     [SerializeField]private GameObject grabbedGameObject;
 
@@ -250,6 +250,10 @@ public class FoxMove : MonoBehaviour
         {
             hasChargedJump = PlayerManager.instance.abilityValues[1];
         }
+        if (!canTeleGrab) 
+        {
+            canTeleGrab = PlayerManager.instance.abilityValues[6];
+        }
         Controller.Move(Jump * Time.deltaTime * jumpSpeed);
 
         Controller.Move(Movement * Speed);
@@ -268,7 +272,7 @@ public class FoxMove : MonoBehaviour
 
         }
         RaycastHit hitInfo;
-        if (Physics.Raycast(LookAt.position, LookAt.forward, out hitInfo, viewDistance, Moveable) && !grabbed)
+        if (Physics.Raycast(LookAt.position, LookAt.forward, out hitInfo, viewDistance, Moveable) && !grabbed&&canTeleGrab)
         {
 
             Debug.DrawLine(LookAt.position, hitInfo.point);
@@ -289,7 +293,15 @@ public class FoxMove : MonoBehaviour
 
                 }
             }
+            if (Input.GetKeyDown(KeyCode.Escape) && Cursor.lockState == CursorLockMode.Locked)
+            {
+                Cursor.lockState = CursorLockMode.None;
+            }
+            if (Input.GetKeyDown(KeyCode.Escape)&&Cursor.lockState == CursorLockMode.None)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
 
+            }
 
         }
     }

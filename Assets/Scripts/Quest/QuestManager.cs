@@ -22,8 +22,8 @@ public class QuestManager : MonoBehaviour
         instance = this;
 
         // initialize quest map
-        questMap = CreateQuestMap();  
-        playerManager= FindObjectOfType<PlayerManager>();
+        //questMap = CreateQuestMap();
+        //playerManager = FindObjectOfType<PlayerManager>();
     }
 
     private void OnEnable()
@@ -49,11 +49,12 @@ public class QuestManager : MonoBehaviour
         GameEventsManager.instance.playerEvents.onExperienceGained -= PlayerLevelChange;
         GameEventsManager.instance.playerEvents.onAbilityGet -= AbilityGet;
     }
-
     private void Start()
     {
+        questMap = CreateQuestMap();
+        playerManager = FindObjectOfType<PlayerManager>();
         // broadcast the initial state of all quests on startup
-        foreach(Quest quest in questMap.Values)
+        foreach (Quest quest in questMap.Values)
         {
             // initialize any loaded quest steps
             if(quest.state == QuestState.IN_PROGRESS)
@@ -166,6 +167,7 @@ public class QuestManager : MonoBehaviour
     {
         // load all QuestInfoSOs in path Assets/Resources/Quests
         QuestScriptableObject[] allQuests = Resources.LoadAll<QuestScriptableObject>("Quests");
+        Debug.Log(allQuests.Length);
 
         // create the quest map
         Dictionary<string, Quest> idToQuestMap = new Dictionary<string, Quest>();

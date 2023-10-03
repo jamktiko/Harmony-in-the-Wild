@@ -701,14 +701,19 @@ MonoBehaviour:
   y: 0
   cameraMove: {fileID: 0}
   fox: {fileID: 266021418}
+  LookAt: {fileID: 0}
   boxSize: {x: 1, y: 1, z: 1}
   maxDistance: 0.4
+  viewDistance: 0
   GroundLayerMask:
     serializedVersion: 2
     m_Bits: 8
   WaterLayerMask:
     serializedVersion: 2
     m_Bits: 16
+  Moveable:
+    serializedVersion: 2
+    m_Bits: 0
   jumpforce: 3
   timer: 0
   enableGravity: 1
@@ -721,6 +726,14 @@ MonoBehaviour:
   canChargedJump: 0
   chargeJumpTimer: 0
   GlidingSpeed: 2
+  grabbableMat: {fileID: 0}
+  grabbedMat: {fileID: 0}
+  OriginialMat: {fileID: 0}
+  canTeleGrab: 0
+  grabbedGameObject: {fileID: 0}
+  GrabPosition: {fileID: 0}
+  grabTimer: 0
+  TelegrabObject: {fileID: 0}
 --- !u!114 &964071780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -920,7 +933,7 @@ GameObject:
   - component: {fileID: 1880504661}
   - component: {fileID: 1880504660}
   - component: {fileID: 1880504659}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}

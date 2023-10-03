@@ -16,6 +16,10 @@ public class Interactable : MonoBehaviour
             Debug.Log("object found!");
             Destroy(gameObject);
         }
+        if (Input.GetKeyDown(KeyCode.E) && isActive && QuestManager.instance.CheckQuestState("BunnyQuest").Equals(QuestState.FINISHED))
+        {
+            used = true;
+        }
     }
     private void OnTriggerEnter(Collider other)
     {
