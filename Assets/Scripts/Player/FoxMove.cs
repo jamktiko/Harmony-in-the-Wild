@@ -248,7 +248,7 @@ public class FoxMove : MonoBehaviour
         }
         if (!hasChargedJump) 
         {
-            hasChargedJump = PlayerManager.instance.abilityValues[1];
+            hasChargedJump = PlayerManager.instance.abilityValues[2];
         }
         if (!canTeleGrab) 
         {
