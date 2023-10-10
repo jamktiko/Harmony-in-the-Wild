@@ -9,11 +9,13 @@ public class PlayerTeleportation : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("enter");
-        if (other.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("player entered");
+            player.GetComponent<FoxMove>().enabled = false;
+            player.GetComponent<CharacterController>().enabled = false;
             player.position = teleportationTarget.position;
+            player.GetComponent<FoxMove>().enabled = true;
+            player.GetComponent<CharacterController>().enabled = true;
         }
     }
 }
