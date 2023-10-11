@@ -254,9 +254,10 @@ public class FoxMove : MonoBehaviour
         {
             canTeleGrab = PlayerManager.instance.abilityValues[6];
         }
-        Controller.Move(Jump * Time.deltaTime * jumpSpeed);
 
+        Controller.Move(Jump * Time.deltaTime * jumpSpeed);
         Controller.Move(Movement * Speed);
+
         //Telegrab ability
         if (grabbed && Input.GetKeyDown(KeyCode.B))
         {

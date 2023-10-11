@@ -4,66 +4,52 @@ using UnityEngine;
 
 public class MovablePlatform : MonoBehaviour
 {
-    [Header("Movement Type")]
-    [SerializeField] private bool circularMovement;
-
     [Header("Movement Config")]
-    [SerializeField] private float moveSpeed = 2;
-    [SerializeField] private MoveDirection direction;
-    [SerializeField] private Transform startPosition;
-    [SerializeField] private Transform endPosition;
+    [SerializeField] private PlatformWayPointPath wayPointPath;
+    [SerializeField] private float moveSpeed;
 
-    private Rigidbody rb;
-    private Vector3 targetPosition;
+    private int targetWaypointIndex;
+    private Transform previousWaypoint;
+    private Transform targetWayPoint;
+
+    private float timeToWaypoint;
+    private float elapsetTime;
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        targetPosition = endPosition.position;
+        TargetNextWaypoint();
     }
 
     private void FixedUpdate()
     {
-        Move();
+        elapsetTime += Time.deltaTime;
+
+        float elapsetPercentage = elapsetTime / timeToWaypoint;
+        elapsetPercentage = Mathf.SmoothStep(0, 1, elapsetPercentage);
+        transform.position = Vector3.Lerp(previousWaypoint.position, targetWayPoint.position, elapsetPercentage);
+
+        if(elapsetPercentage >= 1)
+        {
+            TargetNextWaypoint();
+        }
     }
 
-    private void Move()
+    private void TargetNextWaypoint()
     {
-        switch (direction)
-        {
-            case MoveDirection.Forward:
-                rb.MovePosition(Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime));
+        previousWaypoint = wayPointPath.GetWayPoint(targetWaypointIndex);
+        targetWaypointIndex = wayPointPath.GetNextWaypointIndex(targetWaypointIndex);
+        targetWayPoint = wayPointPath.GetWayPoint(targetWaypointIndex);
 
-                if (Vector3.Distance(transform.position, endPosition.position) < 5)
-                {
-                    targetPosition = startPosition.position;
-                    direction = MoveDirection.Backwards;
-                }
+        elapsetTime = 0;
 
-                break;
-
-            case MoveDirection.Backwards:
-                rb.MovePosition(Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime));
-
-                if (Vector3.Distance(transform.position, startPosition.position) < 5)
-                {
-                    targetPosition = endPosition.position;
-                    direction = MoveDirection.Forward;
-                }
-
-                break;
-        }
+        float distanceToWayPoint = Vector3.Distance(previousWaypoint.position, targetWayPoint.position);
+        timeToWaypoint = distanceToWayPoint / moveSpeed;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("player on board");
-
-            //other.GetComponent<FoxMove>().enabled = false;
-            other.GetComponent<CharacterController>().enabled = false;
-
             other.transform.SetParent(transform);
         }
     }
@@ -73,7 +59,6 @@ public class MovablePlatform : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             other.transform.SetParent(null);
-            Debug.Log("player not on board");
         }
     }
 }
