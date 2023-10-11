@@ -176,9 +176,13 @@ public class FoxMove : MonoBehaviour
         else if (!GroundCheck())
         {
             test=false;
-            if (Input.GetButtonDown("Jump")&&canGlide)
+            if (Input.GetButtonDown("Jump")&&canGlide&&!glider)
             {
                 glider = true;
+            }
+            else if (Input.GetButtonDown("Jump")&&canGlide&&glider)
+            {
+                glider=false;
             }
 
             //foreach (AnimatorControllerParameter item in animatorBools)
