@@ -33,7 +33,7 @@ public class FoxMove : MonoBehaviour
     [SerializeField] float jumpSpeed = 10f;
     Vector3 Jump = new Vector3(0, 0, 0);
     bool sprinting;
-    public bool canSwim = false;
+    [HideInInspector]public bool canSwim = false;
     public bool canGlide = false;
     public bool test = false;
     public bool glider = false;
@@ -325,9 +325,7 @@ public class FoxMove : MonoBehaviour
                 if (Input.GetKey(KeyCode.LeftControl))
                 {
                     Controller.enabled = false;
-                    Debug.Log("start");
                     gameObject.transform.position= hitInfo2.transform.GetChild(0).position;
-                    Debug.Log("done");
                     Controller.enabled = true;
 
                 }
@@ -344,10 +342,6 @@ public class FoxMove : MonoBehaviour
                 Speed = 6f;
             }
         }
-    }
-    private void LateUpdate()
-    {
-        
     }
     bool GroundCheck()
     {
