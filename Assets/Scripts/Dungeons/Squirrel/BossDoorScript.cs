@@ -9,6 +9,7 @@ public class BossDoorScript : MonoBehaviour
     List<LeverScript> scripts=new List<LeverScript>();
     public bool isOpen;
     public int usedlevers, levers;
+    [SerializeField] Material usedMat;
     // Start is called before the first frame update
     void Start()
     {

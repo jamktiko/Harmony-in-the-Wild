@@ -7,6 +7,7 @@ public class LeverScript : MonoBehaviour
     [SerializeField] bool isActive = false;
     [SerializeField] public bool used = false;
     BossDoorScript doorScript;
+    [SerializeField] Material usedMat;
     private void Start()
     {
         doorScript = FindObjectOfType<BossDoorScript>();
@@ -19,6 +20,7 @@ public class LeverScript : MonoBehaviour
             used = true;
             Debug.Log("Lever pulled!");
             doorScript.usedlevers++;
+            gameObject.GetComponent<MeshRenderer>().material= usedMat;
         }
     }
     private void OnTriggerEnter(Collider other)

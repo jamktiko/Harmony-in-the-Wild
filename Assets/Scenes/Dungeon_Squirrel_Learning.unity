@@ -238,6 +238,10 @@ PrefabInstance:
       value: 256
       objectReference: {fileID: 0}
     - target: {fileID: 379980145049643564, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
+      propertyPath: GroundLayerMask.m_Bits
+      value: 264
+      objectReference: {fileID: 0}
+    - target: {fileID: 379980145049643564, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: MoveableLayerMask.m_Bits
       value: 64
       objectReference: {fileID: 0}
@@ -292,7 +296,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8696992058596718124, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 618952783}
   m_SourcePrefab: {fileID: 100100000, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
 --- !u!4 &27893383 stripped
 Transform:
@@ -1105,6 +1112,38 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6067397495910368154, guid: d1d1e387b0d72c743a9e109ac7fa7004, type: 3}
   m_PrefabInstance: {fileID: 916476977}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &618952776 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8696992058596718124, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
+  m_PrefabInstance: {fileID: 18461757}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &618952783
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 618952776}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &654996374
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3662,6 +3701,10 @@ PrefabInstance:
     - target: {fileID: 6731008275771398970, guid: 089102296e4a1594285b2b4421d157cd, type: 3}
       propertyPath: m_Name
       value: Dungeon_GroundPiece_03
+      objectReference: {fileID: 0}
+    - target: {fileID: 6731008275771398970, guid: 089102296e4a1594285b2b4421d157cd, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6731008275771398970, guid: 089102296e4a1594285b2b4421d157cd, type: 3}
       propertyPath: m_IsActive
