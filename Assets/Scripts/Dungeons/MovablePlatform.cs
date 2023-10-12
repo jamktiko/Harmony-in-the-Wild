@@ -13,7 +13,7 @@ public class MovablePlatform : MonoBehaviour
     private Transform targetWayPoint;
 
     private float timeToWaypoint;
-    private float elapsetTime;
+    private float elapsedTime;
 
     private void Start()
     {
@@ -22,9 +22,9 @@ public class MovablePlatform : MonoBehaviour
 
     private void FixedUpdate()
     {
-        elapsetTime += Time.deltaTime;
+        elapsedTime += Time.deltaTime;
 
-        float elapsetPercentage = elapsetTime / timeToWaypoint;
+        float elapsetPercentage = elapsedTime / timeToWaypoint;
         elapsetPercentage = Mathf.SmoothStep(0, 1, elapsetPercentage);
         transform.position = Vector3.Lerp(previousWaypoint.position, targetWayPoint.position, elapsetPercentage);
 
@@ -40,7 +40,7 @@ public class MovablePlatform : MonoBehaviour
         targetWaypointIndex = wayPointPath.GetNextWaypointIndex(targetWaypointIndex);
         targetWayPoint = wayPointPath.GetWayPoint(targetWaypointIndex);
 
-        elapsetTime = 0;
+        elapsedTime = 0;
 
         float distanceToWayPoint = Vector3.Distance(previousWaypoint.position, targetWayPoint.position);
         timeToWaypoint = distanceToWayPoint / moveSpeed;
