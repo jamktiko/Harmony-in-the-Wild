@@ -6,18 +6,22 @@ public class ShootingRotatingBoss : MonoBehaviour
 {
     [Header("Config")]
     [SerializeField] private float rotationSpeed;
+    [Tooltip("Charging time between triggering shooting and creating projectile")]
+    [SerializeField] private float shootingChargeTime;
     [SerializeField] private float shootingCooldown;
 
     [Header("Needed References")]
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private Transform shootingSpot;
-    [SerializeField] private Transform player;
+    [SerializeField] private Transform player;    
 
-    private bool canShoot;
+    private bool canShoot = true;
+    private AudioSource audioSource;
 
     private void Start()
     {
         StartCoroutine(ShootingCooldown());
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -26,7 +30,8 @@ public class ShootingRotatingBoss : MonoBehaviour
 
         if (canShoot && CanSeePlayer())
         {
-            ShootProjectile();
+            canShoot = false;
+            StartCoroutine(InitializeShooting());
         }
     }
 
@@ -46,10 +51,19 @@ public class ShootingRotatingBoss : MonoBehaviour
         return false;
     }
 
+    private IEnumerator InitializeShooting()
+    {
+        audioSource.Play();
+
+        yield return new WaitForSeconds(shootingChargeTime);
+
+        ShootProjectile();
+    }
+
     private void ShootProjectile()
     {
-        canShoot = false;
         StartCoroutine(ShootingCooldown());
+        Debug.Log("shoot");
 
         GameObject newProjectile = Instantiate(projectilePrefab, shootingSpot);
 
