@@ -20,7 +20,7 @@ public class ShootingRotatingBoss : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(ShootingCooldown());
+        //StartCoroutine(ShootingCooldown());
         audioSource = GetComponent<AudioSource>();
     }
 
