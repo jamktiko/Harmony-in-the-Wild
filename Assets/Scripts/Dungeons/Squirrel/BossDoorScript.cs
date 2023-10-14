@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BossDoorScript : MonoBehaviour
 {
@@ -24,6 +25,15 @@ public class BossDoorScript : MonoBehaviour
         if (usedlevers == levers&&isOpen==false) 
         {
             isOpen = true;
+            gameObject.GetComponent<MeshRenderer>().material=usedMat;
+            gameObject.GetComponent<AudioSource>().Play();
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (isOpen&&other.CompareTag("Player")) 
+        {
+            SceneManager.LoadScene("Dungeon_Squirrel_Boss");
         }
     }
 }
