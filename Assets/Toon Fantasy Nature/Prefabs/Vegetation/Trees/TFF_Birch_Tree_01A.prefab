@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2793364243120449944}
   - component: {fileID: 1519768619348222685}
   - component: {fileID: 5648342975075702900}
+  - component: {fileID: 5993346312405920495}
   m_Layer: 0
   m_Name: TFF_Birch_Tree_01A
   m_TagString: Untagged
@@ -27,6 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2793364243118454616}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -35,7 +37,6 @@ Transform:
   - {fileID: 7283533057968665889}
   - {fileID: 3908781111431426319}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2793364243119450968
 MeshFilter:
@@ -96,9 +97,17 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2793364243118454616}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 4
+  serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 374d378f596ae6c4fa17c04466739c4b, type: 3}
@@ -129,11 +138,33 @@ LODGroup:
     renderers:
     - renderer: {fileID: 3908781111429657583}
   m_Enabled: 1
+--- !u!65 &5993346312405920495
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2793364243118454616}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.43603134, y: 10.376923, z: 0.3994865}
+  m_Center: {x: -0.10905886, y: 5.0000706, z: 0.016851887}
 --- !u!1001 &3908781111431818127
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 2793364243118680952}
     m_Modifications:
     - target: {fileID: 100000, guid: 9e4579731bfb6fa4cb4b26c9d3fd47e2, type: 3}
@@ -189,6 +220,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e4579731bfb6fa4cb4b26c9d3fd47e2, type: 3}
 --- !u!23 &3908781111429657583 stripped
 MeshRenderer:
@@ -205,6 +239,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 2793364243118680952}
     m_Modifications:
     - target: {fileID: 100000, guid: 6f400eb6f5ca7d841a73df3581d62d67, type: 3}
@@ -264,6 +299,9 @@ PrefabInstance:
       value: 1.0088643
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f400eb6f5ca7d841a73df3581d62d67, type: 3}
 --- !u!4 &7283533057968665889 stripped
 Transform:

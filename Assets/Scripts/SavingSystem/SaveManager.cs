@@ -40,7 +40,7 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-    private void SaveGame()
+    public void SaveGame()
     {
         FetchDataForSaving();
 
