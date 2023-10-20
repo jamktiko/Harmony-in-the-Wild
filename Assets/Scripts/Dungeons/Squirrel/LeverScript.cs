@@ -21,6 +21,7 @@ public class LeverScript : MonoBehaviour
             Debug.Log("Lever pulled!");
             doorScript.usedlevers++;
             gameObject.GetComponent<MeshRenderer>().material= usedMat;
+            gameObject.GetComponent<AudioSource>().Play();
         }
     }
     private void OnTriggerEnter(Collider other)
