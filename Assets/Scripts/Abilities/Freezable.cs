@@ -68,6 +68,9 @@ public class Freezable : MonoBehaviour
         Debug.Log(gameObject.name + " has been freezed.");
         isFreezed = true;
 
+        rb.useGravity = false;
+        rb.constraints = RigidbodyConstraints.FreezeAll;
+
         StartCoroutine(FreezeCooldown());
     }
 
@@ -76,6 +79,9 @@ public class Freezable : MonoBehaviour
         yield return new WaitForSeconds(freezeTime);
 
         isFreezed = false;
+
+        rb.useGravity = true;
+        rb.constraints = RigidbodyConstraints.None;
 
         Debug.Log(gameObject.name + " has been unfreezed.");
     }

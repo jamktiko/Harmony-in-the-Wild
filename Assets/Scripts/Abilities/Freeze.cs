@@ -25,6 +25,7 @@ public class Freeze : MonoBehaviour
     private void ActivateFreeze()
     {
         Collider[] foundObjects = Physics.OverlapSphere(transform.position, aoeRadius, LayerMask.GetMask("Freezables"));
+        Debug.Log(foundObjects.Length + " freezables found.");
 
         if(foundObjects != null)
         {
@@ -35,7 +36,6 @@ public class Freeze : MonoBehaviour
                 if (freezable)
                 {
                     freezable.Freeze();
-                    return;
                 }
             }
         }
