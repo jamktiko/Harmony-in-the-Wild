@@ -31,7 +31,7 @@ public class Projectile : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            other.GetComponent<HitCounter>().TakeHit();
+            other.GetComponent<HitCounter>().TakeHit(false);
             Destroy(gameObject);
         }
     }

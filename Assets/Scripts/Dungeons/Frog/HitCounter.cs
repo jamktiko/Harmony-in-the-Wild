@@ -12,26 +12,37 @@ public class HitCounter : MonoBehaviour
     [SerializeField] private Transform startingSpot;
 
     private int currentHits;
-    
-    public void TakeHit()
+
+    public void TakeHit(bool instaKill)
     {
-        Debug.Log("Player was hit by projectile!");
-
-        currentHits++;
-
-        if(currentHits >= maxHits)
+        if (instaKill)
         {
-            // move player back to starting spot
-            GetComponent<FoxMove>().enabled = false;
-            GetComponent<CharacterController>().enabled = false;
-
-            transform.position = startingSpot.position;
-
-            GetComponent<FoxMove>().enabled = true;
-            GetComponent<CharacterController>().enabled = true;
-
-            // reset current hits
-            currentHits = 0;
+            ReturnPlayerToStart();
         }
+
+        else
+        {
+            currentHits++;
+
+            if (currentHits >= maxHits)
+            {
+                ReturnPlayerToStart();
+            }
+        }
+    }
+
+    private void ReturnPlayerToStart()
+    {
+        // move player back to starting spot
+        GetComponent<FoxMove>().enabled = false;
+        GetComponent<CharacterController>().enabled = false;
+
+        transform.position = startingSpot.position;
+
+        GetComponent<FoxMove>().enabled = true;
+        GetComponent<CharacterController>().enabled = true;
+
+        // reset current hits
+        currentHits = 0;
     }
 }

@@ -19,6 +19,15 @@ public class ClosingWall : MonoBehaviour
     private float elapsedTime;
     private Freezable freezable;
 
+    private void OnEnable()
+    {
+        PenguinRaceManager.instance.penguinDungeonEvents.onLapInterrupted += ResetWallPosition;        PenguinRaceManager.instance.penguinDungeonEvents.onLapFinished += ResetWallPosition;    }
+
+    private void OnDisable()
+    {
+        PenguinRaceManager.instance.penguinDungeonEvents.onLapInterrupted -= ResetWallPosition;        PenguinRaceManager.instance.penguinDungeonEvents.onLapFinished -= ResetWallPosition;
+    }
+
     private void Start()
     {
         startSpot = transform.position;
@@ -50,11 +59,21 @@ public class ClosingWall : MonoBehaviour
         playerIsNear = true;
     }
 
+    private void ResetWallPosition()
+    {
+        if(transform.position != startSpot)
+        {
+            transform.position = startSpot;
+            playerIsNear = false;
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log("Player was hit by a closing wall.");
+            other.GetComponent<HitCounter>().TakeHit(true);
         }
     }
 }
