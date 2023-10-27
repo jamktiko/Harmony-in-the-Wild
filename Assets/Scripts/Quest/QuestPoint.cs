@@ -12,6 +12,11 @@ public class QuestPoint : MonoBehaviour
     [SerializeField] private bool startPoint = true;
     [SerializeField] private bool finishPoint = true;
 
+    [Header("Dialogue Config")]
+    [SerializeField] private bool hasDialogue;
+    [SerializeField] private TextAsset startQuestDialogue;
+    [SerializeField] private TextAsset finishQuestDialogue;
+
     private bool playerIsNear = false;
     private string questId;
     private QuestState currentQuestState;
@@ -33,7 +38,7 @@ public class QuestPoint : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.I))
+        if(Input.GetKeyDown(KeyCode.E))
         {
             InteractedWithQuestPoint();
         }
@@ -43,17 +48,29 @@ public class QuestPoint : MonoBehaviour
     {
         if (!playerIsNear)
         {
+            Debug.Log("player wasn't near enough");
             return;
         }
 
         // start or finish a quest
         if(currentQuestState.Equals(QuestState.CAN_START) && startPoint)
         {
+            if(hasDialogue && startQuestDialogue != null)
+            {
+                Debug.Log("starting dialogue");
+                DialogueManager.instance.StartDialogue(startQuestDialogue);
+            }
+
             GameEventsManager.instance.questEvents.StartQuest(questId);
         }
 
         else if(currentQuestState.Equals(QuestState.CAN_FINISH) && finishPoint)
         {
+            if (hasDialogue && finishQuestDialogue != null)
+            {
+                DialogueManager.instance.StartDialogue(finishQuestDialogue);
+            }
+
             GameEventsManager.instance.questEvents.FinishQuest(questId);
         }
     }
@@ -72,7 +89,6 @@ public class QuestPoint : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("player entered");
             playerIsNear = true;
         }
     }

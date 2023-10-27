@@ -19,21 +19,18 @@ public class ClosingWall : MonoBehaviour
     private float elapsedTime;
     private Freezable freezable;
 
-    private void OnEnable()
-    {
-        PenguinRaceManager.instance.penguinDungeonEvents.onLapInterrupted += ResetWallPosition;        PenguinRaceManager.instance.penguinDungeonEvents.onLapFinished += ResetWallPosition;    }
-
-    private void OnDisable()
-    {
-        PenguinRaceManager.instance.penguinDungeonEvents.onLapInterrupted -= ResetWallPosition;        PenguinRaceManager.instance.penguinDungeonEvents.onLapFinished -= ResetWallPosition;
-    }
-
     private void Start()
     {
         startSpot = transform.position;
         freezable = GetComponent<Freezable>();
 
         SetTimeToTarget();
+
+        PenguinRaceManager.instance.penguinDungeonEvents.onLapInterrupted += ResetWallPosition;        PenguinRaceManager.instance.penguinDungeonEvents.onLapFinished += ResetWallPosition;    }
+
+    private void OnDisable()
+    {
+        PenguinRaceManager.instance.penguinDungeonEvents.onLapInterrupted -= ResetWallPosition;        PenguinRaceManager.instance.penguinDungeonEvents.onLapFinished -= ResetWallPosition;
     }
 
     private void Update()

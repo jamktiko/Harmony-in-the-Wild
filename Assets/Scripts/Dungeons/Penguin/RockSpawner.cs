@@ -28,22 +28,6 @@ public class RockSpawner : MonoBehaviour
         PenguinRaceManager.instance.penguinDungeonEvents.onLapInterrupted -= DisableRockSpawning;
     }
 
-    private void Start()
-    {
-        SpawnRock();
-    }
-
-    public void EnableRockSpawning()
-    {
-        canSpawnRocks = true;
-        SpawnRock();
-    }
-
-    public void DisableRockSpawning()
-    {
-        canSpawnRocks = false;
-    }
-
     private void SpawnRock()
     {
         Vector3 spawnPosition = new Vector3(Random.Range(minX, maxX), height, Random.Range(minZ, maxZ));
@@ -62,5 +46,20 @@ public class RockSpawner : MonoBehaviour
         {
             SpawnRock();
         }
+    }
+
+    // ----------------------------------------------------------
+    // ENABLING METHODS (called from progress tracking colliders)
+    // ----------------------------------------------------------
+
+    public void EnableRockSpawning()
+    {
+        canSpawnRocks = true;
+        SpawnRock();
+    }
+
+    public void DisableRockSpawning()
+    {
+        canSpawnRocks = false;
     }
 }

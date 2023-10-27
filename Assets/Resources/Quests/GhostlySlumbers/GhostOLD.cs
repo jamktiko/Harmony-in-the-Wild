@@ -42,27 +42,27 @@ public class Ghost : MonoBehaviour
         GameEventsManager.instance.playerEvents.onGhostSpeakActivated -= SetGhostVisibility;
     }
 
-    private void Update()
+    /*private void Update()
     {
         if (Input.GetKeyDown(KeyCode.I))
         {
             InteractWithGhost();
         }
-    }
+    }*/
 
     private void SetGhostVisibility()
     {
         character.SetActive(true);
     }
 
-    public void InteractWithGhost()
+    /*public void InteractWithGhost()
     {
         // play random interaction if player is near the ghost and there is at least one dialogue to play
         if (playerIsNear && ghostInteractionOptions.Count != 0)
         {
-            DialogueManager.GetInstance().StartDialogue(ghostInteractionOptions[Random.Range(0, ghostInteractionOptions.Count)]);
+            DialogueManager.instance.StartDialogue(ghostInteractionOptions[Random.Range(0, ghostInteractionOptions.Count)]);
         }
-    }
+    }*/
 
     private void OnTriggerEnter(Collider other)
     {

@@ -11,6 +11,6 @@ public class DialogueTrigger : MonoBehaviour
 
     public void TriggerDialogue()
     {
-        DialogueManager.GetInstance().StartDialogue(inkJSON);
+        DialogueManager.instance.StartDialogue(inkJSON);
     }
 }

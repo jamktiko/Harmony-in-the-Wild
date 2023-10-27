@@ -10,6 +10,7 @@ public class PenguinRaceManager : MonoBehaviour
     [Header("Needed References")]
     [SerializeField] private TextMeshProUGUI lapCounterText;
     [SerializeField] private GameObject alertView;
+    [SerializeField] private GameObject winView;
 
     [Header("Debug")]
     [SerializeField] private int currentLap = 1;
@@ -29,6 +30,10 @@ public class PenguinRaceManager : MonoBehaviour
         penguinDungeonEvents = new PenguinDungeonEvents();
     }
 
+    // ---------------------
+    // TRIGGER CUSTOM EVENTS
+    // ---------------------
+
     public void LapInterrupted()
     {
         penguinDungeonEvents.LapInterrupted();
@@ -39,12 +44,22 @@ public class PenguinRaceManager : MonoBehaviour
         penguinDungeonEvents.LapFinished();
         currentLap++;
 
-        if(currentLap >= 3)
+        if(currentLap <= 3)
         {
             lapCounterText.text = currentLap + "/3";
         }
 
+        else
+        {
+            penguinDungeonEvents.RaceFinished();
+            winView.SetActive(true);
+        }
+
     }
+
+    // -----------------------------------------------------
+    // PROGRESS-RELATED METHODS (can be called from anywhere
+    // -----------------------------------------------------
 
     public void WrongWay()
     {
@@ -60,11 +75,6 @@ public class PenguinRaceManager : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
 
         alertView.SetActive(false);
-    }
-
-    public void ToggleFinishLineColliders(Collider finishline)
-    {
-        finishline.isTrigger = !finishline.isTrigger;
     }
 }
 
@@ -87,6 +97,16 @@ public class PenguinDungeonEvents
         if (onLapFinished != null)
         {
             onLapFinished();
+        }
+    }
+
+    public event Action onRaceFinished;
+
+    public void RaceFinished()
+    {
+        if (onRaceFinished != null)
+        {
+            onRaceFinished();
         }
     }
 }
