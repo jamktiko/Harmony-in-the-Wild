@@ -1,6 +1,9 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class FoxMovement : MonoBehaviour
 {
@@ -27,19 +30,34 @@ public class FoxMovement : MonoBehaviour
     [SerializeField] float glidingMultiplier = 0.4f;
     bool readytoJump=true;
 
-    [Header("Ground Check")]
+    [Header("Checks")]
     public LayerMask GroundLayerMask;
     public Vector3 boxSize;
     [SerializeField] Transform foxMiddle;
+    [SerializeField] Transform Camera;
+    [SerializeField] private Transform foxHead;
     public LayerMask WaterLayerMask;
     public LayerMask ClimbWallLayerMask;
     public LayerMask SnowLayerMask;
+    [SerializeField] float viewDistance;
+
+    [Header("Abilities")]
+    [SerializeField] bool glider;
+    [SerializeField] bool glidingNow;
+    [SerializeField] bool canChargedJump;
+    private float chargeJumpTimer;
+    private bool snowDive;
+    [SerializeField] float snowDiveSpeed=15f;
+    
+
 
     // Start is called before the first frame update
     void Start()
     {
         rb=GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+        PlayerManager.instance.abilityValues[0] = true;
+        PlayerManager.instance.abilityValues[3] = true;
     }
 
     // Update is called once per frame
@@ -48,7 +66,11 @@ public class FoxMovement : MonoBehaviour
         MyInput();
         SpeedControl();
         if (GroundCheck())
+        {
+            rb.mass = 1f;
             rb.drag = groundDrag;
+            glider = false;
+        }            
         else
             rb.drag = 0;
     }
@@ -64,11 +86,23 @@ public class FoxMovement : MonoBehaviour
         verticalInput = Input.GetAxisRaw("Vertical");
 
         //Jump check
-        if (Input.GetButtonDown("Jump")&&readytoJump&&GroundCheck())
+        if (Input.GetButtonDown("Jump")&&readytoJump&&GroundCheck()&&!canChargedJump)
         {
             readytoJump = false;
             Jump();
             Invoke(nameof(ResetJump),jumpCooldown);
+        }
+        else if (Input.GetButtonDown("Jump") && !GroundCheck() && PlayerManager.instance.abilityValues[0]&&!glider)
+        {
+            glider = true;
+        }
+        else if (Input.GetButtonDown("Jump") && !GroundCheck()&&glider)
+        {
+            glider = false;
+        }
+        else if (GroundCheck() && Input.GetButton("Jump") && canChargedJump)
+        {
+            ChargeJump();
         }
 
         //Sprint check
@@ -76,36 +110,116 @@ public class FoxMovement : MonoBehaviour
             sprinting=true;
         else
             sprinting = false;
+
+        //SnowDive check
+        if (Input.GetKey(KeyCode.LeftControl) && PlayerManager.instance.abilityValues[3]&&SnowCheck())
+            snowDive = true; 
+        else
+            snowDive = false;
+        
+        if (chargeJumpTimer!=0&&Input.GetButtonUp("Jump"))
+        {
+            rb.AddForce(transform.up * chargeJumpTimer, ForceMode.Impulse);
+            Invoke(nameof(ResetJump), 0);
+        }
+        if (PlayerManager.instance.abilityValues[3])
+        {
+            ClimbWall();
+        }
     }
+
     private void MovePlayer() 
     {
         //calculate movement direction
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
+        //snow diving
+        if (snowDive&&GroundCheck())
+        {
+            rb.AddForce(moveDirection.normalized * snowDiveSpeed * 10f, ForceMode.Force);
+        }
         //sprinting
-        if (sprinting && GroundCheck())
+        else if (sprinting && GroundCheck())
             rb.AddForce(moveDirection.normalized * SprintSpeed * 10f, ForceMode.Force);
 
         //on ground
         else if (GroundCheck())
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f,ForceMode.Force);
 
+        //gliding
+        else if (!GroundCheck() && glider)
+        {
+            
+            Glider();
+        }
+        else if (!GroundCheck()&&!glider)
+        {
+            DisableGlider();
+        }
+
         //in air
         else if (!GroundCheck())
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f*airMultiplier, ForceMode.Force);
 
-        
 
     }
+
+    private void Glider()
+    {
+        if (rb.useGravity)
+        {
+            rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+            rb.useGravity = false;
+            rb.velocity = new Vector3(0, -1.5f, 0);
+        }
+        rb.AddForce(moveDirection.normalized * moveSpeed *10f*glidingMultiplier, ForceMode.Force);
+    }
+    private void DisableGlider() 
+    {
+        if (!rb.useGravity)
+        {
+            rb.useGravity = true;
+        }
+        rb.AddForce(moveDirection.normalized * moveSpeed * 10f * glidingMultiplier, ForceMode.Force);
+    }
+
     private void Jump() 
     {
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
+
+    private void ChargeJump() 
+    {
+        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+        if (chargeJumpTimer < 12f)
+        {
+            chargeJumpTimer = chargeJumpTimer + 0.2f;
+        }
+    }
+    private void ClimbWall()
+    {
+        if (ClimbWallCheck())
+        {
+            RaycastHit hitInfo2;
+            if (Physics.Raycast(foxHead.position, foxHead.forward, out hitInfo2, 50f, ClimbWallLayerMask))
+            {
+                Debug.DrawLine(Camera.position, hitInfo2.point);
+                if (Input.GetKey(KeyCode.LeftControl))
+                {
+                    gameObject.transform.position = hitInfo2.transform.GetChild(0).position;
+
+                }
+
+            }
+        }
+    }
     private void ResetJump()
     {
         readytoJump=true;
+        chargeJumpTimer=0;
     }
     private void SpeedControl() 
     {
