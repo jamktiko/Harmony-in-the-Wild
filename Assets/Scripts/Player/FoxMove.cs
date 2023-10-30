@@ -24,14 +24,16 @@ public class FoxMove : MonoBehaviour
     [SerializeField] float viewDistance;
     public LayerMask GroundLayerMask;
     public LayerMask WaterLayerMask;
-    [SerializeField]LayerMask Moveable;
+    public LayerMask ClimbWallLayerMask;
+    public LayerMask SnowLayerMask;
+    [SerializeField]LayerMask MoveableLayerMask;
     public float jumpforce = 10f;
     public float timer = 0f;
     [SerializeField] bool enableGravity=true;
     [SerializeField] float jumpSpeed = 10f;
     Vector3 Jump = new Vector3(0, 0, 0);
     bool sprinting;
-    public bool canSwim = false;
+    [HideInInspector]public bool canSwim = false;
     public bool canGlide = false;
     public bool test = false;
     public bool glider = false;
@@ -45,6 +47,8 @@ public class FoxMove : MonoBehaviour
     public bool canTeleGrab;
     private bool grabbed;
     [SerializeField]private GameObject grabbedGameObject;
+    public bool snowy;
+    [SerializeField] private bool isSnowDiving;
 
     public Transform GrabPosition;
     [SerializeField]private int grabTimer;
@@ -88,14 +92,22 @@ public class FoxMove : MonoBehaviour
 
             //idle animation here
 
-            if (Input.GetKey(KeyCode.LeftShift)&&!sprinting)
+            if (Input.GetKey(KeyCode.LeftShift)&&!isSnowDiving)
             {
                 sprinting = true;
 
                 //running animation here
 
-                animator.speed = 1.4f;
+                //animator.speed = 1.4f;
                 Speed = 5;
+            }
+            
+            else if (Input.GetKey(KeyCode.LeftAlt)&&SnowCheck()&&!ClimbWallCheck())
+            {
+           
+                    Speed = 6;
+                    isSnowDiving=true;
+                
             }
             else
             {
@@ -103,7 +115,7 @@ public class FoxMove : MonoBehaviour
 
                 //walking animation here
 
-                animator.speed = 1f;
+                //animator.speed = 1f;
                 sprinting = false;
             }
             if (!WaterCheck())
@@ -164,9 +176,13 @@ public class FoxMove : MonoBehaviour
         else if (!GroundCheck())
         {
             test=false;
-            if (Input.GetButtonDown("Jump")&&canGlide)
+            if (Input.GetButtonDown("Jump")&&canGlide&&!glider)
             {
                 glider = true;
+            }
+            else if (Input.GetButtonDown("Jump")&&canGlide&&glider)
+            {
+                glider=false;
             }
 
             //foreach (AnimatorControllerParameter item in animatorBools)
@@ -248,15 +264,16 @@ public class FoxMove : MonoBehaviour
         }
         if (!hasChargedJump) 
         {
-            hasChargedJump = PlayerManager.instance.abilityValues[1];
+            hasChargedJump = PlayerManager.instance.abilityValues[2];
         }
         if (!canTeleGrab) 
         {
             canTeleGrab = PlayerManager.instance.abilityValues[6];
         }
-        Controller.Move(Jump * Time.deltaTime * jumpSpeed);
 
+        Controller.Move(Jump * Time.deltaTime * jumpSpeed);
         Controller.Move(Movement * Speed);
+
         //Telegrab ability
         if (grabbed && Input.GetKeyDown(KeyCode.B))
         {
@@ -272,7 +289,7 @@ public class FoxMove : MonoBehaviour
 
         }
         RaycastHit hitInfo;
-        if (Physics.Raycast(LookAt.position, LookAt.forward, out hitInfo, viewDistance, Moveable) && !grabbed&&canTeleGrab)
+        if (Physics.Raycast(LookAt.position, LookAt.forward, out hitInfo, viewDistance, MoveableLayerMask) && !grabbed&&canTeleGrab)
         {
 
             Debug.DrawLine(LookAt.position, hitInfo.point);
@@ -304,14 +321,36 @@ public class FoxMove : MonoBehaviour
             }
 
         }
-    }
-    private void LateUpdate()
-    {
-        
+        if (ClimbWallCheck())
+        {
+            RaycastHit hitInfo2;
+            if (Physics.Raycast(LookAt.position, LookAt.forward, out hitInfo2, viewDistance, ClimbWallLayerMask))
+            {
+                Debug.DrawLine(LookAt.position, hitInfo2.point);
+                if (Input.GetKey(KeyCode.LeftControl))
+                {
+                    Controller.enabled = false;
+                    gameObject.transform.position= hitInfo2.transform.GetChild(0).position;
+                    Controller.enabled = true;
+
+                }
+
+            }
+            
+            
+        }
+        else if (SnowCheck())
+        {
+            if (Input.GetKey(KeyCode.LeftAlt)&&!sprinting)
+            {
+                isSnowDiving = true;
+                Speed = 6f;
+            }
+        }
     }
     bool GroundCheck()
     {
-        if (Physics.CheckSphere(fox.position,boxSize.x,GroundLayerMask,QueryTriggerInteraction.Ignore))
+        if (Physics.CheckSphere(fox.position,boxSize.y,GroundLayerMask,QueryTriggerInteraction.Ignore))
         {
             return true;
         }
@@ -334,7 +373,29 @@ public class FoxMove : MonoBehaviour
     }
     bool WaterCheck()
     {
-        if (Physics.CheckSphere(fox.position, boxSize.x, WaterLayerMask, QueryTriggerInteraction.Ignore))
+        if (Physics.CheckSphere(fox.position, boxSize.y, WaterLayerMask, QueryTriggerInteraction.Ignore))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    bool ClimbWallCheck()
+    {
+        if (Physics.CheckSphere(fox.position, boxSize.z, ClimbWallLayerMask, QueryTriggerInteraction.Ignore))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    bool SnowCheck()
+    {
+        if (Physics.CheckSphere(fox.position, boxSize.y, SnowLayerMask, QueryTriggerInteraction.Ignore))
         {
             return true;
         }
