@@ -32,7 +32,6 @@ public class Destructible : MonoBehaviour
             {
                 if (gameObject.GetComponent<Freezable>().isFreezed)
                 {
-                    Debug.Log("Using rock smash on " + gameObject.name);
                     Instantiate(destroyedVersion, transform.position, Quaternion.identity);
                     Destroy(gameObject);
                 }
@@ -63,17 +62,16 @@ public class Destructible : MonoBehaviour
 
     public void CheckForOre()
     {
-        Debug.Log("checking");
         if (hasOre)
         {
-            SmashingManager.instance.UpdateProgress(hasOre);
+            SmashingAttemptCounter.instance.UpdateProgress(hasOre);
             Instantiate(oreVersion, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
 
         else
         {
-            SmashingManager.instance.UpdateProgress(hasOre);
+            SmashingAttemptCounter.instance.UpdateProgress(hasOre);
             Instantiate(destroyedVersion, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
