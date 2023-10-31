@@ -28,13 +28,11 @@ public class DialogueManager : MonoBehaviour
 
     private TextMeshProUGUI[] choicesText;
     private Story currentStory;
+    private bool canStartDialogue = true;
 
-    private static DialogueManager instance;
+    public static DialogueManager instance;
 
-    public static DialogueManager GetInstance()
-    {
-        return instance;
-    }
+    private const string speaker = "speaker";
 
     private void Awake()
     {
@@ -105,11 +103,14 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(TextAsset inkJSON)
     {
-        currentStory = new Story(inkJSON.text);
-        dialogueIsPlaying = true;
-        dialogueCanvas.SetActive(true);
+        if (canStartDialogue)
+        {
+            currentStory = new Story(inkJSON.text);
+            dialogueIsPlaying = true;
+            dialogueCanvas.SetActive(true);
 
-        ContinueDialogue();
+            ContinueDialogue();
+        }
     }
 
     public void ContinueDialogue()
@@ -183,7 +184,6 @@ public class DialogueManager : MonoBehaviour
 
     public void MakeChoice(int choiceIndex)
     {
-        Debug.Log("Made a choice.");
         currentStory.ChooseChoiceIndex(choiceIndex);
 
         ContinueDialogue();
@@ -205,7 +205,7 @@ public class DialogueManager : MonoBehaviour
 
             switch (tagKey)
             {
-                case "speakerName":
+                case speaker:
                     speakerText.text = tagValue;
                     break;
 
@@ -218,10 +218,21 @@ public class DialogueManager : MonoBehaviour
 
     private void EndDialogue()
     {
-        Debug.Log("Dialogue ending.");
         dialogueIsPlaying = false;
         dialogueText.text = "";
 
         dialogueCanvas.SetActive(false);
+
+        StartCoroutine(DelayBetweenDialogues());
+    }
+
+    // delay between dialogues to prevent a bug from moving from one dialogue to another with the same character without player pressing any keys
+    private IEnumerator DelayBetweenDialogues()
+    {
+        canStartDialogue = false;
+
+        yield return new WaitForSeconds(3f);
+
+        canStartDialogue = true;
     }
 }

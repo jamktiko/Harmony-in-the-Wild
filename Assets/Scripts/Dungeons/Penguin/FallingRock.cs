@@ -14,7 +14,7 @@ public class FallingRock : MonoBehaviour
             Instantiate(destroyEffect, transform.position, Quaternion.identity);
             Destroy(gameObject);
 
-            // player should be moved to starting position
+            other.GetComponent<HitCounter>().TakeHit(false);
         }
 
         else

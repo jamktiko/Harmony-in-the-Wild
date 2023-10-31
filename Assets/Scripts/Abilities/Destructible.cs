@@ -6,9 +6,13 @@ public class Destructible : MonoBehaviour
 {
     [Header("Config")]
     [SerializeField] private bool needsToBeFreezed;
+    [SerializeField] private bool isQuestRock;
 
     [Header("Needed References")]
     [SerializeField] private GameObject destroyedVersion;
+    [SerializeField] private GameObject oreVersion;
+
+    private bool hasOre;
 
     private void Update()
     {
@@ -28,7 +32,6 @@ public class Destructible : MonoBehaviour
             {
                 if (gameObject.GetComponent<Freezable>().isFreezed)
                 {
-                    Debug.Log("Using rock smash on " + gameObject.name);
                     Instantiate(destroyedVersion, transform.position, Quaternion.identity);
                     Destroy(gameObject);
                 }
@@ -39,11 +42,38 @@ public class Destructible : MonoBehaviour
                 }
             }
 
+            else if (isQuestRock)
+            {
+                CheckForOre();
+            }
+
             else
             {
                 Instantiate(destroyedVersion, transform.position, Quaternion.identity);
                 Destroy(gameObject);
             }
+        }
+    }
+
+    public void IncludeOre()
+    {
+        hasOre = true;
+    }
+
+    public void CheckForOre()
+    {
+        if (hasOre)
+        {
+            SmashingAttemptCounter.instance.UpdateProgress(hasOre);
+            Instantiate(oreVersion, transform.position, Quaternion.identity);
+            Destroy(gameObject);
+        }
+
+        else
+        {
+            SmashingAttemptCounter.instance.UpdateProgress(hasOre);
+            Instantiate(destroyedVersion, transform.position, Quaternion.identity);
+            Destroy(gameObject);
         }
     }
 }

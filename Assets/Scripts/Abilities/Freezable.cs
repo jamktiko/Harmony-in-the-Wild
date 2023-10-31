@@ -9,24 +9,24 @@ public class Freezable : MonoBehaviour
 
     [Header("Freeze Config")]
     [SerializeField] private float freezeTime;
-
+    /*
     [Header("Movement Config")]
     [SerializeField] private bool isMovable;
     [SerializeField] private float moveSpeed = 2;
     [SerializeField] private MoveDirection direction;
     [SerializeField] private Vector3 startPosition;
     [SerializeField] private Vector3 endPosition;
-
+    */
     private Rigidbody rb;
     private Vector3 targetPosition;
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        TryGetComponent<Rigidbody>(out rb);
 
-        targetPosition = endPosition;
+        //targetPosition = endPosition;
     }
-
+    /*
     private void FixedUpdate()
     {
         if (!isFreezed && isMovable)
@@ -62,14 +62,17 @@ public class Freezable : MonoBehaviour
                 break;
         }
     }
-
+    */
     public void Freeze()
     {
         Debug.Log(gameObject.name + " has been freezed.");
         isFreezed = true;
 
-        rb.useGravity = false;
-        rb.constraints = RigidbodyConstraints.FreezeAll;
+        if(rb != null)
+        {
+            rb.useGravity = false;
+            rb.constraints = RigidbodyConstraints.FreezeAll;
+        }
 
         StartCoroutine(FreezeCooldown());
     }
@@ -80,8 +83,11 @@ public class Freezable : MonoBehaviour
 
         isFreezed = false;
 
-        rb.useGravity = true;
-        rb.constraints = RigidbodyConstraints.None;
+        if(rb != null)
+        {
+            rb.useGravity = true;
+            rb.constraints = RigidbodyConstraints.None;
+        }
 
         Debug.Log(gameObject.name + " has been unfreezed.");
     }

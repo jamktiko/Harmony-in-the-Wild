@@ -11,6 +11,13 @@ public class QuestPoint : MonoBehaviour
     [Header("Config")]
     [SerializeField] private bool startPoint = true;
     [SerializeField] private bool finishPoint = true;
+    [Tooltip("The index of the child object that will be enabled from Quest Canvas adter activating the quest. Set to -1 if no UI is needed.")]
+    [SerializeField] private int canvasObjectIndex;
+
+    [Header("Dialogue Config")]
+    [SerializeField] private bool hasDialogue;
+    [SerializeField] private TextAsset startQuestDialogue;
+    [SerializeField] private TextAsset finishQuestDialogue;
 
     private bool playerIsNear = false;
     private string questId;
@@ -33,7 +40,7 @@ public class QuestPoint : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.I))
+        if(Input.GetKeyDown(KeyCode.E))
         {
             InteractedWithQuestPoint();
         }
@@ -49,12 +56,32 @@ public class QuestPoint : MonoBehaviour
         // start or finish a quest
         if(currentQuestState.Equals(QuestState.CAN_START) && startPoint)
         {
+            if(hasDialogue && startQuestDialogue != null)
+            {
+                DialogueManager.instance.StartDialogue(startQuestDialogue);
+            }
+
             GameEventsManager.instance.questEvents.StartQuest(questId);
+
+            if(canvasObjectIndex >= 0)
+            {
+                GameObject.FindGameObjectWithTag("QuestCanvas").transform.GetChild(canvasObjectIndex).gameObject.SetActive(true);
+            }
         }
 
         else if(currentQuestState.Equals(QuestState.CAN_FINISH) && finishPoint)
         {
+            if (hasDialogue && finishQuestDialogue != null)
+            {
+                DialogueManager.instance.StartDialogue(finishQuestDialogue);
+            }
+
             GameEventsManager.instance.questEvents.FinishQuest(questId);
+
+            if (canvasObjectIndex >= 0)
+            {
+                GameObject.FindGameObjectWithTag("QuestCanvas").transform.GetChild(canvasObjectIndex).gameObject.SetActive(false);
+            }
         }
     }
 
@@ -72,7 +99,6 @@ public class QuestPoint : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("player entered");
             playerIsNear = true;
         }
     }

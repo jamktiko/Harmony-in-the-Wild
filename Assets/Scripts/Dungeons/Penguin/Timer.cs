@@ -17,6 +17,20 @@ public class Timer : MonoBehaviour
     // private variables
     private float currentTime;
 
+    private void Start()
+    {
+        PenguinRaceManager.instance.penguinDungeonEvents.onLapInterrupted += ResetTimeAfterInterruptedLap;
+        PenguinRaceManager.instance.penguinDungeonEvents.onLapFinished += StartTimerForNewLap;
+        PenguinRaceManager.instance.penguinDungeonEvents.onRaceFinished += StopTimer;
+    }
+
+    private void OnDisable()
+    {
+        PenguinRaceManager.instance.penguinDungeonEvents.onLapInterrupted -= ResetTimeAfterInterruptedLap;
+        PenguinRaceManager.instance.penguinDungeonEvents.onLapFinished -= StartTimer;
+        PenguinRaceManager.instance.penguinDungeonEvents.onRaceFinished -= StopTimer;
+    }
+
     public void StartTimer()
     {
         raceInProgress = true;
@@ -41,5 +55,27 @@ public class Timer : MonoBehaviour
 
             yield return new WaitForSeconds(1f);
         }
+    }
+
+    private void StartTimerForNewLap()
+    {
+        raceInProgress = false;
+
+        currentTime = 0;
+
+        raceInProgress = true;
+        StartCoroutine(TimerProgress());
+    }
+
+    private void ResetTimeAfterInterruptedLap()
+    {
+        raceInProgress = false;
+
+        currentTime = 0;
+    }
+
+    private void StopTimer()
+    {
+        raceInProgress = false;
     }
 }

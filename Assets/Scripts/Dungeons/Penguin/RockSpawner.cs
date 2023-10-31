@@ -16,18 +16,24 @@ public class RockSpawner : MonoBehaviour
 
     [Header("Spawn Config")]
     [SerializeField] private float spawnPauseTime;
+    [SerializeField] private bool canSpawnRocks;
 
-    private void Start()
+    private void OnEnable()
     {
-        SpawnRock();
+        PenguinRaceManager.instance.penguinDungeonEvents.onLapInterrupted += DisableRockSpawning;
+    }
+
+    private void OnDisable()
+    {
+        PenguinRaceManager.instance.penguinDungeonEvents.onLapInterrupted -= DisableRockSpawning;
     }
 
     private void SpawnRock()
     {
-        Vector3 spawnPosition = new Vector3(Random.Range(minX, maxX), height, Random.Range(minZ, maxX));
+        Vector3 spawnPosition = new Vector3(Random.Range(minX, maxX), height, Random.Range(minZ, maxZ));
 
         GameObject newRock = Instantiate(rockPrefabs[Random.Range(0, rockPrefabs.Count)], transform);
-        newRock.transform.position = spawnPosition;
+        newRock.transform.localPosition = spawnPosition;
 
         StartCoroutine(SpawnPause());
     }
@@ -36,6 +42,24 @@ public class RockSpawner : MonoBehaviour
     {
         yield return new WaitForSeconds(spawnPauseTime);
 
+        if (canSpawnRocks)
+        {
+            SpawnRock();
+        }
+    }
+
+    // ----------------------------------------------------------
+    // ENABLING METHODS (called from progress tracking colliders)
+    // ----------------------------------------------------------
+
+    public void EnableRockSpawning()
+    {
+        canSpawnRocks = true;
         SpawnRock();
+    }
+
+    public void DisableRockSpawning()
+    {
+        canSpawnRocks = false;
     }
 }

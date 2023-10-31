@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1851955844147182237}
+  - component: {fileID: 5529991853105123737}
+  - component: {fileID: 7088967629257084222}
   m_Layer: 0
   m_Name: QuestGiver_GhostSpeak
   m_TagString: Untagged
@@ -32,6 +34,45 @@ Transform:
   - {fileID: 7239270412016934164}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5529991853105123737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7206968709148690331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2f575a57aceadf4b9723946d8115a48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questInfoForPoint: {fileID: 11400000, guid: 6c02d37c685197b408e97112ff90175a, type: 2}
+  startPoint: 1
+  finishPoint: 1
+  hasDialogue: 1
+  startQuestDialogue: {fileID: 4900000, guid: 72e6d60b75f5cce49ac7cbe5e7b14364, type: 3}
+  finishQuestDialogue: {fileID: 4900000, guid: 86650a866ac0e484191ccd35afc6db27, type: 3}
+--- !u!135 &7088967629257084222
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7206968709148690331}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8071916277448716690
 GameObject:
   m_ObjectHideFlags: 0
