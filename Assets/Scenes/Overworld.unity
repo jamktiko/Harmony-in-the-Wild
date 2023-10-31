@@ -522,6 +522,7 @@ Transform:
   m_Children:
   - {fileID: 979614637}
   - {fileID: 1226416861}
+  - {fileID: 1294968077}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &155319924
@@ -2067,6 +2068,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1226416861}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &887309867 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2767140021852736059, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
+  m_PrefabInstance: {fileID: 1470463839}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &911717181
 GameObject:
   m_ObjectHideFlags: 0
@@ -2324,6 +2330,7 @@ GameObject:
   m_Component:
   - component: {fileID: 979614637}
   - component: {fileID: 979614639}
+  - component: {fileID: 979614640}
   - component: {fileID: 979614638}
   m_Layer: 0
   m_Name: QuestGiver_Smashing
@@ -2387,7 +2394,25 @@ MonoBehaviour:
   canvasObjectIndex: 0
   hasDialogue: 1
   startQuestDialogue: {fileID: 4900000, guid: 61685c6074708754385a945c2dd9211a, type: 3}
-  finishQuestDialogue: {fileID: 0}
+  finishQuestDialogue: {fileID: 4900000, guid: ead6b5e4a04625c46b9ce6f6875dce5d, type: 3}
+--- !u!114 &979614640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 979614636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d35831d1cd64a274bade46fdf2cfb084, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questScriptableObject: {fileID: 11400000, guid: 2516fe6e107cfef4f918ac05f3a2b495, type: 2}
+  restartDialogue: {fileID: 4900000, guid: f4494fa4a538c3c4f9a81da4d76af6e4, type: 3}
+  questCanvas: {fileID: 1585835475}
+  attemptCounterText: {fileID: 1607068722}
+  player: {fileID: 887309867}
+  startPosition: {fileID: 1294968077}
 --- !u!1 &1078418242
 GameObject:
   m_ObjectHideFlags: 0
@@ -2699,6 +2724,37 @@ MonoBehaviour:
   respawnTime: 5
   rockPrefab: {fileID: 5233471367900013414, guid: de328d383ffff724f9beb90fa379d574, type: 3}
   spawnEffect: {fileID: 9157105887711914197, guid: b1b9ebcd019efa74681a85feb5b90536, type: 3}
+--- !u!1 &1294968076
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1294968077}
+  m_Layer: 0
+  m_Name: RestartPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1294968077
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1294968076}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -13.74, y: 0.63, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 93149017}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1327105124
 PrefabInstance:
   m_ObjectHideFlags: 0
