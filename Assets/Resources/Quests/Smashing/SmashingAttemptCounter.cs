@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SmashingAttemptCounter : QuestStep
 {
@@ -30,10 +31,13 @@ public class SmashingAttemptCounter : QuestStep
     {
         currentQuestId = questScriptableObject.id;
 
-        StartCoroutine(QuestProgressCheckDelay());
+        if(SceneManager.GetActiveScene().name == "Overworld")
+        {
+            StartCoroutine(QuestProgressCheckDelay());
 
-        attemptsLeft = maxAttempts;
-        SmashingManager.instance.UpdateAttemptCounter(attemptsLeft, maxAttempts);
+            attemptsLeft = maxAttempts;
+            SmashingManager.instance.UpdateAttemptCounter(attemptsLeft, maxAttempts);
+        }
     }
 
     public void UpdateProgress(bool oreWasFound)
