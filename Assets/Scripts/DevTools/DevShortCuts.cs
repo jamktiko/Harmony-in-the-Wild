@@ -17,6 +17,10 @@ public class DevShortCuts : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKey(KeyCode.Tab)&& Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene("Overworld");
+        }
         if(Input.GetKey(KeyCode.B) && Input.GetKeyDown(KeyCode.S))
         {
             SceneManager.LoadScene(bossScene);
@@ -24,13 +28,13 @@ public class DevShortCuts : MonoBehaviour
 
         if (Input.GetKey(KeyCode.N) && Input.GetKeyDown(KeyCode.P))
         {
-            player.GetComponent<FoxMove>().enabled = false;
-            player.GetComponent<CharacterController>().enabled = false;
+            //player.GetComponent<FoxMove>().enabled = false;
+            //player.GetComponent<CharacterController>().enabled = false;
 
             player.position = newPosition.position;
 
-            player.GetComponent<FoxMove>().enabled = true;
-            player.GetComponent<CharacterController>().enabled = true;
+            //player.GetComponent<FoxMove>().enabled = true;
+            //player.GetComponent<CharacterController>().enabled = true;
         }
     }
 }
