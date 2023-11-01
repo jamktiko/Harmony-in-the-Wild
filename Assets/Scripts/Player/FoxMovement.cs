@@ -56,8 +56,6 @@ public class FoxMovement : MonoBehaviour
     {
         rb=GetComponent<Rigidbody>();
         rb.freezeRotation = true;
-        PlayerManager.instance.abilityValues[0] = true;
-        PlayerManager.instance.abilityValues[3] = true;
     }
 
     // Update is called once per frame
@@ -85,6 +83,16 @@ public class FoxMovement : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            
+            canChargedJump = !canChargedJump;
+        }
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            PlayerManager.instance.abilityValues[3] = true;
+            PlayerManager.instance.abilityValues[0] = !PlayerManager.instance.abilityValues[0];
+        }
         //Jump check
         if (Input.GetButtonDown("Jump")&&readytoJump&&GroundCheck()&&!canChargedJump)
         {
@@ -194,18 +202,20 @@ public class FoxMovement : MonoBehaviour
     {
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
-        if (chargeJumpTimer < 12f)
+        if (chargeJumpTimer < 20f)
         {
-            chargeJumpTimer = chargeJumpTimer + 0.2f;
+            chargeJumpTimer = chargeJumpTimer + 0.4f;
         }
     }
     private void ClimbWall()
     {
         if (ClimbWallCheck())
         {
+            Debug.Log("wall detected");
             RaycastHit hitInfo2;
-            if (Physics.Raycast(foxHead.position, foxHead.forward, out hitInfo2, 50f, ClimbWallLayerMask))
+            if (Physics.Raycast(Camera.position, Camera.forward, out hitInfo2, 50f, ClimbWallLayerMask))
             {
+
                 Debug.DrawLine(Camera.position, hitInfo2.point);
                 if (Input.GetKey(KeyCode.LeftControl))
                 {
