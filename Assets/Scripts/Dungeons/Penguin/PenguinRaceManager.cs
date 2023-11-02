@@ -58,7 +58,7 @@ public class PenguinRaceManager : MonoBehaviour
     }
 
     // -----------------------------------------------------
-    // PROGRESS-RELATED METHODS (can be called from anywhere)
+    // PROGRESS-RELATED METHODS (can be called from anywhere
     // -----------------------------------------------------
 
     public void WrongWay()
