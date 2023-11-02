@@ -11,7 +11,7 @@ public class PlayerTeleportation : MonoBehaviour
 
     private void Start()
     {
-        //audioSource = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -24,12 +24,14 @@ public class PlayerTeleportation : MonoBehaviour
 
     private IEnumerator Teleport()
     {
-        //audioSource.Play();
-        //player.GetComponent<FoxMove>().enabled = false;
+        audioSource.Play();
+        player.GetComponent<FoxMove>().enabled = false;
+        player.GetComponent<CharacterController>().enabled = false;
 
-        //yield return new WaitForSeconds(audioSource.clip.length * 0.75f);
-        yield return new WaitForSeconds(0.75f);
+        yield return new WaitForSeconds(audioSource.clip.length * 0.75f);
+
         player.position = teleportationTarget.position;
-        //player.GetComponent<FoxMove>().enabled = true;
+        player.GetComponent<FoxMove>().enabled = true;
+        player.GetComponent<CharacterController>().enabled = true;
     }
 }

@@ -26,14 +26,11 @@ public class ClosingWall : MonoBehaviour
 
         SetTimeToTarget();
 
-        PenguinRaceManager.instance.penguinDungeonEvents.onLapInterrupted += ResetWallPosition;
-        PenguinRaceManager.instance.penguinDungeonEvents.onLapFinished += ResetWallPosition;
-    }
+        PenguinRaceManager.instance.penguinDungeonEvents.onLapInterrupted += ResetWallPosition;        PenguinRaceManager.instance.penguinDungeonEvents.onLapFinished += ResetWallPosition;    }
 
     private void OnDisable()
     {
-        PenguinRaceManager.instance.penguinDungeonEvents.onLapInterrupted -= ResetWallPosition;
-        PenguinRaceManager.instance.penguinDungeonEvents.onLapFinished -= ResetWallPosition;
+        PenguinRaceManager.instance.penguinDungeonEvents.onLapInterrupted -= ResetWallPosition;        PenguinRaceManager.instance.penguinDungeonEvents.onLapFinished -= ResetWallPosition;
     }
 
     private void Update()
