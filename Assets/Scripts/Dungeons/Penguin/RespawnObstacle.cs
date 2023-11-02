@@ -10,11 +10,13 @@ public class RespawnObstacle : MonoBehaviour
     private void Start()
     {
         PenguinRaceManager.instance.penguinDungeonEvents.onLapInterrupted += RespawnObject;
+        PenguinRaceManager.instance.penguinDungeonEvents.onLapFinished += RespawnObject;
     }
 
     private void OnDisable()
     {
         PenguinRaceManager.instance.penguinDungeonEvents.onLapInterrupted -= RespawnObject;
+        PenguinRaceManager.instance.penguinDungeonEvents.onLapFinished -= RespawnObject;
     }
 
     private void RespawnObject()

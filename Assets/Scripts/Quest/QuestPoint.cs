@@ -11,6 +11,8 @@ public class QuestPoint : MonoBehaviour
     [Header("Config")]
     [SerializeField] private bool startPoint = true;
     [SerializeField] private bool finishPoint = true;
+    [Tooltip("The index of the child object that will be enabled from Quest Canvas adter activating the quest. Set to -1 if no UI is needed.")]
+    [SerializeField] private int canvasObjectIndex;
 
     [Header("Dialogue Config")]
     [SerializeField] private bool hasDialogue;
@@ -48,7 +50,6 @@ public class QuestPoint : MonoBehaviour
     {
         if (!playerIsNear)
         {
-            Debug.Log("player wasn't near enough");
             return;
         }
 
@@ -57,11 +58,15 @@ public class QuestPoint : MonoBehaviour
         {
             if(hasDialogue && startQuestDialogue != null)
             {
-                Debug.Log("starting dialogue");
                 DialogueManager.instance.StartDialogue(startQuestDialogue);
             }
 
             GameEventsManager.instance.questEvents.StartQuest(questId);
+
+            if(canvasObjectIndex >= 0)
+            {
+                GameObject.FindGameObjectWithTag("QuestCanvas").transform.GetChild(canvasObjectIndex).gameObject.SetActive(true);
+            }
         }
 
         else if(currentQuestState.Equals(QuestState.CAN_FINISH) && finishPoint)
@@ -72,6 +77,11 @@ public class QuestPoint : MonoBehaviour
             }
 
             GameEventsManager.instance.questEvents.FinishQuest(questId);
+
+            if (canvasObjectIndex >= 0)
+            {
+                GameObject.FindGameObjectWithTag("QuestCanvas").transform.GetChild(canvasObjectIndex).gameObject.SetActive(false);
+            }
         }
     }
 
