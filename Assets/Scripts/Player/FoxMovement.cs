@@ -128,6 +128,7 @@ public class FoxMovement : MonoBehaviour
         if (chargeJumpTimer!=0&&Input.GetButtonUp("Jump"))
         {
             rb.AddForce(transform.up * chargeJumpTimer, ForceMode.Impulse);
+            //chargejump animation here
             Invoke(nameof(ResetJump), 0);
         }
         if (PlayerManager.instance.abilityValues[3])
@@ -136,38 +137,52 @@ public class FoxMovement : MonoBehaviour
         }
     }
 
-    private void MovePlayer() 
+    private void MovePlayer()
     {
         //calculate movement direction
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
-
+        if (moveDirection==Vector3.zero&&GroundCheck())
+        {
+            //idle animation here
+        }
         //snow diving
-        if (snowDive&&GroundCheck())
+        else if (snowDive && GroundCheck())
         {
             rb.AddForce(moveDirection.normalized * snowDiveSpeed * 10f, ForceMode.Force);
+            //snow diving animation here
         }
         //sprinting
         else if (sprinting && GroundCheck())
+        {
             rb.AddForce(moveDirection.normalized * SprintSpeed * 10f, ForceMode.Force);
+            //running animation here
+        }
+
 
         //on ground
         else if (GroundCheck())
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f,ForceMode.Force);
+        {
+            rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+            //walking animation here
+        }
+
 
         //gliding
         else if (!GroundCheck() && glider)
         {
-            
             Glider();
         }
-        else if (!GroundCheck()&&!glider)
+        else if (!GroundCheck() && !glider)
         {
             DisableGlider();
         }
 
         //in air
-        else if (!GroundCheck())
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f*airMultiplier, ForceMode.Force);
+        else if (!GroundCheck()) 
+        {
+            rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+            //in air animation here
+        }
 
 
     }
@@ -179,8 +194,10 @@ public class FoxMovement : MonoBehaviour
             rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             rb.useGravity = false;
             rb.velocity = new Vector3(0, -1.5f, 0);
+
         }
         rb.AddForce(moveDirection.normalized * moveSpeed *10f*glidingMultiplier, ForceMode.Force);
+        //gliding animation here
     }
     private void DisableGlider() 
     {
@@ -196,6 +213,7 @@ public class FoxMovement : MonoBehaviour
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        //jumping animation here
     }
 
     private void ChargeJump() 
@@ -205,6 +223,7 @@ public class FoxMovement : MonoBehaviour
         if (chargeJumpTimer < 20f)
         {
             chargeJumpTimer = chargeJumpTimer + 0.4f;
+            //charging animation here
         }
     }
     private void ClimbWall()
@@ -219,6 +238,7 @@ public class FoxMovement : MonoBehaviour
                 Debug.DrawLine(Camera.position, hitInfo2.point);
                 if (Input.GetKey(KeyCode.LeftControl))
                 {
+                    //climbing animation here (later will make more code for this)
                     gameObject.transform.position = hitInfo2.transform.GetChild(0).position;
 
                 }
