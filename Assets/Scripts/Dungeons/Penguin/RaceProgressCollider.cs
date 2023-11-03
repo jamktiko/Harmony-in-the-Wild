@@ -28,9 +28,10 @@ public class RaceProgressCollider : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            // trigger the event, if this is either start or finish lines
+            // trigger the event, if this is either start or finish line
             if (isFinishLine || isStartLine)
             {
+                Debug.Log("entering");
                 if (triggeredRaceEvent != null)
                 {
                     triggeredRaceEvent.Invoke();
