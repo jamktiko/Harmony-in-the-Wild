@@ -34,13 +34,7 @@ public class HitCounter : MonoBehaviour
     private void ReturnPlayerToStart()
     {
         // move player back to starting spot
-        GetComponent<FoxMove>().enabled = false;
-        GetComponent<CharacterController>().enabled = false;
-
         transform.position = startingSpot.position;
-
-        GetComponent<FoxMove>().enabled = true;
-        GetComponent<CharacterController>().enabled = true;
 
         // reset current hits
         currentHits = 0;
