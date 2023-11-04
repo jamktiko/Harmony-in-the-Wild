@@ -197,7 +197,6 @@ public class FoxMovement : MonoBehaviour
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
             //in air animation here
             playerAnimator.SetBool("isGrounded", false);
-            playerAnimator.SetBool("isJumping", false);
             playerAnimator.SetBool("isGliding", false);
         }
 
