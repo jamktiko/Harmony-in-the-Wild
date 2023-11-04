@@ -57,7 +57,7 @@ public class FoxMovement : MonoBehaviour
         rb=GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
-        playerAnimator = GetComponent<Animator>();
+        playerAnimator = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
