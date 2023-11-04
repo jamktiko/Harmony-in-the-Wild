@@ -150,6 +150,7 @@ public class FoxMovement : MonoBehaviour
             playerAnimator.SetBool("isGrounded", true);
             playerAnimator.SetBool("isJumping", false);
             playerAnimator.SetBool("isGliding", false);
+            playerAnimator.SetBool("isChargingJump", false);
         }
         //snow diving
         else if (snowDive && GroundCheck())
