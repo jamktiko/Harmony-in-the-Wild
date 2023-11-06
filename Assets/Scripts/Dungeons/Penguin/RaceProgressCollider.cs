@@ -31,7 +31,6 @@ public class RaceProgressCollider : MonoBehaviour
             // trigger the event, if this is either start or finish line
             if (isFinishLine || isStartLine)
             {
-                Debug.Log("entering");
                 if (triggeredRaceEvent != null)
                 {
                     triggeredRaceEvent.Invoke();

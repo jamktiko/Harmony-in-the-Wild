@@ -14,21 +14,10 @@ public class Destructible : MonoBehaviour
 
     private bool hasOre;
 
-    private void Update()
-    {
-        // NOTE DEBUGGING ONLY FOR NOW
-        if (Input.GetKey(KeyCode.R) && Input.GetKeyDown(KeyCode.S))
-        {
-            PlayerManager.instance.abilityValues[4] = true;
-            Debug.Log("Player can rock smash now.");
-        }
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player") && PlayerManager.instance.abilityValues[4])
         {
-            Debug.Log("player hit");
             if (needsToBeFreezed)
             {
                 if (gameObject.GetComponent<Freezable>().isFreezed)

@@ -16,6 +16,7 @@ public class Timer : MonoBehaviour
 
     // private variables
     private float currentTime;
+    private Coroutine timerCoroutine;
 
     private void Start()
     {
@@ -35,7 +36,7 @@ public class Timer : MonoBehaviour
     {
         raceInProgress = true;
 
-        StartCoroutine(TimerProgress());
+        timerCoroutine = StartCoroutine(TimerProgress());
     }
 
     private IEnumerator TimerProgress()
@@ -60,22 +61,28 @@ public class Timer : MonoBehaviour
     private void StartTimerForNewLap()
     {
         raceInProgress = false;
+        StopCoroutine(timerCoroutine);
 
         currentTime = 0;
 
         raceInProgress = true;
-        StartCoroutine(TimerProgress());
+        timerCoroutine = StartCoroutine(TimerProgress());
     }
 
     private void ResetTimeAfterInterruptedLap()
     {
         raceInProgress = false;
+        StopCoroutine(timerCoroutine);
 
         currentTime = 0;
+
+        var convertedTime = TimeSpan.FromSeconds(currentTime);
+        timerText.text = string.Format("{0:00}:{1:00}", convertedTime.Minutes, convertedTime.Seconds);
     }
 
     private void StopTimer()
     {
         raceInProgress = false;
+        StopCoroutine(timerCoroutine);
     }
 }
