@@ -28,6 +28,7 @@ public class Destructible : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player") && PlayerManager.instance.abilityValues[4])
         {
+            Debug.Log("player hit");
             if (needsToBeFreezed)
             {
                 if (gameObject.GetComponent<Freezable>().isFreezed)
@@ -62,6 +63,7 @@ public class Destructible : MonoBehaviour
 
     public void CheckForOre()
     {
+        Debug.Log("checking for ore");
         if (hasOre)
         {
             SmashingAttemptCounter.instance.UpdateProgress(hasOre);

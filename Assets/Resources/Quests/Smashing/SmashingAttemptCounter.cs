@@ -8,7 +8,6 @@ public class SmashingAttemptCounter : QuestStep
     [SerializeField] private QuestScriptableObject questScriptableObject;
 
     [Header("Debug")]
-    [SerializeField] private bool oreFound;
     [SerializeField] private int maxAttempts = 5;
     [SerializeField] private int attemptsLeft;
 
@@ -41,7 +40,6 @@ public class SmashingAttemptCounter : QuestStep
         if (oreWasFound)
         {
             Debug.Log("You found the ore!");
-            oreFound = true;
             FinishQuestStep();
         }
 
