@@ -51,7 +51,7 @@ public class CameraMovement : MonoBehaviour
         }
         else if (currentStyle==cameraStyle.Telegraph)
         {
-            Vector3 dirtoTelegraphLookAt = TelegrabLookAt.position - new Vector3(transform.position.x, fox.position.y, transform.position.z);
+            Vector3 dirtoTelegraphLookAt = TelegrabLookAt.position - new Vector3(transform.position.x, TelegrabLookAt.position.y, transform.position.z);
             orientation.forward = dirtoTelegraphLookAt.normalized;
 
             foxObject.forward = dirtoTelegraphLookAt.normalized;
