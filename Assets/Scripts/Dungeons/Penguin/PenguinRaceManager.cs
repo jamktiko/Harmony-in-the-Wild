@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PenguinRaceManager : MonoBehaviour
 {
@@ -53,6 +54,7 @@ public class PenguinRaceManager : MonoBehaviour
         {
             penguinDungeonEvents.RaceFinished();
             winView.SetActive(true);
+            StartCoroutine(TransitionToOverworld());
         }
 
     }
@@ -75,6 +77,13 @@ public class PenguinRaceManager : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
 
         alertView.SetActive(false);
+    }
+
+    private IEnumerator TransitionToOverworld()
+    {
+        yield return new WaitForSeconds(3f);
+
+        SceneManager.LoadScene("Overworld");
     }
 }
 

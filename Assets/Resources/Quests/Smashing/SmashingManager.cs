@@ -58,13 +58,7 @@ public class SmashingManager : MonoBehaviour
         SmashingRockSpawner.instance.ResetRocks();
         DialogueManager.instance.StartDialogue(restartDialogue);
 
-        player.GetComponent<FoxMove>().enabled = false;
-        player.GetComponent<CharacterController>().enabled = false;
-
         player.position = startPosition.position;
-
-        player.GetComponent<FoxMove>().enabled = true;
-        player.GetComponent<CharacterController>().enabled = true;
     }
 
     private void FinishRockSmash(string id)
