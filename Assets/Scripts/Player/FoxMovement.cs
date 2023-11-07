@@ -49,7 +49,9 @@ public class FoxMovement : MonoBehaviour
     private bool snowDive;
     [SerializeField] float snowDiveSpeed=15f;
 
+    [Header("Animations")]
     public Animator playerAnimator;
+    public List<AnimatorControllerParameter> animatorBools = new List<AnimatorControllerParameter>();
 
     // Start is called before the first frame update
     void Start()
@@ -58,6 +60,13 @@ public class FoxMovement : MonoBehaviour
         rb.freezeRotation = true;
 
         playerAnimator = GetComponentInChildren<Animator>();
+        foreach (AnimatorControllerParameter item in playerAnimator.parameters)
+        {
+            if (item.type == AnimatorControllerParameterType.Bool)
+            {
+                animatorBools.Add(item);
+            }
+        }
     }
 
     // Update is called once per frame
@@ -146,11 +155,13 @@ public class FoxMovement : MonoBehaviour
         if (moveDirection==Vector3.zero&&GroundCheck())
         {
             //idle animation here
+
             playerAnimator.SetFloat("moveSpeed", 0);
+            foreach (AnimatorControllerParameter item in animatorBools)
+            {
+                playerAnimator.SetBool(item.name, false);
+            }
             playerAnimator.SetBool("isGrounded", true);
-            playerAnimator.SetBool("isJumping", false);
-            playerAnimator.SetBool("isGliding", false);
-            playerAnimator.SetBool("isChargingJump", false);
         }
         //snow diving
         else if (snowDive && GroundCheck())
@@ -163,10 +174,13 @@ public class FoxMovement : MonoBehaviour
         {
             rb.AddForce(moveDirection.normalized * SprintSpeed * 10f, ForceMode.Force);
             //running animation here
+
             playerAnimator.SetFloat("moveSpeed", 1);
+            foreach (AnimatorControllerParameter item in animatorBools)
+            {
+                playerAnimator.SetBool(item.name, false);
+            }
             playerAnimator.SetBool("isGrounded", true);
-            playerAnimator.SetBool("isJumping", false);
-            playerAnimator.SetBool("isGliding", false);
         }
 
 
@@ -175,10 +189,13 @@ public class FoxMovement : MonoBehaviour
         {
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
             //walking animation here
+
             playerAnimator.SetFloat("moveSpeed", 1);
+            foreach (AnimatorControllerParameter item in animatorBools)
+            {
+                playerAnimator.SetBool(item.name, false);
+            }
             playerAnimator.SetBool("isGrounded", true);
-            playerAnimator.SetBool("isJumping", false);
-            playerAnimator.SetBool("isGliding", false);
         }
 
 
@@ -197,8 +214,11 @@ public class FoxMovement : MonoBehaviour
         {
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
             //in air animation here
-            playerAnimator.SetBool("isGrounded", false);
-            playerAnimator.SetBool("isGliding", false);
+
+            foreach (AnimatorControllerParameter item in animatorBools)
+            {
+                playerAnimator.SetBool(item.name, false);
+            }
         }
 
 
@@ -215,8 +235,11 @@ public class FoxMovement : MonoBehaviour
         }
         rb.AddForce(moveDirection.normalized * moveSpeed *10f*glidingMultiplier, ForceMode.Force);
         //gliding animation here
-        playerAnimator.SetBool("isGrounded", false);
-        playerAnimator.SetBool("isJumping", false);
+
+        foreach (AnimatorControllerParameter item in animatorBools)
+        {
+            playerAnimator.SetBool(item.name, false);
+        }
         playerAnimator.SetBool("isGliding", true);
     }
     private void DisableGlider() 
@@ -234,10 +257,14 @@ public class FoxMovement : MonoBehaviour
 
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
         //jumping animation here
+
+        foreach (AnimatorControllerParameter item in animatorBools)
+        {
+            playerAnimator.SetBool(item.name, false);
+        }
         playerAnimator.SetBool("isGrounded", true);
         playerAnimator.SetBool("isJumping", true);
-        playerAnimator.SetBool("isGliding", false);
-        playerAnimator.SetBool("isChargingJump", false);
+        
     }
 
     private void ChargeJump() 
@@ -248,11 +275,14 @@ public class FoxMovement : MonoBehaviour
         {
             chargeJumpTimer = chargeJumpTimer + 0.4f;
             //charging animation here
+
             playerAnimator.SetFloat("moveSpeed", 0);
+            foreach (AnimatorControllerParameter item in animatorBools)
+            {
+                playerAnimator.SetBool(item.name, false);
+            }
             playerAnimator.SetBool("isGrounded", true);
             playerAnimator.SetBool("isJumping", true);
-            playerAnimator.SetBool("isGliding", false);
-            playerAnimator.SetBool("isChargingJump", true);
         }
     }
     private void ClimbWall()
