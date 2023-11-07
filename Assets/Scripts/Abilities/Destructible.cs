@@ -22,7 +22,7 @@ public class Destructible : MonoBehaviour
             {
                 if (gameObject.GetComponent<Freezable>().isFreezed)
                 {
-                    Instantiate(destroyedVersion, transform.position, Quaternion.identity);
+                    Instantiate(destroyedVersion, transform.position, transform.rotation);
                     Destroy(gameObject);
                 }
 
@@ -39,7 +39,7 @@ public class Destructible : MonoBehaviour
 
             else
             {
-                Instantiate(destroyedVersion, transform.position, Quaternion.identity);
+                Instantiate(destroyedVersion, transform.position, transform.rotation);
                 Destroy(gameObject);
             }
         }
