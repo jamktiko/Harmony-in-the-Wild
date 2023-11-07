@@ -42,11 +42,11 @@ public class PenguinRaceManager : MonoBehaviour
 
     public void LapFinished()
     {
-        penguinDungeonEvents.LapFinished();
         currentLap++;
 
         if(currentLap <= 3)
         {
+            penguinDungeonEvents.LapFinished();
             lapCounterText.text = currentLap + "/3";
         }
 

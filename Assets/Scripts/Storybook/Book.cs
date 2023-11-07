@@ -194,6 +194,7 @@ public class Book : MonoBehaviour {
     {
         // make sure the instructions are hidden when starting the first flip
         instructions.SetActive(false);
+        
 
         mode = FlipMode.RightToLeft;
         f = followLocation;
@@ -367,6 +368,8 @@ public class Book : MonoBehaviour {
             else
                 TweenForward();
         }
+
+        StartCoroutine(StartPageDelay());
     }
 
     void UpdateSprites()
@@ -449,5 +452,12 @@ public class Book : MonoBehaviour {
         }
         if (onFinish != null)
             onFinish();
+    }
+
+    private IEnumerator StartPageDelay()
+    {
+        yield return new WaitForSeconds(0.125f);
+
+        LeftNext.GetComponent<Image>().color = new Color(255, 255, 255, 255);
     }
 }

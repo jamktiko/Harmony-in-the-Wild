@@ -64,6 +64,7 @@ public class ClosingWall : MonoBehaviour
         if(transform.position != startSpot)
         {
             transform.position = startSpot;
+            elapsedTime = 0;
             playerIsNear = false;
         }
     }
