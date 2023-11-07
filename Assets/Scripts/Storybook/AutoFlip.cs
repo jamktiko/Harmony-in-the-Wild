@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Book))]
 public class AutoFlip : MonoBehaviour {
@@ -14,6 +15,8 @@ public class AutoFlip : MonoBehaviour {
     // Use this for initialization
 
     private AudioSource audioSource;
+    private int maxSpreads;
+    private int currentSpread;
 
     void Start () {
         if (!ControledBook)
@@ -23,6 +26,8 @@ public class AutoFlip : MonoBehaviour {
         ControledBook.OnFlip.AddListener(new UnityEngine.Events.UnityAction(PageFlipped));
 
         audioSource = GetComponent<AudioSource>();
+
+        maxSpreads = ControledBook.SetMaxSpreads();
 	}
 
     private void Update()
@@ -43,6 +48,14 @@ public class AutoFlip : MonoBehaviour {
     }*/
     public void FlipRightPage()
     {
+        currentSpread++;
+
+        if(currentSpread > maxSpreads)
+        {
+            SceneManager.LoadScene("Overworld");
+            return;
+        }
+
         if (isFlipping) return;
         if (ControledBook.currentPage >= ControledBook.TotalPageCount) return;
         isFlipping = true;
@@ -64,13 +77,14 @@ public class AutoFlip : MonoBehaviour {
         float y = (-h / (xl * xl)) * (x - xc) * (x - xc);
 
         ControledBook.DragRightPageToPoint(new Vector3(x, y, 0));
+
         for (int i = 0; i < AnimationFramesCount; i++)
         {
             y = (-h / (xl * xl)) * (x - xc) * (x - xc);
             ControledBook.UpdateBookRTLToPoint(new Vector3(x, y, 0));
             yield return new WaitForSeconds(frameTime);
             x -= dx;
-        }        
+        }
 
         ControledBook.ReleasePage();
     }
