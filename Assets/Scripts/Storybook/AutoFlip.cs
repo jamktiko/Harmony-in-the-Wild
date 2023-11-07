@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+
 [RequireComponent(typeof(Book))]
 public class AutoFlip : MonoBehaviour {
     public FlipMode Mode;
@@ -11,12 +12,17 @@ public class AutoFlip : MonoBehaviour {
     public int AnimationFramesCount = 40;
     bool isFlipping = false;
     // Use this for initialization
+
+    private AudioSource audioSource;
+
     void Start () {
         if (!ControledBook)
             ControledBook = GetComponent<Book>();
         /*if (AutoStartFlip)
             StartFlipping();*/
         ControledBook.OnFlip.AddListener(new UnityEngine.Events.UnityAction(PageFlipped));
+
+        audioSource = GetComponent<AudioSource>();
 	}
 
     private void Update()
@@ -46,6 +52,9 @@ public class AutoFlip : MonoBehaviour {
         //float h =  ControledBook.Height * 0.5f;
         float h = Mathf.Abs(ControledBook.EndBottomRight.y) * 0.9f;
         float dx = (xl)*2 / AnimationFramesCount;
+
+        PlayFlipSound();
+
         StartCoroutine(FlipRTL(xc, xl, h, frameTime, dx));
     }
    
@@ -61,8 +70,14 @@ public class AutoFlip : MonoBehaviour {
             ControledBook.UpdateBookRTLToPoint(new Vector3(x, y, 0));
             yield return new WaitForSeconds(frameTime);
             x -= dx;
-        }
+        }        
+
         ControledBook.ReleasePage();
+    }
+
+    private void PlayFlipSound()
+    {
+        audioSource.Play();
     }
 }
 
