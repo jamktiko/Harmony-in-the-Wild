@@ -156,12 +156,14 @@ public class FoxMovement : MonoBehaviour
         {
             //idle animation here
 
-            playerAnimator.SetFloat("moveSpeed", 0);
+            playerAnimator.SetFloat("horMove", horizontalInput);
             foreach (AnimatorControllerParameter item in animatorBools)
             {
                 playerAnimator.SetBool(item.name, false);
             }
-            playerAnimator.SetBool("isGrounded", true);
+            playerAnimator.SetFloat("vertMove", verticalInput);
+            foreach (AnimatorControllerParameter item in animatorBools)
+                playerAnimator.SetBool("isGrounded", true);
         }
         //snow diving
         else if (snowDive && GroundCheck())
@@ -175,10 +177,19 @@ public class FoxMovement : MonoBehaviour
             rb.AddForce(moveDirection.normalized * SprintSpeed * 10f, ForceMode.Force);
             //running animation here
 
-            playerAnimator.SetFloat("moveSpeed", 1);
+            playerAnimator.SetFloat("horMove", horizontalInput);
             foreach (AnimatorControllerParameter item in animatorBools)
             {
                 playerAnimator.SetBool(item.name, false);
+            }
+            playerAnimator.SetFloat("vertMove", verticalInput);
+            foreach (AnimatorControllerParameter item in animatorBools)
+            {
+                playerAnimator.SetBool(item.name, false);
+            }
+            if (horizontalInput <= 0)
+            {
+                playerAnimator.SetBool("goingLeft", true);
             }
             playerAnimator.SetBool("isGrounded", true);
         }
@@ -190,10 +201,19 @@ public class FoxMovement : MonoBehaviour
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
             //walking animation here
 
-            playerAnimator.SetFloat("moveSpeed", 1);
+            playerAnimator.SetFloat("horMove", horizontalInput);
             foreach (AnimatorControllerParameter item in animatorBools)
             {
                 playerAnimator.SetBool(item.name, false);
+            }
+            playerAnimator.SetFloat("vertMove", verticalInput);
+            foreach (AnimatorControllerParameter item in animatorBools)
+            {
+                playerAnimator.SetBool(item.name, false);
+            }
+            if (horizontalInput <= 0)
+            {
+                playerAnimator.SetBool("goingLeft", true);
             }
             playerAnimator.SetBool("isGrounded", true);
         }
@@ -272,16 +292,26 @@ public class FoxMovement : MonoBehaviour
     {
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
-        if (chargeJumpTimer < 12f)
+        if (chargeJumpTimer < 15f)
         {
             chargeJumpTimer = chargeJumpTimer + 0.4f;
             //charging animation here
 
-            playerAnimator.SetFloat("moveSpeed", 0);
+            playerAnimator.SetFloat("horMove", horizontalInput);
             foreach (AnimatorControllerParameter item in animatorBools)
             {
                 playerAnimator.SetBool(item.name, false);
             }
+            playerAnimator.SetFloat("vertMove", verticalInput);
+            foreach (AnimatorControllerParameter item in animatorBools)
+            {
+                playerAnimator.SetBool(item.name, false);
+            }
+            if (horizontalInput <= 0)
+            {
+                playerAnimator.SetBool("goingLeft", true);
+            }
+            playerAnimator.SetBool("isGrounded", true);
             playerAnimator.SetBool("isGrounded", true);
             playerAnimator.SetBool("isJumping", true);
         }
