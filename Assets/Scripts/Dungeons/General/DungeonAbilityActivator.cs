@@ -10,7 +10,7 @@ public class DungeonAbilityActivator : MonoBehaviour
 
     private void Start()
     {
-        if(enabledAbility < 0)
+        if (enabledAbility <0)
         {
             for (int i = 0; i < PlayerManager.instance.abilityValues.Count; i++)
             {
@@ -31,15 +31,15 @@ public class DungeonAbilityActivator : MonoBehaviour
                 {
                     PlayerManager.instance.abilityValues[i] = false;
                 }
+                return;
             }
-
-            return;
+          
         }
 
-        for(int i = 0; i < PlayerManager.instance.abilityValues.Count; i++)
+        for (int i = 0; i < PlayerManager.instance.abilityValues.Count; i++)
         {
             // enable the major ability gained in this dungeon
-            if(i == enabledAbility)
+            if (i == enabledAbility)
             {
                 PlayerManager.instance.abilityValues[i] = true;
             }
@@ -58,3 +58,4 @@ public class DungeonAbilityActivator : MonoBehaviour
         }
     }
 }
+

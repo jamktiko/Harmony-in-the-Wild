@@ -12,6 +12,8 @@ public class Destructible : MonoBehaviour
     [SerializeField] private GameObject destroyedVersion;
     [SerializeField] private GameObject oreVersion;
 
+    [SerializeField] private AudioSource audioSource;
+
     private bool hasOre;
 
     private void OnTriggerEnter(Collider other)
@@ -22,6 +24,7 @@ public class Destructible : MonoBehaviour
             {
                 if (gameObject.GetComponent<Freezable>().isFreezed)
                 {
+                    audioSource.Play();
                     Instantiate(destroyedVersion, transform.position, transform.rotation);
                     Destroy(gameObject);
                 }
