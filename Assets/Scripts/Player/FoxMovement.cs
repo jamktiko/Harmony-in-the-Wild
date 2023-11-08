@@ -53,8 +53,6 @@ public class FoxMovement : MonoBehaviour
     public Animator playerAnimator;
     public List<AnimatorControllerParameter> animatorBools = new List<AnimatorControllerParameter>();
 
-    bool goingLeft;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -184,11 +182,11 @@ public class FoxMovement : MonoBehaviour
             
             if (horizontalInput <= 0f)
             {
-                goingLeft = true;
+                playerAnimator.SetBool("goingLeft", true);
             }
             else
             {
-                goingLeft = false;
+                playerAnimator.SetBool("goingLeft", false);
             }
 
             playerAnimator.SetFloat("horMove", horizontalInput);
@@ -214,11 +212,11 @@ public class FoxMovement : MonoBehaviour
             //walking animation here
             if (horizontalInput <= 0f)
             {
-                goingLeft = true;
+                playerAnimator.SetBool("goingLeft", true);
             }
             else
             {
-                goingLeft = false;
+                playerAnimator.SetBool("goingLeft", false);
             }
 
             playerAnimator.SetFloat("horMove", horizontalInput);
@@ -316,11 +314,11 @@ public class FoxMovement : MonoBehaviour
             //charging animation here
             if (horizontalInput <= 0f)
             {
-                goingLeft = true;
+                playerAnimator.SetBool("goingLeft", true);
             }
             else
             {
-                goingLeft = false;
+                playerAnimator.SetBool("goingLeft", false);
             }
 
             playerAnimator.SetFloat("horMove", 0);
