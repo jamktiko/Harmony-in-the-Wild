@@ -327,7 +327,7 @@ public class FoxMovement : MonoBehaviour
         {
             Debug.Log("wall detected");
             RaycastHit hitInfo;
-            if (Physics.Raycast(foxMiddle.position, -foxMiddle.up, out hitInfo, 1f, GroundLayerMask))
+            if (Physics.Raycast(foxMiddle.position, -foxMiddle.up, out hitInfo, 1.5f, GroundLayerMask))
             {
 
                 Debug.DrawLine(foxMiddle.position, hitInfo.point);
