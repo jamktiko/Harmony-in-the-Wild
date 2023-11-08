@@ -179,15 +179,6 @@ public class FoxMovement : MonoBehaviour
         {
             rb.AddForce(moveDirection.normalized * SprintSpeed * 10f, ForceMode.Force);
             //running animation here
-            
-            if (horizontalInput <= 0f)
-            {
-                playerAnimator.SetBool("goingLeft", true);
-            }
-            else
-            {
-                playerAnimator.SetBool("goingLeft", false);
-            }
 
             playerAnimator.SetFloat("horMove", horizontalInput);
             foreach (AnimatorControllerParameter item in animatorBools)
@@ -210,14 +201,6 @@ public class FoxMovement : MonoBehaviour
         {
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
             //walking animation here
-            if (horizontalInput <= 0f)
-            {
-                playerAnimator.SetBool("goingLeft", true);
-            }
-            else
-            {
-                playerAnimator.SetBool("goingLeft", false);
-            }
 
             playerAnimator.SetFloat("horMove", horizontalInput);
             foreach (AnimatorControllerParameter item in animatorBools)
@@ -312,14 +295,6 @@ public class FoxMovement : MonoBehaviour
         {
             chargeJumpTimer = chargeJumpTimer + 0.4f;
             //charging animation here
-            if (horizontalInput <= 0f)
-            {
-                playerAnimator.SetBool("goingLeft", true);
-            }
-            else
-            {
-                playerAnimator.SetBool("goingLeft", false);
-            }
 
             playerAnimator.SetFloat("horMove", 0);
             foreach (AnimatorControllerParameter item in animatorBools)
