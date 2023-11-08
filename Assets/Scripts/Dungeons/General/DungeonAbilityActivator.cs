@@ -10,7 +10,34 @@ public class DungeonAbilityActivator : MonoBehaviour
 
     private void Start()
     {
-        if (enabledAbility <0)
+        StartCoroutine(ActivateAbilities());
+    }
+
+    private IEnumerator ActivateAbilities()
+    {
+        yield return new WaitForSeconds(1f);
+
+        // if enabled ability index is set to -1, enable only minor abilities
+        if (enabledAbility < 0)
+        {
+            for (int i = 0; i < PlayerManager.instance.abilityValues.Count; i++)
+            {
+                // enable the minor abilities (passive abilities)
+                if (i == 1 || i == 3 || i == 4 || i == 5)
+                {
+                    PlayerManager.instance.abilityValues[i] = true;
+                }
+
+                // disable all the other major abilities
+                else
+                {
+                    PlayerManager.instance.abilityValues[i] = false;
+                }
+            }
+
+        }
+
+        else
         {
             for (int i = 0; i < PlayerManager.instance.abilityValues.Count; i++)
             {
@@ -31,29 +58,6 @@ public class DungeonAbilityActivator : MonoBehaviour
                 {
                     PlayerManager.instance.abilityValues[i] = false;
                 }
-                return;
-            }
-          
-        }
-
-        for (int i = 0; i < PlayerManager.instance.abilityValues.Count; i++)
-        {
-            // enable the major ability gained in this dungeon
-            if (i == enabledAbility)
-            {
-                PlayerManager.instance.abilityValues[i] = true;
-            }
-
-            // enable the minor abilities (passive abilities)
-            else if (i == 1 || i == 3 || i == 4 || i == 5)
-            {
-                PlayerManager.instance.abilityValues[i] = true;
-            }
-
-            // disable all the other major abilities
-            else
-            {
-                PlayerManager.instance.abilityValues[i] = false;
             }
         }
     }
