@@ -158,7 +158,12 @@ public class FoxMovement : MonoBehaviour
         {
             //idle animation here
 
-            playerAnimator.SetFloat("moveSpeed", 0);
+            playerAnimator.SetFloat("horMove", horizontalInput);
+            foreach (AnimatorControllerParameter item in animatorBools)
+            {
+                playerAnimator.SetBool(item.name, false);
+            }
+            playerAnimator.SetFloat("vertMove", verticalInput);
             foreach (AnimatorControllerParameter item in animatorBools)
             {
                 playerAnimator.SetBool(item.name, false);
@@ -186,20 +191,17 @@ public class FoxMovement : MonoBehaviour
                 goingLeft = false;
             }
 
-            playerAnimator.SetFloat("moveSpeed", 1);
+            playerAnimator.SetFloat("horMove", horizontalInput);
             foreach (AnimatorControllerParameter item in animatorBools)
             {
                 playerAnimator.SetBool(item.name, false);
             }
-<<<<<<< Updated upstream
-=======
             playerAnimator.SetFloat("vertMove", verticalInput);
             foreach (AnimatorControllerParameter item in animatorBools)
             {
                 playerAnimator.SetBool(item.name, false);
             }
 
->>>>>>> Stashed changes
             playerAnimator.SetBool("isGrounded", true);
             Debug.Log(horizontalInput);
         }
@@ -219,20 +221,17 @@ public class FoxMovement : MonoBehaviour
                 goingLeft = false;
             }
 
-            playerAnimator.SetFloat("moveSpeed", 1);
+            playerAnimator.SetFloat("horMove", horizontalInput);
             foreach (AnimatorControllerParameter item in animatorBools)
             {
                 playerAnimator.SetBool(item.name, false);
             }
-<<<<<<< Updated upstream
-=======
             playerAnimator.SetFloat("vertMove", verticalInput);
             foreach (AnimatorControllerParameter item in animatorBools)
             {
                 playerAnimator.SetBool(item.name, false);
             }
 
->>>>>>> Stashed changes
             playerAnimator.SetBool("isGrounded", true);
             Debug.Log(horizontalInput);
         }
@@ -324,21 +323,17 @@ public class FoxMovement : MonoBehaviour
                 goingLeft = false;
             }
 
-            playerAnimator.SetFloat("moveSpeed", 0);
+            playerAnimator.SetFloat("horMove", 0);
             foreach (AnimatorControllerParameter item in animatorBools)
             {
                 playerAnimator.SetBool(item.name, false);
             }
-<<<<<<< Updated upstream
-=======
             playerAnimator.SetFloat("vertMove", verticalInput);
             foreach (AnimatorControllerParameter item in animatorBools)
             {
                 playerAnimator.SetBool(item.name, false);
             }
 
-            playerAnimator.SetBool("isGrounded", true);
->>>>>>> Stashed changes
             playerAnimator.SetBool("isGrounded", true);
             playerAnimator.SetBool("isJumping", true);
         }
