@@ -11,6 +11,18 @@ public class CameraMovement : MonoBehaviour
     public Rigidbody rb;
 
     public float rotationSpeed;
+
+    [Header("CameraStyles")]
+    public Transform TelegrabLookAt;
+
+    public cameraStyle currentStyle;
+
+        public enum cameraStyle 
+    {
+        Basic,
+        Telegraph,
+        Topdown
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -26,13 +38,23 @@ public class CameraMovement : MonoBehaviour
         orientation.forward = viewDir.normalized;
 
         //rotate player object
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
-        Vector3 inputDir = orientation.forward*verticalInput+orientation.right*horizontalInput;
-
-        if (inputDir!=Vector3.zero)
+        if (currentStyle==cameraStyle.Basic)
         {
-            foxObject.forward = Vector3.Slerp(foxObject.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
+            float horizontalInput = Input.GetAxis("Horizontal");
+            float verticalInput = Input.GetAxis("Vertical");
+            Vector3 inputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
+
+            if (inputDir != Vector3.zero)
+            {
+                foxObject.forward = Vector3.Slerp(foxObject.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
+            }
+        }
+        else if (currentStyle==cameraStyle.Telegraph)
+        {
+            Vector3 dirtoTelegraphLookAt = TelegrabLookAt.position - new Vector3(transform.position.x, TelegrabLookAt.position.y, transform.position.z);
+            orientation.forward = dirtoTelegraphLookAt.normalized;
+
+            foxObject.forward = dirtoTelegraphLookAt.normalized;
         }
     }
 }

@@ -6,6 +6,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 public enum FlipMode
 {
     RightToLeft,
@@ -97,7 +98,13 @@ public class Book : MonoBehaviour {
 
         ShadowLTR.rectTransform.sizeDelta = new Vector2(pageWidth, shadowPageHeight);
         ShadowLTR.rectTransform.pivot = new Vector2(0, (pageWidth / 2) / shadowPageHeight);
+    }
 
+    public int SetMaxSpreads()
+    {
+        int spreads = bookPages.Length / 2;
+
+        return spreads;
     }
 
     private void CalcCurlCriticalPoints()
@@ -282,6 +289,7 @@ public class Book : MonoBehaviour {
     public void DragRightPageToPoint(Vector3 point)
     {
         if (currentPage >= bookPages.Length) return;
+
         pageDragging = true;
         mode = FlipMode.RightToLeft;
         f = point;
@@ -296,7 +304,7 @@ public class Book : MonoBehaviour {
         Left.transform.eulerAngles = new Vector3(0, 0, 0);
         Left.sprite = (currentPage < bookPages.Length) ? bookPages[currentPage] : background;
         Left.transform.SetAsFirstSibling();
-        
+
         Right.gameObject.SetActive(true);
         Right.transform.position = RightNext.transform.position;
         Right.transform.eulerAngles = new Vector3(0, 0, 0);
@@ -367,6 +375,8 @@ public class Book : MonoBehaviour {
             else
                 TweenForward();
         }
+
+        StartCoroutine(StartPageDelay());
     }
 
     void UpdateSprites()
@@ -449,5 +459,12 @@ public class Book : MonoBehaviour {
         }
         if (onFinish != null)
             onFinish();
+    }
+
+    private IEnumerator StartPageDelay()
+    {
+        yield return new WaitForSeconds(0.125f);
+
+        LeftNext.GetComponent<Image>().color = new Color(255, 255, 255, 255);
     }
 }

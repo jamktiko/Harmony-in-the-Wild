@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class HitCounter : MonoBehaviour
 {
     [Header("Config")]
-    [Tooltip("Maximum amount of hits before the player is transformed to the starting spot")]
+    [Tooltip("Maximum amount of non-instakill hits before the player is transformed to the starting spot")]
     [SerializeField] private int maxHits;
+    [Tooltip("Possible hit event to take place every time player gets hit IF no death event is triggered")]
+    [SerializeField] private UnityEvent hitEvent;
+    [Tooltip("Possible event to take place when the player has got max hits or faces instakill")]
+    [SerializeField] private UnityEvent deathEvent;
 
     [Header("Needed References")]
     [SerializeField] private Transform startingSpot;
@@ -18,6 +23,11 @@ public class HitCounter : MonoBehaviour
         if (instaKill)
         {
             ReturnPlayerToStart();
+
+            if(deathEvent != null)
+            {
+                deathEvent.Invoke();
+            }
         }
 
         else
@@ -27,6 +37,16 @@ public class HitCounter : MonoBehaviour
             if (currentHits >= maxHits)
             {
                 ReturnPlayerToStart();
+
+                if(deathEvent != null)
+                {
+                    deathEvent.Invoke();
+                }
+            }
+
+            else if(hitEvent != null)
+            {
+                hitEvent.Invoke();
             }
         }
     }

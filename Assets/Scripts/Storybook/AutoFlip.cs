@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
+
 [RequireComponent(typeof(Book))]
 public class AutoFlip : MonoBehaviour {
     public FlipMode Mode;
@@ -11,12 +13,21 @@ public class AutoFlip : MonoBehaviour {
     public int AnimationFramesCount = 40;
     bool isFlipping = false;
     // Use this for initialization
+
+    private AudioSource audioSource;
+    private int maxSpreads;
+    private int currentSpread;
+
     void Start () {
         if (!ControledBook)
             ControledBook = GetComponent<Book>();
         /*if (AutoStartFlip)
             StartFlipping();*/
         ControledBook.OnFlip.AddListener(new UnityEngine.Events.UnityAction(PageFlipped));
+
+        audioSource = GetComponent<AudioSource>();
+
+        maxSpreads = ControledBook.SetMaxSpreads();
 	}
 
     private void Update()
@@ -37,6 +48,14 @@ public class AutoFlip : MonoBehaviour {
     }*/
     public void FlipRightPage()
     {
+        currentSpread++;
+
+        if(currentSpread > maxSpreads)
+        {
+            SceneManager.LoadScene("Overworld");
+            return;
+        }
+
         if (isFlipping) return;
         if (ControledBook.currentPage >= ControledBook.TotalPageCount) return;
         isFlipping = true;
@@ -46,6 +65,9 @@ public class AutoFlip : MonoBehaviour {
         //float h =  ControledBook.Height * 0.5f;
         float h = Mathf.Abs(ControledBook.EndBottomRight.y) * 0.9f;
         float dx = (xl)*2 / AnimationFramesCount;
+
+        PlayFlipSound();
+
         StartCoroutine(FlipRTL(xc, xl, h, frameTime, dx));
     }
    
@@ -55,6 +77,7 @@ public class AutoFlip : MonoBehaviour {
         float y = (-h / (xl * xl)) * (x - xc) * (x - xc);
 
         ControledBook.DragRightPageToPoint(new Vector3(x, y, 0));
+
         for (int i = 0; i < AnimationFramesCount; i++)
         {
             y = (-h / (xl * xl)) * (x - xc) * (x - xc);
@@ -62,7 +85,13 @@ public class AutoFlip : MonoBehaviour {
             yield return new WaitForSeconds(frameTime);
             x -= dx;
         }
+
         ControledBook.ReleasePage();
+    }
+
+    private void PlayFlipSound()
+    {
+        audioSource.Play();
     }
 }
 

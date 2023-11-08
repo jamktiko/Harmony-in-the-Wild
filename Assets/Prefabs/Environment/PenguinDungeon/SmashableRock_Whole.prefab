@@ -779,7 +779,6 @@ GameObject:
   - component: {fileID: 5206406176829704851}
   - component: {fileID: 3130169083173254691}
   - component: {fileID: 3010037714838360673}
-  - component: {fileID: 2342458963123373823}
   - component: {fileID: 4638678516593241629}
   m_Layer: 9
   m_Name: SmashableRock_Whole
@@ -798,7 +797,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.3, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_LocalScale: {x: 8, y: 8, z: 8}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3801955275198977844}
@@ -826,7 +825,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   needsToBeFreezed: 1
+  isQuestRock: 0
   destroyedVersion: {fileID: 2261161064414512144, guid: 6a5b003289166a44b8986a6e623b7318, type: 3}
+  oreVersion: {fileID: 0}
 --- !u!114 &3010037714838360673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -841,33 +842,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFreezed: 0
   freezeTime: 3
---- !u!54 &2342458963123373823
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5233471367900013414}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!135 &4638678516593241629
 SphereCollider:
   m_ObjectHideFlags: 0
