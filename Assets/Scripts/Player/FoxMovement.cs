@@ -234,6 +234,7 @@ public class FoxMovement : MonoBehaviour
 
         }
         rb.AddForce(moveDirection.normalized * moveSpeed *10f*glidingMultiplier, ForceMode.Force);
+        rb.velocity = new Vector3(rb.velocity.x, -1.5f, rb.velocity.z);
         //gliding animation here
 
         foreach (AnimatorControllerParameter item in animatorBools)
@@ -271,7 +272,7 @@ public class FoxMovement : MonoBehaviour
     {
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
-        if (chargeJumpTimer < 20f)
+        if (chargeJumpTimer < 12f)
         {
             chargeJumpTimer = chargeJumpTimer + 0.4f;
             //charging animation here
@@ -324,7 +325,19 @@ public class FoxMovement : MonoBehaviour
     {
         if (Physics.CheckSphere(foxMiddle.position, boxSize.y, GroundLayerMask, QueryTriggerInteraction.Ignore))
         {
-            return true;
+            Debug.Log("wall detected");
+            RaycastHit hitInfo;
+            if (Physics.Raycast(foxMiddle.position, -foxMiddle.up, out hitInfo, 1f, GroundLayerMask))
+            {
+
+                Debug.DrawLine(foxMiddle.position, hitInfo.point);
+                return true;
+
+            }
+            else
+            {
+                return false;
+            }
         }
         else
         {
