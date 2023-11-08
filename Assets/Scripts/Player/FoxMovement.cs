@@ -292,7 +292,7 @@ public class FoxMovement : MonoBehaviour
     {
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
-        if (chargeJumpTimer < 12f)
+        if (chargeJumpTimer < 15f)
         {
             chargeJumpTimer = chargeJumpTimer + 0.4f;
             //charging animation here
