@@ -12,6 +12,9 @@ public class RaceProgressCollider : MonoBehaviour
     [Header("Possible Event")]
     [SerializeField] private UnityEvent triggeredRaceEvent;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource SoundTrackStart;
+
     private void Start()
     {
         PenguinRaceManager.instance.penguinDungeonEvents.onLapInterrupted += LapInterruptionReset;
@@ -34,6 +37,9 @@ public class RaceProgressCollider : MonoBehaviour
                 if (triggeredRaceEvent != null)
                 {
                     triggeredRaceEvent.Invoke();
+
+                    
+                    
                 }
             }
 
@@ -92,5 +98,9 @@ public class RaceProgressCollider : MonoBehaviour
         {
             transform.GetChild(0).gameObject.SetActive(false);
         }
+    }
+    public void StartAudio()
+    {
+        if (!SoundTrackStart.isPlaying&&isStartLine) { SoundTrackStart.Play(); }
     }
 }

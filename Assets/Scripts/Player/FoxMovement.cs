@@ -34,6 +34,7 @@ public class FoxMovement : MonoBehaviour
     public LayerMask GroundLayerMask;
     public Vector3 boxSize;
     [SerializeField] Transform foxMiddle;
+    [SerializeField] Transform foxBottom;
     [SerializeField] Transform Camera;
     [SerializeField] private Transform foxHead;
     public LayerMask WaterLayerMask;
@@ -52,6 +53,14 @@ public class FoxMovement : MonoBehaviour
     [Header("Animations")]
     public Animator playerAnimator;
     public List<AnimatorControllerParameter> animatorBools = new List<AnimatorControllerParameter>();
+
+    [Header("Audio")]
+    [SerializeField] AudioSource ChargeJumpAudio;
+    [SerializeField] AudioSource ChargeJumpLandingAudio;
+    [SerializeField] AudioSource GlidingAudio;
+    [SerializeField] AudioSource FreezingAudio;
+    [SerializeField] AudioSource SnowDivingAudio;
+
 
     // Start is called before the first frame update
     void Start()
@@ -138,6 +147,7 @@ public class FoxMovement : MonoBehaviour
         
         if (chargeJumpTimer!=0&&Input.GetButtonUp("Jump"))
         {
+            ChargeJumpAudio.Stop();
             rb.AddForce(transform.up * chargeJumpTimer, ForceMode.Impulse);
             //chargejump animation here
             Invoke(nameof(ResetJump), 0);
@@ -239,6 +249,8 @@ public class FoxMovement : MonoBehaviour
             {
                 playerAnimator.SetBool(item.name, false);
             }
+
+            
         }
 
 
@@ -252,6 +264,11 @@ public class FoxMovement : MonoBehaviour
             rb.useGravity = false;
             rb.velocity = new Vector3(0, -1.5f, 0);
 
+            //audio play
+            if (!GlidingAudio.isPlaying)
+            {
+                GlidingAudio.Play();
+            }
         }
         rb.AddForce(moveDirection.normalized * moveSpeed *10f*glidingMultiplier, ForceMode.Force);
         rb.velocity = new Vector3(rb.velocity.x, -1.5f, rb.velocity.z);
@@ -294,9 +311,15 @@ public class FoxMovement : MonoBehaviour
 
         if (chargeJumpTimer < 15f)
         {
-            chargeJumpTimer = chargeJumpTimer + 0.4f;
-            //charging animation here
+            //audio play
+            if (!ChargeJumpAudio.isPlaying)
+            {
+                ChargeJumpAudio.Play();
+            }
 
+            chargeJumpTimer = chargeJumpTimer + 0.4f;
+
+            //charging animation here
             playerAnimator.SetFloat("horMove", horizontalInput);
             foreach (AnimatorControllerParameter item in animatorBools)
             {
@@ -357,10 +380,17 @@ public class FoxMovement : MonoBehaviour
         {
             Debug.Log("wall detected");
             RaycastHit hitInfo;
-            if (Physics.Raycast(foxMiddle.position, -foxMiddle.up, out hitInfo, 1f, GroundLayerMask))
+            if (Physics.Raycast(foxMiddle.position, -foxMiddle.up, out hitInfo, 1.5f, GroundLayerMask))
             {
 
                 Debug.DrawLine(foxMiddle.position, hitInfo.point);
+                return true;
+
+            }
+            else if (Physics.Raycast(foxBottom.position, -foxBottom.up, out hitInfo, 1.5f, GroundLayerMask))
+            {
+
+                Debug.DrawLine(foxBottom.position, hitInfo.point);
                 return true;
 
             }

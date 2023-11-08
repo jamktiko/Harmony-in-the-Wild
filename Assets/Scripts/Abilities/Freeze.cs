@@ -7,6 +7,9 @@ public class Freeze : MonoBehaviour
     [Header("Config")]
     [SerializeField] private float aoeRadius;
 
+    [Header("Audio")]
+    [SerializeField] AudioSource FreezeAudio;
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.F) && PlayerManager.instance.abilityValues[7])
@@ -36,6 +39,7 @@ public class Freeze : MonoBehaviour
                 if (freezable)
                 {
                     freezable.Freeze();
+                    FreezeAudio.Play();
                 }
             }
         }
