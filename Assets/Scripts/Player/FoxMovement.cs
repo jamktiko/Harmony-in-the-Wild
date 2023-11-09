@@ -173,6 +173,11 @@ public class FoxMovement : MonoBehaviour
             }
             playerAnimator.SetFloat("vertMove", verticalInput);
             foreach (AnimatorControllerParameter item in animatorBools)
+            {
+                playerAnimator.SetBool(item.name, false);
+            }
+            playerAnimator.SetFloat("vertMove", verticalInput);
+            foreach (AnimatorControllerParameter item in animatorBools)
                 playerAnimator.SetBool("isGrounded", true);
         }
         //snow diving
@@ -197,11 +202,8 @@ public class FoxMovement : MonoBehaviour
             {
                 playerAnimator.SetBool(item.name, false);
             }
-            if (horizontalInput <= 0)
-            {
-                playerAnimator.SetBool("goingLeft", true);
-            }
             playerAnimator.SetBool("isGrounded", true);
+            Debug.Log(horizontalInput);
         }
 
 
@@ -221,11 +223,8 @@ public class FoxMovement : MonoBehaviour
             {
                 playerAnimator.SetBool(item.name, false);
             }
-            if (horizontalInput <= 0)
-            {
-                playerAnimator.SetBool("goingLeft", true);
-            }
             playerAnimator.SetBool("isGrounded", true);
+            Debug.Log(horizontalInput);
         }
 
 
@@ -320,7 +319,7 @@ public class FoxMovement : MonoBehaviour
             chargeJumpTimer = chargeJumpTimer + 0.4f;
 
             //charging animation here
-            playerAnimator.SetFloat("horMove", horizontalInput);
+            playerAnimator.SetFloat("horMove", 0);
             foreach (AnimatorControllerParameter item in animatorBools)
             {
                 playerAnimator.SetBool(item.name, false);
@@ -330,11 +329,6 @@ public class FoxMovement : MonoBehaviour
             {
                 playerAnimator.SetBool(item.name, false);
             }
-            if (horizontalInput <= 0)
-            {
-                playerAnimator.SetBool("goingLeft", true);
-            }
-            playerAnimator.SetBool("isGrounded", true);
             playerAnimator.SetBool("isGrounded", true);
             playerAnimator.SetBool("isJumping", true);
         }
