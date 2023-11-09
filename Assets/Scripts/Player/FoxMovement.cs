@@ -193,15 +193,7 @@ public class FoxMovement : MonoBehaviour
             //running animation here
 
             playerAnimator.SetFloat("horMove", horizontalInput);
-            foreach (AnimatorControllerParameter item in animatorBools)
-            {
-                playerAnimator.SetBool(item.name, false);
-            }
             playerAnimator.SetFloat("vertMove", verticalInput);
-            foreach (AnimatorControllerParameter item in animatorBools)
-            {
-                playerAnimator.SetBool(item.name, false);
-            }
             playerAnimator.SetBool("isGrounded", true);
             Debug.Log(horizontalInput);
         }
@@ -214,15 +206,7 @@ public class FoxMovement : MonoBehaviour
             //walking animation here
 
             playerAnimator.SetFloat("horMove", horizontalInput);
-            foreach (AnimatorControllerParameter item in animatorBools)
-            {
-                playerAnimator.SetBool(item.name, false);
-            }
             playerAnimator.SetFloat("vertMove", verticalInput);
-            foreach (AnimatorControllerParameter item in animatorBools)
-            {
-                playerAnimator.SetBool(item.name, false);
-            }
             playerAnimator.SetBool("isGrounded", true);
             Debug.Log(horizontalInput);
         }
@@ -243,11 +227,7 @@ public class FoxMovement : MonoBehaviour
         {
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
             //in air animation here
-
-            foreach (AnimatorControllerParameter item in animatorBools)
-            {
-                playerAnimator.SetBool(item.name, false);
-            }
+            playerAnimator.SetBool("isGrounded", false);
 
             
         }
@@ -273,10 +253,7 @@ public class FoxMovement : MonoBehaviour
         rb.velocity = new Vector3(rb.velocity.x, -1.5f, rb.velocity.z);
         //gliding animation here
 
-        foreach (AnimatorControllerParameter item in animatorBools)
-        {
-            playerAnimator.SetBool(item.name, false);
-        }
+        playerAnimator.SetBool("isGrounded", false);
         playerAnimator.SetBool("isGliding", true);
     }
     private void DisableGlider() 
@@ -295,11 +272,7 @@ public class FoxMovement : MonoBehaviour
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
         //jumping animation here
 
-        foreach (AnimatorControllerParameter item in animatorBools)
-        {
-            playerAnimator.SetBool(item.name, false);
-        }
-        playerAnimator.SetBool("isGrounded", true);
+        playerAnimator.SetBool("isChargingJump", false);
         playerAnimator.SetBool("isJumping", true);
         
     }
@@ -318,19 +291,12 @@ public class FoxMovement : MonoBehaviour
 
             chargeJumpTimer = chargeJumpTimer + 0.4f;
 
-            //charging animation here
-            playerAnimator.SetFloat("horMove", 0);
-            foreach (AnimatorControllerParameter item in animatorBools)
-            {
-                playerAnimator.SetBool(item.name, false);
-            }
+            //charging animation here'
+            playerAnimator.SetBool("isChargingJump", true);
+            playerAnimator.SetFloat("horMove", horizontalInput);
+            
+
             playerAnimator.SetFloat("vertMove", verticalInput);
-            foreach (AnimatorControllerParameter item in animatorBools)
-            {
-                playerAnimator.SetBool(item.name, false);
-            }
-            playerAnimator.SetBool("isGrounded", true);
-            playerAnimator.SetBool("isJumping", true);
         }
     }
     private void ClimbWall()
