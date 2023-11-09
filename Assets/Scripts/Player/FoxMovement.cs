@@ -150,6 +150,8 @@ public class FoxMovement : MonoBehaviour
             ChargeJumpAudio.Stop();
             rb.AddForce(transform.up * chargeJumpTimer, ForceMode.Impulse);
             //chargejump animation here
+            playerAnimator.SetBool("isChargingJump", false);
+            playerAnimator.SetBool("isJumping", false);
             Invoke(nameof(ResetJump), 0);
         }
         if (PlayerManager.instance.abilityValues[3])
@@ -162,23 +164,35 @@ public class FoxMovement : MonoBehaviour
     {
         //calculate movement direction
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
-        if (moveDirection==Vector3.zero&&GroundCheck())
+
+        
+        //in air
+         if (!GroundCheck())
+        {
+            if (glider)
+            {
+                Glider();
+            }
+            else if (!glider)
+            {
+                DisableGlider();
+                rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+                //in air animation here
+                playerAnimator.SetBool("isGrounded", false);
+            }
+            
+
+
+        }
+        else if (moveDirection==Vector3.zero&&GroundCheck())
         {
             //idle animation here
 
             playerAnimator.SetFloat("horMove", horizontalInput);
-            foreach (AnimatorControllerParameter item in animatorBools)
-            {
-                playerAnimator.SetBool(item.name, false);
-            }
             playerAnimator.SetFloat("vertMove", verticalInput);
-            foreach (AnimatorControllerParameter item in animatorBools)
-            {
-                playerAnimator.SetBool(item.name, false);
-            }
             playerAnimator.SetFloat("vertMove", verticalInput);
-            foreach (AnimatorControllerParameter item in animatorBools)
-                playerAnimator.SetBool("isGrounded", true);
+            playerAnimator.SetBool("isJumping", false);
+            playerAnimator.SetBool("isGrounded", true);
         }
         //snow diving
         else if (snowDive && GroundCheck())
@@ -194,6 +208,7 @@ public class FoxMovement : MonoBehaviour
 
             playerAnimator.SetFloat("horMove", horizontalInput);
             playerAnimator.SetFloat("vertMove", verticalInput);
+            playerAnimator.SetBool("isJumping", false);
             playerAnimator.SetBool("isGrounded", true);
             Debug.Log(horizontalInput);
         }
@@ -205,12 +220,12 @@ public class FoxMovement : MonoBehaviour
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
             //walking animation here
 
+            playerAnimator.SetBool("isJumping", false);
             playerAnimator.SetFloat("horMove", horizontalInput);
             playerAnimator.SetFloat("vertMove", verticalInput);
             playerAnimator.SetBool("isGrounded", true);
             Debug.Log(horizontalInput);
         }
-
 
         //gliding
         else if (!GroundCheck() && glider)
@@ -222,15 +237,8 @@ public class FoxMovement : MonoBehaviour
             DisableGlider();
         }
 
-        //in air
-        else if (!GroundCheck()) 
-        {
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
-            //in air animation here
-            playerAnimator.SetBool("isGrounded", false);
 
-            
-        }
+
 
 
     }
@@ -262,7 +270,7 @@ public class FoxMovement : MonoBehaviour
         {
             rb.useGravity = true;
         }
-        rb.AddForce(moveDirection.normalized * moveSpeed * 10f * glidingMultiplier, ForceMode.Force);
+        playerAnimator.SetBool("isGliding", false);
     }
 
     private void Jump() 
@@ -279,7 +287,7 @@ public class FoxMovement : MonoBehaviour
 
     private void ChargeJump() 
     {
-        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+        rb.velocity = new Vector3(0f, 0f, 0f);
 
         if (chargeJumpTimer < 15f)
         {
