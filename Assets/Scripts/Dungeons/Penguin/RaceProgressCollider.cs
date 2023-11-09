@@ -37,9 +37,6 @@ public class RaceProgressCollider : MonoBehaviour
                 if (triggeredRaceEvent != null)
                 {
                     triggeredRaceEvent.Invoke();
-
-                    
-                    
                 }
             }
 

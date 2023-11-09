@@ -8,9 +8,11 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] GameObject options;
 
     [SerializeField] string playButtonSceneName;
+
     private void Start()
     {
         options = GameObject.Find("OptionsMenu");
+        
     }
     public void StartNewGame() 
     {
