@@ -48,15 +48,16 @@ public class AutoFlip : MonoBehaviour {
     }*/
     public void FlipRightPage()
     {
+        if (isFlipping) return;
         currentSpread++;
 
-        if(currentSpread > maxSpreads)
+        if(currentSpread > maxSpreads-1)
         {
             SceneManager.LoadScene("Overworld");
             return;
         }
 
-        if (isFlipping) return;
+        
         if (ControledBook.currentPage >= ControledBook.TotalPageCount) return;
         isFlipping = true;
         float frameTime = PageFlipTime / AnimationFramesCount;
