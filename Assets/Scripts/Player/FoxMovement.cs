@@ -51,12 +51,14 @@ public class FoxMovement : MonoBehaviour
     private float chargeJumpTimer;
     private bool snowDive;
     [SerializeField] float snowDiveSpeed=15f;
+    private GameObject grabbedGameObject;
     [SerializeField] private TelegrabObject TelegrabObject;
     [SerializeField]private bool grabbing;
     [SerializeField]private bool canTeleGrab;
     [SerializeField]private Transform GrabPosition;
     [SerializeField]private Material grabbedMat;
     [SerializeField] private bool TelegrabEnabled;
+    [SerializeField] private GameObject TelegrabUI;
 
     [Header("Animations")]
     public Animator playerAnimator;
@@ -175,7 +177,34 @@ public class FoxMovement : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.G)&& canTeleGrab)
         {
-            TelegrabEnabled = !TelegrabEnabled;
+            if (!TelegrabEnabled)
+            {
+                TelegrabEnabled = true;
+                cameraMovement.currentStyle = CameraMovement.cameraStyle.Telegrab;
+                cameraMovement.freeLookCam.SetActive(false);
+                cameraMovement.telegrabCam.SetActive(true);
+                StartCoroutine(CrosshairEnable());
+            }
+            else
+            {
+                TelegrabEnabled = false;
+                cameraMovement.currentStyle = CameraMovement.cameraStyle.Basic;
+                cameraMovement.freeLookCam.SetActive(true);
+                cameraMovement.telegrabCam.SetActive(false);
+                StartCoroutine (CrosshairDisable());
+            }
+            
+            
+        }
+        IEnumerator CrosshairEnable() 
+        {
+            yield return new WaitForSeconds(0.2f);
+            TelegrabUI.SetActive(true);
+        }
+        IEnumerator CrosshairDisable()
+        {
+            yield return new WaitForSeconds(0.2f);
+            TelegrabUI.SetActive(false);
         }
         if (TelegrabEnabled)
         {
@@ -289,18 +318,32 @@ public class FoxMovement : MonoBehaviour
     }
     private void Telegrab()
     {
-            RaycastHit hitInfo;
+        //Drop grabbed item
+        if (grabbing && Input.GetKeyDown(KeyCode.B))
+        {
+
+            grabbedGameObject.transform.gameObject.GetComponent<MeshRenderer>().material = TelegrabObject.TelegrabMaterial;
+
+            grabbedGameObject.transform.parent = null;
+            grabbedGameObject.transform.GetComponent<Rigidbody>().isKinematic = false;
+            //grabbedGameObject = null;
+            grabbing = false;
+            //isHighlighted = false;
+
+        }
+        RaycastHit hitInfo;
             if (Physics.Raycast(Camera.position, Camera.forward, out hitInfo, viewDistance, MoveableLayerMask) && !grabbing)
             {
 
                 Debug.DrawLine(Camera.position, hitInfo.point);
+            //grab item
                 if (!grabbing)
                 {
                     //isHighlighted = true;
                     //hitInfo.transform.gameObject.GetComponent<MeshRenderer>().material = grabbableMat;
                     if (Input.GetKeyDown(KeyCode.V))
                     {
-                        GameObject grabbedGameObject = hitInfo.transform.gameObject;
+                        grabbedGameObject = hitInfo.transform.gameObject;
                         TelegrabObject = hitInfo.transform.gameObject.GetComponent<TelegrabObject>();
                         grabbedGameObject.GetComponent<MeshRenderer>().material = grabbedMat;
                         grabbedGameObject.transform.parent = GrabPosition;

@@ -17,6 +17,9 @@ public class CameraMovement : MonoBehaviour
 
     public cameraStyle currentStyle;
 
+    [SerializeField] public GameObject freeLookCam;
+    [SerializeField] public GameObject telegrabCam;
+
         public enum cameraStyle 
     {
         Basic,
