@@ -36,7 +36,10 @@ public class Timer : MonoBehaviour
     {
         raceInProgress = true;
 
-        timerCoroutine = StartCoroutine(TimerProgress());
+        if(timerCoroutine == null)
+        {
+            timerCoroutine = StartCoroutine(TimerProgress());
+        }
     }
 
     private IEnumerator TimerProgress()

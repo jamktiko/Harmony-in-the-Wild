@@ -10,5 +10,15 @@ public class ReloadAfterStuck : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            SceneManager.LoadScene("Overworld");
+        }
+
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
     }
 }

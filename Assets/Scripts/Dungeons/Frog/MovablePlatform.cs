@@ -25,7 +25,7 @@ public class MovablePlatform : MonoBehaviour
         elapsedTime += Time.deltaTime;
 
         float elapsetPercentage = elapsedTime / timeToWaypoint;
-        elapsetPercentage = Mathf.SmoothStep(0, 1, elapsetPercentage);
+        //elapsetPercentage = Mathf.SmoothStep(0, 1, elapsetPercentage);
         transform.position = Vector3.Lerp(previousWaypoint.position, targetWayPoint.position, elapsetPercentage);
 
         if(elapsetPercentage >= 1)

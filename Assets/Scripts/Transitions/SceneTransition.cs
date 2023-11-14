@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,5 +15,9 @@ public class SceneTransition : MonoBehaviour
         {
             SceneManager.LoadScene(goToScene);
         }
+    }
+    public void GoToScene() 
+    {
+        SceneManager.LoadScene(goToScene);
     }
 }
