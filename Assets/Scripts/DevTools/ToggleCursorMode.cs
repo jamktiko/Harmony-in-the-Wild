@@ -24,4 +24,9 @@ public class ToggleCursorMode : MonoBehaviour
             Cursor.visible = true;
         }
     }
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
 }
