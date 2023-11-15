@@ -2,6 +2,7 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class pauseMenu : MonoBehaviour
@@ -75,5 +76,10 @@ public class pauseMenu : MonoBehaviour
     public void Settings()
     {
         //update later
+    }
+    public void returnToMenu() 
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("MainMenu");
     }
 }
