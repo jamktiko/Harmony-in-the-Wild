@@ -17,10 +17,13 @@ public class CameraMovement : MonoBehaviour
 
     public cameraStyle currentStyle;
 
+    [SerializeField] public GameObject freeLookCam;
+    [SerializeField] public GameObject telegrabCam;
+
         public enum cameraStyle 
     {
         Basic,
-        Telegraph,
+        Telegrab,
         Topdown
     }
     // Start is called before the first frame update
@@ -49,7 +52,7 @@ public class CameraMovement : MonoBehaviour
                 foxObject.forward = Vector3.Slerp(foxObject.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
             }
         }
-        else if (currentStyle==cameraStyle.Telegraph)
+        else if (currentStyle==cameraStyle.Telegrab)
         {
             Vector3 dirtoTelegraphLookAt = TelegrabLookAt.position - new Vector3(transform.position.x, TelegrabLookAt.position.y, transform.position.z);
             orientation.forward = dirtoTelegraphLookAt.normalized;
