@@ -66,19 +66,31 @@ public class DialogueManager : MonoBehaviour
     {
         if (dialogueIsPlaying)
         {
-            if (Input.GetKeyDown(KeyCode.X))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 // if there is a choice to make, choose the current choice
-                if (choiceAvailable)
-                {
-                    MakeChoice(currentChoiceIndex);
-                }
+                //if (choiceAvailable)
+                //{
+                //    MakeChoice(currentChoiceIndex);
+                //}
 
                 // if there is no choice to make, continue dialogue
-                else
-                {
-                    ContinueDialogue();
-                }
+                //else
+                //{
+                //    
+                //}
+
+                ContinueDialogue();
+            }
+
+            else if (Input.GetKeyDown(KeyCode.X) && !currentStory.canContinue)
+            {
+                EndDialogue();
+            }
+
+            else if (Input.GetKeyDown(KeyCode.Return) && choiceAvailable)
+            {
+                MakeChoice(currentChoiceIndex);
             }
 
             else if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -109,6 +121,9 @@ public class DialogueManager : MonoBehaviour
             dialogueIsPlaying = true;
             dialogueCanvas.SetActive(true);
 
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
             ContinueDialogue();
         }
     }
@@ -124,10 +139,10 @@ public class DialogueManager : MonoBehaviour
             DisplayChoices();
         }
 
-        else
-        {
-            EndDialogue();
-        }
+        //else
+        //{
+        //    EndDialogue();
+        //}
     }
 
     private void DisplayChoices()
@@ -224,6 +239,9 @@ public class DialogueManager : MonoBehaviour
         dialogueCanvas.SetActive(false);
 
         StartCoroutine(DelayBetweenDialogues());
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     // delay between dialogues to prevent a bug from moving from one dialogue to another with the same character without player pressing any keys
