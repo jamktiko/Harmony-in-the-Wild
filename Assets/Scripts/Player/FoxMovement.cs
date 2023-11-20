@@ -9,6 +9,7 @@ public class FoxMovement : MonoBehaviour
 {
     [Header("Movement")]
     public float moveSpeed=7f;
+    [SerializeField] float swimSpeed=5f;
     public Transform orientation;
     public float SprintSpeed = 12f;
     bool sprinting;
@@ -70,7 +71,7 @@ public class FoxMovement : MonoBehaviour
     [SerializeField] AudioSource GlidingAudio;
     [SerializeField] AudioSource FreezingAudio;
     [SerializeField] AudioSource SnowDivingAudio;
-    
+
 
 
 
@@ -162,7 +163,7 @@ public class FoxMovement : MonoBehaviour
         else
             snowDive = false;
         
-        if (chargeJumpTimer!=0&&Input.GetButtonUp("Jump"))
+        if (chargeJumpTimer!=14&&Input.GetButtonUp("Jump"))
         {
             ChargeJumpAudio.Stop();
             rb.AddForce(transform.up * chargeJumpTimer, ForceMode.Impulse);
@@ -219,7 +220,7 @@ public class FoxMovement : MonoBehaviour
 
         
         //in air
-         if (!GroundCheck())
+         if (!GroundCheck()&&!WaterCheck())
         {
             if (glider)
             {
@@ -235,6 +236,10 @@ public class FoxMovement : MonoBehaviour
             
 
 
+        }
+        else if (WaterCheck())
+        {
+            Swim();
         }
         else if (moveDirection==Vector3.zero&&GroundCheck())
         {
@@ -382,7 +387,7 @@ public class FoxMovement : MonoBehaviour
     {
         rb.velocity = new Vector3(0f, 0f, 0f);
 
-        if (chargeJumpTimer < 15f)
+        if (chargeJumpTimer < 18f)
         {
             //audio play
             if (!ChargeJumpAudio.isPlaying)
@@ -390,7 +395,7 @@ public class FoxMovement : MonoBehaviour
                 ChargeJumpAudio.Play();
             }
 
-            chargeJumpTimer = chargeJumpTimer + 0.4f;
+            chargeJumpTimer = chargeJumpTimer + 0.09f;
 
             //charging animation here'
             playerAnimator.SetBool("isChargingJump", true);
@@ -423,7 +428,7 @@ public class FoxMovement : MonoBehaviour
     private void ResetJump()
     {
         readytoJump=true;
-        chargeJumpTimer=0;
+        chargeJumpTimer=14;
     }
     private void SpeedControl() 
     {
@@ -434,6 +439,14 @@ public class FoxMovement : MonoBehaviour
             Vector3 limitedVel = flatVel.normalized * moveSpeed;
             rb.velocity=new Vector3(limitedVel.x,rb.velocity.y, limitedVel.z);
         }
+    }
+    private void Swim() 
+    {
+        if (!rb.useGravity)
+        {
+            rb.useGravity=true;
+        }
+        rb.AddForce(moveDirection.normalized * swimSpeed * 10f, ForceMode.Force);
     }
     bool GroundCheck()
     {

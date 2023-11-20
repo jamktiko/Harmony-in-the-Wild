@@ -5,15 +5,16 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class pauseMenu : MonoBehaviour
+public class pauseMenuManager : MonoBehaviour
 {
     [SerializeField] GameObject pauseMenuPanel;
     [SerializeField] CinemachineFreeLook cinemachineFreeLook;
     [SerializeField] Toggle InvertYAxis;
-    void Awake()
+    void Start()
     {
-
+        pauseMenuPanel = GameObject.Find("Canvas").transform.Find("PauseMenu").gameObject;
         cinemachineFreeLook = GameObject.Find("FreeLook Camera").GetComponent<CinemachineFreeLook>();
+        InvertYAxis = pauseMenuPanel.GetComponentInChildren<Toggle>();
         if (PlayerPrefs.GetInt("InvertY") == 1)
         {
             cinemachineFreeLook.m_YAxis.m_InvertInput = true;
@@ -37,7 +38,7 @@ public class pauseMenu : MonoBehaviour
                 Time.timeScale = 1f;
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
-                pauseMenuPanel.SetActive(false); 
+                pauseMenuPanel.SetActive(false);
             }
             //enable
             else
@@ -62,22 +63,23 @@ public class pauseMenu : MonoBehaviour
             PlayerPrefs.SetInt("InvertY", 0);
         }
     }
-    public void ExitGame() 
+    public void ExitGame()
     {
         Application.Quit();
     }
     public void Resume()
     {
+        pauseMenuPanel.SetActive(false);
         Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        pauseMenuPanel.SetActive(false);
+        
     }
     public void Settings()
     {
         //update later
     }
-    public void returnToMenu() 
+    public void returnToMenu()
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");
