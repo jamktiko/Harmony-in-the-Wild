@@ -17,6 +17,7 @@ public class AutoFlip : MonoBehaviour {
     private AudioSource audioSource;
     private int maxSpreads;
     private int currentSpread;
+    private string nextScene;
 
     void Start () {
         if (!ControledBook)
@@ -28,7 +29,9 @@ public class AutoFlip : MonoBehaviour {
         audioSource = GetComponent<AudioSource>();
 
         maxSpreads = ControledBook.SetMaxSpreads();
-	}
+
+        nextScene = PlayerManager.instance.GetComponent<StorybookHandler>().GetNextScene();
+    }
 
     private void Update()
     {
@@ -42,10 +45,7 @@ public class AutoFlip : MonoBehaviour {
     {
         isFlipping = false;
     }
-	/*public void StartFlipping()
-    {
-        StartCoroutine(FlipToEnd());
-    }*/
+
     public void FlipRightPage()
     {
         if (isFlipping) return;
@@ -53,7 +53,7 @@ public class AutoFlip : MonoBehaviour {
 
         if(currentSpread > maxSpreads-1)
         {
-            SceneManager.LoadScene("Overworld");
+            SceneManager.LoadScene(nextScene);
             return;
         }
 
@@ -98,6 +98,11 @@ public class AutoFlip : MonoBehaviour {
 
 // NOTE CODE FROM ASSET THAT ARE CURRENTLY NOT NECESSARY
 // NOTE CAN BE REMOVED ONCE THEY ARE DEFINITELY NOT NEEDED ANYMORE
+
+/*public void StartFlipping()
+{
+    StartCoroutine(FlipToEnd());
+}*/
 
 /*public void FlipLeftPage()
    {
