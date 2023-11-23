@@ -11,14 +11,18 @@ public class SnowWaypoints : MonoBehaviour
     private Mesh mesh;
     public Material material;
 
+    //verts
     public List<Vector3> vertList = new List<Vector3>();
+    private Vector3[] verts;
     private int i = 0;
 
-    private Vector3[] verts;
+    //uv
     private Vector2[] uv;
-    private int[] tris;
 
+    //tris
+    private int[] tris;
     private int triList;
+
     private void OnDrawGizmos() //Gizmos (yes, it's obvious, but this is a visual aid)
     {
         foreach(Transform t in transform)
@@ -45,31 +49,34 @@ public class SnowWaypoints : MonoBehaviour
         {
             triList = 3 + (vertList.Count - 3) * 3;
             tris = new int[triList];
+
+            //finally actually create the tri positions
+            for (int i = 0, j = 0; i < triList;)
+            {
+                tris[i] = j;
+                tris[i + 1] = j + 1;
+                tris[i + 2] = j + 2;
+
+                Debug.Log("First pass" + tris[i] + tris[i + 1] + tris[i + 2]);
+
+                i = i + 3;
+                j++;
+
+                if (i < triList)
+                {
+                    tris[i] = j;
+                    tris[i + 1] = j + 2;
+                    tris[i + 2] = j + 1;
+
+                    Debug.Log("Second pass" + tris[i] + tris[i + 1] + tris[i + 2]);
+                    i = i + 3;
+                    j++;
+                }
+            }
         }
         else
         {
             return;
-        }
-
-        //finally actually create the tri positions
-        for (int i = 0, j = 0; i < vertList.Count;)
-        {
-            tris[i] = j;
-            tris[i + 1] = j + 1;
-            tris[i + 2] = j + 2;
-
-            i = i + 3;
-            j++;
-
-            if (i < vertList.Count)
-            {
-                tris[i] = j;
-                tris[i + 1] = j + 2;
-                tris[i + 2] = j + 1;
-
-                i = i + 3;
-                j++;
-            }
         }
     }
 
@@ -77,13 +84,20 @@ public class SnowWaypoints : MonoBehaviour
     {
         mesh.Clear();
         mesh = new Mesh();
-        GetComponent<MeshFilter>().mesh = mesh;
 
         mesh.vertices = verts;
-        mesh.uv = uv;
         mesh.triangles = tris;
+        mesh.uv = uv;
 
         mesh.RecalculateNormals();
+        mesh.RecalculateBounds();
+
+        GameObject meshObject = new GameObject("GeneratedMesh");
+        MeshFilter meshFilter = meshObject.AddComponent<MeshFilter>();
+
+        meshFilter.mesh = mesh;
+
+        meshObject.AddComponent<MeshRenderer>();
     }
 
     void CollectChildPositions()
