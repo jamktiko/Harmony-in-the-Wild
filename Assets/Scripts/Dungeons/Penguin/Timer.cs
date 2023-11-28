@@ -76,6 +76,7 @@ public class Timer : MonoBehaviour
     {
         raceInProgress = false;
         StopCoroutine(timerCoroutine);
+        timerCoroutine = null;
 
         currentTime = 0;
 
@@ -87,5 +88,6 @@ public class Timer : MonoBehaviour
     {
         raceInProgress = false;
         StopCoroutine(timerCoroutine);
+        timerCoroutine = null;
     }
 }

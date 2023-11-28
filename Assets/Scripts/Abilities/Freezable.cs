@@ -10,6 +10,10 @@ public class Freezable : MonoBehaviour
     [Header("Freeze Config")]
     [SerializeField] private float freezeTime;
 
+    [Header("Needed References")]
+    [SerializeField] private GameObject isFreezedEffect;
+    [SerializeField] private GameObject canBeFreezed;
+
     private Rigidbody rb;
     private Vector3 targetPosition;
 
@@ -29,6 +33,9 @@ public class Freezable : MonoBehaviour
             rb.constraints = RigidbodyConstraints.FreezeAll;
         }
 
+        canBeFreezed.SetActive(false);
+        isFreezedEffect.SetActive(true);
+
         StartCoroutine(FreezeCooldown());
     }
 
@@ -43,6 +50,9 @@ public class Freezable : MonoBehaviour
             rb.useGravity = true;
             rb.constraints = RigidbodyConstraints.None;
         }
+
+        canBeFreezed.SetActive(true);
+        isFreezedEffect.SetActive(false);
 
         Debug.Log(gameObject.name + " has been unfreezed.");
     }

@@ -18,11 +18,13 @@ public class ClosingWall : MonoBehaviour
     private float timeToTargetSpot;
     private float elapsedTime;
     private Freezable freezable;
+    private Collider coll;
 
     private void Start()
     {
         startSpot = transform.position;
         freezable = GetComponent<Freezable>();
+        coll = GetComponent<BoxCollider>();
 
         SetTimeToTarget();
 
@@ -45,6 +47,17 @@ public class ClosingWall : MonoBehaviour
             float elapsetPercentage = elapsedTime / timeToTargetSpot;
             elapsetPercentage = Mathf.SmoothStep(0, 1, elapsetPercentage);
             transform.position = Vector3.Lerp(startSpot, targetSpot.position, elapsetPercentage);
+        }
+
+        // disable collider if the 
+        if (freezable.isFreezed && coll.isTrigger)
+        {
+            coll.isTrigger = false;
+        }
+
+        else if (!freezable.isFreezed && !coll.isTrigger)
+        {
+            coll.isTrigger = true;
         }
     }
 
