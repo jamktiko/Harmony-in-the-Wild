@@ -20,6 +20,12 @@ public abstract class QuestStep : MonoBehaviour
             SetQuestStepState(questStepState);
         }
     }
+
+    protected string GetQuestId()
+    {
+        return questId;
+    }
+
     protected void FinishQuestStep()
     {
         if (!isFinished) 

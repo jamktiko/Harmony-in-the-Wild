@@ -10,7 +10,7 @@ public class DungeonEntrance : MonoBehaviour
     [SerializeField] private QuestScriptableObject dungeonQuest;
 
     [Header("Needed References")]
-    [SerializeField] private GameObject dungeonEnteringPrecentedUI;
+    [SerializeField] private GameObject dungeonEnteringPreventedUI;
 
     [Header("Config")]
     [SerializeField] private string goToScene;
@@ -52,8 +52,8 @@ public class DungeonEntrance : MonoBehaviour
 
             else
             {
-                dungeonEnteringPrecentedUI.SetActive(true);
-                dungeonEnteringPrecentedUI.GetComponent<DungeonEnteringPreventedUI>().SetUIContent(currentQuest);
+                dungeonEnteringPreventedUI.SetActive(true);
+                dungeonEnteringPreventedUI.GetComponent<DungeonEnteringPreventedUI>().SetUIContent(currentQuest);
             }
         }
     }
