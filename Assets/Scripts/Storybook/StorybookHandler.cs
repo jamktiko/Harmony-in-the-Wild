@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class StorybookHandler : MonoBehaviour
 {
-    private int currentStorybookSectionIndex = 0;
+    private int currentStorybookSectionIndex = 1;
     private string sceneAfterStorybook = "Overworld";
+    private bool isDungeonEndStory = true;
 
-    public void SetNewStorybookData(int index, string nextScene)
+    public void SetNewStorybookData(int index, string nextScene, bool isDungeonEnding)
     {
         currentStorybookSectionIndex = index;
         sceneAfterStorybook = nextScene;
+        isDungeonEndStory = isDungeonEnding;
     }
 
     public int GetCurrentStorybookSection()
@@ -21,5 +23,10 @@ public class StorybookHandler : MonoBehaviour
     public string GetNextScene()
     {
         return sceneAfterStorybook;
+    }
+
+    public bool CheckForDungeonEnding()
+    {
+        return isDungeonEndStory;
     }
 }
