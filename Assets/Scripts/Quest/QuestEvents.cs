@@ -52,4 +52,15 @@ public class QuestEvents
         }
         
     }
+
+    public event Action<string> onAdvanceDungeonQuest;
+
+    public void AdvanceDungeonQuest(string id)
+    {
+        if (onAdvanceDungeonQuest != null)
+        {
+            onAdvanceDungeonQuest(id);
+        }
+
+    }
 }

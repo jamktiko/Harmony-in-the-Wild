@@ -28,7 +28,7 @@ public class Timer : MonoBehaviour
     private void OnDisable()
     {
         PenguinRaceManager.instance.penguinDungeonEvents.onLapInterrupted -= ResetTimeAfterInterruptedLap;
-        PenguinRaceManager.instance.penguinDungeonEvents.onLapFinished -= StartTimer;
+        PenguinRaceManager.instance.penguinDungeonEvents.onLapFinished -= StartTimerForNewLap;
         PenguinRaceManager.instance.penguinDungeonEvents.onRaceFinished -= StopTimer;
     }
 
@@ -76,6 +76,7 @@ public class Timer : MonoBehaviour
     {
         raceInProgress = false;
         StopCoroutine(timerCoroutine);
+        timerCoroutine = null;
 
         currentTime = 0;
 
@@ -87,5 +88,6 @@ public class Timer : MonoBehaviour
     {
         raceInProgress = false;
         StopCoroutine(timerCoroutine);
+        timerCoroutine = null;
     }
 }

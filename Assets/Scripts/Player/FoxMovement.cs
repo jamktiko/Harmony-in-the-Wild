@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -9,6 +10,7 @@ public class FoxMovement : MonoBehaviour
 {
     [Header("Movement")]
     public float moveSpeed=7f;
+    [SerializeField] float swimSpeed=5f;
     public Transform orientation;
     public float SprintSpeed = 12f;
     bool sprinting;
@@ -48,7 +50,7 @@ public class FoxMovement : MonoBehaviour
     [SerializeField] bool glider;
     [SerializeField] bool glidingNow;
     [SerializeField] bool canChargedJump;
-    private float chargeJumpTimer;
+    [SerializeField]private float chargeJumpTimer;
     private bool snowDive;
     [SerializeField] float snowDiveSpeed=15f;
     private GameObject grabbedGameObject;
@@ -59,6 +61,8 @@ public class FoxMovement : MonoBehaviour
     [SerializeField]private Material grabbedMat;
     [SerializeField] private bool TelegrabEnabled;
     [SerializeField] private GameObject TelegrabUI;
+    List<TelegrabObject> telegrabObjects = new List<TelegrabObject>();
+
 
     [Header("Animations")]
     public Animator playerAnimator;
@@ -70,9 +74,6 @@ public class FoxMovement : MonoBehaviour
     [SerializeField] AudioSource GlidingAudio;
     [SerializeField] AudioSource FreezingAudio;
     [SerializeField] AudioSource SnowDivingAudio;
-    
-
-
 
 
     // Start is called before the first frame update
@@ -162,7 +163,7 @@ public class FoxMovement : MonoBehaviour
         else
             snowDive = false;
         
-        if (chargeJumpTimer!=0&&Input.GetButtonUp("Jump"))
+        if (chargeJumpTimer!=14&&Input.GetButtonUp("Jump"))
         {
             ChargeJumpAudio.Stop();
             rb.AddForce(transform.up * chargeJumpTimer, ForceMode.Impulse);
@@ -206,7 +207,7 @@ public class FoxMovement : MonoBehaviour
             yield return new WaitForSeconds(0.2f);
             TelegrabUI.SetActive(false);
         }
-        if (TelegrabEnabled)
+        if (TelegrabEnabled||grabbing)
         {
             Telegrab();
         }
@@ -219,7 +220,7 @@ public class FoxMovement : MonoBehaviour
 
         
         //in air
-         if (!GroundCheck())
+         if (!GroundCheck()&&!WaterCheck())
         {
             if (glider)
             {
@@ -236,6 +237,10 @@ public class FoxMovement : MonoBehaviour
 
 
         }
+        else if (WaterCheck())
+        {
+            Swim();
+        }
         else if (moveDirection==Vector3.zero&&GroundCheck())
         {
             //idle animation here
@@ -246,12 +251,14 @@ public class FoxMovement : MonoBehaviour
             playerAnimator.SetBool("isJumping", false);
             playerAnimator.SetBool("isGrounded", true);
         }
+
         //snow diving
         else if (snowDive && GroundCheck())
         {
             rb.AddForce(moveDirection.normalized * snowDiveSpeed * 10f, ForceMode.Force);
             //snow diving animation here
         }
+
         //sprinting
         else if (sprinting && GroundCheck())
         {
@@ -288,11 +295,6 @@ public class FoxMovement : MonoBehaviour
         {
             DisableGlider();
         }
-
-
-
-
-
     }
 
     private void Glider()
@@ -321,15 +323,17 @@ public class FoxMovement : MonoBehaviour
         //Drop grabbed item
         if (grabbing && Input.GetKeyDown(KeyCode.B))
         {
-
             grabbedGameObject.transform.gameObject.GetComponent<MeshRenderer>().material = TelegrabObject.TelegrabMaterial;
-
+            foreach (TelegrabObject t in telegrabObjects) 
+            { 
+                t.gameObject.GetComponent<MeshRenderer>().material = t.TelegrabMaterial;
+            }
             grabbedGameObject.transform.parent = null;
             grabbedGameObject.transform.GetComponent<Rigidbody>().isKinematic = false;
             //grabbedGameObject = null;
             grabbing = false;
             //isHighlighted = false;
-
+            telegrabObjects.Clear();
         }
         RaycastHit hitInfo;
             if (Physics.Raycast(Camera.position, Camera.forward, out hitInfo, viewDistance, MoveableLayerMask) && !grabbing)
@@ -344,14 +348,29 @@ public class FoxMovement : MonoBehaviour
                     if (Input.GetKeyDown(KeyCode.V))
                     {
                         grabbedGameObject = hitInfo.transform.gameObject;
-                        TelegrabObject = hitInfo.transform.gameObject.GetComponent<TelegrabObject>();
+                    TelegrabObject = hitInfo.transform.gameObject.GetComponent<TelegrabObject>();
+                    if (grabbedGameObject.transform.childCount != 0)
+                    {
+                        List<GameObject> list = new List<GameObject>();
+                        for (int i = 0; i < grabbedGameObject.transform.childCount; i++)
+                        {
+                            list.Add(grabbedGameObject.transform.GetChild(i).gameObject);
+                            telegrabObjects.Add(grabbedGameObject.transform.GetChild(i).GetComponent<TelegrabObject>());
+                        }
+
+                        foreach (GameObject go in list)
+                            go.GetComponent<MeshRenderer>().material = grabbedMat; 
                         grabbedGameObject.GetComponent<MeshRenderer>().material = grabbedMat;
-                        grabbedGameObject.transform.parent = GrabPosition;
+                    }
+                    else
+                    {
+                        grabbedGameObject.GetComponent<MeshRenderer>().material = grabbedMat;
+                    }
+                    grabbedGameObject.transform.parent = GrabPosition;
                         grabbedGameObject.transform.position = GrabPosition.position;
                         grabbedGameObject.transform.GetComponent<Rigidbody>().isKinematic = true;
-                        grabbedGameObject.transform.rotation = Quaternion.identity;
+                        //grabbedGameObject.transform.rotation = Quaternion.identity;
                         grabbing = true;
-
                     }
                 
             }
@@ -382,7 +401,7 @@ public class FoxMovement : MonoBehaviour
     {
         rb.velocity = new Vector3(0f, 0f, 0f);
 
-        if (chargeJumpTimer < 15f)
+        if (chargeJumpTimer < 36f)
         {
             //audio play
             if (!ChargeJumpAudio.isPlaying)
@@ -390,7 +409,7 @@ public class FoxMovement : MonoBehaviour
                 ChargeJumpAudio.Play();
             }
 
-            chargeJumpTimer = chargeJumpTimer + 0.4f;
+            chargeJumpTimer = chargeJumpTimer + 0.6f;
 
             //charging animation here'
             playerAnimator.SetBool("isChargingJump", true);
@@ -423,7 +442,7 @@ public class FoxMovement : MonoBehaviour
     private void ResetJump()
     {
         readytoJump=true;
-        chargeJumpTimer=0;
+        chargeJumpTimer=14;
     }
     private void SpeedControl() 
     {
@@ -434,6 +453,14 @@ public class FoxMovement : MonoBehaviour
             Vector3 limitedVel = flatVel.normalized * moveSpeed;
             rb.velocity=new Vector3(limitedVel.x,rb.velocity.y, limitedVel.z);
         }
+    }
+    private void Swim() 
+    {
+        if (!rb.useGravity)
+        {
+            rb.useGravity=true;
+        }
+        rb.AddForce(moveDirection.normalized * swimSpeed * 10f, ForceMode.Force);
     }
     bool GroundCheck()
     {

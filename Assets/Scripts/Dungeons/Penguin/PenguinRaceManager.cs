@@ -44,6 +44,8 @@ public class PenguinRaceManager : MonoBehaviour
     {
         currentLap++;
 
+        Debug.Log("Current lap is " + currentLap);
+
         if(currentLap <= 3)
         {
             penguinDungeonEvents.LapFinished();

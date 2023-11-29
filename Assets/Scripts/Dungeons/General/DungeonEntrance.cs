@@ -10,7 +10,7 @@ public class DungeonEntrance : MonoBehaviour
     [SerializeField] private QuestScriptableObject dungeonQuest;
 
     [Header("Needed References")]
-    [SerializeField] private GameObject dungeonEnteringPrecentedUI;
+    [SerializeField] private GameObject dungeonEnteringPreventedUI;
 
     [Header("Config")]
     [SerializeField] private string goToScene;
@@ -39,15 +39,21 @@ public class DungeonEntrance : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            if(currentQuestState == QuestState.CAN_START || currentQuestState == QuestState.IN_PROGRESS)
+            if(currentQuestState == QuestState.CAN_START)
+            {
+                GameEventsManager.instance.questEvents.StartQuest(questId);
+                SceneManager.LoadScene(goToScene);
+            }
+
+            else if (currentQuestState == QuestState.IN_PROGRESS)
             {
                 SceneManager.LoadScene(goToScene);
             }
 
             else
             {
-                dungeonEnteringPrecentedUI.SetActive(true);
-                dungeonEnteringPrecentedUI.GetComponent<DungeonEnteringPreventedUI>().SetUIContent(currentQuest);
+                dungeonEnteringPreventedUI.SetActive(true);
+                dungeonEnteringPreventedUI.GetComponent<DungeonEnteringPreventedUI>().SetUIContent(currentQuest);
             }
         }
     }
@@ -69,5 +75,7 @@ public class DungeonEntrance : MonoBehaviour
         yield return new WaitForSeconds(1);
 
         currentQuest = QuestManager.instance.GetQuestById(questId);
+
+        currentQuestState = currentQuest.state;
     }
 }

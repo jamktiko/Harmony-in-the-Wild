@@ -3,21 +3,57 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-// NOTE! TURN THIS INTO QUEST STEP!!
-public class CompleteDungeonQuest : MonoBehaviour
+public class CompleteDungeonQuest : QuestStep
 {
     [Header("Config")]
-    [SerializeField] private QuestScriptableObject questScriptableObject;
+    [Tooltip("Set as 2 if the dungeon has both learning and boss area; set as 1 if there is only one stage")]
+    [SerializeField] private int amountOfDungeonStages;
 
-    private string questId;
+    private int stagesCompleted;
+    private string dungeonQuestId;
 
     private void Start()
     {
-        questId = questScriptableObject.id;
+        dungeonQuestId = GetQuestId();
     }
 
-    public void CompleteDungeon()
+    private void OnEnable()
     {
+        GameEventsManager.instance.questEvents.onAdvanceDungeonQuest += CompleteDungeon;
+    }
 
+    private void OnDisable()
+    {
+        GameEventsManager.instance.questEvents.onAdvanceDungeonQuest -= CompleteDungeon;
+    }
+
+    public void CompleteDungeon(string id)
+    {
+        if(id == dungeonQuestId)
+        {
+            stagesCompleted++;
+
+            if (stagesCompleted < amountOfDungeonStages)
+            {
+                UpdateState();
+            }
+
+            else if (stagesCompleted >= amountOfDungeonStages)
+            {
+                FinishQuestStep();
+            }
+        }
+    }
+
+    private void UpdateState()
+    {
+        string state = amountOfDungeonStages.ToString();
+        ChangeState(state);
+    }
+
+    protected override void SetQuestStepState(string state)
+    {
+        stagesCompleted = System.Int32.Parse(state);
+        UpdateState();
     }
 }
