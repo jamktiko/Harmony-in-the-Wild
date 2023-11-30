@@ -51,6 +51,8 @@ public class FoxMovement : MonoBehaviour
     [SerializeField] bool glidingNow;
     [SerializeField] bool canChargedJump;
     [SerializeField]private float chargeJumpTimer;
+    private bool isChargeJumping;
+    [SerializeField]private float ChargeJumpHeight=22f;
     private bool snowDive;
     [SerializeField] float snowDiveSpeed=15f;
     private GameObject grabbedGameObject;
@@ -74,6 +76,7 @@ public class FoxMovement : MonoBehaviour
     [SerializeField] AudioSource GlidingAudio;
     [SerializeField] AudioSource FreezingAudio;
     [SerializeField] AudioSource SnowDivingAudio;
+
 
 
     // Start is called before the first frame update
@@ -146,9 +149,10 @@ public class FoxMovement : MonoBehaviour
         {
             glider = false;
         }
-        else if (GroundCheck() && Input.GetButton("Jump") && canChargedJump)
+        else if (GroundCheck() && Input.GetButton("Jump") && canChargedJump&&!isChargeJumping)
         {
-            ChargeJump();
+            isChargeJumping = true;
+            
         }
 
         //Sprint check
@@ -295,6 +299,11 @@ public class FoxMovement : MonoBehaviour
         {
             DisableGlider();
         }
+
+        if (isChargeJumping)
+        {
+            ChargeJump();
+        }
     }
 
     private void Glider()
@@ -340,6 +349,7 @@ public class FoxMovement : MonoBehaviour
             {
 
                 Debug.DrawLine(Camera.position, hitInfo.point);
+
             //grab item
                 if (!grabbing)
                 {
@@ -401,7 +411,7 @@ public class FoxMovement : MonoBehaviour
     {
         rb.velocity = new Vector3(0f, 0f, 0f);
 
-        if (chargeJumpTimer < 36f)
+        if (chargeJumpTimer < ChargeJumpHeight)
         {
             //audio play
             if (!ChargeJumpAudio.isPlaying)
@@ -409,14 +419,13 @@ public class FoxMovement : MonoBehaviour
                 ChargeJumpAudio.Play();
             }
 
-            chargeJumpTimer = chargeJumpTimer + 0.6f;
+            chargeJumpTimer = chargeJumpTimer + 0.3f;
 
             //charging animation here'
             playerAnimator.SetBool("isChargingJump", true);
             playerAnimator.SetFloat("horMove", horizontalInput);
-            
-
             playerAnimator.SetFloat("vertMove", verticalInput);
+            
         }
     }
     private void ClimbWall()
@@ -443,6 +452,7 @@ public class FoxMovement : MonoBehaviour
     {
         readytoJump=true;
         chargeJumpTimer=14;
+        isChargeJumping=false;
     }
     private void SpeedControl() 
     {

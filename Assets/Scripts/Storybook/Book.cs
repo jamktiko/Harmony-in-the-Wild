@@ -8,7 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.Events;
-using UnityEngine.SceneManagement;
+
 public enum FlipMode
 {
     RightToLeft,
@@ -89,8 +89,18 @@ public class Book : MonoBehaviour {
 
     void Start()
     {
-        currentStorybookIndex = PlayerManager.instance.GetComponent<StorybookHandler>().GetCurrentStorybookSection();
-        bookPages = storybookSections[currentStorybookIndex].storybookImages;
+        StartCoroutine(Delay());
+        IEnumerator Delay()
+        {
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        // set the storybook materials to match the corresponding section in the game
+        if (Application.isPlaying)
+        {
+            currentStorybookIndex = PlayerManager.instance.GetComponent<StorybookHandler>().GetCurrentStorybookSection();
+            bookPages = storybookSections[currentStorybookIndex].storybookImages;
+        }
 
         if (!canvas) canvas=GetComponentInParent<Canvas>();
         if (!canvas) Debug.LogError("Book should be a child to canvas");
