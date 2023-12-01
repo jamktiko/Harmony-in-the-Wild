@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -77,6 +78,10 @@ public class FoxMovement : MonoBehaviour
     [SerializeField] AudioSource FreezingAudio;
     [SerializeField] AudioSource SnowDivingAudio;
 
+    // Slopes
+    public RaycastHit hit3;
+    [SerializeField]private float playerHeight;
+
 
 
     // Start is called before the first frame update
@@ -108,6 +113,7 @@ public class FoxMovement : MonoBehaviour
         }            
         else
             rb.drag = 0;
+        OnSlope();
     }
     private void FixedUpdate()
     {
@@ -535,6 +541,20 @@ public class FoxMovement : MonoBehaviour
             return false;
         }
     }
+    public bool OnSlope()
+    {
+        if (Physics.Raycast(foxMiddle.position, Vector3.down, out hit3, playerHeight * 0.5f + 0.2f))
+        {
+            if (hit3.normal != Vector3.up)
+            {
+                Debug.DrawLine(foxMiddle.position, hit3.point, Color.red);
+
+                return true;
+            }
+        }
+        return false;
+    }
+
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;

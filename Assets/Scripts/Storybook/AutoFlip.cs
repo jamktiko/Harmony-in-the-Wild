@@ -72,7 +72,7 @@ public class AutoFlip : MonoBehaviour {
         if (isFlipping) return;
         currentSpread++;
 
-        if(currentSpread > maxSpreads-1)
+        if(currentSpread > maxSpreads)
         {
             SceneManager.LoadScene(nextScene);
             return;
