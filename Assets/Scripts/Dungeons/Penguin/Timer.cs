@@ -21,6 +21,8 @@ public class Timer : MonoBehaviour
 
     private void Start()
     {
+        currentTime = maxTime;
+
         var convertedTime = TimeSpan.FromSeconds(currentTime);
         timerText.text = string.Format("{0:00}:{1:00}", convertedTime.Minutes, convertedTime.Seconds);
 
