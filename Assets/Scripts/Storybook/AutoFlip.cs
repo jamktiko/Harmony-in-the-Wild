@@ -44,9 +44,9 @@ public class AutoFlip : MonoBehaviour {
 
         maxSpreads = ControledBook.SetMaxSpreads();
 
-        nextScene = PlayerManager.instance.GetComponent<StorybookHandler>().GetNextScene();
+        nextScene = StorybookHandler.instance.GetNextScene();
 
-        if (PlayerManager.instance.GetComponent<StorybookHandler>().CheckForDungeonEnding())
+        if (StorybookHandler.instance.CheckForDungeonEnding())
         {
             pageFlipTime = autoFlipTime;
             isAutoFlipping = true;

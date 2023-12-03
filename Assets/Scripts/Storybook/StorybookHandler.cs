@@ -8,6 +8,19 @@ public class StorybookHandler : MonoBehaviour
     private string sceneAfterStorybook = "Overworld";
     private bool isDungeonEndStory = false;
 
+    public static StorybookHandler instance;
+
+    private void Awake()
+    {
+        // creating the instance for Storybook Handler
+        if (instance != null)
+        {
+            Debug.LogWarning("There is more than one Storybook Handler in the scene!");
+        }
+
+        instance = this;
+    }
+
     public void SetNewStorybookData(int index, string nextScene, bool isDungeonEnding)
     {
         currentStorybookSectionIndex = index;

@@ -2278,17 +2278,25 @@ PrefabInstance:
       value: FrostyPenguin
       objectReference: {fileID: 0}
     - target: {fileID: 4883488124587349295, guid: 7ce52cf24c21ca744b351c2945e54294, type: 3}
-      propertyPath: m_Enabled
-      value: 0
+      propertyPath: goToScene
+      value: Dungeon_Penguin
       objectReference: {fileID: 0}
     - target: {fileID: 4883488124587349295, guid: 7ce52cf24c21ca744b351c2945e54294, type: 3}
       propertyPath: dungeonQuest
       value: 
       objectReference: {fileID: 11400000, guid: 3bf14c600c45f4240b2ce1650a704374, type: 2}
     - target: {fileID: 4883488124587349295, guid: 7ce52cf24c21ca744b351c2945e54294, type: 3}
+      propertyPath: storybookSectionIndex
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883488124587349295, guid: 7ce52cf24c21ca744b351c2945e54294, type: 3}
       propertyPath: dungeonEnteringPreventedUI
       value: 
       objectReference: {fileID: 1383184469}
+    - target: {fileID: 4883488124587349295, guid: 7ce52cf24c21ca744b351c2945e54294, type: 3}
+      propertyPath: activateQuestProgressTracking
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8611250413721716732, guid: 7ce52cf24c21ca744b351c2945e54294, type: 3}
       propertyPath: goToScene
       value: Dungeon_Penguin
@@ -2333,7 +2341,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8611250413721716732, guid: 7ce52cf24c21ca744b351c2945e54294, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 8961191838114583857, guid: 7ce52cf24c21ca744b351c2945e54294, type: 3}
@@ -8032,9 +8041,17 @@ PrefabInstance:
         Squirrel'
       objectReference: {fileID: 0}
     - target: {fileID: 4883488124587349295, guid: 7ce52cf24c21ca744b351c2945e54294, type: 3}
-      propertyPath: m_Enabled
-      value: 0
+      propertyPath: goToScene
+      value: Dungeon_Squirrel_Learning
       objectReference: {fileID: 0}
+    - target: {fileID: 4883488124587349295, guid: 7ce52cf24c21ca744b351c2945e54294, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883488124587349295, guid: 7ce52cf24c21ca744b351c2945e54294, type: 3}
+      propertyPath: dungeonEnteringPreventedUI
+      value: 
+      objectReference: {fileID: 1383184469}
     - target: {fileID: 8611250413721716732, guid: 7ce52cf24c21ca744b351c2945e54294, type: 3}
       propertyPath: goToScene
       value: Dungeon_Squirrel_Learning
@@ -14664,9 +14681,17 @@ PrefabInstance:
         Monkey'
       objectReference: {fileID: 0}
     - target: {fileID: 4883488124587349295, guid: 7ce52cf24c21ca744b351c2945e54294, type: 3}
-      propertyPath: m_Enabled
-      value: 0
+      propertyPath: goToScene
+      value: Dungeon_Monke_Learning
       objectReference: {fileID: 0}
+    - target: {fileID: 4883488124587349295, guid: 7ce52cf24c21ca744b351c2945e54294, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883488124587349295, guid: 7ce52cf24c21ca744b351c2945e54294, type: 3}
+      propertyPath: dungeonEnteringPreventedUI
+      value: 
+      objectReference: {fileID: 1383184469}
     - target: {fileID: 8611250413721716732, guid: 7ce52cf24c21ca744b351c2945e54294, type: 3}
       propertyPath: goToScene
       value: Dungeon_Monkey_Learning
@@ -15523,8 +15548,24 @@ PrefabInstance:
         Penguin'
       objectReference: {fileID: 0}
     - target: {fileID: 4883488124587349295, guid: 7ce52cf24c21ca744b351c2945e54294, type: 3}
+      propertyPath: goToScene
+      value: Dungeon_Penguin
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883488124587349295, guid: 7ce52cf24c21ca744b351c2945e54294, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883488124587349295, guid: 7ce52cf24c21ca744b351c2945e54294, type: 3}
+      propertyPath: dungeonQuest
+      value: 
+      objectReference: {fileID: 11400000, guid: 3bf14c600c45f4240b2ce1650a704374, type: 2}
+    - target: {fileID: 4883488124587349295, guid: 7ce52cf24c21ca744b351c2945e54294, type: 3}
+      propertyPath: dungeonEnteringPreventedUI
+      value: 
+      objectReference: {fileID: 1383184469}
+    - target: {fileID: 4883488124587349295, guid: 7ce52cf24c21ca744b351c2945e54294, type: 3}
+      propertyPath: activateQuestProgressTracking
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8611250413721716732, guid: 7ce52cf24c21ca744b351c2945e54294, type: 3}
       propertyPath: goToScene
@@ -19626,9 +19667,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 6319434f68453f54fa60900a7e1a1800, type: 2}
     - target: {fileID: 4883488124587349295, guid: 7ce52cf24c21ca744b351c2945e54294, type: 3}
+      propertyPath: storybookSectionIndex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883488124587349295, guid: 7ce52cf24c21ca744b351c2945e54294, type: 3}
       propertyPath: dungeonEnteringPreventedUI
       value: 
       objectReference: {fileID: 1383184469}
+    - target: {fileID: 4883488124587349295, guid: 7ce52cf24c21ca744b351c2945e54294, type: 3}
+      propertyPath: activateQuestProgressTracking
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8961191838114583857, guid: 7ce52cf24c21ca744b351c2945e54294, type: 3}
       propertyPath: m_LocalPosition.x
       value: 376.40002
@@ -24631,35 +24680,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3929356387083105560, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -3.09948e-40
+      value: -1e-45
       objectReference: {fileID: 0}
     - target: {fileID: 3929356387083105560, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 4.574e-41
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4296425940649565959, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.003499677
+      value: -0.0034996762
       objectReference: {fileID: 0}
     - target: {fileID: 4296425940649565959, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0000000015800599
+      value: -9.1554414e-10
       objectReference: {fileID: 0}
     - target: {fileID: 4296425940649565959, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 5.529733e-12
+      value: -3.2041277e-12
       objectReference: {fileID: 0}
     - target: {fileID: 4978085730567127345, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.02805173
+      value: 0.028051727
       objectReference: {fileID: 0}
     - target: {fileID: 4978085730567127345, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0000000018619124
+      value: -0.0000000018619124
       objectReference: {fileID: 0}
     - target: {fileID: 4978085730567127345, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -5.2250426e-11
+      value: 5.225042e-11
       objectReference: {fileID: 0}
     - target: {fileID: 7365042558580898368, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: canChargedJump
@@ -24667,15 +24716,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8631683774569828164, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.028051732
+      value: 0.02805173
       objectReference: {fileID: 0}
     - target: {fileID: 8631683774569828164, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 3.3297953e-16
+      value: -0.0000000018619121
       objectReference: {fileID: 0}
     - target: {fileID: 8631683774569828164, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -6.228736e-18
+      value: 5.2250416e-11
       objectReference: {fileID: 0}
     - target: {fileID: 8696992058596718124, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_Name
@@ -24683,7 +24732,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8696992058596718124, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -28958,8 +29007,8 @@ PrefabInstance:
       value: Dungeon_Squirrel_Learning
       objectReference: {fileID: 0}
     - target: {fileID: 4883488124587349295, guid: 7ce52cf24c21ca744b351c2945e54294, type: 3}
-      propertyPath: m_Enabled
-      value: 0
+      propertyPath: storybookSectionIndex
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4883488124587349295, guid: 7ce52cf24c21ca744b351c2945e54294, type: 3}
       propertyPath: dungeonEnteringPreventedUI
@@ -30725,19 +30774,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3929356387083105560, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.99820864
+      value: 0.9982086
       objectReference: {fileID: 0}
     - target: {fileID: 3929356387083105560, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.059830192
+      value: 0.05983019
       objectReference: {fileID: 0}
     - target: {fileID: 3929356387083105560, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0000000039721724
+      value: -1.12399876e-23
       objectReference: {fileID: 0}
     - target: {fileID: 3929356387083105560, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000000012582697
+      value: 9.274954e-26
       objectReference: {fileID: 0}
     - target: {fileID: 4082985820749503816, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_FollowOffset.y
@@ -30753,15 +30802,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4296425940649565959, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.0034996767
+      value: -0.003499679
       objectReference: {fileID: 0}
     - target: {fileID: 4296425940649565959, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0000000013834629
+      value: -9.918519e-11
       objectReference: {fileID: 0}
     - target: {fileID: 4296425940649565959, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 4.841702e-12
+      value: -3.471295e-13
       objectReference: {fileID: 0}
     - target: {fileID: 4737727325868705177, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_Lens.FarClipPlane
@@ -30793,15 +30842,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4978085730567127345, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.028051727
+      value: 0.02805173
       objectReference: {fileID: 0}
     - target: {fileID: 4978085730567127345, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0000000018619124
+      value: -0.0000000026331415
       objectReference: {fileID: 0}
     - target: {fileID: 4978085730567127345, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -5.225042e-11
+      value: 7.3893246e-11
       objectReference: {fileID: 0}
     - target: {fileID: 5288673130265869078, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_FollowOffset.y
@@ -30861,15 +30910,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8631683774569828164, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.02805173
+      value: 0.028051732
       objectReference: {fileID: 0}
     - target: {fileID: 8631683774569828164, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0000000018619121
+      value: -0.0000000018619117
       objectReference: {fileID: 0}
     - target: {fileID: 8631683774569828164, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -5.2250416e-11
+      value: 5.225041e-11
       objectReference: {fileID: 0}
     - target: {fileID: 8696992058596718124, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_Name
@@ -30877,7 +30926,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8696992058596718124, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9114906455074290385, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -56411,6 +56460,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Managers
       objectReference: {fileID: 0}
+    - target: {fileID: 7802303629692366246, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2387259403702164515, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
     m_RemovedGameObjects: []
@@ -58776,8 +58829,12 @@ PrefabInstance:
         Monkey'
       objectReference: {fileID: 0}
     - target: {fileID: 4883488124587349295, guid: 7ce52cf24c21ca744b351c2945e54294, type: 3}
-      propertyPath: m_Enabled
-      value: 0
+      propertyPath: goToScene
+      value: Dungeon_Monke_Learning
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883488124587349295, guid: 7ce52cf24c21ca744b351c2945e54294, type: 3}
+      propertyPath: storybookSectionIndex
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4883488124587349295, guid: 7ce52cf24c21ca744b351c2945e54294, type: 3}
       propertyPath: dungeonEnteringPreventedUI

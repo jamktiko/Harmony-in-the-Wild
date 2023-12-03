@@ -98,7 +98,7 @@ public class Book : MonoBehaviour {
         // set the storybook materials to match the corresponding section in the game
         if (Application.isPlaying)
         {
-            currentStorybookIndex = PlayerManager.instance.GetComponent<StorybookHandler>().GetCurrentStorybookSection();
+            currentStorybookIndex = StorybookHandler.instance.GetCurrentStorybookSection();
             bookPages = storybookSections[currentStorybookIndex].storybookImages;
         }
 
