@@ -1,5 +1,20 @@
-Hey! I'm a quest giving NPC. #speaker:Bob
-This is a placeholder dialogue where I tell you that I need you to mine an ore for me.
-And the ore is inside one of the rocks that will soon spawn behind us.
-Use Rock Smash ability to locate it.
-But I'm impatient. You have only couple of attempts before I made you start again.
+Hey, this is a private mine! My mine! Go away! #speaker:Wild Boar
+Or wait... I could actually use some help.
+What can I do for you? #speaker:Fox
+Listen. I have been working at this mine for decades. I’m the best miner of the whole forest. No one is better than me! #speaker:Wild Boar
+But I must admit, I’m getting older. I’m not capable of doing this all by myself. 
+I mean, I could. But I must... think of the next generation. Make sure you know how to do this.
+    + [I see.] -> dialogueAfterChoice
+    + [Right...] -> dialogueAfterChoice
+    + [Sounds fun!] -> dialogueAfterChoice
+
+=== dialogueAfterChoice === 
+... alright. #speaker:Wild Boar
+I’m now going to teach you know to mine. Pay attention, you child. 
+There is an ore inside one of these rocks on the mining area. You must find it. 
+But as you know, time is ticking when you are at work. 
+You need to learn to be effective! You don’t have time to go through all the rocks. That’s why you should find it on couple of attempts. Sense the ore! 
+Here. For this lesson, I’ll give you the ability of rock smashing. You can use it by charging towards a rock. 
+If you prove to be a good miner, I’ll let you have the ability so you can use it everywhere. 
+But only, if you are worthy.
+-> END

@@ -13,6 +13,9 @@ public class PenguinRaceManager : MonoBehaviour
     [SerializeField] private GameObject alertView;
     [SerializeField] private GameObject winView;
 
+    [Header("Storybook Config")]
+    [SerializeField] private int storybookSectionIndex;
+
     [Header("Debug")]
     [SerializeField] private int currentLap = 1;
 
@@ -42,11 +45,13 @@ public class PenguinRaceManager : MonoBehaviour
 
     public void LapFinished()
     {
-        penguinDungeonEvents.LapFinished();
         currentLap++;
+
+        Debug.Log("Current lap is " + currentLap);
 
         if(currentLap <= 3)
         {
+            penguinDungeonEvents.LapFinished();
             lapCounterText.text = currentLap + "/3";
         }
 
@@ -83,7 +88,8 @@ public class PenguinRaceManager : MonoBehaviour
     {
         yield return new WaitForSeconds(3f);
 
-        SceneManager.LoadScene("Overworld");
+        StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, "Overworld", true);
+        SceneManager.LoadScene("Storybook");
     }
 }
 

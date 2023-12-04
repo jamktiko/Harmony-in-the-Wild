@@ -7,6 +7,7 @@ public class InteractableKey1 : MonoBehaviour
     [SerializeField] bool isActive = false;
     [SerializeField] public bool used = false;
     [SerializeField] int number;
+    [SerializeField] AudioSource audioSource;
     // Update is called once per frame
     void Update()
     {
@@ -17,7 +18,7 @@ public class InteractableKey1 : MonoBehaviour
             {
                 FindObjectOfType<KeyQuestStep>().CollectableProgress();
             }
-            
+            audioSource.Play();
             Debug.Log("object found!");
             gameObject.GetComponent<MeshRenderer>().enabled = false;
             GameObject.Find("Door"+number).SetActive(false);

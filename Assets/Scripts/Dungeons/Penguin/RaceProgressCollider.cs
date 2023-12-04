@@ -12,6 +12,12 @@ public class RaceProgressCollider : MonoBehaviour
     [Header("Possible Event")]
     [SerializeField] private UnityEvent triggeredRaceEvent;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource SoundTrackStart;
+
+    // private variables
+    private bool canTriggerEvents = true;
+
     private void Start()
     {
         PenguinRaceManager.instance.penguinDungeonEvents.onLapInterrupted += LapInterruptionReset;
@@ -31,13 +37,14 @@ public class RaceProgressCollider : MonoBehaviour
             // trigger the event, if this is either start or finish line
             if (isFinishLine || isStartLine)
             {
-                Debug.Log("entering");
-                if (triggeredRaceEvent != null)
+                if (triggeredRaceEvent != null && canTriggerEvents)
                 {
                     triggeredRaceEvent.Invoke();
+                    StartCoroutine(DelayBeforeNextTrigger());
                 }
             }
 
+            // show wrong way indicator if player hits the active invisible wall
             else if (transform.GetChild(0).gameObject.activeInHierarchy)
             {
                 PenguinRaceManager.instance.WrongWay();
@@ -47,7 +54,6 @@ public class RaceProgressCollider : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        
         if (other.gameObject.CompareTag("Player"))
         {
             // if this is a start line, disable trigger
@@ -64,6 +70,7 @@ public class RaceProgressCollider : MonoBehaviour
                 if (triggeredRaceEvent != null)
                 {
                     triggeredRaceEvent.Invoke();
+                    StartCoroutine(DelayBeforeNextTrigger());
                 }
             }
         }
@@ -93,5 +100,18 @@ public class RaceProgressCollider : MonoBehaviour
         {
             transform.GetChild(0).gameObject.SetActive(false);
         }
+    }
+    public void StartAudio()
+    {
+        if (!SoundTrackStart.isPlaying&&isStartLine) { SoundTrackStart.Play(); }
+    }
+
+    private IEnumerator DelayBeforeNextTrigger()
+    {
+        canTriggerEvents = false;
+        
+        yield return new WaitForSeconds(1);
+
+        canTriggerEvents = true;
     }
 }
