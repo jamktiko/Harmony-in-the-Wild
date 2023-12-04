@@ -117,6 +117,8 @@ public class QuestManager : MonoBehaviour
         Quest quest = GetQuestById(id);
         quest.InstantiateCurrentQuestStep(transform);
         ChangeQuestState(quest.info.id, QuestState.IN_PROGRESS);
+        AbilityGet(quest.info.AbilityReward);
+        Debug.Log("Ability unlocked: " + quest.info.AbilityReward);
     }
 
     private void AdvanceQuest(string id)
