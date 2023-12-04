@@ -14,7 +14,7 @@ public class FallingRock : MonoBehaviour
             Instantiate(destroyEffect, transform.position, Quaternion.identity);
             Destroy(gameObject);
 
-            other.GetComponent<HitCounter>().TakeHit(false);
+            other.GetComponentInParent<HitCounter>().TakeHit(false);
         }
 
         else

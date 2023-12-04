@@ -145,7 +145,7 @@ public class ClosingWall : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log("Player was hit by a closing wall.");
-            other.GetComponent<HitCounter>().TakeHit(true);
+            other.GetComponentInParent<HitCounter>().TakeHit(true);
         }
     }
 }
