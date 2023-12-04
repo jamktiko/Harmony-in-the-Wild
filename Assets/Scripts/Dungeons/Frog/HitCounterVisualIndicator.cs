@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HitCounterVisualIndicator : MonoBehaviour
 {
@@ -9,30 +10,36 @@ public class HitCounterVisualIndicator : MonoBehaviour
     [SerializeField] private GameObject singleHitIndicator;
 
     private int maxHits;
-    private int hitsLeft;
+    private string currentScene;
 
     private void Start()
     {
+        currentScene = SceneManager.GetActiveScene().name;
+
         maxHits = playerHitCounter.maxHits;
 
         for(int i = 0; i < maxHits; i++)
         {
             Instantiate(singleHitIndicator, transform);
         }
-
-        hitsLeft = maxHits;
     }
 
     private void OnEnable()
     {
-        PenguinRaceManager.instance.penguinDungeonEvents.onLapFinished += ResetHealth;
-        PenguinRaceManager.instance.penguinDungeonEvents.onLapInterrupted += ResetHealth;
+        if(currentScene == "Dungeon_Penguin")
+        {
+            PenguinRaceManager.instance.penguinDungeonEvents.onLapFinished += ResetHealth;
+            PenguinRaceManager.instance.penguinDungeonEvents.onLapInterrupted += ResetHealth;
+        }
     }
 
     private void OnDisable()
     {
-        PenguinRaceManager.instance.penguinDungeonEvents.onLapFinished -= ResetHealth;
-        PenguinRaceManager.instance.penguinDungeonEvents.onLapInterrupted -= ResetHealth;
+        if(currentScene == "Dungeon_Penguin")
+        {
+            PenguinRaceManager.instance.penguinDungeonEvents.onLapFinished -= ResetHealth;
+            PenguinRaceManager.instance.penguinDungeonEvents.onLapInterrupted -= ResetHealth;
+        }
     }
 
     private void ResetHealth()
