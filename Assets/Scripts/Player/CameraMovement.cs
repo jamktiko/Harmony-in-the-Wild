@@ -67,9 +67,18 @@ public class CameraMovement : MonoBehaviour
         else if (currentStyle == cameraStyle.Telegrab)
         {
             Vector3 dirtoTelegraphLookAt = TelegrabLookAt.position - new Vector3(transform.position.x, TelegrabLookAt.position.y, transform.position.z);
-            orientation.forward = dirtoTelegraphLookAt.normalized;
-
-            foxObject.forward = dirtoTelegraphLookAt.normalized;
+            Vector3 slopeForward = Vector3.ProjectOnPlane(foxObject.forward, foxmove.hit3.normal).normalized;
+            if (foxmove.OnSlope())
+            {
+                orientation.forward =Vector3.Slerp(orientation.forward, dirtoTelegraphLookAt.normalized + slopeForward, Time.deltaTime * rotationSpeed);
+                foxObject.forward = Vector3.Slerp(foxObject.forward, dirtoTelegraphLookAt.normalized + slopeForward, Time.deltaTime * rotationSpeed);
+            }
+            else
+            {
+                orientation.forward = dirtoTelegraphLookAt.normalized;
+                foxObject.forward = dirtoTelegraphLookAt.normalized;
+            }
+           
         }
     }
        
