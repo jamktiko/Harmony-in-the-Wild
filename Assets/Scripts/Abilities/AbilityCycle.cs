@@ -54,7 +54,7 @@ public class AbilityCycle : MonoBehaviour
     }
     void switchAbility() 
     {
-        if (Input.mouseScrollDelta.y>0&&currentAbilities.Count!=0)
+        if (Input.GetKeyDown(KeyCode.Tab)&&currentAbilities.Count!=0)
         {
             if (abilityIndex<currentAbilities.Count-1)
             {
@@ -68,21 +68,6 @@ public class AbilityCycle : MonoBehaviour
 
             }
 
-        }
-        if (Input.mouseScrollDelta.y < 0&& currentAbilities.Count != 0)
-        {
-            if (abilityIndex > 0)
-            {
-                abilityIndex--;
-                equippedAbility = currentAbilities[abilityIndex];
-
-            }
-            else
-            {
-                abilityIndex = currentAbilities.Count - 1;
-                equippedAbility = currentAbilities[abilityIndex];
-
-            }
         }
     }
     void activateAbility() 
