@@ -7,6 +7,7 @@ public class Timer : MonoBehaviour
 {
     [Header("Config")]
     [SerializeField] private float maxTime;
+    [SerializeField] private float timeDecreaseByLap;
 
     [Header("Needed References")]
     [SerializeField] private TextMeshProUGUI timerText;
@@ -20,6 +21,11 @@ public class Timer : MonoBehaviour
 
     private void Start()
     {
+        currentTime = maxTime;
+
+        var convertedTime = TimeSpan.FromSeconds(currentTime);
+        timerText.text = string.Format("{0:00}:{1:00}", convertedTime.Minutes, convertedTime.Seconds);
+
         PenguinRaceManager.instance.penguinDungeonEvents.onLapInterrupted += ResetTimeAfterInterruptedLap;
         PenguinRaceManager.instance.penguinDungeonEvents.onLapFinished += StartTimerForNewLap;
         PenguinRaceManager.instance.penguinDungeonEvents.onRaceFinished += StopTimer;
@@ -44,9 +50,11 @@ public class Timer : MonoBehaviour
 
     private IEnumerator TimerProgress()
     {
+        currentTime = maxTime;
+
         while (raceInProgress)
         {
-            currentTime += 1;
+            currentTime -= 1;
 
             var convertedTime = TimeSpan.FromSeconds(currentTime);
             timerText.text = string.Format("{0:00}:{1:00}", convertedTime.Minutes, convertedTime.Seconds);
@@ -66,7 +74,8 @@ public class Timer : MonoBehaviour
         raceInProgress = false;
         StopCoroutine(timerCoroutine);
 
-        currentTime = 0;
+        maxTime -= timeDecreaseByLap;
+        currentTime = maxTime;
 
         raceInProgress = true;
         timerCoroutine = StartCoroutine(TimerProgress());
@@ -78,7 +87,7 @@ public class Timer : MonoBehaviour
         StopCoroutine(timerCoroutine);
         timerCoroutine = null;
 
-        currentTime = 0;
+        currentTime = maxTime;
 
         var convertedTime = TimeSpan.FromSeconds(currentTime);
         timerText.text = string.Format("{0:00}:{1:00}", convertedTime.Minutes, convertedTime.Seconds);

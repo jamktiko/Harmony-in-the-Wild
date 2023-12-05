@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -64,6 +65,7 @@ public class FoxMovement : MonoBehaviour
     [SerializeField] private bool TelegrabEnabled;
     [SerializeField] private GameObject TelegrabUI;
     List<TelegrabObject> telegrabObjects = new List<TelegrabObject>();
+    [SerializeField] AbilityCycle abilityCycle;
 
 
     [Header("Animations")]
@@ -77,14 +79,16 @@ public class FoxMovement : MonoBehaviour
     [SerializeField] AudioSource FreezingAudio;
     [SerializeField] AudioSource SnowDivingAudio;
 
-
+    // Slopes
+    public RaycastHit hit3;
+    [SerializeField]private float playerHeight;
 
     // Start is called before the first frame update
     void Start()
     {
         rb=GetComponent<Rigidbody>();
         rb.freezeRotation = true;
-
+        abilityCycle = GetComponent<AbilityCycle>();
         playerAnimator = GetComponentInChildren<Animator>();
         foreach (AnimatorControllerParameter item in playerAnimator.parameters)
         {
@@ -108,6 +112,7 @@ public class FoxMovement : MonoBehaviour
         }            
         else
             rb.drag = 0;
+        OnSlope();
     }
     private void FixedUpdate()
     {
@@ -120,14 +125,16 @@ public class FoxMovement : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetKeyDown(KeyCode.H) && PlayerManager.instance.abilityValues[2])
+        if (Input.GetKeyDown(KeyCode.F) && abilityCycle.equippedAbility.officialIndex==2)
         {
-            
+            abilityCycle.equippedAbility.currentlyActivated = !abilityCycle.equippedAbility.currentlyActivated;
             canChargedJump = !canChargedJump;
         }
-        if (Input.GetKeyDown(KeyCode.J) && PlayerManager.instance.abilityValues[6])
+        if (Input.GetKeyDown(KeyCode.F) && abilityCycle.equippedAbility.officialIndex == 6)
         {
+            abilityCycle.equippedAbility.currentlyActivated = !abilityCycle.equippedAbility.currentlyActivated;
             canTeleGrab = !canTeleGrab;
+            ActivateTelegrabCamera();
         }
         if (Input.GetKeyDown(KeyCode.N))
         {
@@ -171,6 +178,7 @@ public class FoxMovement : MonoBehaviour
         {
             ChargeJumpAudio.Stop();
             rb.AddForce(transform.up * chargeJumpTimer, ForceMode.Impulse);
+            isChargeJumping = false;
             //chargejump animation here
             playerAnimator.SetBool("isChargingJump", false);
             playerAnimator.SetBool("isJumping", false);
@@ -179,37 +187,6 @@ public class FoxMovement : MonoBehaviour
         if (PlayerManager.instance.abilityValues[3])
         {
             ClimbWall();
-        }
-        if (Input.GetKeyDown(KeyCode.G)&& canTeleGrab)
-        {
-            if (!TelegrabEnabled)
-            {
-                TelegrabEnabled = true;
-                cameraMovement.currentStyle = CameraMovement.cameraStyle.Telegrab;
-                cameraMovement.freeLookCam.SetActive(false);
-                cameraMovement.telegrabCam.SetActive(true);
-                StartCoroutine(CrosshairEnable());
-            }
-            else
-            {
-                TelegrabEnabled = false;
-                cameraMovement.currentStyle = CameraMovement.cameraStyle.Basic;
-                cameraMovement.freeLookCam.SetActive(true);
-                cameraMovement.telegrabCam.SetActive(false);
-                StartCoroutine (CrosshairDisable());
-            }
-            
-            
-        }
-        IEnumerator CrosshairEnable() 
-        {
-            yield return new WaitForSeconds(0.2f);
-            TelegrabUI.SetActive(true);
-        }
-        IEnumerator CrosshairDisable()
-        {
-            yield return new WaitForSeconds(0.2f);
-            TelegrabUI.SetActive(false);
         }
         if (TelegrabEnabled||grabbing)
         {
@@ -305,7 +282,35 @@ public class FoxMovement : MonoBehaviour
             ChargeJump();
         }
     }
-
+    private void ActivateTelegrabCamera() 
+    {  
+            if (!TelegrabEnabled)
+            {
+                TelegrabEnabled = true;
+                cameraMovement.currentStyle = CameraMovement.cameraStyle.Telegrab;
+                cameraMovement.freeLookCam.SetActive(false);
+                cameraMovement.telegrabCam.SetActive(true);
+                StartCoroutine(CrosshairEnable());
+            }
+            else
+            {
+                TelegrabEnabled = false;
+                cameraMovement.currentStyle = CameraMovement.cameraStyle.Basic;
+                cameraMovement.freeLookCam.SetActive(true);
+                cameraMovement.telegrabCam.SetActive(false);
+                StartCoroutine(CrosshairDisable());
+            }
+            IEnumerator CrosshairEnable()
+            {
+                yield return new WaitForSeconds(0.2f);
+                TelegrabUI.SetActive(true);
+            }
+            IEnumerator CrosshairDisable()
+            {
+                yield return new WaitForSeconds(0.2f);
+                TelegrabUI.SetActive(false);
+            }
+    }
     private void Glider()
     {
         if (rb.useGravity)
@@ -329,8 +334,9 @@ public class FoxMovement : MonoBehaviour
     }
     private void Telegrab()
     {
+        RaycastHit hitInfo;
         //Drop grabbed item
-        if (grabbing && Input.GetKeyDown(KeyCode.B))
+        if (grabbing && Input.GetMouseButtonDown(0))
         {
             grabbedGameObject.transform.gameObject.GetComponent<MeshRenderer>().material = TelegrabObject.TelegrabMaterial;
             foreach (TelegrabObject t in telegrabObjects) 
@@ -344,9 +350,9 @@ public class FoxMovement : MonoBehaviour
             //isHighlighted = false;
             telegrabObjects.Clear();
         }
-        RaycastHit hitInfo;
-            if (Physics.Raycast(Camera.position, Camera.forward, out hitInfo, viewDistance, MoveableLayerMask) && !grabbing)
+            else if (Physics.Raycast(Camera.position, Camera.forward, out hitInfo, viewDistance, MoveableLayerMask) && !grabbing)
             {
+
 
                 Debug.DrawLine(Camera.position, hitInfo.point);
 
@@ -355,7 +361,7 @@ public class FoxMovement : MonoBehaviour
                 {
                     //isHighlighted = true;
                     //hitInfo.transform.gameObject.GetComponent<MeshRenderer>().material = grabbableMat;
-                    if (Input.GetKeyDown(KeyCode.V))
+                    if (Input.GetMouseButtonDown(0))
                     {
                         grabbedGameObject = hitInfo.transform.gameObject;
                     TelegrabObject = hitInfo.transform.gameObject.GetComponent<TelegrabObject>();
@@ -535,6 +541,20 @@ public class FoxMovement : MonoBehaviour
             return false;
         }
     }
+    public bool OnSlope()
+    {
+        if (Physics.Raycast(foxMiddle.position, Vector3.down, out hit3, playerHeight * 0.5f + 0.2f))
+        {
+            if (hit3.normal != Vector3.up)
+            {
+                Debug.DrawLine(foxMiddle.position, hit3.point, Color.red);
+
+                return true;
+            }
+        }
+        return false;
+    }
+
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;

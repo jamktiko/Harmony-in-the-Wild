@@ -9,14 +9,14 @@ public class Interactable : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E)&&isActive&& QuestManager.instance.CheckQuestState("BunnyQuest").Equals(QuestState.IN_PROGRESS))
+        if (Input.GetKeyDown(KeyCode.E)&&isActive&& QuestManager.instance.CheckQuestState("WhaleDiet_SideQuest").Equals(QuestState.IN_PROGRESS))
         {
             used = true;
             FindObjectOfType<CollectableQuestStep>().CollectableProgress();
             Debug.Log("object found!");
             Destroy(gameObject);
         }
-        if (Input.GetKeyDown(KeyCode.E) && isActive && QuestManager.instance.CheckQuestState("BunnyQuest").Equals(QuestState.FINISHED))
+        else if (Input.GetKeyDown(KeyCode.E) && isActive && QuestManager.instance.CheckQuestState("WhaleDiet_SideQuest").Equals(QuestState.FINISHED))
         {
             used = true;
         }

@@ -13,6 +13,9 @@ public class PenguinRaceManager : MonoBehaviour
     [SerializeField] private GameObject alertView;
     [SerializeField] private GameObject winView;
 
+    [Header("Storybook Config")]
+    [SerializeField] private int storybookSectionIndex;
+
     [Header("Debug")]
     [SerializeField] private int currentLap = 1;
 
@@ -85,7 +88,8 @@ public class PenguinRaceManager : MonoBehaviour
     {
         yield return new WaitForSeconds(3f);
 
-        SceneManager.LoadScene("Overworld");
+        StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, "Overworld", true);
+        SceneManager.LoadScene("Storybook");
     }
 }
 

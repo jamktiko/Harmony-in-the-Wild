@@ -21,13 +21,14 @@ public class PlayerManager : MonoBehaviour
         {
             Debug.LogWarning("There is more than one Player Manager.");
         }
-
         instance = this;
+
+        LoadAbilities();
     }
 
     private void Start()
     {
-        LoadAbilities();
+        
     }
 
     private void OnEnable()

@@ -4,9 +4,22 @@ using UnityEngine;
 
 public class StorybookHandler : MonoBehaviour
 {
-    private int currentStorybookSectionIndex = 1;
+    private int currentStorybookSectionIndex = 0;
     private string sceneAfterStorybook = "Overworld";
-    private bool isDungeonEndStory = true;
+    private bool isDungeonEndStory = false;
+
+    public static StorybookHandler instance;
+
+    private void Awake()
+    {
+        // creating the instance for Storybook Handler
+        if (instance != null)
+        {
+            Debug.LogWarning("There is more than one Storybook Handler in the scene!");
+        }
+
+        instance = this;
+    }
 
     public void SetNewStorybookData(int index, string nextScene, bool isDungeonEnding)
     {

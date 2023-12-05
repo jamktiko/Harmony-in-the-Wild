@@ -16,7 +16,11 @@ public class FinishDungeon : MonoBehaviour
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        questId = questSO.id;
+
+        if(questSO != null)
+        {
+            questId = questSO.id;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -32,8 +36,12 @@ public class FinishDungeon : MonoBehaviour
         audioSource.Play();
         yield return new WaitForSeconds(audioSource.clip.length + 0.5f);
 
-        GameEventsManager.instance.questEvents.AdvanceDungeonQuest(questId);
+        if (questSO != null)
+        {
+            GameEventsManager.instance.questEvents.AdvanceDungeonQuest(questId);
+        }
 
+        // add storybook config here & change goToScene to Storybook scene
         SceneManager.LoadScene(goToScene);
     }
 }
