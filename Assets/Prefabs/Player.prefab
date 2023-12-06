@@ -2289,6 +2289,10 @@ GameObject:
   - component: {fileID: 5769212952209260258}
   m_Layer: 5
   m_Name: Image
+  - component: {fileID: 6589864102929669019}
+  - component: {fileID: 5358893915751514427}
+  m_Layer: 0
+  m_Name: ShadowCaster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2322,6 +2326,16 @@ CanvasRenderer:
   m_GameObject: {fileID: 5321673927811236586}
   m_CullTransparentMesh: 1
 --- !u!114 &4635773033887833387
+  m_GameObject: {fileID: 4887701583078261516}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4096236554539083642}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &5358893915751514427
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2364,6 +2378,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fox: {fileID: 4096236554539083642}
+  m_GameObject: {fileID: 4887701583078261516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0777d029ed3dffa4692f417d4aba19ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 2100000, guid: 19c330d83054f884f81e6f8b176dc6fc, type: 2}
+  m_DrawDistance: 1000
+  m_FadeScale: 0.9
+  m_StartAngleFade: 180
+  m_EndAngleFade: 180
+  m_UVScale: {x: 1, y: 1}
+  m_UVBias: {x: 0, y: 0}
+  m_DecalLayerMask: 1
+  m_ScaleMode: 0
+  m_Offset: {x: 0, y: 0, z: 5}
+  m_Size: {x: 1.4, y: 1.8, z: 10}
+  m_FadeFactor: 0.5
 --- !u!1 &5438231073279724189
 GameObject:
   m_ObjectHideFlags: 0
@@ -4640,6 +4672,8 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 067e2be21ce3e8d43a176f84ff7b00ef, type: 3}
       insertIndex: -1
       addedObject: {fileID: 926106863322611955}
+      addedObject: {fileID: 6589864102929669019}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 067e2be21ce3e8d43a176f84ff7b00ef, type: 3}
 --- !u!1 &3716333758798233024 stripped
 GameObject:
