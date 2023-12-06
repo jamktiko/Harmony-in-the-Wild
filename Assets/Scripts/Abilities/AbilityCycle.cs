@@ -38,11 +38,11 @@ public class AbilityCycle : MonoBehaviour
             new AbilityData(1, "Telegrab", PlayerManager.instance.abilityValues[6], 6), 
             new AbilityData(2, "Freeze", PlayerManager.instance.abilityValues[7], 7) 
         };
+        currentAbilities = Abilities.Where(x => x.enabled == true).ToList();
 
-        
-        if (Abilities.Count>0)
+        if (currentAbilities.Count>0)
         {
-            currentAbilities = Abilities.Where(x => x.enabled == true).ToList();
+            
             equippedAbility = currentAbilities[abilityIndex];
         }
     }
