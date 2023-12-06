@@ -9,7 +9,7 @@ public class FallingRock : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Trigger"))
         {
             Instantiate(destroyEffect, transform.position, Quaternion.identity);
             Destroy(gameObject);

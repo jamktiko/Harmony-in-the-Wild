@@ -32,7 +32,7 @@ public class RaceProgressCollider : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Trigger"))
         {
             // trigger the event, if this is either start or finish line
             if (isFinishLine || isStartLine)

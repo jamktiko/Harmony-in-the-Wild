@@ -194,11 +194,12 @@ public class DialogueManager : MonoBehaviour
 
         // make new current choice button with contrast color
         currentChoiceIndex = index;
-        choiceButtons[index].GetComponent<Image>().color = Color.green;
+        choiceButtons[index].GetComponent<Image>().color = new Color(200, 200, 200, 255);
     }
 
     public void MakeChoice(int choiceIndex)
     {
+        Debug.Log("choice");
         currentStory.ChooseChoiceIndex(choiceIndex);
 
         ContinueDialogue();
