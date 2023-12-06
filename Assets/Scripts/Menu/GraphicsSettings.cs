@@ -7,6 +7,7 @@ public class GraphicsSettings : MonoBehaviour
 {
     Resolution[] resolutions;
     public TMPro.TMP_Dropdown resolutionDropdown;
+    public Sprite sprite;
 
     private void Start()
     {
@@ -15,7 +16,7 @@ public class GraphicsSettings : MonoBehaviour
         resolutionDropdown.ClearOptions();
         //Point of clearing the options is to not have placeholders mess up the dropdown
 
-        List<string> resOptions = new List<string>();
+        List<TMPro.TMP_Dropdown.OptionData> resOptions = new List<TMPro.TMP_Dropdown.OptionData>();
 
         int currentResolutionIndex = 0;
 
@@ -23,7 +24,7 @@ public class GraphicsSettings : MonoBehaviour
         for (int i = 0; i < resolutions.Length; i++)
         {
             string resOption = resolutions[i].width + " x " + resolutions[i].height;
-            resOptions.Add(resOption);
+            resOptions.Add(new TMPro.TMP_Dropdown.OptionData(resOption,sprite));
 
             //Setting default res
             if (resolutions[i].width == Screen.currentResolution.width &&

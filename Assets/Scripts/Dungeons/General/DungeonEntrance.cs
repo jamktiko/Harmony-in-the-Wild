@@ -10,10 +10,13 @@ public class DungeonEntrance : MonoBehaviour
     [SerializeField] private QuestScriptableObject dungeonQuest;
 
     [Header("Needed References")]
-    [SerializeField] private GameObject dungeonEnteringPrecentedUI;
+    [SerializeField] private GameObject dungeonEnteringPreventedUI;
 
     [Header("Config")]
     [SerializeField] private string goToScene;
+    [SerializeField] private int storybookSectionIndex;
+    [Tooltip("Tick if a quest is started when entering this dungeon")]
+    [SerializeField] private bool activateQuestProgressTracking;
 
     private string questId;
     private QuestState currentQuestState;
@@ -21,8 +24,11 @@ public class DungeonEntrance : MonoBehaviour
 
     private void Start()
     {
-        questId = dungeonQuest.id;
-        StartCoroutine(QuestProgressCheckDelay());
+        if(dungeonQuest != null)
+        {
+            questId = dungeonQuest.id;
+            StartCoroutine(QuestProgressCheckDelay());
+        }
     }
 
     private void OnEnable()
@@ -39,15 +45,32 @@ public class DungeonEntrance : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            if(currentQuestState == QuestState.CAN_START || currentQuestState == QuestState.IN_PROGRESS)
+            if(currentQuestState == QuestState.CAN_START)
             {
-                SceneManager.LoadScene(goToScene);
+                if (activateQuestProgressTracking)
+                {
+                    GameEventsManager.instance.questEvents.StartQuest(questId);
+                }
+
+                // add storybook config here & change goToScene to Storybook scene
+                StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, goToScene, false);
+                SceneManager.LoadScene("Storybook");
+            }
+
+            else if (currentQuestState == QuestState.IN_PROGRESS)
+            {
+                // add possible storybook config here & change goToScene to Storybook scene
+                StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, goToScene, false);
+                SceneManager.LoadScene("Storybook");
             }
 
             else
             {
-                dungeonEnteringPrecentedUI.SetActive(true);
-                dungeonEnteringPrecentedUI.GetComponent<DungeonEnteringPreventedUI>().SetUIContent(currentQuest);
+                if(currentQuest != null)
+                {
+                    dungeonEnteringPreventedUI.SetActive(true);
+                    dungeonEnteringPreventedUI.GetComponent<DungeonEnteringPreventedUI>().SetUIContent(currentQuest);
+                }
             }
         }
     }
@@ -69,5 +92,7 @@ public class DungeonEntrance : MonoBehaviour
         yield return new WaitForSeconds(1);
 
         currentQuest = QuestManager.instance.GetQuestById(questId);
+
+        currentQuestState = currentQuest.state;
     }
 }

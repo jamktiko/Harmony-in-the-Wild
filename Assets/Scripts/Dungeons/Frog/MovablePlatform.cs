@@ -25,7 +25,7 @@ public class MovablePlatform : MonoBehaviour
         elapsedTime += Time.deltaTime;
 
         float elapsetPercentage = elapsedTime / timeToWaypoint;
-        elapsetPercentage = Mathf.SmoothStep(0, 1, elapsetPercentage);
+        //elapsetPercentage = Mathf.SmoothStep(0, 1, elapsetPercentage);
         transform.position = Vector3.Lerp(previousWaypoint.position, targetWayPoint.position, elapsetPercentage);
 
         if(elapsetPercentage >= 1)
@@ -48,17 +48,17 @@ public class MovablePlatform : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Trigger"))
         {
-            other.transform.SetParent(transform);
+            other.transform.parent.SetParent(transform);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Trigger"))
         {
-            other.transform.SetParent(null);
+            other.transform.parent.SetParent(null);
         }
     }
 }

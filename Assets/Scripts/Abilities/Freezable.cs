@@ -9,60 +9,19 @@ public class Freezable : MonoBehaviour
 
     [Header("Freeze Config")]
     [SerializeField] private float freezeTime;
-    /*
-    [Header("Movement Config")]
-    [SerializeField] private bool isMovable;
-    [SerializeField] private float moveSpeed = 2;
-    [SerializeField] private MoveDirection direction;
-    [SerializeField] private Vector3 startPosition;
-    [SerializeField] private Vector3 endPosition;
-    */
+
+    [Header("Needed References")]
+    [SerializeField] private GameObject isFreezedEffect;
+    [SerializeField] private GameObject canBeFreezed;
+
     private Rigidbody rb;
     private Vector3 targetPosition;
 
     private void Start()
     {
         TryGetComponent<Rigidbody>(out rb);
-
-        //targetPosition = endPosition;
     }
-    /*
-    private void FixedUpdate()
-    {
-        if (!isFreezed && isMovable)
-        {
-            Move();
-        }
-    }
-
-    private void Move()
-    {
-        switch (direction)
-        {
-            case MoveDirection.Forward:
-                rb.MovePosition(Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime));
-
-                if(Vector3.Distance(transform.position, endPosition) < 5)
-                {
-                    targetPosition = startPosition;
-                    direction = MoveDirection.Backwards;
-                }
-
-                break;
-
-            case MoveDirection.Backwards:
-                rb.MovePosition(Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime));
-
-                if (Vector3.Distance(transform.position, startPosition) < 5)
-                {
-                    targetPosition = endPosition;
-                    direction = MoveDirection.Forward;
-                }
-
-                break;
-        }
-    }
-    */
+   
     public void Freeze()
     {
         Debug.Log(gameObject.name + " has been freezed.");
@@ -73,6 +32,9 @@ public class Freezable : MonoBehaviour
             rb.useGravity = false;
             rb.constraints = RigidbodyConstraints.FreezeAll;
         }
+
+        canBeFreezed.SetActive(false);
+        isFreezedEffect.SetActive(true);
 
         StartCoroutine(FreezeCooldown());
     }
@@ -88,6 +50,9 @@ public class Freezable : MonoBehaviour
             rb.useGravity = true;
             rb.constraints = RigidbodyConstraints.None;
         }
+
+        canBeFreezed.SetActive(true);
+        isFreezedEffect.SetActive(false);
 
         Debug.Log(gameObject.name + " has been unfreezed.");
     }

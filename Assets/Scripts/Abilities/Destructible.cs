@@ -5,16 +5,29 @@ using UnityEngine;
 public class Destructible : MonoBehaviour
 {
     [Header("Config")]
+    [SerializeField] private float averageTimeBetweenSmashableEffects;
     [SerializeField] private bool needsToBeFreezed;
     [SerializeField] private bool isQuestRock;
 
     [Header("Needed References")]
     [SerializeField] private GameObject destroyedVersion;
     [SerializeField] private GameObject oreVersion;
+    [SerializeField] private GameObject smashableEffect;
 
     [SerializeField] private AudioSource audioSource;
 
     private bool hasOre;
+
+    private void Start()
+    {
+        StartCoroutine(DelayBetweenSmashableEffects());
+    }
+
+    private void SpawnSmashableEffect()
+    {
+        Instantiate(smashableEffect, transform.parent);
+        StartCoroutine(DelayBetweenSmashableEffects());
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -42,6 +55,7 @@ public class Destructible : MonoBehaviour
 
             else
             {
+                audioSource.Play();
                 Instantiate(destroyedVersion, transform.position, transform.rotation);
                 Destroy(gameObject);
             }
@@ -69,5 +83,12 @@ public class Destructible : MonoBehaviour
             Instantiate(destroyedVersion, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
+    }
+
+    private IEnumerator DelayBetweenSmashableEffects()
+    {
+        yield return new WaitForSeconds(Random.Range(averageTimeBetweenSmashableEffects - 2f, averageTimeBetweenSmashableEffects + 2f));
+
+        SpawnSmashableEffect();
     }
 }
