@@ -15,14 +15,12 @@ public class DialogueManager : MonoBehaviour
     [Header("Dialogue UI")]
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private TextMeshProUGUI speakerText;
+    [SerializeField] private GameObject exitButton;
 
     [Header("Choices")]
     [SerializeField] private bool choiceAvailable;
     [SerializeField] private int currentChoiceIndex;
-    [SerializeField] private GameObject[] choiceButtons;
-
-    [Header("Other References")]
-    [SerializeField] private GameObject questUI;
+    [SerializeField] private GameObject[] choiceButtons;   
 
     [Header("Public Values for References")]
     public bool dialogueIsPlaying;
@@ -32,6 +30,7 @@ public class DialogueManager : MonoBehaviour
     private TextMeshProUGUI[] choicesText;
     private Story currentStory;
     private bool canStartDialogue = true;
+    private GameObject questUI;
 
     public static DialogueManager instance;
 
@@ -55,7 +54,6 @@ public class DialogueManager : MonoBehaviour
         dialogueIsPlaying = false;
 
         // initializing choice button texts
-
         choicesText = new TextMeshProUGUI[choiceButtons.Length];
 
         for(int i = 0; i < choiceButtons.Length; i++)
@@ -71,18 +69,6 @@ public class DialogueManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                // if there is a choice to make, choose the current choice
-                //if (choiceAvailable)
-                //{
-                //    MakeChoice(currentChoiceIndex);
-                //}
-
-                // if there is no choice to make, continue dialogue
-                //else
-                //{
-                //    
-                //}
-
                 ContinueDialogue();
             }
 
@@ -140,12 +126,12 @@ public class DialogueManager : MonoBehaviour
             HandleTags(currentStory.currentTags);
 
             DisplayChoices();
-        }
 
-        //else
-        //{
-        //    EndDialogue();
-        //}
+            if (!currentStory.canContinue)
+            {
+                exitButton.SetActive(true);
+            }
+        }
     }
 
     private void DisplayChoices()
@@ -197,12 +183,11 @@ public class DialogueManager : MonoBehaviour
 
         // make new current choice button with contrast color
         currentChoiceIndex = index;
-        choiceButtons[index].GetComponent<Image>().color = new Color(200, 200, 200, 255);
+        choiceButtons[index].GetComponent<Image>().color = new Color(255, 218, 142, 255);
     }
 
     public void MakeChoice(int choiceIndex)
     {
-        Debug.Log("choice");
         currentStory.ChooseChoiceIndex(choiceIndex);
 
         ContinueDialogue();
@@ -229,13 +214,26 @@ public class DialogueManager : MonoBehaviour
                     break;
 
                 case "showUI":
-                    questUI.SetActive(true);
+                    GameEventsManager.instance.questEvents.ShowQuestUI(int.Parse(tagValue));
+                    break;
+
+                case "hideUI":
+                    GameEventsManager.instance.questEvents.HideQuestUI();
                     break;
 
                 default:
                     Debug.LogWarning("No tag key set for " + tag);
                     break;
             }
+        }
+    }
+
+    public void CloseDialogueView()
+    {
+        if (!currentStory.canContinue)
+        {
+            exitButton.SetActive(false);
+            EndDialogue();
         }
     }
 
