@@ -88,6 +88,6 @@ public class SmashingManager : MonoBehaviour
 
     public void UpdateAttemptCounter(int attemptsLeft, int maxAttempts)
     {
-        attemptCounterText.text = attemptsLeft + "/" + maxAttempts;
+        GameEventsManager.instance.questEvents.UpdateQuestUI(QuestUIChange.UpdateCounter, "Attempts left " + attemptsLeft + "/" + maxAttempts);
     }
 }

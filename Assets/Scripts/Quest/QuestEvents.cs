@@ -63,4 +63,35 @@ public class QuestEvents
         }
 
     }
+
+    public event Action<int> onShowQuestUI;
+
+    public void ShowQuestUI(int questIndex)
+    {
+        if (onShowQuestUI != null)
+        {
+            onShowQuestUI(questIndex);
+        }
+
+    }
+
+    public event Action<QuestUIChange, string> onUpdateQuestUI;
+
+    public void UpdateQuestUI(QuestUIChange changeType, string newQuestText)
+    {
+        if(onUpdateQuestUI != null)
+        {
+            onUpdateQuestUI(changeType, newQuestText);
+        }
+    }
+
+    public event Action onHideQuestUI;
+
+    public void HideQuestUI()
+    {
+        if(onHideQuestUI != null)
+        {
+            onHideQuestUI();
+        }
+    }
 }

@@ -13,5 +13,5 @@ But you can.
 Do you see that small island over there? I think there should be some fruits in there. 
 Don’t be afraid of the water. I can help you a little bit already. 
 Here. This ability allows you to swim in shallow waters. 
-Return to me with some healthy snacks, and I shall help you in deeper waters as well. #showUI:yes
+Return to me with some healthy snacks, and I shall help you in deeper waters as well. #showUI:4
 -> END
