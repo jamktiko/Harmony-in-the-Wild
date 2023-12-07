@@ -102,7 +102,10 @@ public class FoxMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MyInput();
+        if (!DialogueManager.instance.dialogueIsPlaying)
+        {
+            MyInput();
+        }
         SpeedControl();
         if (GroundCheck())
         {

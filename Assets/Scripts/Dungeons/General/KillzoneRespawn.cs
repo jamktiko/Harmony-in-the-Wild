@@ -8,7 +8,7 @@ public class KillzoneRespawn : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Trigger"))
         {
             //other.GetComponent<FoxMove>().enabled = false;
             //other.GetComponent<CharacterController>().enabled = false;
