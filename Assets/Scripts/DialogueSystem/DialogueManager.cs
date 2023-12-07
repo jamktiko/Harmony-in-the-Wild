@@ -16,10 +16,13 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private TextMeshProUGUI speakerText;
 
-    [Header("Quest Choices")]
+    [Header("Choices")]
     [SerializeField] private bool choiceAvailable;
     [SerializeField] private int currentChoiceIndex;
     [SerializeField] private GameObject[] choiceButtons;
+
+    [Header("Other References")]
+    [SerializeField] private GameObject questUI;
 
     [Header("Public Values for References")]
     public bool dialogueIsPlaying;
@@ -223,6 +226,10 @@ public class DialogueManager : MonoBehaviour
             {
                 case speaker:
                     speakerText.text = tagValue;
+                    break;
+
+                case "showUI":
+                    questUI.SetActive(true);
                     break;
 
                 default:
