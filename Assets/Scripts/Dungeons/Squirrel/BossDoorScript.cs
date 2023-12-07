@@ -12,6 +12,8 @@ public class BossDoorScript : MonoBehaviour
     public int usedlevers, levers;
     [SerializeField] Material usedMat;
     // Start is called before the first frame update
+
+    public Animator anim;
     void Start()
     {
         scripts=FindObjectsOfType<LeverScript>().ToList();
@@ -27,6 +29,7 @@ public class BossDoorScript : MonoBehaviour
             isOpen = true;
             gameObject.GetComponent<MeshRenderer>().material=usedMat;
             gameObject.GetComponent<AudioSource>().Play();
+            anim.Play("Door_Open_ANI");
         }
     }
     private void OnTriggerEnter(Collider other)

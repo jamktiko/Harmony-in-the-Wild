@@ -142,7 +142,7 @@ public class ClosingWall : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Trigger"))
         {
             Debug.Log("Player was hit by a closing wall.");
             other.GetComponentInParent<HitCounter>().TakeHit(true);

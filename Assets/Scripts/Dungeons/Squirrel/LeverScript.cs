@@ -8,6 +8,8 @@ public class LeverScript : MonoBehaviour
     [SerializeField] public bool used = false;
     BossDoorScript doorScript;
     [SerializeField] Material usedMat;
+
+    public Animator anim;
     private void Start()
     {
         doorScript = FindObjectOfType<BossDoorScript>();
@@ -22,6 +24,7 @@ public class LeverScript : MonoBehaviour
             doorScript.usedlevers++;
             gameObject.GetComponent<MeshRenderer>().material= usedMat;
             gameObject.GetComponent<AudioSource>().Play();
+            anim.Play("Leaver_Turn_ANI");
         }
     }
     private void OnTriggerEnter(Collider other)

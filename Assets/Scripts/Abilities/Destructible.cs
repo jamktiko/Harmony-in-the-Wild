@@ -55,6 +55,7 @@ public class Destructible : MonoBehaviour
 
             else
             {
+                audioSource.Play();
                 Instantiate(destroyedVersion, transform.position, transform.rotation);
                 Destroy(gameObject);
             }

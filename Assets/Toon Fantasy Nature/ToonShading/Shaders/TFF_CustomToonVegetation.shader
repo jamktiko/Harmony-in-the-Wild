@@ -13,6 +13,9 @@ Shader "Toon/TFF_CustomToonVegetation"
 		[ASEEnd]_WindJitter("Wind Jitter", Range( 0 , 3)) = 0.1
 		[HideInInspector] _texcoord( "", 2D ) = "white" {}
 
+		//my addition
+		_Saturation ("Saturation", Range(-1, 1)) = 0
+
 		[HideInInspector]_QueueOffset("_QueueOffset", Float) = 0
         [HideInInspector]_QueueControl("_QueueControl", Float) = -1
         [HideInInspector][NoScaleOffset]unity_Lightmaps("unity_Lightmaps", 2DArray) = "" {}

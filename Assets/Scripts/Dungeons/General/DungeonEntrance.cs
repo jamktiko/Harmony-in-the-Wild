@@ -61,7 +61,7 @@ public class DungeonEntrance : MonoBehaviour
             {
                 // add possible storybook config here & change goToScene to Storybook scene
                 StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, goToScene, false);
-                SceneManager.LoadScene(goToScene);
+                SceneManager.LoadScene("Storybook");
             }
 
             else

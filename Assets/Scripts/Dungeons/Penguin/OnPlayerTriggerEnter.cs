@@ -13,7 +13,7 @@ public class OnPlayerTriggerEnter : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Trigger"))
         {
             Debug.Log("Player triggered the event.");
             triggerEvent.Invoke();
@@ -22,7 +22,7 @@ public class OnPlayerTriggerEnter : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.gameObject.CompareTag("Player") && disableTriggerAfterEvent)
+        if(other.gameObject.CompareTag("Trigger") && disableTriggerAfterEvent)
         {
             GetComponent<Collider>().isTrigger = false;
         }
