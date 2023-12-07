@@ -1,6 +1,6 @@
 Hey, nice to meet you! #speaker:Whale
 It’s been a while since I’ve seen a fox like you in here. 
-I haven’t a whale in ages either. What’s it like to be a whale? #speaker:Fox
+I haven’t seen a whale in ages either. What’s it like to be a whale? #speaker:Fox
 It’s amazing! #speaker:Whale
 I can spend all the time in the water. Imagine – swimming all day, all night. What would you rather be doing? 
 You are right. That’s sounds great. #speaker:Fox
@@ -13,5 +13,5 @@ But you can.
 Do you see that small island over there? I think there should be some fruits in there. 
 Don’t be afraid of the water. I can help you a little bit already. 
 Here. This ability allows you to swim in shallow waters. 
-Return to me with some healthy snacks, and I shall help you in deeper waters as well.
+Return to me with some healthy snacks, and I shall help you in deeper waters as well. #showUI:4
 -> END
