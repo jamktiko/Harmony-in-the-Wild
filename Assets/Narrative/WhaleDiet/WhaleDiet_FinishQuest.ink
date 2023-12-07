@@ -1,4 +1,4 @@
-That looks so delicious! Let me have a small bite. #speaker:Whale
+That looks so delicious! Let me have a small bite. #speaker:Whale #hideUI:yes
 Mmmm... so tasty. Thank you! 
 I hope you had fun in water. You definitely deserve the ability to swim further from the coast. 
 Oh, and did you know? 

@@ -29,5 +29,5 @@ You... you’d do that? #speaker:Ghost
 I’d be eternally grateful for you. 
 I... I can help you as well. 
 Here. This ability should help you to talk to my family. They are real... ghosts. So not everybody can see or talk to them.
-I... I’ll wait here.
+I... I’ll wait here. #showUI:6
 -> END
