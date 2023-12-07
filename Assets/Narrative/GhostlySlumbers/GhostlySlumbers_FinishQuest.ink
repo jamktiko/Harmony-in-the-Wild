@@ -1,4 +1,4 @@
-You… You are back? #speaker:Ghost #hideUI:yes
+You… You are back? #speaker:Ghost
 I found some of your family members. They were happy to hear about you. #speaker:Fox
 They... they were? Do you... really mean that? #speaker:Ghost
 Yes. They miss you. And they said they would like to meet you. #speaker:Fox

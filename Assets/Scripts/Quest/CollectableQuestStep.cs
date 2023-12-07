@@ -10,12 +10,10 @@ public class CollectableQuestStep : QuestStep
     {
         itemsCollected++;
         UpdateState();
-        GameEventsManager.instance.questEvents.UpdateQuestUI(QuestUIChange.UpdateCounter, "Apples " + itemsCollected + "/" + itemToComplete);
 
         if (itemsCollected >= itemToComplete)
         {
             FinishQuestStep();
-            GameEventsManager.instance.questEvents.UpdateQuestUI(QuestUIChange.ChangeObjective, "");
         }
     }
 

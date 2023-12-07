@@ -16,5 +16,5 @@ But as you know, time is ticking when you are at work.
 You need to learn to be effective! You don’t have time to go through all the rocks. That’s why you should find it on couple of attempts. Sense the ore! 
 Here. For this lesson, I’ll give you the ability of rock smashing. You can use it by charging towards a rock. 
 If you prove to be a good miner, I’ll let you have the ability so you can use it everywhere. 
-But only, if you are worthy. #showUI:5
+But only, if you are worthy.
 -> END
