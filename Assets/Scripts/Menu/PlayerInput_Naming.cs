@@ -11,7 +11,8 @@ public class PlayerInput_Naming : MonoBehaviour
     public void SaveName(string s) 
     {
         if (s != "" 
-            && !s.Contains("nigger") 
+            && !s.Contains("nigger")
+            && !s.Contains("nigga")
             && !s.Contains("fuck") 
             && !s.Contains("shit") 
             && !s.Contains("kys") 
