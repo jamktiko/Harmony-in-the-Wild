@@ -8,6 +8,7 @@ public class FinishDungeon : MonoBehaviour
     [Header("Config")]
     [SerializeField] private QuestScriptableObject questSO;
     [SerializeField] private int gainedAbilityIndex;
+    [SerializeField] private int storybookSectionIndex;
     [SerializeField] private string goToScene;
 
     private AudioSource audioSource;
@@ -25,7 +26,7 @@ public class FinishDungeon : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Trigger"))
         {
             StartCoroutine(ReturnToOverworld());
         }
@@ -39,9 +40,13 @@ public class FinishDungeon : MonoBehaviour
         if (questSO != null)
         {
             GameEventsManager.instance.questEvents.AdvanceDungeonQuest(questId);
+            StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, goToScene, false);
+            SceneManager.LoadScene("Storybook");
         }
 
-        // add storybook config here & change goToScene to Storybook scene
-        SceneManager.LoadScene(goToScene);
+        else
+        {
+            SceneManager.LoadScene(goToScene);
+        }
     }
 }

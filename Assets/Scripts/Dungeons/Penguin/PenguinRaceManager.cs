@@ -60,7 +60,6 @@ public class PenguinRaceManager : MonoBehaviour
         {
             penguinDungeonEvents.RaceFinished();
             GameEventsManager.instance.questEvents.FinishQuest(questSO.id);
-            SaveManager.instance.SaveGame();
             winView.SetActive(true);
             StartCoroutine(TransitionToOverworld());
         }

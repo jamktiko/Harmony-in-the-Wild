@@ -224,6 +224,7 @@ public class QuestManager : MonoBehaviour
     private void AbilityGet(int index) 
     {
         playerManager.abilityValues[index] = true;
+        SaveManager.instance.SaveGame();
     }
 
     public List<string> CollectQuestDataForSaving()
