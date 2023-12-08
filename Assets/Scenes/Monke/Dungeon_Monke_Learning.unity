@@ -1929,7 +1929,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3929356387083105560, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.047190312
+      value: 0.047190316
       objectReference: {fileID: 0}
     - target: {fileID: 3929356387083105560, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.y
@@ -1937,7 +1937,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3929356387083105560, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.044150475
+      value: 0.04415048
       objectReference: {fileID: 0}
     - target: {fileID: 4082985820749503816, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_FollowOffset.y
@@ -1965,7 +1965,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4296425940649565959, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.0009514118
+      value: 0.0009514087
       objectReference: {fileID: 0}
     - target: {fileID: 4296425940649565959, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.y
@@ -1973,7 +1973,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4296425940649565959, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.00089012505
+      value: 0.0008901222
       objectReference: {fileID: 0}
     - target: {fileID: 4978085730567127345, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2979,6 +2979,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1600604576}
     m_Modifications:
+    - target: {fileID: 1101854904968023725, guid: 0e3725b1f1fde224799205c8123bf4d9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1163218419377338624, guid: 0e3725b1f1fde224799205c8123bf4d9, type: 3}
       propertyPath: m_text
       value: The Handy Monkey
@@ -3894,6 +3898,54 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 157542235833823428, guid: 3efef0c3914bf95429aeb0141ca3a994, type: 3}
   m_PrefabInstance: {fileID: 1037713983}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1041486046
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1041486048}
+  - component: {fileID: 1041486047}
+  m_Layer: 0
+  m_Name: FinishDungeon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1041486047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1041486046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 273046e019da9f64a8c75e6b6e4fb647, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questSO: {fileID: 0}
+  gainedAbilityIndex: 0
+  storybookSectionIndex: 4
+  goToScene: Overworld
+--- !u!4 &1041486048
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1041486046}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 43.6, y: 4.9591703, z: 32.474262}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1054105381
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4377,6 +4429,67 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 157542235833823428, guid: 3efef0c3914bf95429aeb0141ca3a994, type: 3}
   m_PrefabInstance: {fileID: 1194951897}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1226897641
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1494130005460829653, guid: 6714be4684e23344a8d7f920bb6708e6, type: 3}
+      propertyPath: questIndex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8262756077083324713, guid: 6714be4684e23344a8d7f920bb6708e6, type: 3}
+      propertyPath: m_Name
+      value: DungeonQuestUIManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511486667513328050, guid: 6714be4684e23344a8d7f920bb6708e6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1810
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511486667513328050, guid: 6714be4684e23344a8d7f920bb6708e6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 140
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511486667513328050, guid: 6714be4684e23344a8d7f920bb6708e6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511486667513328050, guid: 6714be4684e23344a8d7f920bb6708e6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511486667513328050, guid: 6714be4684e23344a8d7f920bb6708e6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511486667513328050, guid: 6714be4684e23344a8d7f920bb6708e6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511486667513328050, guid: 6714be4684e23344a8d7f920bb6708e6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511486667513328050, guid: 6714be4684e23344a8d7f920bb6708e6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511486667513328050, guid: 6714be4684e23344a8d7f920bb6708e6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511486667513328050, guid: 6714be4684e23344a8d7f920bb6708e6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6714be4684e23344a8d7f920bb6708e6, type: 3}
 --- !u!1001 &1237137339
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4878,6 +4991,10 @@ PrefabInstance:
     - target: {fileID: 4899950594670728796, guid: 11e8b83356ab110498019a23c434161f, type: 3}
       propertyPath: m_Name
       value: BossDoor
+      objectReference: {fileID: 0}
+    - target: {fileID: 4899950594670728796, guid: 11e8b83356ab110498019a23c434161f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8314187065383860447, guid: 11e8b83356ab110498019a23c434161f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5669,10 +5786,10 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 711058277}
   - {fileID: 261084942}
   - {fileID: 1951931015}
   - {fileID: 216143748}
-  - {fileID: 711058277}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -7522,3 +7639,5 @@ SceneRoots:
   - {fileID: 615011185}
   - {fileID: 2099384466}
   - {fileID: 427889769}
+  - {fileID: 1226897641}
+  - {fileID: 1041486048}

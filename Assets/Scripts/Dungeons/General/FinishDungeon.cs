@@ -28,11 +28,11 @@ public class FinishDungeon : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Trigger"))
         {
-            StartCoroutine(ReturnToOverworld());
+            StartCoroutine(ShowDungeonCompletedStorybook());
         }
     }
 
-    private IEnumerator ReturnToOverworld()
+    private IEnumerator ShowDungeonCompletedStorybook()
     {
         audioSource.Play();
         yield return new WaitForSeconds(audioSource.clip.length + 0.5f);
@@ -40,13 +40,9 @@ public class FinishDungeon : MonoBehaviour
         if (questSO != null)
         {
             GameEventsManager.instance.questEvents.AdvanceDungeonQuest(questId);
-            StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, goToScene, false);
-            SceneManager.LoadScene("Storybook");
         }
 
-        else
-        {
-            SceneManager.LoadScene(goToScene);
-        }
+        StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, goToScene, false);
+        SceneManager.LoadScene("Storybook");
     }
 }

@@ -22,9 +22,13 @@ public class KeyQuestStep : QuestStep
     {
         itemsCollected++;
         UpdateState();
+        // this should update the quest UI counter for the gathered keys
+        GameEventsManager.instance.questEvents.UpdateQuestUI(QuestUIChange.UpdateCounter, "Keys gathered " + itemsCollected + "/" + itemToComplete);
 
         if (itemsCollected >= itemToComplete)
         {
+            // this should update the quest UI to show the second objective
+            GameEventsManager.instance.questEvents.UpdateQuestUI(QuestUIChange.ChangeObjective, "");
             FinishQuestStep();
         }
     }
