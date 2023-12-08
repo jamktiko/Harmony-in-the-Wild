@@ -16,7 +16,7 @@ public class PlayerTeleportation : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Trigger"))
         {
             StartCoroutine(Teleport());
         }
@@ -25,11 +25,9 @@ public class PlayerTeleportation : MonoBehaviour
     private IEnumerator Teleport()
     {
         //audioSource.Play();
-        //player.GetComponent<FoxMove>().enabled = false;
 
         //yield return new WaitForSeconds(audioSource.clip.length * 0.75f);
         yield return new WaitForSeconds(0.75f);
         player.position = teleportationTarget.position;
-        //player.GetComponent<FoxMove>().enabled = true;
     }
 }
