@@ -3551,16 +3551,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1884595856}
     m_Modifications:
+    - target: {fileID: 1101854904968023725, guid: 0e3725b1f1fde224799205c8123bf4d9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1163218419377338624, guid: 0e3725b1f1fde224799205c8123bf4d9, type: 3}
       propertyPath: m_text
       value: The Leaping frog
       objectReference: {fileID: 0}
     - target: {fileID: 3008597708647231964, guid: 0e3725b1f1fde224799205c8123bf4d9, type: 3}
       propertyPath: m_text
-      value: 'Objective: Use charged jump ability and progress through learning stages
-        to reach the final boss
-
-        Learning stages 0/3'
+      value: asdas
+      objectReference: {fileID: 0}
+    - target: {fileID: 3826127460425090623, guid: 0e3725b1f1fde224799205c8123bf4d9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5473759635713325495, guid: 0e3725b1f1fde224799205c8123bf4d9, type: 3}
       propertyPath: m_Name
@@ -3649,6 +3654,10 @@ PrefabInstance:
     - target: {fileID: 5745361224587627457, guid: 0e3725b1f1fde224799205c8123bf4d9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6624001145915534271, guid: 0e3725b1f1fde224799205c8123bf4d9, type: 3}
+      propertyPath: m_text
+      value: Learning stage 1/3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4657,7 +4666,7 @@ GameObject:
   - component: {fileID: 622618663}
   - component: {fileID: 622618664}
   - component: {fileID: 622618665}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: TransitionToBossRoom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4948,7 +4957,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4296425940649565959, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.0017290984
+      value: -0.0017291023
       objectReference: {fileID: 0}
     - target: {fileID: 4296425940649565959, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.y
@@ -4956,7 +4965,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4296425940649565959, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.00075698266
+      value: 0.00075698446
       objectReference: {fileID: 0}
     - target: {fileID: 4978085730567127345, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4997,6 +5006,10 @@ PrefabInstance:
     - target: {fileID: 7365042558580898368, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: ChargeJumpHeight
       value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 7419543683365612961, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8362360726007811794, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_FollowOffset.y
@@ -6928,6 +6941,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1999972619}
+    - target: {fileID: 172043967346415717, guid: 78cbdba39f1b074419b652473eb0d398, type: 3}
+      propertyPath: newStageIndex
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 172043967346415717, guid: 78cbdba39f1b074419b652473eb0d398, type: 3}
       propertyPath: teleportationTarget
       value: 
@@ -13644,13 +13661,13 @@ GameObject:
   - component: {fileID: 1839451122}
   - component: {fileID: 1839451121}
   - component: {fileID: 1839451123}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Teleport_Test
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1839451120
 Transform:
   m_ObjectHideFlags: 0
@@ -13681,6 +13698,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1999972619}
   teleportationTarget: {fileID: 815794533}
+  newStageIndex: 2
 --- !u!135 &1839451122
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -13700,7 +13718,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 1.5
+  m_Radius: 2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!82 &1839451123
 AudioSource:
@@ -16443,6 +16461,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1999972619}
     - target: {fileID: 172043967346415717, guid: 78cbdba39f1b074419b652473eb0d398, type: 3}
+      propertyPath: newStageIndex
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 172043967346415717, guid: 78cbdba39f1b074419b652473eb0d398, type: 3}
       propertyPath: teleportationTarget
       value: 
       objectReference: {fileID: 815794533}
@@ -16490,9 +16512,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Teleport_FirstArea
       objectReference: {fileID: 0}
-    - target: {fileID: 5359654373478150156, guid: 78cbdba39f1b074419b652473eb0d398, type: 3}
-      propertyPath: m_Layer
-      value: 14
+    - target: {fileID: 7360775343893561965, guid: 78cbdba39f1b074419b652473eb0d398, type: 3}
+      propertyPath: m_Color.g
+      value: 0.26737964
+      objectReference: {fileID: 0}
+    - target: {fileID: 7360775343893561965, guid: 78cbdba39f1b074419b652473eb0d398, type: 3}
+      propertyPath: m_Color.r
+      value: 0.76470584
+      objectReference: {fileID: 0}
+    - target: {fileID: 7360775343893561965, guid: 78cbdba39f1b074419b652473eb0d398, type: 3}
+      propertyPath: m_Intensity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7604950359471911906, guid: 78cbdba39f1b074419b652473eb0d398, type: 3}
+      propertyPath: m_Radius
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -16798,6 +16832,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4912f1f43269b5a4eb5c9bc22cf0d543, type: 3}
+--- !u!1001 &767468797821772340
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8262756077083324713, guid: 6714be4684e23344a8d7f920bb6708e6, type: 3}
+      propertyPath: m_Name
+      value: DungeonQuestUIManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511486667513328050, guid: 6714be4684e23344a8d7f920bb6708e6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1810
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511486667513328050, guid: 6714be4684e23344a8d7f920bb6708e6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 140
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511486667513328050, guid: 6714be4684e23344a8d7f920bb6708e6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511486667513328050, guid: 6714be4684e23344a8d7f920bb6708e6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511486667513328050, guid: 6714be4684e23344a8d7f920bb6708e6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511486667513328050, guid: 6714be4684e23344a8d7f920bb6708e6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511486667513328050, guid: 6714be4684e23344a8d7f920bb6708e6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511486667513328050, guid: 6714be4684e23344a8d7f920bb6708e6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511486667513328050, guid: 6714be4684e23344a8d7f920bb6708e6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511486667513328050, guid: 6714be4684e23344a8d7f920bb6708e6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6714be4684e23344a8d7f920bb6708e6, type: 3}
 --- !u!4 &1005171170710539784 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6877931224123374174, guid: e210eb98df225b54dbbb7d9da1e5c2c0, type: 3}
@@ -17015,6 +17106,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 3835451211586111103}
+  - {fileID: 767468797821772340}
   - {fileID: 1884595856}
   - {fileID: 785817987}
   - {fileID: 1478118104}

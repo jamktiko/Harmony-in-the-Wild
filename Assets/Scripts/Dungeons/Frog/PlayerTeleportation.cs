@@ -6,6 +6,7 @@ public class PlayerTeleportation : MonoBehaviour
 {
     [SerializeField] private Transform player;
     [SerializeField] private Transform teleportationTarget;
+    [SerializeField] private int newStageIndex;
 
     private AudioSource audioSource;
 
@@ -27,7 +28,9 @@ public class PlayerTeleportation : MonoBehaviour
         //audioSource.Play();
 
         //yield return new WaitForSeconds(audioSource.clip.length * 0.75f);
-        yield return new WaitForSeconds(0.75f);
+        yield return new WaitForSeconds(0.2f);
         player.position = teleportationTarget.position;
+
+        GameEventsManager.instance.questEvents.UpdateQuestUI(QuestUIChange.UpdateCounter, "Learning stage " + newStageIndex + "/3");
     }
 }
