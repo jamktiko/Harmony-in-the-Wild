@@ -131,6 +131,7 @@ public class pauseMenuManager : MonoBehaviour
     public void BackButton()
     {
         pauseMenuPanel.SetActive(true);
+        OptionsMenuPanel.SetActive(false);
         SettingsMenuPanel.SetActive(false);
         MovementControlsMenuPanel.SetActive(false);
         GamePlayControlsMenuPanel.SetActive(false);
