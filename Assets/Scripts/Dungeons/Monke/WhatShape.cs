@@ -6,11 +6,13 @@ public class WhatShape : MonoBehaviour
 {
     [SerializeField] string ShapeName;
     [SerializeField] bool isActive;
+    [SerializeField] AudioSource correctAudio;
     private void OnTriggerEnter(Collider other)
     {
         if (other.name.Contains(ShapeName)) 
         {
             isActive = true;
+            correctAudio.Play();
         }
     }
     private void OnTriggerExit(Collider other)
