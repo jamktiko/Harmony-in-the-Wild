@@ -22,6 +22,7 @@ public class LeverScript : MonoBehaviour
             used = true;
             Debug.Log("Lever pulled!");
             doorScript.usedlevers++;
+            doorScript.UpdateQuestUI();
             //gameObject.GetComponent<MeshRenderer>().material= usedMat;
             gameObject.GetComponent<AudioSource>().Play();
             anim.Play("Leaver_Turn_ANI");
