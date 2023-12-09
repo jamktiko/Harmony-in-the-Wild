@@ -19,6 +19,8 @@ public abstract class QuestStep : MonoBehaviour
         {
             SetQuestStepState(questStepState);
         }
+
+        SaveManager.instance.SaveGame();
     }
 
     protected string GetQuestId()
@@ -41,6 +43,7 @@ public abstract class QuestStep : MonoBehaviour
     protected void ChangeState(string newState)
     {
         GameEventsManager.instance.questEvents.QuestStepStateChange(questId, stepIndex, new QuestStepState(newState));
+        SaveManager.instance.SaveGame();
     }
 
     protected abstract void SetQuestStepState(string state);

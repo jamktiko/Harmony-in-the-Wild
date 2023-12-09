@@ -22,7 +22,7 @@ public class StorybookSection
     public Sprite[] storybookImages;
 }
 
-[ExecuteInEditMode]
+//[ExecuteInEditMode]
 public class Book : MonoBehaviour {
     public Canvas canvas;
     [SerializeField]

@@ -16,6 +16,7 @@ public class StorybookHandler : MonoBehaviour
         if (instance != null)
         {
             Debug.LogWarning("There is more than one Storybook Handler in the scene!");
+            Destroy(gameObject);
         }
 
         instance = this;

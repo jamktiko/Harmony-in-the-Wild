@@ -31,13 +31,13 @@ public class Destructible : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player") && PlayerManager.instance.abilityValues[4])
+        if (other.gameObject.CompareTag("Trigger") && PlayerManager.instance.abilityValues[4])
         {
             if (needsToBeFreezed)
             {
                 if (gameObject.GetComponent<Freezable>().isFreezed)
                 {
-                    audioSource.Play();
+                    //audioSource.Play();
                     Instantiate(destroyedVersion, transform.position, transform.rotation);
                     Destroy(gameObject);
                 }
@@ -55,7 +55,7 @@ public class Destructible : MonoBehaviour
 
             else
             {
-                audioSource.Play();
+                //audioSource.Play();
                 Instantiate(destroyedVersion, transform.position, transform.rotation);
                 Destroy(gameObject);
             }
@@ -69,7 +69,6 @@ public class Destructible : MonoBehaviour
 
     public void CheckForOre()
     {
-        Debug.Log("checking for ore");
         if (hasOre)
         {
             SmashingAttemptCounter.instance.UpdateProgress(hasOre);

@@ -16,7 +16,7 @@ public class DontDestroyOnLoad : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
         pausemenuManager=transform.GetChild(5).gameObject;
-        if (SceneManager.GetActiveScene().name.Contains("Overwold")|| SceneManager.GetActiveScene().name.Contains("Dungeon"))
+        if (SceneManager.GetActiveScene().name.Contains("Overworld")|| SceneManager.GetActiveScene().name.Contains("Dungeon"))
         {
             pausemenuManager.SetActive(true);
         }

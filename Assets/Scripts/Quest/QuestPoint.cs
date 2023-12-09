@@ -19,6 +19,8 @@ public class QuestPoint : MonoBehaviour
     [SerializeField] private TextAsset startQuestDialogue;
     [SerializeField] private TextAsset finishQuestDialogue;
 
+    [Header("Dialogue Config")]
+    [SerializeField] AudioSource dialogueSound;
     private bool playerIsNear = false;
     private string questId;
     private QuestState currentQuestState;
@@ -42,6 +44,7 @@ public class QuestPoint : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.E))
         {
+            dialogueSound.Play();
             InteractedWithQuestPoint();
         }
     }

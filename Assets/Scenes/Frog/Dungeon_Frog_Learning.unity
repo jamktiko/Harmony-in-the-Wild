@@ -3489,6 +3489,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Killzone
       objectReference: {fileID: 0}
+    - target: {fileID: 3229666689543922504, guid: 6e82d0f38d8f4d14b92d4b55bd1eac11, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 7965588616221719838, guid: 6e82d0f38d8f4d14b92d4b55bd1eac11, type: 3}
       propertyPath: respawnPosition
       value: 
@@ -3551,16 +3555,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1884595856}
     m_Modifications:
+    - target: {fileID: 1101854904968023725, guid: 0e3725b1f1fde224799205c8123bf4d9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1163218419377338624, guid: 0e3725b1f1fde224799205c8123bf4d9, type: 3}
       propertyPath: m_text
       value: The Leaping frog
       objectReference: {fileID: 0}
     - target: {fileID: 3008597708647231964, guid: 0e3725b1f1fde224799205c8123bf4d9, type: 3}
       propertyPath: m_text
-      value: 'Objective: Use charged jump ability and progress through learning stages
-        to reach the final boss
-
-        Learning stages 0/3'
+      value: asdas
+      objectReference: {fileID: 0}
+    - target: {fileID: 3826127460425090623, guid: 0e3725b1f1fde224799205c8123bf4d9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5473759635713325495, guid: 0e3725b1f1fde224799205c8123bf4d9, type: 3}
       propertyPath: m_Name
@@ -3649,6 +3658,10 @@ PrefabInstance:
     - target: {fileID: 5745361224587627457, guid: 0e3725b1f1fde224799205c8123bf4d9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6624001145915534271, guid: 0e3725b1f1fde224799205c8123bf4d9, type: 3}
+      propertyPath: m_text
+      value: Learning stage 1/3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4657,7 +4670,7 @@ GameObject:
   - component: {fileID: 622618663}
   - component: {fileID: 622618664}
   - component: {fileID: 622618665}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: TransitionToBossRoom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4714,6 +4727,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questSO: {fileID: 11400000, guid: 6319434f68453f54fa60900a7e1a1800, type: 2}
+  stageIndex: 1
   goToScene: Dungeon_Frog_Boss
 --- !u!1001 &622915203
 PrefabInstance:
@@ -4948,7 +4962,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4296425940649565959, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.0017291013
+      value: -0.0017291001
       objectReference: {fileID: 0}
     - target: {fileID: 4296425940649565959, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.y
@@ -4956,7 +4970,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4296425940649565959, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.00075698394
+      value: 0.00075698347
       objectReference: {fileID: 0}
     - target: {fileID: 4978085730567127345, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4987,16 +5001,12 @@ PrefabInstance:
       value: -0.011896196
       objectReference: {fileID: 0}
     - target: {fileID: 7365042558580898368, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
-      propertyPath: jumpForce
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 7365042558580898368, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: canChargedJump
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 7365042558580898368, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
-      propertyPath: ChargeJumpHeight
-      value: 24
+    - target: {fileID: 7419543683365612961, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8362360726007811794, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_FollowOffset.y
@@ -6929,6 +6939,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1999972619}
     - target: {fileID: 172043967346415717, guid: 78cbdba39f1b074419b652473eb0d398, type: 3}
+      propertyPath: newStageIndex
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 172043967346415717, guid: 78cbdba39f1b074419b652473eb0d398, type: 3}
       propertyPath: teleportationTarget
       value: 
       objectReference: {fileID: 687649300}
@@ -7988,6 +8002,22 @@ PrefabInstance:
     - target: {fileID: 3707506187529912483, guid: 375e771b5234acd40acc8d1db11582af, type: 3}
       propertyPath: m_Name
       value: StaticJumpableRock_03_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 7367727979685113146, guid: 375e771b5234acd40acc8d1db11582af, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 10.455615
+      objectReference: {fileID: 0}
+    - target: {fileID: 7367727979685113146, guid: 375e771b5234acd40acc8d1db11582af, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 10.179493
+      objectReference: {fileID: 0}
+    - target: {fileID: 7367727979685113146, guid: 375e771b5234acd40acc8d1db11582af, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.1892
+      objectReference: {fileID: 0}
+    - target: {fileID: 7367727979685113146, guid: 375e771b5234acd40acc8d1db11582af, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.3601
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -13644,13 +13674,13 @@ GameObject:
   - component: {fileID: 1839451122}
   - component: {fileID: 1839451121}
   - component: {fileID: 1839451123}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Teleport_Test
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1839451120
 Transform:
   m_ObjectHideFlags: 0
@@ -13681,6 +13711,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1999972619}
   teleportationTarget: {fileID: 815794533}
+  newStageIndex: 2
 --- !u!135 &1839451122
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -13700,7 +13731,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 1.5
+  m_Radius: 2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!82 &1839451123
 AudioSource:
@@ -16443,6 +16474,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1999972619}
     - target: {fileID: 172043967346415717, guid: 78cbdba39f1b074419b652473eb0d398, type: 3}
+      propertyPath: newStageIndex
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 172043967346415717, guid: 78cbdba39f1b074419b652473eb0d398, type: 3}
       propertyPath: teleportationTarget
       value: 
       objectReference: {fileID: 815794533}
@@ -16490,6 +16525,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Teleport_FirstArea
       objectReference: {fileID: 0}
+    - target: {fileID: 7360775343893561965, guid: 78cbdba39f1b074419b652473eb0d398, type: 3}
+      propertyPath: m_Color.g
+      value: 0.26737964
+      objectReference: {fileID: 0}
+    - target: {fileID: 7360775343893561965, guid: 78cbdba39f1b074419b652473eb0d398, type: 3}
+      propertyPath: m_Color.r
+      value: 0.76470584
+      objectReference: {fileID: 0}
+    - target: {fileID: 7360775343893561965, guid: 78cbdba39f1b074419b652473eb0d398, type: 3}
+      propertyPath: m_Intensity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7604950359471911906, guid: 78cbdba39f1b074419b652473eb0d398, type: 3}
+      propertyPath: m_Radius
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 2300487053243304629, guid: 78cbdba39f1b074419b652473eb0d398, type: 3}
@@ -16510,22 +16561,78 @@ PrefabInstance:
 
         <size=30>Learning</size>'
       objectReference: {fileID: 0}
+    - target: {fileID: 608071560308191664, guid: fea564bdbd735f848be52e21ccb3ad7d, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 331b5598217060d40a1cdfdb8c41004c, type: 2}
+    - target: {fileID: 608071560308191664, guid: fea564bdbd735f848be52e21ccb3ad7d, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -7097947239469774451, guid: 331b5598217060d40a1cdfdb8c41004c, type: 2}
+    - target: {fileID: 608071560308191664, guid: fea564bdbd735f848be52e21ccb3ad7d, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3045083116153047730, guid: fea564bdbd735f848be52e21ccb3ad7d, type: 3}
       propertyPath: m_text
       value: Find your way to the boss area.
       objectReference: {fileID: 0}
+    - target: {fileID: 3045083116153047730, guid: fea564bdbd735f848be52e21ccb3ad7d, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: fef04bc364c35fd44acb18d128270ef9, type: 2}
+    - target: {fileID: 3045083116153047730, guid: fea564bdbd735f848be52e21ccb3ad7d, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -4889654912709604089, guid: fef04bc364c35fd44acb18d128270ef9, type: 2}
+    - target: {fileID: 3045083116153047730, guid: fea564bdbd735f848be52e21ccb3ad7d, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3863589415443621647, guid: fea564bdbd735f848be52e21ccb3ad7d, type: 3}
       propertyPath: m_text
       value: 'The learning area has three different rooms with different challenges.
-        Locate teleports to get to the new area and eventually to the boss area.
+        Locate teleports to get to the new area and eventually face the boss.
 
 
         Toggle
-        between regular jump and Charge Jump by pressing [H].
+        between regular jump and Charge Jump by pressing [F].
 
 
         Hold [SPACE]
         longer to have more power in Charge Jump.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3863589415443621647, guid: fea564bdbd735f848be52e21ccb3ad7d, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: fef04bc364c35fd44acb18d128270ef9, type: 2}
+    - target: {fileID: 3863589415443621647, guid: fea564bdbd735f848be52e21ccb3ad7d, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -4889654912709604089, guid: fef04bc364c35fd44acb18d128270ef9, type: 2}
+    - target: {fileID: 3863589415443621647, guid: fea564bdbd735f848be52e21ccb3ad7d, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5817868812372642374, guid: fea564bdbd735f848be52e21ccb3ad7d, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 331b5598217060d40a1cdfdb8c41004c, type: 2}
+    - target: {fileID: 5817868812372642374, guid: fea564bdbd735f848be52e21ccb3ad7d, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -7097947239469774451, guid: 331b5598217060d40a1cdfdb8c41004c, type: 2}
+    - target: {fileID: 5817868812372642374, guid: fea564bdbd735f848be52e21ccb3ad7d, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6300715992144902880, guid: fea564bdbd735f848be52e21ccb3ad7d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -235
+      objectReference: {fileID: 0}
+    - target: {fileID: 7485803761858437280, guid: fea564bdbd735f848be52e21ccb3ad7d, type: 3}
+      propertyPath: m_fontStyle
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7780906410400696107, guid: fea564bdbd735f848be52e21ccb3ad7d, type: 3}
       propertyPath: m_Pivot.x
@@ -16614,6 +16721,38 @@ PrefabInstance:
     - target: {fileID: 7847647121640213272, guid: fea564bdbd735f848be52e21ccb3ad7d, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8674255915660699348, guid: fea564bdbd735f848be52e21ccb3ad7d, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: fef04bc364c35fd44acb18d128270ef9, type: 2}
+    - target: {fileID: 8674255915660699348, guid: fea564bdbd735f848be52e21ccb3ad7d, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8674255915660699348, guid: fea564bdbd735f848be52e21ccb3ad7d, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8674255915660699348, guid: fea564bdbd735f848be52e21ccb3ad7d, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8674255915660699348, guid: fea564bdbd735f848be52e21ccb3ad7d, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -4889654912709604089, guid: fef04bc364c35fd44acb18d128270ef9, type: 2}
+    - target: {fileID: 8674255915660699348, guid: fea564bdbd735f848be52e21ccb3ad7d, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278190080
+      objectReference: {fileID: 0}
+    - target: {fileID: 8674255915660699348, guid: fea564bdbd735f848be52e21ccb3ad7d, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8754860417792611501, guid: fea564bdbd735f848be52e21ccb3ad7d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -115.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -16706,6 +16845,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4912f1f43269b5a4eb5c9bc22cf0d543, type: 3}
+--- !u!1001 &767468797821772340
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8262756077083324713, guid: 6714be4684e23344a8d7f920bb6708e6, type: 3}
+      propertyPath: m_Name
+      value: DungeonQuestUIManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511486667513328050, guid: 6714be4684e23344a8d7f920bb6708e6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1810
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511486667513328050, guid: 6714be4684e23344a8d7f920bb6708e6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 140
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511486667513328050, guid: 6714be4684e23344a8d7f920bb6708e6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511486667513328050, guid: 6714be4684e23344a8d7f920bb6708e6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511486667513328050, guid: 6714be4684e23344a8d7f920bb6708e6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511486667513328050, guid: 6714be4684e23344a8d7f920bb6708e6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511486667513328050, guid: 6714be4684e23344a8d7f920bb6708e6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511486667513328050, guid: 6714be4684e23344a8d7f920bb6708e6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511486667513328050, guid: 6714be4684e23344a8d7f920bb6708e6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511486667513328050, guid: 6714be4684e23344a8d7f920bb6708e6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6714be4684e23344a8d7f920bb6708e6, type: 3}
 --- !u!4 &1005171170710539784 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6877931224123374174, guid: e210eb98df225b54dbbb7d9da1e5c2c0, type: 3}
@@ -16923,6 +17119,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 3835451211586111103}
+  - {fileID: 767468797821772340}
   - {fileID: 1884595856}
   - {fileID: 785817987}
   - {fileID: 1478118104}

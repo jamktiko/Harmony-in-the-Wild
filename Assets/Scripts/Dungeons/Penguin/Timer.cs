@@ -24,7 +24,7 @@ public class Timer : MonoBehaviour
         currentTime = maxTime;
 
         var convertedTime = TimeSpan.FromSeconds(currentTime);
-        timerText.text = string.Format("{0:00}:{1:00}", convertedTime.Minutes, convertedTime.Seconds);
+        timerText.text = "Time " + string.Format("{0:00}:{1:00}", convertedTime.Minutes, convertedTime.Seconds);
 
         PenguinRaceManager.instance.penguinDungeonEvents.onLapInterrupted += ResetTimeAfterInterruptedLap;
         PenguinRaceManager.instance.penguinDungeonEvents.onLapFinished += StartTimerForNewLap;
@@ -57,7 +57,7 @@ public class Timer : MonoBehaviour
             currentTime -= 1;
 
             var convertedTime = TimeSpan.FromSeconds(currentTime);
-            timerText.text = string.Format("{0:00}:{1:00}", convertedTime.Minutes, convertedTime.Seconds);
+            timerText.text = "Time " + string.Format("{0:00}:{1:00}", convertedTime.Minutes, convertedTime.Seconds);
 
             if(currentTime >= maxTime)
             {
@@ -90,7 +90,7 @@ public class Timer : MonoBehaviour
         currentTime = maxTime;
 
         var convertedTime = TimeSpan.FromSeconds(currentTime);
-        timerText.text = string.Format("{0:00}:{1:00}", convertedTime.Minutes, convertedTime.Seconds);
+        timerText.text = "Time " + string.Format("{0:00}:{1:00}", convertedTime.Minutes, convertedTime.Seconds);
     }
 
     private void StopTimer()

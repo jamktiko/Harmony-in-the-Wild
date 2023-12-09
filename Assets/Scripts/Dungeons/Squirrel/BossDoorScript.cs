@@ -30,13 +30,19 @@ public class BossDoorScript : MonoBehaviour
             gameObject.GetComponent<MeshRenderer>().material=usedMat;
             gameObject.GetComponent<AudioSource>().Play();
             anim.Play("Door_Open_ANI");
+            GameEventsManager.instance.questEvents.UpdateQuestUI(QuestUIChange.ChangeObjective, "");
         }
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (isOpen&&other.CompareTag("Player")) 
+        if (isOpen&&other.CompareTag("Trigger")) 
         {
             SceneManager.LoadScene("Dungeon_Squirrel_Boss");
         }
+    }
+
+    public void UpdateQuestUI()
+    {
+        GameEventsManager.instance.questEvents.UpdateQuestUI(QuestUIChange.UpdateCounter, "Levers activated " + usedlevers + "/" + levers);
     }
 }

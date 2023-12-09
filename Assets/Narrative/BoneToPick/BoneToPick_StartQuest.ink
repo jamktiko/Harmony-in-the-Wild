@@ -14,5 +14,5 @@ There’s nothing wrong with you. Don't think like that. #speaker:Fox
 But your bone must be somewhere close. I can help you to look for it. 
 You’re a true friend in need! #speaker:Wolf
 I can look this open area here; this is where I have previously found the bones he has hidden from me. But there is a possibility he has gone further into the woods. So, if you could check the surroundings.
-Come talk to me if you find it.
+Come talk to me if you find it. #showUI:7
 -> END

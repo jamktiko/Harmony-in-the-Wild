@@ -8,6 +8,9 @@ public class PenguinRaceManager : MonoBehaviour
 {
     public static PenguinRaceManager instance { get; private set; }
 
+    [Header("Quest SO")]
+    [SerializeField] private QuestScriptableObject questSO;
+
     [Header("Needed References")]
     [SerializeField] private TextMeshProUGUI lapCounterText;
     [SerializeField] private GameObject alertView;
@@ -47,18 +50,16 @@ public class PenguinRaceManager : MonoBehaviour
     {
         currentLap++;
 
-        Debug.Log("Current lap is " + currentLap);
-
         if(currentLap <= 3)
         {
             penguinDungeonEvents.LapFinished();
-            lapCounterText.text = currentLap + "/3";
+            lapCounterText.text = "Lap " + currentLap + "/3";
         }
 
         else
         {
             penguinDungeonEvents.RaceFinished();
-            winView.SetActive(true);
+            GameEventsManager.instance.questEvents.FinishQuest(questSO.id);
             StartCoroutine(TransitionToOverworld());
         }
 

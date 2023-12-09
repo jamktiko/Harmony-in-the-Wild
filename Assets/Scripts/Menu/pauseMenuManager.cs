@@ -8,13 +8,30 @@ using UnityEngine.UI;
 public class pauseMenuManager : MonoBehaviour
 {
     [SerializeField] GameObject pauseMenuPanel;
+    [SerializeField] GameObject OptionsMenuPanel;
+    [SerializeField] GameObject options;
+    [SerializeField] GameObject MovementControlsMenuPanel;
+    [SerializeField] GameObject GamePlayControlsMenuPanel;
+    [SerializeField] GameObject SettingsMenuPanel;
     [SerializeField] CinemachineFreeLook cinemachineFreeLook;
     [SerializeField] Toggle InvertYAxis;
+    [SerializeField] Toggle fullscreen;
+    [SerializeField] Slider volume;
+    private float SliderValue;
+
+
     void Start()
     {
-        pauseMenuPanel = GameObject.Find("Canvas").transform.Find("PauseMenu").gameObject;
+        pauseMenuPanel = GameObject.Find("PauseMenuEmpty").transform.Find("PauseMenu").gameObject;
+        options = GameObject.Find("PauseMenuEmpty").transform.Find("Options").gameObject;
+        OptionsMenuPanel = options.transform.Find("OptionsMenu").gameObject;
+        MovementControlsMenuPanel = options.transform.Find("MovementControlsMenu").gameObject;
+        GamePlayControlsMenuPanel = options.transform.Find("GameplayControlsMenu").gameObject;
+        SettingsMenuPanel = options.transform.Find("SettingsMenu").gameObject;
         cinemachineFreeLook = GameObject.Find("FreeLook Camera").GetComponent<CinemachineFreeLook>();
-        InvertYAxis = pauseMenuPanel.GetComponentInChildren<Toggle>();
+        InvertYAxis = SettingsMenuPanel.transform.Find("InvertCameraTickBox").GetComponent<Toggle>();
+        fullscreen = SettingsMenuPanel.transform.Find("FullScreenTickBox").GetComponent<Toggle>();
+        volume = SettingsMenuPanel.transform.Find("Volume").GetComponent<Slider>();
         if (PlayerPrefs.GetInt("InvertY") == 1)
         {
             cinemachineFreeLook.m_YAxis.m_InvertInput = true;
@@ -24,7 +41,15 @@ public class pauseMenuManager : MonoBehaviour
             cinemachineFreeLook.m_YAxis.m_InvertInput = false;
         }
         InvertYAxis.isOn = cinemachineFreeLook.m_YAxis.m_InvertInput;
-
+        if (PlayerPrefs.GetFloat("save", SliderValue) == 0)
+        {
+            PlayerPrefs.SetFloat("save", 100);
+        }
+        else
+        {
+            volume.value = PlayerPrefs.GetFloat("save", SliderValue);
+            AudioListener.volume = PlayerPrefs.GetFloat("save", SliderValue);
+        }
 
     }
 
@@ -75,13 +100,47 @@ public class pauseMenuManager : MonoBehaviour
         Cursor.visible = false;
         
     }
-    public void Settings()
+    public void Options()
     {
-        //update later
+        OptionsMenuPanel.SetActive(true);
+        pauseMenuPanel.SetActive(false);
     }
     public void returnToMenu()
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");
+    }
+    public void GameplayMenu()
+    {
+        GamePlayControlsMenuPanel.SetActive(true);
+        pauseMenuPanel.SetActive(false);
+        OptionsMenuPanel.SetActive(false);
+    }
+    public void MovementMenu()
+    {
+        MovementControlsMenuPanel.SetActive(true);
+        pauseMenuPanel.SetActive(false);
+        OptionsMenuPanel.SetActive(false);
+    }
+    public void SettingsMenu()
+    {
+        SettingsMenuPanel.SetActive(true);
+        pauseMenuPanel.SetActive(false);
+        OptionsMenuPanel.SetActive(false);
+    }
+    public void BackButton()
+    {
+        pauseMenuPanel.SetActive(true);
+        OptionsMenuPanel.SetActive(false);
+        SettingsMenuPanel.SetActive(false);
+        MovementControlsMenuPanel.SetActive(false);
+        GamePlayControlsMenuPanel.SetActive(false);
+    }
+    public void ChangeSlider(float value)
+    {
+        SliderValue = value;
+        PlayerPrefs.SetFloat("save", SliderValue);
+        AudioListener.volume = PlayerPrefs.GetFloat("save");
+        Debug.Log("value changed");
     }
 }

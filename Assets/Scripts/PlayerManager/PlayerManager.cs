@@ -20,6 +20,7 @@ public class PlayerManager : MonoBehaviour
         if (instance != null)
         {
             Debug.LogWarning("There is more than one Player Manager.");
+            Destroy(gameObject);
         }
         instance = this;
 

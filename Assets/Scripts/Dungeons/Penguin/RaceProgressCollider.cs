@@ -54,7 +54,7 @@ public class RaceProgressCollider : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Trigger"))
         {
             // if this is a start line, disable trigger
             if(isStartLine)

@@ -78,6 +78,9 @@ public class FoxMovement : MonoBehaviour
     [SerializeField] AudioSource GlidingAudio;
     [SerializeField] AudioSource FreezingAudio;
     [SerializeField] AudioSource SnowDivingAudio;
+    [SerializeField] AudioSource SwimmingAudio;
+    [SerializeField] AudioSource TelegrabAudio;
+
 
     // Slopes
     public RaycastHit hit3;
@@ -89,7 +92,12 @@ public class FoxMovement : MonoBehaviour
         rb=GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         abilityCycle = GetComponent<AbilityCycle>();
-        playerAnimator = GetComponentInChildren<Animator>();
+
+        if(playerAnimator == null)
+        {
+            playerAnimator = GetComponentInChildren<Animator>();
+        }
+
         foreach (AnimatorControllerParameter item in playerAnimator.parameters)
         {
             if (item.type == AnimatorControllerParameterType.Bool)
@@ -119,7 +127,10 @@ public class FoxMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        MovePlayer();
+        if (!DialogueManager.instance.dialogueIsPlaying)
+        {
+            MovePlayer();
+        }
     }
 
     private void MyInput() 
@@ -202,7 +213,11 @@ public class FoxMovement : MonoBehaviour
         //calculate movement direction
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
-        
+        //stop swimming audio
+        if (GroundCheck()&&SwimmingAudio.isPlaying)
+        {
+            SwimmingAudio.Stop();
+        }
         //in air
          if (!GroundCheck()&&!WaterCheck())
         {
@@ -221,10 +236,7 @@ public class FoxMovement : MonoBehaviour
 
 
         }
-        else if (WaterCheck())
-        {
-            Swim();
-        }
+        
         else if (moveDirection==Vector3.zero&&GroundCheck())
         {
             //idle animation here
@@ -283,6 +295,10 @@ public class FoxMovement : MonoBehaviour
         if (isChargeJumping)
         {
             ChargeJump();
+        }
+        else if (WaterCheck())
+        {
+            Swim();
         }
     }
     private void ActivateTelegrabCamera() 
@@ -390,6 +406,7 @@ public class FoxMovement : MonoBehaviour
                         grabbedGameObject.transform.GetComponent<Rigidbody>().isKinematic = true;
                         //grabbedGameObject.transform.rotation = Quaternion.identity;
                         grabbing = true;
+                    TelegrabAudio.Play();
                     }
                 
             }
@@ -480,6 +497,10 @@ public class FoxMovement : MonoBehaviour
             rb.useGravity=true;
         }
         rb.AddForce(moveDirection.normalized * swimSpeed * 10f, ForceMode.Force);
+        if (!SwimmingAudio.isPlaying)
+        {
+            SwimmingAudio.Play();
+        }
     }
     bool GroundCheck()
     {

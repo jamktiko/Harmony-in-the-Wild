@@ -14,12 +14,12 @@ public class SaveManager : MonoBehaviour
 
     private void Awake()
     {
-        // NOTE CHANGE THIS TO .DAT LATER!!
         saveFilePath = Application.persistentDataPath + "/gameData.dat";
 
         if(instance != null)
         {
             Debug.LogWarning("There is more than one Save Manager.");
+            Destroy(gameObject);
         }
 
         instance = this;
