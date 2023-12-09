@@ -43,6 +43,7 @@ public class DialogueManager : MonoBehaviour
         if(instance != null)
         {
             Debug.LogWarning("There is more than one Dialogue Manager in the scene!");
+            Destroy(gameObject);
         }
 
         instance = this;
@@ -210,7 +211,23 @@ public class DialogueManager : MonoBehaviour
             switch (tagKey)
             {
                 case speaker:
-                    speakerText.text = tagValue;
+                    if(tagValue == "Fox")
+                    {
+                        if(PlayerPrefs.GetString("foxName") != "" || PlayerPrefs.GetString("foxName") != null)
+                        {
+                            speakerText.text = PlayerPrefs.GetString("foxName");
+                        }
+
+                        else
+                        {
+                            speakerText.text = tagValue;
+                        }
+                    }
+
+                    else
+                    {
+                        speakerText.text = tagValue;
+                    }
                     break;
 
                 case "showUI":

@@ -7,6 +7,7 @@ public class DungeonTransition : MonoBehaviour
 {
     [Header("Dungeon Quest Config")]
     [SerializeField] private QuestScriptableObject questSO;
+    [SerializeField] private int stageIndex;
 
     [Header("Config")]
     [SerializeField] private string goToScene;
@@ -20,9 +21,9 @@ public class DungeonTransition : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Trigger"))
         {
-            GameEventsManager.instance.questEvents.AdvanceDungeonQuest(questId);
+            GameEventsManager.instance.questEvents.AdvanceDungeonQuest(questId, stageIndex);
 
             SceneManager.LoadScene(goToScene);
         }

@@ -92,7 +92,12 @@ public class FoxMovement : MonoBehaviour
         rb=GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         abilityCycle = GetComponent<AbilityCycle>();
-        playerAnimator = GetComponentInChildren<Animator>();
+
+        if(playerAnimator == null)
+        {
+            playerAnimator = GetComponentInChildren<Animator>();
+        }
+
         foreach (AnimatorControllerParameter item in playerAnimator.parameters)
         {
             if (item.type == AnimatorControllerParameterType.Bool)
@@ -122,7 +127,10 @@ public class FoxMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        MovePlayer();
+        if (!DialogueManager.instance.dialogueIsPlaying)
+        {
+            MovePlayer();
+        }
     }
 
     private void MyInput() 

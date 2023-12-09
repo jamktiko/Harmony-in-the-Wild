@@ -13,7 +13,8 @@ public class ShootingRotatingBoss : MonoBehaviour
     [Header("Needed References")]
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private Transform shootingSpot;
-    [SerializeField] private Transform player;    
+    [SerializeField] private Transform player;
+    [SerializeField] private GameObject instructionPanel;
 
     private bool canShoot = true;
     private AudioSource audioSource;
@@ -28,7 +29,7 @@ public class ShootingRotatingBoss : MonoBehaviour
     {
         transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime);
 
-        if (canShoot && CanSeePlayer())
+        if (canShoot && CanSeePlayer() && !instructionPanel.gameObject.activeInHierarchy)
         {
             canShoot = false;
             StartCoroutine(InitializeShooting());

@@ -17,6 +17,7 @@ public class QuestManager : MonoBehaviour
         if(instance != null)
         {
             Debug.LogWarning("There is more than one Quest Manager.");
+            Destroy(gameObject);
         }
 
         instance = this;
@@ -147,7 +148,7 @@ public class QuestManager : MonoBehaviour
         Quest quest = GetQuestById(id);
         ClaimRewards(quest);
         ChangeQuestState(quest.info.id, QuestState.FINISHED);
-        
+        QuestCompletedUI.instance.ShowUI(id);
     }
 
     private void ClaimRewards(Quest quest)

@@ -37,7 +37,7 @@ public class Destructible : MonoBehaviour
             {
                 if (gameObject.GetComponent<Freezable>().isFreezed)
                 {
-                    audioSource.Play();
+                    //audioSource.Play();
                     Instantiate(destroyedVersion, transform.position, transform.rotation);
                     Destroy(gameObject);
                 }
@@ -55,7 +55,7 @@ public class Destructible : MonoBehaviour
 
             else
             {
-                audioSource.Play();
+                //audioSource.Play();
                 Instantiate(destroyedVersion, transform.position, transform.rotation);
                 Destroy(gameObject);
             }

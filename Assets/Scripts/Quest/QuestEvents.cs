@@ -53,13 +53,13 @@ public class QuestEvents
         
     }
 
-    public event Action<string> onAdvanceDungeonQuest;
+    public event Action<string, int> onAdvanceDungeonQuest;
 
-    public void AdvanceDungeonQuest(string id)
+    public void AdvanceDungeonQuest(string id, int stageIndex)
     {
         if (onAdvanceDungeonQuest != null)
         {
-            onAdvanceDungeonQuest(id);
+            onAdvanceDungeonQuest(id, stageIndex);
         }
 
     }

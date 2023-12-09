@@ -38,4 +38,9 @@ public class DungeonEnteringPreventedUI : MonoBehaviour
             requirementText.text = requirementText.text + requirement + "\n \n";
         }
     }
+
+    public void CloseView()
+    {
+        gameObject.SetActive(false);
+    }
 }

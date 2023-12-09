@@ -7,6 +7,7 @@ public class FinishDungeon : MonoBehaviour
 {
     [Header("Config")]
     [SerializeField] private QuestScriptableObject questSO;
+    [SerializeField] private int stageIndex;
     [SerializeField] private int gainedAbilityIndex;
     [SerializeField] private int storybookSectionIndex;
     [SerializeField] private string goToScene;
@@ -39,7 +40,7 @@ public class FinishDungeon : MonoBehaviour
 
         if (questSO != null)
         {
-            GameEventsManager.instance.questEvents.AdvanceDungeonQuest(questId);
+            GameEventsManager.instance.questEvents.AdvanceDungeonQuest(questId, stageIndex);
         }
 
         StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, goToScene, false);

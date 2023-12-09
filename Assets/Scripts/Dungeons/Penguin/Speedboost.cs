@@ -10,7 +10,7 @@ public class Speedboost : MonoBehaviour
 
     public void IncreasePlayerSpeed(GameObject player)
     {
-        speedBoostAudio.Play();
+        //speedBoostAudio.Play();
         player.GetComponent<FoxMovement>().moveSpeed += speedIncrease;
     }
 }
