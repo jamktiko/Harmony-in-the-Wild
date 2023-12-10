@@ -94,11 +94,11 @@ public class pauseMenuManager : MonoBehaviour
     }
     public void Resume()
     {
-        pauseMenuPanel.SetActive(false);
         Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        
+        pauseMenuPanel.SetActive(false);
+
     }
     public void Options()
     {
