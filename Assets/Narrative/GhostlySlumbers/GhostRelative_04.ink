@@ -3,8 +3,8 @@ And you’re quite young for a fox. #speaker:Ghost Cousin
 Oh... Sorry. I didn’t mean it like that. #speaker:Fox
 Hah, got you! It’s been ages since I have been able to prank someone. #speaker:Ghost Cousin
 You know, I used to be the master prankster when I was alive. 
-Me and my cousin GHOSTNAME were an amazing jokester duo. 
-GHOSTNAME is a fan of jokes? #speaker:Fox
+Me and my cousin Owly were an amazing jokester duo. 
+Owly is a fan of jokes? #speaker:Fox
     + [That’s a surprise.] -> dialogueAfterChoice
     + [I can see that.] -> dialogueAfterChoice
     

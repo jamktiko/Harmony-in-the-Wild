@@ -259,6 +259,7 @@ public class DialogueManager : MonoBehaviour
         dialogueIsPlaying = false;
         dialogueText.text = "";
 
+        exitButton.SetActive(false);
         dialogueCanvas.SetActive(false);
 
         StartCoroutine(DelayBetweenDialogues());

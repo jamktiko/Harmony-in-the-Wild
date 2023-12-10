@@ -1,1 +1,1 @@
-Hey, you already talked to me. Go find someone else. #speaker:ERROR 404
+We already talked. Shouldn't you be looking for someone else? #speaker:Ghost
