@@ -4683,17 +4683,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 157542235833823428, guid: 3efef0c3914bf95429aeb0141ca3a994, type: 3}
   m_PrefabInstance: {fileID: 647305589}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &658119922 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4975930166917620725, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
-  m_PrefabInstance: {fileID: 1737675728}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c526838ad55bb8498524d440371b90b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &662528372
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5138,6 +5127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questSO: {fileID: 0}
+  stageIndex: 0
   gainedAbilityIndex: 0
   storybookSectionIndex: 6
   goToScene: Overworld
@@ -10633,7 +10623,7 @@ MonoBehaviour:
   redFox: {fileID: 1902364080}
   arcticFox: {fileID: 1738281452}
   changeEffect: {fileID: 163064, guid: 2bdc186a2c521f1488fe14cb4a745323, type: 3}
-  camera: {fileID: 658119922}
+  playerCamera: {fileID: 0}
 --- !u!1001 &1723585875
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10827,15 +10817,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4296425940649565959, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.003498933
+      value: -0.0034989358
       objectReference: {fileID: 0}
     - target: {fileID: 4296425940649565959, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.006348689
+      value: -0.00634869
       objectReference: {fileID: 0}
     - target: {fileID: 4296425940649565959, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.00002221422
+      value: -0.00002221424
       objectReference: {fileID: 0}
     - target: {fileID: 4899147455725282976, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_FollowOffset.y
@@ -10867,11 +10857,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4978085730567127345, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.0063462644
+      value: -0.0063461955
       objectReference: {fileID: 0}
     - target: {fileID: 4978085730567127345, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.00017809804
+      value: 0.00017809612
       objectReference: {fileID: 0}
     - target: {fileID: 5288673130265869078, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_FollowOffset.y
@@ -10903,11 +10893,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8631683774569828164, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.0063462476
+      value: -0.006346213
       objectReference: {fileID: 0}
     - target: {fileID: 8631683774569828164, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.00017809757
+      value: 0.00017809661
       objectReference: {fileID: 0}
     - target: {fileID: 8696992058596718124, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_Name
@@ -13759,8 +13749,20 @@ PrefabInstance:
       value: Geyser
       objectReference: {fileID: 0}
     - target: {fileID: 703459504976987516, guid: a2465c52fef53d0488a7ef843c37035b, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 703459504976987516, guid: a2465c52fef53d0488a7ef843c37035b, type: 3}
       propertyPath: m_Volume
       value: 0.171
+      objectReference: {fileID: 0}
+    - target: {fileID: 703459504976987516, guid: a2465c52fef53d0488a7ef843c37035b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 703459504976987516, guid: a2465c52fef53d0488a7ef843c37035b, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1202099953060121890, guid: a2465c52fef53d0488a7ef843c37035b, type: 3}
       propertyPath: m_LocalPosition.x
