@@ -279,4 +279,21 @@ public class QuestManager : MonoBehaviour
 
         return quest;
     }
+    private void OnLevelWasLoaded(int level)
+    {
+        questMap = CreateQuestMap();
+        playerManager = FindObjectOfType<PlayerManager>();
+        // broadcast the initial state of all quests on startup
+        foreach (Quest quest in questMap.Values)
+        {
+            // initialize any loaded quest steps
+            if (quest.state == QuestState.IN_PROGRESS)
+            {
+                quest.InstantiateCurrentQuestStep(transform);
+            }
+
+            // broadcast the initial state of all quests
+            GameEventsManager.instance.questEvents.QuestStateChange(quest);
+        }
+    }
 }
