@@ -63,14 +63,13 @@ public class MainMenuManager : MonoBehaviour
         options.SetActive(true);
         MainMenu.SetActive(false);
     }
-    public void Credits() 
-    {
-        
-    }
     public void BackButton() 
     {
         MainMenu.SetActive(true);
         options.SetActive(false);
+        settings.SetActive(false);
+        movementControls.SetActive(false);
+        gameplayControls.SetActive(false);
     }
     public void SettingsButton()
     {
@@ -99,6 +98,10 @@ public class MainMenuManager : MonoBehaviour
             PlayerPrefs.SetInt("InvertY", 1);
             Debug.Log("changed no");
         }
+    }
+    public void CreditsButton() 
+    {
+        SceneManager.LoadScene("Credits");
     }
 
 }

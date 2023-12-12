@@ -16,8 +16,8 @@ public class pauseMenuManager : MonoBehaviour
     [SerializeField] CinemachineFreeLook cinemachineFreeLook;
     [SerializeField] Toggle InvertYAxis;
     [SerializeField] Toggle fullscreen;
-    [SerializeField] Slider volume;
-    private float SliderValue;
+    [SerializeField] Slider volume, sensitivity;
+    private float SliderValue, SliderValue2;
 
 
     void Start()
@@ -32,6 +32,7 @@ public class pauseMenuManager : MonoBehaviour
         InvertYAxis = SettingsMenuPanel.transform.Find("InvertCameraTickBox").GetComponent<Toggle>();
         fullscreen = SettingsMenuPanel.transform.Find("FullScreenTickBox").GetComponent<Toggle>();
         volume = SettingsMenuPanel.transform.Find("Volume").GetComponent<Slider>();
+        sensitivity = SettingsMenuPanel.transform.Find("Sensitivity").GetComponent<Slider>();
         if (PlayerPrefs.GetInt("InvertY") == 1)
         {
             cinemachineFreeLook.m_YAxis.m_InvertInput = true;
@@ -43,12 +44,21 @@ public class pauseMenuManager : MonoBehaviour
         InvertYAxis.isOn = cinemachineFreeLook.m_YAxis.m_InvertInput;
         if (PlayerPrefs.GetFloat("save", SliderValue) == 0)
         {
-            PlayerPrefs.SetFloat("save", 100);
+            PlayerPrefs.SetFloat("save", 250);
         }
         else
         {
             volume.value = PlayerPrefs.GetFloat("save", SliderValue);
             AudioListener.volume = PlayerPrefs.GetFloat("save", SliderValue);
+        }
+        if (PlayerPrefs.GetFloat("sens") == 0)
+        {
+            PlayerPrefs.SetFloat("sens", 250);
+        }
+        else
+        {
+            sensitivity.value = PlayerPrefs.GetFloat("sens", SliderValue2);
+            cinemachineFreeLook.m_XAxis.m_MaxSpeed = PlayerPrefs.GetFloat("sens", SliderValue2);
         }
 
     }
@@ -57,14 +67,24 @@ public class pauseMenuManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+
             //disable
-            if (pauseMenuPanel.activeInHierarchy)
+            if (pauseMenuPanel.activeInHierarchy
+                ||OptionsMenuPanel.activeInHierarchy
+                ||MovementControlsMenuPanel.activeInHierarchy
+                ||GamePlayControlsMenuPanel.activeInHierarchy
+                ||SettingsMenuPanel.activeInHierarchy)
             {
                 Time.timeScale = 1f;
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
                 pauseMenuPanel.SetActive(false);
+                OptionsMenuPanel.SetActive(false);
+                MovementControlsMenuPanel.SetActive(false);
+                GamePlayControlsMenuPanel.SetActive(false);
+                SettingsMenuPanel.SetActive(false);
             }
+
             //enable
             else
             {
@@ -143,4 +163,12 @@ public class pauseMenuManager : MonoBehaviour
         AudioListener.volume = PlayerPrefs.GetFloat("save");
         Debug.Log("value changed");
     }
+    public void ChangeSensitivity(float value)
+    {
+        SliderValue2 = value;
+        PlayerPrefs.SetFloat("sens", SliderValue2);
+        cinemachineFreeLook.m_XAxis.m_MaxSpeed = PlayerPrefs.GetFloat("sens");
+        Debug.Log("value changed");
+    }
+
 }

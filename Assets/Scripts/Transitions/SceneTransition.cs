@@ -8,7 +8,6 @@ public class SceneTransition : MonoBehaviour
 {
     [Header("Config")]
     [SerializeField] private string goToScene;
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -21,6 +22,8 @@ public class DungeonEntrance : MonoBehaviour
     private string questId;
     private QuestState currentQuestState;
     private Quest currentQuest;
+    [SerializeField]private GameObject loadingScreen;
+    [SerializeField]private TMP_Text loadingScreenText;
 
     private void Start()
     {
@@ -54,14 +57,14 @@ public class DungeonEntrance : MonoBehaviour
 
                 // add storybook config here & change goToScene to Storybook scene
                 StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, goToScene, false);
-                SceneManager.LoadScene("Storybook");
+                StartCoroutine(loadSceneWithLoadingScreenWithText(1));
             }
 
             else if (currentQuestState == QuestState.IN_PROGRESS)
             {
                 // add possible storybook config here & change goToScene to Storybook scene
                 StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, goToScene, false);
-                SceneManager.LoadScene("Storybook");
+                StartCoroutine(loadSceneWithLoadingScreenWithText(1));
             }
 
             else
@@ -94,5 +97,27 @@ public class DungeonEntrance : MonoBehaviour
         currentQuest = QuestManager.instance.GetQuestById(questId);
 
         currentQuestState = currentQuest.state;
+    }
+    IEnumerator loadSceneWithLoadingScreenWithText(int sceneId)
+    {
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneId);
+        loadingScreen.SetActive(true);
+        while (!operation.isDone)
+        {
+            float progressValue = Mathf.Clamp01(operation.progress / 0.9f);
+            if (progressValue < 0.33f)
+            {
+                loadingScreenText.text = "Loading.";
+            }
+            else if (progressValue < 0.66f)
+            {
+                loadingScreenText.text = "Loading..";
+            }
+            else if (progressValue > 0.66f)
+            {
+                loadingScreenText.text = "Loading...";
+            }
+            yield return null;
+        }
     }
 }

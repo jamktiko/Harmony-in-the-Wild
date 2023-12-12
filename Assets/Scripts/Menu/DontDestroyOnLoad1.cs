@@ -30,7 +30,7 @@ public class DontDestroyOnLoad1 : MonoBehaviour
     //}
     private void OnLevelWasLoaded(int level)
     {
-        if (level==0|| level ==1||level==8)
+        if (level==0|| level ==1||level==9||level==2)
         {
             pausemenuManager.SetActive(false);
         }

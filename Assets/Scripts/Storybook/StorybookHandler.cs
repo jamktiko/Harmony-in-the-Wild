@@ -5,7 +5,7 @@ using UnityEngine;
 public class StorybookHandler : MonoBehaviour
 {
     private int currentStorybookSectionIndex = 0;
-    private string sceneAfterStorybook = "Overworld";
+    public string sceneAfterStorybook = "Naming";
     private bool isDungeonEndStory = false;
 
     public static StorybookHandler instance;

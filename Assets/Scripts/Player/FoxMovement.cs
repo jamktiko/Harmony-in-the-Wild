@@ -39,6 +39,8 @@ public class FoxMovement : MonoBehaviour
     public Vector3 boxSize;
     [SerializeField] Transform foxMiddle;
     [SerializeField] Transform foxBottom;
+    [SerializeField] Transform fox;
+    [SerializeField] Transform arcticFox;
     [SerializeField] Transform Camera;
     [SerializeField] private Transform foxHead;
     public LayerMask WaterLayerMask;
@@ -139,6 +141,7 @@ public class FoxMovement : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
+        //enable abilities
         if (Input.GetKeyDown(KeyCode.F) && abilityCycle.equippedAbility.officialIndex==2)
         {
             abilityCycle.equippedAbility.currentlyActivated = !abilityCycle.equippedAbility.currentlyActivated;
@@ -149,11 +152,6 @@ public class FoxMovement : MonoBehaviour
             abilityCycle.equippedAbility.currentlyActivated = !abilityCycle.equippedAbility.currentlyActivated;
             canTeleGrab = !canTeleGrab;
             ActivateTelegrabCamera();
-        }
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            PlayerManager.instance.abilityValues[3] = true;
-            PlayerManager.instance.abilityValues[0] = !PlayerManager.instance.abilityValues[0];
         }
         //Jump check
         if (Input.GetButtonDown("Jump")&&readytoJump&&GroundCheck()&&!canChargedJump)
@@ -243,7 +241,6 @@ public class FoxMovement : MonoBehaviour
 
             playerAnimator.SetFloat("horMove", horizontalInput);
             playerAnimator.SetFloat("vertMove", verticalInput);
-            playerAnimator.SetFloat("vertMove", verticalInput);
             playerAnimator.SetBool("isJumping", false);
             playerAnimator.SetBool("isGrounded", true);
         }
@@ -274,7 +271,7 @@ public class FoxMovement : MonoBehaviour
         {
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
             //walking animation here
-
+            playerAnimator.speed = 1f;
             playerAnimator.SetBool("isJumping", false);
             playerAnimator.SetFloat("horMove", horizontalInput);
             playerAnimator.SetFloat("vertMove", verticalInput);
@@ -287,7 +284,7 @@ public class FoxMovement : MonoBehaviour
         {
             Glider();
         }
-        else if (!GroundCheck() && !glider)
+        else if (!GroundCheck() && !glider&&!WaterCheck())
         {
             DisableGlider();
         }
@@ -296,6 +293,8 @@ public class FoxMovement : MonoBehaviour
         {
             ChargeJump();
         }
+
+        //swimming
         else if (WaterCheck())
         {
             Swim();
@@ -497,6 +496,11 @@ public class FoxMovement : MonoBehaviour
             rb.useGravity=true;
         }
         rb.AddForce(moveDirection.normalized * swimSpeed * 10f, ForceMode.Force);
+        playerAnimator.SetFloat("horMove", 1);
+        playerAnimator.SetFloat("vertMove", 0);
+        playerAnimator.SetBool("isJumping", false);
+        playerAnimator.SetBool("isGrounded", true);
+        playerAnimator.speed = 0.7f;
         if (!SwimmingAudio.isPlaying)
         {
             SwimmingAudio.Play();
