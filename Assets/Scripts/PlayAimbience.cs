@@ -8,14 +8,10 @@ public class PlayAimbience : MonoBehaviour
     [SerializeField] AudioSource Arctic;
     [SerializeField] AudioSource arcticTheme;
     [SerializeField] AudioSource forestTheme;
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeField] PlayerModelToggle toggle;
     private void OnTriggerEnter(Collider other)
     {
+        toggle.TogglePlayerModel();
         if (Forest.isPlaying)
         {
             Forest.Stop();

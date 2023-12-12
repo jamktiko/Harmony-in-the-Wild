@@ -95,10 +95,7 @@ public class FoxMovement : MonoBehaviour
         rb.freezeRotation = true;
         abilityCycle = GetComponent<AbilityCycle>();
 
-        if(playerAnimator == null)
-        {
             playerAnimator = GetComponentInChildren<Animator>();
-        }
 
         foreach (AnimatorControllerParameter item in playerAnimator.parameters)
         {
@@ -242,12 +239,14 @@ public class FoxMovement : MonoBehaviour
             playerAnimator.SetFloat("horMove", horizontalInput);
             playerAnimator.SetFloat("vertMove", verticalInput);
             playerAnimator.SetBool("isJumping", false);
+            playerAnimator.SetBool("isGliding", false);
             playerAnimator.SetBool("isGrounded", true);
         }
 
         //snow diving
         else if (snowDive && GroundCheck())
         {
+            playerAnimator.SetBool("isGliding", false);
             rb.AddForce(moveDirection.normalized * snowDiveSpeed * 10f, ForceMode.Force);
             //snow diving animation here
         }
@@ -261,6 +260,7 @@ public class FoxMovement : MonoBehaviour
             playerAnimator.SetFloat("horMove", horizontalInput);
             playerAnimator.SetFloat("vertMove", verticalInput);
             playerAnimator.SetBool("isJumping", false);
+            playerAnimator.SetBool("isGliding", false);
             playerAnimator.SetBool("isGrounded", true);
             Debug.Log(horizontalInput);
         }
@@ -273,6 +273,7 @@ public class FoxMovement : MonoBehaviour
             //walking animation here
             playerAnimator.speed = 1f;
             playerAnimator.SetBool("isJumping", false);
+            playerAnimator.SetBool("isGliding", false);
             playerAnimator.SetFloat("horMove", horizontalInput);
             playerAnimator.SetFloat("vertMove", verticalInput);
             playerAnimator.SetBool("isGrounded", true);
@@ -288,17 +289,18 @@ public class FoxMovement : MonoBehaviour
         {
             DisableGlider();
         }
+        //swimming
+        else if (WaterCheck())
+        {
+            Swim();
+        }
 
         if (isChargeJumping)
         {
             ChargeJump();
         }
 
-        //swimming
-        else if (WaterCheck())
-        {
-            Swim();
-        }
+        
     }
     private void ActivateTelegrabCamera() 
     {  

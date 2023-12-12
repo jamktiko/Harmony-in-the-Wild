@@ -34,6 +34,7 @@ public class CameraMovement : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         foxmove = FindObjectOfType<FoxMovement>();
+        foxObject = transform.parent.GetComponentInChildren<Animator>().transform;
     }
 
     // Update is called once per frame

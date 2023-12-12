@@ -12,6 +12,11 @@ public class PlayerModelToggle : MonoBehaviour
     private Vector3 effectPosition;
     private Animator currentAnimator;
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.J)) 
+            TogglePlayerModel();
+    }
     public void TogglePlayerModel()
     {
         effectPosition = new Vector3(transform.position.x, transform.position.y + 0.4f, transform.position.z);
