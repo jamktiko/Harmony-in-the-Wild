@@ -27,11 +27,6 @@ public class PlayerManager : MonoBehaviour
         LoadAbilities();
     }
 
-    private void Start()
-    {
-        
-    }
-
     private void OnEnable()
     {
         GameEventsManager.instance.playerEvents.onExperienceGained += ExperienceGained;

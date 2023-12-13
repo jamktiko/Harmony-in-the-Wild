@@ -3278,6 +3278,7 @@ MonoBehaviour:
   movementControls: {fileID: 1605402154}
   InvertYAxis: {fileID: 802454715}
   playButtonSceneName: Storybook
+  continueButton: {fileID: 615122894}
 --- !u!4 &568026404
 Transform:
   m_ObjectHideFlags: 0
@@ -3682,7 +3683,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 308365199}
   m_OnClick:
     m_PersistentCalls:
@@ -4210,8 +4211,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -7.4, y: 5}
-  m_SizeDelta: {x: 232.491, y: 62.941}
+  m_AnchoredPosition: {x: -7.4, y: 5.5}
+  m_SizeDelta: {x: 269.18875, y: 72.87598}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &841724394
 MonoBehaviour:
@@ -7101,7 +7102,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000017166138}
+  m_AnchoredPosition: {x: 0, y: 0.000015258789}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1478493697
@@ -7124,7 +7125,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Play
+  m_text: New Game
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fef04bc364c35fd44acb18d128270ef9, type: 2}
   m_sharedMaterial: {fileID: -4889654912709604089, guid: fef04bc364c35fd44acb18d128270ef9, type: 2}
@@ -10405,6 +10406,10 @@ PrefabInstance:
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1244162814}
+    - target: {fileID: 4032459475769386764, guid: 72b68dffbbf6e6b45a1d4ede82d3b0a3, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4241305648124824617, guid: 72b68dffbbf6e6b45a1d4ede82d3b0a3, type: 3}
       propertyPath: m_Name
       value: PauseMenuCanvas
@@ -10437,6 +10442,14 @@ PrefabInstance:
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1244162814}
+    - target: {fileID: 7626370190610531264, guid: 72b68dffbbf6e6b45a1d4ede82d3b0a3, type: 3}
+      propertyPath: m_text
+      value: Restart Quest (Not working yet)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7845378730414297156, guid: 72b68dffbbf6e6b45a1d4ede82d3b0a3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8184421839859950448, guid: 72b68dffbbf6e6b45a1d4ede82d3b0a3, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

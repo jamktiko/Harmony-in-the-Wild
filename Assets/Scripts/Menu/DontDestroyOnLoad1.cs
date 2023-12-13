@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class DontDestroyOnLoad1 : MonoBehaviour
 {
     [SerializeField] GameObject pausemenuManager;
+    [SerializeField] GameObject PauseMenuPanel;
     // Start is called before the first frame update
     void Awake()
     {
@@ -18,6 +19,7 @@ public class DontDestroyOnLoad1 : MonoBehaviour
         {
             DontDestroyOnLoad(gameObject);
             pausemenuManager = transform.Find("PauseMenuManager").gameObject;
+            PauseMenuPanel = GameObject.Find("PauseMenuEmpty").transform.Find("PauseMenu").gameObject;
         }
 
     }
@@ -32,6 +34,7 @@ public class DontDestroyOnLoad1 : MonoBehaviour
     {
         if (level==0|| level ==1||level==9||level==2)
         {
+            PauseMenuPanel.SetActive(false);
             pausemenuManager.SetActive(false);
         }
         else

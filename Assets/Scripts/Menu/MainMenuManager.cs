@@ -2,6 +2,7 @@ using Cinemachine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -16,6 +17,7 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] Toggle InvertYAxis; 
 
     [SerializeField] string playButtonSceneName;
+    [SerializeField] Button continueButton;
 
     private void Start()
     {
@@ -27,31 +29,31 @@ public class MainMenuManager : MonoBehaviour
         {
             InvertYAxis.isOn = false;
         }
+        CheckSavedGame();
     }
     public void ContinueButton()
     {
-        if (HasSavedGame())
-        {
             LoadSavedGame();
-        }
-        else
-        {
-            Debug.Log("No saved game found.");
-        }
     }
 
     private void LoadSavedGame()
     {
-        throw new NotImplementedException();
+        SceneManager.LoadScene(3);
     }
 
-    private bool HasSavedGame()
+    private void CheckSavedGame()
     {
-        throw new NotImplementedException();
+        if (!continueButton.IsInteractable()&& File.Exists(Application.persistentDataPath + "/gameData.dat"))
+        {
+            continueButton.interactable = true;        
+        }
+        
     }
 
     public void StartNewGame() 
     {
+        File.Delete(Application.persistentDataPath + "/gameData.dat");
+        Debug.LogError("The save file has been deleted. Please restart the game to avoid any errors.");
         SceneManager.LoadScene(playButtonSceneName); 
     }
     public void ExitGame() 

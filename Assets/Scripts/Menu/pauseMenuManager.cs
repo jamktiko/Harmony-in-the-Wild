@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class pauseMenuManager : MonoBehaviour
 {
-    [SerializeField] GameObject pauseMenuPanel;
+    [SerializeField] public GameObject pauseMenuPanel;
     [SerializeField] GameObject OptionsMenuPanel;
     [SerializeField] GameObject options;
     [SerializeField] GameObject MovementControlsMenuPanel;
@@ -88,6 +88,7 @@ public class pauseMenuManager : MonoBehaviour
             //enable
             else
             {
+                SaveManager.instance.SaveGame();
                 pauseMenuPanel.SetActive(true);
                 Time.timeScale = 0f;
                 Cursor.lockState = CursorLockMode.None;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SaveManager : MonoBehaviour
 {
@@ -50,7 +51,14 @@ public class SaveManager : MonoBehaviour
 
         dataToSave.questData = gameData.questData;
         dataToSave.abilityData = gameData.abilityData;
-
+        if (SceneManager.GetActiveScene()==SceneManager.GetSceneByBuildIndex(12))
+        {
+            dataToSave.playerPositionData= new List<float> { 1627f, 118f, 360f };
+        }
+        else
+        {
+            dataToSave.playerPositionData = gameData.playerPositionData;
+        }
         bf.Serialize(file, dataToSave);
 
         file.Close();
@@ -67,6 +75,7 @@ public class SaveManager : MonoBehaviour
 
             gameData.questData = loadedData.questData;
             gameData.abilityData = loadedData.abilityData;
+            gameData.playerPositionData = loadedData.playerPositionData;
         }
     }
 
@@ -74,6 +83,11 @@ public class SaveManager : MonoBehaviour
     {
         gameData.questData = QuestManager.instance.CollectQuestDataForSaving();
         gameData.abilityData = PlayerManager.instance.CollectAbilityDataForSaving();
+        if (SceneManager.GetActiveScene()==SceneManager.GetSceneByBuildIndex(3))
+        {
+            gameData.playerPositionData = FoxMovement.instance.CollectPlayerPositionForSaving();
+        }
+
     }
     
     public List<string> FetchLoadedData(string dataType)
@@ -114,6 +128,24 @@ public class SaveManager : MonoBehaviour
             {
                 data.Add(false);
             }
+        }
+
+        return data;
+    }
+    public List<float> FetchLoadedPlayerPositionData()
+    {
+        List<float> data = new List<float>();
+
+        // fetch the saved data from the file if there is a previous save
+        if (File.Exists(saveFilePath))
+        {
+            data = gameData.playerPositionData;
+        }
+
+        // if there isn't, return default position
+        else
+        {
+            data=new List<float> { 1627f,118f,360f };
         }
 
         return data;

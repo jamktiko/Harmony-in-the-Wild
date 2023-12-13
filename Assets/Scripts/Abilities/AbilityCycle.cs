@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public class AbilityCycle : MonoBehaviour
@@ -24,11 +25,14 @@ public class AbilityCycle : MonoBehaviour
             officialIndex = i;
             currentlyActivated = false;
         }
+        
     }
+    
     [SerializeField] List<AbilityData> Abilities;
     [SerializeField] List<AbilityData> currentAbilities=new List<AbilityData>();
     [SerializeField] public AbilityData equippedAbility;
     [SerializeField] public int abilityIndex = 0;
+    [SerializeField] TMP_Text abilityUIText;
     // Start is called before the first frame update
     void Start()
     {
@@ -60,18 +64,36 @@ public class AbilityCycle : MonoBehaviour
             {
                 abilityIndex++;
                 equippedAbility = currentAbilities[abilityIndex];
+                abilityUIText.text = "Ability equipped: " + equippedAbility.name;
+                abilityUIText.color = Color.black;
+                StartCoroutine(DelayFadeTextToFullAlpha(2f, abilityUIText));
             }
             else
             {
                 abilityIndex = 0;
                 equippedAbility = currentAbilities[abilityIndex];
-
+                abilityUIText.text = "Ability equipped: " + equippedAbility.name;
+                abilityUIText.color = Color.black;
+                StartCoroutine(DelayFadeTextToFullAlpha(2f, abilityUIText));
             }
 
         }
+        else if (Input.GetKeyDown(KeyCode.Tab) && currentAbilities.Count == 0)
+        {
+            abilityUIText.text = "You haven't unlocked any abilites yet!";
+            abilityUIText.color = Color.black;
+            StartCoroutine(DelayFadeTextToFullAlpha(2f, abilityUIText));
+        }
+
     }
-    void activateAbility() 
+    public IEnumerator DelayFadeTextToFullAlpha(float t, TMP_Text i)
     {
-        
+        yield return new WaitForSeconds(1);
+        i.color = new Color(i.color.r, i.color.g, i.color.b, 1);
+        while (i.color.a > 0.0f)
+        {
+            i.color = new Color(i.color.r, i.color.g, i.color.b, i.color.a - (Time.deltaTime / t));
+            yield return null;
+        }
     }
 }
