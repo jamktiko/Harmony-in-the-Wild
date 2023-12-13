@@ -6,7 +6,7 @@ public class KeyQuestStep : QuestStep
 {
     [SerializeField] int number;
     public int itemsCollected = 0;
-    private int itemToComplete = 1;
+    private int itemToComplete = 5;
     // Start is called before the first frame update
     void Start()
     {

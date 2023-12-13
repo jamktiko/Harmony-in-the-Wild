@@ -57,11 +57,16 @@ public class CameraMovement : MonoBehaviour
             if (inputDir != Vector3.zero && !foxmove.OnSlope())
             {
                 foxObject.forward = Vector3.Slerp(foxObject.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
+                foxObject.eulerAngles=new Vector3 (0, foxObject.rotation.eulerAngles.y, foxObject.rotation.eulerAngles.z);
             }
             else if (inputDir != Vector3.zero && foxmove.OnSlope() && slopeForward != Vector3.zero)
             {
+                Debug.Log("yo");
+                Debug.Log(slopeForward);
                 foxObject.forward = Vector3.Slerp(foxObject.forward, inputDir.normalized + slopeForward, Time.deltaTime * rotationSpeed);
+                slopeForward = Vector3.zero;
             }
+            
 
 
         }

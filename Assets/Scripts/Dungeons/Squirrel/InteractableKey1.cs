@@ -11,16 +11,16 @@ public class InteractableKey1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && isActive && QuestManager.instance.CheckQuestState("SquirrelDungeon"+number).Equals(QuestState.IN_PROGRESS)&&!used|| Input.GetKeyDown(KeyCode.E) && isActive && QuestManager.instance.CheckQuestState("SquirrelDungeon"+number).Equals(QuestState.CAN_START)&&!used)
+        if (Input.GetKeyDown(KeyCode.E) && isActive && QuestManager.instance.CheckQuestState("The Flying Squirrel").Equals(QuestState.IN_PROGRESS)&&!used|| Input.GetKeyDown(KeyCode.E) && isActive && QuestManager.instance.CheckQuestState("SquirrelDungeon"+number).Equals(QuestState.CAN_START)&&!used)
         {
             used = true;
-            if (QuestManager.instance.CheckQuestState("SquirrelDungeon" + number).Equals(QuestState.IN_PROGRESS))
+            if (QuestManager.instance.CheckQuestState("The Flying Squirrel").Equals(QuestState.IN_PROGRESS))
             {
                 FindObjectOfType<KeyQuestStep>().CollectableProgress();
             }
             audioSource.Play();
             Debug.Log("object found!");
-            gameObject.GetComponent<MeshRenderer>().enabled = false;
+            gameObject.GetComponentInChildren<MeshRenderer>().enabled = false;
             GameObject.Find("Door"+number).SetActive(false);
         }
     }

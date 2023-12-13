@@ -29,7 +29,6 @@ public class Geyser : MonoBehaviour
             Debug.Log("ERUPTION");
             rb.AddForce(new Vector3(0,strength,0),ForceMode.Force);
             erupting = true;
-            gameObject.GetComponent<AudioSource>().Play();
         }
     }
     private void OnCollisionEnter(Collision collision)
