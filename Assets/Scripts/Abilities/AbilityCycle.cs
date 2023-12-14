@@ -36,23 +36,31 @@ public class AbilityCycle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Abilities=new List<AbilityData>() 
+        
+        StartCoroutine(MakeList());
+       
+    }
+    private IEnumerator MakeList()
+    {
+        yield return new WaitForSeconds(2f);
+        Abilities = new List<AbilityData>()
         {
-            new AbilityData(0, "ChargeJump", PlayerManager.instance.abilityValues[2], 2), 
-            new AbilityData(1, "Telegrab", PlayerManager.instance.abilityValues[6], 6), 
-            new AbilityData(2, "Freeze", PlayerManager.instance.abilityValues[7], 7) 
+            new AbilityData(0, "ChargeJump", PlayerManager.instance.abilityValues[2], 2),
+            new AbilityData(1, "Telegrab", PlayerManager.instance.abilityValues[6], 6),
+            new AbilityData(2, "Freeze", PlayerManager.instance.abilityValues[7], 7)
         };
         currentAbilities = Abilities.Where(x => x.enabled == true).ToList();
 
-        if (currentAbilities.Count>0)
+        if (currentAbilities.Count > 0)
         {
-            
+
             equippedAbility = currentAbilities[abilityIndex];
         }
+
     }
 
-    // Update is called once per frame
-    void Update()
+        // Update is called once per frame
+        void Update()
     {
         switchAbility();
     }

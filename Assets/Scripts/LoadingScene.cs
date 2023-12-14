@@ -45,7 +45,7 @@ public class LoadingScene : MonoBehaviour
     }
     IEnumerator loadSceneWithLoadingScreenWithText(int sceneId)
     {
-        AsyncOperation operation = SceneManager.LoadSceneAsync(StorybookHandler.sceneAfterStorybook);
+        AsyncOperation operation = SceneManager.LoadSceneAsync(StorybookHandler.instance.GetNextScene());
         loadingScreen.SetActive(true);
         while (!operation.isDone)
         {
