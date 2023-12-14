@@ -12,6 +12,8 @@ public class QuestManager : MonoBehaviour
 
     [SerializeField]private PlayerManager playerManager;
 
+    [SerializeField] private AbilityCycle AbilityCycle;
+
     private void Awake()
     {
         if(instance != null)
@@ -119,6 +121,7 @@ public class QuestManager : MonoBehaviour
         quest.InstantiateCurrentQuestStep(transform);
         ChangeQuestState(quest.info.id, QuestState.IN_PROGRESS);
         AbilityGet(quest.info.AbilityReward);
+        StartCoroutine(AbilityCycle.MakeList());
         Debug.Log("Ability unlocked: " + quest.info.AbilityReward);
     }
 
@@ -157,6 +160,7 @@ public class QuestManager : MonoBehaviour
 
         GameEventsManager.instance.playerEvents.ExperienceGained(quest.info.ExperienceReward);
         AbilityGet(quest.info.AbilityReward);
+        StartCoroutine(AbilityCycle.MakeList());
     }
 
     private void QuestStepStateChange(string id, int stepIndex, QuestStepState questStepState)
@@ -283,6 +287,7 @@ public class QuestManager : MonoBehaviour
     {
         questMap = CreateQuestMap();
         playerManager = FindObjectOfType<PlayerManager>();
+        
         // broadcast the initial state of all quests on startup
         foreach (Quest quest in questMap.Values)
         {
@@ -294,6 +299,10 @@ public class QuestManager : MonoBehaviour
 
             // broadcast the initial state of all quests
             GameEventsManager.instance.questEvents.QuestStateChange(quest);
+        }
+        if (level != 0 || level != 1 || level != 9 || level != 2 || level != 11)
+        {
+            AbilityCycle = FindObjectOfType<AbilityCycle>();
         }
     }
 }

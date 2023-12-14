@@ -101,7 +101,7 @@ public class QuestPoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Trigger"))
         {
             playerIsNear = true;
         }
@@ -109,7 +109,7 @@ public class QuestPoint : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Trigger"))
         {
             playerIsNear = false;
         }

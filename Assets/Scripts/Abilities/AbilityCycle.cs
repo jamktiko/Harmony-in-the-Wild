@@ -40,7 +40,7 @@ public class AbilityCycle : MonoBehaviour
         StartCoroutine(MakeList());
        
     }
-    private IEnumerator MakeList()
+    public IEnumerator MakeList()
     {
         yield return new WaitForSeconds(2f);
         Abilities = new List<AbilityData>()

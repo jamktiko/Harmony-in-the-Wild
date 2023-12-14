@@ -18,6 +18,7 @@ public class MainMenuManager : MonoBehaviour
 
     [SerializeField] string playButtonSceneName;
     [SerializeField] Button continueButton;
+    [SerializeField]private GameObject controlsMenu;
 
     private void Start()
     {
@@ -82,6 +83,11 @@ public class MainMenuManager : MonoBehaviour
     {
         settings.SetActive(false);
         movementControls.SetActive(true);
+    }
+    public void ControlsButton()
+    {
+        controlsMenu.SetActive(true);
+        options.SetActive(false);
     }
     public void GameplayControlsButton()
     {

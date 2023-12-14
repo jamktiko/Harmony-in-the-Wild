@@ -277,4 +277,9 @@ public class DialogueManager : MonoBehaviour
 
         canStartDialogue = true;
     }
+    private void OnLevelWasLoaded(int level)
+    {
+        instance = this;
+        dialogueCanvas = transform.GetChild(0).gameObject;
+    }
 }

@@ -18,8 +18,8 @@ public class DontDestroyOnLoad1 : MonoBehaviour
         else
         {
             DontDestroyOnLoad(gameObject);
-            pausemenuManager = transform.Find("PauseMenuManager").gameObject;
-            PauseMenuPanel = GameObject.Find("PauseMenuEmpty").transform.Find("PauseMenu").gameObject;
+            //pausemenuManager = transform.Find("PauseMenuManager").gameObject;
+            //PauseMenuPanel = GameObject.Find("PauseMenuEmpty").transform.Find("PauseMenu").gameObject;
         }
 
     }
@@ -32,7 +32,7 @@ public class DontDestroyOnLoad1 : MonoBehaviour
     //}
     private void OnLevelWasLoaded(int level)
     {
-        if (level==0|| level ==1||level==9||level==2)
+        if (level==0|| level ==1||level==9||level==2||level==11)
         {
             PauseMenuPanel.SetActive(false);
             pausemenuManager.SetActive(false);

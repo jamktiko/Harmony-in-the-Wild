@@ -67,6 +67,7 @@ public class FoxMovement : MonoBehaviour
     [SerializeField] private Material grabbedMat;
     [SerializeField] private bool TelegrabEnabled;
     [SerializeField] private GameObject TelegrabUI;
+    
     List<TelegrabObject> telegrabObjects = new List<TelegrabObject>();
     [SerializeField] AbilityCycle abilityCycle;
 
@@ -89,11 +90,12 @@ public class FoxMovement : MonoBehaviour
     // Slopes
     public RaycastHit hit3;
     [SerializeField] private float playerHeight;
+    [SerializeField] bool isLoaded;
 
     private void Awake()
     {
         instance = this;
-        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(3)) 
+        if (SceneManager.GetActiveScene()==SceneManager.GetSceneByBuildIndex(3)||SceneManager.GetSceneByBuildIndex(3).isLoaded) 
         {
             LoadPlayerPosition();
             Debug.Log("playerpos loaded");
@@ -106,6 +108,15 @@ public class FoxMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(3) || SceneManager.GetSceneByBuildIndex(3).isLoaded)
+        {
+            LoadPlayerPosition();
+            Debug.Log("playerpos loaded");
+            Debug.Log(new Vector3(
+            SaveManager.instance.FetchLoadedPlayerPositionData()[0],
+            SaveManager.instance.FetchLoadedPlayerPositionData()[1],
+            SaveManager.instance.FetchLoadedPlayerPositionData()[2]));
+        }
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         abilityCycle = GetComponent<AbilityCycle>();
@@ -124,6 +135,17 @@ public class FoxMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(3)&&!isLoaded)
+        {
+            LoadPlayerPosition();
+            Debug.Log("playerpos loaded");
+            Debug.Log(new Vector3(
+            SaveManager.instance.FetchLoadedPlayerPositionData()[0],
+            SaveManager.instance.FetchLoadedPlayerPositionData()[1],
+            SaveManager.instance.FetchLoadedPlayerPositionData()[2]));
+
+            isLoaded = true;
+        };
         if (!DialogueManager.instance.dialogueIsPlaying)
         {
             MyInput();
@@ -622,5 +644,9 @@ public class FoxMovement : MonoBehaviour
             SaveManager.instance.FetchLoadedPlayerPositionData()[0], 
             SaveManager.instance.FetchLoadedPlayerPositionData()[1], 
             SaveManager.instance.FetchLoadedPlayerPositionData()[2]);
+    }
+    private void OnLevelWasLoaded(int level)
+    {
+        instance = this;
     }
 }

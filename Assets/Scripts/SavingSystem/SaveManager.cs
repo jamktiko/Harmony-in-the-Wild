@@ -87,6 +87,10 @@ public class SaveManager : MonoBehaviour
         {
             gameData.playerPositionData = FoxMovement.instance.CollectPlayerPositionForSaving();
         }
+        else
+        {
+            gameData.playerPositionData = new List<float> { 1627f, 118f, 360f };
+        }
 
     }
     

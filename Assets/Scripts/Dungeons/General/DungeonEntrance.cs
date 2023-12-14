@@ -46,7 +46,7 @@ public class DungeonEntrance : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Trigger"))
         {
             if(currentQuestState == QuestState.CAN_START)
             {
@@ -57,14 +57,14 @@ public class DungeonEntrance : MonoBehaviour
 
                 // add storybook config here & change goToScene to Storybook scene
                 StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, goToScene, false);
-                StartCoroutine(loadSceneWithLoadingScreenWithText(1));
+                StartCoroutine(loadSceneWithLoadingScreenWithText(2));
             }
 
             else if (currentQuestState == QuestState.IN_PROGRESS)
             {
                 // add possible storybook config here & change goToScene to Storybook scene
                 StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, goToScene, false);
-                StartCoroutine(loadSceneWithLoadingScreenWithText(1));
+                StartCoroutine(loadSceneWithLoadingScreenWithText(2));
             }
 
             else

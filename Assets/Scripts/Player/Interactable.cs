@@ -23,10 +23,18 @@ public class Interactable : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        isActive = true;
+        if (other.CompareTag("Trigger"))
+        {
+            isActive = true;
+
+        }
     }
     private void OnTriggerExit(Collider other)
     {
-        isActive = false;
+        if (other.CompareTag("Trigger"))
+        {
+            isActive = false;
+
+        }
     }
 }

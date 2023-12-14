@@ -14,16 +14,16 @@ public class PlayAimbience : MonoBehaviour
         toggle.TogglePlayerModel();
         if (Forest.isPlaying)
         {
-            Forest.Stop();
+            //Forest.Stop();
             forestTheme.Stop();
-            Arctic.Play();
+            //Arctic.Play();
             arcticTheme.Play();
         }
         else if (Arctic.isPlaying)
         {
-            Arctic.Stop();
+            //Arctic.Stop();
             arcticTheme.Stop();
-            Forest.Play();
+            //Forest.Play();
             forestTheme.Play();
         }
     }

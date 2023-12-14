@@ -2003,6 +2003,50 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3efef0c3914bf95429aeb0141ca3a994, type: 3}
+--- !u!1 &1382971967
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1382971969}
+  - component: {fileID: 1382971968}
+  m_Layer: 0
+  m_Name: SetAbilities
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1382971968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1382971967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2618d876f7283ed4ca81fcc11bc93698, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1382971969
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1382971967}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.8066473, y: -4.369689, z: 0.6346345}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1389309547
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2154,15 +2198,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4296425940649565959, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.0044728643
+      value: 0.004472867
       objectReference: {fileID: 0}
     - target: {fileID: 4296425940649565959, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.006924523
+      value: 0.0069245286
       objectReference: {fileID: 0}
     - target: {fileID: 4296425940649565959, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000030973504
+      value: -0.00003097355
       objectReference: {fileID: 0}
     - target: {fileID: 4978085730567127345, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2186,11 +2230,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4978085730567127345, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.006920094
+      value: 0.006920103
       objectReference: {fileID: 0}
     - target: {fileID: 4978085730567127345, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0002494257
+      value: -0.00024942603
       objectReference: {fileID: 0}
     - target: {fileID: 5834521690788241910, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_ExcludeLayers.m_Bits
@@ -2214,11 +2258,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8631683774569828164, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0069200965
+      value: 0.0069201007
       objectReference: {fileID: 0}
     - target: {fileID: 8631683774569828164, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.00024942576
+      value: -0.00024942594
       objectReference: {fileID: 0}
     - target: {fileID: 8696992058596718124, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_Name
@@ -3528,7 +3572,7 @@ GameObject:
   - component: {fileID: 6554394328667300903}
   - component: {fileID: 3045354202944998014}
   - component: {fileID: 6554394328667300904}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: QuestGiver_Tutorial
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3590,7 +3634,7 @@ MonoBehaviour:
   canvasObjectIndex: -1
   hasDialogue: 1
   startQuestDialogue: {fileID: 4900000, guid: 1dd0bc3101b4ffc4b8961baf902b66d5, type: 3}
-  finishQuestDialogue: {fileID: 0}
+  finishQuestDialogue: {fileID: 4900000, guid: 1dd0bc3101b4ffc4b8961baf902b66d5, type: 3}
   dialogueSound: {fileID: 6554394328667300904}
   playerIsNear: 0
 --- !u!82 &6554394328667300904
@@ -3709,3 +3753,4 @@ SceneRoots:
   - {fileID: 488988182}
   - {fileID: 1109664906744813406}
   - {fileID: 1209326493}
+  - {fileID: 1382971969}
