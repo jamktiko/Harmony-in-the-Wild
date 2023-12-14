@@ -27,7 +27,6 @@ public class BossDoorScript : MonoBehaviour
         if (usedlevers == levers&&isOpen==false) 
         {
             isOpen = true;
-            gameObject.GetComponent<MeshRenderer>().material=usedMat;
             gameObject.GetComponent<AudioSource>().Play();
             anim.Play("Door_Open_ANI");
             GameEventsManager.instance.questEvents.UpdateQuestUI(QuestUIChange.ChangeObjective, "");
