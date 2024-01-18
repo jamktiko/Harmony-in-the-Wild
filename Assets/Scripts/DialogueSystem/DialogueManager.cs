@@ -68,12 +68,12 @@ public class DialogueManager : MonoBehaviour
     {
         if (dialogueIsPlaying)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space)&& currentStory.canContinue)
             {
                 ContinueDialogue();
             }
 
-            else if (Input.GetKeyDown(KeyCode.X) && !currentStory.canContinue)
+            else if (Input.GetKeyDown(KeyCode.Space) && !currentStory.canContinue)
             {
                 EndDialogue();
             }
