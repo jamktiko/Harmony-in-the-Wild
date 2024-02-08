@@ -371,6 +371,7 @@ public class FoxMovement : MonoBehaviour
     {
         if (rb.useGravity)
         {
+            glidingMultiplier = 0.1f;
             rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             rb.useGravity = false;
             rb.velocity = new Vector3(0, -1.5f, 0);
@@ -382,6 +383,10 @@ public class FoxMovement : MonoBehaviour
             }
         }
         rb.AddForce(moveDirection.normalized * moveSpeed * 10f * glidingMultiplier, ForceMode.Force);
+        if (glidingMultiplier<0.5)
+        {
+            glidingMultiplier += 0.005f;
+        }
         rb.velocity = new Vector3(rb.velocity.x, -1.5f, rb.velocity.z);
         //gliding animation here
 
