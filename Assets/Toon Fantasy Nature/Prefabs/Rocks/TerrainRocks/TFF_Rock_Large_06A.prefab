@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 157542235831530020}
   - component: {fileID: 8146517639091562396}
   - component: {fileID: 3227479966016221178}
+  - component: {fileID: 7807215549472307406}
   m_Layer: 0
   m_Name: TFF_Rock_Large_06A
   m_TagString: Untagged
@@ -27,6 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 157542235833461988}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -35,7 +37,6 @@ Transform:
   - {fileID: 4311713948878448386}
   - {fileID: 8774069555849417811}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &157542235830399204
 MeshFilter:
@@ -95,9 +96,17 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 157542235833461988}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: bab80613b0ec3d94dbaab226bfaeec42, type: 3}
@@ -128,11 +137,33 @@ LODGroup:
     renderers:
     - renderer: {fileID: 8774069555847517875}
   m_Enabled: 1
+--- !u!65 &7807215549472307406
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 157542235833461988}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 16.205597, y: 13.155132, z: 17.327848}
+  m_Center: {x: 0.099267006, y: 6.577566, z: 0.28521538}
 --- !u!1001 &4311713948878060930
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 157542235833823428}
     m_Modifications:
     - target: {fileID: 100000, guid: 20c1d518f05501a47880ded08ac4891b, type: 3}
@@ -188,6 +219,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20c1d518f05501a47880ded08ac4891b, type: 3}
 --- !u!23 &4311713948876023266 stripped
 MeshRenderer:
@@ -204,6 +238,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 157542235833823428}
     m_Modifications:
     - target: {fileID: 100000, guid: b88d7c55fbc0991418c42b60d2b8d1df, type: 3}
@@ -259,6 +294,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b88d7c55fbc0991418c42b60d2b8d1df, type: 3}
 --- !u!23 &8774069555847517875 stripped
 MeshRenderer:
