@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1093328680948730457}
   - component: {fileID: 1778720536665716944}
   - component: {fileID: 1568096047717930579}
+  - component: {fileID: -7076130341039343182}
   m_Layer: 0
   m_Name: TFF_Pine_Tree_03C
   m_TagString: Untagged
@@ -27,6 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1093328680946537625}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -34,7 +36,6 @@ Transform:
   m_Children:
   - {fileID: 2544909137702802499}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1093328680947763353
 MeshFilter:
@@ -95,9 +96,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1093328680946537625}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 0.2, y: 13.646205, z: 0.2}
   m_Center: {x: 0, y: 5.8231025, z: 0}
 --- !u!205 &1568096047717930579
@@ -123,11 +132,28 @@ LODGroup:
     renderers:
     - renderer: {fileID: 2544909137700902563}
   m_Enabled: 1
+--- !u!208 &-7076130341039343182
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1093328680946537625}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 2.6520002, y: 6.9820004, z: 2.526}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.135, y: 5.9740005, z: 0.003}
+  m_TimeToStationary: 0.5
 --- !u!1001 &2544909137702932163
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1093328680946960569}
     m_Modifications:
     - target: {fileID: 100000, guid: b1b273f8da270ea46912c9381d5b9d94, type: 3}
@@ -183,6 +209,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1b273f8da270ea46912c9381d5b9d94, type: 3}
 --- !u!23 &2544909137700902563 stripped
 MeshRenderer:
