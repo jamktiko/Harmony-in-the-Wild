@@ -2,20 +2,31 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: SnowURPTerrain01
   m_Shader: {fileID: 4800000, guid: 06aa19b87b8aa174485b5a0ed989e1cb, type: 3}
-  m_ShaderKeywords: IS_T USE_AL USE_FOG USE_LS USE_RT USE_WC _TESSELLATION_EDGE
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - IS_T
+  - USE_AL
+  - USE_FOG
+  - USE_LS
+  - USE_RT
+  - USE_WC
+  - _TESSELLATION_EDGE
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -28,8 +39,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Control0:
-        m_Texture: {fileID: 4901155405178779946, guid: 50162458eb470a14aa2a16dce9bd44fd,
-          type: 2}
+        m_Texture: {fileID: 148260800489747750, guid: 0015d45efb7fadf4eb46d4e953d55bbd, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Control1:
@@ -225,15 +235,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 1}
     - _Splat4:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 495a8937383d3784588fc6a9bb626098, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Splat5:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: af53ed92faa41fd4ebd43ac7e1a8c086, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Splat6:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 8acdc6d940b8a594792bbae9f254ed32, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Splat7:
@@ -248,6 +258,7 @@ Material:
         m_Texture: {fileID: 2800000, guid: 720d82cf97471064989c4473b4475e8f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - _AddSnowStrength: 0.52
     - _BumpScale: 3.44
@@ -377,15 +388,16 @@ Material:
     - _Specular1: {r: 1, g: 1, b: 1, a: 1}
     - _Specular2: {r: 1, g: 1, b: 1, a: 1}
     - _Specular3: {r: 1, g: 1, b: 1, a: 1}
-    - _Specular4: {r: 1, g: 1, b: 1, a: 1}
-    - _Specular5: {r: 1, g: 1, b: 1, a: 1}
-    - _Specular6: {r: 1, g: 1, b: 1, a: 1}
+    - _Specular4: {r: 0, g: 0, b: 0, a: 0}
+    - _Specular5: {r: 0, g: 0, b: 0, a: 0}
+    - _Specular6: {r: 0, g: 0, b: 0, a: 0}
     - _Specular7: {r: 1, g: 1, b: 1, a: 1}
-    - _Splat4_STn: {r: 1, g: 1, b: 0, a: 1}
-    - _Splat5_STn: {r: 1, g: 1, b: 0, a: 1}
-    - _Splat6_STn: {r: 1, g: 1, b: 0, a: 1}
+    - _Splat4_STn: {r: 2, g: 2, b: 0, a: 0}
+    - _Splat5_STn: {r: 2, g: 2, b: 0, a: 0}
+    - _Splat6_STn: {r: 2, g: 2, b: 0, a: 0}
     - _Splat7_STn: {r: 1, g: 1, b: 0, a: 1}
-    - _TerrainScale: {r: 100, g: 200, b: 100, a: 0}
+    - _TerrainScale: {r: 1100, g: 600, b: 1200, a: 0}
     - _TopColor: {r: 1, g: 1, b: 1, a: 1}
     - _TransitionColor: {r: 1, g: 1, b: 1, a: 1}
     - _WireframeColor: {r: 0, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []
