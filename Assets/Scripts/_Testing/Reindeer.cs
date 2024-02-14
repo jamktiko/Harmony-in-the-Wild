@@ -43,6 +43,8 @@ public class Reindeer : MonoBehaviour
 
         SetTurnAnimation();
 
+        agent.speed = 0.7f;
+
         while (!nearDestination)
         {
             agent.SetDestination(currentDestination);
