@@ -13,7 +13,7 @@ public class Freeze : MonoBehaviour
     [SerializeField] private Image coloredCooldownIndicator;
 
     [Header("Audio")]
-    [SerializeField] AudioSource FreezeAudio;
+    [SerializeField] AudioSource freezeAudio;
 
     private bool onCooldown;
 
@@ -39,7 +39,7 @@ public class Freeze : MonoBehaviour
                 if (freezable)
                 {
                     freezable.Freeze();
-                    FreezeAudio.Play();
+                    freezeAudio.Play();
                 }
             }
         }

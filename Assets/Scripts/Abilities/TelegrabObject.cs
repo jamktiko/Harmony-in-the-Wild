@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class TelegrabObject : MonoBehaviour
 {
-    public Material TelegrabMaterial;
+    public Material telegrabMaterial;
     // Start is called before the first frame update
     void Start()
     {
-        TelegrabMaterial= gameObject.GetComponent<MeshRenderer>().material;
+        telegrabMaterial = gameObject.GetComponent<MeshRenderer>().material;
     }
 
     // Update is called once per frame

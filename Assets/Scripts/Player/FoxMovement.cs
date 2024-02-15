@@ -399,10 +399,10 @@ public class FoxMovement : MonoBehaviour
         //Drop grabbed item
         if (grabbing && Input.GetMouseButtonDown(0))
         {
-            grabbedGameObject.transform.gameObject.GetComponent<MeshRenderer>().material = TelegrabObject.TelegrabMaterial;
+            grabbedGameObject.transform.gameObject.GetComponent<MeshRenderer>().material = TelegrabObject.telegrabMaterial;
             foreach (TelegrabObject t in telegrabObjects)
             {
-                t.gameObject.GetComponent<MeshRenderer>().material = t.TelegrabMaterial;
+                t.gameObject.GetComponent<MeshRenderer>().material = t.telegrabMaterial;
             }
             grabbedGameObject.transform.parent = null;
             grabbedGameObject.transform.GetComponent<Rigidbody>().isKinematic = false;

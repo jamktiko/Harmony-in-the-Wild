@@ -279,7 +279,7 @@ public class FoxMove : MonoBehaviour
             if (grabbed && Input.GetKeyDown(KeyCode.B))
             {
 
-                grabbedGameObject.transform.gameObject.GetComponent<MeshRenderer>().material = TelegrabObject.TelegrabMaterial;
+                grabbedGameObject.transform.gameObject.GetComponent<MeshRenderer>().material = TelegrabObject.telegrabMaterial;
 
                 grabbedGameObject.transform.parent = null;
                 grabbedGameObject.transform.GetComponent<Rigidbody>().isKinematic = false;

@@ -27,7 +27,7 @@ public class DevShortCuts : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.Tab)&& Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKey(KeyCode.Tab) && Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene("Overworld");
         }

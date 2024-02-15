@@ -83,11 +83,12 @@ public class SnowWaypoints : MonoBehaviour
     private void Start() //Mesh thingys
     {
         mesh.Clear();
-        mesh = new Mesh();
-
-        mesh.vertices = verts;
-        mesh.triangles = tris;
-        mesh.uv = uv;
+        mesh = new Mesh
+        {
+            vertices = verts,
+            triangles = tris,
+            uv = uv
+        };
 
         mesh.RecalculateNormals();
         mesh.RecalculateBounds();
