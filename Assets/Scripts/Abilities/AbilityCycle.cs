@@ -7,29 +7,29 @@ using UnityEngine;
 public class AbilityCycle : MonoBehaviour
 {
     
-    [SerializeField] Dictionary<int, string> CurrentAbilities;
+    [SerializeField] Dictionary<int, string> currentAbilitiesDictionary; // Note from Flavio: Doesn't appear to be used anymore? Replaced by currentAbilitiesList?
     [SerializeField]
     [System.Serializable]
     public struct AbilityData
     {
-        public int Abilityindex;
+        public int abilityIndex;
         public string name;
-        public bool enabled;
+        public bool isEnabled;
         public int officialIndex;
-        public bool currentlyActivated;
+        public bool isActivated;
         public AbilityData(int ai,string n, bool e,int i)
         {
-           Abilityindex = ai;
+           abilityIndex = ai;
             name = n;
-            enabled = e;
+            isEnabled = e;
             officialIndex = i;
-            currentlyActivated = false;
+            isActivated = false;
         }
         
     }
     
-    [SerializeField] List<AbilityData> Abilities;
-    [SerializeField] List<AbilityData> currentAbilities=new List<AbilityData>();
+    [SerializeField] List<AbilityData> abilitiesList;
+    [SerializeField] List<AbilityData> currentAbilitiesList = new List<AbilityData>();
     [SerializeField] public AbilityData equippedAbility;
     [SerializeField] public int abilityIndex = 0;
     [SerializeField] TMP_Text abilityUIText;
@@ -43,35 +43,36 @@ public class AbilityCycle : MonoBehaviour
     public IEnumerator MakeList()
     {
         yield return new WaitForSeconds(2f);
-        Abilities = new List<AbilityData>()
+        abilitiesList = new List<AbilityData>()
         {
             new AbilityData(0, "ChargeJump", PlayerManager.instance.abilityValues[2], 2),
             new AbilityData(1, "Telegrab", PlayerManager.instance.abilityValues[6], 6),
             new AbilityData(2, "Freeze", PlayerManager.instance.abilityValues[7], 7)
         };
-        currentAbilities = Abilities.Where(x => x.enabled == true).ToList();
+        currentAbilitiesList = abilitiesList.Where(x => x.isEnabled == true).ToList();
 
-        if (currentAbilities.Count > 0)
+        if (currentAbilitiesList.Count > 0)
         {
 
-            equippedAbility = currentAbilities[abilityIndex];
+            equippedAbility = currentAbilitiesList[abilityIndex];
         }
 
     }
 
         // Update is called once per frame
         void Update()
-    {
-        switchAbility();
-    }
-    void switchAbility() 
-    {
-        if (Input.GetKeyDown(KeyCode.Tab)&&currentAbilities.Count!=0)
         {
-            if (abilityIndex<currentAbilities.Count-1)
+            SwitchAbility();
+        }
+
+    void SwitchAbility() 
+    {
+        if (Input.GetKeyDown(KeyCode.Tab)&&currentAbilitiesList.Count!=0)
+        {
+            if (abilityIndex<currentAbilitiesList.Count-1)
             {
                 abilityIndex++;
-                equippedAbility = currentAbilities[abilityIndex];
+                equippedAbility = currentAbilitiesList[abilityIndex];
                 abilityUIText.text = "Ability equipped: " + equippedAbility.name;
                 abilityUIText.color = Color.black;
                 StartCoroutine(DelayFadeTextToFullAlpha(2f, abilityUIText));
@@ -79,14 +80,14 @@ public class AbilityCycle : MonoBehaviour
             else
             {
                 abilityIndex = 0;
-                equippedAbility = currentAbilities[abilityIndex];
+                equippedAbility = currentAbilitiesList[abilityIndex];
                 abilityUIText.text = "Ability equipped: " + equippedAbility.name;
                 abilityUIText.color = Color.black;
                 StartCoroutine(DelayFadeTextToFullAlpha(2f, abilityUIText));
             }
 
         }
-        else if (Input.GetKeyDown(KeyCode.Tab) && currentAbilities.Count == 0)
+        else if (Input.GetKeyDown(KeyCode.Tab) && currentAbilitiesList.Count == 0)
         {
             abilityUIText.text = "You haven't unlocked any abilites yet!";
             abilityUIText.color = Color.black;

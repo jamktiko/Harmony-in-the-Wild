@@ -12,27 +12,27 @@ public class LoadingScene : MonoBehaviour
     public Image loadBarFill;
     public TMP_Text loadingScreenText;
     public StorybookHandler StorybookHandler;
-    public int Scene;
+    public int sceneIndex;
 
     private void Start()
     {
         StorybookHandler=FindObjectOfType<StorybookHandler>();
     }
-    public void loadSceneWithBar(int sceneId) 
+    public void LoadSceneWithBar(int sceneId) 
     {
-        StartCoroutine(loadSceneWithLoadingScreenWithBarFill(sceneId));
+        StartCoroutine(LoadSceneWithLoadingScreenWithBarFill(sceneId));
         
     }
-    public void loadSceneWithText(int sceneId)
+    public void LoadSceneWithText(int sceneId)
     {
-        StartCoroutine(loadSceneWithLoadingScreenWithText(sceneId));
+        StartCoroutine(LoadSceneWithLoadingScreenWithText(sceneId));
     }
-    public void loadSceneWithText2(int sceneId)
+    public void LoadSceneWithText2(int sceneId)
     {
-        StartCoroutine(loadSceneWithLoadingScreenWithText2(sceneId));
+        StartCoroutine(LoadSceneWithLoadingScreenWithText2(sceneId));
     }
 
-    IEnumerator loadSceneWithLoadingScreenWithBarFill(int sceneId) 
+    IEnumerator LoadSceneWithLoadingScreenWithBarFill(int sceneId) 
     {
         AsyncOperation operation=SceneManager.LoadSceneAsync(sceneId);
         loadingScreen.SetActive(true);
@@ -43,7 +43,7 @@ public class LoadingScene : MonoBehaviour
             yield return null;
         }
     }
-    IEnumerator loadSceneWithLoadingScreenWithText(int sceneId)
+    IEnumerator LoadSceneWithLoadingScreenWithText(int sceneId)
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(StorybookHandler.instance.GetNextScene());
         loadingScreen.SetActive(true);
@@ -65,7 +65,7 @@ public class LoadingScene : MonoBehaviour
             yield return null;
         }
     }
-    IEnumerator loadSceneWithLoadingScreenWithText2(int sceneId)
+    IEnumerator LoadSceneWithLoadingScreenWithText2(int sceneId)
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneId);
         loadingScreen.SetActive(true);
@@ -92,7 +92,7 @@ public class LoadingScene : MonoBehaviour
         Debug.Log("lol");
         if (other.CompareTag("Trigger"))
         {
-            StartCoroutine(loadSceneWithLoadingScreenWithText2(Scene));
+            StartCoroutine(LoadSceneWithLoadingScreenWithText2(sceneIndex));
         }
     }
 }

@@ -178,12 +178,12 @@ public class FoxMovement : MonoBehaviour
         //enable abilities
         if (Input.GetKeyDown(KeyCode.F) && abilityCycle.equippedAbility.officialIndex == 2)
         {
-            abilityCycle.equippedAbility.currentlyActivated = !abilityCycle.equippedAbility.currentlyActivated;
+            abilityCycle.equippedAbility.isActivated = !abilityCycle.equippedAbility.isActivated;
             canChargedJump = !canChargedJump;
         }
         if (Input.GetKeyDown(KeyCode.F) && abilityCycle.equippedAbility.officialIndex == 6)
         {
-            abilityCycle.equippedAbility.currentlyActivated = !abilityCycle.equippedAbility.currentlyActivated;
+            abilityCycle.equippedAbility.isActivated = !abilityCycle.equippedAbility.isActivated;
             canTeleGrab = !canTeleGrab;
             ActivateTelegrabCamera();
         }
