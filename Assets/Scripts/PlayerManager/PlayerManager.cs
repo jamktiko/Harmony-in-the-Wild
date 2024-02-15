@@ -28,25 +28,7 @@ public class PlayerManager : MonoBehaviour
         LoadAbilities();
     }
 
-    private void OnEnable()
-    {
-        GameEventsManager.instance.playerEvents.onExperienceGained += ExperienceGained;
-    }
-
-    private void OnDisable()
-    {
-        GameEventsManager.instance.playerEvents.onExperienceGained -= ExperienceGained;
-    }
-
-    private void ExperienceGained(int newExperience)
-    {
-        experience += newExperience;
-        GameEventsManager.instance.playerEvents.ExperienceChanged(experience);
-
-        Debug.Log("Current experience: " + experience);
-        LevelCheck();
-    }
-    public void getAbility(int index)
+    public void GetAbility(int index)
     {
         abilityValues[index] = true;
 
