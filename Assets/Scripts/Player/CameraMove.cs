@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraMove : MonoBehaviour
 {
-
     private const float YMin = 10.0f;
     private const float YMax = 50.0f;
 
@@ -13,21 +10,20 @@ public class CameraMove : MonoBehaviour
     public Transform Player;
 
     public float distance = 10.0f;
-   [SerializeField] private float currentX = 0.0f;
+    [SerializeField] private float currentX = 0.0f;
     [SerializeField]private float currentY = 0.0f;
     public float sensivity = 100f;
     [SerializeField] public float X = 0.0f;
     [SerializeField] public float Y = 0.0f;
 
     [SerializeField] Animator animator;
-    // Start is called before the first frame update
+
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         animator=GetComponentInParent<Animator>();
     }
 
-    // Update is called once per frame
     void LateUpdate()
     {
 
@@ -43,8 +39,6 @@ public class CameraMove : MonoBehaviour
         transform.position = lookAt.position + rotation * Direction;
 
         transform.LookAt(lookAt.position);
-
-
 
     }
 }

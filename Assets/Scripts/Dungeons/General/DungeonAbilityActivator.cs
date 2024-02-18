@@ -19,18 +19,18 @@ public class DungeonAbilityActivator : MonoBehaviour
         // if enabled ability index is set to -1, enable only minor abilities
         if (enabledAbility < 0)
         {
-            for (int i = 0; i < PlayerManager.instance.abilityValues.Count; i++)
+            for (int i = 0; i < PlayerManager.instance.hasAbilityValues.Count; i++)
             {
                 // enable the minor abilities (passive abilities)
                 if (i == 1 || i == 3 || i == 4 || i == 5)
                 {
-                    PlayerManager.instance.abilityValues[i] = true;
+                    PlayerManager.instance.hasAbilityValues[i] = true;
                 }
 
                 // disable all the other major abilities
                 else
                 {
-                    PlayerManager.instance.abilityValues[i] = false;
+                    PlayerManager.instance.hasAbilityValues[i] = false;
                 }
             }
 
@@ -38,24 +38,24 @@ public class DungeonAbilityActivator : MonoBehaviour
 
         else
         {
-            for (int i = 0; i < PlayerManager.instance.abilityValues.Count; i++)
+            for (int i = 0; i < PlayerManager.instance.hasAbilityValues.Count; i++)
             {
                 // enable the major ability gained in this dungeon
                 if (i == enabledAbility)
                 {
-                    PlayerManager.instance.abilityValues[i] = true;
+                    PlayerManager.instance.hasAbilityValues[i] = true;
                 }
 
                 // enable the minor abilities (passive abilities)
                 else if (i == 1 || i == 3 || i == 4 || i == 5)
                 {
-                    PlayerManager.instance.abilityValues[i] = true;
+                    PlayerManager.instance.hasAbilityValues[i] = true;
                 }
 
                 // disable all the other major abilities
                 else
                 {
-                    PlayerManager.instance.abilityValues[i] = false;
+                    PlayerManager.instance.hasAbilityValues[i] = false;
                 }
             }
         }

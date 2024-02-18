@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
@@ -7,9 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class SaveManager : MonoBehaviour
 {
-    private string saveFilePath;
-
     public static SaveManager instance;
+
+    private string saveFilePath;
 
     private GameData gameData = new GameData();
 
@@ -91,7 +90,6 @@ public class SaveManager : MonoBehaviour
         {
             gameData.playerPositionData = new List<float> { 1627f, 118f, 360f };
         }
-
     }
     
     public List<string> FetchLoadedData(string dataType)

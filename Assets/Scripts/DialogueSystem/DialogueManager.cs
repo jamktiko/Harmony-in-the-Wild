@@ -221,7 +221,6 @@ public class DialogueManager : MonoBehaviour
                             speakerText.text = tagValue;
                         }
                     }
-
                     else
                     {
                         speakerText.text = tagValue;

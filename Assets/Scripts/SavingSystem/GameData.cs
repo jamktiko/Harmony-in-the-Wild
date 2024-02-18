@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 [System.Serializable]
 public class GameData
@@ -9,9 +7,3 @@ public class GameData
     public List<bool> abilityData;
     public List<float> playerPositionData;
 }
-
-/*public enum GameDataType
-{
-    QuestData,
-    AbilityData
-}*/

@@ -14,7 +14,7 @@ public class EnableAllAbilities : MonoBehaviour
 
         for (int i = 0; i < 8; i++)
         {
-            PlayerManager.instance.abilityValues[i] = true;
+            PlayerManager.instance.hasAbilityValues[i] = true;
         }
 
         SaveManager.instance.SaveGame();

@@ -6,7 +6,7 @@ public class swimmingColliders : MonoBehaviour
 {
     private void Start()
     {
-        if (PlayerManager.instance.abilityValues[1] == true) 
+        if (PlayerManager.instance.hasAbilityValues[1] == true) 
         {
             Destroy(gameObject);
         }

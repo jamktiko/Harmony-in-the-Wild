@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
@@ -21,7 +19,8 @@ public class QuestPoint : MonoBehaviour
 
     [Header("Dialogue Config")]
     [SerializeField] AudioSource dialogueSound;
-    [SerializeField]private bool playerIsNear = false;
+    [SerializeField] private bool playerIsNear = false;
+
     private string questId;
     private QuestState currentQuestState;
 
@@ -32,19 +31,18 @@ public class QuestPoint : MonoBehaviour
 
     private void OnEnable()
     {
-        GameEventsManager.instance.questEvents.onQuestStateChange += QuestStateChange;
+        GameEventsManager.instance.questEvents.OnQuestStateChange += QuestStateChange;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.questEvents.onQuestStateChange -= QuestStateChange;
+        GameEventsManager.instance.questEvents.OnQuestStateChange -= QuestStateChange;
     }
 
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.E))
         {
-            
             InteractedWithQuestPoint();
         }
     }

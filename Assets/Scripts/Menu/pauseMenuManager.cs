@@ -1,11 +1,9 @@
 using Cinemachine;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class pauseMenuManager : MonoBehaviour
+public class PauseMenuManager : MonoBehaviour
 {
     [SerializeField] public GameObject pauseMenuPanel;
     [SerializeField] GameObject OptionsMenuPanel;

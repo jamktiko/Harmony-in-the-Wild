@@ -1,13 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GraphicsSettings : MonoBehaviour
 {
-    Resolution[] resolutions;
-    public TMPro.TMP_Dropdown resolutionDropdown;
-    public Sprite sprite;
+    private Resolution[] resolutions;
+    public TMPro.TMP_Dropdown resolutionDropdown; //Note: Work with [SerializeField] private and GetResolutionDropdown() if it needs to be accessed
+    public Sprite dropDownSprite; //Note: Work with [SerializeField] private and GetDropDownSprite() if it needs to be accessed
 
     private void Start()
     {
@@ -24,7 +22,7 @@ public class GraphicsSettings : MonoBehaviour
         for (int i = 0; i < resolutions.Length; i++)
         {
             string resOption = resolutions[i].width + " x " + resolutions[i].height;
-            resOptions.Add(new TMPro.TMP_Dropdown.OptionData(resOption,sprite));
+            resOptions.Add(new TMPro.TMP_Dropdown.OptionData(resOption,dropDownSprite));
 
             //Setting default res
             if (resolutions[i].width == Screen.currentResolution.width &&

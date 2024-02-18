@@ -6,7 +6,7 @@ public class TempActivateChargedJump : MonoBehaviour
     {
         if(Input.GetKey(KeyCode.C) && Input.GetKeyDown(KeyCode.J))
         {
-            PlayerManager.instance.abilityValues[2] = true;
+            PlayerManager.instance.hasAbilityValues[2] = true;
         }
     }
 }

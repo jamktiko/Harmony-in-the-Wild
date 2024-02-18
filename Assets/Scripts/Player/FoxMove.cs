@@ -261,15 +261,15 @@ public class FoxMove : MonoBehaviour
             }
             if (!canGlide)
             {
-                canGlide = PlayerManager.instance.abilityValues[0];
+                canGlide = PlayerManager.instance.hasAbilityValues[0];
             }
             if (!hasChargedJump)
             {
-                hasChargedJump = PlayerManager.instance.abilityValues[2];
+                hasChargedJump = PlayerManager.instance.hasAbilityValues[2];
             }
             if (!canTeleGrab)
             {
-                canTeleGrab = PlayerManager.instance.abilityValues[6];
+                canTeleGrab = PlayerManager.instance.hasAbilityValues[6];
             }
 
             Controller.Move(Jump * Time.deltaTime * jumpSpeed);

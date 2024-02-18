@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class Freeze : MonoBehaviour
 {
+    public const string DungeonPenguinSceneName = "Dungeon_Penguin";
+
     [Header("Config")]
     [SerializeField] private float aoeRadius;
     [SerializeField] private float cooldownDuration;
@@ -18,7 +20,7 @@ public class Freeze : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F) && PlayerManager.instance.abilityValues[7] && !hasCooldown)
+        if (Input.GetKeyDown(KeyCode.F) && PlayerManager.instance.hasAbilityValues[7] && !hasCooldown)
         {
             ActivateFreezeObject();
         }
@@ -43,7 +45,7 @@ public class Freeze : MonoBehaviour
             }
         }
 
-        if(SceneManager.GetActiveScene().name == "Dungeon_Penguin")
+        if(SceneManager.GetActiveScene().name == DungeonPenguinSceneName)
         {
             StartCoroutine(FreezeCooldown());
         }

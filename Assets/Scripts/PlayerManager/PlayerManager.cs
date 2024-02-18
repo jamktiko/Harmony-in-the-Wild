@@ -6,10 +6,10 @@ public class PlayerManager : MonoBehaviour
     public static PlayerManager instance;
 
     [SerializeField] private int experience;
-    [SerializeField] public int level;
+    [SerializeField] private int level;
 
     [Header("Abilities")]
-    public List<bool> abilityValues;
+    public List<bool> hasAbilityValues; //NOTE: Make private and allow access through methods?
 
     private void Awake()
     {
@@ -25,14 +25,14 @@ public class PlayerManager : MonoBehaviour
 
     public void GetAbility(int index)
     {
-        abilityValues[index] = true;
+        hasAbilityValues[index] = true;
 
         if(index == 5)
         {
             GameEventsManager.instance.playerEvents.GhostSpeakActivated();
         }
-        
     }
+
     public int LevelCheck() 
     {
         level = experience / 100;
@@ -42,11 +42,11 @@ public class PlayerManager : MonoBehaviour
 
     public List<bool> CollectAbilityDataForSaving()
     {
-        return abilityValues;
+        return hasAbilityValues;
     }
 
     private void LoadAbilities()
     {
-        abilityValues = SaveManager.instance.FetchLoadedAbilityData();
+        hasAbilityValues = SaveManager.instance.FetchLoadedAbilityData();
     }
 }

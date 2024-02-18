@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameEventsManager : MonoBehaviour
@@ -11,7 +9,6 @@ public class GameEventsManager : MonoBehaviour
 
     private void Awake()
     {
-        // create singleton
         if(instance != null)
         {
             Debug.LogWarning("There is more than one Game Events Manager in the scene");

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -17,8 +16,8 @@ public class LoadingScreen : MonoBehaviour
     [SerializeField] private Image foxImage;
     [SerializeField] private TextMeshProUGUI loadingText;
 
-    private bool fading;
-    private bool onLoading;
+    private bool isFading;
+    private bool isLoading;
     private Color fadeState = new Color(0, 0, 0);
 
     private void Update()
@@ -43,7 +42,7 @@ public class LoadingScreen : MonoBehaviour
 
         else
         {
-            onLoading = false;
+            isLoading = false;
         }
     }
 
@@ -52,17 +51,17 @@ public class LoadingScreen : MonoBehaviour
         transform.GetChild(0).gameObject.SetActive(true);
 
         // show background
-        fading = true;
+        isFading = true;
         fadeState = backgroundColor.color;
 
-        while (fading)
+        while (isFading)
         {
             fadeState = new Color(fadeState.r, fadeState.g, fadeState.b, fadeState.a + 0.01f);
             backgroundColor.color = fadeState;
 
             if(backgroundColor.color.a >= 1)
             {
-                fading = false;
+                isFading = false;
                 yield return new WaitForSeconds(midDelay);
             }
 
@@ -70,17 +69,17 @@ public class LoadingScreen : MonoBehaviour
         }
 
         // show fox image
-        fading = true;
+        isFading = true;
         fadeState = foxImage.color;
 
-        while (fading)
+        while (isFading)
         {
             fadeState = new Color(fadeState.r, fadeState.g, fadeState.b, fadeState.a + 0.01f);
             foxImage.color = fadeState;
 
             if (foxImage.color.a >= 1)
             {
-                fading = false;
+                isFading = false;
                 yield return new WaitForSeconds(midDelay);
             }
 
@@ -94,25 +93,25 @@ public class LoadingScreen : MonoBehaviour
     {
         loadingText.text = "Loading";
 
-        fading = true;
+        isFading = true;
         fadeState = loadingText.color;
 
         // show text
-        while (fading)
+        while (isFading)
         {
             fadeState = new Color(fadeState.r, fadeState.g, fadeState.b, fadeState.a + 0.01f);
             loadingText.color = fadeState;
 
             if (loadingText.color.a >= 1)
             {
-                fading = false;
+                isFading = false;
             }
 
             yield return new WaitForSeconds(fadeSpeed);
         }
 
         bool updateText = true;
-        onLoading = true;
+        isLoading = true;
 
         // update text until loading screen starts to fade out
         while (updateText)
@@ -133,7 +132,7 @@ public class LoadingScreen : MonoBehaviour
 
             yield return new WaitForSeconds(textUpdateSpeed);
 
-            if (!onLoading)
+            if (!isLoading)
             {
                 updateText = false;
             }
@@ -144,18 +143,18 @@ public class LoadingScreen : MonoBehaviour
 
     private IEnumerator HideLoadingScreen()
     {
-        fading = true;
+        isFading = true;
         fadeState = loadingText.color;
 
         // hide text
-        while (fading)
+        while (isFading)
         {
             fadeState = new Color(fadeState.r, fadeState.g, fadeState.b, fadeState.a - 0.01f);
             loadingText.color = fadeState;
 
             if (loadingText.color.a <= 0)
             {
-                fading = false;
+                isFading = false;
                 yield return new WaitForSeconds(midDelay);
             }
 
@@ -163,17 +162,17 @@ public class LoadingScreen : MonoBehaviour
         }
 
         // hide fox image
-        fading = true;
+        isFading = true;
         fadeState = foxImage.color;
 
-        while (fading)
+        while (isFading)
         {
             fadeState = new Color(fadeState.r, fadeState.g, fadeState.b, fadeState.a - 0.01f);
             foxImage.color = fadeState;
 
             if (foxImage.color.a <= 0)
             {
-                fading = false;
+                isFading = false;
                 yield return new WaitForSeconds(midDelay);
             }
 
@@ -181,17 +180,17 @@ public class LoadingScreen : MonoBehaviour
         }
 
         // hide background
-        fading = true;
+        isFading = true;
         fadeState = backgroundColor.color;
 
-        while (fading)
+        while (isFading)
         {
             fadeState = new Color(fadeState.r, fadeState.g, fadeState.b, fadeState.a - 0.01f);
             backgroundColor.color = fadeState;
 
             if (backgroundColor.color.a <= 0)
             {
-                fading = false;
+                isFading = false;
             }
 
             yield return new WaitForSeconds(fadeSpeed);

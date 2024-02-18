@@ -1,13 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PlayerInput_Naming : MonoBehaviour
+public class ProfanityNameDetector : MonoBehaviour
 {
-    string input;
-    [SerializeField]GameObject sureMessage;
-    [SerializeField] GameObject Inappropriate;
+    //NOTE: Consider implementing something like https://github.com/stephenhaunts/ProfanityDetector instead of creating our own library?
+    
+    [SerializeField] GameObject sureMessage;
+    [SerializeField] GameObject inappropriateMessage;
+
+    private string foxNameInput;
+
     public void SaveName(string s) 
     {
         if (s != "" 
@@ -24,16 +26,16 @@ public class PlayerInput_Naming : MonoBehaviour
             && !s.Contains("kurva")
             && !s.Contains("dead"))
         {
-            Inappropriate.SetActive(false);
-            input = s;
-            PlayerPrefs.SetString("foxName", input);
+            inappropriateMessage.SetActive(false);
+            foxNameInput = s;
+            PlayerPrefs.SetString("foxName", foxNameInput);
             Debug.Log(PlayerPrefs.GetString("foxName"));
             sureMessage.SetActive(true);
         }
         else
         {
             sureMessage.SetActive(false);
-            Inappropriate.SetActive(true);
+            inappropriateMessage.SetActive(true);
         }
     }
     public void NoButton() 

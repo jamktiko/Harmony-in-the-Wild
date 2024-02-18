@@ -1,14 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class StorybookHandler : MonoBehaviour
 {
+    public static StorybookHandler instance;
+
     private int currentStorybookSectionIndex = 0;
-    public string sceneAfterStorybook = "Naming";
     private bool isDungeonEndStory = false;
 
-    public static StorybookHandler instance;
+    public string sceneAfterStorybook = "Naming"; //NOTE: Redo Scene management across project?
 
     private void Awake()
     {

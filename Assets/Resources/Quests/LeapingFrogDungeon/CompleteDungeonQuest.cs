@@ -20,12 +20,12 @@ public class CompleteDungeonQuest : QuestStep
 
     private void OnEnable()
     {
-        GameEventsManager.instance.questEvents.onAdvanceDungeonQuest += CompleteDungeon;
+        GameEventsManager.instance.questEvents.OnAdvanceDungeonQuest += CompleteDungeon;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.questEvents.onAdvanceDungeonQuest -= CompleteDungeon;
+        GameEventsManager.instance.questEvents.OnAdvanceDungeonQuest -= CompleteDungeon;
     }
 
     public void CompleteDungeon(string id, int stageIndex)

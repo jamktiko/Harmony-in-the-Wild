@@ -35,12 +35,12 @@ public class DungeonEntrance : MonoBehaviour
 
     private void OnEnable()
     {
-        GameEventsManager.instance.questEvents.onQuestStateChange += QuestStateChange;
+        GameEventsManager.instance.questEvents.OnQuestStateChange += QuestStateChange;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.questEvents.onQuestStateChange -= QuestStateChange;
+        GameEventsManager.instance.questEvents.OnQuestStateChange -= QuestStateChange;
     }
 
     private void OnTriggerEnter(Collider other)

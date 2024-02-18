@@ -1,8 +1,6 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-
-public class MainMenu1 : MonoBehaviour
+public class MainMenu : MonoBehaviour
 {
     // Continue Button
     public void ContinueButton()

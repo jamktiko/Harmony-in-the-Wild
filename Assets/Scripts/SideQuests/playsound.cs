@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class playsound : MonoBehaviour
+public class PlaySound : MonoBehaviour
 {
     [SerializeField] AudioSource audioSource;
 

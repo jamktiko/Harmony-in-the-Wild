@@ -7,11 +7,11 @@ public class AbilityToggling : MonoBehaviour
 
     private void Start()
     {
-        GetComponent<Toggle>().isOn = PlayerManager.instance.abilityValues[abilityIndex];
+        GetComponent<Toggle>().isOn = PlayerManager.instance.hasAbilityValues[abilityIndex];
     }
 
     public void ToggleAbility()
     {
-        PlayerManager.instance.abilityValues[abilityIndex] = GetComponent<Toggle>().isOn;
+        PlayerManager.instance.hasAbilityValues[abilityIndex] = GetComponent<Toggle>().isOn;
     }
 }

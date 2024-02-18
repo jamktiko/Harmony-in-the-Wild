@@ -30,7 +30,7 @@ public class Destructible : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Trigger") && PlayerManager.instance.abilityValues[4])
+        if (other.gameObject.CompareTag("Trigger") && PlayerManager.instance.hasAbilityValues[4])
         {
             if (needsToBeFrozen)
             {

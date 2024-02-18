@@ -38,7 +38,7 @@ public class DevToolButtons : MonoBehaviour
     {
         for (int i = 0; i < 8; i++)
         {
-            PlayerManager.instance.abilityValues[i] = false;
+            PlayerManager.instance.hasAbilityValues[i] = false;
         }
 
         SaveManager.instance.SaveGame();

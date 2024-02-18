@@ -194,7 +194,7 @@ public class FoxMovement : MonoBehaviour
             Jump();
             Invoke(nameof(ResetJump), jumpCooldown);
         }
-        else if (Input.GetButtonDown("Jump") && !GroundCheck() && PlayerManager.instance.abilityValues[0] && !glider)
+        else if (Input.GetButtonDown("Jump") && !GroundCheck() && PlayerManager.instance.hasAbilityValues[0] && !glider)
         {
             glider = true;
         }
@@ -215,7 +215,7 @@ public class FoxMovement : MonoBehaviour
             sprinting = false;
 
         //SnowDive check
-        if (Input.GetKey(KeyCode.LeftControl) && PlayerManager.instance.abilityValues[3] && SnowCheck())
+        if (Input.GetKey(KeyCode.LeftControl) && PlayerManager.instance.hasAbilityValues[3] && SnowCheck())
             snowDive = true;
         else
             snowDive = false;
@@ -230,7 +230,7 @@ public class FoxMovement : MonoBehaviour
             playerAnimator.SetBool("isJumping", false);
             Invoke(nameof(ResetJump), 0);
         }
-        if (PlayerManager.instance.abilityValues[3])
+        if (PlayerManager.instance.hasAbilityValues[3])
         {
             ClimbWall();
         }
@@ -343,7 +343,7 @@ public class FoxMovement : MonoBehaviour
         if (!TelegrabEnabled)
         {
             TelegrabEnabled = true;
-            cameraMovement.currentStyle = CameraMovement.cameraStyle.Telegrab;
+            cameraMovement.currentStyle = CameraMovement.CameraStyle.Telegrab;
             cameraMovement.freeLookCam.SetActive(false);
             cameraMovement.telegrabCam.SetActive(true);
             StartCoroutine(CrosshairEnable());
@@ -351,7 +351,7 @@ public class FoxMovement : MonoBehaviour
         else
         {
             TelegrabEnabled = false;
-            cameraMovement.currentStyle = CameraMovement.cameraStyle.Basic;
+            cameraMovement.currentStyle = CameraMovement.CameraStyle.Basic;
             cameraMovement.freeLookCam.SetActive(true);
             cameraMovement.telegrabCam.SetActive(false);
             StartCoroutine(CrosshairDisable());

@@ -7,7 +7,7 @@ using UnityEngine;
 public class AbilityCycle : MonoBehaviour
 {   
     [SerializeField] Dictionary<int, string> currentAbilitiesDictionary; // Note from Flavio: Doesn't appear to be used anymore? Replaced by currentAbilitiesList?
-    [SerializeField]
+
     [System.Serializable]
     public struct AbilityData
     {
@@ -30,7 +30,7 @@ public class AbilityCycle : MonoBehaviour
     [SerializeField] List<AbilityData> currentAbilitiesList = new List<AbilityData>();
     [SerializeField] TMP_Text abilityUIText;
 
-    //NOTE:from David, these were both a [SerializeField] and public. Private + method to gain access to the value for foxmovement.cs arther than public?
+    //NOTE from David: these were both a [SerializeField] and public. Private + method to gain access to the value for foxmovement.cs arther than public or [SerializeField] internal?
     public AbilityData equippedAbility; 
     public int abilityIndex = 0;
 
@@ -49,9 +49,9 @@ public class AbilityCycle : MonoBehaviour
         yield return new WaitForSeconds(2f);
         abilitiesList = new List<AbilityData>()
         {
-            new AbilityData(0, "ChargeJump", PlayerManager.instance.abilityValues[2], 2),
-            new AbilityData(1, "Telegrab", PlayerManager.instance.abilityValues[6], 6),
-            new AbilityData(2, "Freeze", PlayerManager.instance.abilityValues[7], 7)
+            new AbilityData(0, "ChargeJump", PlayerManager.instance.hasAbilityValues[2], 2),
+            new AbilityData(1, "Telegrab", PlayerManager.instance.hasAbilityValues[6], 6),
+            new AbilityData(2, "Freeze", PlayerManager.instance.hasAbilityValues[7], 7)
         };
 
         currentAbilitiesList = abilitiesList.Where(x => x.isEnabled == true).ToList();

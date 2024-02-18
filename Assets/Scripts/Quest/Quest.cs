@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Quest
@@ -16,7 +14,7 @@ public class Quest
         info = questInfo;
         state = QuestState.REQUIREMENTS_NOT_MET;
         currentQuestStepIndex = 0;
-        questStepStates = new QuestStepState[info.QuestStepPrefabs.Length];
+        questStepStates = new QuestStepState[info.questStepPrefabs.Length];
 
         // initialize all the quest step states so they won't be null in the beginning
         for(int i = 0; i < questStepStates.Length; i++)
@@ -34,7 +32,7 @@ public class Quest
 
         // if the quest step states and prefabs are different lengths,
         // something has changed during development and the saved data is out of sync
-        if(this.questStepStates.Length != this.info.QuestStepPrefabs.Length)
+        if(this.questStepStates.Length != this.info.questStepPrefabs.Length)
         {
             Debug.LogWarning("Quest Step Prefabs and Quest Step States are " +
                 "of different lengths. This indicates something changed with the " +
@@ -50,7 +48,7 @@ public class Quest
 
     public bool CurrentStepExists()
     {
-        return currentQuestStepIndex < info.QuestStepPrefabs.Length;
+        return currentQuestStepIndex < info.questStepPrefabs.Length;
     }
 
     public void InstantiateCurrentQuestStep(Transform parentTransform)
@@ -70,7 +68,7 @@ public class Quest
 
         if (CurrentStepExists())
         {
-            questStepPrefab = info.QuestStepPrefabs[currentQuestStepIndex];
+            questStepPrefab = info.questStepPrefabs[currentQuestStepIndex];
         }
 
         else
