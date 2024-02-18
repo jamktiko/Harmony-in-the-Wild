@@ -1,18 +1,18 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Freezable : MonoBehaviour
 {
     [Header("Freeze State")]
-    public bool isFreezed;
+    public bool isFrozen;
 
     [Header("Freeze Config")]
     [SerializeField] private float freezeTime;
 
+    //TODO: Rename both of these once purpose is more clear. Now naming implies they're booleans.
     [Header("Needed References")]
-    [SerializeField] private GameObject isFreezedEffect;
-    [SerializeField] private GameObject canBeFreezed;
+    [SerializeField] private GameObject isFrozenEffect;
+    [SerializeField] private GameObject canBeFrozen;
 
     private Rigidbody rb;
     private Vector3 targetPosition;
@@ -22,10 +22,10 @@ public class Freezable : MonoBehaviour
         TryGetComponent<Rigidbody>(out rb);
     }
    
-    public void Freeze()
+    public void FreezeObject()
     {
-        Debug.Log(gameObject.name + " has been freezed.");
-        isFreezed = true;
+        Debug.Log(gameObject.name + " has been frozen.");
+        isFrozen = true;
 
         if(rb != null)
         {
@@ -33,8 +33,8 @@ public class Freezable : MonoBehaviour
             rb.constraints = RigidbodyConstraints.FreezeAll;
         }
 
-        canBeFreezed.SetActive(false);
-        isFreezedEffect.SetActive(true);
+        canBeFrozen.SetActive(false);
+        isFrozenEffect.SetActive(true);
 
         StartCoroutine(FreezeCooldown());
     }
@@ -43,7 +43,7 @@ public class Freezable : MonoBehaviour
     {
         yield return new WaitForSeconds(freezeTime);
 
-        isFreezed = false;
+        isFrozen = false;
 
         if(rb != null)
         {
@@ -51,13 +51,14 @@ public class Freezable : MonoBehaviour
             rb.constraints = RigidbodyConstraints.None;
         }
 
-        canBeFreezed.SetActive(true);
-        isFreezedEffect.SetActive(false);
+        canBeFrozen.SetActive(true);
+        isFrozenEffect.SetActive(false);
 
-        Debug.Log(gameObject.name + " has been unfreezed.");
+        Debug.Log(gameObject.name + " has been unfrozen.");
     }
 }
 
+//Note: What does this do? Where is it used?
 [System.Serializable]
 public enum MoveDirection
 {

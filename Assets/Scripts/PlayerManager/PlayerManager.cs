@@ -1,20 +1,15 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Globalization;
-using System.IO;
-using System.Linq;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
+    public static PlayerManager instance;
+
     [SerializeField] private int experience;
-    [SerializeField] public int Level;
+    [SerializeField] public int level;
 
     [Header("Abilities")]
     public List<bool> abilityValues;
-
-    public static PlayerManager instance;
 
     private void Awake()
     {
@@ -40,9 +35,9 @@ public class PlayerManager : MonoBehaviour
     }
     public int LevelCheck() 
     {
-        Level = experience / 100;
-        Debug.Log("Player leveled up to level "+Level);
-        return Level;
+        level = experience / 100;
+        Debug.Log("Player leveled up to level "+level);
+        return level;
     }
 
     public List<bool> CollectAbilityDataForSaving()

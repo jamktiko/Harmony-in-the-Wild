@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ShootingRotatingBoss : MonoBehaviour
@@ -13,8 +12,8 @@ public class ShootingRotatingBoss : MonoBehaviour
     [Header("Needed References")]
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private Transform shootingSpot;
-    [SerializeField] private Transform player;
     [SerializeField] private GameObject instructionPanel;
+    [SerializeField] private Transform player;
 
     private bool canShoot = true;
     private AudioSource audioSource;

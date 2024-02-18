@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,7 +13,7 @@ public class DungeonEntrance : MonoBehaviour
     [SerializeField] private GameObject dungeonEnteringPreventedUI;
 
     [Header("Config")]
-    [SerializeField] private string goToScene;
+    [SerializeField] private string goToScene; //NOTE: Doesn't feel like the best way to handle scene changes
     [SerializeField] private int storybookSectionIndex;
     [Tooltip("Tick if a quest is started when entering this dungeon")]
     [SerializeField] private bool activateQuestProgressTracking;

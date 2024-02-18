@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Security;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,22 +9,25 @@ public class LoadingScene : MonoBehaviour
     public GameObject loadingScreen;
     public Image loadBarFill;
     public TMP_Text loadingScreenText;
-    public StorybookHandler StorybookHandler;
+    public StorybookHandler storybookHandler;
     public int sceneIndex;
 
     private void Start()
     {
-        StorybookHandler=FindObjectOfType<StorybookHandler>();
+        storybookHandler=FindObjectOfType<StorybookHandler>();
     }
+
     public void LoadSceneWithBar(int sceneId) 
     {
         StartCoroutine(LoadSceneWithLoadingScreenWithBarFill(sceneId));
         
     }
+
     public void LoadSceneWithText(int sceneId)
     {
         StartCoroutine(LoadSceneWithLoadingScreenWithText(sceneId));
     }
+
     public void LoadSceneWithText2(int sceneId)
     {
         StartCoroutine(LoadSceneWithLoadingScreenWithText2(sceneId));
@@ -43,6 +44,7 @@ public class LoadingScene : MonoBehaviour
             yield return null;
         }
     }
+
     IEnumerator LoadSceneWithLoadingScreenWithText(int sceneId)
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(StorybookHandler.instance.GetNextScene());
@@ -65,6 +67,7 @@ public class LoadingScene : MonoBehaviour
             yield return null;
         }
     }
+
     IEnumerator LoadSceneWithLoadingScreenWithText2(int sceneId)
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneId);
@@ -87,6 +90,7 @@ public class LoadingScene : MonoBehaviour
             yield return null;
         }
     }
+
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("lol");

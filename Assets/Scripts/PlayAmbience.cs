@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayAmbience : MonoBehaviour
@@ -9,6 +7,7 @@ public class PlayAmbience : MonoBehaviour
     [SerializeField] AudioSource arcticTheme;
     [SerializeField] AudioSource forestTheme;
     [SerializeField] PlayerModelToggle toggle;
+
     private void OnTriggerEnter(Collider other)
     {
         toggle.TogglePlayerModel();

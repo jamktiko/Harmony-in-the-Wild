@@ -5,8 +5,7 @@ using TMPro;
 using UnityEngine;
 
 public class AbilityCycle : MonoBehaviour
-{
-    
+{   
     [SerializeField] Dictionary<int, string> currentAbilitiesDictionary; // Note from Flavio: Doesn't appear to be used anymore? Replaced by currentAbilitiesList?
     [SerializeField]
     [System.Serializable]
@@ -20,26 +19,31 @@ public class AbilityCycle : MonoBehaviour
         public AbilityData(int ai,string n, bool e,int i)
         {
            abilityIndex = ai;
-            name = n;
-            isEnabled = e;
-            officialIndex = i;
-            isActivated = false;
-        }
-        
+           name = n;
+           isEnabled = e;
+           officialIndex = i;
+           isActivated = false;
+        }    
     }
     
     [SerializeField] List<AbilityData> abilitiesList;
     [SerializeField] List<AbilityData> currentAbilitiesList = new List<AbilityData>();
-    [SerializeField] public AbilityData equippedAbility;
-    [SerializeField] public int abilityIndex = 0;
     [SerializeField] TMP_Text abilityUIText;
-    // Start is called before the first frame update
+
+    //NOTE:from David, these were both a [SerializeField] and public. Private + method to gain access to the value for foxmovement.cs arther than public?
+    public AbilityData equippedAbility; 
+    public int abilityIndex = 0;
+
     void Start()
     {
-        
         StartCoroutine(MakeList());
-       
     }
+
+    void Update()
+    {
+        SwitchAbility();
+    }
+
     public IEnumerator MakeList()
     {
         yield return new WaitForSeconds(2f);
@@ -49,21 +53,14 @@ public class AbilityCycle : MonoBehaviour
             new AbilityData(1, "Telegrab", PlayerManager.instance.abilityValues[6], 6),
             new AbilityData(2, "Freeze", PlayerManager.instance.abilityValues[7], 7)
         };
+
         currentAbilitiesList = abilitiesList.Where(x => x.isEnabled == true).ToList();
 
         if (currentAbilitiesList.Count > 0)
         {
-
             equippedAbility = currentAbilitiesList[abilityIndex];
         }
-
     }
-
-        // Update is called once per frame
-        void Update()
-        {
-            SwitchAbility();
-        }
 
     void SwitchAbility() 
     {
@@ -85,7 +82,6 @@ public class AbilityCycle : MonoBehaviour
                 abilityUIText.color = Color.black;
                 StartCoroutine(DelayFadeTextToFullAlpha(2f, abilityUIText));
             }
-
         }
         else if (Input.GetKeyDown(KeyCode.Tab) && currentAbilitiesList.Count == 0)
         {
@@ -93,8 +89,8 @@ public class AbilityCycle : MonoBehaviour
             abilityUIText.color = Color.black;
             StartCoroutine(DelayFadeTextToFullAlpha(2f, abilityUIText));
         }
-
     }
+
     public IEnumerator DelayFadeTextToFullAlpha(float t, TMP_Text i)
     {
         yield return new WaitForSeconds(1);

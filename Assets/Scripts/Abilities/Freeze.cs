@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -15,17 +14,17 @@ public class Freeze : MonoBehaviour
     [Header("Audio")]
     [SerializeField] AudioSource freezeAudio;
 
-    private bool onCooldown;
+    private bool hasCooldown;
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F) && PlayerManager.instance.abilityValues[7] && !onCooldown)
+        if (Input.GetKeyDown(KeyCode.F) && PlayerManager.instance.abilityValues[7] && !hasCooldown)
         {
-            ActivateFreeze();
+            ActivateFreezeObject();
         }
     }
 
-    private void ActivateFreeze()
+    private void ActivateFreezeObject()
     {
         Collider[] foundObjects = Physics.OverlapSphere(transform.position, aoeRadius, LayerMask.GetMask("Freezables"));
         Debug.Log(foundObjects.Length + " freezables found.");
@@ -38,7 +37,7 @@ public class Freeze : MonoBehaviour
 
                 if (freezable)
                 {
-                    freezable.Freeze();
+                    freezable.FreezeObject();
                     freezeAudio.Play();
                 }
             }
@@ -52,7 +51,7 @@ public class Freeze : MonoBehaviour
 
     private IEnumerator FreezeCooldown()
     {
-        onCooldown = true;
+        hasCooldown = true;
 
         float updateFillAmount = 1 / (cooldownDuration * 100);
         coloredCooldownIndicator.fillAmount = 0;
@@ -64,6 +63,6 @@ public class Freeze : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
         }
 
-        onCooldown = false;
+        hasCooldown = false;
     }
 }

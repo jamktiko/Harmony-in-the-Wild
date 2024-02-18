@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
     [Header("Config")]
-    [SerializeField] private float moveSpeed;
+    [SerializeField] private float projectileSpeed;
 
     private Vector3 targetPosition;
 
@@ -13,7 +11,7 @@ public class Projectile : MonoBehaviour
     {
         if(targetPosition != null)
         {
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, projectileSpeed * Time.deltaTime);
 
             if(transform.position == targetPosition)
             {

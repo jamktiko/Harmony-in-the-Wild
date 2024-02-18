@@ -1,11 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DontDestroyOnLoadMenu : MonoBehaviour
 {
     public static DontDestroyOnLoadMenu instance;
-     [SerializeField]private GameObject pauseMenuPanel;
+
+    [SerializeField]private GameObject pauseMenuPanel;
 
     private void Awake()
     {
@@ -20,6 +19,8 @@ public class DontDestroyOnLoadMenu : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    //TODO: SRP -> seperate
     private void OnLevelWasLoaded(int level)
     {
         if (level == 0)

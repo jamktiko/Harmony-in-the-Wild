@@ -146,7 +146,7 @@ public class FoxMovement : MonoBehaviour
 
             isLoaded = true;
         };
-        if (!DialogueManager.instance.dialogueIsPlaying)
+        if (!DialogueManager.instance.isDialoguePlaying)
         {
             MyInput();
         }
@@ -163,7 +163,7 @@ public class FoxMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (!DialogueManager.instance.dialogueIsPlaying)
+        if (!DialogueManager.instance.isDialoguePlaying)
         {
             MovePlayer();
         }

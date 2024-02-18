@@ -7,17 +7,16 @@ public class KeyQuestStep : QuestStep
     [SerializeField] int number;
     public int itemsCollected = 0;
     private int itemToComplete = 5;
-    // Start is called before the first frame update
+
     void Start()
     {
-        if (GameObject.Find("Key" + number).GetComponent<InteractableKey1>().used) 
+        if (GameObject.Find("Key" + number).GetComponent<InteractableKey>().wasUsed) 
         {
             CollectableProgress();
 
         }
     }
 
-    // Update is called once per frame
     public void CollectableProgress()
     {
         itemsCollected++;

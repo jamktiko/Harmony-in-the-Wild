@@ -1,17 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BossDoorMonkey : MonoBehaviour
 {
-    private int shapesInCorrectPlaces = 0;
-
     public static BossDoorMonkey instance;
 
     [SerializeField] private Animator anim;
 
+    private int shapesInCorrectPlaces = 0;
+
     private void Awake()
     {
+        if (instance != null)
+        {
+            Debug.LogWarning("There is more than one BossDoorMonkey object.");
+            Destroy(gameObject);
+        }
         instance = this;
     }
 

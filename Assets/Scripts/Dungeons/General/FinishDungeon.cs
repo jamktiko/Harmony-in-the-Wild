@@ -1,18 +1,19 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class FinishDungeon : MonoBehaviour
 {
+    public const string StorybookSceneName = "Storybook";
+
     [Header("Config")]
     [SerializeField] private QuestScriptableObject questSO;
     [SerializeField] private int stageIndex;
-    [SerializeField] private int gainedAbilityIndex;
+    [SerializeField] private int gainedAbilityIndex; //NOTE: Is this used?
     [SerializeField] private int storybookSectionIndex;
     [SerializeField] private string goToScene;
 
-    private AudioSource audioSource;
+    private AudioSource audioSource; //NOTE: USe descriptive name
     private string questId;
 
     private void Start()
@@ -44,6 +45,6 @@ public class FinishDungeon : MonoBehaviour
         }
 
         StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, goToScene, false);
-        SceneManager.LoadScene("Storybook");
+        SceneManager.LoadScene(StorybookSceneName);
     }
 }

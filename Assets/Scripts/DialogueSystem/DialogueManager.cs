@@ -4,11 +4,13 @@ using UnityEngine;
 using TMPro;
 using Ink.Runtime;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
 
 public class DialogueManager : MonoBehaviour
 {
+    public static DialogueManager instance;
+
+    private const string speaker = "speaker";
+
     [Header("Dialogue Canvas")]
     [SerializeField] private GameObject dialogueCanvas;
 
@@ -18,23 +20,19 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject exitButton;
 
     [Header("Choices")]
-    [SerializeField] private bool choiceAvailable;
+    [SerializeField] private bool isChoiceAvailable;
     [SerializeField] private int currentChoiceIndex;
     [SerializeField] private GameObject[] choiceButtons;   
 
     [Header("Public Values for References")]
-    public bool dialogueIsPlaying;
+    public bool isDialoguePlaying;
 
     // private variables, no need to show in the inspector
 
-    private TextMeshProUGUI[] choicesText;
     private Story currentStory;
+    private TextMeshProUGUI[] choicesText;
+    private GameObject questUI; //Note: from David, declared but never used. Mark for cleanup
     private bool canStartDialogue = true;
-    private GameObject questUI;
-
-    public static DialogueManager instance;
-
-    private const string speaker = "speaker";
 
     private void Awake()
     {
@@ -52,7 +50,7 @@ public class DialogueManager : MonoBehaviour
     private void Start()
     {
         dialogueCanvas.SetActive(false);
-        dialogueIsPlaying = false;
+        isDialoguePlaying = false;
 
         // initializing choice button texts
         choicesText = new TextMeshProUGUI[choiceButtons.Length];
@@ -66,7 +64,7 @@ public class DialogueManager : MonoBehaviour
 
     private void Update()
     {
-        if (dialogueIsPlaying)
+        if (isDialoguePlaying)
         {
             if (Input.GetKeyDown(KeyCode.Space)&& currentStory.canContinue)
             {
@@ -78,7 +76,7 @@ public class DialogueManager : MonoBehaviour
                 EndDialogue();
             }
 
-            else if (Input.GetKeyDown(KeyCode.Return) && choiceAvailable)
+            else if (Input.GetKeyDown(KeyCode.Return) && isChoiceAvailable)
             {
                 MakeChoice(currentChoiceIndex);
             }
@@ -108,7 +106,7 @@ public class DialogueManager : MonoBehaviour
         if (canStartDialogue)
         {
             currentStory = new Story(inkJSON.text);
-            dialogueIsPlaying = true;
+            isDialoguePlaying = true;
             dialogueCanvas.SetActive(true);
 
             Cursor.lockState = CursorLockMode.None;
@@ -140,12 +138,12 @@ public class DialogueManager : MonoBehaviour
         // change bool for input tracking
         if(currentStory.currentChoices.Count <= 0)
         {
-            choiceAvailable = false;
+            isChoiceAvailable = false;
         }
 
         else
         {
-            choiceAvailable = true;
+            isChoiceAvailable = true;
         }
 
         List<Choice> currentChoices = currentStory.currentChoices;
@@ -256,7 +254,7 @@ public class DialogueManager : MonoBehaviour
 
     private void EndDialogue()
     {
-        dialogueIsPlaying = false;
+        isDialoguePlaying = false;
         dialogueText.text = "";
 
         exitButton.SetActive(false);

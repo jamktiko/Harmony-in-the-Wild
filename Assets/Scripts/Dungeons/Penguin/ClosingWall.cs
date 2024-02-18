@@ -1,19 +1,18 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ClosingWall : MonoBehaviour
 {
     [Header("Config")]
-    [SerializeField] private float moveSpeed;
-    [SerializeField] private float moveSpeedIncrease;
+    [SerializeField] private float wallMovingSpeed;
+    [SerializeField] private float wallMovingSpeedIncrease;
     [SerializeField] private float timeOnTargetSpot;
 
     [Header("Needed References")]
     [SerializeField] private Transform targetSpot;
 
     [Header("Debug")]
-    [SerializeField] private bool playerIsNear;
+    [SerializeField] private bool isPlayerNear;
 
     // private variables
     private ClosingWallMovement currentMovement = ClosingWallMovement.Down;
@@ -45,7 +44,7 @@ public class ClosingWall : MonoBehaviour
 
     private void Update()
     {
-        if (playerIsNear && !freezable.isFreezed && canMove)
+        if (isPlayerNear && !freezable.isFrozen && canMove)
         {
             switch (currentMovement)
             {
@@ -83,12 +82,12 @@ public class ClosingWall : MonoBehaviour
         }
 
         // disable collider if the 
-        if (freezable.isFreezed && coll.isTrigger)
+        if (freezable.isFrozen && coll.isTrigger)
         {
             coll.isTrigger = false;
         }
 
-        else if (!freezable.isFreezed && !coll.isTrigger)
+        else if (!freezable.isFrozen && !coll.isTrigger)
         {
             coll.isTrigger = true;
         }
@@ -97,18 +96,19 @@ public class ClosingWall : MonoBehaviour
     private void SetTimeToTarget()
     {
         float distanceToTarget = Vector3.Distance(startSpot, targetSpot.position);
-        timeToTargetSpot = distanceToTarget / moveSpeed;
+        timeToTargetSpot = distanceToTarget / wallMovingSpeed;
     }
 
+    //NOTE: Is this used?
     public void PlayerGettingClose()
     {
-        playerIsNear = true;
+        isPlayerNear = true;
     }
 
     private void ResetAfterFinishedLap()
     {
         ResetWallPosition();
-        moveSpeed += moveSpeedIncrease;
+        wallMovingSpeed += wallMovingSpeedIncrease;
     }
 
     private void ResetWallPosition()
@@ -117,7 +117,7 @@ public class ClosingWall : MonoBehaviour
         {
             transform.position = startSpot;
             elapsedTime = 0;
-            playerIsNear = false;
+            isPlayerNear = false;
         }
     }
 

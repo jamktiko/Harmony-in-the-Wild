@@ -1,43 +1,43 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Geyser : MonoBehaviour
 {
-    [SerializeField] float cooldown;
-    [SerializeField] float timePassed;
-    Rigidbody rb;
-    [SerializeField] int strength=15;
-    [SerializeField] bool erupting;
-    // Start is called before the first frame update
+    [SerializeField] private float cooldown;
+    [SerializeField] private float timePassed;
+    [SerializeField] private int strength = 1700;
+    [SerializeField] private bool isErupting;
+
+    private Rigidbody rb;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+
         if (cooldown==0) 
             {
-            cooldown = 400;
-                }
+                cooldown = 400;
+            }
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
-        timePassed += 1f;
-        if (timePassed>=cooldown&&!erupting)
+        timePassed += Time.deltaTime; //NOTE: Changed 1f with Time.deltaTime to make it non-framerate dependant.
+
+        if (timePassed >= cooldown && !isErupting)
         {
             /*timePassed = 0;*/
             Debug.Log("ERUPTION");
-            rb.AddForce(new Vector3(0,strength,0),ForceMode.Force);
-            erupting = true;
+            rb.AddForce(new Vector3(0, strength, 0), ForceMode.Force);
+            isErupting = true;
         }
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (erupting)
+        if (isErupting)
         {
             timePassed = 0;
         }
-        erupting =false;
+        isErupting =false;
     }
     private void OnTriggerEnter(Collider other)
     {
