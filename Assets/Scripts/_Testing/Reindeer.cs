@@ -43,7 +43,7 @@ public class Reindeer : MonoBehaviour
 
         SetTurnAnimation();
 
-        agent.speed = 0.7f;
+        //agent.speed = 0.7f;
 
         while (!nearDestination)
         {
@@ -52,11 +52,13 @@ public class Reindeer : MonoBehaviour
             if (Vector3.Distance(transform.position, currentDestination) < 0.5f)
             {
                 nearDestination = true;
+                agent.speed = 0;
             }
 
             yield return null;
         }
 
+        Debug.Log("change to idle");
         StartCoroutine(Idle());
     }
 
@@ -66,6 +68,7 @@ public class Reindeer : MonoBehaviour
 
         yield return new WaitForSeconds(3f);
 
+        agent.speed = 1f;
         StartCoroutine(WalkToDestination());
     }
 
