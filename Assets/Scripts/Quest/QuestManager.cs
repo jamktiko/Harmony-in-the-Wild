@@ -23,8 +23,8 @@ public class QuestManager : MonoBehaviour
         instance = this;
 
         // initialize quest map
-        //questMap = CreateQuestMap();
-        //playerManager = FindObjectOfType<PlayerManager>();
+        questMap = CreateQuestMap();
+        playerManager = FindObjectOfType<PlayerManager>();
     }
 
     private void OnEnable()
