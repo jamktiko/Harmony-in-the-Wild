@@ -11,11 +11,13 @@ public class Reindeer : MonoBehaviour
     private NavMeshAgent agent;
     private Vector3 currentDestination;
     private int currentDestinationIndex;
+    private float defaultSpeed;
 
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         currentDestination = destinations[0].position;
+        defaultSpeed = agent.speed;
 
         StartCoroutine(WalkToDestination());
     }
@@ -68,7 +70,7 @@ public class Reindeer : MonoBehaviour
 
         yield return new WaitForSeconds(3f);
 
-        agent.speed = 1f;
+        agent.speed = defaultSpeed;
         StartCoroutine(WalkToDestination());
     }
 
