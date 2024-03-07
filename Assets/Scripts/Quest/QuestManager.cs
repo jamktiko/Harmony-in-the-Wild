@@ -178,7 +178,7 @@ public class QuestManager : MonoBehaviour
         Dictionary<string, Quest> idToQuestMap = new Dictionary<string, Quest>();
 
         // load loaded data from Save Manager
-        List<string> loadedQuestData = SaveManager.instance.FetchLoadedData("quest");
+        List<string> loadedQuestData = SaveManager.instance.GetLoadedData("quest");
 
         int currentQuestSOIndex = 0;
 
