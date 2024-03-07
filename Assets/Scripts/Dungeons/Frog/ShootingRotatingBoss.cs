@@ -67,7 +67,7 @@ public class ShootingRotatingBoss : MonoBehaviour
 
         GameObject newProjectile = Instantiate(projectilePrefab, shootingSpot);
 
-        newProjectile.GetComponent<Projectile>().InitializeProjectile(player.position);
+        newProjectile.GetComponent<Projectile>().InitializeProjectile(player.position, transform);
     }
 
     private IEnumerator ShootingCooldown()
