@@ -1,12 +1,7 @@
-using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.Burst.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 public class FoxMovement : MonoBehaviour
 {
@@ -98,29 +93,20 @@ public class FoxMovement : MonoBehaviour
         if (SceneManager.GetActiveScene()==SceneManager.GetSceneByBuildIndex(3)||SceneManager.GetSceneByBuildIndex(3).isLoaded) 
         {
             LoadPlayerPosition();
-            Debug.Log("playerpos loaded");
-            Debug.Log(new Vector3(
-            SaveManager.instance.GetLoadedPlayerPositionData()[0],
-            SaveManager.instance.GetLoadedPlayerPositionData()[1],
-            SaveManager.instance.GetLoadedPlayerPositionData()[2]));
         }
     }
-    // Start is called before the first frame update
+
     void Start()
     {
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(3) || SceneManager.GetSceneByBuildIndex(3).isLoaded)
         {
             LoadPlayerPosition();
-            Debug.Log("playerpos loaded");
-            Debug.Log(new Vector3(
-            SaveManager.instance.GetLoadedPlayerPositionData()[0],
-            SaveManager.instance.GetLoadedPlayerPositionData()[1],
-            SaveManager.instance.GetLoadedPlayerPositionData()[2]));
         }
+
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
-        abilityCycle = GetComponent<AbilityCycle>();
 
+        abilityCycle = GetComponent<AbilityCycle>();
         playerAnimator = GetComponentInChildren<Animator>();
 
         foreach (AnimatorControllerParameter item in playerAnimator.parameters)
@@ -132,33 +118,34 @@ public class FoxMovement : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(3)&&!isLoaded)
         {
             LoadPlayerPosition();
-            Debug.Log("playerpos loaded");
-            Debug.Log(new Vector3(
-            SaveManager.instance.GetLoadedPlayerPositionData()[0],
-            SaveManager.instance.GetLoadedPlayerPositionData()[1],
-            SaveManager.instance.GetLoadedPlayerPositionData()[2]));
 
             isLoaded = true;
-        };
+        }
+
         if (!DialogueManager.instance.isDialoguePlaying)
         {
             MyInput();
         }
+
         SpeedControl();
+
         if (GroundCheck())
         {
             rb.mass = 1f;
             rb.drag = groundDrag;
             glider = false;
         }
+
         else
+        {
             rb.drag = 0;
+        }
+
         OnSlope();
     }
     private void FixedUpdate()
@@ -639,10 +626,11 @@ public class FoxMovement : MonoBehaviour
 
         if (activeSceneName == overworldSceneName)
         {
-            return new List<float> { transform.position.x, transform.position.y, transform.position.z };
+            return new List<float> { transform.position.x, transform.position.y, transform.position.z };   
         }
         else
         {
+            Debug.Log("default position is being saved");
             return new List<float> { 1627f, 118f, 360f };
         }
     }

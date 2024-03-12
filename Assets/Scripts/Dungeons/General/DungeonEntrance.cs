@@ -57,6 +57,7 @@ public class DungeonEntrance : MonoBehaviour
                 // add storybook config here & change goToScene to Storybook scene
                 StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, goToScene, false);
                 StartCoroutine(loadSceneWithLoadingScreenWithText(2));
+                Debug.Log("This is where we save the data");
             }
 
             else if (currentQuestState == QuestState.IN_PROGRESS)
@@ -83,7 +84,7 @@ public class DungeonEntrance : MonoBehaviour
         if (quest.info.id.Equals(questId))
         {
             currentQuestState = quest.state;
-            Debug.Log("Quest with id: " + questId + " updated to state: " + currentQuestState);
+            //Debug.Log("Quest with id: " + questId + " updated to state: " + currentQuestState);
         }
     }
 

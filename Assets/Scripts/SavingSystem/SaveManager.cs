@@ -16,7 +16,7 @@ public class SaveManager : MonoBehaviour
 
     private void Awake()
     {
-        saveFilePath = Application.persistentDataPath + "/gameData.dat";
+        saveFilePath = Application.persistentDataPath + "/GameData.dat";
 
         if(instance != null)
         {
@@ -109,13 +109,17 @@ public class SaveManager : MonoBehaviour
         string activeSceneName = SceneManager.GetActiveScene().name;
         string overworldSceneName = SceneManagerHelper.GetSceneName(SceneManagerHelper.Scene.Overworld);
 
+        Debug.Log(activeSceneName + " ; " + overworldSceneName);
+
         if (activeSceneName == overworldSceneName)
         {
             gameData.playerPositionData = FoxMovement.instance.CollectPlayerPositionForSaving();
+            Debug.Log(gameData.playerPositionData);
         }
         else
         {
             gameData.playerPositionData = new List<float> { 1627f, 118f, 360f };
+            Debug.Log("Default values were saved");
         }
     }
     #endregion
@@ -160,7 +164,6 @@ public class SaveManager : MonoBehaviour
                 data.Add(false);
             }
         }
-
         return data;
     }
 

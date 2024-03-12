@@ -172,7 +172,6 @@ public class QuestManager : MonoBehaviour
     {
         // load all QuestInfoSOs in path Assets/Resources/Quests
         QuestScriptableObject[] allQuests = Resources.LoadAll<QuestScriptableObject>("Quests");
-        Debug.Log(allQuests.Length);
 
         // create the quest map
         Dictionary<string, Quest> idToQuestMap = new Dictionary<string, Quest>();
