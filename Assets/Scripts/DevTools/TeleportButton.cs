@@ -10,19 +10,28 @@ public class TeleportButton : MonoBehaviour
 
     private void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     public void InitializeLocation(Vector3 newTarget, string name)
     {
         teleportTarget = newTarget;
         transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = name;
+
+        GameObject[] playerTags = GameObject.FindGameObjectsWithTag("Player");
+
+        foreach(GameObject playerOption in playerTags)
+        {
+            if(playerOption.gameObject.name == "Player_Spawn")
+            {
+                player = playerOption.transform;
+            }
+        }
     }
 
     public void Teleport()
     {
-        player.GetComponent<FoxMovement>().enabled = false;
+        player.gameObject.SetActive(false);
         player.position = teleportTarget;
-        player.GetComponent<FoxMovement>().enabled = true;
+        player.gameObject.SetActive(true);
     }
 }
