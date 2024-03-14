@@ -3682,6 +3682,7 @@ GameObject:
   m_Component:
   - component: {fileID: 726368708}
   - component: {fileID: 726368709}
+  - component: {fileID: 726368710}
   m_Layer: 0
   m_Name: FinalDoor(?)
   m_TagString: Untagged
@@ -3717,11 +3718,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 273046e019da9f64a8c75e6b6e4fb647, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questSO: {fileID: 0}
+  questSO: {fileID: 11400000, guid: 4910e7629d1e3ed46b741c9ecf0f0cca, type: 2}
   stageIndex: 0
   gainedAbilityIndex: 0
   storybookSectionIndex: 6
   goToScene: Overworld
+--- !u!135 &726368710
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726368707}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &727291677
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9679,15 +9701,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4296425940649565959, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.0034989305
+      value: -0.0034989347
       objectReference: {fileID: 0}
     - target: {fileID: 4296425940649565959, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.0063486905
+      value: -0.006348689
       objectReference: {fileID: 0}
     - target: {fileID: 4296425940649565959, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000022214208
+      value: -0.00002221423
       objectReference: {fileID: 0}
     - target: {fileID: 4899147455725282976, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_FollowOffset.y
