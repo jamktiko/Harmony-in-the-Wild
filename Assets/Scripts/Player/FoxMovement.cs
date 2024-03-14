@@ -90,18 +90,13 @@ public class FoxMovement : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        if (SceneManager.GetActiveScene()==SceneManager.GetSceneByBuildIndex(3)||SceneManager.GetSceneByBuildIndex(3).isLoaded) 
-        {
-            LoadPlayerPosition();
-        }
+        
+        LoadPlayerPosInOverworld();
     }
 
     void Start()
     {
-        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(3) || SceneManager.GetSceneByBuildIndex(3).isLoaded)
-        {
-            LoadPlayerPosition();
-        }
+        LoadPlayerPosInOverworld();    
 
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
@@ -132,28 +127,48 @@ public class FoxMovement : MonoBehaviour
             MyInput();
         }
 
+        //NOTE from David: Physics based movement to FixedUpdate?
+        #region Physics based movement
         SpeedControl();
-
         if (GroundCheck())
         {
             rb.mass = 1f;
             rb.drag = groundDrag;
             glider = false;
         }
-
         else
         {
             rb.drag = 0;
         }
-
         OnSlopeCheck();
+        #endregion
     }
+
     private void FixedUpdate()
     {
         if (!DialogueManager.instance.isDialoguePlaying)
         {
             MovePlayer();
         }
+    }
+
+    private void LoadPlayerPosInOverworld()
+    {
+        string activeSceneName = SceneManager.GetActiveScene().name;
+        string overworldSceneName = SceneManagerHelper.GetSceneName(SceneManagerHelper.Scene.Overworld);
+
+        if (activeSceneName == overworldSceneName || SceneManager.GetSceneByName(overworldSceneName).isLoaded)
+        {
+            LoadPlayerPosition();
+        }
+    }
+
+    private void LoadPlayerPosition()
+    {
+        transform.position = new Vector3(
+            SaveManager.instance.GetLoadedPlayerPositionData()[0],
+            SaveManager.instance.GetLoadedPlayerPositionData()[1],
+            SaveManager.instance.GetLoadedPlayerPositionData()[2]);
     }
 
     private void MyInput()
@@ -168,12 +183,14 @@ public class FoxMovement : MonoBehaviour
             abilityCycle.equippedAbility.isActivated = !abilityCycle.equippedAbility.isActivated;
             canChargedJump = !canChargedJump;
         }
+
         if (Input.GetKeyDown(KeyCode.F) && abilityCycle.equippedAbility.officialIndex == 6)
         {
             abilityCycle.equippedAbility.isActivated = !abilityCycle.equippedAbility.isActivated;
             canTeleGrab = !canTeleGrab;
             ActivateTelegrabCamera();
         }
+
         //Jump check
         if (Input.GetButtonDown("Jump") && readytoJump && GroundCheck() && !canChargedJump)
         {
@@ -192,20 +209,27 @@ public class FoxMovement : MonoBehaviour
         else if (GroundCheck() && Input.GetButton("Jump") && canChargedJump && !isChargeJumping)
         {
             isChargeJumping = true;
-
         }
 
         //Sprint check
         if (Input.GetKey(KeyCode.LeftShift))
+        {
             sprinting = true;
+        }
         else
+        {
             sprinting = false;
+        }
 
         //SnowDive check
         if (Input.GetKey(KeyCode.LeftControl) && PlayerManager.instance.hasAbilityValues[3] && SnowCheck())
+        {
             snowDive = true;
+        }
         else
+        {
             snowDive = false;
+        }
 
         if (chargeJumpTimer != 14 && Input.GetButtonUp("Jump"))
         {
@@ -217,10 +241,12 @@ public class FoxMovement : MonoBehaviour
             playerAnimator.SetBool("isJumping", false);
             Invoke(nameof(ResetJump), 0);
         }
+
         if (PlayerManager.instance.hasAbilityValues[3])
         {
             ClimbWall();
         }
+
         if (TelegrabEnabled || grabbing)
         {
             Telegrab();
@@ -237,6 +263,7 @@ public class FoxMovement : MonoBehaviour
         {
             SwimmingAudio.Stop();
         }
+
         //in air
         if (!GroundCheck() && !WaterCheck())
         {
@@ -251,9 +278,6 @@ public class FoxMovement : MonoBehaviour
                 //in air animation here
                 playerAnimator.SetBool("isGrounded", false);
             }
-
-
-
         }
 
         else if (moveDirection == Vector3.zero && GroundCheck())
@@ -296,10 +320,12 @@ public class FoxMovement : MonoBehaviour
         {
             Glider();
         }
+
         else if (!GroundCheck() && !glider && !WaterCheck())
         {
             DisableGlider();
         }
+
         //swimming
         else if (WaterCheck())
         {
@@ -331,11 +357,13 @@ public class FoxMovement : MonoBehaviour
             cameraMovement.telegrabCam.SetActive(false);
             StartCoroutine(CrosshairDisable());
         }
+
         IEnumerator CrosshairEnable()
         {
             yield return new WaitForSeconds(0.2f);
             TelegrabUI.SetActive(true);
         }
+
         IEnumerator CrosshairDisable()
         {
             yield return new WaitForSeconds(0.2f);
@@ -451,8 +479,8 @@ public class FoxMovement : MonoBehaviour
     }
     #endregion
 
-    #region CHARGEJUMPING
     //TODO: Move to its own ability script ChargeJumping.cs
+    #region CHARGEJUMPING
     private void ChargeJump()
     {
         rb.velocity = new Vector3(0f, 0f, 0f);
@@ -467,7 +495,7 @@ public class FoxMovement : MonoBehaviour
 
             chargeJumpTimer = chargeJumpTimer + 0.3f;
 
-            //charging animation here'
+            //charging animation here
             playerAnimator.SetBool("isChargingJump", true);
             playerAnimator.SetFloat("horMove", horizontalInput);
             playerAnimator.SetFloat("vertMove", verticalInput);
@@ -476,8 +504,8 @@ public class FoxMovement : MonoBehaviour
     }
     #endregion
 
-    #region GLIDING
     //TODO: Move to its own ability script Gliding.cs
+    #region GLIDING
     private void Glider()
     {
         if (rb.useGravity)
@@ -499,9 +527,9 @@ public class FoxMovement : MonoBehaviour
             glidingMultiplier += 0.005f;
         }
         rb.velocity = new Vector3(rb.velocity.x, -1.5f, rb.velocity.z);
+        
         //gliding animation here
-
-        playerAnimator.SetBool("isGrounded", false);
+         playerAnimator.SetBool("isGrounded", false);
         playerAnimator.SetBool("isGliding", true);
     }
 
@@ -516,8 +544,8 @@ public class FoxMovement : MonoBehaviour
     }
     #endregion
 
-    #region TELEGRABBING
     //TODO: Move to its own ability script TeleGrabbing.cs
+    #region TELEGRABBING
     private void Telegrab()
     {
         RaycastHit hitInfo;
@@ -582,8 +610,8 @@ public class FoxMovement : MonoBehaviour
     }
     #endregion
 
-    #region WALLCLIMBING
     //TODO: Move to its own ability script WallClimbing.cs
+    #region WALLCLIMBING
     private void ClimbWall()
     {
         if (ClimbWallCheck())
@@ -619,8 +647,8 @@ public class FoxMovement : MonoBehaviour
     }
     #endregion
 
-    #region SWIMMING
     //TODO: Move to its own ability script Swimming.cs
+    #region SWIMMING
     private void Swim()
     {
         if (!rb.useGravity)
@@ -639,8 +667,6 @@ public class FoxMovement : MonoBehaviour
         }
     }
     #endregion
-
-
 
     void OnDrawGizmos()
     {
@@ -661,16 +687,9 @@ public class FoxMovement : MonoBehaviour
         }
         else
         {
-            Debug.Log("default position is being saved");
-            return new List<float> { 1627f, 118f, 360f };
+            return null;
+            //debug.log("default position is being saved");
+            //return new list<float> { 1627f, 118f, 360f };
         }
-    }
-
-    private void LoadPlayerPosition()
-    {
-        transform.position = new Vector3(
-            SaveManager.instance.GetLoadedPlayerPositionData()[0], 
-            SaveManager.instance.GetLoadedPlayerPositionData()[1], 
-            SaveManager.instance.GetLoadedPlayerPositionData()[2]);
     }
 }

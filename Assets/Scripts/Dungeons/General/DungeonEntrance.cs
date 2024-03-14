@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(BoxCollider))]
 public class DungeonEntrance : MonoBehaviour
 {
+
+
     [Header("Quest")]
     [SerializeField] private QuestScriptableObject dungeonQuest;
 
@@ -45,6 +47,10 @@ public class DungeonEntrance : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // TODO: Fire event to save last known coordinates in overworld.
+        // Either as Vector3 and persist in PlayerManager?
+        // Or save to savefile as list of floats?
+
         if (other.gameObject.CompareTag("Trigger"))
         {
             if(currentQuestState == QuestState.CAN_START)

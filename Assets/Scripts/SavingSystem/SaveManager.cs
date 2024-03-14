@@ -3,11 +3,13 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
 
 //This script handles both saving and loading of gameData.
-
 public class SaveManager : MonoBehaviour
 {
+    public EventHandler<Vector3> OnDungeonLoaded;
+
     public static SaveManager instance;
 
     private string saveFilePath;
@@ -42,6 +44,11 @@ public class SaveManager : MonoBehaviour
             DeleteSave();
         }
 #endif
+    }
+
+    public void GetPlayerOverworldCoordinates(Vector3 overworldPlayerPos)
+    {
+        OnDungeonLoaded?.Invoke(this, overworldPlayerPos);
     }
 
     public void SaveGame()
@@ -118,8 +125,8 @@ public class SaveManager : MonoBehaviour
         }
         else
         {
-            gameData.playerPositionData = new List<float> { 1627f, 118f, 360f };
-            Debug.Log("Default values were saved");
+            //gameData.playerPositionData = new List<float> { 1627f, 118f, 360f };
+            //Debug.Log("Default values were saved");
         }
     }
     #endregion
