@@ -7,6 +7,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
+using UnityEngine.InputSystem;
 
 public class FoxMovement : MonoBehaviour
 {
@@ -17,6 +18,13 @@ public class FoxMovement : MonoBehaviour
     public float SprintSpeed = 12f;
     bool sprinting;
     public CameraMovement cameraMovement;
+
+    PlayerInput playerInput;
+
+    InputAction MoveInput,
+        SprintInput,
+        LookInput,
+        JumpInput;
 
     float horizontalInput;
     float verticalInput;
@@ -108,6 +116,7 @@ public class FoxMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        AssignInput();
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(3) || SceneManager.GetSceneByBuildIndex(3).isLoaded)
         {
             LoadPlayerPosition();
@@ -117,6 +126,8 @@ public class FoxMovement : MonoBehaviour
             SaveManager.instance.FetchLoadedPlayerPositionData()[1],
             SaveManager.instance.FetchLoadedPlayerPositionData()[2]));
         }
+        
+        
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         abilityCycle = GetComponent<AbilityCycle>();
@@ -188,7 +199,7 @@ public class FoxMovement : MonoBehaviour
             ActivateTelegrabCamera();
         }
         //Jump check
-        if (Input.GetButtonDown("Jump") && readytoJump && GroundCheck() && !canChargedJump)
+        if (JumpInput.ReadValue<bool>() && readytoJump && GroundCheck() && !canChargedJump)
         {
             readytoJump = false;
             Jump();
@@ -209,10 +220,7 @@ public class FoxMovement : MonoBehaviour
         }
 
         //Sprint check
-        if (Input.GetKey(KeyCode.LeftShift))
-            sprinting = true;
-        else
-            sprinting = false;
+        sprinting = SprintInput.ReadValue<bool>();
 
         //SnowDive check
         if (Input.GetKey(KeyCode.LeftControl) && PlayerManager.instance.hasAbilityValues[3] && SnowCheck())
@@ -243,7 +251,8 @@ public class FoxMovement : MonoBehaviour
     private void MovePlayer()
     {
         //calculate movement direction
-        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+        //moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+        moveDirection = orientation.forward* MoveInput.ReadValue<Vector2>().y+orientation.right* MoveInput.ReadValue<Vector2>().x;
 
         //stop swimming audio
         if (GroundCheck() && SwimmingAudio.isPlaying)
@@ -653,5 +662,13 @@ public class FoxMovement : MonoBehaviour
     private void OnLevelWasLoaded(int level)
     {
         instance = this;
+    }
+    private void AssignInput() 
+    {
+        playerInput = GetComponent<PlayerInput>();
+        MoveInput = playerInput.actions.FindAction("Move");
+        SprintInput = playerInput.actions.FindAction("Sprint");
+        LookInput = playerInput.actions.FindAction("Look");
+        JumpInput = playerInput.actions.FindAction("Jump");
     }
 }

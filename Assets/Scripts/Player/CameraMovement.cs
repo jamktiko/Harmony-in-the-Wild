@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CameraMovement : MonoBehaviour
 {
@@ -27,6 +28,9 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] public GameObject freeLookCam;
     [SerializeField] public GameObject telegrabCam;
 
+    PlayerInput playerInput;
+    InputAction LookInput;
+
 
     void Start()
     {
@@ -50,6 +54,9 @@ public class CameraMovement : MonoBehaviour
         {
             float horizontalInput = Input.GetAxis("Horizontal");
             float verticalInput = Input.GetAxis("Vertical");
+
+            //float horizontalInput = LookInput.ReadValue<Vector2>().x;
+            //float verticalInput = LookInput.ReadValue<Vector2>().x;
             Vector3 inputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
             Vector3 slopeForward = Vector3.ProjectOnPlane(foxObject.forward, foxMove.hit3.normal).normalized;
 
