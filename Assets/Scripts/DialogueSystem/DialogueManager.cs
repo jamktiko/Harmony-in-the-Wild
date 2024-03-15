@@ -282,4 +282,6 @@ public class DialogueManager : MonoBehaviour
         instance = this;
         dialogueCanvas = transform.GetChild(0).gameObject;
     }
+    
+    
 }
