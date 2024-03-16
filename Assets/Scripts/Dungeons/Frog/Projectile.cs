@@ -8,6 +8,11 @@ public class Projectile : MonoBehaviour
     private Transform bossTransform;
     private Vector3 targetPosition;
 
+    private void Start()
+    {
+        Invoke("DelayDestroy", 6.5f);
+    }
+
     private void Update()
     {
         if(targetPosition != null)
@@ -20,6 +25,7 @@ public class Projectile : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+
     }
 
     public void InitializeProjectile(Vector3 playerLocation, Transform parentTransform)
@@ -35,5 +41,10 @@ public class Projectile : MonoBehaviour
             other.GetComponentInParent<HitCounter>().TakeHit(false);
             Destroy(gameObject);
         }
+    }
+    
+    private void DelayDestroy()
+    {
+        Destroy(gameObject);
     }
 }
