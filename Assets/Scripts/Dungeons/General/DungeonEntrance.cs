@@ -23,6 +23,9 @@ public class DungeonEntrance : MonoBehaviour
     private Quest currentQuest;
     [SerializeField]private GameObject loadingScreen;
     [SerializeField]private TMP_Text loadingScreenText;
+        
+    [Header("RespawnPoint")]
+    [SerializeField] GameObject respawnPoint;
 
     private void Start()
     {
@@ -45,6 +48,8 @@ public class DungeonEntrance : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        RespawnManager.instance.SetRespawnPosition(respawnPoint.transform.position);
+
         if (other.gameObject.CompareTag("Trigger"))
         {
             if(currentQuestState == QuestState.CAN_START)

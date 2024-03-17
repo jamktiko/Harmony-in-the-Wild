@@ -55,18 +55,18 @@ public class SaveManager : MonoBehaviour
         dataToSave.questData = gameData.questData;
         dataToSave.abilityData = gameData.abilityData;
 
-        string activeSceneName = SceneManager.GetActiveScene().name;
+        //string activeSceneName = SceneManager.GetActiveScene().name;
 
-        string tutorialSceneName = SceneManagerHelper.GetSceneName(SceneManagerHelper.Scene.Tutorial);
+        //string tutorialSceneName = SceneManagerHelper.GetSceneName(SceneManagerHelper.Scene.Tutorial);
 
-        if (activeSceneName == tutorialSceneName)
-        {
-            dataToSave.playerPositionData= new List<float> { 1627f, 118f, 360f };
-        }
-        else
-        {
-            dataToSave.playerPositionData = gameData.playerPositionData;
-        }
+        //if (activeSceneName == tutorialSceneName)
+        //{
+        //    dataToSave.playerPositionData= new List<float> { 1627f, 118f, 360f };
+        //}
+        //else
+        //{
+        //    dataToSave.playerPositionData = gameData.playerPositionData;
+        //}
         bf.Serialize(file, dataToSave);
 
         file.Close();
@@ -83,7 +83,7 @@ public class SaveManager : MonoBehaviour
 
             gameData.questData = loadedData.questData;
             gameData.abilityData = loadedData.abilityData;
-            gameData.playerPositionData = loadedData.playerPositionData;
+            //gameData.playerPositionData = loadedData.playerPositionData;
         }
     }
 
@@ -92,7 +92,7 @@ public class SaveManager : MonoBehaviour
     {
         CollectQuestData();
         CollectAbilityData();
-        CollectPlayerPositionData();
+        //CollectPlayerPositionData();
     }
 
     private void CollectQuestData()
@@ -104,24 +104,20 @@ public class SaveManager : MonoBehaviour
     {
         gameData.abilityData = PlayerManager.instance.CollectAbilityDataForSaving();
     }
-    private void CollectPlayerPositionData()
-    {
-        string activeSceneName = SceneManager.GetActiveScene().name;
-        string overworldSceneName = SceneManagerHelper.GetSceneName(SceneManagerHelper.Scene.Overworld);
+    //private void CollectPlayerPositionData()
+    //{
+    //    string activeSceneName = SceneManager.GetActiveScene().name;
+    //    string overworldSceneName = SceneManagerHelper.GetSceneName(SceneManagerHelper.Scene.Overworld);
 
-        Debug.Log(activeSceneName + " ; " + overworldSceneName);
-
-        if (activeSceneName == overworldSceneName)
-        {
-            gameData.playerPositionData = FoxMovement.instance.CollectPlayerPositionForSaving();
-            Debug.Log(gameData.playerPositionData);
-        }
-        else
-        {
-            gameData.playerPositionData = new List<float> { 1627f, 118f, 360f };
-            Debug.Log("Default values were saved");
-        }
-    }
+    //    if (activeSceneName == overworldSceneName)
+    //    {
+    //        gameData.playerPositionData = FoxMovement.instance.CollectPlayerPositionForSaving();
+    //    }
+    //    else
+    //    {
+    //        gameData.playerPositionData = new List<float> { 1627f, 118f, 360f };
+    //    }
+    //}
     #endregion
 
     #region GetDataForLoading
@@ -167,24 +163,24 @@ public class SaveManager : MonoBehaviour
         return data;
     }
 
-    public List<float> GetLoadedPlayerPositionData()
-    {
-        List<float> data = new List<float>();
+    //public List<float> GetLoadedPlayerPositionData()
+    //{
+    //    List<float> data = new List<float>();
 
-        // fetch the saved data from the file if there is a previous save
-        if (File.Exists(saveFilePath))
-        {
-            data = gameData.playerPositionData;
-        }
+    //    // fetch the saved data from the file if there is a previous save
+    //    if (File.Exists(saveFilePath))
+    //    {
+    //        data = gameData.playerPositionData;
+    //    }
 
-        // if there isn't, return default position
-        else
-        {
-            data=new List<float> { 1627f,118f,360f };
-        }
+    //    // if there isn't, return default position
+    //    else
+    //    {
+    //        data=new List<float> { 1627f,118f,360f };
+    //    }
 
-        return data;
-    }
+    //    return data;
+    //}
     #endregion
 
     private void DeleteSave()
