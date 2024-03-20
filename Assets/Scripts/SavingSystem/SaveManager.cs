@@ -3,9 +3,13 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
 
+//This script handles both saving and loading of gameData.
 public class SaveManager : MonoBehaviour
 {
+    public EventHandler<Vector3> OnDungeonLoaded;
+
     public static SaveManager instance;
 
     private string saveFilePath;
@@ -14,7 +18,7 @@ public class SaveManager : MonoBehaviour
 
     private void Awake()
     {
-        saveFilePath = Application.persistentDataPath + "/gameData.dat";
+        saveFilePath = Application.persistentDataPath + "/GameData.dat";
 
         if(instance != null)
         {
@@ -29,6 +33,7 @@ public class SaveManager : MonoBehaviour
 
     private void Update()
     {
+#if DEBUG
         if (Input.GetKeyDown(KeyCode.O))
         {
             SaveGame();
@@ -38,11 +43,17 @@ public class SaveManager : MonoBehaviour
         {
             DeleteSave();
         }
+#endif
+    }
+
+    public void GetPlayerOverworldCoordinates(Vector3 overworldPlayerPos)
+    {
+        OnDungeonLoaded?.Invoke(this, overworldPlayerPos);
     }
 
     public void SaveGame()
     {
-        FetchDataForSaving();
+        CollectDataForSaving();
 
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(saveFilePath);
@@ -50,7 +61,12 @@ public class SaveManager : MonoBehaviour
 
         dataToSave.questData = gameData.questData;
         dataToSave.abilityData = gameData.abilityData;
-        if (SceneManager.GetActiveScene()==SceneManager.GetSceneByBuildIndex(12))
+
+        string activeSceneName = SceneManager.GetActiveScene().name;
+
+        string tutorialSceneName = SceneManagerHelper.GetSceneName(SceneManagerHelper.Scene.Tutorial);
+
+        if (activeSceneName == tutorialSceneName)
         {
             dataToSave.playerPositionData= new List<float> { 1627f, 118f, 360f };
         }
@@ -78,21 +94,45 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-    private void FetchDataForSaving()
+    #region CollectDataForSaving
+    private void CollectDataForSaving()
+    {
+        CollectQuestData();
+        CollectAbilityData();
+        CollectPlayerPositionData();
+    }
+
+    private void CollectQuestData()
     {
         gameData.questData = QuestManager.instance.CollectQuestDataForSaving();
+    }
+
+    private void CollectAbilityData()
+    {
         gameData.abilityData = PlayerManager.instance.CollectAbilityDataForSaving();
-        if (SceneManager.GetActiveScene()==SceneManager.GetSceneByBuildIndex(3))
+    }
+    private void CollectPlayerPositionData()
+    {
+        string activeSceneName = SceneManager.GetActiveScene().name;
+        string overworldSceneName = SceneManagerHelper.GetSceneName(SceneManagerHelper.Scene.Overworld);
+
+        Debug.Log(activeSceneName + " ; " + overworldSceneName);
+
+        if (activeSceneName == overworldSceneName)
         {
             gameData.playerPositionData = FoxMovement.instance.CollectPlayerPositionForSaving();
+            Debug.Log(gameData.playerPositionData);
         }
         else
         {
-            gameData.playerPositionData = new List<float> { 1627f, 118f, 360f };
+            //gameData.playerPositionData = new List<float> { 1627f, 118f, 360f };
+            //Debug.Log("Default values were saved");
         }
     }
-    
-    public List<string> FetchLoadedData(string dataType)
+    #endregion
+
+    #region GetDataForLoading
+    public List<string> GetLoadedData(string dataType)
     {
         List<string> data = new List<string>();
 
@@ -113,7 +153,7 @@ public class SaveManager : MonoBehaviour
         return data;
     }
 
-    public List<bool> FetchLoadedAbilityData()
+    public List<bool> GetLoadedAbilityData()
     {
         List<bool> data = new List<bool>();
 
@@ -131,10 +171,10 @@ public class SaveManager : MonoBehaviour
                 data.Add(false);
             }
         }
-
         return data;
     }
-    public List<float> FetchLoadedPlayerPositionData()
+
+    public List<float> GetLoadedPlayerPositionData()
     {
         List<float> data = new List<float>();
 
@@ -152,6 +192,7 @@ public class SaveManager : MonoBehaviour
 
         return data;
     }
+    #endregion
 
     private void DeleteSave()
     {

@@ -1,12 +1,7 @@
-using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.Burst.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 public class FoxMovement : MonoBehaviour
 {
@@ -95,32 +90,18 @@ public class FoxMovement : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        if (SceneManager.GetActiveScene()==SceneManager.GetSceneByBuildIndex(3)||SceneManager.GetSceneByBuildIndex(3).isLoaded) 
-        {
-            LoadPlayerPosition();
-            Debug.Log("playerpos loaded");
-            Debug.Log(new Vector3(
-            SaveManager.instance.FetchLoadedPlayerPositionData()[0],
-            SaveManager.instance.FetchLoadedPlayerPositionData()[1],
-            SaveManager.instance.FetchLoadedPlayerPositionData()[2]));
-        }
+        
+        LoadPlayerPosInOverworld();
     }
-    // Start is called before the first frame update
+
     void Start()
     {
-        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(3) || SceneManager.GetSceneByBuildIndex(3).isLoaded)
-        {
-            LoadPlayerPosition();
-            Debug.Log("playerpos loaded");
-            Debug.Log(new Vector3(
-            SaveManager.instance.FetchLoadedPlayerPositionData()[0],
-            SaveManager.instance.FetchLoadedPlayerPositionData()[1],
-            SaveManager.instance.FetchLoadedPlayerPositionData()[2]));
-        }
+        LoadPlayerPosInOverworld();    
+
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
-        abilityCycle = GetComponent<AbilityCycle>();
 
+        abilityCycle = GetComponent<AbilityCycle>();
         playerAnimator = GetComponentInChildren<Animator>();
 
         foreach (AnimatorControllerParameter item in playerAnimator.parameters)
@@ -132,24 +113,22 @@ public class FoxMovement : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(3)&&!isLoaded)
         {
             LoadPlayerPosition();
-            Debug.Log("playerpos loaded");
-            Debug.Log(new Vector3(
-            SaveManager.instance.FetchLoadedPlayerPositionData()[0],
-            SaveManager.instance.FetchLoadedPlayerPositionData()[1],
-            SaveManager.instance.FetchLoadedPlayerPositionData()[2]));
 
             isLoaded = true;
-        };
+        }
+
         if (!DialogueManager.instance.isDialoguePlaying)
         {
             MyInput();
         }
+
+        //NOTE from David: Physics based movement to FixedUpdate?
+        #region Physics based movement
         SpeedControl();
         if (GroundCheck())
         {
@@ -158,15 +137,38 @@ public class FoxMovement : MonoBehaviour
             glider = false;
         }
         else
+        {
             rb.drag = 0;
-        OnSlope();
+        }
+        OnSlopeCheck();
+        #endregion
     }
+
     private void FixedUpdate()
     {
         if (!DialogueManager.instance.isDialoguePlaying)
         {
             MovePlayer();
         }
+    }
+
+    private void LoadPlayerPosInOverworld()
+    {
+        string activeSceneName = SceneManager.GetActiveScene().name;
+        string overworldSceneName = SceneManagerHelper.GetSceneName(SceneManagerHelper.Scene.Overworld);
+
+        if (activeSceneName == overworldSceneName || SceneManager.GetSceneByName(overworldSceneName).isLoaded)
+        {
+            LoadPlayerPosition();
+        }
+    }
+
+    private void LoadPlayerPosition()
+    {
+        transform.position = new Vector3(
+            SaveManager.instance.GetLoadedPlayerPositionData()[0],
+            SaveManager.instance.GetLoadedPlayerPositionData()[1],
+            SaveManager.instance.GetLoadedPlayerPositionData()[2]);
     }
 
     private void MyInput()
@@ -181,12 +183,14 @@ public class FoxMovement : MonoBehaviour
             abilityCycle.equippedAbility.isActivated = !abilityCycle.equippedAbility.isActivated;
             canChargedJump = !canChargedJump;
         }
+
         if (Input.GetKeyDown(KeyCode.F) && abilityCycle.equippedAbility.officialIndex == 6)
         {
             abilityCycle.equippedAbility.isActivated = !abilityCycle.equippedAbility.isActivated;
             canTeleGrab = !canTeleGrab;
             ActivateTelegrabCamera();
         }
+
         //Jump check
         if (Input.GetButtonDown("Jump") && readytoJump && GroundCheck() && !canChargedJump)
         {
@@ -205,20 +209,27 @@ public class FoxMovement : MonoBehaviour
         else if (GroundCheck() && Input.GetButton("Jump") && canChargedJump && !isChargeJumping)
         {
             isChargeJumping = true;
-
         }
 
         //Sprint check
         if (Input.GetKey(KeyCode.LeftShift))
+        {
             sprinting = true;
+        }
         else
+        {
             sprinting = false;
+        }
 
         //SnowDive check
         if (Input.GetKey(KeyCode.LeftControl) && PlayerManager.instance.hasAbilityValues[3] && SnowCheck())
+        {
             snowDive = true;
+        }
         else
+        {
             snowDive = false;
+        }
 
         if (chargeJumpTimer != 14 && Input.GetButtonUp("Jump"))
         {
@@ -230,10 +241,12 @@ public class FoxMovement : MonoBehaviour
             playerAnimator.SetBool("isJumping", false);
             Invoke(nameof(ResetJump), 0);
         }
+
         if (PlayerManager.instance.hasAbilityValues[3])
         {
             ClimbWall();
         }
+
         if (TelegrabEnabled || grabbing)
         {
             Telegrab();
@@ -250,6 +263,7 @@ public class FoxMovement : MonoBehaviour
         {
             SwimmingAudio.Stop();
         }
+
         //in air
         if (!GroundCheck() && !WaterCheck())
         {
@@ -264,20 +278,13 @@ public class FoxMovement : MonoBehaviour
                 //in air animation here
                 playerAnimator.SetBool("isGrounded", false);
             }
-
-
-
         }
 
         else if (moveDirection == Vector3.zero && GroundCheck())
         {
             //idle animation here
 
-            playerAnimator.SetFloat("horMove", horizontalInput);
-            playerAnimator.SetFloat("vertMove", verticalInput);
-            playerAnimator.SetBool("isJumping", false);
-            playerAnimator.SetBool("isGliding", false);
-            playerAnimator.SetBool("isGrounded", true);
+            SetDefaultAnimatorValues();
         }
 
         //snow diving
@@ -294,12 +301,7 @@ public class FoxMovement : MonoBehaviour
             rb.AddForce(moveDirection.normalized * SprintSpeed * 10f, ForceMode.Force);
             //running animation here
 
-            playerAnimator.SetFloat("horMove", horizontalInput);
-            playerAnimator.SetFloat("vertMove", verticalInput);
-            playerAnimator.SetBool("isJumping", false);
-            playerAnimator.SetBool("isGliding", false);
-            playerAnimator.SetBool("isGrounded", true);
-            Debug.Log(horizontalInput);
+            SetDefaultAnimatorValues();
         }
 
 
@@ -309,11 +311,8 @@ public class FoxMovement : MonoBehaviour
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
             //walking animation here
             playerAnimator.speed = 1f;
-            playerAnimator.SetBool("isJumping", false);
-            playerAnimator.SetBool("isGliding", false);
-            playerAnimator.SetFloat("horMove", horizontalInput);
-            playerAnimator.SetFloat("vertMove", verticalInput);
-            playerAnimator.SetBool("isGrounded", true);
+
+            SetDefaultAnimatorValues();
         }
 
         //gliding
@@ -321,10 +320,12 @@ public class FoxMovement : MonoBehaviour
         {
             Glider();
         }
+
         else if (!GroundCheck() && !glider && !WaterCheck())
         {
             DisableGlider();
         }
+
         //swimming
         else if (WaterCheck())
         {
@@ -356,17 +357,155 @@ public class FoxMovement : MonoBehaviour
             cameraMovement.telegrabCam.SetActive(false);
             StartCoroutine(CrosshairDisable());
         }
+
         IEnumerator CrosshairEnable()
         {
             yield return new WaitForSeconds(0.2f);
             TelegrabUI.SetActive(true);
         }
+
         IEnumerator CrosshairDisable()
         {
             yield return new WaitForSeconds(0.2f);
             TelegrabUI.SetActive(false);
         }
     }
+
+    private void SetDefaultAnimatorValues()
+    {
+        playerAnimator.SetFloat("horMove", horizontalInput);
+        playerAnimator.SetFloat("vertMove", verticalInput);
+        playerAnimator.SetBool("isJumping", false);
+        playerAnimator.SetBool("isGliding", false);
+        playerAnimator.SetBool("isGrounded", true);
+    }
+
+    private void Jump()
+    {
+        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        //jumping animation here
+
+        playerAnimator.SetBool("isChargingJump", false);
+        playerAnimator.SetBool("isJumping", true);
+    }
+
+    private void ResetJump()
+    {
+        readytoJump = true;
+        chargeJumpTimer = 14;
+        isChargeJumping = false;
+    }
+
+    private void SpeedControl()
+    {
+        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+        if (flatVel.magnitude > moveSpeed)
+        {
+            Vector3 limitedVel = flatVel.normalized * moveSpeed;
+            rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
+        }
+    }
+
+    #region CHECKS
+    bool GroundCheck()
+    {
+        if (Physics.CheckSphere(foxMiddle.position, boxSize.y, GroundLayerMask, QueryTriggerInteraction.Ignore))
+        {
+            RaycastHit hitInfo;
+            if (Physics.Raycast(foxMiddle.position, -foxMiddle.up, out hitInfo, 1.5f, GroundLayerMask))
+            {
+
+                Debug.DrawLine(foxMiddle.position, hitInfo.point);
+                return true;
+
+            }
+            else if (Physics.Raycast(foxBottom.position, -foxBottom.up, out hitInfo, 1.5f, GroundLayerMask))
+            {
+
+                Debug.DrawLine(foxBottom.position, hitInfo.point);
+                return true;
+
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    bool WaterCheck()
+    {
+        if (Physics.CheckSphere(foxMiddle.position, boxSize.y, WaterLayerMask, QueryTriggerInteraction.Ignore))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    bool SnowCheck()
+    {
+        if (Physics.CheckSphere(foxMiddle.position, boxSize.y, SnowLayerMask, QueryTriggerInteraction.Ignore))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public bool OnSlopeCheck()
+    {
+        if (Physics.Raycast(foxMiddle.position, Vector3.down, out hit3, playerHeight * 0.5f + 0.2f))
+        {
+            if (hit3.normal != Vector3.up)
+            {
+                Debug.DrawLine(foxMiddle.position, hit3.point, Color.red);
+
+                return true;
+            }
+        }
+        return false;
+    }
+    #endregion
+
+    //TODO: Move to its own ability script ChargeJumping.cs
+    #region CHARGEJUMPING
+    private void ChargeJump()
+    {
+        rb.velocity = new Vector3(0f, 0f, 0f);
+
+        if (chargeJumpTimer < ChargeJumpHeight)
+        {
+            //audio play
+            if (!ChargeJumpAudio.isPlaying)
+            {
+                ChargeJumpAudio.Play();
+            }
+
+            chargeJumpTimer = chargeJumpTimer + 0.3f;
+
+            //charging animation here
+            playerAnimator.SetBool("isChargingJump", true);
+            playerAnimator.SetFloat("horMove", horizontalInput);
+            playerAnimator.SetFloat("vertMove", verticalInput);
+
+        }
+    }
+    #endregion
+
+    //TODO: Move to its own ability script Gliding.cs
+    #region GLIDING
     private void Glider()
     {
         if (rb.useGravity)
@@ -388,14 +527,29 @@ public class FoxMovement : MonoBehaviour
             glidingMultiplier += 0.005f;
         }
         rb.velocity = new Vector3(rb.velocity.x, -1.5f, rb.velocity.z);
+        
         //gliding animation here
-
-        playerAnimator.SetBool("isGrounded", false);
+         playerAnimator.SetBool("isGrounded", false);
         playerAnimator.SetBool("isGliding", true);
     }
+
+    //TODO: Intergrate in Gliding.cs
+    private void DisableGlider()
+    {
+        if (!rb.useGravity)
+        {
+            rb.useGravity = true;
+        }
+        playerAnimator.SetBool("isGliding", false);
+    }
+    #endregion
+
+    //TODO: Move to its own ability script TeleGrabbing.cs
+    #region TELEGRABBING
     private void Telegrab()
     {
         RaycastHit hitInfo;
+
         //Drop grabbed item
         if (grabbing && Input.GetMouseButtonDown(0))
         {
@@ -454,48 +608,10 @@ public class FoxMovement : MonoBehaviour
             }
         }
     }
-    private void DisableGlider()
-    {
-        if (!rb.useGravity)
-        {
-            rb.useGravity = true;
-        }
-        playerAnimator.SetBool("isGliding", false);
-    }
+    #endregion
 
-    private void Jump()
-    {
-        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-
-        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
-        //jumping animation here
-
-        playerAnimator.SetBool("isChargingJump", false);
-        playerAnimator.SetBool("isJumping", true);
-
-    }
-
-    private void ChargeJump()
-    {
-        rb.velocity = new Vector3(0f, 0f, 0f);
-
-        if (chargeJumpTimer < ChargeJumpHeight)
-        {
-            //audio play
-            if (!ChargeJumpAudio.isPlaying)
-            {
-                ChargeJumpAudio.Play();
-            }
-
-            chargeJumpTimer = chargeJumpTimer + 0.3f;
-
-            //charging animation here'
-            playerAnimator.SetBool("isChargingJump", true);
-            playerAnimator.SetFloat("horMove", horizontalInput);
-            playerAnimator.SetFloat("vertMove", verticalInput);
-
-        }
-    }
+    //TODO: Move to its own ability script WallClimbing.cs
+    #region WALLCLIMBING
     private void ClimbWall()
     {
         if (ClimbWallCheck())
@@ -516,22 +632,23 @@ public class FoxMovement : MonoBehaviour
             }
         }
     }
-    private void ResetJump()
-    {
-        readytoJump = true;
-        chargeJumpTimer = 14;
-        isChargeJumping = false;
-    }
-    private void SpeedControl()
-    {
-        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
-        if (flatVel.magnitude > moveSpeed)
+    //NOTE: Intergrate in WallClimbing.cs?
+    bool ClimbWallCheck()
+    {
+        if (Physics.CheckSphere(foxMiddle.position, boxSize.z, ClimbWallLayerMask, QueryTriggerInteraction.Ignore))
         {
-            Vector3 limitedVel = flatVel.normalized * moveSpeed;
-            rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
+    #endregion
+
+    //TODO: Move to its own ability script Swimming.cs
+    #region SWIMMING
     private void Swim()
     {
         if (!rb.useGravity)
@@ -549,109 +666,30 @@ public class FoxMovement : MonoBehaviour
             SwimmingAudio.Play();
         }
     }
-    bool GroundCheck()
-    {
-        if (Physics.CheckSphere(foxMiddle.position, boxSize.y, GroundLayerMask, QueryTriggerInteraction.Ignore))
-        {
-            RaycastHit hitInfo;
-            if (Physics.Raycast(foxMiddle.position, -foxMiddle.up, out hitInfo, 1.5f, GroundLayerMask))
-            {
-
-                Debug.DrawLine(foxMiddle.position, hitInfo.point);
-                return true;
-
-            }
-            else if (Physics.Raycast(foxBottom.position, -foxBottom.up, out hitInfo, 1.5f, GroundLayerMask))
-            {
-
-                Debug.DrawLine(foxBottom.position, hitInfo.point);
-                return true;
-
-            }
-            else
-            {
-                return false;
-            }
-        }
-        else
-        {
-            return false;
-        }
-    }
-    bool WaterCheck()
-    {
-        if (Physics.CheckSphere(foxMiddle.position, boxSize.y, WaterLayerMask, QueryTriggerInteraction.Ignore))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-    bool ClimbWallCheck()
-    {
-        if (Physics.CheckSphere(foxMiddle.position, boxSize.z, ClimbWallLayerMask, QueryTriggerInteraction.Ignore))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-    bool SnowCheck()
-    {
-        if (Physics.CheckSphere(foxMiddle.position, boxSize.y, SnowLayerMask, QueryTriggerInteraction.Ignore))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-    public bool OnSlope()
-    {
-        if (Physics.Raycast(foxMiddle.position, Vector3.down, out hit3, playerHeight * 0.5f + 0.2f))
-        {
-            if (hit3.normal != Vector3.up)
-            {
-                Debug.DrawLine(foxMiddle.position, hit3.point, Color.red);
-
-                return true;
-            }
-        }
-        return false;
-    }
+    #endregion
 
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(foxMiddle.position, boxSize.y);
     }
+
     public List<float> CollectPlayerPositionForSaving()
     {
-        
         Debug.Log("Playerpos saved");
-        if (SceneManager.GetActiveScene()==SceneManager.GetSceneByBuildIndex(3))
+
+        string activeSceneName = SceneManager.GetActiveScene().name;
+        string overworldSceneName = SceneManagerHelper.GetSceneName(SceneManagerHelper.Scene.Overworld);
+
+        if (activeSceneName == overworldSceneName)
         {
-            return new List<float> { transform.position.x, transform.position.y, transform.position.z };
+            return new List<float> { transform.position.x, transform.position.y, transform.position.z };   
         }
         else
         {
-            return new List<float> { 1627f, 118f, 360f };
+            return null;
+            //debug.log("default position is being saved");
+            //return new list<float> { 1627f, 118f, 360f };
         }
-    }
-    private void LoadPlayerPosition()
-    {
-        transform.position = new Vector3(
-            SaveManager.instance.FetchLoadedPlayerPositionData()[0], 
-            SaveManager.instance.FetchLoadedPlayerPositionData()[1], 
-            SaveManager.instance.FetchLoadedPlayerPositionData()[2]);
-    }
-    private void OnLevelWasLoaded(int level)
-    {
-        instance = this;
     }
 }
