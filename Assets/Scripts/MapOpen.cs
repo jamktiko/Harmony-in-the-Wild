@@ -11,6 +11,15 @@ public class MapOpen : MonoBehaviour
         {
             mapCam.SetActive(!mapCam.activeInHierarchy);
             map.SetActive(!map.activeInHierarchy);
+
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
+            if (!mapCam.activeInHierarchy)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
         }
     }
 }
