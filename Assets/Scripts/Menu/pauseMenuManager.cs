@@ -17,6 +17,8 @@ public class PauseMenuManager : MonoBehaviour
     [SerializeField] Slider volume, sensitivity;
     private float SliderValue, SliderValue2;
 
+    private bool isInvertErrorLogged = false; // Makes sure the warning that runs in the null check of the InvertYAxis runs once
+
 
     void Start()
     {
@@ -93,7 +95,18 @@ public class PauseMenuManager : MonoBehaviour
                 Cursor.visible = true;
             }
         }
-        InvertYAxis.onValueChanged.AddListener(delegate { ChangeYInversion(); });
+        if (InvertYAxis != null)
+        {
+            InvertYAxis.onValueChanged.AddListener(delegate { ChangeYInversion(); });
+        }
+        else
+        {
+            if (!isInvertErrorLogged)
+            {
+                Debug.LogError("InvertYAxis is not assigned. Make sure it is assigned in the Inspector. (SettingsMenuPanel is probably not set)");
+                isInvertErrorLogged = true;  // Set the flag to true after logging the warning
+            }
+        }
     }
     public void ChangeYInversion()
     {

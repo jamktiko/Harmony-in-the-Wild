@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(BoxCollider))]
 public class DungeonEntrance : MonoBehaviour
 {
+
+
     [Header("Quest")]
     [SerializeField] private QuestScriptableObject dungeonQuest;
 
@@ -45,6 +47,10 @@ public class DungeonEntrance : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // TODO: Fire event to save last known coordinates in overworld.
+        // Either as Vector3 and persist in PlayerManager?
+        // Or save to savefile as list of floats?
+
         if (other.gameObject.CompareTag("Trigger"))
         {
             if(currentQuestState == QuestState.CAN_START)
@@ -57,6 +63,7 @@ public class DungeonEntrance : MonoBehaviour
                 // add storybook config here & change goToScene to Storybook scene
                 StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, goToScene, false);
                 StartCoroutine(loadSceneWithLoadingScreenWithText(2));
+                Debug.Log("This is where we save the data");
             }
 
             else if (currentQuestState == QuestState.IN_PROGRESS)
@@ -83,7 +90,7 @@ public class DungeonEntrance : MonoBehaviour
         if (quest.info.id.Equals(questId))
         {
             currentQuestState = quest.state;
-            Debug.Log("Quest with id: " + questId + " updated to state: " + currentQuestState);
+            //Debug.Log("Quest with id: " + questId + " updated to state: " + currentQuestState);
         }
     }
 

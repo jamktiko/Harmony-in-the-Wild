@@ -11,6 +11,8 @@ public class PlayerManager : MonoBehaviour
     [Header("Abilities")]
     public List<bool> hasAbilityValues; //NOTE: Make private and allow access through methods?
 
+    //private Vector3 defaultPlayerPosition = new Vector3(1627f, 118f, 360f);
+
     private void Awake()
     {
         if (instance != null)
@@ -47,6 +49,11 @@ public class PlayerManager : MonoBehaviour
 
     private void LoadAbilities()
     {
-        hasAbilityValues = SaveManager.instance.FetchLoadedAbilityData();
+        hasAbilityValues = SaveManager.instance.GetLoadedAbilityData();
     }
+
+    //public Vector3 GetDefaultPlayerPosition()
+    //{
+    //    return defaultPlayerPosition;
+    //}
 }
