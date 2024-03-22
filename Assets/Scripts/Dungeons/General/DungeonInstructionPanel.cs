@@ -1,11 +1,21 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class DungeonInstructionPanel : MonoBehaviour
 {
-    void Update()
+    public PlayerInput PlayerInput;
+
+    private void Start()
     {
-        if (Input.GetKeyDown(KeyCode.X))
+        PlayerInput = FindObjectOfType<PlayerInput>();
+    }
+    public void CloseInfo(InputAction.CallbackContext context) 
+    {
+        if (context.performed&&gameObject.activeSelf|| context.performed&&!DialogueManager.instance.isDialoguePlaying)
         {
+            PlayerInput.SwitchCurrentActionMap("Player");
+            Debug.Log("yo bro");
+            Time.timeScale = 1;
             gameObject.SetActive(false);
         }
     }

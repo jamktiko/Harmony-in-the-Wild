@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using Ink.Runtime;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -22,29 +23,33 @@ public class DialogueManager : MonoBehaviour
     [Header("Choices")]
     [SerializeField] private bool isChoiceAvailable;
     [SerializeField] private int currentChoiceIndex;
-    [SerializeField] private GameObject[] choiceButtons;   
+    [SerializeField] private GameObject[] choiceButtons;
 
     [Header("Public Values for References")]
     public bool isDialoguePlaying;
 
     // private variables, no need to show in the inspector
 
-    private Story currentStory;
+    public Story currentStory;
     private TextMeshProUGUI[] choicesText;
     private GameObject questUI; //Note: from David, declared but never used. Mark for cleanup
     private bool canStartDialogue = true;
+
+    PlayerInput PlayerInput;
 
     private void Awake()
     {
         // creating the instance for Dialogue Manager
 
-        if(instance != null)
+        if (instance != null)
         {
             Debug.LogWarning("There is more than one Dialogue Manager in the scene!");
             Destroy(gameObject);
         }
 
         instance = this;
+
+        PlayerInput = FindObjectOfType<PlayerInput>();
     }
 
     private void Start()
@@ -55,7 +60,7 @@ public class DialogueManager : MonoBehaviour
         // initializing choice button texts
         choicesText = new TextMeshProUGUI[choiceButtons.Length];
 
-        for(int i = 0; i < choiceButtons.Length; i++)
+        for (int i = 0; i < choiceButtons.Length; i++)
         {
             choicesText[i] = choiceButtons[i].GetComponentInChildren<TextMeshProUGUI>();
             choiceButtons[i].SetActive(false);
@@ -64,60 +69,67 @@ public class DialogueManager : MonoBehaviour
 
     private void Update()
     {
-        if (isDialoguePlaying)
+        //if (isDialoguePlaying)
+        //{
+        //if (currentStory.canContinue)
+        //{
+        //    ContinueDialogue();
+        //}
+
+            //else if (Input.GetKeyDown(KeyCode.Space) && !currentStory.canContinue)
+            //{
+            //    EndDialogue();
+            //}
+
+         if (Input.GetKeyDown(KeyCode.Return) && isChoiceAvailable)
         {
-            if (Input.GetKeyDown(KeyCode.Space)&& currentStory.canContinue)
-            {
-                ContinueDialogue();
-            }
+            MakeChoice(currentChoiceIndex);
+        }
 
-            else if (Input.GetKeyDown(KeyCode.Space) && !currentStory.canContinue)
+        else if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            // if there is a choice available upper on the list, mark it as selected
+            if (currentChoiceIndex > 0)
             {
-                EndDialogue();
-            }
-
-            else if (Input.GetKeyDown(KeyCode.Return) && isChoiceAvailable)
-            {
-                MakeChoice(currentChoiceIndex);
-            }
-
-            else if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                // if there is a choice available upper on the list, mark it as selected
-                if(currentChoiceIndex > 0)
-                {
-                    ChangeCurrentChoice(currentChoiceIndex - 1);
-                }
-            }
-
-            else if (Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                // if there is a choice available down on the list, mark it as selected
-                if (currentChoiceIndex < currentStory.currentChoices.Count - 1)
-                {
-                    ChangeCurrentChoice(currentChoiceIndex + 1);
-                }
+                ChangeCurrentChoice(currentChoiceIndex - 1);
             }
         }
-    }
 
+        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            // if there is a choice available down on the list, mark it as selected
+            if (currentChoiceIndex < currentStory.currentChoices.Count - 1)
+            {
+                ChangeCurrentChoice(currentChoiceIndex + 1);
+            }
+        } }
     public void StartDialogue(TextAsset inkJSON)
     {
         if (canStartDialogue)
         {
+            PlayerInput.SwitchCurrentActionMap("PlayerUI");
             currentStory = new Story(inkJSON.text);
             isDialoguePlaying = true;
             dialogueCanvas.SetActive(true);
 
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-
             ContinueDialogue();
         }
     }
-
+    public void ContinueDialogueInput(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            ContinueDialogue();
+        }
+    }
     public void ContinueDialogue()
     {
+        if (!isDialoguePlaying) 
+        {
+            return;
+        }
         if (currentStory.canContinue)
         {
             dialogueText.text = currentStory.Continue();
@@ -130,6 +142,10 @@ public class DialogueManager : MonoBehaviour
             {
                 exitButton.SetActive(true);
             }
+        }
+        else
+        {
+            EndDialogue();
         }
     }
 
@@ -244,6 +260,10 @@ public class DialogueManager : MonoBehaviour
 
     public void CloseDialogueView()
     {
+        if (!isDialoguePlaying)
+        {
+            return;
+        }
         if (!currentStory.canContinue)
         {
             exitButton.SetActive(false);
@@ -253,16 +273,20 @@ public class DialogueManager : MonoBehaviour
 
     private void EndDialogue()
     {
-        isDialoguePlaying = false;
-        dialogueText.text = "";
+        if (!currentStory.canContinue)
+        {
+            isDialoguePlaying = false;
+            dialogueText.text = "";
 
-        exitButton.SetActive(false);
-        dialogueCanvas.SetActive(false);
+            exitButton.SetActive(false);
+            dialogueCanvas.SetActive(false);
 
-        StartCoroutine(DelayBetweenDialogues());
+            StartCoroutine(DelayBetweenDialogues());
 
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            PlayerInput.SwitchCurrentActionMap("Player");
+        }
     }
 
     // delay between dialogues to prevent a bug from moving from one dialogue to another with the same character without player pressing any keys

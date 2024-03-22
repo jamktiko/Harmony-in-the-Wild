@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Interactions;
 
 public class FoxMovement : MonoBehaviour
 {
@@ -19,19 +20,31 @@ public class FoxMovement : MonoBehaviour
     bool sprinting;
     public CameraMovement cameraMovement;
 
+    //inputs
     PlayerInput playerInput;
+    InputActionMap playerInputActionMap;
+    InputActionMap playerUIINputActionMap;
+    PlayerInputHandler playerInputHandler;
 
     InputAction MoveInput,
         SprintInput,
         LookInput,
+        SnowDiveInput,
+        GlideInput,
+        InteractInput,
+        UseAbilityInput,
+        AbilityToggleInput,
+        ChargeJumpInput,
+        TelegrabGrabInput,
+        ChangeCameraInput,
         JumpInput;
 
     float horizontalInput;
     float verticalInput;
 
-    Vector3 moveDirection;
+    public Vector3 moveDirection;
 
-    Rigidbody rb;
+    public Rigidbody rb;
 
     [Header("Speed Limit")]
     public float groundDrag = 5f;
@@ -40,7 +53,7 @@ public class FoxMovement : MonoBehaviour
     [SerializeField] float jumpForce = 15f;
     [SerializeField] float jumpCooldown = 1f;
     [SerializeField] float airMultiplier = 0.7f;
-    [SerializeField] float glidingMultiplier = 0.4f;
+    [SerializeField] public float glidingMultiplier = 0.4f;
     bool readytoJump = true;
 
     [Header("Checks")]
@@ -59,7 +72,7 @@ public class FoxMovement : MonoBehaviour
     [SerializeField] float viewDistance;
 
     [Header("Abilities")]
-    [SerializeField] bool glider;
+    [SerializeField] public bool glider;
     [SerializeField] bool glidingNow;
     [SerializeField] bool canChargedJump;
     [SerializeField] private float chargeJumpTimer;
@@ -75,7 +88,7 @@ public class FoxMovement : MonoBehaviour
     [SerializeField] private Material grabbedMat;
     [SerializeField] private bool TelegrabEnabled;
     [SerializeField] private GameObject TelegrabUI;
-    
+
     List<TelegrabObject> telegrabObjects = new List<TelegrabObject>();
     [SerializeField] AbilityCycle abilityCycle;
 
@@ -85,13 +98,13 @@ public class FoxMovement : MonoBehaviour
     public List<AnimatorControllerParameter> animatorBools = new List<AnimatorControllerParameter>();
 
     [Header("Audio")]
-    [SerializeField] AudioSource ChargeJumpAudio;
-    [SerializeField] AudioSource ChargeJumpLandingAudio;
-    [SerializeField] AudioSource GlidingAudio;
-    [SerializeField] AudioSource FreezingAudio;
-    [SerializeField] AudioSource SnowDivingAudio;
-    [SerializeField] AudioSource SwimmingAudio;
-    [SerializeField] AudioSource TelegrabAudio;
+    [SerializeField] public AudioSource ChargeJumpAudio;
+    [SerializeField] public AudioSource ChargeJumpLandingAudio;
+    [SerializeField] public AudioSource GlidingAudio;
+    [SerializeField] public AudioSource FreezingAudio;
+    [SerializeField] public AudioSource SnowDivingAudio;
+    [SerializeField] public AudioSource SwimmingAudio;
+    [SerializeField] public AudioSource TelegrabAudio;
 
     public static FoxMovement instance;
 
@@ -100,10 +113,12 @@ public class FoxMovement : MonoBehaviour
     [SerializeField] private float playerHeight;
     [SerializeField] bool isLoaded;
 
+    [SerializeField] bool isjumping;
+
     private void Awake()
     {
         instance = this;
-        if (SceneManager.GetActiveScene()==SceneManager.GetSceneByBuildIndex(3)||SceneManager.GetSceneByBuildIndex(3).isLoaded) 
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(3) || SceneManager.GetSceneByBuildIndex(3).isLoaded)
         {
             LoadPlayerPosition();
             Debug.Log("playerpos loaded");
@@ -126,8 +141,8 @@ public class FoxMovement : MonoBehaviour
             SaveManager.instance.FetchLoadedPlayerPositionData()[1],
             SaveManager.instance.FetchLoadedPlayerPositionData()[2]));
         }
-        
-        
+
+
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         abilityCycle = GetComponent<AbilityCycle>();
@@ -146,7 +161,8 @@ public class FoxMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(3)&&!isLoaded)
+        Debug.Log(playerInput.currentActionMap);
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(3) && !isLoaded)
         {
             LoadPlayerPosition();
             Debug.Log("playerpos loaded");
@@ -157,16 +173,17 @@ public class FoxMovement : MonoBehaviour
 
             isLoaded = true;
         };
-        if (!DialogueManager.instance.isDialoguePlaying)
-        {
             MyInput();
-        }
         SpeedControl();
         if (GroundCheck())
         {
             rb.mass = 1f;
             rb.drag = groundDrag;
-            glider = false;
+            if (glider)
+            {
+                rb.useGravity = true;
+                glider = false;
+            }
         }
         else
             rb.drag = 0;
@@ -174,61 +191,41 @@ public class FoxMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (!DialogueManager.instance.isDialoguePlaying)
-        {
             MovePlayer();
-        }
     }
 
-    private void MyInput()
+    public void MyInput()
     {
         //Movement direction check
-        horizontalInput = Input.GetAxisRaw("Horizontal");
-        verticalInput = Input.GetAxisRaw("Vertical");
-
-        //enable abilities
-        if (Input.GetKeyDown(KeyCode.F) && abilityCycle.equippedAbility.officialIndex == 2)
-        {
-            abilityCycle.equippedAbility.isActivated = !abilityCycle.equippedAbility.isActivated;
-            canChargedJump = !canChargedJump;
-        }
-        if (Input.GetKeyDown(KeyCode.F) && abilityCycle.equippedAbility.officialIndex == 6)
-        {
-            abilityCycle.equippedAbility.isActivated = !abilityCycle.equippedAbility.isActivated;
-            canTeleGrab = !canTeleGrab;
-            ActivateTelegrabCamera();
-        }
-        //Jump check
-        if (JumpInput.ReadValue<bool>() && readytoJump && GroundCheck() && !canChargedJump)
-        {
-            readytoJump = false;
-            Jump();
-            Invoke(nameof(ResetJump), jumpCooldown);
-        }
-        else if (Input.GetButtonDown("Jump") && !GroundCheck() && PlayerManager.instance.hasAbilityValues[0] && !glider)
-        {
-            glider = true;
-        }
-        else if (Input.GetButtonDown("Jump") && !GroundCheck() && glider)
-        {
-            glider = false;
-        }
-        else if (GroundCheck() && Input.GetButton("Jump") && canChargedJump && !isChargeJumping)
-        {
-            isChargeJumping = true;
-
-        }
+        horizontalInput = MoveInput.ReadValue<Vector2>().x;
+        verticalInput = MoveInput.ReadValue<Vector2>().y;
 
         //Sprint check
-        sprinting = SprintInput.ReadValue<bool>();
+        sprinting = SprintInput.IsPressed();
 
         //SnowDive check
-        if (Input.GetKey(KeyCode.LeftControl) && PlayerManager.instance.hasAbilityValues[3] && SnowCheck())
-            snowDive = true;
-        else
-            snowDive = false;
+        if (PlayerManager.instance.hasAbilityValues[3] && SnowCheck())
+            snowDive = SnowDiveInput.IsPressed();
+    }
+    public void ChargeJump(InputAction.CallbackContext context)
+    {
+        //switch (context.phase)
+        //{
+        //    case InputActionPhase.Started:
+        //        Debug.Log(context.interaction + "Started");
+        //        break;
+        //    case InputActionPhase.Performed:
+        //        break;
+        //    case InputActionPhase.Canceled:
+        //        Debug.Log(context.interaction + "Canceled");
+        //        break;
+        //}
+        if (context.started&&canChargedJump)
+        {
+            isChargeJumping = true;
+        }
 
-        if (chargeJumpTimer != 14 && Input.GetButtonUp("Jump"))
+        else if (chargeJumpTimer != 14 && context.canceled&&readytoJump&&GroundCheck())
         {
             ChargeJumpAudio.Stop();
             rb.AddForce(transform.up * chargeJumpTimer, ForceMode.Impulse);
@@ -238,133 +235,121 @@ public class FoxMovement : MonoBehaviour
             playerAnimator.SetBool("isJumping", false);
             Invoke(nameof(ResetJump), 0);
         }
-        if (PlayerManager.instance.hasAbilityValues[3])
-        {
-            ClimbWall();
-        }
-        if (TelegrabEnabled || grabbing)
-        {
-            Telegrab();
-        }
     }
-
-    private void MovePlayer()
-    {
-        //calculate movement direction
-        //moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
-        moveDirection = orientation.forward* MoveInput.ReadValue<Vector2>().y+orientation.right* MoveInput.ReadValue<Vector2>().x;
-
-        //stop swimming audio
-        if (GroundCheck() && SwimmingAudio.isPlaying)
+    public void ActivateAbility(InputAction.CallbackContext context)
         {
-            SwimmingAudio.Stop();
-        }
-        //in air
-        if (!GroundCheck() && !WaterCheck())
-        {
-            if (glider)
+            if (context.started)
             {
-                Glider();
-            }
-            else if (!glider)
-            {
-                DisableGlider();
-                rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
-                //in air animation here
-                playerAnimator.SetBool("isGrounded", false);
+                abilityCycle.equippedAbility.isActivated = !abilityCycle.equippedAbility.isActivated;
+                if (abilityCycle.equippedAbility.officialIndex == 2)
+                {
+                    canChargedJump = abilityCycle.equippedAbility.isActivated;
+                }
+            
             }
 
-
-
         }
 
-        else if (moveDirection == Vector3.zero && GroundCheck())
+        public void MovePlayer()
         {
-            //idle animation here
+            //calculate movement direction
+            //moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+            moveDirection = orientation.forward * MoveInput.ReadValue<Vector2>().y + orientation.right * MoveInput.ReadValue<Vector2>().x;
 
-            playerAnimator.SetFloat("horMove", horizontalInput);
-            playerAnimator.SetFloat("vertMove", verticalInput);
-            playerAnimator.SetBool("isJumping", false);
-            playerAnimator.SetBool("isGliding", false);
-            playerAnimator.SetBool("isGrounded", true);
+            //stop swimming audio
+            if (GroundCheck() && SwimmingAudio.isPlaying)
+            {
+                SwimmingAudio.Stop();
+            }
+            //in air
+            if (!GroundCheck() && !WaterCheck())
+            {
+                if (glider)
+                {
+
+                    rb.velocity = new Vector3(rb.velocity.x, -1.5f, rb.velocity.z);
+                    rb.AddForce(moveDirection.normalized * moveSpeed * 10f * glidingMultiplier, ForceMode.Force);
+                    if (glidingMultiplier < 0.5)
+                    {
+                        glidingMultiplier += 0.005f;
+                    }
+
+                }
+
+
+
+            }
+
+            else if (moveDirection == Vector3.zero && GroundCheck())
+            {
+                //idle animation here
+
+                playerAnimator.SetFloat("horMove", horizontalInput);
+                playerAnimator.SetFloat("vertMove", verticalInput);
+                playerAnimator.SetBool("isJumping", false);
+                playerAnimator.SetBool("isGliding", false);
+                playerAnimator.SetBool("isGrounded", true);
+            }
+
+            //snow diving
+            else if (snowDive && GroundCheck())
+            {
+                playerAnimator.SetBool("isGliding", false);
+                rb.AddForce(moveDirection.normalized * snowDiveSpeed * 10f, ForceMode.Force);
+                //snow diving animation here
+            }
+
+            //sprinting
+            else if (sprinting && GroundCheck())
+            {
+                rb.AddForce(moveDirection.normalized * SprintSpeed * 10f, ForceMode.Force);
+                //running animation here
+
+                playerAnimator.SetFloat("horMove", horizontalInput);
+                playerAnimator.SetFloat("vertMove", verticalInput);
+                playerAnimator.SetBool("isJumping", false);
+                playerAnimator.SetBool("isGliding", false);
+                playerAnimator.SetBool("isGrounded", true);
+                Debug.Log(horizontalInput);
+            }
+
+
+            //on ground
+            else if (GroundCheck())
+            {
+
+                rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+                //walking animation here
+                playerAnimator.speed = 1f;
+                playerAnimator.SetBool("isJumping", false);
+                playerAnimator.SetBool("isGliding", false);
+                playerAnimator.SetFloat("horMove", horizontalInput);
+                playerAnimator.SetFloat("vertMove", verticalInput);
+                playerAnimator.SetBool("isGrounded", true);
+            }
+
+            //gliding
+
+            //swimming
+            else if (WaterCheck())
+            {
+                if (glider)
+                {
+                    glider = false;
+                    rb.useGravity = true;
+                }
+                Swim();
+            }
+
+            if (isChargeJumping)
+            {
+                ChargeJump();
+            }
+
+
         }
-
-        //snow diving
-        else if (snowDive && GroundCheck())
+        public void SwitchCameraMode(InputAction.CallbackContext context)
         {
-            playerAnimator.SetBool("isGliding", false);
-            rb.AddForce(moveDirection.normalized * snowDiveSpeed * 10f, ForceMode.Force);
-            //snow diving animation here
-        }
-
-        //sprinting
-        else if (sprinting && GroundCheck())
-        {
-            rb.AddForce(moveDirection.normalized * SprintSpeed * 10f, ForceMode.Force);
-            //running animation here
-
-            playerAnimator.SetFloat("horMove", horizontalInput);
-            playerAnimator.SetFloat("vertMove", verticalInput);
-            playerAnimator.SetBool("isJumping", false);
-            playerAnimator.SetBool("isGliding", false);
-            playerAnimator.SetBool("isGrounded", true);
-            Debug.Log(horizontalInput);
-        }
-
-
-        //on ground
-        else if (GroundCheck())
-        {
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
-            //walking animation here
-            playerAnimator.speed = 1f;
-            playerAnimator.SetBool("isJumping", false);
-            playerAnimator.SetBool("isGliding", false);
-            playerAnimator.SetFloat("horMove", horizontalInput);
-            playerAnimator.SetFloat("vertMove", verticalInput);
-            playerAnimator.SetBool("isGrounded", true);
-        }
-
-        //gliding
-        else if (!GroundCheck() && glider)
-        {
-            Glider();
-        }
-        else if (!GroundCheck() && !glider && !WaterCheck())
-        {
-            DisableGlider();
-        }
-        //swimming
-        else if (WaterCheck())
-        {
-            Swim();
-        }
-
-        if (isChargeJumping)
-        {
-            ChargeJump();
-        }
-
-
-    }
-    private void ActivateTelegrabCamera()
-    {
-        if (!TelegrabEnabled)
-        {
-            TelegrabEnabled = true;
-            cameraMovement.currentStyle = CameraMovement.CameraStyle.Telegrab;
-            cameraMovement.freeLookCam.SetActive(false);
-            cameraMovement.telegrabCam.SetActive(true);
-            StartCoroutine(CrosshairEnable());
-        }
-        else
-        {
-            TelegrabEnabled = false;
-            cameraMovement.currentStyle = CameraMovement.CameraStyle.Basic;
-            cameraMovement.freeLookCam.SetActive(true);
-            cameraMovement.telegrabCam.SetActive(false);
-            StartCoroutine(CrosshairDisable());
-        }
         IEnumerator CrosshairEnable()
         {
             yield return new WaitForSeconds(0.2f);
@@ -375,300 +360,361 @@ public class FoxMovement : MonoBehaviour
             yield return new WaitForSeconds(0.2f);
             TelegrabUI.SetActive(false);
         }
-    }
-    private void Glider()
-    {
-        if (rb.useGravity)
+        if (context.started && abilityCycle.equippedAbility.officialIndex == 6&&!ClimbWallCheck())
         {
-            glidingMultiplier = 0.1f;
-            rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
-            rb.useGravity = false;
-            rb.velocity = new Vector3(0, -1.5f, 0);
+            abilityCycle.equippedAbility.isActivated = !abilityCycle.equippedAbility.isActivated;
+            canTeleGrab = !canTeleGrab;
 
-            //audio play
-            if (!GlidingAudio.isPlaying)
+            if (!TelegrabEnabled)
             {
-                GlidingAudio.Play();
+                TelegrabEnabled = true;
+                cameraMovement.currentStyle = CameraMovement.CameraStyle.Telegrab;
+                cameraMovement.freeLookCam.SetActive(false);
+                cameraMovement.telegrabCam.SetActive(true);
+                StartCoroutine(CrosshairEnable());
             }
-        }
-        rb.AddForce(moveDirection.normalized * moveSpeed * 10f * glidingMultiplier, ForceMode.Force);
-        if (glidingMultiplier<0.5)
-        {
-            glidingMultiplier += 0.005f;
-        }
-        rb.velocity = new Vector3(rb.velocity.x, -1.5f, rb.velocity.z);
-        //gliding animation here
-
-        playerAnimator.SetBool("isGrounded", false);
-        playerAnimator.SetBool("isGliding", true);
-    }
-    private void Telegrab()
-    {
-        RaycastHit hitInfo;
-        //Drop grabbed item
-        if (grabbing && Input.GetMouseButtonDown(0))
-        {
-            grabbedGameObject.transform.gameObject.GetComponent<MeshRenderer>().material = TelegrabObject.telegrabMaterial;
-            foreach (TelegrabObject t in telegrabObjects)
+            else
             {
-                t.gameObject.GetComponent<MeshRenderer>().material = t.telegrabMaterial;
+                TelegrabEnabled = false;
+                cameraMovement.currentStyle = CameraMovement.CameraStyle.Basic;
+                cameraMovement.freeLookCam.SetActive(true);
+                cameraMovement.telegrabCam.SetActive(false);
+                StartCoroutine(CrosshairDisable());
             }
-            grabbedGameObject.transform.parent = null;
-            grabbedGameObject.transform.GetComponent<Rigidbody>().isKinematic = false;
-            //grabbedGameObject = null;
-            grabbing = false;
-            //isHighlighted = false;
-            telegrabObjects.Clear();
+            
         }
-        else if (Physics.Raycast(Camera.position, Camera.forward, out hitInfo, viewDistance, MoveableLayerMask) && !grabbing)
+        else if (context.started && abilityCycle.equippedAbility.officialIndex != 6) 
         {
-
-
-            Debug.DrawLine(Camera.position, hitInfo.point);
-
-            //grab item
-            if (!grabbing)
+            TelegrabEnabled = false;
+            cameraMovement.currentStyle = CameraMovement.CameraStyle.Basic;
+            cameraMovement.freeLookCam.SetActive(true);
+            cameraMovement.telegrabCam.SetActive(false);
+            StartCoroutine(CrosshairDisable());
+        }
+        
+    }
+        public void ToggleGlider(InputAction.CallbackContext context)
+        {
+            if (context.started)
             {
-                //isHighlighted = true;
-                //hitInfo.transform.gameObject.GetComponent<MeshRenderer>().material = grabbableMat;
-                if (Input.GetMouseButtonDown(0))
+
+                if (rb.useGravity && !GroundCheck() && !WaterCheck() && PlayerManager.instance.hasAbilityValues[0] && !glider)
+
                 {
-                    grabbedGameObject = hitInfo.transform.gameObject;
-                    TelegrabObject = hitInfo.transform.gameObject.GetComponent<TelegrabObject>();
-                    if (grabbedGameObject.transform.childCount != 0)
-                    {
-                        List<GameObject> list = new List<GameObject>();
-                        for (int i = 0; i < grabbedGameObject.transform.childCount; i++)
-                        {
-                            list.Add(grabbedGameObject.transform.GetChild(i).gameObject);
-                            telegrabObjects.Add(grabbedGameObject.transform.GetChild(i).GetComponent<TelegrabObject>());
-                        }
 
-                        foreach (GameObject go in list)
-                            go.GetComponent<MeshRenderer>().material = grabbedMat;
-                        grabbedGameObject.GetComponent<MeshRenderer>().material = grabbedMat;
-                    }
-                    else
+                    glider = true;
+                    glidingMultiplier = 0.1f;
+                    rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+                    rb.useGravity = false;
+
+                    playerAnimator.SetBool("isGrounded", false);
+                    playerAnimator.SetBool("isGliding", true);
+                    //audio play
+                    if (!GlidingAudio.isPlaying)
                     {
-                        grabbedGameObject.GetComponent<MeshRenderer>().material = grabbedMat;
+                        GlidingAudio.Play();
                     }
-                    grabbedGameObject.transform.parent = GrabPosition;
-                    grabbedGameObject.transform.position = GrabPosition.position;
-                    grabbedGameObject.transform.GetComponent<Rigidbody>().isKinematic = true;
-                    //grabbedGameObject.transform.rotation = Quaternion.identity;
-                    grabbing = true;
-                    TelegrabAudio.Play();
                 }
 
-            }
-        }
-    }
-    private void DisableGlider()
-    {
-        if (!rb.useGravity)
-        {
-            rb.useGravity = true;
-        }
-        playerAnimator.SetBool("isGliding", false);
-    }
 
-    private void Jump()
-    {
-        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-
-        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
-        //jumping animation here
-
-        playerAnimator.SetBool("isChargingJump", false);
-        playerAnimator.SetBool("isJumping", true);
-
-    }
-
-    private void ChargeJump()
-    {
-        rb.velocity = new Vector3(0f, 0f, 0f);
-
-        if (chargeJumpTimer < ChargeJumpHeight)
-        {
-            //audio play
-            if (!ChargeJumpAudio.isPlaying)
-            {
-                ChargeJumpAudio.Play();
-            }
-
-            chargeJumpTimer = chargeJumpTimer + 0.3f;
-
-            //charging animation here'
-            playerAnimator.SetBool("isChargingJump", true);
-            playerAnimator.SetFloat("horMove", horizontalInput);
-            playerAnimator.SetFloat("vertMove", verticalInput);
-
-        }
-    }
-    private void ClimbWall()
-    {
-        if (ClimbWallCheck())
-        {
-            Debug.Log("wall detected");
-            RaycastHit hitInfo2;
-            if (Physics.Raycast(Camera.position, Camera.forward, out hitInfo2, 50f, ClimbWallLayerMask))
-            {
-
-                Debug.DrawLine(Camera.position, hitInfo2.point);
-                if (Input.GetKey(KeyCode.LeftControl))
+                else if (!rb.useGravity && !GroundCheck() && glider && !WaterCheck())
                 {
-                    //climbing animation here (later will make more code for this)
-                    gameObject.transform.position = hitInfo2.transform.GetChild(0).position;
-
+                    rb.useGravity = true;
+                    glider = false;
+                    rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+                    //in air animation here
+                    playerAnimator.SetBool("isGrounded", false);
+                    playerAnimator.SetBool("isGliding", false);
                 }
+                //gliding animation here
+
 
             }
         }
-    }
-    private void ResetJump()
-    {
-        readytoJump = true;
-        chargeJumpTimer = 14;
-        isChargeJumping = false;
-    }
-    private void SpeedControl()
-    {
-        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-
-        if (flatVel.magnitude > moveSpeed)
-        {
-            Vector3 limitedVel = flatVel.normalized * moveSpeed;
-            rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
-        }
-    }
-    private void Swim()
-    {
-        if (!rb.useGravity)
-        {
-            rb.useGravity = true;
-        }
-        rb.AddForce(moveDirection.normalized * swimSpeed * 10f, ForceMode.Force);
-        playerAnimator.SetFloat("horMove", 1);
-        playerAnimator.SetFloat("vertMove", 0);
-        playerAnimator.SetBool("isJumping", false);
-        playerAnimator.SetBool("isGrounded", true);
-        playerAnimator.speed = 0.7f;
-        if (!SwimmingAudio.isPlaying)
-        {
-            SwimmingAudio.Play();
-        }
-    }
-    bool GroundCheck()
-    {
-        if (Physics.CheckSphere(foxMiddle.position, boxSize.y, GroundLayerMask, QueryTriggerInteraction.Ignore))
+        public void Telegrab(InputAction.CallbackContext context)
         {
             RaycastHit hitInfo;
-            if (Physics.Raycast(foxMiddle.position, -foxMiddle.up, out hitInfo, 1.5f, GroundLayerMask))
+            //Drop grabbed item
+            if (TelegrabEnabled && grabbing && context.started)
             {
-
-                Debug.DrawLine(foxMiddle.position, hitInfo.point);
-                return true;
-
+                grabbedGameObject.transform.gameObject.GetComponent<MeshRenderer>().material = TelegrabObject.telegrabMaterial;
+                foreach (TelegrabObject t in telegrabObjects)
+                {
+                    t.gameObject.GetComponent<MeshRenderer>().material = t.telegrabMaterial;
+                }
+                grabbedGameObject.transform.parent = null;
+                grabbedGameObject.transform.GetComponent<Rigidbody>().isKinematic = false;
+                //grabbedGameObject = null;
+                grabbing = false;
+                //isHighlighted = false;
+                telegrabObjects.Clear();
             }
-            else if (Physics.Raycast(foxBottom.position, -foxBottom.up, out hitInfo, 1.5f, GroundLayerMask))
+            else if (Physics.Raycast(Camera.position, Camera.forward, out hitInfo, viewDistance, MoveableLayerMask) && !grabbing)
             {
 
-                Debug.DrawLine(foxBottom.position, hitInfo.point);
-                return true;
 
+                Debug.DrawLine(Camera.position, hitInfo.point);
+
+                //grab item
+                if (!grabbing)
+                {
+                    //isHighlighted = true;
+                    //hitInfo.transform.gameObject.GetComponent<MeshRenderer>().material = grabbableMat;
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        grabbedGameObject = hitInfo.transform.gameObject;
+                        TelegrabObject = hitInfo.transform.gameObject.GetComponent<TelegrabObject>();
+                        if (grabbedGameObject.transform.childCount != 0)
+                        {
+                            List<GameObject> list = new List<GameObject>();
+                            for (int i = 0; i < grabbedGameObject.transform.childCount; i++)
+                            {
+                                list.Add(grabbedGameObject.transform.GetChild(i).gameObject);
+                                telegrabObjects.Add(grabbedGameObject.transform.GetChild(i).GetComponent<TelegrabObject>());
+                            }
+
+                            foreach (GameObject go in list)
+                                go.GetComponent<MeshRenderer>().material = grabbedMat;
+                            grabbedGameObject.GetComponent<MeshRenderer>().material = grabbedMat;
+                        }
+                        else
+                        {
+                            grabbedGameObject.GetComponent<MeshRenderer>().material = grabbedMat;
+                        }
+                        grabbedGameObject.transform.parent = GrabPosition;
+                        grabbedGameObject.transform.position = GrabPosition.position;
+                        grabbedGameObject.transform.GetComponent<Rigidbody>().isKinematic = true;
+                        //grabbedGameObject.transform.rotation = Quaternion.identity;
+                        grabbing = true;
+                        TelegrabAudio.Play();
+                    }
+
+                }
+            }
+        }
+        public void Jump(InputAction.CallbackContext context)
+        {
+            if (GroundCheck() && !canChargedJump && readytoJump && context.started)
+            {
+                Debug.Log("hi");
+                readytoJump = false;
+                Invoke(nameof(ResetJump), jumpCooldown);
+                rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+                rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+                //jumping animation here
+
+                playerAnimator.SetBool("isChargingJump", false);
+                playerAnimator.SetBool("isJumping", true);
+            }
+
+        }
+
+        public void ChargeJump()
+        {
+        if (GroundCheck())
+        {
+
+            rb.velocity = new Vector3(0f, 0f, 0f);
+
+            if (chargeJumpTimer < ChargeJumpHeight)
+            {
+                //audio play
+                if (!ChargeJumpAudio.isPlaying)
+                {
+                    ChargeJumpAudio.Play();
+                }
+
+                chargeJumpTimer = chargeJumpTimer + 0.3f;
+
+                //charging animation here'
+                playerAnimator.SetBool("isChargingJump", true);
+                playerAnimator.SetFloat("horMove", horizontalInput);
+                playerAnimator.SetFloat("vertMove", verticalInput);
+            }
+            }
+        }
+        public void ClimbWall(InputAction.CallbackContext context)
+        {
+        if (PlayerManager.instance.hasAbilityValues[3])
+            {
+
+
+            if (ClimbWallCheck())
+            {
+                Debug.Log("wall detected");
+                    if (context.started)
+                    {
+                    RaycastHit hitInfo2;
+                    if (Physics.Raycast(Camera.position, Camera.forward, out hitInfo2, 50f, ClimbWallLayerMask))
+                    {
+
+                        Debug.DrawLine(Camera.position, hitInfo2.point);
+                        transform.position = hitInfo2.transform.GetChild(0).position;
+                        Debug.Log(hitInfo2.transform.GetChild(0).position);
+                    }
+                    //climbing animation here (later will make more code for this)
+                    
+
+                    }
+
+                }
+            }
+        }
+      
+        public void ResetJump()
+        {
+            readytoJump = true;
+            chargeJumpTimer = 14;
+            isChargeJumping = false;
+        }
+        public void SpeedControl()
+        {
+            Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+            if (flatVel.magnitude > moveSpeed)
+            {
+                Vector3 limitedVel = flatVel.normalized * moveSpeed;
+                rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
+            }
+        }
+        public void Swim()
+        {
+            if (!rb.useGravity)
+            {
+                rb.useGravity = true;
+            }
+            rb.AddForce(moveDirection.normalized * swimSpeed * 10f, ForceMode.Force);
+            playerAnimator.SetFloat("horMove", 1);
+            playerAnimator.SetFloat("vertMove", 0);
+            playerAnimator.SetBool("isJumping", false);
+            playerAnimator.SetBool("isGrounded", true);
+            playerAnimator.speed = 0.7f;
+            if (!SwimmingAudio.isPlaying)
+            {
+                SwimmingAudio.Play();
+            }
+        }
+        public bool GroundCheck()
+        {
+            if (Physics.CheckSphere(foxMiddle.position, boxSize.y, GroundLayerMask, QueryTriggerInteraction.Ignore))
+            {
+                RaycastHit hitInfo;
+                if (Physics.Raycast(foxMiddle.position, -foxMiddle.up, out hitInfo, 1.5f, GroundLayerMask))
+                {
+
+                    Debug.DrawLine(foxMiddle.position, hitInfo.point);
+                    return true;
+
+                }
+                else if (Physics.Raycast(foxBottom.position, -foxBottom.up, out hitInfo, 1.5f, GroundLayerMask))
+                {
+
+                    Debug.DrawLine(foxBottom.position, hitInfo.point);
+                    return true;
+
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
                 return false;
             }
         }
-        else
+        public bool WaterCheck()
         {
-            return false;
-        }
-    }
-    bool WaterCheck()
-    {
-        if (Physics.CheckSphere(foxMiddle.position, boxSize.y, WaterLayerMask, QueryTriggerInteraction.Ignore))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-    bool ClimbWallCheck()
-    {
-        if (Physics.CheckSphere(foxMiddle.position, boxSize.z, ClimbWallLayerMask, QueryTriggerInteraction.Ignore))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-    bool SnowCheck()
-    {
-        if (Physics.CheckSphere(foxMiddle.position, boxSize.y, SnowLayerMask, QueryTriggerInteraction.Ignore))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-    public bool OnSlope()
-    {
-        if (Physics.Raycast(foxMiddle.position, Vector3.down, out hit3, playerHeight * 0.5f + 0.2f))
-        {
-            if (hit3.normal != Vector3.up)
+            if (Physics.CheckSphere(foxMiddle.position, boxSize.y, WaterLayerMask, QueryTriggerInteraction.Ignore))
             {
-                Debug.DrawLine(foxMiddle.position, hit3.point, Color.red);
-
                 return true;
             }
+            else
+            {
+                return false;
+            }
         }
-        return false;
-    }
+        public bool ClimbWallCheck()
+        {
+            if (Physics.CheckSphere(foxMiddle.position, boxSize.z, ClimbWallLayerMask, QueryTriggerInteraction.Ignore))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public bool SnowCheck()
+        {
+            if (Physics.CheckSphere(foxMiddle.position, boxSize.y, SnowLayerMask, QueryTriggerInteraction.Ignore))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public bool OnSlope()
+        {
+            if (Physics.Raycast(foxMiddle.position, Vector3.down, out hit3, playerHeight * 0.5f + 0.2f))
+            {
+                if (hit3.normal != Vector3.up)
+                {
+                    Debug.DrawLine(foxMiddle.position, hit3.point, Color.red);
 
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(foxMiddle.position, boxSize.y);
-    }
-    public List<float> CollectPlayerPositionForSaving()
-    {
-        
-        Debug.Log("Playerpos saved");
-        if (SceneManager.GetActiveScene()==SceneManager.GetSceneByBuildIndex(3))
-        {
-            return new List<float> { transform.position.x, transform.position.y, transform.position.z };
+                    return true;
+                }
+            }
+            return false;
         }
-        else
+
+        void OnDrawGizmos()
         {
-            return new List<float> { 1627f, 118f, 360f };
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(foxMiddle.position, boxSize.y);
         }
-    }
-    private void LoadPlayerPosition()
-    {
-        transform.position = new Vector3(
-            SaveManager.instance.FetchLoadedPlayerPositionData()[0], 
-            SaveManager.instance.FetchLoadedPlayerPositionData()[1], 
-            SaveManager.instance.FetchLoadedPlayerPositionData()[2]);
-    }
-    private void OnLevelWasLoaded(int level)
-    {
-        instance = this;
-    }
-    private void AssignInput() 
-    {
-        playerInput = GetComponent<PlayerInput>();
-        MoveInput = playerInput.actions.FindAction("Move");
-        SprintInput = playerInput.actions.FindAction("Sprint");
-        LookInput = playerInput.actions.FindAction("Look");
-        JumpInput = playerInput.actions.FindAction("Jump");
-    }
-}
+        public List<float> CollectPlayerPositionForSaving()
+        {
+
+            Debug.Log("Playerpos saved");
+            if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(3))
+            {
+                return new List<float> { transform.position.x, transform.position.y, transform.position.z };
+            }
+            else
+            {
+                return new List<float> { 1627f, 118f, 360f };
+            }
+        }
+        private void LoadPlayerPosition()
+        {
+            transform.position = new Vector3(
+                SaveManager.instance.FetchLoadedPlayerPositionData()[0],
+                SaveManager.instance.FetchLoadedPlayerPositionData()[1],
+                SaveManager.instance.FetchLoadedPlayerPositionData()[2]);
+        }
+        private void OnLevelWasLoaded(int level)
+        {
+            instance = this;
+        }
+        private void AssignInput()
+        {
+            playerInputHandler = GetComponent<PlayerInputHandler>();
+            playerInput = GetComponent<PlayerInput>();
+            MoveInput = playerInput.actions.FindAction("Move");
+            SprintInput = playerInput.actions.FindAction("Sprint");
+            LookInput = playerInput.actions.FindAction("Look");
+            JumpInput = playerInput.actions.FindAction("Jump");
+            SnowDiveInput = playerInput.actions.FindAction("SnowDive");
+            GlideInput = playerInput.actions.FindAction("Glide");
+            InteractInput = playerInput.actions.FindAction("Interact");
+            UseAbilityInput = playerInput.actions.FindAction("UseAbility");
+            AbilityToggleInput = playerInput.actions.FindAction("AbilityToggle");
+            ChargeJumpInput = playerInput.actions.FindAction("ChargeJump");
+            TelegrabGrabInput = playerInput.actions.FindAction("TelegrabGrab");
+            ChangeCameraInput = playerInput.actions.FindAction("ChangeCamera");
+        }
+    } 

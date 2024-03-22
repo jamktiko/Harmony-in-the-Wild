@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class NPCDialogue : MonoBehaviour
 {
@@ -10,12 +11,18 @@ public class NPCDialogue : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.E) && playerIsNear)
+        //if(Input.GetKeyDown(KeyCode.E) && playerIsNear)
+        //{
+        //    DialogueManager.instance.StartDialogue(dialogueToPlay);
+        //}
+    }
+    public void StartDialogueInput(InputAction.CallbackContext context)
+    {
+        if (context.started&&playerIsNear)
         {
             DialogueManager.instance.StartDialogue(dialogueToPlay);
         }
     }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))

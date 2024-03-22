@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Animations;
 using UnityEngine.InputSystem;
 
 public class CameraMovement : MonoBehaviour
@@ -29,11 +30,13 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] public GameObject telegrabCam;
 
     PlayerInput playerInput;
-    InputAction LookInput;
+    InputAction MoveInput;
 
 
     void Start()
     {
+        playerInput = GetComponentInParent<PlayerInput>();
+        MoveInput = playerInput.actions.FindAction("Move");
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         foxMove = FindObjectOfType<FoxMovement>();
@@ -52,12 +55,13 @@ public class CameraMovement : MonoBehaviour
         //rotate player object
         if (currentStyle == CameraStyle.Basic)
         {
-            float horizontalInput = Input.GetAxis("Horizontal");
-            float verticalInput = Input.GetAxis("Vertical");
+            //float horizontalInput = Input.GetAxis("Horizontal");
+            //float verticalInput = Input.GetAxis("Vertical");
 
-            //float horizontalInput = LookInput.ReadValue<Vector2>().x;
-            //float verticalInput = LookInput.ReadValue<Vector2>().x;
-            Vector3 inputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
+            //float horizontalInput = MoveInput.ReadValue<Vector2>().x;
+            //float verticalInput = MoveInput.ReadValue<Vector2>().y;
+
+            Vector3 inputDir = orientation.forward * MoveInput.ReadValue<Vector2>().y + orientation.right * MoveInput.ReadValue<Vector2>().x;
             Vector3 slopeForward = Vector3.ProjectOnPlane(foxObject.forward, foxMove.hit3.normal).normalized;
 
             if (inputDir != Vector3.zero && !foxMove.OnSlope())

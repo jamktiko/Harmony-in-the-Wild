@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(SphereCollider))]
 public class QuestPoint : MonoBehaviour
@@ -21,12 +22,15 @@ public class QuestPoint : MonoBehaviour
     [SerializeField] AudioSource dialogueSound;
     [SerializeField] private bool playerIsNear = false;
 
+    PlayerInput playerInput;
+
     private string questId;
     private QuestState currentQuestState;
 
     private void Awake()
     {
         questId = questInfoForPoint.id;
+        playerInput =FindObjectOfType<PlayerInput>();
     }
 
     private void OnEnable()
@@ -39,15 +43,8 @@ public class QuestPoint : MonoBehaviour
         GameEventsManager.instance.questEvents.OnQuestStateChange -= QuestStateChange;
     }
 
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.E))
-        {
-            InteractedWithQuestPoint();
-        }
-    }
 
-    private void InteractedWithQuestPoint()
+    private void InteractedWithQuestPoint(InputAction.CallbackContext context)
     {
         if (!playerIsNear)
         {
@@ -55,7 +52,7 @@ public class QuestPoint : MonoBehaviour
         }
 
         // start or finish a quest
-        if(currentQuestState.Equals(QuestState.CAN_START) && startPoint)
+        if(currentQuestState.Equals(QuestState.CAN_START) && startPoint&&context.started)
         {
             if(hasDialogue && startQuestDialogue != null)
             {
@@ -71,7 +68,7 @@ public class QuestPoint : MonoBehaviour
             }
         }
 
-        else if(currentQuestState.Equals(QuestState.CAN_FINISH) && finishPoint)
+        else if(currentQuestState.Equals(QuestState.CAN_FINISH) && finishPoint&&context.started)
         {
             if (hasDialogue && finishQuestDialogue != null)
             {
@@ -110,6 +107,13 @@ public class QuestPoint : MonoBehaviour
         if (other.CompareTag("Trigger"))
         {
             playerIsNear = false;
+        }
+    }
+    public void Interact(InputAction.CallbackContext context) 
+    {
+        if (context.started)
+        {
+            InteractedWithQuestPoint(context);
         }
     }
 }

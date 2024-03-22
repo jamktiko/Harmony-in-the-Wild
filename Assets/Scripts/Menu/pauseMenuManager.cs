@@ -20,8 +20,8 @@ public class PauseMenuManager : MonoBehaviour
 
     void Start()
     {
-        //pauseMenuPanel = GameObject.Find("PauseMenuEmpty").transform.Find("PauseMenu").gameObject;
-        //options = GameObject.Find("PauseMenuEmpty").transform.Find("Options").gameObject;
+        pauseMenuPanel = GameObject.Find("PauseMenuEmpty").transform.Find("PauseMenu").gameObject;
+        options = GameObject.Find("PauseMenuEmpty").transform.Find("Options").gameObject;
         OptionsMenuPanel = options.transform.Find("OptionsMenu").gameObject;
         MovementControlsMenuPanel = options.transform.Find("MovementControlsMenu").gameObject;
         GamePlayControlsMenuPanel = options.transform.Find("GameplayControlsMenu").gameObject;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class AbilityCycle : MonoBehaviour
 {   
@@ -39,11 +40,6 @@ public class AbilityCycle : MonoBehaviour
         StartCoroutine(MakeList());
     }
 
-    void Update()
-    {
-        SwitchAbility();
-    }
-
     public IEnumerator MakeList()
     {
         yield return new WaitForSeconds(2f);
@@ -62,9 +58,9 @@ public class AbilityCycle : MonoBehaviour
         }
     }
 
-    void SwitchAbility() 
+    public void SwitchAbility(InputAction.CallbackContext context) 
     {
-        if (Input.GetKeyDown(KeyCode.Tab)&&currentAbilitiesList.Count!=0)
+        if (context.started&&currentAbilitiesList.Count!=0)
         {
             if (abilityIndex<currentAbilitiesList.Count-1)
             {
@@ -83,7 +79,7 @@ public class AbilityCycle : MonoBehaviour
                 StartCoroutine(DelayFadeTextToFullAlpha(2f, abilityUIText));
             }
         }
-        else if (Input.GetKeyDown(KeyCode.Tab) && currentAbilitiesList.Count == 0)
+        else if (context.started && currentAbilitiesList.Count == 0)
         {
             abilityUIText.text = "You haven't unlocked any abilites yet!";
             abilityUIText.color = Color.black;

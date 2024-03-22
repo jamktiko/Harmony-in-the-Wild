@@ -37,6 +37,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
+                    ""name"": ""Close"",
+                    ""type"": ""Button"",
+                    ""id"": ""c7bd5fbe-96dd-4ec5-af42-65715dfa1342"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Sprint"",
                     ""type"": ""Button"",
                     ""id"": ""cdf346d5-a390-4149-82c7-e659e02f2296"",
@@ -68,7 +77,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""type"": ""Value"",
                     ""id"": ""0b07ca66-f4e1-4b11-8faa-9936ab120587"",
                     ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
+                    ""processors"": ""ScaleVector2(x=0.5,y=0.5)"",
                     ""interactions"": """",
                     ""initialStateCheck"": true
                 },
@@ -78,7 +87,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""id"": ""81216a38-202f-4ced-8dc3-104d62fa74cd"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -121,6 +130,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""name"": ""TelegrabGrab"",
                     ""type"": ""Button"",
                     ""id"": ""778cad14-1329-4cfb-b183-c0781ea61602"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ChangeCamera"",
+                    ""type"": ""Button"",
+                    ""id"": ""87c48528-8548-40bc-b9fe-78afea516f80"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -468,6 +486,50 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""TelegrabGrab"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""38f10348-490f-4a46-a641-64833bdfd92d"",
+                    ""path"": ""<Keyboard>/o"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Close"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""74ddbe43-11db-4080-b381-63b48d2bec66"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Close"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""76e18ca8-85f0-46ca-80ef-2153a5c19a37"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""ChangeCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c7b19675-6a98-4898-8b9a-f05e1200cdd5"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""ChangeCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -488,15 +550,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""name"": ""Map"",
                     ""type"": ""Button"",
                     ""id"": ""f99f1633-1e0d-4d56-93b6-19a5af5eabbb"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Close"",
-                    ""type"": ""Button"",
-                    ""id"": ""9920e472-65bb-4cf0-af42-a89d0b9014b0"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -946,17 +999,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""c21c3d5e-c2cc-434b-9572-6b71c12dccca"",
-                    ""path"": ""<Keyboard>/x"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Close"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""95ab89e8-9057-4d66-9683-899dbbd3d429"",
                     ""path"": ""<Keyboard>/m"",
                     ""interactions"": """",
@@ -1002,6 +1044,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
+        m_Player_Close = m_Player.FindAction("Close", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_SnowDive = m_Player.FindAction("SnowDive", throwIfNotFound: true);
         m_Player_Glide = m_Player.FindAction("Glide", throwIfNotFound: true);
@@ -1012,11 +1055,11 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_AbilityToggle = m_Player.FindAction("AbilityToggle", throwIfNotFound: true);
         m_Player_ChargeJump = m_Player.FindAction("ChargeJump", throwIfNotFound: true);
         m_Player_TelegrabGrab = m_Player.FindAction("TelegrabGrab", throwIfNotFound: true);
+        m_Player_ChangeCamera = m_Player.FindAction("ChangeCamera", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
         m_UI_Map = m_UI.FindAction("Map", throwIfNotFound: true);
-        m_UI_Close = m_UI.FindAction("Close", throwIfNotFound: true);
         m_UI_Continue = m_UI.FindAction("Continue", throwIfNotFound: true);
         m_UI_Confirm = m_UI.FindAction("Confirm", throwIfNotFound: true);
         m_UI_Submit = m_UI.FindAction("Submit", throwIfNotFound: true);
@@ -1090,6 +1133,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Move;
+    private readonly InputAction m_Player_Close;
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_SnowDive;
     private readonly InputAction m_Player_Glide;
@@ -1100,11 +1144,13 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_AbilityToggle;
     private readonly InputAction m_Player_ChargeJump;
     private readonly InputAction m_Player_TelegrabGrab;
+    private readonly InputAction m_Player_ChangeCamera;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
         public PlayerActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Player_Move;
+        public InputAction @Close => m_Wrapper.m_Player_Close;
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
         public InputAction @SnowDive => m_Wrapper.m_Player_SnowDive;
         public InputAction @Glide => m_Wrapper.m_Player_Glide;
@@ -1115,6 +1161,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @AbilityToggle => m_Wrapper.m_Player_AbilityToggle;
         public InputAction @ChargeJump => m_Wrapper.m_Player_ChargeJump;
         public InputAction @TelegrabGrab => m_Wrapper.m_Player_TelegrabGrab;
+        public InputAction @ChangeCamera => m_Wrapper.m_Player_ChangeCamera;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1127,6 +1174,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
+            @Close.started += instance.OnClose;
+            @Close.performed += instance.OnClose;
+            @Close.canceled += instance.OnClose;
             @Sprint.started += instance.OnSprint;
             @Sprint.performed += instance.OnSprint;
             @Sprint.canceled += instance.OnSprint;
@@ -1157,6 +1207,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @TelegrabGrab.started += instance.OnTelegrabGrab;
             @TelegrabGrab.performed += instance.OnTelegrabGrab;
             @TelegrabGrab.canceled += instance.OnTelegrabGrab;
+            @ChangeCamera.started += instance.OnChangeCamera;
+            @ChangeCamera.performed += instance.OnChangeCamera;
+            @ChangeCamera.canceled += instance.OnChangeCamera;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1164,6 +1217,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
+            @Close.started -= instance.OnClose;
+            @Close.performed -= instance.OnClose;
+            @Close.canceled -= instance.OnClose;
             @Sprint.started -= instance.OnSprint;
             @Sprint.performed -= instance.OnSprint;
             @Sprint.canceled -= instance.OnSprint;
@@ -1194,6 +1250,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @TelegrabGrab.started -= instance.OnTelegrabGrab;
             @TelegrabGrab.performed -= instance.OnTelegrabGrab;
             @TelegrabGrab.canceled -= instance.OnTelegrabGrab;
+            @ChangeCamera.started -= instance.OnChangeCamera;
+            @ChangeCamera.performed -= instance.OnChangeCamera;
+            @ChangeCamera.canceled -= instance.OnChangeCamera;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1217,7 +1276,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
     private readonly InputAction m_UI_Navigate;
     private readonly InputAction m_UI_Map;
-    private readonly InputAction m_UI_Close;
     private readonly InputAction m_UI_Continue;
     private readonly InputAction m_UI_Confirm;
     private readonly InputAction m_UI_Submit;
@@ -1235,7 +1293,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public UIActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Navigate => m_Wrapper.m_UI_Navigate;
         public InputAction @Map => m_Wrapper.m_UI_Map;
-        public InputAction @Close => m_Wrapper.m_UI_Close;
         public InputAction @Continue => m_Wrapper.m_UI_Continue;
         public InputAction @Confirm => m_Wrapper.m_UI_Confirm;
         public InputAction @Submit => m_Wrapper.m_UI_Submit;
@@ -1262,9 +1319,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Map.started += instance.OnMap;
             @Map.performed += instance.OnMap;
             @Map.canceled += instance.OnMap;
-            @Close.started += instance.OnClose;
-            @Close.performed += instance.OnClose;
-            @Close.canceled += instance.OnClose;
             @Continue.started += instance.OnContinue;
             @Continue.performed += instance.OnContinue;
             @Continue.canceled += instance.OnContinue;
@@ -1308,9 +1362,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Map.started -= instance.OnMap;
             @Map.performed -= instance.OnMap;
             @Map.canceled -= instance.OnMap;
-            @Close.started -= instance.OnClose;
-            @Close.performed -= instance.OnClose;
-            @Close.canceled -= instance.OnClose;
             @Continue.started -= instance.OnContinue;
             @Continue.performed -= instance.OnContinue;
             @Continue.canceled -= instance.OnContinue;
@@ -1382,6 +1433,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     public interface IPlayerActions
     {
         void OnMove(InputAction.CallbackContext context);
+        void OnClose(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
         void OnSnowDive(InputAction.CallbackContext context);
         void OnGlide(InputAction.CallbackContext context);
@@ -1392,12 +1444,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnAbilityToggle(InputAction.CallbackContext context);
         void OnChargeJump(InputAction.CallbackContext context);
         void OnTelegrabGrab(InputAction.CallbackContext context);
+        void OnChangeCamera(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
         void OnNavigate(InputAction.CallbackContext context);
         void OnMap(InputAction.CallbackContext context);
-        void OnClose(InputAction.CallbackContext context);
         void OnContinue(InputAction.CallbackContext context);
         void OnConfirm(InputAction.CallbackContext context);
         void OnSubmit(InputAction.CallbackContext context);
