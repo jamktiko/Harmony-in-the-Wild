@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class QuestManager : MonoBehaviour
 {
-    private Dictionary<string, Quest> questMap;
+    public Dictionary<string, Quest> questMap;
 
     public static QuestManager instance;
 
