@@ -33,7 +33,7 @@ public abstract class QuestStep : MonoBehaviour
             isFinished = true;
 
             GameEventsManager.instance.questEvents.AdvanceQuest(questId);
-
+            Debug.Log("Finished quest step: " + questId);
             Destroy(gameObject);
         }
     }

@@ -141,13 +141,15 @@ public class QuestManager : MonoBehaviour
 
         // if there are more steps, instantiate the next one
         if (quest.CurrentStepExists())
-        {
+        {   
+            Debug.Log("Quest " + id + " state advanced.");
             quest.InstantiateCurrentQuestStep(transform);
         }
 
         // if there are no more steps, it means the quest is ready to be finished
         else
         {
+            Debug.Log("Quest " + id + " state requested to finish.");
             ChangeQuestState(quest.info.id, QuestState.CAN_FINISH);
         }
     }
