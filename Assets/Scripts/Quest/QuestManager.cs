@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class QuestManager : MonoBehaviour
 {
-    private Dictionary<string, Quest> questMap;
+    public Dictionary<string, Quest> questMap;
 
     public static QuestManager instance;
 
@@ -66,6 +67,11 @@ public class QuestManager : MonoBehaviour
             // broadcast the initial state of all quests
             GameEventsManager.instance.questEvents.QuestStateChange(quest);
         }
+
+        if(SceneManager.GetActiveScene().name == "Overworld" && AbilityCycle == null)
+        {
+            AbilityCycle = FindObjectOfType<AbilityCycle>(); // In case Overworld is loaded in editor, find AbilityCycle
+        }
     }
 
     private void Update()
@@ -107,8 +113,10 @@ public class QuestManager : MonoBehaviour
 
     private void ChangeQuestState(string id, QuestState state)
     {
+        Debug.Log("Changed quest state with ID: " + id + " to: " + state.ToString());
         Quest quest = GetQuestById(id);
         quest.state = state;
+        Debug.Log(quest.state.ToString());
         GameEventsManager.instance.questEvents.QuestStateChange(quest);
     }
 
@@ -146,6 +154,7 @@ public class QuestManager : MonoBehaviour
 
     private void FinishQuest(string id)
     {
+        Debug.Log("Finished quest with ID: "+ id);
         Quest quest = GetQuestById(id);
         ClaimRewards(quest);
         ChangeQuestState(quest.info.id, QuestState.FINISHED);
@@ -282,6 +291,7 @@ public class QuestManager : MonoBehaviour
     }
     private void OnLevelWasLoaded(int level)
     {
+        Debug.Log("Currently loaded level: "+ level);
         questMap = CreateQuestMap();
         playerManager = FindObjectOfType<PlayerManager>();
         

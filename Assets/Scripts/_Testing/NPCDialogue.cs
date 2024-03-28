@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class NPCDialogue : MonoBehaviour
 {
-    [SerializeField] private TextAsset dialogueToPlay;
+    [SerializeField] private List<NPCDialogueState> dialogueOptions;
+
+    [Header("Debugging")]
+    [SerializeField] private QuestScriptableObject latestQuest;
 
     private bool playerIsNear;
 
@@ -12,7 +15,27 @@ public class NPCDialogue : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.E) && playerIsNear)
         {
-            DialogueManager.instance.StartDialogue(dialogueToPlay);
+            SetDialogueToPlay();
+        }
+    }
+
+    private void SetDialogueToPlay()
+    {
+        //NOTE! fetch latest dungeon quest here
+
+        if(latestQuest == null)
+        {
+            DialogueManager.instance.StartDialogue(dialogueOptions[0].dialogueToPlay);
+            return;
+        }
+
+        for(int i = 1; i < dialogueOptions.Count; i++)
+        {
+            if(dialogueOptions[i].questSO == latestQuest)
+            {
+                DialogueManager.instance.StartDialogue(dialogueOptions[i].dialogueToPlay);
+                return;
+            }
         }
     }
 
@@ -30,5 +53,12 @@ public class NPCDialogue : MonoBehaviour
         {
             playerIsNear = false;
         }
+    }
+
+    [System.Serializable]
+    public class NPCDialogueState
+    {
+        public QuestScriptableObject questSO;
+        public TextAsset dialogueToPlay;
     }
 }
