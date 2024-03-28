@@ -26,7 +26,7 @@ public class SmashingRockSpawner : MonoBehaviour
     public void SpawnStartingRocks()
     {
         int oreRockIndex = Random.Range(0, transform.childCount);
-
+        Debug.Log("Ore rock index: " + oreRockIndex);
         for(int i = 0; i < transform.childCount; i++)
         {
             Instantiate(spawnEffect, transform.GetChild(i).position, Quaternion.identity);
@@ -35,6 +35,7 @@ public class SmashingRockSpawner : MonoBehaviour
             if(i == oreRockIndex)
             {
                 newRock.GetComponent<Destructible>().IncludeOre();
+                Debug.Log("Name of rock with ore: " + newRock);
             }
         }
     }
