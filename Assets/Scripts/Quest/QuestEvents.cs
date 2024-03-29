@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 
 public class QuestEvents
 {
@@ -14,6 +15,8 @@ public class QuestEvents
     public void AdvanceQuest(string id)
     {
         OnAdvanceQuest?.Invoke(id);
+        UnityEngine.Debug.Log("Invoked advance quest");
+
     }
 
     public event Action<string> OnFinishQuest;
@@ -21,6 +24,8 @@ public class QuestEvents
     public void FinishQuest(string id)
     {
         OnFinishQuest?.Invoke(id);
+        UnityEngine.Debug.Log("Invoked finish quest");
+
     }
 
     public event Action<Quest> OnQuestStateChange;
@@ -43,7 +48,7 @@ public class QuestEvents
     public void AdvanceDungeonQuest(string id, int stageIndex)
     {
         OnAdvanceDungeonQuest?.Invoke(id, stageIndex);
-
+        UnityEngine.Debug.Log("Invoked dungeon quest");
     }
 
     public event Action<int> OnShowQuestUI;
