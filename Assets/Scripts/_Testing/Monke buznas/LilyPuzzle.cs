@@ -6,10 +6,10 @@ using System;
 public class LilyPuzzle : MonoBehaviour
 {
     public static LilyPuzzle instance;
-    [SerializeField] private Transform[] lilyTransforms;
 
     [HideInInspector]public int socketsFilled = Mathf.Clamp(0, 0, 3);
 
+    private Transform[] lilyTransforms;
     private Vector3[] lilyInitialPositions;
     private int correctLilies = Mathf.Clamp(0, 0, 3);
     private void Awake()
@@ -23,6 +23,15 @@ public class LilyPuzzle : MonoBehaviour
     }
     void Start()
     {
+        //collect The Children.
+        int childCount = transform.childCount;
+        lilyTransforms = new Transform[childCount];
+
+        for (int i = 0; i < childCount; i++)
+        {
+            lilyTransforms[i] = transform.GetChild(i).gameObject.transform;
+        }
+
         //store lily positions
         lilyInitialPositions = new Vector3[lilyTransforms.Length];
         for (int i = 0; i < lilyTransforms.Length; i++)
