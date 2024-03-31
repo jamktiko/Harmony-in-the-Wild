@@ -13,7 +13,7 @@ public class WhatShape : MonoBehaviour
             isActive = true;
             correctAudio.Play();
 
-            BossDoorMonkey.instance.UpdateProgress(1);
+            //BossDoorMonkey.instance.UpdateProgress(1);
         }
     }
     private void OnTriggerExit(Collider other)
@@ -22,7 +22,7 @@ public class WhatShape : MonoBehaviour
         {
             isActive = false;
 
-            BossDoorMonkey.instance.UpdateProgress(-1);
+            //BossDoorMonkey.instance.UpdateProgress(-1);
         }
     }
 }
