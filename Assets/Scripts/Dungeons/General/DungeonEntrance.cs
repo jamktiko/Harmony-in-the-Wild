@@ -90,7 +90,7 @@ public class DungeonEntrance : MonoBehaviour
         if (quest.info.id.Equals(questId))
         {
             currentQuestState = quest.state;
-            //Debug.Log("Quest with id: " + questId + " updated to state: " + currentQuestState);
+            Debug.Log("Quest with id: " + questId + " updated to state: " + currentQuestState);
         }
     }
 

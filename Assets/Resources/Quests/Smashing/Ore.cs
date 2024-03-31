@@ -10,8 +10,9 @@ public class Ore : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && playerIsNear)
         {
+
+            Invoke("DestroyObject", 1);
             SmashingReturnOre.instance.PickUpOre();
-            Destroy(gameObject);
         }
     }
 
@@ -28,6 +29,14 @@ public class Ore : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             playerIsNear = false;
+        }
+    }
+
+    private void DestroyObject()
+    {
+        if (gameObject != null)
+        {
+            Destroy(gameObject);
         }
     }
 }
