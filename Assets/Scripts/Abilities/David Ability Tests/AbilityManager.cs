@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class AbilityManager : MonoBehaviour
 {
@@ -7,59 +8,77 @@ public class AbilityManager : MonoBehaviour
 
     private Dictionary<Abilities, bool> abilityStatuses = new Dictionary<Abilities, bool>();
 
-    public bool CanActivateAbilities { get; set; } = false;
+    private Dictionary<Abilities, IAbility> abilities;
 
-    private IAbility currentAbility;
+    public bool CanActivateAbilities { get; set; } = false;
 
     public void Awake()
     {
-        if (instance != null)
+        if (instance != null && instance != this)
         {
             Debug.LogWarning("There is more than one Ability Manager.");
             Destroy(gameObject);
+            return;
         }
-        instance = this; ;
 
-        currentAbility = GetComponent<IAbility>();
+        instance = this;
+
+        abilities = new Dictionary<Abilities, IAbility>();
 
         InitializeAbilities();
     }
 
     private void Update()
     {
-        CanActivateAbilitiesFlip();
+        //For testing
+        if (Input.GetKeyDown(KeyCode.L)) 
+        {
+            LogAbilityStatuses();
+        }
     }
 
     private void InitializeAbilities()
     {
-        // Initialize all abilities as false (disabled) by default
-        foreach (Abilities ability in System.Enum.GetValues(typeof(Abilities)))
+        //Initialize all abilities as false (disabled) by default
+        foreach (Abilities ability in Enum.GetValues(typeof(Abilities)))
         {
-            abilityStatuses[ability] = false;
-            Debug.Log("ability: " + ability + ". Status: " + abilityStatuses);
+            abilityStatuses.Add(ability, false); //NOTE: Use Add instead of direct assignment.
         }
     }
 
-    // This is for testing purposes.
-    // Eventually the condition will be tied into the QuestManager & QuestRewards
-    private void CanActivateAbilitiesFlip()
+    public void TryActivateAbility(Abilities abilityType)
     {
-        if (Input.GetKeyDown(KeyCode.U))
+        if (CanActivateAbilities && abilityStatuses.TryGetValue(abilityType, out bool isEnabled) && isEnabled)
         {
-            CanActivateAbilities = !CanActivateAbilities;
-            Debug.Log("CanActivateAbilities boolean = " + CanActivateAbilities);
-        }
-    }
-
-    public void TryActivateAbility()
-    {
-        if (CanActivateAbilities)
-        {
-            currentAbility.Activate();
+            abilities[abilityType].Activate();
         }
         else
         {
-            Debug.Log("Abilities cannot be activated right now.");
+            Debug.Log($"Abilities cannot be activated right now or {abilityType} is disabled.");
+        }
+    }
+
+    //Method to enable an ability
+    public void EnableAbility(Abilities abilityType)
+    {
+        if (abilityStatuses.ContainsKey(abilityType))
+        {
+            abilityStatuses[abilityType] = true;
+            Debug.Log($"Ability {abilityType} has been enabled.");
+        }
+        else
+        {
+            Debug.Log($"Attempted to enable an unrecognized ability: {abilityType}");
+        }
+    }
+
+    //For testing
+    public void LogAbilityStatuses()
+    {
+        foreach (var ability in abilityStatuses)
+        {
+            string status = ability.Value ? "Enabled" : "Disabled";
+            Debug.Log($"Ability: {ability.Key}, Status: {status}");
         }
     }
 }

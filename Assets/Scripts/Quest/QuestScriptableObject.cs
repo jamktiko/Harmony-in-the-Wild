@@ -3,7 +3,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/QuestInfo", order = 1)]
 public class QuestScriptableObject : ScriptableObject
 {
-    
     [field: SerializeField] public string id { get; private set; }
 
     [Header("General")]
@@ -18,7 +17,7 @@ public class QuestScriptableObject : ScriptableObject
     
     [Header("Rewards")]
     public int experienceReward;
-    public int abilityReward;
+    public Abilities abilityReward;
 
     private void OnValidate()
     {

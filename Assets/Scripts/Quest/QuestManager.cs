@@ -162,7 +162,7 @@ public class QuestManager : MonoBehaviour
         if (quest.info.abilityReward != 0)
         {
             AbilityAcquired(quest.info.abilityReward);
-            StartCoroutine(AbilityCycle.MakeList());
+            //StartCoroutine(AbilityCycle.MakeList());
         }
     }
 
@@ -228,10 +228,9 @@ public class QuestManager : MonoBehaviour
         return quest.state;
     }
 
-    private void AbilityAcquired(int index) 
+    private void AbilityAcquired(Abilities ability) 
     {
-        playerManager.hasAbilityValues[index] = true;
-        SaveManager.instance.SaveGame();
+        AbilityManager.instance.EnableAbility(ability);
     }
 
     public List<string> CollectQuestDataForSaving()
@@ -285,6 +284,7 @@ public class QuestManager : MonoBehaviour
 
         return quest;
     }
+
     private void OnLevelWasLoaded(int level)
     {
         UnsubscribeFromEvents();
@@ -314,7 +314,7 @@ public class QuestManager : MonoBehaviour
 
     private void SubscribeToEvents()
     {
-        Debug.Log("Subscribing to quest events...");
+        //Debug.Log("Subscribing to quest events...");
         GameEventsManager.instance.questEvents.OnStartQuest += StartQuest;
         GameEventsManager.instance.questEvents.OnAdvanceQuest += AdvanceQuest;
         GameEventsManager.instance.questEvents.OnFinishQuest += FinishQuest;
