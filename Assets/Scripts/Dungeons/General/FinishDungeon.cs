@@ -32,6 +32,11 @@ public class FinishDungeon : MonoBehaviour
         Debug.Log(other.tag);
         if (other.gameObject.CompareTag("Trigger"))
         {
+            if (questSO != null)
+            {
+                GameEventsManager.instance.questEvents.AdvanceDungeonQuest(questId, stageIndex);
+                QuestManager.instance.RequestFinishQuest(questId);
+            }
             StartCoroutine(ShowDungeonCompletedStorybook());
         }
     }
@@ -39,12 +44,12 @@ public class FinishDungeon : MonoBehaviour
     private IEnumerator ShowDungeonCompletedStorybook()
     {
         audioSource.Play();
+        //if (questSO != null)
+        //{
+        //    GameEventsManager.instance.questEvents.AdvanceDungeonQuest(questId, stageIndex);
+        //}
         yield return new WaitForSeconds(audioSource.clip.length + 0.5f);
 
-        if (questSO != null)
-        {
-            GameEventsManager.instance.questEvents.AdvanceDungeonQuest(questId, stageIndex);
-        }
 
         StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, goToScene, false);
         SceneManager.LoadScene(StorybookSceneName);
