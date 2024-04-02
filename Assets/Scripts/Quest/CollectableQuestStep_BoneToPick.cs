@@ -7,12 +7,12 @@ public class CollectableQuestStep_BoneToPick : QuestStep
     {
         itemsCollected++;
         UpdateState();
-        GameEventsManager.instance.questEvents.UpdateQuestUI(QuestUIChange.ChangeObjective, "");
-
         if (itemsCollected >= itemToComplete)
         {
             FinishQuestStep();
         }
+        GameEventsManager.instance.questEvents.UpdateQuestUI(QuestUIChange.ChangeObjective, "");
+
     }
 
     private void UpdateState()

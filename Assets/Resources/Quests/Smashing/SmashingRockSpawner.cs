@@ -35,7 +35,7 @@ public class SmashingRockSpawner : MonoBehaviour
             if(i == oreRockIndex)
             {
                 newRock.GetComponent<Destructible>().IncludeOre();
-                Debug.Log("Name of rock with ore: " + newRock);
+                Debug.Log("Name of rock with ore: " + newRock.transform.parent);
             }
         }
     }

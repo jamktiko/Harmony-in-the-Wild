@@ -5,9 +5,6 @@ public class BossDoorMonkey : MonoBehaviour
     public static BossDoorMonkey instance;
 
     [SerializeField] private Animator anim;
-
-    private int shapesInCorrectPlaces = 0;
-
     private void Awake()
     {
         if (instance != null)
@@ -18,15 +15,10 @@ public class BossDoorMonkey : MonoBehaviour
         instance = this;
     }
 
-    public void UpdateProgress(int change)
+    public void CompletePuzzle()
     {
-        shapesInCorrectPlaces += change;
-
-        if(shapesInCorrectPlaces >= 4)
-        {
-            gameObject.GetComponent<AudioSource>().Play();
-            anim.Play("Door_Open_ANI");
-            GameEventsManager.instance.questEvents.UpdateQuestUI(QuestUIChange.ChangeObjective, "");
-        }
+        gameObject.GetComponent<AudioSource>().Play();
+        anim.Play("Door_Open_ANI");
+        GameEventsManager.instance.questEvents.UpdateQuestUI(QuestUIChange.ChangeObjective, "");
     }
 }
