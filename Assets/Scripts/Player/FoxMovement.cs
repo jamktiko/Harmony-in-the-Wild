@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -243,6 +244,7 @@ public class FoxMovement : MonoBehaviour
             if (glider)
             {
                 Glider();
+                AbilityManager.instance.TryActivateAbility(Abilities.Gliding);
             }
             else if (!glider)
             {
@@ -294,7 +296,7 @@ public class FoxMovement : MonoBehaviour
         //gliding
         else if (!GroundCheck() && glider)
         {
-            Glider();
+            Glider();            
         }
         else if (!GroundCheck() && !glider && !WaterCheck())
         {
@@ -309,6 +311,7 @@ public class FoxMovement : MonoBehaviour
         if (isChargeJumping)
         {
             ChargeJump();
+            AbilityManager.instance.TryActivateAbility(Abilities.ChargeJumping);
         }
 
 

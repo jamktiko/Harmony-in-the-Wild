@@ -42,12 +42,14 @@ public class AbilityManager : MonoBehaviour
         //Initialize all abilities as false (disabled) by default
         foreach (Abilities ability in Enum.GetValues(typeof(Abilities)))
         {
-            abilityStatuses.Add(ability, false); //NOTE: Use Add instead of direct assignment.
+            abilityStatuses.Add(ability, false);
         }
     }
 
     public void TryActivateAbility(Abilities abilityType)
     {
+        Debug.Log("Tried activating ability: " + abilityType);
+
         if (CanActivateAbilities && abilityStatuses.TryGetValue(abilityType, out bool isEnabled) && isEnabled)
         {
             abilities[abilityType].Activate();
