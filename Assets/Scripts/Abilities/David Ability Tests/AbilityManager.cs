@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
 public class AbilityManager : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class AbilityManager : MonoBehaviour
 
     private Dictionary<Abilities, IAbility> abilities;
 
-    public bool CanActivateAbilities { get; set; } = false;
+    //public bool CanActivateAbilities { get; set; } = false;
 
     public void Awake()
     {
@@ -48,15 +49,28 @@ public class AbilityManager : MonoBehaviour
 
     public void TryActivateAbility(Abilities abilityType)
     {
-        Debug.Log("Tried activating ability: " + abilityType);
+        Debug.Log($"Tried activating ability: {abilityType}");
 
-        if (CanActivateAbilities && abilityStatuses.TryGetValue(abilityType, out bool isEnabled) && isEnabled)
+        if (abilityStatuses.TryGetValue(abilityType, out bool isEnabled) && isEnabled)
         {
             abilities[abilityType].Activate();
         }
         else
         {
             Debug.Log($"Abilities cannot be activated right now or {abilityType} is disabled.");
+        }
+    }
+
+    public void RegisterAbility(Abilities abilityType, IAbility ability)
+    {
+        if (!abilities.ContainsKey(abilityType))
+        {
+            abilities.Add(abilityType, ability);
+            Debug.Log($"Registered ability: {abilityType}");
+        }
+        else
+        {
+            Debug.Log($"Ability {abilityType} is already registered.");
         }
     }
 
