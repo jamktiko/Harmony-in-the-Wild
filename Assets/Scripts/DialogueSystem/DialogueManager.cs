@@ -31,7 +31,6 @@ public class DialogueManager : MonoBehaviour
 
     private Story currentStory;
     private TextMeshProUGUI[] choicesText;
-    private GameObject questUI; //Note: from David, declared but never used. Mark for cleanup
     private bool canStartDialogue = true;
 
     private void Awake()
@@ -66,37 +65,37 @@ public class DialogueManager : MonoBehaviour
     {
         if (isDialoguePlaying)
         {
-            if (Input.GetKeyDown(KeyCode.Space)&& currentStory.canContinue)
-            {
-                ContinueDialogue();
-            }
-
-            else if (Input.GetKeyDown(KeyCode.Space) && !currentStory.canContinue)
-            {
-                EndDialogue();
-            }
-
-            else if (Input.GetKeyDown(KeyCode.Return) && isChoiceAvailable)
+            if (Input.GetKeyDown(KeyCode.Return) && isChoiceAvailable)
             {
                 MakeChoice(currentChoiceIndex);
             }
 
-            else if (Input.GetKeyDown(KeyCode.UpArrow))
+            else if (Input.GetKeyDown(KeyCode.UpArrow) && isChoiceAvailable)
             {
                 // if there is a choice available upper on the list, mark it as selected
-                if(currentChoiceIndex > 0)
+                if (currentChoiceIndex > 0)
                 {
                     ChangeCurrentChoice(currentChoiceIndex - 1);
                 }
             }
 
-            else if (Input.GetKeyDown(KeyCode.DownArrow))
+            else if (Input.GetKeyDown(KeyCode.DownArrow) && isChoiceAvailable)
             {
                 // if there is a choice available down on the list, mark it as selected
                 if (currentChoiceIndex < currentStory.currentChoices.Count - 1)
                 {
                     ChangeCurrentChoice(currentChoiceIndex + 1);
                 }
+            }
+
+            else if (Input.GetKeyDown(KeyCode.Space) && currentStory.canContinue && !isChoiceAvailable)
+            {
+                ContinueDialogue();
+            }
+
+            else if (Input.GetKeyDown(KeyCode.Space) && !currentStory.canContinue && !isChoiceAvailable)
+            {
+                EndDialogue();
             }
         }
     }
@@ -129,6 +128,11 @@ public class DialogueManager : MonoBehaviour
             if (!currentStory.canContinue)
             {
                 exitButton.SetActive(true);
+            }
+
+            else
+            {
+                exitButton.SetActive(false);
             }
         }
     }
