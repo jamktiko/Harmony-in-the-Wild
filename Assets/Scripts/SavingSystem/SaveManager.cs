@@ -80,7 +80,6 @@ public class SaveManager : MonoBehaviour
         CollectAbilityData();
         //CollectPlayerPositionData();
     }
-
     private void CollectQuestData()
     {
         gameData.questData = QuestManager.instance.CollectQuestDataForSaving();
@@ -128,25 +127,43 @@ public class SaveManager : MonoBehaviour
 
         return data;
     }
-    public Dictionary<Abilities, bool> GetLoadedAbilityData()
+    // Load dictionary from JSON
+    public Dictionary<Abilities, bool> LoadDictionaryFromJson()
     {
-        Dictionary<Abilities, bool> data = new Dictionary<Abilities, bool>();
+        // Create a new Dictionary<Abilities, bool> to store the loaded data
+        Dictionary<Abilities, bool> loadedDictionary = new Dictionary<Abilities, bool>();
 
-        // fetch the saved data from the file if there is a previous save
         if (File.Exists(saveFilePath))
         {
-            data = gameData.abilityData;
-        }
+            // Read the JSON string from the file
+            string json = File.ReadAllText(saveFilePath);
 
-        // if there isn't, return all abilities false
-        else
-        {
-            foreach (Abilities ability in Enum.GetValues(typeof(Abilities)))
+            // Deserialize the JSON string into a Dictionary<string, bool>
+            Dictionary<string, bool> stringDictionary = JsonUtility.FromJson<Dictionary<string, bool>>(json);
+
+
+            // Convert string keys back to Abilities enum and populate the loaded dictionary
+            foreach (var kvp in stringDictionary)
             {
-                data.Add(ability, false);
+                if (Enum.TryParse(kvp.Key, out Abilities ability))
+                {
+                    loadedDictionary[ability] = kvp.Value;
+                }
+                else
+                {
+                    Debug.LogWarning($"Failed to parse key '{kvp.Key}' to Abilities enum");
+                }
             }
         }
-        return data;
+        else
+        {
+            //if no savefile, populate the dictionary with disabled abilities
+            foreach (Abilities ability in Enum.GetValues(typeof(Abilities)))
+            {
+                loadedDictionary.Add(ability, false);
+            }
+        }
+            return loadedDictionary;
     }
 
     //public List<float> GetLoadedPlayerPositionData()

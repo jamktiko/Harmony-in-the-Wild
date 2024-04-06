@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Linq;
+using System.IO;
 
 public class AbilityManager : MonoBehaviour
 {
@@ -26,7 +27,8 @@ public class AbilityManager : MonoBehaviour
 
         abilities = new Dictionary<Abilities, IAbility>();
 
-        InitializeAbilities();
+        //InitializeAbilities();
+        LoadAbilityData();
     }
 
     private void Update()
@@ -34,20 +36,26 @@ public class AbilityManager : MonoBehaviour
         //For testing
         if (Input.GetKeyDown(KeyCode.L)) 
         {
-            EnableAbility(Abilities.Gliding);
-
             LogAbilityStatuses();
         }
-    }
-
-    private void InitializeAbilities()
-    {
-        //Initialize all abilities as false (disabled) by default
-        foreach (Abilities ability in Enum.GetValues(typeof(Abilities)))
+        if (Input.GetKeyDown(KeyCode.U))
         {
-            abilityStatuses.Add(ability, false);
+            EnableAbility(Abilities.Gliding);
+        }
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            EnableAbility(Abilities.Freezing);
         }
     }
+
+    //public void InitializeAbilities()
+    //{
+    //    //Initialize all abilities as false (disabled) by default
+    //    foreach (Abilities ability in Enum.GetValues(typeof(Abilities)))
+    //    {
+    //        abilityStatuses.Add(ability, false);
+    //    }
+    //}
 
     public void TryActivateAbility(Abilities abilityType)
     {
@@ -100,8 +108,41 @@ public class AbilityManager : MonoBehaviour
             Debug.Log($"Ability: {ability.Key}, Status: {status}");
         }
     }
-    public Dictionary<Abilities, bool> CollectAbilityDataForSaving()
+
+    public string CollectAbilityDataForSaving()
     {
-        return abilityStatuses;
+        //serialize this shit
+
+        AbilityData abilityData = new AbilityData();
+
+        string data = "";
+
+        // Create a new dictionary with string keys for serialization
+        //Dictionary<string, bool> stringDictionary = new Dictionary<string, bool>();
+
+        // Populate the stringDictionary with enum keys converted to strings
+        foreach (var kvp in abilityStatuses)
+        {
+            string abilityKey = kvp.Key.ToString(); // Convert enum key to string
+            bool abilityValue = kvp.Value;
+
+            abilityData.serializedAbilityStatuses[abilityKey] = abilityValue;
+        }
+
+        foreach (var kvp2 in abilityData.serializedAbilityStatuses)
+        {
+            Debug.Log($"CollectAbData: {kvp2.Key}: {kvp2.Value}");
+        }
+
+        // Serialize the stringDictionary to JSON
+        data = JsonUtility.ToJson(abilityData);
+
+        Debug.Log("data: " + data);
+        return data;
+    }
+
+    public void LoadAbilityData()
+    {
+        abilityStatuses = SaveManager.instance.LoadDictionaryFromJson();
     }
 }
