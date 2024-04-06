@@ -6,10 +6,11 @@ public class SetAbilites : MonoBehaviour
 {
     void Start()
     {
-        for (int i = 0; i < PlayerManager.instance.hasAbilityValues.Count; i++)
-        {
-            PlayerManager.instance.hasAbilityValues[i] = false;
-        }
+        //note: REDUNDANT replaced with AbilityManager
+        //for (int i = 0; i < PlayerManager.instance.hasAbilityValues.Count; i++)
+        //{
+        //    PlayerManager.instance.hasAbilityValues[i] = false;
+        //}
         SaveManager.instance.SaveGame();
     }
 }

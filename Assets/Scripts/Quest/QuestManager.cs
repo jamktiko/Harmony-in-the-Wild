@@ -231,8 +231,16 @@ public class QuestManager : MonoBehaviour
     private void AbilityAcquired(Abilities ability) 
     {
         AbilityManager.instance.EnableAbility(ability);
-    }
 
+        if (ability == Abilities.GhostSpeaking)
+        {
+            ActivateGhostSpeak();
+        }
+    }
+    public void ActivateGhostSpeak()
+    {
+        GameEventsManager.instance.playerEvents.GhostSpeakActivated();
+    }
     public List<string> CollectQuestDataForSaving()
     {
         List<string> allQuestData = new List<string>();
@@ -245,7 +253,6 @@ public class QuestManager : MonoBehaviour
 
             i++;
         }
-
         return allQuestData;
     }
 

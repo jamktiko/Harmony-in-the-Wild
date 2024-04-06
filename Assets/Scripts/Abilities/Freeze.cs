@@ -20,7 +20,8 @@ public class Freeze : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F) && PlayerManager.instance.hasAbilityValues[7] && !hasCooldown)
+        //note: replace with AbilityManager stuff
+        if (Input.GetKeyDown(KeyCode.F) && AbilityManager.instance.abilityStatuses.TryGetValue(Abilities.Freezing, out bool isEnabled) && isEnabled && !hasCooldown)
         {
             ActivateFreezeObject();
         }

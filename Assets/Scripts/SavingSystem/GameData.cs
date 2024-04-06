@@ -4,6 +4,6 @@ using System.Collections.Generic;
 public class GameData
 {
     public List<string> questData;
-    public List<bool> abilityData;
+    public Dictionary<Abilities, bool> abilityData;
     public List<float> playerPositionData;
 }

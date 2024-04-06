@@ -3,6 +3,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
 
 //This script handles both saving and loading of gameData.
 
@@ -13,10 +14,11 @@ public class SaveManager : MonoBehaviour
     private string saveFilePath;
 
     private GameData gameData = new GameData();
+    public string testInternal;
 
     private void Awake()
     {
-        saveFilePath = Application.persistentDataPath + "/GameData.dat";
+        saveFilePath = Application.persistentDataPath + "/GameData.json";
 
         if(instance != null)
         {
@@ -47,46 +49,30 @@ public class SaveManager : MonoBehaviour
     public void SaveGame()
     {
         CollectDataForSaving();
-
-        BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Create(saveFilePath);
         GameData dataToSave = new GameData();
 
         dataToSave.questData = gameData.questData;
         dataToSave.abilityData = gameData.abilityData;
 
-        //string activeSceneName = SceneManager.GetActiveScene().name;
+        string jsonData = JsonUtility.ToJson(dataToSave);
+        File.WriteAllText(saveFilePath, jsonData);
 
-        //string tutorialSceneName = SceneManagerHelper.GetSceneName(SceneManagerHelper.Scene.Tutorial);
-
-        //if (activeSceneName == tutorialSceneName)
-        //{
-        //    dataToSave.playerPositionData= new List<float> { 1627f, 118f, 360f };
-        //}
-        //else
-        //{
-        //    dataToSave.playerPositionData = gameData.playerPositionData;
-        //}
-        bf.Serialize(file, dataToSave);
-
-        file.Close();
+        Debug.Log("Game saved.");
     }
-
     private void LoadGame()
     {
         if (File.Exists(saveFilePath))
         {
-            BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Open(saveFilePath, FileMode.Open);
-            GameData loadedData = (GameData)bf.Deserialize(file);
-            file.Close();
+            string jsonData = File.ReadAllText(saveFilePath);
+            GameData loadedData = JsonUtility.FromJson<GameData>(jsonData);
 
             gameData.questData = loadedData.questData;
             gameData.abilityData = loadedData.abilityData;
             //gameData.playerPositionData = loadedData.playerPositionData;
+
+            Debug.Log("Game loaded.");
         }
     }
-
     #region CollectDataForSaving
     private void CollectDataForSaving()
     {
@@ -102,7 +88,8 @@ public class SaveManager : MonoBehaviour
 
     private void CollectAbilityData()
     {
-        gameData.abilityData = PlayerManager.instance.CollectAbilityDataForSaving();
+        gameData.abilityData = AbilityManager.instance.CollectAbilityDataForSaving();
+
     }
     //private void CollectPlayerPositionData()
     //{
@@ -141,10 +128,9 @@ public class SaveManager : MonoBehaviour
 
         return data;
     }
-
-    public List<bool> GetLoadedAbilityData()
+    public Dictionary<Abilities, bool> GetLoadedAbilityData()
     {
-        List<bool> data = new List<bool>();
+        Dictionary<Abilities, bool> data = new Dictionary<Abilities, bool>();
 
         // fetch the saved data from the file if there is a previous save
         if (File.Exists(saveFilePath))
@@ -152,12 +138,12 @@ public class SaveManager : MonoBehaviour
             data = gameData.abilityData;
         }
 
-        // if there isn't, return an empty list
+        // if there isn't, return all abilities false
         else
         {
-            for (int i = 0; i < 8; i++)
+            foreach (Abilities ability in Enum.GetValues(typeof(Abilities)))
             {
-                data.Add(false);
+                data.Add(ability, false);
             }
         }
         return data;

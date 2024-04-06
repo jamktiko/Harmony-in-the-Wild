@@ -7,7 +7,7 @@ public class AbilityManager : MonoBehaviour
 {
     public static AbilityManager instance;
 
-    private Dictionary<Abilities, bool> abilityStatuses = new Dictionary<Abilities, bool>();
+    public Dictionary<Abilities, bool> abilityStatuses = new Dictionary<Abilities, bool>();
 
     private Dictionary<Abilities, IAbility> abilities;
 
@@ -34,6 +34,8 @@ public class AbilityManager : MonoBehaviour
         //For testing
         if (Input.GetKeyDown(KeyCode.L)) 
         {
+            EnableAbility(Abilities.Gliding);
+
             LogAbilityStatuses();
         }
     }
@@ -80,6 +82,7 @@ public class AbilityManager : MonoBehaviour
         if (abilityStatuses.ContainsKey(abilityType))
         {
             abilityStatuses[abilityType] = true;
+
             Debug.Log($"Ability {abilityType} has been enabled.");
         }
         else
@@ -96,5 +99,9 @@ public class AbilityManager : MonoBehaviour
             string status = ability.Value ? "Enabled" : "Disabled";
             Debug.Log($"Ability: {ability.Key}, Status: {status}");
         }
+    }
+    public Dictionary<Abilities, bool> CollectAbilityDataForSaving()
+    {
+        return abilityStatuses;
     }
 }

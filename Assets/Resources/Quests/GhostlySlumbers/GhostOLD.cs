@@ -26,10 +26,10 @@ public class Ghost : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
 
         // hide the character if player doesn't have Ghost Speak
-        if (!PlayerManager.instance.hasAbilityValues[5])
-        {
-            character.SetActive(false);
-        }
+        //if (!PlayerManager.instance.hasAbilityValues[5])
+        //{
+        //    character.SetActive(false);
+        //}
     }
 
     private void OnEnable()

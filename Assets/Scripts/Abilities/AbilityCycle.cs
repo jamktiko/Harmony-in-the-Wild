@@ -49,9 +49,9 @@ public class AbilityCycle : MonoBehaviour
         yield return new WaitForSeconds(2f);
         abilitiesList = new List<AbilityData>()
         {
-            new AbilityData(0, "ChargeJump", PlayerManager.instance.hasAbilityValues[2], 2),
-            new AbilityData(1, "Telegrab", PlayerManager.instance.hasAbilityValues[6], 6),
-            new AbilityData(2, "Freeze", PlayerManager.instance.hasAbilityValues[7], 7)
+            //new AbilityData(0, "ChargeJump", PlayerManager.instance.hasAbilityValues[2], 2),
+            //new AbilityData(1, "Telegrab", PlayerManager.instance.hasAbilityValues[6], 6),
+            //new AbilityData(2, "Freeze", PlayerManager.instance.hasAbilityValues[7], 7)
         };
 
         currentAbilitiesList = abilitiesList.Where(x => x.isEnabled == true).ToList();
@@ -101,4 +101,6 @@ public class AbilityCycle : MonoBehaviour
             yield return null;
         }
     }
+
+
 }

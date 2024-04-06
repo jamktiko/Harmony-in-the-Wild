@@ -91,19 +91,10 @@ public class FoxMovement : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        //if (SceneManager.GetActiveScene()==SceneManager.GetSceneByBuildIndex(3)||SceneManager.GetSceneByBuildIndex(3).isLoaded) 
-        //{
-        //    LoadPlayerPosition();
-        //}
     }
 
     void Start()
     {
-        //if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(3) || SceneManager.GetSceneByBuildIndex(3).isLoaded)
-        //{
-        //    LoadPlayerPosition();
-        //}
-
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
@@ -121,13 +112,6 @@ public class FoxMovement : MonoBehaviour
 
     void Update()
     {
-        //if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(3)&&!isLoaded)
-        //{
-        //    LoadPlayerPosition();
-
-        //    isLoaded = true;
-        //}
-
         if (!DialogueManager.instance.isDialoguePlaying)
         {
             MyInput();
@@ -182,7 +166,8 @@ public class FoxMovement : MonoBehaviour
             Jump();
             Invoke(nameof(ResetJump), jumpCooldown);
         }
-        else if (Input.GetButtonDown("Jump") && !GroundCheck() && PlayerManager.instance.hasAbilityValues[0] && !glider)
+        //note: this is how the abilitymanager if statement should be like
+        else if (Input.GetButtonDown("Jump") && !GroundCheck() && AbilityManager.instance.abilityStatuses.TryGetValue(Abilities.Gliding, out bool isEnabled) && isEnabled && !glider)
         {
             glider = true;
         }
@@ -203,7 +188,7 @@ public class FoxMovement : MonoBehaviour
             sprinting = false;
 
         //SnowDive check
-        if (Input.GetKey(KeyCode.LeftControl) && PlayerManager.instance.hasAbilityValues[3] && SnowCheck())
+        if (Input.GetKey(KeyCode.LeftControl) && AbilityManager.instance.abilityStatuses.TryGetValue(Abilities.SnowDiving, out bool isEnabled2) && isEnabled2 && SnowCheck())
             snowDive = true;
         else
             snowDive = false;
@@ -218,7 +203,9 @@ public class FoxMovement : MonoBehaviour
             playerAnimator.SetBool("isJumping", false);
             Invoke(nameof(ResetJump), 0);
         }
-        if (PlayerManager.instance.hasAbilityValues[3])
+
+        //note: what ability is this supposed to check for?
+        if (AbilityManager.instance.abilityStatuses.TryGetValue(Abilities.ChargeJumping, out bool isEnabled3) && isEnabled3)
         {
             ClimbWall();
         }
@@ -253,9 +240,6 @@ public class FoxMovement : MonoBehaviour
                 //in air animation here
                 playerAnimator.SetBool("isGrounded", false);
             }
-
-
-
         }
 
         else if (moveDirection == Vector3.zero && GroundCheck())
@@ -313,8 +297,6 @@ public class FoxMovement : MonoBehaviour
             ChargeJump();
             AbilityManager.instance.TryActivateAbility(Abilities.ChargeJumping);
         }
-
-
     }
     private void ActivateTelegrabCamera()
     {
