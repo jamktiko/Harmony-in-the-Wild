@@ -5,10 +5,10 @@ using UnityEngine;
 [System.Serializable]
 public class AbilityData
 {
-    public Dictionary<string, bool> serializedAbilityStatuses;
+    public Dictionary<Abilities, bool> serializedAbilityStatuses;
 
     public AbilityData()
     {
-        serializedAbilityStatuses = new Dictionary<string, bool>();
+        serializedAbilityStatuses = new Dictionary<Abilities, bool>();
     }
 }

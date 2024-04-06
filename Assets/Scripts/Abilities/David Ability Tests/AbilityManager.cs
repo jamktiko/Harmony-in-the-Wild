@@ -3,6 +3,7 @@ using UnityEngine;
 using System;
 using System.Linq;
 using System.IO;
+using Newtonsoft.Json;
 
 public class AbilityManager : MonoBehaviour
 {
@@ -113,29 +114,31 @@ public class AbilityManager : MonoBehaviour
     {
         //serialize this shit
 
-        AbilityData abilityData = new AbilityData();
+        //AbilityData abilityData = new AbilityData();
 
         string data = "";
+
+        //abilityData.serializedAbilityStatuses = abilityStatuses;
 
         // Create a new dictionary with string keys for serialization
         //Dictionary<string, bool> stringDictionary = new Dictionary<string, bool>();
 
         // Populate the stringDictionary with enum keys converted to strings
-        foreach (var kvp in abilityStatuses)
-        {
-            string abilityKey = kvp.Key.ToString(); // Convert enum key to string
-            bool abilityValue = kvp.Value;
+        //foreach (var kvp in abilityStatuses)
+        //{
+        //    string abilityKey = kvp.Key.ToString(); // Convert enum key to string
+        //    bool abilityValue = kvp.Value;
 
-            abilityData.serializedAbilityStatuses[abilityKey] = abilityValue;
-        }
+        //    abilityData.serializedAbilityStatuses[abilityKey] = abilityValue;
+        //}
 
-        foreach (var kvp2 in abilityData.serializedAbilityStatuses)
-        {
-            Debug.Log($"CollectAbData: {kvp2.Key}: {kvp2.Value}");
-        }
+        //foreach (var kvp2 in abilityData.serializedAbilityStatuses)
+        //{
+        //    Debug.Log($"CollectAbData: {kvp2.Key}: {kvp2.Value}");
+        //}
 
         // Serialize the stringDictionary to JSON
-        data = JsonUtility.ToJson(abilityData);
+        data = JsonConvert.SerializeObject(abilityStatuses);
 
         Debug.Log("data: " + data);
         return data;

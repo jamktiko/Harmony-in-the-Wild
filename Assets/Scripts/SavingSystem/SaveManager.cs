@@ -4,6 +4,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
+using Newtonsoft.Json;
 
 //This script handles both saving and loading of gameData.
 
@@ -139,21 +140,24 @@ public class SaveManager : MonoBehaviour
             string json = File.ReadAllText(saveFilePath);
 
             // Deserialize the JSON string into a Dictionary<string, bool>
-            Dictionary<string, bool> stringDictionary = JsonUtility.FromJson<Dictionary<string, bool>>(json);
+
+            GameData gameData = JsonConvert.DeserializeObject<GameData>(json);
+
+            loadedDictionary = JsonConvert.DeserializeObject<Dictionary<Abilities, bool>>(gameData.abilityData);
 
 
             // Convert string keys back to Abilities enum and populate the loaded dictionary
-            foreach (var kvp in stringDictionary)
-            {
-                if (Enum.TryParse(kvp.Key, out Abilities ability))
-                {
-                    loadedDictionary[ability] = kvp.Value;
-                }
-                else
-                {
-                    Debug.LogWarning($"Failed to parse key '{kvp.Key}' to Abilities enum");
-                }
-            }
+            //foreach (var kvp in stringDictionary)
+            //{
+            //    if (Enum.TryParse(kvp.Key, out Abilities ability))
+            //    {
+            //        loadedDictionary[ability] = kvp.Value;
+            //    }
+            //    else
+            //    {
+            //        Debug.LogWarning($"Failed to parse key '{kvp.Key}' to Abilities enum");
+            //    }
+            //}
         }
         else
         {
