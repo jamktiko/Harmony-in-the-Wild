@@ -21,8 +21,8 @@ public class DialogueManager : MonoBehaviour
 
     [Header("Choices")]
     [SerializeField] private bool isChoiceAvailable;
-    [SerializeField] private int currentChoiceIndex;
-    [SerializeField] private GameObject[] choiceButtons;   
+    [SerializeField] private int currentChoiceIndex = 0;
+    [SerializeField] private GameObject[] choiceButtons;
 
     [Header("Public Values for References")]
     public bool isDialoguePlaying;
@@ -65,6 +65,7 @@ public class DialogueManager : MonoBehaviour
     {
         if (isDialoguePlaying)
         {
+            // make the selected choice
             if (Input.GetKeyDown(KeyCode.Return) && isChoiceAvailable)
             {
                 MakeChoice(currentChoiceIndex);
@@ -88,11 +89,13 @@ public class DialogueManager : MonoBehaviour
                 }
             }
 
+            // if there is still more dialogue to show, continue to the next section
             else if (Input.GetKeyDown(KeyCode.Space) && currentStory.canContinue && !isChoiceAvailable)
             {
                 ContinueDialogue();
             }
 
+            // if there is no more dialogue to show, end the dialogue
             else if (Input.GetKeyDown(KeyCode.Space) && !currentStory.canContinue && !isChoiceAvailable)
             {
                 EndDialogue();
@@ -104,6 +107,8 @@ public class DialogueManager : MonoBehaviour
     {
         if (canStartDialogue)
         {
+            Debug.Log("start dialogue");
+
             currentStory = new Story(inkJSON.text);
             isDialoguePlaying = true;
             dialogueCanvas.SetActive(true);
@@ -186,7 +191,9 @@ public class DialogueManager : MonoBehaviour
 
         // make new current choice button with contrast color
         currentChoiceIndex = index;
-        choiceButtons[index].GetComponent<Image>().color = new Color(255, 218, 142, 255);
+        choiceButtons[currentChoiceIndex].GetComponent<Image>().color = new Color32(255, 218, 142, 255);
+
+        Debug.Log("Choice color changed.");
     }
 
     public void MakeChoice(int choiceIndex)
