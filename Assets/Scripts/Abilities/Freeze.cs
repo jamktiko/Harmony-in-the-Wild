@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 public class Freeze : MonoBehaviour
 {
@@ -40,6 +41,8 @@ public class Freeze : MonoBehaviour
                 if (freezable)
                 {
                     freezable.FreezeObject();
+
+                    if (freezeAudio != null)
                     freezeAudio.Play();
                 }
             }
