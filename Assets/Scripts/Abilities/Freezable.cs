@@ -12,7 +12,6 @@ public class Freezable : MonoBehaviour
 
     //TODO: Rename both of these once purpose is more clear. Now naming implies they're booleans.
     [Header("Needed References")]
-    [SerializeField] private GameObject isFrozenEffect;
     [SerializeField] private GameObject canBeFrozen;
     [SerializeField] private Material newFrozenMaterial;
 
@@ -38,8 +37,6 @@ public class Freezable : MonoBehaviour
 
         if (canBeFrozen != null)
             canBeFrozen.SetActive(false);
-        if (isFrozenEffect != null)
-            isFrozenEffect.SetActive(true);
 
         // Material swapping
         SwapMaterials(true);
@@ -61,9 +58,7 @@ public class Freezable : MonoBehaviour
 
         if (canBeFrozen != null)
             canBeFrozen.SetActive(true);
-        if (isFrozenEffect != null)
-            isFrozenEffect.SetActive(false);
-
+        
         SwapMaterials(false);
 
         Debug.Log(gameObject.name + " has been unfrozen.");
@@ -117,12 +112,4 @@ public class Freezable : MonoBehaviour
             }
         }
     }
-}
-
-//Note: What does this do? Where is it used?
-[System.Serializable]
-public enum MoveDirection
-{
-    Forward,
-    Backwards
 }
