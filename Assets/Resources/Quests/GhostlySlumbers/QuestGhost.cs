@@ -24,7 +24,7 @@ public class QuestGhost : MonoBehaviour
 
     public void InteractWithGhost()
     {
-        if (playerIsNear)
+        if (playerIsNear && !DialogueManager.instance.isDialoguePlaying)
         {
             switch (beenSpokenTo)
             {

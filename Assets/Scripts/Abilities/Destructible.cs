@@ -13,8 +13,6 @@ public class Destructible : MonoBehaviour
     [SerializeField] private GameObject oreVersion;
     [SerializeField] private GameObject smashableEffect;
 
-    [SerializeField] private AudioSource audioSource;
-
     private bool hasOre;
 
     private void Start()

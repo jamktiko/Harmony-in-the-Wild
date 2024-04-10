@@ -1,0 +1,1 @@
+VAR latestQuestStepDialogueCompleted = 0

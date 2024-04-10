@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Ink.Runtime;
+using Ink.UnityIntegration;
 using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
@@ -21,17 +22,19 @@ public class DialogueManager : MonoBehaviour
 
     [Header("Choices")]
     [SerializeField] private bool isChoiceAvailable;
-    [SerializeField] private int currentChoiceIndex;
-    [SerializeField] private GameObject[] choiceButtons;   
+    [SerializeField] private int currentChoiceIndex = 0;
+    [SerializeField] private GameObject[] choiceButtons;
 
     [Header("Public Values for References")]
     public bool isDialoguePlaying;
 
-    // private variables, no need to show in the inspector
+    [Header("Ink Globals")]
+    [SerializeField] private InkFile globalsInkFile;
 
+    // private variables, no need to show in the inspector
+    private DialogueVariableObserver dialogueVariables;
     private Story currentStory;
     private TextMeshProUGUI[] choicesText;
-    private GameObject questUI; //Note: from David, declared but never used. Mark for cleanup
     private bool canStartDialogue = true;
 
     private void Awake()
@@ -45,6 +48,8 @@ public class DialogueManager : MonoBehaviour
         }
 
         instance = this;
+
+        dialogueVariables = new DialogueVariableObserver(globalsInkFile.filePath);
     }
 
     private void Start()
@@ -66,37 +71,40 @@ public class DialogueManager : MonoBehaviour
     {
         if (isDialoguePlaying)
         {
-            if (Input.GetKeyDown(KeyCode.Space)&& currentStory.canContinue)
-            {
-                ContinueDialogue();
-            }
-
-            else if (Input.GetKeyDown(KeyCode.Space) && !currentStory.canContinue)
-            {
-                EndDialogue();
-            }
-
-            else if (Input.GetKeyDown(KeyCode.Return) && isChoiceAvailable)
+            // make the selected choice
+            if (Input.GetKeyDown(KeyCode.Return) && isChoiceAvailable)
             {
                 MakeChoice(currentChoiceIndex);
             }
 
-            else if (Input.GetKeyDown(KeyCode.UpArrow))
+            else if (Input.GetKeyDown(KeyCode.UpArrow) && isChoiceAvailable)
             {
                 // if there is a choice available upper on the list, mark it as selected
-                if(currentChoiceIndex > 0)
+                if (currentChoiceIndex > 0)
                 {
                     ChangeCurrentChoice(currentChoiceIndex - 1);
                 }
             }
 
-            else if (Input.GetKeyDown(KeyCode.DownArrow))
+            else if (Input.GetKeyDown(KeyCode.DownArrow) && isChoiceAvailable)
             {
                 // if there is a choice available down on the list, mark it as selected
                 if (currentChoiceIndex < currentStory.currentChoices.Count - 1)
                 {
                     ChangeCurrentChoice(currentChoiceIndex + 1);
                 }
+            }
+
+            // if there is still more dialogue to show, continue to the next section
+            else if (Input.GetKeyDown(KeyCode.Space) && currentStory.canContinue && !isChoiceAvailable)
+            {
+                ContinueDialogue();
+            }
+
+            // if there is no more dialogue to show, end the dialogue
+            else if (Input.GetKeyDown(KeyCode.Space) && !currentStory.canContinue && !isChoiceAvailable)
+            {
+                EndDialogue();
             }
         }
     }
@@ -105,6 +113,8 @@ public class DialogueManager : MonoBehaviour
     {
         if (canStartDialogue)
         {
+            Debug.Log("Start dialogue.");
+
             currentStory = new Story(inkJSON.text);
             isDialoguePlaying = true;
             dialogueCanvas.SetActive(true);
@@ -113,6 +123,9 @@ public class DialogueManager : MonoBehaviour
             Cursor.visible = true;
 
             ContinueDialogue();
+
+            // start listening the variable changes in the current story
+            dialogueVariables.StartListening(currentStory);
         }
     }
 
@@ -130,6 +143,11 @@ public class DialogueManager : MonoBehaviour
             {
                 exitButton.SetActive(true);
             }
+
+            else
+            {
+                exitButton.SetActive(false);
+            }
         }
     }
 
@@ -139,6 +157,7 @@ public class DialogueManager : MonoBehaviour
         if(currentStory.currentChoices.Count <= 0)
         {
             isChoiceAvailable = false;
+            return;
         }
 
         else
@@ -182,7 +201,9 @@ public class DialogueManager : MonoBehaviour
 
         // make new current choice button with contrast color
         currentChoiceIndex = index;
-        choiceButtons[index].GetComponent<Image>().color = new Color(255, 218, 142, 255);
+        choiceButtons[currentChoiceIndex].GetComponent<Image>().color = new Color32(255, 218, 142, 255);
+
+        Debug.Log("Choice color changed.");
     }
 
     public void MakeChoice(int choiceIndex)
@@ -253,6 +274,9 @@ public class DialogueManager : MonoBehaviour
 
     private void EndDialogue()
     {
+        // stop listening the dialogue variable changes in the current story
+        dialogueVariables.StopListening(currentStory);
+
         isDialoguePlaying = false;
         dialogueText.text = "";
 
@@ -263,6 +287,25 @@ public class DialogueManager : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+    }
+
+    public Ink.Runtime.Object GetDialogueVariableState(string variableName)
+    {
+        Ink.Runtime.Object variableValue = null;
+
+        dialogueVariables.variables.TryGetValue(variableName, out variableValue);
+
+        if(variableValue == null)
+        {
+            Debug.Log("Ink Variables was found to be null: " + variableName);
+        }
+
+        else
+        {
+            Debug.Log("Fetched value is: " + variableValue);
+        }
+
+        return variableValue;
     }
 
     // delay between dialogues to prevent a bug from moving from one dialogue to another with the same character without player pressing any keys
