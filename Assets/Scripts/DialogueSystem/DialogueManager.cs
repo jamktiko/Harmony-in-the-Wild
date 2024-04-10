@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Ink.Runtime;
+using Ink.UnityIntegration;
 using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
@@ -27,8 +28,11 @@ public class DialogueManager : MonoBehaviour
     [Header("Public Values for References")]
     public bool isDialoguePlaying;
 
-    // private variables, no need to show in the inspector
+    [Header("Ink Globals")]
+    [SerializeField] private InkFile globalsInkFile;
 
+    // private variables, no need to show in the inspector
+    private DialogueVariableObserver dialogueVariables;
     private Story currentStory;
     private TextMeshProUGUI[] choicesText;
     private bool canStartDialogue = true;
@@ -44,6 +48,8 @@ public class DialogueManager : MonoBehaviour
         }
 
         instance = this;
+
+        dialogueVariables = new DialogueVariableObserver(globalsInkFile.filePath);
     }
 
     private void Start()
@@ -107,7 +113,7 @@ public class DialogueManager : MonoBehaviour
     {
         if (canStartDialogue)
         {
-            Debug.Log("start dialogue");
+            Debug.Log("Start dialogue.");
 
             currentStory = new Story(inkJSON.text);
             isDialoguePlaying = true;
@@ -117,6 +123,9 @@ public class DialogueManager : MonoBehaviour
             Cursor.visible = true;
 
             ContinueDialogue();
+
+            // start listening the variable changes in the current story
+            dialogueVariables.StartListening(currentStory);
         }
     }
 
@@ -148,6 +157,7 @@ public class DialogueManager : MonoBehaviour
         if(currentStory.currentChoices.Count <= 0)
         {
             isChoiceAvailable = false;
+            return;
         }
 
         else
@@ -264,6 +274,9 @@ public class DialogueManager : MonoBehaviour
 
     private void EndDialogue()
     {
+        // stop listening the dialogue variable changes in the current story
+        dialogueVariables.StopListening(currentStory);
+
         isDialoguePlaying = false;
         dialogueText.text = "";
 
@@ -274,6 +287,25 @@ public class DialogueManager : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+    }
+
+    public Ink.Runtime.Object GetDialogueVariableState(string variableName)
+    {
+        Ink.Runtime.Object variableValue = null;
+
+        dialogueVariables.variables.TryGetValue(variableName, out variableValue);
+
+        if(variableValue == null)
+        {
+            Debug.Log("Ink Variables was found to be null: " + variableName);
+        }
+
+        else
+        {
+            Debug.Log("Fetched value is: " + variableValue);
+        }
+
+        return variableValue;
     }
 
     // delay between dialogues to prevent a bug from moving from one dialogue to another with the same character without player pressing any keys
