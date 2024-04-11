@@ -144,20 +144,6 @@ public class SaveManager : MonoBehaviour
             GameData gameData = JsonConvert.DeserializeObject<GameData>(json);
 
             loadedDictionary = JsonConvert.DeserializeObject<Dictionary<Abilities, bool>>(gameData.abilityData);
-
-
-            // Convert string keys back to Abilities enum and populate the loaded dictionary
-            //foreach (var kvp in stringDictionary)
-            //{
-            //    if (Enum.TryParse(kvp.Key, out Abilities ability))
-            //    {
-            //        loadedDictionary[ability] = kvp.Value;
-            //    }
-            //    else
-            //    {
-            //        Debug.LogWarning($"Failed to parse key '{kvp.Key}' to Abilities enum");
-            //    }
-            //}
         }
         else
         {

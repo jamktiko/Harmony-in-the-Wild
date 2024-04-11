@@ -49,6 +49,7 @@ public class AbilityManager : MonoBehaviour
         }
     }
 
+    //note: moved into the SaveManager 'cus it's cleaner and this doesn't have to be here
     //public void InitializeAbilities()
     //{
     //    //Initialize all abilities as false (disabled) by default
