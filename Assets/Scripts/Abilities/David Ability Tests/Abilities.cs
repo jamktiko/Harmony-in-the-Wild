@@ -3,7 +3,7 @@ public enum Abilities
     Gliding,
     Swimming,
     ChargeJumping,
-    WallClimbing,
+    SnowDiving,
     RockDestroying,
     GhostSpeaking,
     TeleGrabbing,

@@ -24,6 +24,9 @@ public class QuestPoint : MonoBehaviour
     private string questId;
     private QuestState currentQuestState;
 
+    [Header("RespawnPoint")]
+    [SerializeField] GameObject respawnPoint;
+
     private void Awake()
     {
         questId = questInfoForPoint.id;
@@ -49,6 +52,8 @@ public class QuestPoint : MonoBehaviour
 
     private void InteractedWithQuestPoint()
     {
+        RespawnManager.instance.SetRespawnPosition(respawnPoint.transform.position);
+
         if (!playerIsNear)
         {
             return;
@@ -97,7 +102,7 @@ public class QuestPoint : MonoBehaviour
         if (quest.info.id.Equals(questId))
         {
             currentQuestState = quest.state;
-            Debug.Log("Quest with id: " + questId + " updated to state: " + currentQuestState);
+            //Debug.Log("Quest with id: " + questId + " updated to state: " + currentQuestState);
         }
     }
 

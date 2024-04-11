@@ -36,9 +36,10 @@ public class DevToolButtons : MonoBehaviour
 
     public void ResetAbilities()
     {
-        for (int i = 0; i < 8; i++)
+
+        foreach (Abilities abilities in AbilityManager.instance.abilityStatuses.Keys)
         {
-            PlayerManager.instance.hasAbilityValues[i] = false;
+            AbilityManager.instance.abilityStatuses[abilities] = false;
         }
 
         SaveManager.instance.SaveGame();
