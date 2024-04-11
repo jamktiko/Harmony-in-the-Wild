@@ -6,6 +6,7 @@ public class GameEventsManager : MonoBehaviour
 
     public QuestEvents questEvents;
     public PlayerEvents playerEvents;
+    public DialogueEvents dialogueEvents;
 
     private void Awake()
     {
@@ -20,5 +21,6 @@ public class GameEventsManager : MonoBehaviour
         // initialize the events
         questEvents = new QuestEvents();
         playerEvents = new PlayerEvents();
+        dialogueEvents = new DialogueEvents();
     }
 }

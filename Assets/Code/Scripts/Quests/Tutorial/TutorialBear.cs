@@ -17,7 +17,7 @@ public class TutorialBear : MonoBehaviour
     private bool playerIsNear = false;
     private AudioSource audioSource;
 
-    private const string latestCompletedDialogue = "latestQuestStepDialogueCompleted";
+    private const string latestCompletedDialogue = "latestTutorialQuestStepDialogueCompleted";
 
     private void Awake()
     {
@@ -34,7 +34,6 @@ public class TutorialBear : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.M))
         {
             dialogueTracker = ((Ink.Runtime.IntValue)DialogueManager.instance.GetDialogueVariableState(latestCompletedDialogue)).value;
-            Debug.Log(dialogueTracker);
         }
     }
 
