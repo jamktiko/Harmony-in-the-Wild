@@ -22,8 +22,8 @@ public class Freeze : MonoBehaviour
 
     private void Update()
     {
-        AbilityManager.instance.abilityStatuses.TryGetValue(Abilities.ChargeJumping, out bool isUnlocked);
-        AbilityCycle.instance.activeAbilities.TryGetValue(Abilities.ChargeJumping, out bool isSelected);
+        AbilityManager.instance.abilityStatuses.TryGetValue(Abilities.Freezing, out bool isUnlocked);
+        AbilityCycle.instance.activeAbilities.TryGetValue(Abilities.Freezing, out bool isSelected);
 
         if (Input.GetKeyDown(KeyCode.F) && isUnlocked && isSelected && !hasCooldown)
         {
