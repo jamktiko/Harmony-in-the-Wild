@@ -29,7 +29,7 @@ public class DialogueManager : MonoBehaviour
     public bool isDialoguePlaying;
 
     [Header("Ink Globals")]
-    [SerializeField] private InkFile globalsInkFile;
+    [SerializeField] private TextAsset loadGlobalsJSON;
 
     // private variables, no need to show in the inspector
     private DialogueVariableObserver dialogueVariables;
@@ -49,7 +49,7 @@ public class DialogueManager : MonoBehaviour
 
         instance = this;
 
-        dialogueVariables = new DialogueVariableObserver(globalsInkFile.filePath);
+        dialogueVariables = new DialogueVariableObserver(loadGlobalsJSON);
     }
 
     private void Start()
@@ -114,6 +114,8 @@ public class DialogueManager : MonoBehaviour
         if (canStartDialogue)
         {
             Debug.Log("Start dialogue.");
+
+            GameEventsManager.instance.dialogueEvents.StartDialogue();
 
             currentStory = new Story(inkJSON.text);
             isDialoguePlaying = true;
@@ -274,6 +276,8 @@ public class DialogueManager : MonoBehaviour
 
     private void EndDialogue()
     {
+        GameEventsManager.instance.dialogueEvents.EndDialogue();
+
         // stop listening the dialogue variable changes in the current story
         dialogueVariables.StopListening(currentStory);
 
