@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Ink.Runtime;
-using Ink.UnityIntegration;
 using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
