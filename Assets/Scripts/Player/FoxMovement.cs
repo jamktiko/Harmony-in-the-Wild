@@ -51,8 +51,8 @@ public class FoxMovement : MonoBehaviour
     private Vector3 boxSize = new Vector3(0f, 2f, 2f);
 
     [Header("Abilities")]
-    [SerializeField] private bool isChargeJumpEnabled;
-    [SerializeField] private bool isTelegrabEnabled;
+    [SerializeField] private bool isChargeJumpActivated;
+    [SerializeField] private bool isTelegrabActivated;
     [SerializeField] private float snowDiveSpeed = 15f;
     [SerializeField] private float chargeJumpHeight = 24f;
     [SerializeField] private Transform grabbedObjectPosition;
@@ -124,14 +124,13 @@ public class FoxMovement : MonoBehaviour
         verticalInput = Input.GetAxisRaw("Vertical");
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
-        EnableAbilities();
-
         SprintInput();
         JumpInput();
 
         GlidingInput();
         ChargeJumpInput();
         SnowDiveInput();
+        TelegrabInput();
 
         ReleaseChargedJump();
         Telegrab();
@@ -142,7 +141,7 @@ public class FoxMovement : MonoBehaviour
     }
     private void JumpInput()
     {
-        if (Input.GetButtonDown("Jump") && isReadyToJump && IsGrounded() && !isChargeJumpEnabled)
+        if (Input.GetButtonDown("Jump") && isReadyToJump && IsGrounded() && !isChargeJumpActivated)
         {
             isReadyToJump = false;
             Jump();
@@ -152,8 +151,8 @@ public class FoxMovement : MonoBehaviour
     #region ABILITY INPUTS
     private void GlidingInput()
     {
-        bool isEnabled = AbilityManager.instance.abilityStatuses.TryGetValue(Abilities.SnowDiving, out isEnabled);
-        if (Input.GetButtonDown("Jump") && !IsGrounded() && isEnabled && !isGliding)
+        AbilityManager.instance.abilityStatuses.TryGetValue(Abilities.SnowDiving, out bool isUnlocked);
+        if (Input.GetButtonDown("Jump") && !IsGrounded() && isUnlocked && !isGliding)
         {
             isGliding = true;
         }
@@ -164,25 +163,44 @@ public class FoxMovement : MonoBehaviour
     }
     private void ChargeJumpInput()
     {
-        if (IsGrounded() && Input.GetButton("Jump") && isChargeJumpEnabled && !isChargingJump)
+        AbilityManager.instance.abilityStatuses.TryGetValue(Abilities.ChargeJumping, out bool isUnlocked);
+        AbilityCycle.instance.activeAbilities.TryGetValue(Abilities.ChargeJumping, out bool isSelected);
+
+        if (Input.GetKeyDown(KeyCode.F) && isUnlocked && isSelected)
+        {
+            isChargeJumpActivated = !isChargeJumpActivated;
+        }
+
+        if (IsGrounded() && Input.GetButton("Jump") && isUnlocked && isChargeJumpActivated && !isChargingJump)
         {
             isChargingJump = true;
         }
     }
     private void SnowDiveInput()
     {
-        bool isEnabled = AbilityManager.instance.abilityStatuses.TryGetValue(Abilities.SnowDiving, out isEnabled);
-        if (Input.GetKey(KeyCode.LeftControl) && isEnabled && IsInSnow())
+        AbilityManager.instance.abilityStatuses.TryGetValue(Abilities.SnowDiving, out bool isUnlocked);
+        if (Input.GetKey(KeyCode.LeftControl) && isUnlocked && IsInSnow())
         {
             isSnowDiving = true;
         }
-        else if (isEnabled && !IsInSnow())
+        else if (isUnlocked && !IsInSnow())
         {
             ClimbSnowWall();
         }
-        else if (!isEnabled || !IsInSnow())
+        else if (!isUnlocked || !IsInSnow())
         {
             isSnowDiving = false;
+        }
+    }
+    private void TelegrabInput()
+    {
+        AbilityManager.instance.abilityStatuses.TryGetValue(Abilities.TeleGrabbing, out bool isUnlocked);
+        AbilityCycle.instance.activeAbilities.TryGetValue(Abilities.TeleGrabbing, out bool isSelected);
+
+        if (Input.GetKeyDown(KeyCode.F) && isUnlocked && isSelected)
+        {
+            isTelegrabActivated = !isTelegrabActivated;
+            ActivateTelegrabCamera();
         }
     }
     #endregion
@@ -510,21 +528,6 @@ public class FoxMovement : MonoBehaviour
     }
     #endregion
     #region MISC
-    //note: AbilityCycle needs to be rewritten with the new AbilityManager system in mind
-    private void EnableAbilities()
-    {
-        if (Input.GetKeyDown(KeyCode.F) && abilityCycle.equippedAbility.officialIndex == 2)
-        {
-            abilityCycle.equippedAbility.isActivated = !abilityCycle.equippedAbility.isActivated;
-            isChargeJumpEnabled = !isChargeJumpEnabled;
-        }
-        if (Input.GetKeyDown(KeyCode.F) && abilityCycle.equippedAbility.officialIndex == 6)
-        {
-            abilityCycle.equippedAbility.isActivated = !abilityCycle.equippedAbility.isActivated;
-            isTelegrabEnabled = !isTelegrabEnabled;
-            ActivateTelegrabCamera();
-        }
-    }
     private void SetDefaultAnimatorValues()
     {
         playerAnimator.SetFloat("horMove", horizontalInput);

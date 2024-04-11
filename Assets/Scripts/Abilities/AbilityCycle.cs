@@ -3,94 +3,83 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
-
+using System;
 public class AbilityCycle : MonoBehaviour
-{   
-    [SerializeField] Dictionary<int, string> currentAbilitiesDictionary; // Note from Flavio: Doesn't appear to be used anymore? Replaced by currentAbilitiesList?
+{
+    public static AbilityCycle instance;
 
-    [System.Serializable]
-    public struct AbilityData
+    [SerializeField] private TMP_Text abilityUIText;
+    public Dictionary<Abilities, bool> activeAbilities = new Dictionary<Abilities, bool>();
+    private List<Abilities> abilityKeys;
+    private Abilities selectedAbility = Abilities.None;
+    public void Awake()
     {
-        public int abilityIndex;
-        public string name;
-        public bool isEnabled;
-        public int officialIndex;
-        public bool isActivated;
-        public AbilityData(int ai,string n, bool e,int i)
+        if (instance != null && instance != this)
         {
-           abilityIndex = ai;
-           name = n;
-           isEnabled = e;
-           officialIndex = i;
-           isActivated = false;
-        }    
+            Debug.LogWarning("There is more than one AbilityCycle.");
+            Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
     }
-    
-    [SerializeField] List<AbilityData> abilitiesList;
-    [SerializeField] List<AbilityData> currentAbilitiesList = new List<AbilityData>();
-    [SerializeField] TMP_Text abilityUIText;
-
-    //NOTE from David: these were both a [SerializeField] and public. Private + method to gain access to the value for foxmovement.cs arther than public or [SerializeField] internal?
-    public AbilityData equippedAbility; 
-    public int abilityIndex = 0;
-
     void Start()
     {
-        StartCoroutine(MakeList());
+        InitializeAbilities();
+        abilityKeys = new List<Abilities>(activeAbilities.Keys);
     }
 
     void Update()
     {
         SwitchAbility();
     }
-
-    public IEnumerator MakeList()
+    public void InitializeAbilities()
     {
-        yield return new WaitForSeconds(2f);
-        abilitiesList = new List<AbilityData>()
-        {
-            //new AbilityData(0, "ChargeJump", PlayerManager.instance.hasAbilityValues[2], 2),
-            //new AbilityData(1, "Telegrab", PlayerManager.instance.hasAbilityValues[6], 6),
-            //new AbilityData(2, "Freeze", PlayerManager.instance.hasAbilityValues[7], 7)
-        };
-
-        currentAbilitiesList = abilitiesList.Where(x => x.isEnabled == true).ToList();
-
-        if (currentAbilitiesList.Count > 0)
-        {
-            equippedAbility = currentAbilitiesList[abilityIndex];
-        }
+        activeAbilities.Add(Abilities.None, true);
+        activeAbilities.Add(Abilities.ChargeJumping, false);
+        activeAbilities.Add(Abilities.TeleGrabbing, false);
+        activeAbilities.Add(Abilities.Freezing, false);
     }
-
-    void SwitchAbility() 
+    private void SwitchAbility()
     {
-        if (Input.GetKeyDown(KeyCode.Tab)&&currentAbilitiesList.Count!=0)
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
-            if (abilityIndex<currentAbilitiesList.Count-1)
+            //activeAbilities.TryGetValue(selectedAbility, out bool isSelected);
+            //Debug.Log("1. Selected ability is: " + selectedAbility + " and it is: " + isSelected);
+            activeAbilities[selectedAbility] = false;
+
+            int currentIndex = abilityKeys.IndexOf(selectedAbility);
+
+            if (currentIndex != -1)
             {
-                abilityIndex++;
-                equippedAbility = currentAbilitiesList[abilityIndex];
-                abilityUIText.text = "Ability equipped: " + equippedAbility.name;
-                abilityUIText.color = Color.black;
-                StartCoroutine(DelayFadeTextToFullAlpha(2f, abilityUIText));
+                bool isSelectedUnlocked = AbilityManager.instance.abilityStatuses[selectedAbility];
+                if (isSelectedUnlocked)
+                {
+                    //this modulo thing wraps back to 0 when it reaches the end of a list
+                    currentIndex = (currentIndex + 1) % abilityKeys.Count;
+                    selectedAbility = abilityKeys[currentIndex];
+                    activeAbilities[selectedAbility] = true;
+
+                    abilityUIText.text = "Selected Ability: " + selectedAbility;
+                    abilityUIText.color = Color.black;
+                    StartCoroutine(DelayFadeTextToFullAlpha(2f, abilityUIText));
+
+                    //activeAbilities.TryGetValue(selectedAbility, out bool isSelected2);
+                    //Debug.Log("2. Selected ability is: " + selectedAbility + " and it is: " + isSelected2);
+                }
+                else
+                {
+                    abilityUIText.text = "You haven't unlocked that ability yet.";
+                    abilityUIText.color = Color.black;
+                    StartCoroutine(DelayFadeTextToFullAlpha(2f, abilityUIText));
+                }
             }
             else
             {
-                abilityIndex = 0;
-                equippedAbility = currentAbilitiesList[abilityIndex];
-                abilityUIText.text = "Ability equipped: " + equippedAbility.name;
-                abilityUIText.color = Color.black;
-                StartCoroutine(DelayFadeTextToFullAlpha(2f, abilityUIText));
+                Debug.LogError($"Switching abilities failed. currentIndex: {currentIndex}, selectedAbility: {selectedAbility}");
             }
         }
-        else if (Input.GetKeyDown(KeyCode.Tab) && currentAbilitiesList.Count == 0)
-        {
-            abilityUIText.text = "You haven't unlocked any abilites yet!";
-            abilityUIText.color = Color.black;
-            StartCoroutine(DelayFadeTextToFullAlpha(2f, abilityUIText));
-        }
     }
-
     public IEnumerator DelayFadeTextToFullAlpha(float t, TMP_Text i)
     {
         yield return new WaitForSeconds(1);
@@ -101,6 +90,4 @@ public class AbilityCycle : MonoBehaviour
             yield return null;
         }
     }
-
-
 }

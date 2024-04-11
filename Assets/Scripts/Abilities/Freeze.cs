@@ -17,13 +17,17 @@ public class Freeze : MonoBehaviour
     [Header("Audio")]
     [SerializeField] AudioSource freezeAudio;
 
+    private bool isFreezingActivated;
     private bool hasCooldown;
 
     private void Update()
     {
-        //note: replace with AbilityManager stuff
-        if (Input.GetKeyDown(KeyCode.F) && AbilityManager.instance.abilityStatuses.TryGetValue(Abilities.Freezing, out bool isEnabled) && isEnabled && !hasCooldown)
+        AbilityManager.instance.abilityStatuses.TryGetValue(Abilities.ChargeJumping, out bool isUnlocked);
+        AbilityCycle.instance.activeAbilities.TryGetValue(Abilities.ChargeJumping, out bool isSelected);
+
+        if (Input.GetKeyDown(KeyCode.F) && isUnlocked && isSelected && !hasCooldown)
         {
+            isFreezingActivated = !isFreezingActivated;
             ActivateFreezeObject();
         }
     }

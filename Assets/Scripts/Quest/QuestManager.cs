@@ -116,7 +116,6 @@ public class QuestManager : MonoBehaviour
             quest.InstantiateCurrentQuestStep(transform);
             ChangeQuestState(quest.info.id, QuestState.IN_PROGRESS);
             AbilityAcquired(quest.info.abilityReward);
-            StartCoroutine(AbilityCycle.MakeList());
             Debug.Log("Ability unlocked: " + quest.info.abilityReward);
         }
     }

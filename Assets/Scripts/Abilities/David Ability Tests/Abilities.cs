@@ -1,5 +1,6 @@
 public enum Abilities
 {
+    None,
     Gliding,
     Swimming,
     ChargeJumping,

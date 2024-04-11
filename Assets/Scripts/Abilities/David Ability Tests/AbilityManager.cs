@@ -45,7 +45,10 @@ public class AbilityManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Y))
         {
-            EnableAbility(Abilities.Freezing);
+            foreach (Abilities ability in Enum.GetValues(typeof(Abilities)))
+            {
+                abilityStatuses[ability] = true;
+            }
         }
     }
 
