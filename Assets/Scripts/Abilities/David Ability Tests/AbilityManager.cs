@@ -11,9 +11,8 @@ public class AbilityManager : MonoBehaviour
 
     public Dictionary<Abilities, bool> abilityStatuses = new Dictionary<Abilities, bool>();
 
+    private Dictionary<Abilities, bool> abilityStatuses = new Dictionary<Abilities, bool>();
     private Dictionary<Abilities, IAbility> abilities;
-
-    //public bool CanActivateAbilities { get; set; } = false;
 
     public void Awake()
     {

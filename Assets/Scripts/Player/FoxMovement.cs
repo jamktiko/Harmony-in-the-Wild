@@ -294,7 +294,7 @@ public class FoxMovement : MonoBehaviour
 
         if (isChargeJumping)
         {
-            ChargeJump();
+            //ChargeJump();
             AbilityManager.instance.TryActivateAbility(Abilities.ChargeJumping);
         }
     }
