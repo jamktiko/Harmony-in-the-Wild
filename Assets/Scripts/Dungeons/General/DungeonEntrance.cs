@@ -25,9 +25,6 @@ public class DungeonEntrance : MonoBehaviour
     private Quest currentQuest;
     [SerializeField]private GameObject loadingScreen;
     [SerializeField]private TMP_Text loadingScreenText;
-        
-    [Header("RespawnPoint")]
-    [SerializeField] GameObject respawnPoint;
 
     private void Start()
     {
@@ -53,7 +50,6 @@ public class DungeonEntrance : MonoBehaviour
         // TODO: Fire event to save last known coordinates in overworld.
         // Either as Vector3 and persist in PlayerManager?
         // Or save to savefile as list of floats?
-        RespawnManager.instance.SetRespawnPosition(respawnPoint.transform.position);
 
         if (other.gameObject.CompareTag("Trigger"))
         {

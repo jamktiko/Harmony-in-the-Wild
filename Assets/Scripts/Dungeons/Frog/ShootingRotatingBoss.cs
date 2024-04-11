@@ -63,6 +63,7 @@ public class ShootingRotatingBoss : MonoBehaviour
     private void ShootProjectile()
     {
         StartCoroutine(ShootingCooldown());
+        Debug.Log("shoot");
 
         GameObject newProjectile = Instantiate(projectilePrefab, shootingSpot);
 

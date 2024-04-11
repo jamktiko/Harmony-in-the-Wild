@@ -92,19 +92,11 @@ public class FoxMovement : MonoBehaviour
         instance = this;
         
         LoadPlayerPosInOverworld();
-        //if (SceneManager.GetActiveScene()==SceneManager.GetSceneByBuildIndex(3)||SceneManager.GetSceneByBuildIndex(3).isLoaded) 
-        //{
-        //    LoadPlayerPosition();
-        //}
     }
 
     void Start()
     {
         LoadPlayerPosInOverworld();    
-        //if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(3) || SceneManager.GetSceneByBuildIndex(3).isLoaded)
-        //{
-        //    LoadPlayerPosition();
-        //}
 
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
@@ -123,12 +115,12 @@ public class FoxMovement : MonoBehaviour
 
     void Update()
     {
-        //if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(3)&&!isLoaded)
-        //{
-        //    LoadPlayerPosition();
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(3)&&!isLoaded)
+        {
+            LoadPlayerPosition();
 
-        //    isLoaded = true;
-        //}
+            isLoaded = true;
+        }
 
         if (!DialogueManager.instance.isDialoguePlaying)
         {
@@ -682,20 +674,12 @@ public class FoxMovement : MonoBehaviour
         Gizmos.DrawSphere(foxMiddle.position, boxSize.y);
     }
 
-    //public List<float> CollectPlayerPositionForSaving()
-    //{
-    //    string activeSceneName = SceneManager.GetActiveScene().name;
-    //    string overworldSceneName = SceneManagerHelper.GetSceneName(SceneManagerHelper.Scene.Overworld);
+    public List<float> CollectPlayerPositionForSaving()
+    {
+        Debug.Log("Playerpos saved");
 
-    //    if (activeSceneName == overworldSceneName)
-    //    {
-    //        return new List<float> { transform.position.x, transform.position.y, transform.position.z };   
-    //    }
-    //    else
-    //    {
-    //        return new List<float> { 1627f, 118f, 360f };
-    //    }
-    //}
+        string activeSceneName = SceneManager.GetActiveScene().name;
+        string overworldSceneName = SceneManagerHelper.GetSceneName(SceneManagerHelper.Scene.Overworld);
 
         if (activeSceneName == overworldSceneName)
         {
@@ -708,11 +692,4 @@ public class FoxMovement : MonoBehaviour
             //return new list<float> { 1627f, 118f, 360f };
         }
     }
-    //private void LoadPlayerPosition()
-    //{
-    //    transform.position = new Vector3(
-    //        SaveManager.instance.GetLoadedPlayerPositionData()[0], 
-    //        SaveManager.instance.GetLoadedPlayerPositionData()[1], 
-    //        SaveManager.instance.GetLoadedPlayerPositionData()[2]);
-    //}
 }
