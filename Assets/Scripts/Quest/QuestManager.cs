@@ -116,7 +116,6 @@ public class QuestManager : MonoBehaviour
             quest.InstantiateCurrentQuestStep(transform);
             ChangeQuestState(quest.info.id, QuestState.IN_PROGRESS);
             AbilityAcquired(quest.info.abilityReward);
-            StartCoroutine(AbilityCycle.MakeList());
             Debug.Log("Ability unlocked: " + quest.info.abilityReward);
         }
     }
@@ -162,7 +161,7 @@ public class QuestManager : MonoBehaviour
         if (quest.info.abilityReward != 0)
         {
             AbilityAcquired(quest.info.abilityReward);
-            StartCoroutine(AbilityCycle.MakeList());
+            //StartCoroutine(AbilityCycle.MakeList());
         }
     }
 
@@ -228,12 +227,19 @@ public class QuestManager : MonoBehaviour
         return quest.state;
     }
 
-    private void AbilityAcquired(int index) 
+    private void AbilityAcquired(Abilities ability) 
     {
-        playerManager.hasAbilityValues[index] = true;
-        SaveManager.instance.SaveGame();
-    }
+        AbilityManager.instance.EnableAbility(ability);
 
+        if (ability == Abilities.GhostSpeaking)
+        {
+            ActivateGhostSpeak();
+        }
+    }
+    public void ActivateGhostSpeak()
+    {
+        GameEventsManager.instance.playerEvents.GhostSpeakActivated();
+    }
     public List<string> CollectQuestDataForSaving()
     {
         List<string> allQuestData = new List<string>();
@@ -246,7 +252,6 @@ public class QuestManager : MonoBehaviour
 
             i++;
         }
-
         return allQuestData;
     }
 
@@ -285,6 +290,7 @@ public class QuestManager : MonoBehaviour
 
         return quest;
     }
+
     private void OnLevelWasLoaded(int level)
     {
         UnsubscribeFromEvents();
@@ -314,7 +320,7 @@ public class QuestManager : MonoBehaviour
 
     private void SubscribeToEvents()
     {
-        Debug.Log("Subscribing to quest events...");
+        //Debug.Log("Subscribing to quest events...");
         GameEventsManager.instance.questEvents.OnStartQuest += StartQuest;
         GameEventsManager.instance.questEvents.OnAdvanceQuest += AdvanceQuest;
         GameEventsManager.instance.questEvents.OnFinishQuest += FinishQuest;

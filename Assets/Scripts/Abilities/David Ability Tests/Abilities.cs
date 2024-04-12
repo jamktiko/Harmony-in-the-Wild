@@ -1,9 +1,10 @@
 public enum Abilities
 {
+    None,
     Gliding,
     Swimming,
     ChargeJumping,
-    WallClimbing,
+    SnowDiving,
     RockDestroying,
     GhostSpeaking,
     TeleGrabbing,

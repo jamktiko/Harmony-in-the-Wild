@@ -13,8 +13,6 @@ public class Destructible : MonoBehaviour
     [SerializeField] private GameObject oreVersion;
     [SerializeField] private GameObject smashableEffect;
 
-    [SerializeField] private AudioSource audioSource;
-
     private bool hasOre;
 
     private void Start()
@@ -30,7 +28,9 @@ public class Destructible : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Trigger") && PlayerManager.instance.hasAbilityValues[4])
+
+        //note: replace with AbilityManager stuff
+        if (other.gameObject.CompareTag("Trigger") && AbilityManager.instance.abilityStatuses.TryGetValue(Abilities.RockDestroying, out bool isEnabled) && isEnabled)
         {
             if (needsToBeFrozen)
             {

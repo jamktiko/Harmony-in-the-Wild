@@ -8,7 +8,7 @@ public class GhostSpeak : MonoBehaviour
         // NOTE THIS SCRIPT CAN BE DELETED COMPLETELY ONCE THE QUEST UNLOCKING GHOST SPEAK IS IMPLEMENTED
         if (Input.GetKey(KeyCode.G) && Input.GetKeyDown(KeyCode.S))
         {
-            PlayerManager.instance.GetAbility(5);
+            AbilityManager.instance.EnableAbility(Abilities.GhostSpeaking);
             Debug.Log("Player can use ghost speak now.");
         }
     }

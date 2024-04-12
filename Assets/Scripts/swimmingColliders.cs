@@ -6,7 +6,7 @@ public class swimmingColliders : MonoBehaviour
 {
     private void Start()
     {
-        if (PlayerManager.instance.hasAbilityValues[1] == true) 
+        if (AbilityManager.instance.abilityStatuses.TryGetValue(Abilities.Swimming, out bool isEnabled) && isEnabled)
         {
             Destroy(gameObject);
         }
