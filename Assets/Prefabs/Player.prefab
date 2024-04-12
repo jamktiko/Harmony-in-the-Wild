@@ -4445,63 +4445,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09cdb65d1a57b0f4f84a20f13a4cc5fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 7
-  swimSpeed: 5
-  orientation: {fileID: 7374542182067658380}
-  SprintSpeed: 30
   cameraMovement: {fileID: 4975930166917620725}
+  rb: {fileID: 6293119235343476942}
+  moveSpeed: 7
+  sprintSpeed: 30
+  orientation: {fileID: 7374542182067658380}
+  swimSpeed: 5
   groundDrag: 3
+  playerHeight: 2
   jumpForce: 14
   jumpCooldown: 3
   airMultiplier: 0.2
   glidingMultiplier: 0.3
-  GroundLayerMask:
+  groundLayerMask:
     serializedVersion: 2
     m_Bits: 328
-  boxSize: {x: 0, y: 2, z: 2}
-  foxMiddle: {fileID: 5886543006674820558}
-  foxBottom: {fileID: 1872091634216901717}
-  fox: {fileID: 0}
-  arcticFox: {fileID: 0}
-  Camera: {fileID: 4978085730567127345}
-  foxHead: {fileID: 7257133651624216139}
-  WaterLayerMask:
+  waterLayerMask:
     serializedVersion: 2
     m_Bits: 16
-  ClimbWallLayerMask:
+  climbWallLayerMask:
     serializedVersion: 2
     m_Bits: 128
-  SnowLayerMask:
+  snowLayerMask:
     serializedVersion: 2
     m_Bits: 256
-  MoveableLayerMask:
+  moveableLayerMask:
     serializedVersion: 2
     m_Bits: 64
-  viewDistance: 50
-  glider: 0
-  glidingNow: 0
-  canChargedJump: 0
-  chargeJumpTimer: 0
-  ChargeJumpHeight: 24
+  cameraPosition: {fileID: 4978085730567127345}
+  lookAtTarget: {fileID: 7257133651624216139}
+  foxMiddle: {fileID: 5886543006674820558}
+  foxBottom: {fileID: 1872091634216901717}
+  isChargeJumpEnabled: 0
+  isTelegrabEnabled: 0
   snowDiveSpeed: 75
-  TelegrabObject: {fileID: 0}
-  grabbing: 0
-  canTeleGrab: 0
-  GrabPosition: {fileID: 3318844184892676305}
-  grabbedMat: {fileID: 2100000, guid: 21417cf5ab018164f9d28d2e35ad8cb7, type: 2}
-  TelegrabEnabled: 0
-  TelegrabUI: {fileID: 1260495333819626473}
-  abilityCycle: {fileID: 0}
+  chargeJumpHeight: 24
+  grabbedObjectPosition: {fileID: 3318844184892676305}
+  materialForGrabbedObject: {fileID: 2100000, guid: 21417cf5ab018164f9d28d2e35ad8cb7, type: 2}
+  telegrabUI: {fileID: 1260495333819626473}
   playerAnimator: {fileID: 0}
-  ChargeJumpAudio: {fileID: 2387784157639299688}
-  ChargeJumpLandingAudio: {fileID: 213901984885338295}
-  GlidingAudio: {fileID: 118893665116041431}
-  FreezingAudio: {fileID: 9018991638507034798}
-  SnowDivingAudio: {fileID: 4501568006854875959}
-  SwimmingAudio: {fileID: 3672373759561776806}
-  TelegrabAudio: {fileID: 1176899343108750129}
-  playerHeight: 2
-  isLoaded: 0
+  chargeJumpAudio: {fileID: 2387784157639299688}
+  chargeJumpLandingAudio: {fileID: 213901984885338295}
+  glidingAudio: {fileID: 118893665116041431}
+  freezingAudio: {fileID: 9018991638507034798}
+  snowDivingAudio: {fileID: 4501568006854875959}
+  swimmingAudio: {fileID: 3672373759561776806}
+  telegrabAudio: {fileID: 1176899343108750129}
 --- !u!114 &2369651547504860285
 MonoBehaviour:
   m_ObjectHideFlags: 0

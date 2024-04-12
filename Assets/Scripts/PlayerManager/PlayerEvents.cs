@@ -18,11 +18,11 @@ public class PlayerEvents
         OnExperienceChanged?.Invoke(currentExperience);
     }
 
-    public event Action<int> OnAbilityAcquired;
+    public event Action<Abilities> OnAbilityAcquired;
 
-    public void AbilityAcquired(int index)
+    public void AbilityAcquired(Abilities ability)
     {
-        OnAbilityAcquired?.Invoke(index);
+        OnAbilityAcquired?.Invoke(ability);
     }
 
     public event Action OnGhostSpeakActivated;

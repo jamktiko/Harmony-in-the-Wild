@@ -99,9 +99,7 @@ public class Book : MonoBehaviour {
         if (Application.isPlaying)
         {
             currentStorybookIndex = StorybookHandler.instance.GetCurrentStorybookSection();
-            Debug.Log(currentStorybookIndex);
-            //test
-            //currentStorybookIndex = 2;
+
             bookPages = storybookSections[currentStorybookIndex].storybookImages;
         }
 
