@@ -16,20 +16,22 @@ public class CompleteDungeonQuest : QuestStep
     private void Start()
     {
         dungeonQuestId = GetQuestId();
+        Debug.Log(gameObject);
     }
 
     private void OnEnable()
     {
-        GameEventsManager.instance.questEvents.onAdvanceDungeonQuest += CompleteDungeon;
+        GameEventsManager.instance.questEvents.OnAdvanceDungeonQuest += CompleteDungeon;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.questEvents.onAdvanceDungeonQuest -= CompleteDungeon;
+        GameEventsManager.instance.questEvents.OnAdvanceDungeonQuest -= CompleteDungeon;
     }
 
     public void CompleteDungeon(string id, int stageIndex)
     {
+        Debug.Log("CompleteDungeon has been called.");
         if(id == dungeonQuestId && stageIndex == currentStageIndex)
         {
             stagesCompleted++;
@@ -41,7 +43,10 @@ public class CompleteDungeonQuest : QuestStep
 
             else if (stagesCompleted >= amountOfDungeonStages)
             {
+                Debug.Log("Sent request to finish quest step.");
                 FinishQuestStep();
+                //QuestManager.instance.RequestFinishQuest(id);
+                //GameEventsManager.instance.questEvents.FinishQuest(id);
             }
         }
     }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerModelToggle : MonoBehaviour
@@ -35,7 +33,6 @@ public class PlayerModelToggle : MonoBehaviour
             GetComponent<FoxMovement>().playerAnimator = currentAnimator;
             playerCamera.foxObject = arcticFox.transform;
         }
-
         else
         {
             redFox.SetActive(true);

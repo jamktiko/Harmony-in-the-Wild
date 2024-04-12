@@ -1,11 +1,10 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SnowWaypoints : MonoBehaviour
 {
     //Gizmo variables
-    private Vector3 cubeSize = new Vector3 (1, 1, 1);
+    private Vector3 gizmoCubeSize = new Vector3 (1, 1, 1);
 
     //Mesh variables
     private Mesh mesh;
@@ -28,7 +27,7 @@ public class SnowWaypoints : MonoBehaviour
         foreach(Transform t in transform)
         {
             Gizmos.color = Color.blue;
-            Gizmos.DrawCube(t.position, cubeSize);
+            Gizmos.DrawCube(t.position, gizmoCubeSize);
         }
     }
     private void Awake() //Mesh thingys
@@ -83,11 +82,12 @@ public class SnowWaypoints : MonoBehaviour
     private void Start() //Mesh thingys
     {
         mesh.Clear();
-        mesh = new Mesh();
-
-        mesh.vertices = verts;
-        mesh.triangles = tris;
-        mesh.uv = uv;
+        mesh = new Mesh
+        {
+            vertices = verts,
+            triangles = tris,
+            uv = uv
+        };
 
         mesh.RecalculateNormals();
         mesh.RecalculateBounds();

@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Security;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,28 +9,31 @@ public class LoadingScene : MonoBehaviour
     public GameObject loadingScreen;
     public Image loadBarFill;
     public TMP_Text loadingScreenText;
-    public StorybookHandler StorybookHandler;
-    public int Scene;
+    public StorybookHandler storybookHandler;
+    public int sceneIndex;
 
     private void Start()
     {
-        StorybookHandler=FindObjectOfType<StorybookHandler>();
-    }
-    public void loadSceneWithBar(int sceneId) 
-    {
-        StartCoroutine(loadSceneWithLoadingScreenWithBarFill(sceneId));
-        
-    }
-    public void loadSceneWithText(int sceneId)
-    {
-        StartCoroutine(loadSceneWithLoadingScreenWithText(sceneId));
-    }
-    public void loadSceneWithText2(int sceneId)
-    {
-        StartCoroutine(loadSceneWithLoadingScreenWithText2(sceneId));
+        storybookHandler=FindObjectOfType<StorybookHandler>();
     }
 
-    IEnumerator loadSceneWithLoadingScreenWithBarFill(int sceneId) 
+    public void LoadSceneWithBar(int sceneId) 
+    {
+        StartCoroutine(LoadSceneWithLoadingScreenWithBarFill(sceneId));
+        
+    }
+
+    public void LoadSceneWithText(int sceneId)
+    {
+        StartCoroutine(LoadSceneWithLoadingScreenWithText(sceneId));
+    }
+
+    public void LoadSceneWithText2(int sceneId)
+    {
+        StartCoroutine(LoadSceneWithLoadingScreenWithText2(sceneId));
+    }
+
+    IEnumerator LoadSceneWithLoadingScreenWithBarFill(int sceneId) 
     {
         AsyncOperation operation=SceneManager.LoadSceneAsync(sceneId);
         loadingScreen.SetActive(true);
@@ -43,7 +44,8 @@ public class LoadingScene : MonoBehaviour
             yield return null;
         }
     }
-    IEnumerator loadSceneWithLoadingScreenWithText(int sceneId)
+
+    IEnumerator LoadSceneWithLoadingScreenWithText(int sceneId)
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(StorybookHandler.instance.GetNextScene());
         loadingScreen.SetActive(true);
@@ -65,7 +67,8 @@ public class LoadingScene : MonoBehaviour
             yield return null;
         }
     }
-    IEnumerator loadSceneWithLoadingScreenWithText2(int sceneId)
+
+    IEnumerator LoadSceneWithLoadingScreenWithText2(int sceneId)
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneId);
         loadingScreen.SetActive(true);
@@ -87,12 +90,13 @@ public class LoadingScene : MonoBehaviour
             yield return null;
         }
     }
+
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("lol");
         if (other.CompareTag("Trigger"))
         {
-            StartCoroutine(loadSceneWithLoadingScreenWithText2(Scene));
+            StartCoroutine(LoadSceneWithLoadingScreenWithText2(sceneIndex));
         }
     }
 }

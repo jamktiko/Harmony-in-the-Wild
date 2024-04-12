@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -27,7 +25,7 @@ public class DevShortCuts : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.Tab)&& Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKey(KeyCode.Tab) && Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene("Overworld");
         }

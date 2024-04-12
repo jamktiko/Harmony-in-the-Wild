@@ -1,18 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class QuestManager : MonoBehaviour
 {
-    private Dictionary<string, Quest> questMap;
+    public Dictionary<string, Quest> questMap;
 
     public static QuestManager instance;
 
-    private int CurrentPlayerLevel;
-
-    [SerializeField]private PlayerManager playerManager;
-
+    [SerializeField] private PlayerManager playerManager;
     [SerializeField] private AbilityCycle AbilityCycle;
+
+    private int currentPlayerLevel;
 
     private void Awake()
     {
@@ -25,32 +25,18 @@ public class QuestManager : MonoBehaviour
         instance = this;
 
         // initialize quest map
-        //questMap = CreateQuestMap();
-        //playerManager = FindObjectOfType<PlayerManager>();
+        questMap = CreateQuestMap();
+        playerManager = FindObjectOfType<PlayerManager>();
     }
 
     private void OnEnable()
     {
-        GameEventsManager.instance.questEvents.onStartQuest += StartQuest;
-        GameEventsManager.instance.questEvents.onAdvanceQuest += AdvanceQuest;
-        GameEventsManager.instance.questEvents.onFinishQuest += FinishQuest;
-
-        GameEventsManager.instance.questEvents.onQuestStepStateChange += QuestStepStateChange;
-
-        GameEventsManager.instance.playerEvents.onExperienceGained += PlayerLevelChange;
-        GameEventsManager.instance.playerEvents.onAbilityGet += AbilityGet;
+        SubscribeToEvents();
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.questEvents.onStartQuest -= StartQuest;
-        GameEventsManager.instance.questEvents.onAdvanceQuest -= AdvanceQuest;
-        GameEventsManager.instance.questEvents.onFinishQuest -= FinishQuest;
-
-        GameEventsManager.instance.questEvents.onQuestStepStateChange -= QuestStepStateChange;
-
-        GameEventsManager.instance.playerEvents.onExperienceGained -= PlayerLevelChange;
-        GameEventsManager.instance.playerEvents.onAbilityGet -= AbilityGet;
+        UnsubscribeFromEvents();
     }
     private void Start()
     {
@@ -68,6 +54,11 @@ public class QuestManager : MonoBehaviour
             // broadcast the initial state of all quests
             GameEventsManager.instance.questEvents.QuestStateChange(quest);
         }
+
+        if(SceneManager.GetActiveScene().name == "Overworld" && AbilityCycle == null)
+        {
+            AbilityCycle = FindObjectOfType<AbilityCycle>(); // In case Overworld is loaded in editor, find AbilityCycle
+        }
     }
 
     private void Update()
@@ -84,7 +75,7 @@ public class QuestManager : MonoBehaviour
     }
     private void PlayerLevelChange(int Level) 
     {
-        CurrentPlayerLevel = Level;
+        currentPlayerLevel = Level;
     }
 
     private bool CheckRequirementsMet(Quest quest)
@@ -92,7 +83,7 @@ public class QuestManager : MonoBehaviour
         // start true and prove to be false
         bool meetsRequirements = true;
 
-        if (CurrentPlayerLevel<quest.info.levelRequirement)
+        if (currentPlayerLevel<quest.info.levelRequirement)
         {
             meetsRequirements = false;
         }
@@ -109,20 +100,24 @@ public class QuestManager : MonoBehaviour
 
     private void ChangeQuestState(string id, QuestState state)
     {
+        Debug.Log("Changed quest state with ID: " + id + " to: " + state.ToString());
         Quest quest = GetQuestById(id);
         quest.state = state;
+        Debug.Log(quest.state.ToString());
         GameEventsManager.instance.questEvents.QuestStateChange(quest);
     }
 
     private void StartQuest(string id)
     {
-        Debug.Log("Start Quest: " + id);
         Quest quest = GetQuestById(id);
-        quest.InstantiateCurrentQuestStep(transform);
-        ChangeQuestState(quest.info.id, QuestState.IN_PROGRESS);
-        AbilityGet(quest.info.AbilityReward);
-        StartCoroutine(AbilityCycle.MakeList());
-        Debug.Log("Ability unlocked: " + quest.info.AbilityReward);
+        if (quest.state == QuestState.CAN_START)
+        {
+            Debug.Log("Start Quest: " + id);
+            quest.InstantiateCurrentQuestStep(transform);
+            ChangeQuestState(quest.info.id, QuestState.IN_PROGRESS);
+            AbilityAcquired(quest.info.abilityReward);
+            Debug.Log("Ability unlocked: " + quest.info.abilityReward);
+        }
     }
 
     private void AdvanceQuest(string id)
@@ -135,19 +130,22 @@ public class QuestManager : MonoBehaviour
 
         // if there are more steps, instantiate the next one
         if (quest.CurrentStepExists())
-        {
+        {   
+            Debug.Log("Quest " + id + " state advanced.");
             quest.InstantiateCurrentQuestStep(transform);
         }
 
-        // if there are no more steps, it means the quest is ready to be finished
+        // if there are no more steps, it means the quest is ready to  be finished
         else
         {
+            Debug.Log("Quest " + id + " state requested to can finish.");
             ChangeQuestState(quest.info.id, QuestState.CAN_FINISH);
         }
     }
 
     private void FinishQuest(string id)
     {
+        Debug.Log("Finished quest with ID: "+ id);
         Quest quest = GetQuestById(id);
         ClaimRewards(quest);
         ChangeQuestState(quest.info.id, QuestState.FINISHED);
@@ -158,9 +156,13 @@ public class QuestManager : MonoBehaviour
     {
         Debug.Log("Quest " + quest.info.id + " has been completed.");
 
-        GameEventsManager.instance.playerEvents.ExperienceGained(quest.info.ExperienceReward);
-        AbilityGet(quest.info.AbilityReward);
-        StartCoroutine(AbilityCycle.MakeList());
+        GameEventsManager.instance.playerEvents.ExperienceGained(quest.info.experienceReward);
+
+        if (quest.info.abilityReward != 0)
+        {
+            AbilityAcquired(quest.info.abilityReward);
+            //StartCoroutine(AbilityCycle.MakeList());
+        }
     }
 
     private void QuestStepStateChange(string id, int stepIndex, QuestStepState questStepState)
@@ -174,13 +176,12 @@ public class QuestManager : MonoBehaviour
     {
         // load all QuestInfoSOs in path Assets/Resources/Quests
         QuestScriptableObject[] allQuests = Resources.LoadAll<QuestScriptableObject>("Quests");
-        Debug.Log(allQuests.Length);
 
         // create the quest map
         Dictionary<string, Quest> idToQuestMap = new Dictionary<string, Quest>();
 
         // load loaded data from Save Manager
-        List<string> loadedQuestData = SaveManager.instance.FetchLoadedData("quest");
+        List<string> loadedQuestData = SaveManager.instance.GetLoadedData("quest");
 
         int currentQuestSOIndex = 0;
 
@@ -226,12 +227,19 @@ public class QuestManager : MonoBehaviour
         return quest.state;
     }
 
-    private void AbilityGet(int index) 
+    private void AbilityAcquired(Abilities ability) 
     {
-        playerManager.abilityValues[index] = true;
-        SaveManager.instance.SaveGame();
-    }
+        AbilityManager.instance.EnableAbility(ability);
 
+        if (ability == Abilities.GhostSpeaking)
+        {
+            ActivateGhostSpeak();
+        }
+    }
+    public void ActivateGhostSpeak()
+    {
+        GameEventsManager.instance.playerEvents.GhostSpeakActivated();
+    }
     public List<string> CollectQuestDataForSaving()
     {
         List<string> allQuestData = new List<string>();
@@ -244,7 +252,6 @@ public class QuestManager : MonoBehaviour
 
             i++;
         }
-
         return allQuestData;
     }
 
@@ -283,8 +290,13 @@ public class QuestManager : MonoBehaviour
 
         return quest;
     }
+
     private void OnLevelWasLoaded(int level)
     {
+        UnsubscribeFromEvents();
+        SubscribeToEvents();
+
+        Debug.Log("Currently loaded level: "+ level);
         questMap = CreateQuestMap();
         playerManager = FindObjectOfType<PlayerManager>();
         
@@ -304,5 +316,35 @@ public class QuestManager : MonoBehaviour
         {
             AbilityCycle = FindObjectOfType<AbilityCycle>();
         }
+    }
+
+    private void SubscribeToEvents()
+    {
+        //Debug.Log("Subscribing to quest events...");
+        GameEventsManager.instance.questEvents.OnStartQuest += StartQuest;
+        GameEventsManager.instance.questEvents.OnAdvanceQuest += AdvanceQuest;
+        GameEventsManager.instance.questEvents.OnFinishQuest += FinishQuest;
+
+        GameEventsManager.instance.questEvents.OnQuestStepStateChange += QuestStepStateChange;
+
+        GameEventsManager.instance.playerEvents.OnExperienceGained += PlayerLevelChange;
+        GameEventsManager.instance.playerEvents.OnAbilityAcquired += AbilityAcquired;
+    }
+
+    private void UnsubscribeFromEvents()
+    {
+        Debug.Log("Un-subscribing from quest events...");
+        GameEventsManager.instance.questEvents.OnStartQuest -= StartQuest;
+        GameEventsManager.instance.questEvents.OnAdvanceQuest -= AdvanceQuest;
+        GameEventsManager.instance.questEvents.OnFinishQuest -= FinishQuest;
+
+        GameEventsManager.instance.questEvents.OnQuestStepStateChange -= QuestStepStateChange;
+
+        GameEventsManager.instance.playerEvents.OnExperienceGained -= PlayerLevelChange;
+        GameEventsManager.instance.playerEvents.OnAbilityAcquired -= AbilityAcquired;
+    }
+    public void RequestFinishQuest(string id) // For some reason the event doesn't trigger reliably so as a workaround to ensure dungeons finish, this is called.
+    {
+        FinishQuest(id);
     }
 }

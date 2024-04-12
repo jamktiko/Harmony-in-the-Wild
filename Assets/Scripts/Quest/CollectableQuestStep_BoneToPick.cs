@@ -1,21 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class CollectableQuestStep_BoneToPick : QuestStep
 {
     public int itemsCollected = 0;
     private int itemToComplete = 1;
+
     public void CollectableProgress()
     {
         itemsCollected++;
         UpdateState();
-        GameEventsManager.instance.questEvents.UpdateQuestUI(QuestUIChange.ChangeObjective, "");
-
         if (itemsCollected >= itemToComplete)
         {
             FinishQuestStep();
         }
+        GameEventsManager.instance.questEvents.UpdateQuestUI(QuestUIChange.ChangeObjective, "");
+
     }
 
     private void UpdateState()

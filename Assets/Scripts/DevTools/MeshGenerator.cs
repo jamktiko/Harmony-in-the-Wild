@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,13 +5,14 @@ public class MeshGenerator : MonoBehaviour
 {
     //Gizmos (visual aid)
     #region Gizmos
-    private Vector3 cubeSize = new Vector3(1, 1, 1);
+    private Vector3 gizmoCubeSize = new Vector3(1, 1, 1);
+
     private void OnDrawGizmos()
     {
         foreach (Transform t in transform)
         {
             Gizmos.color = Color.blue;
-            Gizmos.DrawCube(t.position, cubeSize);
+            Gizmos.DrawCube(t.position, gizmoCubeSize);
         }
     }
     #endregion

@@ -1,97 +1,75 @@
 using System;
+using System.Diagnostics;
 
 public class QuestEvents
 {
-    public event Action<string> onStartQuest;
+    public event Action<string> OnStartQuest;
 
     public void StartQuest(string id)
     {
-        if(onStartQuest != null)
-        {
-            onStartQuest(id);
-        }
+        OnStartQuest?.Invoke(id);
     }
 
-    public event Action<string> onAdvanceQuest;
+    public event Action<string> OnAdvanceQuest;
 
     public void AdvanceQuest(string id)
     {
-        if (onAdvanceQuest != null)
-        {
-            onAdvanceQuest(id);
-        }
+        OnAdvanceQuest?.Invoke(id);
+        UnityEngine.Debug.Log("Invoked advance quest");
+
     }
 
-    public event Action<string> onFinishQuest;
+    public event Action<string> OnFinishQuest;
 
     public void FinishQuest(string id)
     {
-        if (onFinishQuest != null)
-        {
-            onFinishQuest(id);
-        }
+        OnFinishQuest?.Invoke(id);
+        UnityEngine.Debug.Log("Invoked finish quest");
+
     }
 
-    public event Action<Quest> onQuestStateChange;
+    public event Action<Quest> OnQuestStateChange;
 
     public void QuestStateChange(Quest quest)
     {
-        if (onQuestStateChange != null)
-        {
-            onQuestStateChange(quest);
-        }
+        OnQuestStateChange?.Invoke(quest);
     }
 
-    public event Action<string, int, QuestStepState> onQuestStepStateChange;
+    public event Action<string, int, QuestStepState> OnQuestStepStateChange;
 
     public void QuestStepStateChange(string id, int stepIndex, QuestStepState questStepState)
     {
-        if (onQuestStepStateChange != null)
-        {
-            onQuestStepStateChange(id, stepIndex, questStepState);
-        }
+        OnQuestStepStateChange?.Invoke(id, stepIndex, questStepState);
         
     }
 
-    public event Action<string, int> onAdvanceDungeonQuest;
+    public event Action<string, int> OnAdvanceDungeonQuest;
 
     public void AdvanceDungeonQuest(string id, int stageIndex)
     {
-        if (onAdvanceDungeonQuest != null)
-        {
-            onAdvanceDungeonQuest(id, stageIndex);
-        }
-
+        OnAdvanceDungeonQuest?.Invoke(id, stageIndex);
+        UnityEngine.Debug.Log("Invoked dungeon quest");
     }
 
-    public event Action<int> onShowQuestUI;
+    public event Action<int> OnShowQuestUI;
 
     public void ShowQuestUI(int questIndex)
     {
-        if (onShowQuestUI != null)
-        {
-            onShowQuestUI(questIndex);
-        }
+        OnShowQuestUI?.Invoke(questIndex);
 
     }
 
-    public event Action<QuestUIChange, string> onUpdateQuestUI;
+    public event Action<QuestUIChange, string> OnUpdateQuestUI;
 
     public void UpdateQuestUI(QuestUIChange changeType, string newQuestText)
     {
-        if(onUpdateQuestUI != null)
-        {
-            onUpdateQuestUI(changeType, newQuestText);
-        }
+        OnUpdateQuestUI?.Invoke(changeType, newQuestText);
     }
 
-    public event Action onHideQuestUI;
+    public event Action OnHideQuestUI;
 
     public void HideQuestUI()
     {
-        if(onHideQuestUI != null)
-        {
-            onHideQuestUI();
-        }
+        OnHideQuestUI?.Invoke();
     }
 }

@@ -1,11 +1,9 @@
 using Cinemachine;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class pauseMenuManager : MonoBehaviour
+public class PauseMenuManager : MonoBehaviour
 {
     [SerializeField] public GameObject pauseMenuPanel;
     [SerializeField] GameObject OptionsMenuPanel;
@@ -19,11 +17,13 @@ public class pauseMenuManager : MonoBehaviour
     [SerializeField] Slider volume, sensitivity;
     private float SliderValue, SliderValue2;
 
+    private bool isInvertErrorLogged = false; // Makes sure the warning that runs in the null check of the InvertYAxis runs once
+
 
     void Start()
     {
-        pauseMenuPanel = GameObject.Find("PauseMenuEmpty").transform.Find("PauseMenu").gameObject;
-        options = GameObject.Find("PauseMenuEmpty").transform.Find("Options").gameObject;
+        //pauseMenuPanel = GameObject.Find("PauseMenuEmpty").transform.Find("PauseMenu").gameObject;
+        //options = GameObject.Find("PauseMenuEmpty").transform.Find("Options").gameObject;
         OptionsMenuPanel = options.transform.Find("OptionsMenu").gameObject;
         MovementControlsMenuPanel = options.transform.Find("MovementControlsMenu").gameObject;
         GamePlayControlsMenuPanel = options.transform.Find("GameplayControlsMenu").gameObject;
@@ -95,7 +95,18 @@ public class pauseMenuManager : MonoBehaviour
                 Cursor.visible = true;
             }
         }
-        InvertYAxis.onValueChanged.AddListener(delegate { ChangeYInversion(); });
+        if (InvertYAxis != null)
+        {
+            InvertYAxis.onValueChanged.AddListener(delegate { ChangeYInversion(); });
+        }
+        else
+        {
+            if (!isInvertErrorLogged)
+            {
+                Debug.LogError("InvertYAxis is not assigned. Make sure it is assigned in the Inspector. (SettingsMenuPanel is probably not set)");
+                isInvertErrorLogged = true;  // Set the flag to true after logging the warning
+            }
+        }
     }
     public void ChangeYInversion()
     {

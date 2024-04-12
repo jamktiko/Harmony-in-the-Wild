@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,6 +6,8 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(BoxCollider))]
 public class DungeonEntrance : MonoBehaviour
 {
+
+
     [Header("Quest")]
     [SerializeField] private QuestScriptableObject dungeonQuest;
 
@@ -14,7 +15,7 @@ public class DungeonEntrance : MonoBehaviour
     [SerializeField] private GameObject dungeonEnteringPreventedUI;
 
     [Header("Config")]
-    [SerializeField] private string goToScene;
+    [SerializeField] private string goToScene; //NOTE: Doesn't feel like the best way to handle scene changes
     [SerializeField] private int storybookSectionIndex;
     [Tooltip("Tick if a quest is started when entering this dungeon")]
     [SerializeField] private bool activateQuestProgressTracking;
@@ -36,16 +37,20 @@ public class DungeonEntrance : MonoBehaviour
 
     private void OnEnable()
     {
-        GameEventsManager.instance.questEvents.onQuestStateChange += QuestStateChange;
+        GameEventsManager.instance.questEvents.OnQuestStateChange += QuestStateChange;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.questEvents.onQuestStateChange -= QuestStateChange;
+        GameEventsManager.instance.questEvents.OnQuestStateChange -= QuestStateChange;
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        // TODO: Fire event to save last known coordinates in overworld.
+        // Either as Vector3 and persist in PlayerManager?
+        // Or save to savefile as list of floats?
+
         if (other.gameObject.CompareTag("Trigger"))
         {
             if(currentQuestState == QuestState.CAN_START)
@@ -58,6 +63,7 @@ public class DungeonEntrance : MonoBehaviour
                 // add storybook config here & change goToScene to Storybook scene
                 StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, goToScene, false);
                 StartCoroutine(loadSceneWithLoadingScreenWithText(2));
+                Debug.Log("This is where we save the data");
             }
 
             else if (currentQuestState == QuestState.IN_PROGRESS)
@@ -84,7 +90,7 @@ public class DungeonEntrance : MonoBehaviour
         if (quest.info.id.Equals(questId))
         {
             currentQuestState = quest.state;
-            Debug.Log("Quest with id: " + questId + " updated to state: " + currentQuestState);
+            //Debug.Log("Quest with id: " + questId + " updated to state: " + currentQuestState);
         }
     }
 

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -7,7 +6,7 @@ public class QuestCompletedUI : MonoBehaviour
 {
     public static QuestCompletedUI instance;
 
-    [SerializeField] private float showTime = 4;
+    [SerializeField] private float showTime = 4f;
 
     private void Awake()
     {

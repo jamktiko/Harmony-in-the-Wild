@@ -33,16 +33,16 @@ public class SmashingManager : MonoBehaviour
     {
         currentQuestId = questScriptableObject.id;
 
-        GameEventsManager.instance.questEvents.onStartQuest += StartRockSmash;
-        GameEventsManager.instance.questEvents.onFinishQuest += FinishRockSmash;
+        GameEventsManager.instance.questEvents.OnStartQuest += StartRockSmash;
+        GameEventsManager.instance.questEvents.OnFinishQuest += FinishRockSmash;
 
         StartCoroutine(QuestProgressCheckDelay());
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.questEvents.onStartQuest -= StartRockSmash;
-        GameEventsManager.instance.questEvents.onFinishQuest -= FinishRockSmash;
+        GameEventsManager.instance.questEvents.OnStartQuest -= StartRockSmash;
+        GameEventsManager.instance.questEvents.OnFinishQuest -= FinishRockSmash;
     }
 
     private void StartRockSmash(string id)

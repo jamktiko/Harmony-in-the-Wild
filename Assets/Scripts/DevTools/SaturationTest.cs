@@ -2,7 +2,7 @@ using UnityEngine;
 public class SaturationTest : MonoBehaviour
 {
     public string globalSaturation = "_Saturation";
-    public float saturation {get; set;} = 1.0f;
+    public float Saturation {get; set;} = 1.0f;
 
     private void Start()
     {
@@ -16,15 +16,15 @@ public class SaturationTest : MonoBehaviour
             {
                 if (material.HasProperty(globalSaturation))
                 {
-                    material.SetFloat(globalSaturation, saturation);
+                    material.SetFloat(globalSaturation, Saturation);
                 }
             }
         }
-        Shader.SetGlobalFloat("_saturation", saturation);
+        Shader.SetGlobalFloat("_saturation", Saturation);
     }
 
     public void UpdateSaturation()
     {
-        Shader.SetGlobalFloat("_saturation", saturation);
+        Shader.SetGlobalFloat("_saturation", Saturation);
     }
 }

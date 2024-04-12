@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -16,16 +15,16 @@ public class ShowQuestUI : MonoBehaviour
 
     private void OnEnable()
     {
-        GameEventsManager.instance.questEvents.onShowQuestUI += InitializeQuestUI;
-        GameEventsManager.instance.questEvents.onUpdateQuestUI += UpdateQuestUI;
-        GameEventsManager.instance.questEvents.onHideQuestUI += HideQuestUI;
+        GameEventsManager.instance.questEvents.OnShowQuestUI += InitializeQuestUI;
+        GameEventsManager.instance.questEvents.OnUpdateQuestUI += UpdateQuestUI;
+        GameEventsManager.instance.questEvents.OnHideQuestUI += HideQuestUI;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.questEvents.onShowQuestUI -= InitializeQuestUI;
-        GameEventsManager.instance.questEvents.onUpdateQuestUI -= UpdateQuestUI;
-        GameEventsManager.instance.questEvents.onHideQuestUI -= HideQuestUI;
+        GameEventsManager.instance.questEvents.OnShowQuestUI -= InitializeQuestUI;
+        GameEventsManager.instance.questEvents.OnUpdateQuestUI -= UpdateQuestUI;
+        GameEventsManager.instance.questEvents.OnHideQuestUI -= HideQuestUI;
     }
 
     private void InitializeQuestUI(int questTextIndex)

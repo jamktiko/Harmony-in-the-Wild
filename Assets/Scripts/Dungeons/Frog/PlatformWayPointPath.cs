@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlatformWayPointPath : MonoBehaviour
+public class PlatformWaypointPath : MonoBehaviour
 {
-    public Transform GetWayPoint(int waypointIndex)
+    public Transform GetWaypoint(int waypointIndex)
     {
         return transform.GetChild(waypointIndex);
     }

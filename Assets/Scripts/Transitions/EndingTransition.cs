@@ -1,10 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class EndingTransition : MonoBehaviour
 {
+    public const string StorybookSceneName = "Storybook";
+
     [SerializeField] private QuestScriptableObject questSO;
     [SerializeField] private int storybookSectionIndex;
     [SerializeField] private string goToScene;
@@ -19,7 +20,7 @@ public class EndingTransition : MonoBehaviour
         if (other.gameObject.CompareTag("Trigger") && QuestManager.instance.CheckQuestState(questSO.id) == QuestState.CAN_START)
         {
             StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, goToScene, false);
-            SceneManager.LoadScene("Storybook");
+            SceneManager.LoadScene(StorybookSceneName);
         }
     }
 

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DungeonAbilityActivator : MonoBehaviour
@@ -18,48 +17,49 @@ public class DungeonAbilityActivator : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         // if enabled ability index is set to -1, enable only minor abilities
-        if (enabledAbility < 0)
-        {
-            for (int i = 0; i < PlayerManager.instance.abilityValues.Count; i++)
-            {
-                // enable the minor abilities (passive abilities)
-                if (i == 1 || i == 3 || i == 4 || i == 5)
-                {
-                    PlayerManager.instance.abilityValues[i] = true;
-                }
+        //note: replace with AbilityManager stuff
+        //if (enabledAbility < 0)
+        //{
+        //    for (int i = 0; i < PlayerManager.instance.hasAbilityValues.Count; i++)
+        //    {
+        //        // enable the minor abilities (passive abilities)
+        //        if (i == 1 || i == 3 || i == 4 || i == 5)
+        //        {
+        //            PlayerManager.instance.hasAbilityValues[i] = true;
+        //        }
 
-                // disable all the other major abilities
-                else
-                {
-                    PlayerManager.instance.abilityValues[i] = false;
-                }
-            }
+        //        // disable all the other major abilities
+        //        else
+        //        {
+        //            PlayerManager.instance.hasAbilityValues[i] = false;
+        //        }
+        //    }
 
-        }
+        //}
 
-        else
-        {
-            for (int i = 0; i < PlayerManager.instance.abilityValues.Count; i++)
-            {
-                // enable the major ability gained in this dungeon
-                if (i == enabledAbility)
-                {
-                    PlayerManager.instance.abilityValues[i] = true;
-                }
+        //else
+        //{
+        //    for (int i = 0; i < PlayerManager.instance.hasAbilityValues.Count; i++)
+        //    {
+        //        // enable the major ability gained in this dungeon
+        //        if (i == enabledAbility)
+        //        {
+        //            PlayerManager.instance.hasAbilityValues[i] = true;
+        //        }
 
-                // enable the minor abilities (passive abilities)
-                else if (i == 1 || i == 3 || i == 4 || i == 5)
-                {
-                    PlayerManager.instance.abilityValues[i] = true;
-                }
+        //        // enable the minor abilities (passive abilities)
+        //        else if (i == 1 || i == 3 || i == 4 || i == 5)
+        //        {
+        //            PlayerManager.instance.hasAbilityValues[i] = true;
+        //        }
 
-                // disable all the other major abilities
-                else
-                {
-                    PlayerManager.instance.abilityValues[i] = false;
-                }
-            }
-        }
+        //        // disable all the other major abilities
+        //        else
+        //        {
+        //            PlayerManager.instance.hasAbilityValues[i] = false;
+        //        }
+        //    }
+        //}
     }
 }
 

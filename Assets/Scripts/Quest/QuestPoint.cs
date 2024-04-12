@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
@@ -21,9 +19,13 @@ public class QuestPoint : MonoBehaviour
 
     [Header("Dialogue Config")]
     [SerializeField] AudioSource dialogueSound;
-    [SerializeField]private bool playerIsNear = false;
+    [SerializeField] private bool playerIsNear = false;
+
     private string questId;
     private QuestState currentQuestState;
+
+    [Header("RespawnPoint")]
+    [SerializeField] GameObject respawnPoint;
 
     private void Awake()
     {
@@ -32,25 +34,26 @@ public class QuestPoint : MonoBehaviour
 
     private void OnEnable()
     {
-        GameEventsManager.instance.questEvents.onQuestStateChange += QuestStateChange;
+        GameEventsManager.instance.questEvents.OnQuestStateChange    += QuestStateChange;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.questEvents.onQuestStateChange -= QuestStateChange;
+        GameEventsManager.instance.questEvents.OnQuestStateChange -= QuestStateChange;
     }
 
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.E))
         {
-            
             InteractedWithQuestPoint();
         }
     }
 
     private void InteractedWithQuestPoint()
     {
+        RespawnManager.instance.SetRespawnPosition(respawnPoint.transform.position);
+
         if (!playerIsNear)
         {
             return;
@@ -59,6 +62,7 @@ public class QuestPoint : MonoBehaviour
         // start or finish a quest
         if(currentQuestState.Equals(QuestState.CAN_START) && startPoint)
         {
+            Debug.Log("Quest -1");
             if(hasDialogue && startQuestDialogue != null)
             {
                 DialogueManager.instance.StartDialogue(startQuestDialogue);
@@ -72,11 +76,12 @@ public class QuestPoint : MonoBehaviour
                 GameObject.FindGameObjectWithTag("QuestCanvas").transform.GetChild(canvasObjectIndex).gameObject.SetActive(true);
             }
         }
-
         else if(currentQuestState.Equals(QuestState.CAN_FINISH) && finishPoint)
         {
+            Debug.Log("Quest 0");
             if (hasDialogue && finishQuestDialogue != null)
             {
+                Debug.Log("Quest 1");
                 DialogueManager.instance.StartDialogue(finishQuestDialogue);
             }
 
@@ -84,6 +89,8 @@ public class QuestPoint : MonoBehaviour
 
             if (canvasObjectIndex >= 0)
             {
+
+                Debug.Log("Qeust 2");
                 GameObject.FindGameObjectWithTag("QuestCanvas").transform.GetChild(canvasObjectIndex).gameObject.SetActive(false);
             }
         }
@@ -95,7 +102,7 @@ public class QuestPoint : MonoBehaviour
         if (quest.info.id.Equals(questId))
         {
             currentQuestState = quest.state;
-            Debug.Log("Quest with id: " + questId + " updated to state: " + currentQuestState);
+            //Debug.Log("Quest with id: " + questId + " updated to state: " + currentQuestState);
         }
     }
 

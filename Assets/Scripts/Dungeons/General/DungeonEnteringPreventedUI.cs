@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -12,7 +11,7 @@ public class DungeonEnteringPreventedUI : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.X))
         {
-            gameObject.SetActive(false);
+            CloseView();
         }
     }
 
@@ -39,7 +38,7 @@ public class DungeonEnteringPreventedUI : MonoBehaviour
         }
     }
 
-    public void CloseView()
+    private void CloseView()
     {
         gameObject.SetActive(false);
     }

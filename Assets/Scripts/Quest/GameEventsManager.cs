@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameEventsManager : MonoBehaviour
@@ -8,13 +6,13 @@ public class GameEventsManager : MonoBehaviour
 
     public QuestEvents questEvents;
     public PlayerEvents playerEvents;
+    public DialogueEvents dialogueEvents;
 
     private void Awake()
     {
-        // create singleton
         if(instance != null)
         {
-            Debug.LogError("There is more than one Game Events Manager in the scene");
+            Debug.LogWarning("There is more than one Game Events Manager in the scene");
             Destroy(gameObject);
         }
 
@@ -23,5 +21,6 @@ public class GameEventsManager : MonoBehaviour
         // initialize the events
         questEvents = new QuestEvents();
         playerEvents = new PlayerEvents();
+        dialogueEvents = new DialogueEvents();
     }
 }

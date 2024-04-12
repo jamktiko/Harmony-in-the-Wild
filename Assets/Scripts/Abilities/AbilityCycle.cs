@@ -3,96 +3,82 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
-
+using System;
 public class AbilityCycle : MonoBehaviour
 {
-    
-    [SerializeField] Dictionary<int, string> CurrentAbilities;
-    [SerializeField]
-    [System.Serializable]
-    public struct AbilityData
+    public static AbilityCycle instance;
+
+    [SerializeField] private TMP_Text abilityUIText;
+    public Dictionary<Abilities, bool> activeAbilities = new Dictionary<Abilities, bool>();
+    private List<Abilities> abilityKeys;
+    private Abilities selectedAbility = Abilities.None;
+    public void Awake()
     {
-        public int Abilityindex;
-        public string name;
-        public bool enabled;
-        public int officialIndex;
-        public bool currentlyActivated;
-        public AbilityData(int ai,string n, bool e,int i)
+        if (instance != null && instance != this)
         {
-           Abilityindex = ai;
-            name = n;
-            enabled = e;
-            officialIndex = i;
-            currentlyActivated = false;
+            Debug.LogWarning("There is more than one AbilityCycle.");
+            Destroy(gameObject);
+            return;
         }
-        
+
+        instance = this;
     }
-    
-    [SerializeField] List<AbilityData> Abilities;
-    [SerializeField] List<AbilityData> currentAbilities=new List<AbilityData>();
-    [SerializeField] public AbilityData equippedAbility;
-    [SerializeField] public int abilityIndex = 0;
-    [SerializeField] TMP_Text abilityUIText;
-    // Start is called before the first frame update
     void Start()
     {
-        
-        StartCoroutine(MakeList());
-       
-    }
-    public IEnumerator MakeList()
-    {
-        yield return new WaitForSeconds(2f);
-        Abilities = new List<AbilityData>()
-        {
-            new AbilityData(0, "ChargeJump", PlayerManager.instance.abilityValues[2], 2),
-            new AbilityData(1, "Telegrab", PlayerManager.instance.abilityValues[6], 6),
-            new AbilityData(2, "Freeze", PlayerManager.instance.abilityValues[7], 7)
-        };
-        currentAbilities = Abilities.Where(x => x.enabled == true).ToList();
-
-        if (currentAbilities.Count > 0)
-        {
-
-            equippedAbility = currentAbilities[abilityIndex];
-        }
-
+        InitializeAbilities();
+        abilityKeys = new List<Abilities>(activeAbilities.Keys);
     }
 
-        // Update is called once per frame
-        void Update()
+    void Update()
     {
-        switchAbility();
+        SwitchAbility();
     }
-    void switchAbility() 
+    public void InitializeAbilities()
     {
-        if (Input.GetKeyDown(KeyCode.Tab)&&currentAbilities.Count!=0)
+        activeAbilities.Add(Abilities.None, true);
+        activeAbilities.Add(Abilities.ChargeJumping, false);
+        activeAbilities.Add(Abilities.TeleGrabbing, false);
+        activeAbilities.Add(Abilities.Freezing, false);
+    }
+    private void SwitchAbility()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
-            if (abilityIndex<currentAbilities.Count-1)
+            //activeAbilities.TryGetValue(selectedAbility, out bool isSelected);
+            //Debug.Log("1. Selected ability is: " + selectedAbility + " and it is: " + isSelected);
+            activeAbilities[selectedAbility] = false;
+
+            int currentIndex = abilityKeys.IndexOf(selectedAbility);
+
+            if (currentIndex != -1)
             {
-                abilityIndex++;
-                equippedAbility = currentAbilities[abilityIndex];
-                abilityUIText.text = "Ability equipped: " + equippedAbility.name;
-                abilityUIText.color = Color.black;
-                StartCoroutine(DelayFadeTextToFullAlpha(2f, abilityUIText));
+                bool isSelectedUnlocked = AbilityManager.instance.abilityStatuses[selectedAbility];
+                if (isSelectedUnlocked)
+                {
+                    //this modulo thing wraps back to 0 when it reaches the end of a list
+                    currentIndex = (currentIndex + 1) % abilityKeys.Count;
+                    selectedAbility = abilityKeys[currentIndex];
+                    activeAbilities[selectedAbility] = true;
+
+                    abilityUIText.text = "Selected Ability: " + selectedAbility;
+                    abilityUIText.color = Color.black;
+                    StartCoroutine(DelayFadeTextToFullAlpha(2f, abilityUIText));
+
+                    //activeAbilities.TryGetValue(selectedAbility, out bool isSelected2);
+                    //Debug.Log("2. Selected ability is: " + selectedAbility + " and it is: " + isSelected2);
+                }
+                else
+                {
+                    abilityUIText.text = "You haven't unlocked that ability yet.";
+                    abilityUIText.color = Color.black;
+                    StartCoroutine(DelayFadeTextToFullAlpha(2f, abilityUIText));
+                }
             }
             else
             {
-                abilityIndex = 0;
-                equippedAbility = currentAbilities[abilityIndex];
-                abilityUIText.text = "Ability equipped: " + equippedAbility.name;
-                abilityUIText.color = Color.black;
-                StartCoroutine(DelayFadeTextToFullAlpha(2f, abilityUIText));
+                Debug.LogError($"Switching abilities failed. currentIndex: {currentIndex}, selectedAbility: {selectedAbility}");
             }
-
         }
-        else if (Input.GetKeyDown(KeyCode.Tab) && currentAbilities.Count == 0)
-        {
-            abilityUIText.text = "You haven't unlocked any abilites yet!";
-            abilityUIText.color = Color.black;
-            StartCoroutine(DelayFadeTextToFullAlpha(2f, abilityUIText));
-        }
-
     }
     public IEnumerator DelayFadeTextToFullAlpha(float t, TMP_Text i)
     {

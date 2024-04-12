@@ -13,7 +13,7 @@ public class Timer : MonoBehaviour
     [SerializeField] private TextMeshProUGUI timerText;
 
     [Header("Debug")]
-    private bool raceInProgress;
+    private bool isRaceInProgress;
 
     // private variables
     private float currentTime;
@@ -40,7 +40,7 @@ public class Timer : MonoBehaviour
 
     public void StartTimer()
     {
-        raceInProgress = true;
+        isRaceInProgress = true;
 
         if(timerCoroutine == null)
         {
@@ -52,7 +52,7 @@ public class Timer : MonoBehaviour
     {
         currentTime = maxTime;
 
-        while (raceInProgress)
+        while (isRaceInProgress)
         {
             currentTime -= 1;
 
@@ -62,7 +62,7 @@ public class Timer : MonoBehaviour
             if(currentTime >= maxTime)
             {
                 Debug.Log("Time has run out!");
-                raceInProgress = false;
+                isRaceInProgress = false;
             }
 
             yield return new WaitForSeconds(1f);
@@ -71,19 +71,19 @@ public class Timer : MonoBehaviour
 
     private void StartTimerForNewLap()
     {
-        raceInProgress = false;
+        isRaceInProgress = false;
         StopCoroutine(timerCoroutine);
 
         maxTime -= timeDecreaseByLap;
         currentTime = maxTime;
 
-        raceInProgress = true;
+        isRaceInProgress = true;
         timerCoroutine = StartCoroutine(TimerProgress());
     }
 
     private void ResetTimeAfterInterruptedLap()
     {
-        raceInProgress = false;
+        isRaceInProgress = false;
         StopCoroutine(timerCoroutine);
         timerCoroutine = null;
 
@@ -95,7 +95,7 @@ public class Timer : MonoBehaviour
 
     private void StopTimer()
     {
-        raceInProgress = false;
+        isRaceInProgress = false;
         StopCoroutine(timerCoroutine);
         timerCoroutine = null;
     }

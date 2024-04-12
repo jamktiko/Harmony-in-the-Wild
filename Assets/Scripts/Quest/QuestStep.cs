@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class QuestStep : MonoBehaviour
@@ -35,8 +33,8 @@ public abstract class QuestStep : MonoBehaviour
             isFinished = true;
 
             GameEventsManager.instance.questEvents.AdvanceQuest(questId);
-
-            Destroy(gameObject);
+            Debug.Log("Finished quest step: " + questId);
+            Invoke("DestroyObject",0);
         }
     }
 
@@ -44,6 +42,11 @@ public abstract class QuestStep : MonoBehaviour
     {
         GameEventsManager.instance.questEvents.QuestStepStateChange(questId, stepIndex, new QuestStepState(newState));
         SaveManager.instance.SaveGame();
+    }
+
+    protected void DestroyObject()
+    {
+        Destroy(gameObject);
     }
 
     protected abstract void SetQuestStepState(string state);

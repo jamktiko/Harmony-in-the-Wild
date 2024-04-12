@@ -1,11 +1,13 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 public class Freeze : MonoBehaviour
 {
+    public const string DungeonPenguinSceneName = "Dungeon_Penguin";
+
     [Header("Config")]
     [SerializeField] private float aoeRadius;
     [SerializeField] private float cooldownDuration;
@@ -13,19 +15,24 @@ public class Freeze : MonoBehaviour
     [SerializeField] private Image coloredCooldownIndicator;
 
     [Header("Audio")]
-    [SerializeField] AudioSource FreezeAudio;
+    [SerializeField] AudioSource freezeAudio;
 
-    private bool onCooldown;
+    private bool isFreezingActivated;
+    private bool hasCooldown;
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F) && PlayerManager.instance.abilityValues[7] && !onCooldown)
+        AbilityManager.instance.abilityStatuses.TryGetValue(Abilities.Freezing, out bool isUnlocked);
+        AbilityCycle.instance.activeAbilities.TryGetValue(Abilities.Freezing, out bool isSelected);
+
+        if (Input.GetKeyDown(KeyCode.F) && isUnlocked && isSelected && !hasCooldown)
         {
-            ActivateFreeze();
+            isFreezingActivated = !isFreezingActivated;
+            ActivateFreezeObject();
         }
     }
 
-    private void ActivateFreeze()
+    private void ActivateFreezeObject()
     {
         Collider[] foundObjects = Physics.OverlapSphere(transform.position, aoeRadius, LayerMask.GetMask("Freezables"));
         Debug.Log(foundObjects.Length + " freezables found.");
@@ -38,13 +45,15 @@ public class Freeze : MonoBehaviour
 
                 if (freezable)
                 {
-                    freezable.Freeze();
-                    FreezeAudio.Play();
+                    freezable.FreezeObject();
+
+                    if (freezeAudio != null)
+                    freezeAudio.Play();
                 }
             }
         }
 
-        if(SceneManager.GetActiveScene().name == "Dungeon_Penguin")
+        if(SceneManager.GetActiveScene().name == DungeonPenguinSceneName)
         {
             StartCoroutine(FreezeCooldown());
         }
@@ -52,7 +61,7 @@ public class Freeze : MonoBehaviour
 
     private IEnumerator FreezeCooldown()
     {
-        onCooldown = true;
+        hasCooldown = true;
 
         float updateFillAmount = 1 / (cooldownDuration * 100);
         coloredCooldownIndicator.fillAmount = 0;
@@ -64,6 +73,6 @@ public class Freeze : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
         }
 
-        onCooldown = false;
+        hasCooldown = false;
     }
 }

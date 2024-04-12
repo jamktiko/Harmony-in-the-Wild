@@ -1,20 +1,17 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Destructible : MonoBehaviour
 {
     [Header("Config")]
     [SerializeField] private float averageTimeBetweenSmashableEffects;
-    [SerializeField] private bool needsToBeFreezed;
+    [SerializeField] private bool needsToBeFrozen;
     [SerializeField] private bool isQuestRock;
 
     [Header("Needed References")]
     [SerializeField] private GameObject destroyedVersion;
     [SerializeField] private GameObject oreVersion;
     [SerializeField] private GameObject smashableEffect;
-
-    [SerializeField] private AudioSource audioSource;
 
     private bool hasOre;
 
@@ -31,11 +28,13 @@ public class Destructible : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Trigger") && PlayerManager.instance.abilityValues[4])
+
+        //note: replace with AbilityManager stuff
+        if (other.gameObject.CompareTag("Trigger") && AbilityManager.instance.abilityStatuses.TryGetValue(Abilities.RockDestroying, out bool isEnabled) && isEnabled)
         {
-            if (needsToBeFreezed)
+            if (needsToBeFrozen)
             {
-                if (gameObject.GetComponent<Freezable>().isFreezed)
+                if (gameObject.GetComponent<Freezable>().isFrozen)
                 {
                     //audioSource.Play();
                     Instantiate(destroyedVersion, transform.position, transform.rotation);
@@ -44,7 +43,7 @@ public class Destructible : MonoBehaviour
 
                 else
                 {
-                    Debug.Log(gameObject.name + " needs to be freezed first.");
+                    Debug.Log(gameObject.name + " needs to be frozen first.");
                 }
             }
 
