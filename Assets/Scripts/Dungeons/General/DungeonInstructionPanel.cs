@@ -6,7 +6,12 @@ public class DungeonInstructionPanel : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.X))
         {
-            gameObject.SetActive(false);
+            Invoke(nameof(HideInstructionPanel), 0.1f);
         }
+    }
+
+    private void HideInstructionPanel()
+    {
+        gameObject.SetActive(false);
     }
 }

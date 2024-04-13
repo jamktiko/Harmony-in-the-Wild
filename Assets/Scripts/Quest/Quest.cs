@@ -96,4 +96,9 @@ public class Quest
     {
         return new QuestData(state, currentQuestStepIndex, questStepStates);
     }
+
+    public int GetCurrentQuestStepIndex()
+    {
+        return currentQuestStepIndex;
+    }
 }

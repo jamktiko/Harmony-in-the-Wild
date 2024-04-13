@@ -5,8 +5,27 @@ using System;
 
 public class TutorialFlower : MonoBehaviour
 {
-    private bool playerIsNear;
+    [SerializeField] private QuestScriptableObject tutorialQuestSO;
+
+    [SerializeField] private bool playerIsNear;
     private bool canBeCollected;
+
+    private void Awake()
+    {
+        // check the initial status of the flower
+        int currentTutorialQuestStepIndex = QuestManager.instance.GetQuestById(tutorialQuestSO.id).GetCurrentQuestStepIndex();
+
+        if (currentTutorialQuestStepIndex == 1)
+        {
+            canBeCollected = true;
+            Debug.Log("Collecting flower enabled.");
+        }
+
+        else if(currentTutorialQuestStepIndex > 1)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void OnEnable()
     {
@@ -32,6 +51,7 @@ public class TutorialFlower : MonoBehaviour
         if (!canBeCollected)
         {
             canBeCollected = true;
+            Debug.Log("Collecting flower enabled.");
         }
     }
 
@@ -40,6 +60,11 @@ public class TutorialFlower : MonoBehaviour
         if (other.CompareTag("Trigger"))
         {
             playerIsNear = true;
+        }
+
+        else
+        {
+            Debug.Log(other.gameObject.name);
         }
     }
 

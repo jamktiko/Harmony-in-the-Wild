@@ -27,6 +27,7 @@ public class TalkToBearQuestStep : QuestStep
         // if the current value matches the target value, finish the quest step
         if (latestCompletedDialogue == targetDialogueIndex)
         {
+            Debug.Log("Finishing " + gameObject.name);
             FinishQuestStep();
         }
     }
