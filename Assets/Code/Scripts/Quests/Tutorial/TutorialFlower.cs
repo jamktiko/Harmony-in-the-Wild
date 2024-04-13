@@ -12,19 +12,7 @@ public class TutorialFlower : MonoBehaviour
 
     private void Awake()
     {
-        // check the initial status of the flower
-        int currentTutorialQuestStepIndex = QuestManager.instance.GetQuestById(tutorialQuestSO.id).GetCurrentQuestStepIndex();
-
-        if (currentTutorialQuestStepIndex == 1)
-        {
-            canBeCollected = true;
-            Debug.Log("Collecting flower enabled.");
-        }
-
-        else if(currentTutorialQuestStepIndex > 1)
-        {
-            Destroy(gameObject);
-        }
+        Invoke(nameof(CheckCurrentQuestStep), 1f);
     }
 
     private void OnEnable()
@@ -73,6 +61,23 @@ public class TutorialFlower : MonoBehaviour
         if (other.CompareTag("Trigger"))
         {
             playerIsNear = false;
+        }
+    }
+
+    private void CheckCurrentQuestStep()
+    {
+        // check the initial status of the flower
+        int currentTutorialQuestStepIndex = QuestManager.instance.GetQuestById(tutorialQuestSO.id).GetCurrentQuestStepIndex();
+
+        if (currentTutorialQuestStepIndex == 1)
+        {
+            canBeCollected = true;
+            Debug.Log("Collecting flower enabled.");
+        }
+
+        else if (currentTutorialQuestStepIndex > 1)
+        {
+            Destroy(gameObject);
         }
     }
 }
