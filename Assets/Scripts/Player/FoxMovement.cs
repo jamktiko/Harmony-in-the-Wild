@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class FoxMovement : MonoBehaviour
 {
@@ -82,9 +83,19 @@ public class FoxMovement : MonoBehaviour
     [SerializeField] private AudioSource snowDivingAudio;
     [SerializeField] private AudioSource swimmingAudio;
     [SerializeField] private AudioSource telegrabAudio;
+
+    [Header("VFX")]
+    [SerializeField] private VisualEffect snowDiveVFX;
+    private int initialSnowDiveID;
+    private int onEnableSnowDiveID;
+    [SerializeField] private float snowDiveTimer = 3f;
+
     private void Awake()
     {
         instance = this;
+        onEnableSnowDiveID = Shader.PropertyToID("onSnowDive");
+        initialSnowDiveID = Shader.PropertyToID("OnPlay");
+        snowDiveVFX.SendEvent(initialSnowDiveID);
     }
     void Start()
     {
@@ -179,17 +190,22 @@ public class FoxMovement : MonoBehaviour
     private void SnowDiveInput()
     {
         AbilityManager.instance.abilityStatuses.TryGetValue(Abilities.SnowDiving, out bool isUnlocked);
+
         if (Input.GetKey(KeyCode.LeftControl) && isUnlocked && IsInSnow())
         {
             isSnowDiving = true;
+            SnowDive();
+            Debug.Log("Calling SnowDive()");
         }
-        else if (isUnlocked && !IsInSnow())
+        else if (Input.GetKey(KeyCode.LeftControl) && isUnlocked && !IsInSnow())
         {
             ClimbSnowWall();
+            Debug.Log("Calling ClimbSnowWall()");
         }
-        else if (!isUnlocked || !IsInSnow())
+        else if (Input.GetKey(KeyCode.LeftControl) && !isUnlocked && !IsInSnow())
         {
             isSnowDiving = false;
+            Debug.Log("Cannot use ability");
         }
     }
     private void TelegrabInput()
@@ -394,19 +410,24 @@ public class FoxMovement : MonoBehaviour
     }
     #endregion
     #region SNOWDIVING
+
     private void SnowDive()
     {
         if (isSnowDiving && IsGrounded())
         {
+            //snowDiveVFX.SendEvent(onEnableSnowDiveID);
+
             playerAnimator.SetBool("isGliding", false);
             rb.AddForce(moveDirection.normalized * snowDiveSpeed * 10f, ForceMode.Force);
             //snow diving animation here
         }
     }
+
     private void ClimbSnowWall()
     {
         if (HasClimbWallCollision())
         {
+            snowDiveVFX.SendEvent(onEnableSnowDiveID);
             //Debug.Log("wall detected");
             RaycastHit hit;
             if (Physics.Raycast(cameraPosition.position, cameraPosition.forward, out hit, 50f, climbWallLayerMask))
@@ -420,6 +441,7 @@ public class FoxMovement : MonoBehaviour
             }
         }
     }
+
     private bool HasClimbWallCollision()
     {
         return Physics.CheckSphere(foxMiddle.position, boxSize.z, climbWallLayerMask, QueryTriggerInteraction.Ignore);
