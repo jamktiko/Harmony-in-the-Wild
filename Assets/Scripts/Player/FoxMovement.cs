@@ -86,16 +86,20 @@ public class FoxMovement : MonoBehaviour
 
     [Header("VFX")]
     [SerializeField] private VisualEffect snowDiveVFX;
-    private int initialSnowDiveID;
+    [SerializeField] private VisualEffect chargeJump;
     private int onEnableSnowDiveID;
+    private int OnEnableChargeJumpID;
+    private int OnDisableChargeJumpID;
     [SerializeField] private float snowDiveTimer = 3f;
 
     private void Awake()
     {
         instance = this;
+
+        // Seting IDs for VFX
         onEnableSnowDiveID = Shader.PropertyToID("onSnowDive");
-        initialSnowDiveID = Shader.PropertyToID("OnPlay");
-        snowDiveVFX.SendEvent(initialSnowDiveID);
+        OnEnableChargeJumpID = Shader.PropertyToID("OnChargeJumpStart");
+        OnDisableChargeJumpID = Shader.PropertyToID("OnChargeJumpStop");
     }
     void Start()
     {
@@ -374,6 +378,8 @@ public class FoxMovement : MonoBehaviour
     {
         if (isChargingJump)
         {
+            chargeJump.SendEvent(OnEnableChargeJumpID);
+
             rb.velocity = new Vector3(0f, 0f, 0f);
 
             if (chargeJumpTimer < chargeJumpHeight)
@@ -399,6 +405,7 @@ public class FoxMovement : MonoBehaviour
     {
         if (chargeJumpTimer != 14 && Input.GetButtonUp("Jump"))
         {
+            chargeJump.SendEvent(OnDisableChargeJumpID);
             chargeJumpAudio.Stop();
             rb.AddForce(transform.up * chargeJumpTimer, ForceMode.Impulse);
             isChargingJump = false;
