@@ -303,10 +303,10 @@ public class DialogueManager : MonoBehaviour
             Debug.Log("Ink Variables was found to be null: " + variableName);
         }
 
-        else
-        {
-            Debug.Log("Fetched value is: " + variableValue);
-        }
+        //else
+        //{
+        //    Debug.Log("Fetched value is: " + variableValue);
+        //}
 
         return variableValue;
     }

@@ -49,7 +49,7 @@ public class TutorialBearMovement : MonoBehaviour
     {
         if(questId == tutorialQuestSO.id)
         {
-            EnableMovement();
+            Invoke(nameof(EnableMovement), 0.5f);
         }
     }
 
