@@ -12,9 +12,9 @@ public class TutorialBear : MonoBehaviour
     [SerializeField] private TextAsset dialogueBetweenQuests;
     [SerializeField] private List<TextAsset> dialogueFiles;
 
-    private bool isInteractable;
-    private int dialogueTracker = 0; // the index of the latest completed dialogue; will help in triggering the next dialogue after the previous one has been completed
-    private int targetDialogueIndex = 0;
+    private bool isInteractable = true;
+    private int latestCompletedDialogueIndex = 0; // the index of the latest completed dialogue; will help in triggering the next dialogue after the previous one has been completed
+    private int currentDialogueIndex = 0;
     private bool inkValueUpToDate; // bool to help updating the ink values as they are not currently saved anywhere else; ducktape solution for now
 
     private string questId;
@@ -23,33 +23,40 @@ public class TutorialBear : MonoBehaviour
 
     private const string latestCompletedDialogue = "latestTutorialQuestStepDialogueCompleted";
 
-    private void Awake()
+    private void Start()
     {
         questId = questInfoForPoint.id;
-        UpdateTargetDialogueIndex(questId);
+        CheckDialogueProgressChanges(questId);
         InitializeDialogueTracker();
         audioSource = GetComponent<AudioSource>();
+
+        Debug.Log("Target dialogue index on start: " + currentDialogueIndex + ", QUI: " + QuestManager.instance.GetQuestById(questId).GetCurrentQuestStepIndex());
     }
 
     private void OnEnable()
     {
-        GameEventsManager.instance.questEvents.OnAdvanceQuest += UpdateTargetDialogueIndex;
+        GameEventsManager.instance.questEvents.OnAdvanceQuest += CheckDialogueProgressChanges;
         GameEventsManager.instance.dialogueEvents.OnStartDialogue += ToggleInteraction;
         GameEventsManager.instance.dialogueEvents.OnEndDialogue += ToggleInteraction;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.questEvents.OnAdvanceQuest -= UpdateTargetDialogueIndex;
+        GameEventsManager.instance.questEvents.OnAdvanceQuest -= CheckDialogueProgressChanges;
         GameEventsManager.instance.dialogueEvents.OnStartDialogue -= ToggleInteraction;
         GameEventsManager.instance.dialogueEvents.OnEndDialogue -= ToggleInteraction;
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && playerIsNear)
+        if (Input.GetKeyDown(KeyCode.E) && playerIsNear && isInteractable)
         {
             InteractWithBear();
+        }
+
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            Debug.Log("QUI: " + QuestManager.instance.GetQuestById(questId).GetCurrentQuestStepIndex());
         }
     }
 
@@ -58,11 +65,11 @@ public class TutorialBear : MonoBehaviour
         if (inkValueUpToDate)
         {
             // fetch correct dialogue index
-            dialogueTracker = ((Ink.Runtime.IntValue)DialogueManager.instance.GetDialogueVariableState(latestCompletedDialogue)).value;
+            latestCompletedDialogueIndex = ((Ink.Runtime.IntValue)DialogueManager.instance.GetDialogueVariableState(latestCompletedDialogue)).value;
 
-            if (targetDialogueIndex == dialogueTracker)
+            if (currentDialogueIndex == latestCompletedDialogueIndex)
             {
-                DialogueManager.instance.StartDialogue(dialogueFiles[dialogueTracker]);
+                DialogueManager.instance.StartDialogue(dialogueFiles[latestCompletedDialogueIndex]);
                 audioSource.Play();
             }
 
@@ -75,9 +82,9 @@ public class TutorialBear : MonoBehaviour
 
         else
         {
-            if (targetDialogueIndex == dialogueTracker)
+            if (currentDialogueIndex == latestCompletedDialogueIndex)
             {
-                DialogueManager.instance.StartDialogue(dialogueFiles[dialogueTracker]);
+                DialogueManager.instance.StartDialogue(dialogueFiles[latestCompletedDialogueIndex]);
                 inkValueUpToDate = true;
                 audioSource.Play();
             }
@@ -90,18 +97,32 @@ public class TutorialBear : MonoBehaviour
         }
     }
 
-    private void UpdateTargetDialogueIndex(string updatedQuestId)
+    private void CheckDialogueProgressChanges(string updatedQuestId)
     {
         if(updatedQuestId == questId)
         {
-            int currentQuestStepIndex = QuestManager.instance.GetQuestById(questId).GetCurrentQuestStepIndex();
+            Invoke(nameof(UpdateDialogueProgressValues), 0.5f);
+        }
+    }
 
-            switch (currentQuestStepIndex)
-            {
-                case 2:
-                    targetDialogueIndex = 1;
-                    break;
-            }
+    private void UpdateDialogueProgressValues()
+    {
+        int currentQuestStepIndex = QuestManager.instance.GetQuestById(questId).GetCurrentQuestStepIndex();
+
+        switch (currentQuestStepIndex)
+        {
+            case 2:
+                currentDialogueIndex = 1;
+                break;
+
+            case 4:
+                currentDialogueIndex = 2;
+                break;
+        }
+
+        if (inkValueUpToDate)
+        {
+            latestCompletedDialogueIndex = ((Ink.Runtime.IntValue)DialogueManager.instance.GetDialogueVariableState(latestCompletedDialogue)).value;
         }
     }
 
@@ -112,15 +133,27 @@ public class TutorialBear : MonoBehaviour
         switch (currentQuestStepIndex)
         {
             case 0:
-                dialogueTracker = 0;
+                latestCompletedDialogueIndex = 0;
                 break;
 
             case 1:
-                dialogueTracker = 1;
+                latestCompletedDialogueIndex = 1;
                 break;
 
             case 2:
-                dialogueTracker = 1;
+                latestCompletedDialogueIndex = 1;
+                break;
+
+            case 3:
+                latestCompletedDialogueIndex = 2;
+                break;
+
+            case 4:
+                latestCompletedDialogueIndex = 2;
+                break;
+
+            case 5:
+                latestCompletedDialogueIndex = 3;
                 break;
         }
     }
