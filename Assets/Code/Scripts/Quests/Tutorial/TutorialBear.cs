@@ -101,6 +101,8 @@ public class TutorialBear : MonoBehaviour
                 case 2:
                     targetDialogueIndex = 1;
                     break;
+
+                //case 
             }
         }
     }
@@ -122,6 +124,8 @@ public class TutorialBear : MonoBehaviour
             case 2:
                 dialogueTracker = 1;
                 break;
+
+            //case 3:
         }
     }
 
