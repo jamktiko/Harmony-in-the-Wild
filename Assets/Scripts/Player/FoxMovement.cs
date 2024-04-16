@@ -65,11 +65,9 @@ public class FoxMovement : MonoBehaviour
     private bool isTelegrabbing;
     private bool isGliding;
     private bool isChargingJump;
-    private bool isSnowDiving;
     private AbilityCycle abilityCycle;
     private GameObject grabbedGameObject;
     private List<TelegrabObject> telegrabObjects = new List<TelegrabObject>();
-    //private TelegrabObject TelegrabObject;
 
     [Header("Animations")]
     public Animator playerAnimator;
@@ -119,6 +117,7 @@ public class FoxMovement : MonoBehaviour
     {
         SpeedControl();
         IsOnSlope();
+        AnimationsAndMinorLogic();
 
         if (!DialogueManager.instance.isDialoguePlaying)
         {
@@ -163,6 +162,7 @@ public class FoxMovement : MonoBehaviour
             Invoke(nameof(ResetJump), jumpCooldown);
         }
     }
+    #endregion
     #region ABILITY INPUTS
     private void GlidingInput()
     {
@@ -190,6 +190,11 @@ public class FoxMovement : MonoBehaviour
         {
             isChargingJump = true;
         }
+
+        if (!isSelected)
+        {
+            isChargeJumpActivated = false;
+        }
     }
     private void SnowDiveInput()
     {
@@ -197,19 +202,15 @@ public class FoxMovement : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftControl) && isUnlocked && IsInSnow())
         {
-            isSnowDiving = true;
+            //animations only
             SnowDive();
             Debug.Log("Calling SnowDive()");
         }
-        else if (Input.GetKey(KeyCode.LeftControl) && isUnlocked && !IsInSnow())
+
+        if (isUnlocked)
         {
             ClimbSnowWall();
             Debug.Log("Calling ClimbSnowWall()");
-        }
-        else if (Input.GetKey(KeyCode.LeftControl) && !isUnlocked && !IsInSnow())
-        {
-            isSnowDiving = false;
-            Debug.Log("Cannot use ability");
         }
     }
     private void TelegrabInput()
@@ -222,23 +223,87 @@ public class FoxMovement : MonoBehaviour
             isTelegrabActivated = !isTelegrabActivated;
             ActivateTelegrabCamera();
         }
+        if (!isSelected)
+        {
+            isTelegrabActivated = false;
+        }
     }
     #endregion
-    #endregion
-    private void MovePlayer()
+    private void AnimationsAndMinorLogic()
     {
+        //animations and some logic?
         Walk();
+        //animations only
         Sprint();
-        AbilityMovements();
-    }
-    private void AbilityMovements()
-    {
+        //animations/sfx only
         Swim();
-        SnowDive();
+        //both animations/sfx and logic
         Glide();
+        //both animations/sfx and logic
         ChargeJump();
     }
-    #region NORMAL MOVEMENT
+    #region MOVEMENT
+    private void MovePlayer()
+    {
+        float speed = 0f;
+        float modifier = 1f;
+        AbilityManager.instance.abilityStatuses.TryGetValue(Abilities.SnowDiving, out bool isSnowDiveUnlocked);
+
+        SetMovementSpeed(ref speed, ref modifier, isSnowDiveUnlocked);
+
+        rb.AddForce(moveDirection.normalized * speed * 10f * modifier, ForceMode.Force);
+    }
+
+    private void SetMovementSpeed(ref float speed, ref float modifier, bool isSnowDiveUnlocked)
+    {
+        //Walking
+        if (IsGrounded() && !isSprinting)
+        {
+            speed = moveSpeed;
+        }
+
+        //Sprinting
+        if (IsGrounded() && isSprinting)
+        {
+            speed = sprintSpeed;
+        }
+
+        //Swimming
+        if (IsInWater())
+        {
+            speed = swimSpeed;
+
+            if (!rb.useGravity)
+            {
+                rb.useGravity = true;
+            }
+        }
+
+        //In air, Gliding
+        if (!IsGrounded() && !IsInWater() && isGliding)
+        {
+            speed = moveSpeed;
+            modifier = glidingMultiplier;
+            if (glidingMultiplier < 0.5)
+            {
+                glidingMultiplier += 0.005f;
+            }
+        }
+
+        //In air, NOT Gliding
+        if (!IsGrounded() && !IsInWater() && !isGliding)
+        {
+            speed = moveSpeed;
+            modifier = airMultiplier;
+        }
+
+        //Walking on snow
+        if (IsInSnow() && IsGrounded() && isSnowDiveUnlocked)
+        {
+            speed = snowDiveSpeed;
+        }
+    }
+
     private void Walk()
     {
         if (IsGrounded())
@@ -254,7 +319,6 @@ public class FoxMovement : MonoBehaviour
 
         if (IsGrounded())
         {
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
             //walking animation here
             playerAnimator.speed = 1f;
 
@@ -271,9 +335,7 @@ public class FoxMovement : MonoBehaviour
     {
         if (IsGrounded() && isSprinting)
         {
-            rb.AddForce(moveDirection.normalized * sprintSpeed * 10f, ForceMode.Force);
             //running animation here
-
             SetDefaultAnimatorValues();
         }
     }
@@ -299,12 +361,6 @@ public class FoxMovement : MonoBehaviour
     {
         if (IsInWater())
         {
-            if (!rb.useGravity)
-            {
-                rb.useGravity = true;
-            }
-
-            rb.AddForce(moveDirection.normalized * swimSpeed * 10f, ForceMode.Force);
             playerAnimator.SetFloat("horMove", 1);
             playerAnimator.SetFloat("vertMove", 0);
             playerAnimator.SetBool("isJumping", false);
@@ -326,7 +382,7 @@ public class FoxMovement : MonoBehaviour
     #region GLIDING
     private void Glide()
     {
-        if (!IsGrounded() && isGliding)
+        if (!IsGrounded() && !IsInWater() && isGliding)
         {
             if (rb.useGravity)
             {
@@ -341,25 +397,19 @@ public class FoxMovement : MonoBehaviour
                 }
             }
 
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f * glidingMultiplier, ForceMode.Force);
-            if (glidingMultiplier < 0.5)
-            {
-                glidingMultiplier += 0.005f;
-            }
-
             rb.velocity = new Vector3(rb.velocity.x, -1.5f, rb.velocity.z);
             //gliding animation here
 
             playerAnimator.SetBool("isGrounded", false);
             playerAnimator.SetBool("isGliding", true);
 
-            AbilityManager.instance.TryActivateAbility(Abilities.Gliding);
+            //testing vvv
+            //AbilityManager.instance.TryActivateAbility(Abilities.Gliding);
         }
 
-        if (!IsGrounded() && !isGliding && !IsInWater())
+        if (!IsGrounded() && !IsInWater() && !isGliding)
         {
             DisableGlider();
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
             //in air animation here
             playerAnimator.SetBool("isGrounded", false);
         }
@@ -398,7 +448,8 @@ public class FoxMovement : MonoBehaviour
                 playerAnimator.SetFloat("vertMove", verticalInput);
 
             }
-            AbilityManager.instance.TryActivateAbility(Abilities.ChargeJumping);
+            //testing vvv
+            //AbilityManager.instance.TryActivateAbility(Abilities.ChargeJumping);
         }
     }
     private void ReleaseChargedJump()
@@ -420,12 +471,12 @@ public class FoxMovement : MonoBehaviour
 
     private void SnowDive()
     {
-        if (isSnowDiving && IsGrounded())
+        if (IsGrounded())
         {
             //snowDiveVFX.SendEvent(onEnableSnowDiveID);
 
             playerAnimator.SetBool("isGliding", false);
-            rb.AddForce(moveDirection.normalized * snowDiveSpeed * 10f, ForceMode.Force);
+
             //snow diving animation here
         }
     }
