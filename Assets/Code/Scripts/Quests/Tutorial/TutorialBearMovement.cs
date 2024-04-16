@@ -34,13 +34,14 @@ public class TutorialBearMovement : MonoBehaviour
 
     private void Update()
     {
-        if (canMove)
+        if (canMove && targetTransform != null)
         {
             agent.SetDestination(targetTransform.position);
 
             if (Vector3.Distance(transform.position, targetTransform.position) < 1.5f)
             {
                 gameObject.SetActive(false);
+                canMove = false;
             }
         }   
     }
@@ -59,6 +60,12 @@ public class TutorialBearMovement : MonoBehaviour
         {
             canMove = true;
             animator.SetTrigger("walk");
+        }
+
+        else
+        {
+            canMove = false;
+            animator.SetTrigger("idle");
         }
     }
 }

@@ -29,8 +29,6 @@ public class TutorialBear : MonoBehaviour
         CheckDialogueProgressChanges(questId);
         InitializeDialogueTracker();
         audioSource = GetComponent<AudioSource>();
-
-        Debug.Log("Target dialogue index on start: " + currentDialogueIndex + ", QUI: " + QuestManager.instance.GetQuestById(questId).GetCurrentQuestStepIndex());
     }
 
     private void OnEnable()
@@ -111,12 +109,32 @@ public class TutorialBear : MonoBehaviour
 
         switch (currentQuestStepIndex)
         {
+            case 0:
+                currentDialogueIndex = 0;
+                break;
+
+            case 1:
+                currentDialogueIndex = 1;
+                break;
+
             case 2:
                 currentDialogueIndex = 1;
                 break;
 
+            case 3:
+                currentDialogueIndex = 2;
+                break;
+
             case 4:
                 currentDialogueIndex = 2;
+                break;
+
+            case 5:
+                currentDialogueIndex = 3;
+                break;
+
+            case 6:
+                currentDialogueIndex = 3;
                 break;
         }
 
@@ -124,6 +142,8 @@ public class TutorialBear : MonoBehaviour
         {
             latestCompletedDialogueIndex = ((Ink.Runtime.IntValue)DialogueManager.instance.GetDialogueVariableState(latestCompletedDialogue)).value;
         }
+
+        Debug.Log("Target dialogue index: " + currentDialogueIndex + ", QUI: " + QuestManager.instance.GetQuestById(questId).GetCurrentQuestStepIndex());
     }
 
     private void InitializeDialogueTracker()
@@ -156,6 +176,8 @@ public class TutorialBear : MonoBehaviour
                 latestCompletedDialogueIndex = 3;
                 break;
         }
+
+        Debug.Log("Initializing latest completed dialogue to: " + latestCompletedDialogueIndex);
     }
 
     private void ToggleInteraction()

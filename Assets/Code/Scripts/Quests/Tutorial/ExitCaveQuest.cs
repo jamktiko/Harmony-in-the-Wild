@@ -23,6 +23,11 @@ public class ExitCaveQuest : QuestStep
 
     public void ExitCave()
     {
+        // make the bear the child of Quest Manager
+        //bear.transform.parent = transform.parent;
+
+        Debug.Log("Fetching latest completed dialogue value before leaving the cave: " + ((Ink.Runtime.IntValue)DialogueManager.instance.GetDialogueVariableState("latestTutorialQuestStepDialogueCompleted")).value);
+
         FinishQuestStep();
     }
 

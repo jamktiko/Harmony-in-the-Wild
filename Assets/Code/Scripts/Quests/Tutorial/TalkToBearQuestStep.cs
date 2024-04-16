@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TalkToBearQuestStep : QuestStep
 {
-    [Tooltip("Index of the current quest step. Checking if the dialogue with this quest step has been completed.")]
+    [Tooltip("Target index for the completed dialogue. Checking if the dialogue with this quest step has been completed.")]
     [SerializeField] private int targetDialogueIndex;
 
     private bool talkedToBear; // this might not be needed here, but to avoid any errors in the other quest code (state of the quest etc.), there's some value to be saved
@@ -21,8 +21,15 @@ public class TalkToBearQuestStep : QuestStep
 
     private void CheckProgressInDialogue()
     {
+        Invoke(nameof(FetchDialogueData), 1f);
+    }
+
+    private void FetchDialogueData()
+    {
         // check the latest completed dialogue from Ink
         int latestCompletedDialogue = ((Ink.Runtime.IntValue)DialogueManager.instance.GetDialogueVariableState("latestTutorialQuestStepDialogueCompleted")).value;
+
+        Debug.Log("Latest completed dialogue index: " + latestCompletedDialogue);
 
         // if the current value matches the target value, finish the quest step
         if (latestCompletedDialogue == targetDialogueIndex)

@@ -322,7 +322,7 @@ public class DialogueManager : MonoBehaviour
     }
     private void OnLevelWasLoaded(int level)
     {
-        instance = this;
-        dialogueCanvas = transform.GetChild(0).gameObject;
+        //instance = this;
+        //dialogueCanvas = transform.GetChild(0).gameObject;
     }
 }
