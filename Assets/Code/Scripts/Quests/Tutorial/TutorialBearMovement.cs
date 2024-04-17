@@ -61,11 +61,5 @@ public class TutorialBearMovement : MonoBehaviour
             canMove = true;
             animator.SetTrigger("walk");
         }
-
-        else
-        {
-            canMove = false;
-            animator.SetTrigger("idle");
-        }
     }
 }

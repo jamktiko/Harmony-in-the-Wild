@@ -136,6 +136,10 @@ public class TutorialBear : MonoBehaviour
             case 6:
                 currentDialogueIndex = 3;
                 break;
+
+            case 7:
+                currentDialogueIndex = 4;
+                break;
         }
 
         if (inkValueUpToDate)
@@ -174,6 +178,13 @@ public class TutorialBear : MonoBehaviour
 
             case 5:
                 latestCompletedDialogueIndex = 3;
+                break;
+
+            case 6:
+                latestCompletedDialogueIndex = 3;
+                break;
+
+            case 7: latestCompletedDialogueIndex = 4;
                 break;
         }
 
