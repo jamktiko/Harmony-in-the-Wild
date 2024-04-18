@@ -303,10 +303,10 @@ public class DialogueManager : MonoBehaviour
             Debug.Log("Ink Variables was found to be null: " + variableName);
         }
 
-        else
-        {
-            Debug.Log("Fetched value is: " + variableValue);
-        }
+        //else
+        //{
+        //    Debug.Log("Fetched value is: " + variableValue);
+        //}
 
         return variableValue;
     }
@@ -322,8 +322,8 @@ public class DialogueManager : MonoBehaviour
     }
     private void OnLevelWasLoaded(int level)
     {
-        instance = this;
-        dialogueCanvas = transform.GetChild(0).gameObject;
+        //instance = this;
+        //dialogueCanvas = transform.GetChild(0).gameObject;
     }
     
     
