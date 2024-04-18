@@ -229,7 +229,7 @@ public class QuestManager : MonoBehaviour
 
     private void AbilityAcquired(Abilities ability) 
     {
-        AbilityManager.instance.EnableAbility(ability);
+        AbilityManager.instance.UnlockAbility(ability);
 
         if (ability == Abilities.GhostSpeaking)
         {

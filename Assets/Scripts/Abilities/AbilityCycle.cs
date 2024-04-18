@@ -44,7 +44,7 @@ public class AbilityCycle : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            //activeAbilities.TryGetValue(selectedAbility, out bool isSelected);
+            activeAbilities.TryGetValue(selectedAbility, out bool isSelected);
             //Debug.Log("1. Selected ability is: " + selectedAbility + " and it is: " + isSelected);
             activeAbilities[selectedAbility] = false;
 
@@ -64,8 +64,8 @@ public class AbilityCycle : MonoBehaviour
                     abilityUIText.color = Color.black;
                     StartCoroutine(DelayFadeTextToFullAlpha(2f, abilityUIText));
 
-                    //activeAbilities.TryGetValue(selectedAbility, out bool isSelected2);
-                    //Debug.Log("2. Selected ability is: " + selectedAbility + " and it is: " + isSelected2);
+                    activeAbilities.TryGetValue(selectedAbility, out bool isSelected2);
+                    Debug.Log("2. Selected ability is: " + selectedAbility + " and it is: " + isSelected2);
                 }
                 else
                 {
