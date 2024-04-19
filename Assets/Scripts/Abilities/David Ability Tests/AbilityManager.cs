@@ -10,6 +10,7 @@ public class AbilityManager : MonoBehaviour
     public static AbilityManager instance;
 
     public Dictionary<Abilities, bool> abilityStatuses = new Dictionary<Abilities, bool>();
+    [SerializeField] private GameObject abilityPartsChild;
 
     private Dictionary<Abilities, IAbility> abilities;
     public void Awake()
@@ -27,7 +28,10 @@ public class AbilityManager : MonoBehaviour
 
         LoadAbilityData();
     }
-
+    private void Start()
+    {
+        AttachAbilityPartsChildToPlayer();
+    }
     private void Update()
     {
         //For testing
@@ -112,5 +116,11 @@ public class AbilityManager : MonoBehaviour
     public void LoadAbilityData()
     {
         abilityStatuses = SaveManager.instance.LoadDictionaryFromJson();
+    }
+
+    void AttachAbilityPartsChildToPlayer()
+    {
+        abilityPartsChild.transform.SetParent(FoxMovement.instance.gameObject.transform);
+        abilityPartsChild.transform.localPosition = Vector3.zero;
     }
 }

@@ -8,12 +8,12 @@ public class TeleGrabbing : MonoBehaviour, IAbility
 
     public bool isTelegrabActivated;
     public bool isObjectGrabbed;
-    [SerializeField] private Transform grabbedObjectPosition;
     [SerializeField] private Material materialForGrabbedObject;
     [SerializeField] private GameObject telegrabUI;
     [SerializeField] private AudioSource telegrabAudio;
 
     private float viewDistance = 50f;
+    private Transform grabbedObjectPosition;
     private GameObject grabbedGameObject;
     //note: remove this script and use a dictionary somehow instead cus extra scripts = stinky
     private List<TelegrabObject> telegrabObjects = new List<TelegrabObject>();
@@ -30,6 +30,8 @@ public class TeleGrabbing : MonoBehaviour, IAbility
     private void Start()
     {
         AbilityManager.instance.RegisterAbility(Abilities.TeleGrabbing, this);
+
+        grabbedObjectPosition = GameObject.FindGameObjectWithTag("Grabbed").GetComponent<Transform>();
     }
 
     public void Activate()

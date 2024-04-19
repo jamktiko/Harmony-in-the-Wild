@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FoxMovement : MonoBehaviour
 {
@@ -47,31 +48,28 @@ public class FoxMovement : MonoBehaviour
     private float viewDistance = 50f;
     private Vector3 boxSize = new Vector3(0f, 2f, 2f);
 
-    [Header("Abilities")]
-    [SerializeField] private bool isTelegrabActivated;
-    [SerializeField] private Transform grabbedObjectPosition;
-    [SerializeField] private Material materialForGrabbedObject;
-    [SerializeField] private GameObject telegrabUI;
-
-    private bool isObjectGrabbed;
-    private bool isTelegrabbing;
     private AbilityCycle abilityCycle;
-    private GameObject grabbedGameObject;
-    private List<TelegrabObject> telegrabObjects = new List<TelegrabObject>();
+    private bool isLoaded;
 
     [Header("Animations")]
     public Animator playerAnimator;
     private List<AnimatorControllerParameter> animatorBools = new List<AnimatorControllerParameter>();
-
-    [Header("Audio")]
-    [SerializeField] private AudioSource freezingAudio;
-    [SerializeField] private AudioSource telegrabAudio;
     private void Awake()
     {
         instance = this;
+
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(3) || SceneManager.GetSceneByBuildIndex(3).isLoaded)
+        {
+            LoadPlayerPosition();
+        }
     }
     void Start()
     {
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(3) || SceneManager.GetSceneByBuildIndex(3).isLoaded)
+        {
+            LoadPlayerPosition();
+        }
+
         rb.freezeRotation = true;
         abilityCycle = GetComponent<AbilityCycle>();
         playerAnimator = GetComponentInChildren<Animator>();
@@ -86,6 +84,13 @@ public class FoxMovement : MonoBehaviour
     }
     void Update()
     {
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(3) && !isLoaded)
+        {
+            LoadPlayerPosition();
+
+            isLoaded = true;
+        }
+
         SpeedControl();
         IsOnSlope();
         Animations();
@@ -340,26 +345,26 @@ public class FoxMovement : MonoBehaviour
         Gizmos.DrawSphere(foxMiddle.position, boxSize.y);
     }
     #endregion
-    //public List<float> CollectPlayerPositionForSaving()
-    //{
-    //    string activeSceneName = SceneManager.GetActiveScene().name;
-    //    string overworldSceneName = SceneManagerHelper.GetSceneName(SceneManagerHelper.Scene.Overworld);
+    public List<float> CollectPlayerPositionForSaving()
+    {
+        string activeSceneName = SceneManager.GetActiveScene().name;
+        string overworldSceneName = SceneManagerHelper.GetSceneName(SceneManagerHelper.Scene.Overworld);
 
-    //    if (activeSceneName == overworldSceneName)
-    //    {
-    //        return new List<float> { transform.position.x, transform.position.y, transform.position.z };   
-    //    }
-    //    else
-    //    {
-    //        return new List<float> { 1627f, 118f, 360f };
-    //    }
-    //}
+        if (activeSceneName == overworldSceneName)
+        {
+            return new List<float> { transform.position.x, transform.position.y, transform.position.z };
+        }
+        else
+        {
+            return new List<float> { 1627f, 118f, 360f };
+        }
+    }
 
-    //private void LoadPlayerPosition()
-    //{
-    //    transform.position = new Vector3(
-    //        SaveManager.instance.GetLoadedPlayerPositionData()[0], 
-    //        SaveManager.instance.GetLoadedPlayerPositionData()[1], 
-    //        SaveManager.instance.GetLoadedPlayerPositionData()[2]);
-    //}
+    private void LoadPlayerPosition()
+    {
+        transform.position = new Vector3(
+            SaveManager.instance.GetLoadedPlayerPositionData()[0],
+            SaveManager.instance.GetLoadedPlayerPositionData()[1],
+            SaveManager.instance.GetLoadedPlayerPositionData()[2]);
+    }
 }
