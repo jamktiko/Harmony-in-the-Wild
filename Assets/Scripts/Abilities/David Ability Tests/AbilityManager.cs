@@ -30,10 +30,11 @@ public class AbilityManager : MonoBehaviour
     }
     private void Start()
     {
-        AttachAbilityPartsChildToPlayer();
     }
     private void Update()
     {
+        KeepAbilityPartsAtPlayer();
+
         //For testing
         if (Input.GetKeyDown(KeyCode.L)) 
         {
@@ -118,9 +119,14 @@ public class AbilityManager : MonoBehaviour
         abilityStatuses = SaveManager.instance.LoadDictionaryFromJson();
     }
 
-    void AttachAbilityPartsChildToPlayer()
+    void KeepAbilityPartsAtPlayer()
     {
-        abilityPartsChild.transform.SetParent(FoxMovement.instance.gameObject.transform);
-        abilityPartsChild.transform.localPosition = Vector3.zero;
+        //abilityPartsChild.transform.SetParent(FoxMovement.instance.gameObject.transform);
+        //abilityPartsChild.transform.localPosition = Vector3.zero;
+
+        if (FoxMovement.instance.gameObject.transform.position != null)
+        {
+            abilityPartsChild.transform.position = FoxMovement.instance.gameObject.transform.position;
+        }
     }
 }

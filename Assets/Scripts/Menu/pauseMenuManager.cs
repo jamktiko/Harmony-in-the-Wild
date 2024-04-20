@@ -24,15 +24,15 @@ public class PauseMenuManager : MonoBehaviour
     {
         //pauseMenuPanel = GameObject.Find("PauseMenuEmpty").transform.Find("PauseMenu").gameObject;
         //options = GameObject.Find("PauseMenuEmpty").transform.Find("Options").gameObject;
-        OptionsMenuPanel = options.transform.Find("OptionsMenu").gameObject;
-        MovementControlsMenuPanel = options.transform.Find("MovementControlsMenu").gameObject;
-        GamePlayControlsMenuPanel = options.transform.Find("GameplayControlsMenu").gameObject;
-        SettingsMenuPanel = options.transform.Find("SettingsMenu").gameObject;
+        //OptionsMenuPanel = options.transform.Find("OptionsMenu").gameObject;
+        //MovementControlsMenuPanel = options.transform.Find("MovementControlsMenu").gameObject;
+        //GamePlayControlsMenuPanel = options.transform.Find("GameplayControlsMenu").gameObject;
+        //SettingsMenuPanel = options.transform.Find("SettingsMenu").gameObject;
         cinemachineFreeLook = GameObject.Find("FreeLook Camera").GetComponent<CinemachineFreeLook>();
-        InvertYAxis = SettingsMenuPanel.transform.Find("InvertCameraTickBox").GetComponent<Toggle>();
-        fullscreen = SettingsMenuPanel.transform.Find("FullScreenTickBox").GetComponent<Toggle>();
-        volume = SettingsMenuPanel.transform.Find("Volume").GetComponent<Slider>();
-        sensitivity = SettingsMenuPanel.transform.Find("Sensitivity").GetComponent<Slider>();
+        //InvertYAxis = SettingsMenuPanel.transform.Find("InvertCameraTickBox").GetComponent<Toggle>();
+        //fullscreen = SettingsMenuPanel.transform.Find("FullScreenTickBox").GetComponent<Toggle>();
+        //volume = SettingsMenuPanel.transform.Find("Volume").GetComponent<Slider>();
+        //sensitivity = SettingsMenuPanel.transform.Find("Sensitivity").GetComponent<Slider>();
         if (PlayerPrefs.GetInt("InvertY") == 1)
         {
             cinemachineFreeLook.m_YAxis.m_InvertInput = true;

@@ -35,7 +35,7 @@ public class ChargeJumping : MonoBehaviour, IAbility
 
     public void Activate()
     {
-        if (isChargeJumpActivated)
+        if (isChargeJumpActivated && !isChargingJump)
         {
             isChargingJump = true;
         }
