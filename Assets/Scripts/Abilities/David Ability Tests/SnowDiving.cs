@@ -32,10 +32,12 @@ public class SnowDiving : MonoBehaviour, IAbility
     public void Activate()
     {
         SnowDive();
+        Debug.Log("Activate called");
 
         if (Physics.Raycast(FoxMovement.instance.cameraPosition.position, FoxMovement.instance.cameraPosition.forward, out RaycastHit hit, 50f, FoxMovement.instance.climbWallLayerMask))
         {
             ClimbSnowWall(hit);
+            Debug.Log("if in Activate called and it hit: " + hit);
         }
     }
     private void SnowDive()
@@ -50,6 +52,7 @@ public class SnowDiving : MonoBehaviour, IAbility
 
     private void ClimbSnowWall(RaycastHit hit)
     {
+        Debug.Log("climbsnowwall called");
         //climbing animation here (later will make more code for this)
         snowDiveVFX.SendEvent(onEnableSnowDiveID);
         gameObject.transform.position = hit.transform.GetChild(0).position;

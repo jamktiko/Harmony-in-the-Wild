@@ -34,28 +34,11 @@ public class AbilityManager : MonoBehaviour
     private void Update()
     {
         KeepAbilityPartsAtPlayer();
-
-        //For testing
-        if (Input.GetKeyDown(KeyCode.L)) 
-        {
-            LogAbilityStatuses();
-        }
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            UnlockAbility(Abilities.Gliding);
-        }
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            foreach (Abilities ability in Enum.GetValues(typeof(Abilities)))
-            {
-                abilityStatuses[ability] = true;
-            }
-        }
     }
 
     public void ActivateAbilityIfUnlocked(Abilities abilityType)
     {
-        Debug.Log($"Tried activating ability: {abilityType}");
+        //Debug.Log($"Tried activating ability: {abilityType}");
 
         if (abilityStatuses.TryGetValue(abilityType, out bool isUnlocked) && isUnlocked)
         {
@@ -63,7 +46,7 @@ public class AbilityManager : MonoBehaviour
         }
         else
         {
-            Debug.Log($"Abilities cannot be activated right now or {abilityType} is not unlocked.");
+           // Debug.Log($"Abilities cannot be activated right now or {abilityType} is not unlocked.");
         }
     }
 
@@ -72,11 +55,11 @@ public class AbilityManager : MonoBehaviour
         if (!abilities.ContainsKey(abilityType))
         {
             abilities.Add(abilityType, ability);
-            Debug.Log($"Registered ability: {abilityType}");
+            //Debug.Log($"Registered ability: {abilityType}");
         }
         else
         {
-            Debug.Log($"Ability {abilityType} is already registered.");
+            //Debug.Log($"Ability {abilityType} is already registered.");
         }
     }
 
@@ -94,17 +77,6 @@ public class AbilityManager : MonoBehaviour
             Debug.Log($"Attempted to unlock an unrecognized ability: {abilityType}");
         }
     }
-
-    //For testing
-    public void LogAbilityStatuses()
-    {
-        foreach (var ability in abilityStatuses)
-        {
-            string status = ability.Value ? "Unlocked" : "Locked";
-            Debug.Log($"Ability: {ability.Key}, Status: {status}");
-        }
-    }
-
     public string CollectAbilityDataForSaving()
     {
         string data = "";
@@ -121,9 +93,6 @@ public class AbilityManager : MonoBehaviour
 
     void KeepAbilityPartsAtPlayer()
     {
-        //abilityPartsChild.transform.SetParent(FoxMovement.instance.gameObject.transform);
-        //abilityPartsChild.transform.localPosition = Vector3.zero;
-
         if (FoxMovement.instance.gameObject.transform.position != null)
         {
             abilityPartsChild.transform.position = FoxMovement.instance.gameObject.transform.position;
