@@ -6275,6 +6275,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2663637722105032713}
   - component: {fileID: 1104929488793498629}
+  - component: {fileID: 8730435531885005229}
   - component: {fileID: 2949758527655104889}
   m_Layer: 0
   m_Name: Penguin
@@ -6293,7 +6294,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.89, y: 2.89, z: 2.89}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1591860550725717338}
@@ -6320,6 +6321,30 @@ MonoBehaviour:
   - {fileID: 8147395840377741685}
   - {fileID: 7007565343428261847}
   animator: {fileID: 7912249460358603099}
+--- !u!114 &8730435531885005229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4069950457043330043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9119a06e63a73c147a4c62af3c29424b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questDialoguePairs:
+  - mainQuest: {fileID: 11400000, guid: 6319434f68453f54fa60900a7e1a1800, type: 2}
+    dialogueOption: {fileID: 4900000, guid: 737d948cb3656e64ea29b03b876e9e1f, type: 3}
+  - mainQuest: {fileID: 11400000, guid: 4910e7629d1e3ed46b741c9ecf0f0cca, type: 2}
+    dialogueOption: {fileID: 4900000, guid: c66f543d1e99c7e4985b261a31057cf1, type: 3}
+  - mainQuest: {fileID: 11400000, guid: 51b0eaf0d5c760142acce377ae186057, type: 2}
+    dialogueOption: {fileID: 4900000, guid: 13c47d945bfdbf543b0d4ae66bf2700b, type: 3}
+  - mainQuest: {fileID: 11400000, guid: 3bf14c600c45f4240b2ce1650a704374, type: 2}
+    dialogueOption: {fileID: 4900000, guid: f8d8837f576eebc4f937cac76478bdf0, type: 3}
+  - mainQuest: {fileID: 11400000, guid: 67bfb164cd74e6141ab54fbfba7167be, type: 2}
+    dialogueOption: {fileID: 4900000, guid: 02967a2159b414c44afbbeea9ebb3244, type: 3}
+  defaultDialogue: {fileID: 4900000, guid: 4b9e1c026b4e540468d7a8ec074a3b41, type: 3}
 --- !u!195 &2949758527655104889
 NavMeshAgent:
   m_ObjectHideFlags: 0

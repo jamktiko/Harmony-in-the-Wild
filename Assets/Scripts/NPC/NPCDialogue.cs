@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class NPCDialogue : MonoBehaviour
 {
-    [SerializeField] private List<NPCDialogueState> dialogueOptions;
+    [SerializeField] private List<NPCQuestDialoguePair> questDialoguePairs;
+    [SerializeField] private TextAsset defaultDialogue;
 
-    [Header("Debugging")]
-    [SerializeField] private QuestScriptableObject latestQuest;
-
+    private List<TextAsset> possibleDialogues = new List<TextAsset>();
     private bool playerIsNear;
+
+    private void Start()
+    {
+        Invoke(nameof(CreateListOfPossibleDialogues), 1f);
+    }
 
     private void Update()
     {
@@ -21,21 +25,29 @@ public class NPCDialogue : MonoBehaviour
 
     private void SetDialogueToPlay()
     {
-        //NOTE! fetch latest dungeon quest here
+        // fetch a random dialogue from the list of possible dialogues
+        int dialogueIndex = Random.Range(0, possibleDialogues.Count);
 
-        if(latestQuest == null)
+        DialogueManager.instance.StartDialogue(possibleDialogues[dialogueIndex]);
+    }
+
+    private void CreateListOfPossibleDialogues()
+    {
+        // go through the main quests and add the possible dialogues to the list
+        foreach(NPCQuestDialoguePair questDialoguePair in questDialoguePairs)
         {
-            DialogueManager.instance.StartDialogue(dialogueOptions[0].dialogueToPlay);
-            return;
+            QuestState state = QuestManager.instance.CheckQuestState(questDialoguePair.mainQuest.id);
+
+            if(state == QuestState.FINISHED)
+            {
+                possibleDialogues.Add(questDialoguePair.dialogueOption);
+            }
         }
 
-        for(int i = 1; i < dialogueOptions.Count; i++)
+        // if none of the main quests have been completed yet, add the default dialogue as an option
+        if(possibleDialogues.Count == 0)
         {
-            if(dialogueOptions[i].questSO == latestQuest)
-            {
-                DialogueManager.instance.StartDialogue(dialogueOptions[i].dialogueToPlay);
-                return;
-            }
+            possibleDialogues.Add(defaultDialogue);
         }
     }
 
@@ -53,12 +65,5 @@ public class NPCDialogue : MonoBehaviour
         {
             playerIsNear = false;
         }
-    }
-
-    [System.Serializable]
-    public class NPCDialogueState
-    {
-        public QuestScriptableObject questSO;
-        public TextAsset dialogueToPlay;
     }
 }

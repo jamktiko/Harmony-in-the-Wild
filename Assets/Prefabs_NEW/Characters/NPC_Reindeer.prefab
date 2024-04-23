@@ -1455,8 +1455,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3768765939713544188}
   - component: {fileID: 3152375487776048441}
-  - component: {fileID: 422413191430967719}
   - component: {fileID: 8045640653235681483}
+  - component: {fileID: 422413191430967719}
   - component: {fileID: 433825899019618453}
   m_Layer: 0
   m_Name: Reindeer
@@ -1503,6 +1503,30 @@ MonoBehaviour:
   - {fileID: 3359332845319345824}
   - {fileID: 8535030101446009005}
   animator: {fileID: 8987596758236966149}
+--- !u!114 &8045640653235681483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3157250598953957866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9119a06e63a73c147a4c62af3c29424b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questDialoguePairs:
+  - mainQuest: {fileID: 11400000, guid: 6319434f68453f54fa60900a7e1a1800, type: 2}
+    dialogueOption: {fileID: 4900000, guid: 31dfa23f8d11e124e8986ebfff47eca4, type: 3}
+  - mainQuest: {fileID: 11400000, guid: 4910e7629d1e3ed46b741c9ecf0f0cca, type: 2}
+    dialogueOption: {fileID: 4900000, guid: fe1b8ab724860424885be83437d58ab4, type: 3}
+  - mainQuest: {fileID: 11400000, guid: 51b0eaf0d5c760142acce377ae186057, type: 2}
+    dialogueOption: {fileID: 4900000, guid: 21d85acde594e004e8213664a663a7bb, type: 3}
+  - mainQuest: {fileID: 11400000, guid: 3bf14c600c45f4240b2ce1650a704374, type: 2}
+    dialogueOption: {fileID: 4900000, guid: 1231a9605352f014e9d5727307bce10f, type: 3}
+  - mainQuest: {fileID: 11400000, guid: 67bfb164cd74e6141ab54fbfba7167be, type: 2}
+    dialogueOption: {fileID: 4900000, guid: 2d257c90eec81744db559f2bc67b323b, type: 3}
+  defaultDialogue: {fileID: 4900000, guid: 73ea2ef3894f73a4e9ccbba9907ceb85, type: 3}
 --- !u!195 &422413191430967719
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1525,32 +1549,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &8045640653235681483
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3157250598953957866}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9119a06e63a73c147a4c62af3c29424b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialogueOptions:
-  - questSO: {fileID: 0}
-    dialogueToPlay: {fileID: 4900000, guid: 73ea2ef3894f73a4e9ccbba9907ceb85, type: 3}
-  - questSO: {fileID: 11400000, guid: 6319434f68453f54fa60900a7e1a1800, type: 2}
-    dialogueToPlay: {fileID: 4900000, guid: 31dfa23f8d11e124e8986ebfff47eca4, type: 3}
-  - questSO: {fileID: 11400000, guid: 4910e7629d1e3ed46b741c9ecf0f0cca, type: 2}
-    dialogueToPlay: {fileID: 4900000, guid: fe1b8ab724860424885be83437d58ab4, type: 3}
-  - questSO: {fileID: 11400000, guid: 51b0eaf0d5c760142acce377ae186057, type: 2}
-    dialogueToPlay: {fileID: 4900000, guid: 21d85acde594e004e8213664a663a7bb, type: 3}
-  - questSO: {fileID: 11400000, guid: 3bf14c600c45f4240b2ce1650a704374, type: 2}
-    dialogueToPlay: {fileID: 4900000, guid: 1231a9605352f014e9d5727307bce10f, type: 3}
-  - questSO: {fileID: 11400000, guid: 67bfb164cd74e6141ab54fbfba7167be, type: 2}
-    dialogueToPlay: {fileID: 4900000, guid: 2d257c90eec81744db559f2bc67b323b, type: 3}
-  latestQuest: {fileID: 11400000, guid: 6319434f68453f54fa60900a7e1a1800, type: 2}
 --- !u!135 &433825899019618453
 SphereCollider:
   m_ObjectHideFlags: 0
