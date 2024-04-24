@@ -43,7 +43,7 @@ public class MainMenuManager : MonoBehaviour
 
     private void CheckSavedGame()
     {
-        if (!continueButton.IsInteractable()&& File.Exists(Application.persistentDataPath + "/gameData.dat"))
+        if (!continueButton.IsInteractable()&& File.Exists(Application.persistentDataPath + "/GameData.json"))
         {
             continueButton.interactable = true;        
         }
@@ -52,7 +52,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void StartNewGame() 
     {
-        File.Delete(Application.persistentDataPath + "/gameData.dat");
+        File.Delete(Application.persistentDataPath + "/GameData.json");
         Debug.LogError("The save file has been deleted. Please restart the game to avoid any errors.");
         SceneManager.LoadScene(playButtonSceneName); 
     }
