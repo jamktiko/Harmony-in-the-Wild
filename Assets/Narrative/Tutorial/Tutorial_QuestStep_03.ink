@@ -1,6 +1,6 @@
 INCLUDE Globals.ink
 
-Here you go. #speaker
+Here you go. #speaker:Fox
 Thank you so much! What a kind soul you are. Kind and special. #speaker:Bear
 Based on my research, you should have magical powers dormant within you.
 They must have just awakened within you since you seem unaware of them.
