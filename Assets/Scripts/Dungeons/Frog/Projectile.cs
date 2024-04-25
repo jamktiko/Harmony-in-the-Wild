@@ -17,12 +17,16 @@ public class Projectile : MonoBehaviour
     {
         if(targetPosition != null)
         {
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, projectileSpeed * Time.deltaTime);
-            transform.rotation = Quaternion.Euler(0.0f, 0.0f, bossTransform.rotation.z * -1.0f);
-
-            if (transform.position == targetPosition)
+            if (transform != null)
             {
-                Destroy(gameObject);
+
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, projectileSpeed * Time.deltaTime);
+                transform.rotation = Quaternion.Euler(0.0f, 0.0f, bossTransform.rotation.z * -1.0f);
+
+                if (transform.position == targetPosition)
+                {
+                    Destroy(gameObject);
+                }
             }
         }
 

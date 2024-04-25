@@ -14,6 +14,7 @@ public class TeleGrabbing : MonoBehaviour, IAbility
 
     private float viewDistance = 50f;
     private Transform grabbedObjectPosition;
+    private GameObject emptyObject;
     private GameObject grabbedGameObject;
     //note: remove this script and use a dictionary somehow instead cus extra scripts = stinky
     private List<TelegrabObject> telegrabObjects = new List<TelegrabObject>();
@@ -31,7 +32,15 @@ public class TeleGrabbing : MonoBehaviour, IAbility
     {
         AbilityManager.instance.RegisterAbility(Abilities.TeleGrabbing, this);
 
-        grabbedObjectPosition = GameObject.FindGameObjectWithTag("Grabbed").GetComponent<Transform>();
+        //emptyObject = new GameObject("Hands");
+        //grabbedObjectPosition = emptyObject.transform;
+    }
+    private void Update()
+    {
+        if (FoxMovement.instance != null)
+        {
+            grabbedObjectPosition = GameObject.FindGameObjectWithTag("Grabbed").transform;
+        }
     }
 
     public void Activate()

@@ -32,6 +32,8 @@ public class FinishDungeon : MonoBehaviour
         Debug.Log(other.tag);
         if (other.gameObject.CompareTag("Trigger"))
         {
+            SaveManager.instance.SaveGame();
+
             if (questSO != null)
             {
                 GameEventsManager.instance.questEvents.AdvanceDungeonQuest(questId, stageIndex);
