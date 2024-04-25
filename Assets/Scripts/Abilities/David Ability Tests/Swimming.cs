@@ -3,6 +3,7 @@ using UnityEngine;
 public class Swimming : MonoBehaviour, IAbility
 {
     public static Swimming instance;
+    private bool isActivated = false;
 
     public float swimSpeed = 5f;
     [SerializeField] private AudioSource swimmingAudio;
@@ -24,7 +25,11 @@ public class Swimming : MonoBehaviour, IAbility
     public void Activate()
     {
         Swim();
-        Debug.Log("Swimming activated");
+        if (!isActivated) 
+        { 
+            Debug.Log("Swimming activated");
+            isActivated = true;
+        }
     }
 
     private void Swim()

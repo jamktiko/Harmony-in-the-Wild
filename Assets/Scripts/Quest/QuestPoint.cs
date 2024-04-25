@@ -52,7 +52,6 @@ public class QuestPoint : MonoBehaviour
 
     private void InteractedWithQuestPoint()
     {
-        RespawnManager.instance.SetRespawnPosition(respawnPoint.transform.position);
 
         if (!playerIsNear)
         {
@@ -94,6 +93,7 @@ public class QuestPoint : MonoBehaviour
                 GameObject.FindGameObjectWithTag("QuestCanvas").transform.GetChild(canvasObjectIndex).gameObject.SetActive(false);
             }
         }
+        RespawnManager.instance.SetRespawnPosition(respawnPoint.transform.position);
     }
 
     private void QuestStateChange(Quest quest)
