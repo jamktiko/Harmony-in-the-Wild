@@ -4,15 +4,47 @@ using UnityEngine;
 
 public class QuestPointDialogue : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [Header("Dialogue Files")]
+    [SerializeField] private TextAsset startQuestDialogue;
+    [SerializeField] private TextAsset finishQuestDialogue;
+    [SerializeField] private TextAsset afterQuestFinishedDialogue;
+
+    private AudioSource audioSource;
+
+    private void Start()
     {
-        
+        audioSource = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void StartQuestDialogue()
     {
-        
+        if(startQuestDialogue != null)
+        {
+            DialogueManager.instance.StartDialogue(startQuestDialogue);
+            PlayDialogueSound();
+        }
+    }
+
+    public void FinishQuestDialogue()
+    {
+        if (finishQuestDialogue != null)
+        {
+            DialogueManager.instance.StartDialogue(finishQuestDialogue);
+            PlayDialogueSound();
+        }
+    }
+
+    public void AfterQuestFinishedDialogue()
+    {
+        if (afterQuestFinishedDialogue != null)
+        {
+            DialogueManager.instance.StartDialogue(afterQuestFinishedDialogue);
+            PlayDialogueSound();
+        }
+    }
+
+    private void PlayDialogueSound()
+    {
+        audioSource.Play();
     }
 }

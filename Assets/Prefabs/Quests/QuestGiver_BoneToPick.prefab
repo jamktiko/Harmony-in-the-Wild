@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2904794250961154670}
   - component: {fileID: 8088900510729833429}
+  - component: {fileID: 8880501077639435703}
   - component: {fileID: 767941390535259161}
   m_Layer: 0
   m_Name: QuestGiver_BoneToPick
@@ -50,11 +51,23 @@ MonoBehaviour:
   questInfoForPoint: {fileID: 11400000, guid: 3911ea7042d6b9f4283d2e8d388600c3, type: 2}
   startPoint: 1
   finishPoint: 1
-  canvasObjectIndex: -1
-  hasDialogue: 1
+  playerIsNear: 0
+  respawnPoint: {fileID: 0}
+--- !u!114 &8880501077639435703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732682979989510807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1fe2ba688465f746ac3494fdb41d1f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   startQuestDialogue: {fileID: 4900000, guid: 05044dc0b6d543b44a4986f70af8cd9d, type: 3}
   finishQuestDialogue: {fileID: 4900000, guid: 313d700ea9469d541be68da094d80ec3, type: 3}
-  dialogueSound: {fileID: 0}
+  afterQuestFinishedDialogue: {fileID: 4900000, guid: 82b87d19685476a4088b116ae2e38047, type: 3}
 --- !u!135 &767941390535259161
 SphereCollider:
   m_ObjectHideFlags: 0

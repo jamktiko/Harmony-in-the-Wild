@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1737629258957209357}
   - component: {fileID: 786823304400153143}
+  - component: {fileID: -3931754827528084264}
   - component: {fileID: 1571408588579280426}
   m_Layer: 0
   m_Name: QuestGiver_WhaleDiet
@@ -50,10 +51,23 @@ MonoBehaviour:
   questInfoForPoint: {fileID: 11400000, guid: eb8d46205e60dd6478703e929f233b6b, type: 2}
   startPoint: 1
   finishPoint: 1
-  canvasObjectIndex: -1
-  hasDialogue: 1
+  playerIsNear: 0
+  respawnPoint: {fileID: 0}
+--- !u!114 &-3931754827528084264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3129236401650727929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1fe2ba688465f746ac3494fdb41d1f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   startQuestDialogue: {fileID: 4900000, guid: b6093098c58856740b0b686f60142deb, type: 3}
   finishQuestDialogue: {fileID: 4900000, guid: 417c7a7d1ec99094a9642f21eff64ce9, type: 3}
+  afterQuestFinishedDialogue: {fileID: 4900000, guid: 99d3d20a3154be046b1b1722f7107685, type: 3}
 --- !u!135 &1571408588579280426
 SphereCollider:
   m_ObjectHideFlags: 0

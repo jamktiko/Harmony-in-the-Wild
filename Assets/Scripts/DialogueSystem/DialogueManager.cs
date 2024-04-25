@@ -154,9 +154,14 @@ public class DialogueManager : MonoBehaviour
 
     private void DisplayChoices()
     {
-        // change bool for input tracking
+        // change bool for input tracking and hide the choice buttons
         if(currentStory.currentChoices.Count <= 0)
         {
+            for (int i = 0; i < choiceButtons.Length; i++)
+            {
+                choiceButtons[i].SetActive(false);
+            }
+
             isChoiceAvailable = false;
             return;
         }
