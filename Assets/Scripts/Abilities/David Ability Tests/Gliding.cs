@@ -28,7 +28,7 @@ public class Gliding : MonoBehaviour, IAbility
         Glide();
         CalculateGlidingMultiplier();
 
-        if (IsGlidingOver())
+        if (IsGlidingOver() && FoxMovement.instance != null)
         {
             DisableGliding();
         }
@@ -65,7 +65,11 @@ public class Gliding : MonoBehaviour, IAbility
 
     private bool IsGlidingOver()
     {
-        return FoxMovement.instance.IsGrounded() || FoxMovement.instance.IsInWater() || !isGliding;
+        if (FoxMovement.instance != null)
+        {
+            return FoxMovement.instance.IsGrounded() || FoxMovement.instance.IsInWater() || !isGliding;
+        }
+        return true;
     }
 
     private void CalculateGlidingMultiplier()

@@ -93,7 +93,7 @@ public class AbilityManager : MonoBehaviour
 
     void KeepAbilityPartsAtPlayer()
     {
-        if (FoxMovement.instance.gameObject.transform.position != null)
+        if (FoxMovement.instance != null && FoxMovement.instance.gameObject.transform.position != null)
         {
             abilityPartsChild.transform.position = FoxMovement.instance.gameObject.transform.position;
         }
