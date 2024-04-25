@@ -71,12 +71,12 @@ public class DialogueManager : MonoBehaviour
         if (isDialoguePlaying)
         {
             // make the selected choice
-            if (Input.GetKeyDown(KeyCode.Return) && isChoiceAvailable)
+            if (PlayerInputHandler.instance.SelectInput.WasPressedThisFrame() && isChoiceAvailable)
             {
                 MakeChoice(currentChoiceIndex);
             }
 
-            else if (Input.GetKeyDown(KeyCode.UpArrow) && isChoiceAvailable)
+            else if (PlayerInputHandler.instance.DialogueUpInput.WasPressedThisFrame() && isChoiceAvailable)
             {
                 // if there is a choice available upper on the list, mark it as selected
                 if (currentChoiceIndex > 0)
@@ -85,7 +85,7 @@ public class DialogueManager : MonoBehaviour
                 }
             }
 
-            else if (Input.GetKeyDown(KeyCode.DownArrow) && isChoiceAvailable)
+            else if (PlayerInputHandler.instance.DialogueDownInput.WasPressedThisFrame() && isChoiceAvailable)
             {
                 // if there is a choice available down on the list, mark it as selected
                 if (currentChoiceIndex < currentStory.currentChoices.Count - 1)
@@ -95,13 +95,13 @@ public class DialogueManager : MonoBehaviour
             }
 
             // if there is still more dialogue to show, continue to the next section
-            else if (Input.GetKeyDown(KeyCode.Space) && currentStory.canContinue && !isChoiceAvailable)
+            else if (PlayerInputHandler.instance.DialogueInput.WasPressedThisFrame() && currentStory.canContinue && !isChoiceAvailable)
             {
                 ContinueDialogue();
             }
 
             // if there is no more dialogue to show, end the dialogue
-            else if (Input.GetKeyDown(KeyCode.Space) && !currentStory.canContinue && !isChoiceAvailable)
+            else if (PlayerInputHandler.instance.DialogueInput.WasPressedThisFrame() && !currentStory.canContinue && !isChoiceAvailable)
             {
                 EndDialogue();
             }

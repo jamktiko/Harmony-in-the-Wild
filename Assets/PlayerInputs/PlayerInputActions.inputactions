@@ -20,7 +20,7 @@
                     "id": "cdf346d5-a390-4149-82c7-e659e02f2296",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Hold",
                     "initialStateCheck": false
                 },
                 {
@@ -46,8 +46,17 @@
                     "type": "Value",
                     "id": "0b07ca66-f4e1-4b11-8faa-9936ab120587",
                     "expectedControlType": "Vector2",
-                    "processors": "",
+                    "processors": "ScaleVector2(x=0.5,y=0.5)",
                     "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "ChargeJump",
+                    "type": "Button",
+                    "id": "57e59a34-1861-4679-99d1-96e4c49b0620",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold",
                     "initialStateCheck": true
                 },
                 {
@@ -56,7 +65,7 @@
                     "id": "81216a38-202f-4ced-8dc3-104d62fa74cd",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 },
                 {
@@ -87,18 +96,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ChargeJump",
-                    "type": "Button",
-                    "id": "57e59a34-1861-4679-99d1-96e4c49b0620",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
                     "name": "TelegrabGrab",
                     "type": "Button",
                     "id": "778cad14-1329-4cfb-b183-c0781ea61602",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ChangeCamera",
+                    "type": "Button",
+                    "id": "87c48528-8548-40bc-b9fe-78afea516f80",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -284,28 +293,6 @@
                 },
                 {
                     "name": "",
-                    "id": "d8bb7806-c961-48b7-b0fd-422210a53ad5",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "ChargeJump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "80db581a-e258-434e-970b-4cc84868a108",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "ChargeJump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "81cb68e6-4d37-48f9-b1d1-0cf12980d886",
                     "path": "<Keyboard>/e",
                     "interactions": "",
@@ -363,6 +350,17 @@
                     "name": "",
                     "id": "d822643b-5c3a-4ee1-9433-5f0f768e4742",
                     "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "64218707-0549-4544-8c8a-cb7eec4ef52d",
+                    "path": "",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -435,6 +433,213 @@
                     "action": "TelegrabGrab",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "76e18ca8-85f0-46ca-80ef-2153a5c19a37",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "ChangeCamera",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c7b19675-6a98-4898-8b9a-f05e1200cdd5",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "ChangeCamera",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d8bb7806-c961-48b7-b0fd-422210a53ad5",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "ChargeJump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "80db581a-e258-434e-970b-4cc84868a108",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "ChargeJump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "PlayerUI",
+            "id": "1fab9a98-928d-4959-b779-f1cb456f8818",
+            "actions": [
+                {
+                    "name": "DialogueNext",
+                    "type": "Button",
+                    "id": "013323f3-33fd-4f97-b2ab-fd3ecbe08f9e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Close",
+                    "type": "Button",
+                    "id": "7a1ee529-d4b4-4291-819b-d84533d503d8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Tap",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Select",
+                    "type": "Button",
+                    "id": "73055ec1-a9eb-409d-87a2-353db6b9d811",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DialogueDown",
+                    "type": "Button",
+                    "id": "39cf0405-2935-49e6-afde-8c7f922ec433",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DialogueUp",
+                    "type": "Button",
+                    "id": "5f776407-4e8d-4513-a8f1-5abcc687cb38",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "bbcd608d-fcea-4e0f-814a-e2dbf3be3e2d",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "DialogueNext",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "44883ec3-89aa-46d0-9725-ab7916c8696f",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "DialogueNext",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9b2e4a4a-a780-43ef-8679-8c9b20440f9d",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Close",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "25004841-abe5-443f-9ba5-38a14b297015",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Close",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0e26b691-8d12-46d3-8726-420df77962df",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3253ad5a-55f3-4747-a53c-77aa7510e4bc",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "07a34177-a3d9-4ff0-8d3f-b70cafed16e2",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "DialogueDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d73efd45-4937-4667-a334-dd1cc68c0f6f",
+                    "path": "<Gamepad>/dpad/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "DialogueDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8ac0cfbd-18f3-405c-9896-dc65f6938538",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "DialogueUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ac375b7a-91cd-46be-b94b-a61479bd6f33",
+                    "path": "<Gamepad>/dpad/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "DialogueUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -455,15 +660,6 @@
                     "name": "Map",
                     "type": "Button",
                     "id": "f99f1633-1e0d-4d56-93b6-19a5af5eabbb",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Close",
-                    "type": "Button",
-                    "id": "9920e472-65bb-4cf0-af42-a89d0b9014b0",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -908,17 +1104,6 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Continue",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c21c3d5e-c2cc-434b-9572-6b71c12dccca",
-                    "path": "<Keyboard>/x",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Close",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

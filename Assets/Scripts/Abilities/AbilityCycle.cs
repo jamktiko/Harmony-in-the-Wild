@@ -42,7 +42,7 @@ public class AbilityCycle : MonoBehaviour
     }
     private void SwitchAbility()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (PlayerInputHandler.instance.AbilityToggleInput.WasPressedThisFrame())
         {
             //activeAbilities.TryGetValue(selectedAbility, out bool isSelected);
             //Debug.Log("1. Selected ability is: " + selectedAbility + " and it is: " + isSelected);

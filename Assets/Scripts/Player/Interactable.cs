@@ -7,14 +7,14 @@ public class Interactable : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E)&&isActive&& QuestManager.instance.CheckQuestState("Whale Diet").Equals(QuestState.IN_PROGRESS))
+        if (PlayerInputHandler.instance.InteractInput.WasPressedThisFrame()&&isActive&& QuestManager.instance.CheckQuestState("Whale Diet").Equals(QuestState.IN_PROGRESS))
         {
             wasUsed = true;
             FindObjectOfType<CollectableQuestStep>().CollectableProgress();
             Debug.Log("object found!");
             Destroy(gameObject);
         }
-        else if (Input.GetKeyDown(KeyCode.E) && isActive && QuestManager.instance.CheckQuestState("Whale Diet").Equals(QuestState.FINISHED))
+        else if (PlayerInputHandler.instance.InteractInput.WasPressedThisFrame() && isActive && QuestManager.instance.CheckQuestState("Whale Diet").Equals(QuestState.FINISHED))
         {
             wasUsed = true;
         }

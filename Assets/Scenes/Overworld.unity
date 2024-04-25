@@ -28599,6 +28599,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: -173.261
       objectReference: {fileID: 0}
+    - target: {fileID: 8321340750691647432, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
+      propertyPath: m_Rigs.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8321340750691647432, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
+      propertyPath: m_Rigs.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8321340750691647432, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
+      propertyPath: m_Rigs.Array.data[2]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8631683774569828164, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.98112106
@@ -31865,6 +31877,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1813318037707169557, guid: 570fb61ccffc4294b82ac217ca7cf082, type: 3}
   m_PrefabInstance: {fileID: 720335936}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &722121472 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8696992058596718124, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
+  m_PrefabInstance: {fileID: 1393698783}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &724242979
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34795,12 +34812,226 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2076101324828534567, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
   m_PrefabInstance: {fileID: 1393698783}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 722121472}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9434ec07a26146f4bbfdd09916de01b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &783721084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722121472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b66c9048f15f52a428a2b4ca6fcd1f45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerInput: {fileID: 0}
+  playerInputActionMap:
+    m_Name: Player Input
+    m_Id: a5e51f88-4fe6-4b45-8953-9ccb47b199f8
+    m_Asset: {fileID: 0}
+    m_Actions: []
+    m_Bindings: []
+  playerUIINputActionMap:
+    m_Name: Player UII Nput
+    m_Id: 997f6b86-30f5-4140-99e3-9e3d8c6a9696
+    m_Asset: {fileID: 0}
+    m_Actions: []
+    m_Bindings: []
+  UIInputActionMap:
+    m_Name: UI Input
+    m_Id: 710a2b3d-7ec7-45a8-8ac6-f5dfe0d4f79d
+    m_Asset: {fileID: 0}
+    m_Actions: []
+    m_Bindings: []
+  MoveInput:
+    m_Name: Move Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: d253e554-b63b-4c55-8b98-6e66959e09b0
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  SprintInput:
+    m_Name: Sprint Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: f0248ec3-e6be-4ead-aff6-99b0410b57bb
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  LookInput:
+    m_Name: Look Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: f75ea56e-3f7c-4d73-8f44-9c720406b41b
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  SnowDiveInput:
+    m_Name: Snow Dive Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 52ebeeea-b8f2-49df-a1c4-6873757f9bea
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  GlideInput:
+    m_Name: Glide Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: b0a2806f-3736-444d-80f5-557393db5e59
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  InteractInput:
+    m_Name: Interact Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 132ef28e-b695-4e7a-bf1e-d5ff6278c6c2
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  UseAbilityInput:
+    m_Name: Use Ability Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 86d8920f-ac3f-4fc2-b23d-fd483a42da93
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  AbilityToggleInput:
+    m_Name: Ability Toggle Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 591c5501-c81b-442a-b9bf-d5b6b269ffa9
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  ChargeJumpInput:
+    m_Name: Charge Jump Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 17dac651-a027-45cd-aad3-9fc511445a62
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  TelegrabGrabInput:
+    m_Name: Telegrab Grab Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 0460244d-263a-4d53-80b5-aee863c1421e
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  ChangeCameraInput:
+    m_Name: Change Camera Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 85e72dd5-65f7-4527-b152-7cb699956bba
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  JumpInput:
+    m_Name: Jump Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 9e791148-3aab-49e9-900f-e3a219ff61f4
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  DialogueInput:
+    m_Name: Dialogue Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 41548b77-1187-443b-90f6-4a35a0621516
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  CloseUIInput:
+    m_Name: Close UI Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: dc0522c7-5e54-4353-bfb9-f1f9086b326a
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  DialogueUpInput:
+    m_Name: Dialogue Up Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 63c211b3-266a-463a-b4c6-5f69827ac7e2
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  DialogueDownInput:
+    m_Name: Dialogue Down Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 1e6bc842-c464-411d-9ce3-cbfcdab8bcb0
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  SelectInput:
+    m_Name: Select Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: c9ae2ec4-7dfd-40a4-8c62-7d3ff68d8309
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+--- !u!114 &783721085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722121472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 1f353185c18148f48becafc937462204, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1001 &784646781
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39020,6 +39251,18 @@ PrefabInstance:
     - target: {fileID: 7365042558580898368, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: canChargedJump
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8321340750691647432, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
+      propertyPath: m_Rigs.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8321340750691647432, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
+      propertyPath: m_Rigs.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8321340750691647432, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
+      propertyPath: m_Rigs.Array.data[2]
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8631683774569828164, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.w
@@ -60300,15 +60543,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4296425940649565959, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.0034996774
+      value: -0.0034996753
       objectReference: {fileID: 0}
     - target: {fileID: 4296425940649565959, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.0000000016599705
+      value: 0.0000000019893958
       objectReference: {fileID: 0}
     - target: {fileID: 4296425940649565959, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -5.809397e-12
+      value: 6.9622823e-12
       objectReference: {fileID: 0}
     - target: {fileID: 4978085730567127345, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -60340,7 +60583,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7725440162620723867, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8321340750691647432, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
+      propertyPath: m_Rigs.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8321340750691647432, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
+      propertyPath: m_Rigs.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8321340750691647432, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
+      propertyPath: m_Rigs.Array.data[2]
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8362360726007811794, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_FollowOffset.y
@@ -60407,6 +60662,12 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8696992058596718124, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 783721085}
+    - targetCorrespondingSourceObject: {fileID: 8696992058596718124, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 783721084}
     - targetCorrespondingSourceObject: {fileID: 4413378318667483938, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1393698794}
