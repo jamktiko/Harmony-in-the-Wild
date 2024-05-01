@@ -14,10 +14,9 @@ public class TeleGrabbing : MonoBehaviour, IAbility
 
     private float viewDistance = 50f;
     private Transform grabbedObjectPosition;
-    private GameObject emptyObject;
     private GameObject grabbedGameObject;
     //note: remove this script and use a dictionary somehow instead cus extra scripts = stinky
-    private List<TelegrabObject> telegrabObjects = new List<TelegrabObject>();
+    //private List<TelegrabObject> telegrabObjects = new List<TelegrabObject>();
     void Awake()
     {
         if (instance != null && instance != this)
@@ -31,9 +30,6 @@ public class TeleGrabbing : MonoBehaviour, IAbility
     private void Start()
     {
         AbilityManager.instance.RegisterAbility(Abilities.TeleGrabbing, this);
-
-        //emptyObject = new GameObject("Hands");
-        //grabbedObjectPosition = emptyObject.transform;
     }
     private void Update()
     {
@@ -70,21 +66,21 @@ public class TeleGrabbing : MonoBehaviour, IAbility
     {
             grabbedGameObject = hit.transform.gameObject;
 
-            if (grabbedGameObject.transform.childCount != 0)
-            {
-                List<GameObject> childrenOfObject = new List<GameObject>();
-                for (int i = 0; i < grabbedGameObject.transform.childCount; i++)
-                {
-                    childrenOfObject.Add(grabbedGameObject.transform.GetChild(i).gameObject);
-                    telegrabObjects.Add(grabbedGameObject.transform.GetChild(i).GetComponent<TelegrabObject>());
-                }
+            //if (grabbedGameObject.transform.childCount != 0)
+            //{
+            //    List<GameObject> childrenOfObject = new List<GameObject>();
+            //    for (int i = 0; i < grabbedGameObject.transform.childCount; i++)
+            //    {
+            //        childrenOfObject.Add(grabbedGameObject.transform.GetChild(i).gameObject);
+            //        telegrabObjects.Add(grabbedGameObject.transform.GetChild(i).GetComponent<TelegrabObject>());
+            //    }
 
-                foreach (GameObject child in childrenOfObject)
-                {
-                    child.GetComponent<MeshRenderer>().material = materialForGrabbedObject;
-                    grabbedGameObject.GetComponent<MeshRenderer>().material = materialForGrabbedObject;
-                }
-            }
+            //    foreach (GameObject child in childrenOfObject)
+            //    {
+            //        child.GetComponent<MeshRenderer>().material = materialForGrabbedObject;
+            //        grabbedGameObject.GetComponent<MeshRenderer>().material = materialForGrabbedObject;
+            //    }
+            //}
 
             grabbedGameObject.transform.parent = grabbedObjectPosition;
             grabbedGameObject.transform.position = grabbedObjectPosition.position;
@@ -96,15 +92,15 @@ public class TeleGrabbing : MonoBehaviour, IAbility
 
     private void DropObject()
     {
-        foreach (TelegrabObject telegrabObject in telegrabObjects)
-        {
-            telegrabObject.gameObject.GetComponent<MeshRenderer>().material = telegrabObject.telegrabMaterial;
-        }
+        //foreach (TelegrabObject telegrabObject in telegrabObjects)
+        //{
+        //    telegrabObject.gameObject.GetComponent<MeshRenderer>().material = telegrabObject.telegrabMaterial;
+        //}
 
         grabbedGameObject.transform.parent = null;
         grabbedGameObject.transform.GetComponent<Rigidbody>().isKinematic = false;
         isObjectGrabbed = false;
-        telegrabObjects.Clear();
+        //telegrabObjects.Clear();
     }
 
     public void ActivateTelegrabCamera()

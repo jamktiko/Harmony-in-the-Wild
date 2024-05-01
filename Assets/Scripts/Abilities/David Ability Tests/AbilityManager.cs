@@ -39,14 +39,16 @@ public class AbilityManager : MonoBehaviour
     public void ActivateAbilityIfUnlocked(Abilities abilityType)
     {
         //Debug.Log($"Tried activating ability: {abilityType}");
-
-        if (abilityStatuses.TryGetValue(abilityType, out bool isUnlocked) && isUnlocked)
+        if (abilities.ContainsKey(abilityType))
         {
-            abilities[abilityType].Activate();
-        }
-        else
-        {
-           // Debug.Log($"Abilities cannot be activated right now or {abilityType} is not unlocked.");
+            if (abilityStatuses.TryGetValue(abilityType, out bool isUnlocked) && isUnlocked)
+            {
+                abilities[abilityType].Activate();
+            }
+            else
+            {
+                // Debug.Log($"Abilities cannot be activated right now or {abilityType} is not unlocked.");
+            }
         }
     }
 
