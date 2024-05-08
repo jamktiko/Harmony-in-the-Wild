@@ -172,7 +172,7 @@ public class QuestManager : MonoBehaviour
         ChangeQuestState(id, quest.state);
     }
 
-    private Dictionary<string, Quest> CreateQuestMap()
+    public Dictionary<string, Quest> CreateQuestMap()
     {
         // load all QuestInfoSOs in path Assets/Resources/Quests
         QuestScriptableObject[] allQuests = Resources.LoadAll<QuestScriptableObject>("Quests");

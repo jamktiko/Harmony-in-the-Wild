@@ -2,6 +2,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -54,6 +55,17 @@ public class MainMenuManager : MonoBehaviour
     {
         File.Delete(Application.persistentDataPath + "/GameData.json");
         Debug.LogError("The save file has been deleted. Please restart the game to avoid any errors.");
+
+        //reset the abilities again
+        foreach (Abilities ability in Enum.GetValues(typeof(Abilities)))
+        {
+            AbilityManager.instance.abilityStatuses[ability] = false;
+        }
+
+        //reset the quests again
+        //yes this is stupid. blame Awake()
+        QuestManager.instance.questMap = QuestManager.instance.CreateQuestMap();
+
         SceneManager.LoadScene(playButtonSceneName); 
     }
 

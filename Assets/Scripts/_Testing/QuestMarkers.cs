@@ -15,7 +15,7 @@ public class QuestMarkers : MonoBehaviour
     private Dictionary<string, int> idToIndex = new Dictionary<string, int>();
     private Quest quest;
     private int questIndex;
-
+    private Quest quests;
 
     private void Start()
     {
@@ -59,6 +59,17 @@ public class QuestMarkers : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        foreach (Quest quest in QuestManager.instance.questMap.Values)
+        {
+            if (quest.state == QuestState.FINISHED)
+            {
+                mapButtons[GetIndexFromId(quest.info.id)].SetActive(true);
+                mapIndicators[GetIndexFromId(quest.info.id)].SetActive(false);
+            }
+        }
+    }
     int GetIndexFromId(string id)
     {
         if (idToIndex.ContainsKey(id))
