@@ -11252,7 +11252,7 @@ MonoBehaviour:
   triggeredRaceEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1630692310}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Timer, Assembly-CSharp
         m_MethodName: StartTimer
         m_Mode: 1
@@ -14672,7 +14672,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3276229528591439527, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -21
+      value: -20.999878
       objectReference: {fileID: 0}
     - target: {fileID: 3326348348781225613, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_FollowOffset.y
@@ -20874,10 +20874,15 @@ PrefabInstance:
       propertyPath: m_text
       value: The Frosty Penguin
       objectReference: {fileID: 0}
+    - target: {fileID: 2661632733348857478, guid: 0e3725b1f1fde224799205c8123bf4d9, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -100
+      objectReference: {fileID: 0}
     - target: {fileID: 3008597708647231964, guid: 0e3725b1f1fde224799205c8123bf4d9, type: 3}
       propertyPath: m_text
       value: Navigate through the frozen track and complete laps within the time
-        limit
+        limit. Use [F} to Freeze obstacles before smashing them. Press [CTRL] to
+        go up snow walls.
       objectReference: {fileID: 0}
     - target: {fileID: 5473759635713325495, guid: 0e3725b1f1fde224799205c8123bf4d9, type: 3}
       propertyPath: m_Name
@@ -20980,9 +20985,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1775187335739013691, guid: 0e3725b1f1fde224799205c8123bf4d9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 525822522}
-    - targetCorrespondingSourceObject: {fileID: 3826127460425090623, guid: 0e3725b1f1fde224799205c8123bf4d9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1630692310}
   m_SourcePrefab: {fileID: 100100000, guid: 0e3725b1f1fde224799205c8123bf4d9, type: 3}
 --- !u!224 &1627677894 stripped
 RectTransform:
@@ -21046,37 +21048,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a1d18c67e4dfce46ae05354694fef60, type: 3}
---- !u!1 &1630692306 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3826127460425090623, guid: 0e3725b1f1fde224799205c8123bf4d9, type: 3}
-  m_PrefabInstance: {fileID: 1627677893}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1630692308 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 614042676842152238, guid: 0e3725b1f1fde224799205c8123bf4d9, type: 3}
-  m_PrefabInstance: {fileID: 1627677893}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1630692306}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1630692310
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1630692306}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ad032d7f533da742a6a020d5672540f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxTime: 150
-  timeDecreaseByLap: 10
-  timerText: {fileID: 1630692308}
 --- !u!4 &1640654421 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 856343615272706547, guid: 6cca87717650dbd4c8dfab7cad9dbca3, type: 3}
