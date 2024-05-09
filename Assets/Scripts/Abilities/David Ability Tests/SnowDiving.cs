@@ -56,6 +56,8 @@ public class SnowDiving : MonoBehaviour, IAbility
         Debug.Log("climbsnowwall called");
         //climbing animation here (later will make more code for this)
         snowDiveVFX.SendEvent(onEnableSnowDiveID);
+        FoxMovement.instance.gameObject.SetActive(false);
         FoxMovement.instance.gameObject.transform.position = hit.transform.GetChild(0).position;
+        FoxMovement.instance.gameObject.SetActive(true);
     }
 }
