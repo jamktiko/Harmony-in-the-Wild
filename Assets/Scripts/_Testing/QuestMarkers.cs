@@ -57,10 +57,7 @@ public class QuestMarkers : MonoBehaviour
         {
             Debug.Log("Key: " + pair.Key + ", Value: " + pair.Value);
         }
-    }
 
-    private void Update()
-    {
         foreach (Quest quest in QuestManager.instance.questMap.Values)
         {
             if (quest.state == QuestState.FINISHED)
@@ -69,6 +66,11 @@ public class QuestMarkers : MonoBehaviour
                 mapIndicators[GetIndexFromId(quest.info.id)].SetActive(false);
             }
         }
+    }
+
+    private void Update()
+    {
+
     }
     int GetIndexFromId(string id)
     {
