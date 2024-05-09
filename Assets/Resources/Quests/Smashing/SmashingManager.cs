@@ -50,6 +50,7 @@ public class SmashingManager : MonoBehaviour
         if(currentQuestId == id)
         {
             SmashingRockSpawner.instance.SpawnStartingRocks();
+            AbilityManager.instance.UnlockAbility(Abilities.RockDestroying);
         }
     }
 

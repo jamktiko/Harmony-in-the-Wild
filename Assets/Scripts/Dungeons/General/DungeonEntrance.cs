@@ -6,10 +6,9 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(BoxCollider))]
 public class DungeonEntrance : MonoBehaviour
 {
-
-
-    [Header("Quest")]
+    [Header("Quest & Ability")]
     [SerializeField] private QuestScriptableObject dungeonQuest;
+    [SerializeField] private Abilities abilityGrantedForDungeon;
 
     [Header("Needed References")]
     [SerializeField] private GameObject dungeonEnteringPreventedUI;
@@ -57,6 +56,7 @@ public class DungeonEntrance : MonoBehaviour
             {
                 if (activateQuestProgressTracking)
                 {
+                    AbilityManager.instance.UnlockAbility(abilityGrantedForDungeon);
                     GameEventsManager.instance.questEvents.StartQuest(questId);
                 }
 

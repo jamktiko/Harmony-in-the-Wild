@@ -10,11 +10,9 @@ public class AbilityManager : MonoBehaviour
     public static AbilityManager instance;
 
     public Dictionary<Abilities, bool> abilityStatuses = new Dictionary<Abilities, bool>();
+    [SerializeField] private GameObject abilityPartsChild;
 
     private Dictionary<Abilities, IAbility> abilities;
-
-    //public bool CanActivateAbilities { get; set; } = false;
-
     public void Awake()
     {
         if (instance != null && instance != this)
@@ -28,51 +26,29 @@ public class AbilityManager : MonoBehaviour
 
         abilities = new Dictionary<Abilities, IAbility>();
 
-        //InitializeAbilities();
         LoadAbilityData();
     }
-
+    private void Start()
+    {
+    }
     private void Update()
     {
-        //For testing
-        if (Input.GetKeyDown(KeyCode.L)) 
-        {
-            LogAbilityStatuses();
-        }
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            EnableAbility(Abilities.Gliding);
-        }
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            foreach (Abilities ability in Enum.GetValues(typeof(Abilities)))
-            {
-                abilityStatuses[ability] = true;
-            }
-        }
+        KeepAbilityPartsAtPlayer();
     }
 
-    //note: moved into the SaveManager 'cus it's cleaner and this doesn't have to be here
-    //public void InitializeAbilities()
-    //{
-    //    //Initialize all abilities as false (disabled) by default
-    //    foreach (Abilities ability in Enum.GetValues(typeof(Abilities)))
-    //    {
-    //        abilityStatuses.Add(ability, false);
-    //    }
-    //}
-
-    public void TryActivateAbility(Abilities abilityType)
+    public void ActivateAbilityIfUnlocked(Abilities abilityType)
     {
-        Debug.Log($"Tried activating ability: {abilityType}");
-
-        if (abilityStatuses.TryGetValue(abilityType, out bool isEnabled) && isEnabled)
+        //Debug.Log($"Tried activating ability: {abilityType}");
+        if (abilities.ContainsKey(abilityType))
         {
-            abilities[abilityType].Activate();
-        }
-        else
-        {
-            Debug.Log($"Abilities cannot be activated right now or {abilityType} is disabled.");
+            if (abilityStatuses.TryGetValue(abilityType, out bool isUnlocked) && isUnlocked)
+            {
+                abilities[abilityType].Activate();
+            }
+            else
+            {
+                // Debug.Log($"Abilities cannot be activated right now or {abilityType} is not unlocked.");
+            }
         }
     }
 
@@ -81,67 +57,31 @@ public class AbilityManager : MonoBehaviour
         if (!abilities.ContainsKey(abilityType))
         {
             abilities.Add(abilityType, ability);
-            Debug.Log($"Registered ability: {abilityType}");
+            //Debug.Log($"Registered ability: {abilityType}");
         }
         else
         {
-            Debug.Log($"Ability {abilityType} is already registered.");
+            //Debug.Log($"Ability {abilityType} is already registered.");
         }
     }
 
     //Method to enable an ability
-    public void EnableAbility(Abilities abilityType)
+    public void UnlockAbility(Abilities abilityType)
     {
         if (abilityStatuses.ContainsKey(abilityType))
         {
             abilityStatuses[abilityType] = true;
 
-            Debug.Log($"Ability {abilityType} has been enabled.");
+            Debug.Log($"Ability {abilityType} has been unlocked.");
         }
         else
         {
-            Debug.Log($"Attempted to enable an unrecognized ability: {abilityType}");
+            Debug.Log($"Attempted to unlock an unrecognized ability: {abilityType}");
         }
     }
-
-    //For testing
-    public void LogAbilityStatuses()
-    {
-        foreach (var ability in abilityStatuses)
-        {
-            string status = ability.Value ? "Enabled" : "Disabled";
-            Debug.Log($"Ability: {ability.Key}, Status: {status}");
-        }
-    }
-
     public string CollectAbilityDataForSaving()
     {
-        //serialize this shit
-
-        //AbilityData abilityData = new AbilityData();
-
         string data = "";
-
-        //abilityData.serializedAbilityStatuses = abilityStatuses;
-
-        // Create a new dictionary with string keys for serialization
-        //Dictionary<string, bool> stringDictionary = new Dictionary<string, bool>();
-
-        // Populate the stringDictionary with enum keys converted to strings
-        //foreach (var kvp in abilityStatuses)
-        //{
-        //    string abilityKey = kvp.Key.ToString(); // Convert enum key to string
-        //    bool abilityValue = kvp.Value;
-
-        //    abilityData.serializedAbilityStatuses[abilityKey] = abilityValue;
-        //}
-
-        //foreach (var kvp2 in abilityData.serializedAbilityStatuses)
-        //{
-        //    Debug.Log($"CollectAbData: {kvp2.Key}: {kvp2.Value}");
-        //}
-
-        // Serialize the stringDictionary to JSON
         data = JsonConvert.SerializeObject(abilityStatuses);
 
         Debug.Log("data: " + data);
@@ -151,5 +91,13 @@ public class AbilityManager : MonoBehaviour
     public void LoadAbilityData()
     {
         abilityStatuses = SaveManager.instance.LoadDictionaryFromJson();
+    }
+
+    void KeepAbilityPartsAtPlayer()
+    {
+        if (FoxMovement.instance != null && FoxMovement.instance.gameObject.transform.position != null)
+        {
+            abilityPartsChild.transform.position = FoxMovement.instance.gameObject.transform.position;
+        }
     }
 }

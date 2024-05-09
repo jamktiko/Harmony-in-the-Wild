@@ -47,7 +47,7 @@ public class DevToolButtons : MonoBehaviour
 
     public void DeleteSaveFile()
     {
-        File.Delete(Application.persistentDataPath + "/gameData.dat");
+        File.Delete(Application.persistentDataPath + "/GameData.json");
         Debug.LogError("The save file has been deleted. Please restart the game to avoid any errors.");
     }
 }

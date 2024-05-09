@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1109664906647097823}
   - component: {fileID: 6554394328437596838}
+  - component: {fileID: -1667221253282563137}
   - component: {fileID: 9012508203146284577}
   - component: {fileID: 3045354202907839743}
   m_Layer: 0
@@ -51,11 +52,23 @@ MonoBehaviour:
   questInfoForPoint: {fileID: 11400000, guid: 2516fe6e107cfef4f918ac05f3a2b495, type: 2}
   startPoint: 1
   finishPoint: 1
-  canvasObjectIndex: -1
-  hasDialogue: 1
+  playerIsNear: 0
+  respawnPoint: {fileID: 0}
+--- !u!114 &-1667221253282563137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 816467325414770557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1fe2ba688465f746ac3494fdb41d1f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   startQuestDialogue: {fileID: 4900000, guid: 61685c6074708754385a945c2dd9211a, type: 3}
   finishQuestDialogue: {fileID: 4900000, guid: ead6b5e4a04625c46b9ce6f6875dce5d, type: 3}
-  dialogueSound: {fileID: 0}
+  afterQuestFinishedDialogue: {fileID: 4900000, guid: b4032aa5b3c40384297ed99a70ed8dae, type: 3}
 --- !u!114 &9012508203146284577
 MonoBehaviour:
   m_ObjectHideFlags: 0

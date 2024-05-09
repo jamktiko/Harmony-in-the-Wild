@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
@@ -13,6 +14,7 @@ public class MapOpen : MonoBehaviour
     void Start()
     {
         CheckDepthOfField();
+        StartCoroutine(ReEnableMarkers());
     }
 
     private void CheckDepthOfField()
@@ -81,5 +83,12 @@ public class MapOpen : MonoBehaviour
                 child.gameObject.SetActive(!child.gameObject.activeInHierarchy);
             }
         }
+    }
+
+    private IEnumerator ReEnableMarkers()
+    {
+        GetComponent<QuestMarkers>().enabled = false;
+        yield return new WaitForSeconds(1f);
+        GetComponent<QuestMarkers>().enabled = true;
     }
 }

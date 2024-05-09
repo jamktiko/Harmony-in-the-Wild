@@ -11,7 +11,7 @@ public class AbilityCycle : MonoBehaviour
     [SerializeField] private TMP_Text abilityUIText;
     public Dictionary<Abilities, bool> activeAbilities = new Dictionary<Abilities, bool>();
     private List<Abilities> abilityKeys;
-    private Abilities selectedAbility = Abilities.None;
+    public Abilities selectedAbility = Abilities.None;
     public void Awake()
     {
         if (instance != null && instance != this)
@@ -44,7 +44,7 @@ public class AbilityCycle : MonoBehaviour
     {
         if (PlayerInputHandler.instance.AbilityToggleInput.WasPressedThisFrame())
         {
-            //activeAbilities.TryGetValue(selectedAbility, out bool isSelected);
+            activeAbilities.TryGetValue(selectedAbility, out bool isSelected);
             //Debug.Log("1. Selected ability is: " + selectedAbility + " and it is: " + isSelected);
             activeAbilities[selectedAbility] = false;
 
@@ -52,12 +52,13 @@ public class AbilityCycle : MonoBehaviour
 
             if (currentIndex != -1)
             {
+                //this modulo thing wraps back to 0 when it reaches the end of a list
+                currentIndex = (currentIndex + 1) % abilityKeys.Count;
+                selectedAbility = abilityKeys[currentIndex];
+
                 bool isSelectedUnlocked = AbilityManager.instance.abilityStatuses[selectedAbility];
                 if (isSelectedUnlocked)
                 {
-                    //this modulo thing wraps back to 0 when it reaches the end of a list
-                    currentIndex = (currentIndex + 1) % abilityKeys.Count;
-                    selectedAbility = abilityKeys[currentIndex];
                     activeAbilities[selectedAbility] = true;
 
                     abilityUIText.text = "Selected Ability: " + selectedAbility;

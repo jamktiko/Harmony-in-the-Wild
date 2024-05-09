@@ -169,7 +169,7 @@ public class SaveManager : MonoBehaviour
     //    // if there isn't, return default position
     //    else
     //    {
-    //        data=new List<float> { 1627f,118f,360f };
+    //        data = new List<float> { 1627f, 118f, 360f };
     //    }
 
     //    return data;

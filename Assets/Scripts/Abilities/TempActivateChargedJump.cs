@@ -6,7 +6,7 @@ public class TempActivateChargedJump : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.C) && Input.GetKeyDown(KeyCode.J))
         {
-            AbilityManager.instance.EnableAbility(Abilities.ChargeJumping);
+            AbilityManager.instance.UnlockAbility(Abilities.ChargeJumping);
         }
     }
 }
