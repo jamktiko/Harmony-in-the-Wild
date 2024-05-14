@@ -35,7 +35,7 @@ public class Projectile : MonoBehaviour
     public void InitializeProjectile(Vector3 playerLocation, Transform parentTransform)
     {
         targetPosition = playerLocation;
-        parentTransform = bossTransform;
+        bossTransform = parentTransform;
     }
 
     private void OnTriggerEnter(Collider other)

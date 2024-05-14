@@ -10,10 +10,21 @@ public class QuestPointDialogue : MonoBehaviour
     [SerializeField] private TextAsset afterQuestFinishedDialogue;
 
     private AudioSource audioSource;
+    private bool canStartDialogue = true;
 
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
+    }
+
+    private void OnEnable()
+    {
+        GameEventsManager.instance.dialogueEvents.OnEndDialogue += PreventNewDialogue;
+    }
+
+    private void OnDisable()
+    {
+        
     }
 
     public void StartQuestDialogue()
@@ -46,5 +57,16 @@ public class QuestPointDialogue : MonoBehaviour
     private void PlayDialogueSound()
     {
         audioSource.Play();
+    }
+
+    private void PreventNewDialogue()
+    {
+        canStartDialogue = false;
+        Invoke(nameof(EnableNewDialogue), 2f);
+    }
+
+    private void EnableNewDialogue()
+    {
+        canStartDialogue = true;
     }
 }

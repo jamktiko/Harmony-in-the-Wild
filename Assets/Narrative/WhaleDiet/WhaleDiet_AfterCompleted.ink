@@ -5,5 +5,5 @@ Oh, you know, same old, same old. But those fruits you brought me really hit the
 FOX: Glad to hear it! And how's your swimming going? #speaker:Fox
 Oh, I've been exploring all sorts of new spots. Ocean is full of surprises! #speaker:Whale
 Awesome! Well, I'll leave you to it. Catch you later! #speaker:Fox
-WHALE: Take care, fox friend. See you around! #speaker:Whale
+Take care, fox friend. See you around! #speaker:Whale
 -> END

@@ -7,7 +7,6 @@ public class QuestMarkers : MonoBehaviour
     //list of buttons & quest indicators?
     //index of button matches index of quest
     //when quest finished, disable the corresponding indicator and enable button based on given index
-    //will need to be added to the save system
 
     [SerializeField] private List<GameObject> mapButtons = new List<GameObject>();
     [SerializeField] private List<GameObject> mapIndicators = new List<GameObject>();
@@ -15,7 +14,6 @@ public class QuestMarkers : MonoBehaviour
     private Dictionary<string, int> idToIndex = new Dictionary<string, int>();
     private Quest quest;
     private int questIndex;
-    private Quest quests;
 
     private void Start()
     {
@@ -42,34 +40,43 @@ public class QuestMarkers : MonoBehaviour
     }
     void UnlockMapTeleport(string id)
     {
+        //Debug.Log("string id is: " + id);
+
         quest = QuestManager.instance.GetQuestById(id);
         questIndex = GetIndexFromId(quest.info.id);
 
-        Debug.Log("Quest index: " + questIndex);
         Debug.Log(mapButtons[questIndex]);
         Debug.Log(mapIndicators[questIndex]);
         mapButtons[questIndex].SetActive(true);
         mapIndicators[questIndex].SetActive(false);
 
-        Debug.Log("QuestMarker says: questIndex" + questIndex);
+        Debug.Log("QuestMarker says: questIndex - " + questIndex);
 
         foreach (var pair in idToIndex)
         {
             Debug.Log("Key: " + pair.Key + ", Value: " + pair.Value);
         }
-    }
 
+    }
     private void Update()
     {
+        int questIndex = 0;
+
         foreach (Quest quest in QuestManager.instance.questMap.Values)
         {
             if (quest.state == QuestState.FINISHED)
             {
-                mapButtons[GetIndexFromId(quest.info.id)].SetActive(true);
-                mapIndicators[GetIndexFromId(quest.info.id)].SetActive(false);
+                questIndex = GetIndexFromId(quest.info.id);
+
+                //Debug.Log("QuestMarker says: quest.info.id - " + quest.info.id);
+                mapButtons[questIndex].SetActive(true);
+                mapIndicators[questIndex].SetActive(false);
             }
         }
+
+        //Debug.Log("QuestMarker says: questIndex - " + questIndex);
     }
+
     int GetIndexFromId(string id)
     {
         if (idToIndex.ContainsKey(id))

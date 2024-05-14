@@ -29,6 +29,8 @@ public class ShowQuestUI : MonoBehaviour
 
     private void InitializeQuestUI(int questTextIndex)
     {
+        Debug.Log("Show quest UI.");
+
         transform.GetChild(0).gameObject.SetActive(true);
 
         currentQuestUI = questTextContents[questTextIndex];
@@ -59,7 +61,7 @@ public class ShowQuestUI : MonoBehaviour
                     break;
 
                 case 3:
-                    if (currentQuestUI.objectives[0].counter != "")
+                    /*if (currentQuestUI.objectives[0].counter != "")
                     {
                         questTextComponents[i].gameObject.SetActive(true);
                         questTextComponents[i].text = currentQuestUI.objectives[0].additionalText;
@@ -68,7 +70,7 @@ public class ShowQuestUI : MonoBehaviour
                     else
                     {
                         questTextComponents[i].gameObject.SetActive(false);
-                    }
+                    }*/
                     break;
 
                 default:

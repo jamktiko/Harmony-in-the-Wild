@@ -63,21 +63,34 @@ public class QuestManager : MonoBehaviour
 
     private void Update()
     {
-        // loop through all quests
-        foreach(Quest quest in questMap.Values)
-        {
-            // if meeting the requirements, switch over to CAN_START state
-            if(quest.state == QuestState.REQUIREMENTS_NOT_MET && CheckRequirementsMet(quest))
-            {
-                ChangeQuestState(quest.info.id, QuestState.CAN_START);
-            }
-        }
+        //// loop through all quests
+        //foreach(Quest quest in questMap.Values)
+        //{
+        //    // if meeting the requirements, switch over to CAN_START state
+        //    if(quest.state == QuestState.REQUIREMENTS_NOT_MET && CheckRequirementsMet(quest))
+        //    {
+        //        ChangeQuestState(quest.info.id, QuestState.CAN_START);
+        //    }
+        //}
     }
+
     private void PlayerLevelChange(int Level) 
     {
         currentPlayerLevel = Level;
     }
 
+    private void CheckAllRequirements()
+    {
+        // loop through all quests
+        foreach (Quest quest in questMap.Values)
+        {
+            // if meeting the requirements, switch over to CAN_START state
+            if (quest.state == QuestState.REQUIREMENTS_NOT_MET && CheckRequirementsMet(quest))
+            {
+                ChangeQuestState(quest.info.id, QuestState.CAN_START);
+            }
+        }
+    }
     private bool CheckRequirementsMet(Quest quest)
     {
         // start true and prove to be false
@@ -150,6 +163,7 @@ public class QuestManager : MonoBehaviour
         ClaimRewards(quest);
         ChangeQuestState(quest.info.id, QuestState.FINISHED);
         QuestCompletedUI.instance.ShowUI(id);
+        CheckAllRequirements();
     }
 
     private void ClaimRewards(Quest quest)
@@ -316,6 +330,9 @@ public class QuestManager : MonoBehaviour
         {
             AbilityCycle = FindObjectOfType<AbilityCycle>();
         }
+
+        CheckAllRequirements();
+
     }
 
     private void SubscribeToEvents()
