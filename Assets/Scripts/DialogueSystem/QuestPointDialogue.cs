@@ -24,7 +24,7 @@ public class QuestPointDialogue : MonoBehaviour
 
     private void OnDisable()
     {
-        
+        GameEventsManager.instance.dialogueEvents.OnEndDialogue -= PreventNewDialogue;
     }
 
     public void StartQuestDialogue()
