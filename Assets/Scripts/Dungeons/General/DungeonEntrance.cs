@@ -57,6 +57,7 @@ public class DungeonEntrance : MonoBehaviour
                 if (activateQuestProgressTracking)
                 {
                     AbilityManager.instance.UnlockAbility(abilityGrantedForDungeon);
+                    Debug.Log("Ability " + abilityGrantedForDungeon + " granted for dungeon entrance.");
                     GameEventsManager.instance.questEvents.StartQuest(questId);
                 }
 
