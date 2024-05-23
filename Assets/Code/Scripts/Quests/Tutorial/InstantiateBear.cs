@@ -11,14 +11,17 @@ public class InstantiateBear : MonoBehaviour
     private void OnEnable()
     {
         SceneManager.sceneLoaded += SpawnBearIntoScene;
+    }
 
-        Debug.Log("Fetching latest completed dialogue value QUI5: " + ((Ink.Runtime.IntValue)DialogueManager.instance.GetDialogueVariableState("latestTutorialQuestStepDialogueCompleted")).value);
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= SpawnBearIntoScene;
     }
 
     private void SpawnBearIntoScene(Scene newScene, LoadSceneMode mode)
     {
         // NOTE MATCH THIS TO NEW SCENE MANAGEMENT SYSTEM LATER
-        if(newScene.name == "Overworld")
+        if(newScene.name == "Overworld" && !transform.parent.Find("TutorialBear(Clone)"))
         {
             GameObject bear = Instantiate(tutorialBearPrefab, spawnPosition, Quaternion.identity);
 
