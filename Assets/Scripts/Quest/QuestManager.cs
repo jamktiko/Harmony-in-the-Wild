@@ -117,6 +117,7 @@ public class QuestManager : MonoBehaviour
         Quest quest = GetQuestById(id);
         quest.state = state;
         Debug.Log(quest.state.ToString());
+        SaveManager.instance.SaveGame(); // Force save game when quest state changes
         GameEventsManager.instance.questEvents.QuestStateChange(quest);
     }
 
