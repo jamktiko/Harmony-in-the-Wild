@@ -1,13 +1,18 @@
 using System.Collections;
 using UnityEngine;
 
+/* This script controls the growth of the leaf and flower materials. 
+   Modify the growth increments and duration as needed.
+   Change playerprefs to a save system if needed.
+ */
+
 public class GrowthController : MonoBehaviour
 {
     public Material leafMaterial;
     public Material flowerMaterial;
     private float leafGrowIncrement = 0.5f;
     private float flowerGrowIncrement = 0.25f;
-    private float duration = 10f; // Duration over which the growth occurs
+    private float duration = 10f;
     private bool isGrowing = false;
 
     void Start()
@@ -16,6 +21,10 @@ public class GrowthController : MonoBehaviour
         {
             Debug.LogError("Materials not assigned!");
         }
+        float leafGrow = PlayerPrefs.GetFloat("LeafGrow", 0f);
+        float flowerGrow = PlayerPrefs.GetFloat("FlowerGrow", 0f);
+        leafMaterial.SetFloat("_Grow", leafGrow);
+        flowerMaterial.SetFloat("_Grow", flowerGrow);
     }
 
     public void TriggerGrowth()
@@ -49,5 +58,14 @@ public class GrowthController : MonoBehaviour
 
         material.SetFloat("_Grow", endValue);
         isGrowing = false;
+    }
+
+    public void SaveGrowthValues()
+    {
+        float leafGrow = leafMaterial.GetFloat("_Grow");
+        float flowerGrow = flowerMaterial.GetFloat("_Grow");
+        PlayerPrefs.SetFloat("LeafGrow", leafGrow);
+        PlayerPrefs.SetFloat("FlowerGrow", flowerGrow);
+        PlayerPrefs.Save();
     }
 }

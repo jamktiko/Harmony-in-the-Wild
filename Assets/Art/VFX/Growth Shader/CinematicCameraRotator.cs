@@ -7,11 +7,8 @@ public class CinematicCameraRotator : MonoBehaviour
     private Quaternion originalRotation;
     private bool rotating = false;
     private float elapsedTime = 0.0f;
-
-    private void Awake()
-    {
-        StartRotation();
-    }
+    public GameObject objectToEnable;
+    public GrowthController growthController;
 
     void Start()
     {
@@ -31,6 +28,14 @@ public class CinematicCameraRotator : MonoBehaviour
                 transform.rotation = originalRotation;
                 rotating = false;
                 elapsedTime = 0.0f;
+                if (objectToEnable != null)
+                {
+                    objectToEnable.SetActive(false);
+                    if (growthController != null)
+                    {
+                        growthController.SaveGrowthValues();
+                    }
+                }
             }
         }
     }
@@ -38,12 +43,6 @@ public class CinematicCameraRotator : MonoBehaviour
     public void StartRotation()
     {
         rotating = true;
-    }
-
-    public void StopRotation()
-    {
-        rotating = false;
         elapsedTime = 0.0f;
-        transform.rotation = originalRotation;
     }
 }
