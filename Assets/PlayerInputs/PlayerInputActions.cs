@@ -42,7 +42,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""id"": ""cdf346d5-a390-4149-82c7-e659e02f2296"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Hold"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -68,8 +68,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""type"": ""Value"",
                     ""id"": ""0b07ca66-f4e1-4b11-8faa-9936ab120587"",
                     ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
+                    ""processors"": ""ScaleVector2(x=0.5,y=0.5)"",
                     ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ChargeJump"",
+                    ""type"": ""Button"",
+                    ""id"": ""57e59a34-1861-4679-99d1-96e4c49b0620"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold"",
                     ""initialStateCheck"": true
                 },
                 {
@@ -78,7 +87,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""id"": ""81216a38-202f-4ced-8dc3-104d62fa74cd"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -109,18 +118,18 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""ChargeJump"",
-                    ""type"": ""Button"",
-                    ""id"": ""57e59a34-1861-4679-99d1-96e4c49b0620"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
                     ""name"": ""TelegrabGrab"",
                     ""type"": ""Button"",
                     ""id"": ""778cad14-1329-4cfb-b183-c0781ea61602"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ChangeCamera"",
+                    ""type"": ""Button"",
+                    ""id"": ""87c48528-8548-40bc-b9fe-78afea516f80"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -306,28 +315,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""d8bb7806-c961-48b7-b0fd-422210a53ad5"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""ChargeJump"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""80db581a-e258-434e-970b-4cc84868a108"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""ChargeJump"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""81cb68e6-4d37-48f9-b1d1-0cf12980d886"",
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
@@ -385,6 +372,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""d822643b-5c3a-4ee1-9433-5f0f768e4742"",
                     ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""64218707-0549-4544-8c8a-cb7eec4ef52d"",
+                    ""path"": """",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -457,6 +455,213 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""TelegrabGrab"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""76e18ca8-85f0-46ca-80ef-2153a5c19a37"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""ChangeCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c7b19675-6a98-4898-8b9a-f05e1200cdd5"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""ChangeCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d8bb7806-c961-48b7-b0fd-422210a53ad5"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""ChargeJump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""80db581a-e258-434e-970b-4cc84868a108"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""ChargeJump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""PlayerUI"",
+            ""id"": ""1fab9a98-928d-4959-b779-f1cb456f8818"",
+            ""actions"": [
+                {
+                    ""name"": ""DialogueNext"",
+                    ""type"": ""Button"",
+                    ""id"": ""013323f3-33fd-4f97-b2ab-fd3ecbe08f9e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Close"",
+                    ""type"": ""Button"",
+                    ""id"": ""7a1ee529-d4b4-4291-819b-d84533d503d8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Tap"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Select"",
+                    ""type"": ""Button"",
+                    ""id"": ""73055ec1-a9eb-409d-87a2-353db6b9d811"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DialogueDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""39cf0405-2935-49e6-afde-8c7f922ec433"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DialogueUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""5f776407-4e8d-4513-a8f1-5abcc687cb38"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""bbcd608d-fcea-4e0f-814a-e2dbf3be3e2d"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""DialogueNext"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""44883ec3-89aa-46d0-9725-ab7916c8696f"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""DialogueNext"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9b2e4a4a-a780-43ef-8679-8c9b20440f9d"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Close"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""25004841-abe5-443f-9ba5-38a14b297015"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Close"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0e26b691-8d12-46d3-8726-420df77962df"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3253ad5a-55f3-4747-a53c-77aa7510e4bc"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""07a34177-a3d9-4ff0-8d3f-b70cafed16e2"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""DialogueDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d73efd45-4937-4667-a334-dd1cc68c0f6f"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""DialogueDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8ac0cfbd-18f3-405c-9896-dc65f6938538"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""DialogueUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ac375b7a-91cd-46be-b94b-a61479bd6f33"",
+                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""DialogueUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -477,15 +682,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""name"": ""Map"",
                     ""type"": ""Button"",
                     ""id"": ""f99f1633-1e0d-4d56-93b6-19a5af5eabbb"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Close"",
-                    ""type"": ""Button"",
-                    ""id"": ""9920e472-65bb-4cf0-af42-a89d0b9014b0"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -935,17 +1131,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""c21c3d5e-c2cc-434b-9572-6b71c12dccca"",
-                    ""path"": ""<Keyboard>/x"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Close"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""95ab89e8-9057-4d66-9683-899dbbd3d429"",
                     ""path"": ""<Keyboard>/m"",
                     ""interactions"": """",
@@ -995,17 +1180,24 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_SnowDive = m_Player.FindAction("SnowDive", throwIfNotFound: true);
         m_Player_Glide = m_Player.FindAction("Glide", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
+        m_Player_ChargeJump = m_Player.FindAction("ChargeJump", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_UseAbility = m_Player.FindAction("UseAbility", throwIfNotFound: true);
         m_Player_AbilityToggle = m_Player.FindAction("AbilityToggle", throwIfNotFound: true);
-        m_Player_ChargeJump = m_Player.FindAction("ChargeJump", throwIfNotFound: true);
         m_Player_TelegrabGrab = m_Player.FindAction("TelegrabGrab", throwIfNotFound: true);
+        m_Player_ChangeCamera = m_Player.FindAction("ChangeCamera", throwIfNotFound: true);
+        // PlayerUI
+        m_PlayerUI = asset.FindActionMap("PlayerUI", throwIfNotFound: true);
+        m_PlayerUI_DialogueNext = m_PlayerUI.FindAction("DialogueNext", throwIfNotFound: true);
+        m_PlayerUI_Close = m_PlayerUI.FindAction("Close", throwIfNotFound: true);
+        m_PlayerUI_Select = m_PlayerUI.FindAction("Select", throwIfNotFound: true);
+        m_PlayerUI_DialogueDown = m_PlayerUI.FindAction("DialogueDown", throwIfNotFound: true);
+        m_PlayerUI_DialogueUp = m_PlayerUI.FindAction("DialogueUp", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
         m_UI_Map = m_UI.FindAction("Map", throwIfNotFound: true);
-        m_UI_Close = m_UI.FindAction("Close", throwIfNotFound: true);
         m_UI_Continue = m_UI.FindAction("Continue", throwIfNotFound: true);
         m_UI_Confirm = m_UI.FindAction("Confirm", throwIfNotFound: true);
         m_UI_Submit = m_UI.FindAction("Submit", throwIfNotFound: true);
@@ -1083,12 +1275,13 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_SnowDive;
     private readonly InputAction m_Player_Glide;
     private readonly InputAction m_Player_Look;
+    private readonly InputAction m_Player_ChargeJump;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_UseAbility;
     private readonly InputAction m_Player_AbilityToggle;
-    private readonly InputAction m_Player_ChargeJump;
     private readonly InputAction m_Player_TelegrabGrab;
+    private readonly InputAction m_Player_ChangeCamera;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1098,12 +1291,13 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @SnowDive => m_Wrapper.m_Player_SnowDive;
         public InputAction @Glide => m_Wrapper.m_Player_Glide;
         public InputAction @Look => m_Wrapper.m_Player_Look;
+        public InputAction @ChargeJump => m_Wrapper.m_Player_ChargeJump;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputAction @UseAbility => m_Wrapper.m_Player_UseAbility;
         public InputAction @AbilityToggle => m_Wrapper.m_Player_AbilityToggle;
-        public InputAction @ChargeJump => m_Wrapper.m_Player_ChargeJump;
         public InputAction @TelegrabGrab => m_Wrapper.m_Player_TelegrabGrab;
+        public InputAction @ChangeCamera => m_Wrapper.m_Player_ChangeCamera;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1128,6 +1322,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Look.started += instance.OnLook;
             @Look.performed += instance.OnLook;
             @Look.canceled += instance.OnLook;
+            @ChargeJump.started += instance.OnChargeJump;
+            @ChargeJump.performed += instance.OnChargeJump;
+            @ChargeJump.canceled += instance.OnChargeJump;
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
@@ -1140,12 +1337,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @AbilityToggle.started += instance.OnAbilityToggle;
             @AbilityToggle.performed += instance.OnAbilityToggle;
             @AbilityToggle.canceled += instance.OnAbilityToggle;
-            @ChargeJump.started += instance.OnChargeJump;
-            @ChargeJump.performed += instance.OnChargeJump;
-            @ChargeJump.canceled += instance.OnChargeJump;
             @TelegrabGrab.started += instance.OnTelegrabGrab;
             @TelegrabGrab.performed += instance.OnTelegrabGrab;
             @TelegrabGrab.canceled += instance.OnTelegrabGrab;
+            @ChangeCamera.started += instance.OnChangeCamera;
+            @ChangeCamera.performed += instance.OnChangeCamera;
+            @ChangeCamera.canceled += instance.OnChangeCamera;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1165,6 +1362,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Look.started -= instance.OnLook;
             @Look.performed -= instance.OnLook;
             @Look.canceled -= instance.OnLook;
+            @ChargeJump.started -= instance.OnChargeJump;
+            @ChargeJump.performed -= instance.OnChargeJump;
+            @ChargeJump.canceled -= instance.OnChargeJump;
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
@@ -1177,12 +1377,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @AbilityToggle.started -= instance.OnAbilityToggle;
             @AbilityToggle.performed -= instance.OnAbilityToggle;
             @AbilityToggle.canceled -= instance.OnAbilityToggle;
-            @ChargeJump.started -= instance.OnChargeJump;
-            @ChargeJump.performed -= instance.OnChargeJump;
-            @ChargeJump.canceled -= instance.OnChargeJump;
             @TelegrabGrab.started -= instance.OnTelegrabGrab;
             @TelegrabGrab.performed -= instance.OnTelegrabGrab;
             @TelegrabGrab.canceled -= instance.OnTelegrabGrab;
+            @ChangeCamera.started -= instance.OnChangeCamera;
+            @ChangeCamera.performed -= instance.OnChangeCamera;
+            @ChangeCamera.canceled -= instance.OnChangeCamera;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1201,12 +1401,89 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     }
     public PlayerActions @Player => new PlayerActions(this);
 
+    // PlayerUI
+    private readonly InputActionMap m_PlayerUI;
+    private List<IPlayerUIActions> m_PlayerUIActionsCallbackInterfaces = new List<IPlayerUIActions>();
+    private readonly InputAction m_PlayerUI_DialogueNext;
+    private readonly InputAction m_PlayerUI_Close;
+    private readonly InputAction m_PlayerUI_Select;
+    private readonly InputAction m_PlayerUI_DialogueDown;
+    private readonly InputAction m_PlayerUI_DialogueUp;
+    public struct PlayerUIActions
+    {
+        private @PlayerInputActions m_Wrapper;
+        public PlayerUIActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @DialogueNext => m_Wrapper.m_PlayerUI_DialogueNext;
+        public InputAction @Close => m_Wrapper.m_PlayerUI_Close;
+        public InputAction @Select => m_Wrapper.m_PlayerUI_Select;
+        public InputAction @DialogueDown => m_Wrapper.m_PlayerUI_DialogueDown;
+        public InputAction @DialogueUp => m_Wrapper.m_PlayerUI_DialogueUp;
+        public InputActionMap Get() { return m_Wrapper.m_PlayerUI; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(PlayerUIActions set) { return set.Get(); }
+        public void AddCallbacks(IPlayerUIActions instance)
+        {
+            if (instance == null || m_Wrapper.m_PlayerUIActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_PlayerUIActionsCallbackInterfaces.Add(instance);
+            @DialogueNext.started += instance.OnDialogueNext;
+            @DialogueNext.performed += instance.OnDialogueNext;
+            @DialogueNext.canceled += instance.OnDialogueNext;
+            @Close.started += instance.OnClose;
+            @Close.performed += instance.OnClose;
+            @Close.canceled += instance.OnClose;
+            @Select.started += instance.OnSelect;
+            @Select.performed += instance.OnSelect;
+            @Select.canceled += instance.OnSelect;
+            @DialogueDown.started += instance.OnDialogueDown;
+            @DialogueDown.performed += instance.OnDialogueDown;
+            @DialogueDown.canceled += instance.OnDialogueDown;
+            @DialogueUp.started += instance.OnDialogueUp;
+            @DialogueUp.performed += instance.OnDialogueUp;
+            @DialogueUp.canceled += instance.OnDialogueUp;
+        }
+
+        private void UnregisterCallbacks(IPlayerUIActions instance)
+        {
+            @DialogueNext.started -= instance.OnDialogueNext;
+            @DialogueNext.performed -= instance.OnDialogueNext;
+            @DialogueNext.canceled -= instance.OnDialogueNext;
+            @Close.started -= instance.OnClose;
+            @Close.performed -= instance.OnClose;
+            @Close.canceled -= instance.OnClose;
+            @Select.started -= instance.OnSelect;
+            @Select.performed -= instance.OnSelect;
+            @Select.canceled -= instance.OnSelect;
+            @DialogueDown.started -= instance.OnDialogueDown;
+            @DialogueDown.performed -= instance.OnDialogueDown;
+            @DialogueDown.canceled -= instance.OnDialogueDown;
+            @DialogueUp.started -= instance.OnDialogueUp;
+            @DialogueUp.performed -= instance.OnDialogueUp;
+            @DialogueUp.canceled -= instance.OnDialogueUp;
+        }
+
+        public void RemoveCallbacks(IPlayerUIActions instance)
+        {
+            if (m_Wrapper.m_PlayerUIActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IPlayerUIActions instance)
+        {
+            foreach (var item in m_Wrapper.m_PlayerUIActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_PlayerUIActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public PlayerUIActions @PlayerUI => new PlayerUIActions(this);
+
     // UI
     private readonly InputActionMap m_UI;
     private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
     private readonly InputAction m_UI_Navigate;
     private readonly InputAction m_UI_Map;
-    private readonly InputAction m_UI_Close;
     private readonly InputAction m_UI_Continue;
     private readonly InputAction m_UI_Confirm;
     private readonly InputAction m_UI_Submit;
@@ -1224,7 +1501,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public UIActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Navigate => m_Wrapper.m_UI_Navigate;
         public InputAction @Map => m_Wrapper.m_UI_Map;
-        public InputAction @Close => m_Wrapper.m_UI_Close;
         public InputAction @Continue => m_Wrapper.m_UI_Continue;
         public InputAction @Confirm => m_Wrapper.m_UI_Confirm;
         public InputAction @Submit => m_Wrapper.m_UI_Submit;
@@ -1251,9 +1527,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Map.started += instance.OnMap;
             @Map.performed += instance.OnMap;
             @Map.canceled += instance.OnMap;
-            @Close.started += instance.OnClose;
-            @Close.performed += instance.OnClose;
-            @Close.canceled += instance.OnClose;
             @Continue.started += instance.OnContinue;
             @Continue.performed += instance.OnContinue;
             @Continue.canceled += instance.OnContinue;
@@ -1297,9 +1570,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Map.started -= instance.OnMap;
             @Map.performed -= instance.OnMap;
             @Map.canceled -= instance.OnMap;
-            @Close.started -= instance.OnClose;
-            @Close.performed -= instance.OnClose;
-            @Close.canceled -= instance.OnClose;
             @Continue.started -= instance.OnContinue;
             @Continue.performed -= instance.OnContinue;
             @Continue.canceled -= instance.OnContinue;
@@ -1375,18 +1645,26 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnSnowDive(InputAction.CallbackContext context);
         void OnGlide(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
+        void OnChargeJump(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnUseAbility(InputAction.CallbackContext context);
         void OnAbilityToggle(InputAction.CallbackContext context);
-        void OnChargeJump(InputAction.CallbackContext context);
         void OnTelegrabGrab(InputAction.CallbackContext context);
+        void OnChangeCamera(InputAction.CallbackContext context);
+    }
+    public interface IPlayerUIActions
+    {
+        void OnDialogueNext(InputAction.CallbackContext context);
+        void OnClose(InputAction.CallbackContext context);
+        void OnSelect(InputAction.CallbackContext context);
+        void OnDialogueDown(InputAction.CallbackContext context);
+        void OnDialogueUp(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
         void OnNavigate(InputAction.CallbackContext context);
         void OnMap(InputAction.CallbackContext context);
-        void OnClose(InputAction.CallbackContext context);
         void OnContinue(InputAction.CallbackContext context);
         void OnConfirm(InputAction.CallbackContext context);
         void OnSubmit(InputAction.CallbackContext context);

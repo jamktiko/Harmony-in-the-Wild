@@ -20,6 +20,7 @@ public class InputReader : ScriptableObject, PlayerInputActions.IPlayerActions
     public event UnityAction OnSnowDiveEvent = delegate { };
     public event UnityAction OnUseAbilityEvent = delegate { };
     public event UnityAction OnTelegrabGrabEvent = delegate { };
+    public event UnityAction OnChangeCameraEvent = delegate { };
     private PlayerInputActions playerInputActions;
     [Header("Input reader object")]
     [SerializeField] InputReader _inputReader;
@@ -91,5 +92,9 @@ public class InputReader : ScriptableObject, PlayerInputActions.IPlayerActions
     public void OnUseAbility(InputAction.CallbackContext context)
     {
         OnUseAbilityEvent.Invoke();
+    }
+    public void OnChangeCamera(InputAction.CallbackContext context)
+    {
+        OnChangeCameraEvent.Invoke();
     }
 }

@@ -14,7 +14,11 @@ public class LoadingScene : MonoBehaviour
 
     private void Start()
     {
-        storybookHandler=FindObjectOfType<StorybookHandler>();
+        try
+        {
+            storybookHandler = FindObjectOfType<StorybookHandler>();
+        }
+        catch { };
     }
 
     public void LoadSceneWithBar(int sceneId) 

@@ -112,7 +112,7 @@ public class FoxMovement : MonoBehaviour
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
-        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+        moveDirection = orientation.forward * PlayerInputHandler.instance.MoveInput.ReadValue<Vector2>().y + orientation.right * PlayerInputHandler.instance.MoveInput.ReadValue<Vector2>().x;
 
         SprintInput();
         JumpInput();
@@ -123,7 +123,7 @@ public class FoxMovement : MonoBehaviour
     void AbilityInputs()
     {
         //gliding
-        if (Input.GetButtonDown("Jump") && !IsGrounded() && !IsInWater())
+        if (PlayerInputHandler.instance.JumpInput.WasPressedThisFrame() && !IsGrounded() && !IsInWater())
         {
             AbilityManager.instance.ActivateAbilityIfUnlocked(Abilities.Gliding);
         }
@@ -132,19 +132,19 @@ public class FoxMovement : MonoBehaviour
         AbilityManager.instance.ActivateAbilityIfUnlocked(Abilities.Swimming);
 
         //chargejumping
-        if (Input.GetButtonDown("Jump") && IsGrounded())
+        if (PlayerInputHandler.instance.JumpInput.WasPressedThisFrame() && IsGrounded())
         {
             AbilityManager.instance.ActivateAbilityIfUnlocked(Abilities.ChargeJumping);
         }
 
         //snowdiving
-        if (Input.GetKey(KeyCode.LeftControl) && IsInSnow())
+        if (PlayerInputHandler.instance.SnowDiveInput.IsPressed() && IsInSnow())
         {
             AbilityManager.instance.ActivateAbilityIfUnlocked(Abilities.SnowDiving);
         }
 
         //telegrabbing
-        if (Input.GetMouseButtonDown(0))
+        if (PlayerInputHandler.instance.TelegrabGrabInput.WasPressedThisFrame())
         {
             AbilityManager.instance.ActivateAbilityIfUnlocked(Abilities.TeleGrabbing);
         }
@@ -153,7 +153,7 @@ public class FoxMovement : MonoBehaviour
     {
         //chargejump
         AbilityCycle.instance.activeAbilities.TryGetValue(Abilities.ChargeJumping, out bool isChargeJumpSelected);
-        if (Input.GetKeyDown(KeyCode.F) && isChargeJumpSelected)
+        if (PlayerInputHandler.instance.UseAbilityInput.WasPressedThisFrame() && isChargeJumpSelected)
         {
             ChargeJumping.instance.isChargeJumpActivated = !ChargeJumping.instance.isChargeJumpActivated;
         }
@@ -164,7 +164,7 @@ public class FoxMovement : MonoBehaviour
 
         //telegrab
         AbilityCycle.instance.activeAbilities.TryGetValue(Abilities.TeleGrabbing, out bool isTelegrabSelected);
-        if (Input.GetKeyDown(KeyCode.F) && isTelegrabSelected)
+        if (PlayerInputHandler.instance.UseAbilityInput.WasPressedThisFrame() && isTelegrabSelected)
         {
             TeleGrabbing.instance.ActivateTelegrabCamera();
             TeleGrabbing.instance.isTelegrabActivated = !TeleGrabbing.instance.isTelegrabActivated;
@@ -177,11 +177,11 @@ public class FoxMovement : MonoBehaviour
     }
     private void SprintInput()
     {
-        isSprinting = Input.GetKey(KeyCode.LeftShift);
+        isSprinting = PlayerInputHandler.instance.SprintInput.IsPressed();
     }
     private void JumpInput()
     {
-        if (Input.GetButtonDown("Jump") && isReadyToJump && IsGrounded() && !ChargeJumping.instance.isChargeJumpActivated)
+        if (PlayerInputHandler.instance.JumpInput.WasPressedThisFrame() && isReadyToJump && IsGrounded() && !ChargeJumping.instance.isChargeJumpActivated)
         {
             isReadyToJump = false;
             Jump();
