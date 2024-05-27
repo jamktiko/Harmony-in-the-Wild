@@ -27,6 +27,16 @@ public class GrowthController : MonoBehaviour
         flowerMaterial.SetFloat("_Grow", flowerGrow);
     }
 
+    private void OnEnable()
+    {
+        GameEventsManager.instance.cinematicsEvents.OnStartCinematics += TriggerGrowth;
+    }
+
+    private void OnDisable()
+    {
+        GameEventsManager.instance.cinematicsEvents.OnStartCinematics -= TriggerGrowth;
+    }
+
     public void TriggerGrowth()
     {
         if (isGrowing) return;

@@ -13,6 +13,7 @@ public class CinematicCameraRotator : MonoBehaviour
     void Start()
     {
         originalRotation = transform.rotation;
+        StartRotation();
     }
 
     void Update()
@@ -36,6 +37,8 @@ public class CinematicCameraRotator : MonoBehaviour
                         growthController.SaveGrowthValues();
                     }
                 }
+
+                GameEventsManager.instance.cinematicsEvents.EndCinematics();
             }
         }
     }
