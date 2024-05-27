@@ -85,18 +85,18 @@ public class ShowQuestUI : MonoBehaviour
         switch (changeType)
         {
             case QuestUIChange.ChangeObjective:
-                questTextComponents[1].text = currentQuestUI.objectives[1].objective;
+                questTextComponents[0].text = currentQuestUI.objectives[1].objective;
 
+                questTextComponents[1].gameObject.SetActive(false);
                 questTextComponents[2].gameObject.SetActive(false);
-                questTextComponents[3].gameObject.SetActive(false);
                 break;
 
             case QuestUIChange.UpdateCounter:
-                questTextComponents[2].text = newText;
+                questTextComponents[1].text = newText;
                 break;
 
             case QuestUIChange.UpdateAdditionalText:
-                questTextComponents[3].text = newText;
+                questTextComponents[2].text = newText;
                 break;
 
             default:
