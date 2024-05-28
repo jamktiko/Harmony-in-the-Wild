@@ -15,16 +15,9 @@ public class GrowthController : MonoBehaviour
     private float duration = 10f;
     private bool isGrowing = false;
 
-    void Start()
+    private void Start()
     {
-        if (leafMaterial == null || flowerMaterial == null)
-        {
-            Debug.LogError("Materials not assigned!");
-        }
-        float leafGrow = PlayerPrefs.GetFloat("LeafGrow", 0f);
-        float flowerGrow = PlayerPrefs.GetFloat("FlowerGrow", 0f);
-        leafMaterial.SetFloat("_Grow", leafGrow);
-        flowerMaterial.SetFloat("_Grow", flowerGrow);
+        SetGrowthValues();
     }
 
     private void OnEnable()
@@ -77,5 +70,60 @@ public class GrowthController : MonoBehaviour
         PlayerPrefs.SetFloat("LeafGrow", leafGrow);
         PlayerPrefs.SetFloat("FlowerGrow", flowerGrow);
         PlayerPrefs.Save();
+    }
+
+    private void SetGrowthValues()
+    {
+        if (leafMaterial == null || flowerMaterial == null)
+        {
+            Debug.LogError("Materials not assigned!");
+            return;
+        }
+
+        int currentState = TreeOfLifeState.instance.GetTreeOfLifeState();
+
+        float leafGrow = 0;
+        float flowerGrow = 0;
+
+        switch (currentState)
+        {
+            case 0:
+                leafGrow = 0;
+                flowerGrow = 0;
+                break;
+
+            case 1:
+                leafGrow = 0.5f;
+                flowerGrow = 0;
+                break;
+
+            case 2:
+                leafGrow = 1f;
+                flowerGrow = 0;
+                break;
+
+            case 3:
+                leafGrow = 1f;
+                flowerGrow = 0.5f;
+                break;
+
+            case 4:
+                leafGrow = 1f;
+                flowerGrow = 1f;
+                break;
+
+            default:
+                Debug.Log("Error in initializing the growth shader. State of ToL out of bounds.");
+                break;
+
+        }
+
+        InitializeMaterials(leafGrow, flowerGrow);
+    }
+
+    private void InitializeMaterials(float leafGrow, float flowerGrow)
+    {
+        leafMaterial.SetFloat("_Grow", leafGrow);
+        flowerMaterial.SetFloat("_Grow", flowerGrow);
     }
 }

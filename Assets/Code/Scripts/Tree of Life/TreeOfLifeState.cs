@@ -39,5 +39,7 @@ public class TreeOfLifeState : MonoBehaviour
     private void UpdateTreeOfLifeState()
     {
         state++;
+
+        SaveManager.instance.SaveGame();
     }
 }
