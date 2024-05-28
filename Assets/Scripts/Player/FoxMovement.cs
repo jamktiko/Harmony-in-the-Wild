@@ -40,7 +40,7 @@ public class FoxMovement : MonoBehaviour
     public LayerMask moveableLayerMask;
     public Transform cameraPosition;
     [SerializeField] private Transform lookAtTarget;
-    [SerializeField] private Transform foxMiddle;
+    [SerializeField] public Transform foxMiddle;
     [SerializeField] private Transform foxBottom;
     //[SerializeField] private Transform fox;
     //[SerializeField] private Transform arcticFox;
@@ -110,9 +110,9 @@ public class FoxMovement : MonoBehaviour
     #region INPUTS
     private void ProcessInput()
     {
-        horizontalInput = Input.GetAxisRaw("Horizontal");
-        verticalInput = Input.GetAxisRaw("Vertical");
-        moveDirection = orientation.forward * PlayerInputHandler.instance.MoveInput.ReadValue<Vector2>().y + orientation.right * PlayerInputHandler.instance.MoveInput.ReadValue<Vector2>().x;
+        horizontalInput = PlayerInputHandler.instance.MoveInput.ReadValue<Vector2>().x;
+        verticalInput = PlayerInputHandler.instance.MoveInput.ReadValue<Vector2>().y;
+        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
         SprintInput();
         JumpInput();

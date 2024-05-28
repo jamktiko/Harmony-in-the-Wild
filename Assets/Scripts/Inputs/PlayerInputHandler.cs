@@ -28,7 +28,9 @@ public class PlayerInputHandler : MonoBehaviour
         CloseUIInput,
         DialogueUpInput,
         DialogueDownInput,
-        SelectInput;
+        SelectInput,
+        OpenMapInput,
+    PauseInput;
 
     private void Awake()
     {
@@ -56,5 +58,7 @@ public class PlayerInputHandler : MonoBehaviour
         SelectInput = playerInput.actions.FindAction("Select");
         DialogueUpInput = playerInput.actions.FindAction("DialogueUp");
         DialogueDownInput = playerInput.actions.FindAction("DialogueDown");
+        OpenMapInput = playerInput.actions.FindAction("OpenMap");
+        PauseInput = playerInput.actions.FindAction("Pause");
     }
 }

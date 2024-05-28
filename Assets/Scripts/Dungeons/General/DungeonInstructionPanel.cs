@@ -33,7 +33,7 @@ public class DungeonInstructionPanel : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.X))
+        if (PlayerInputHandler.instance.CloseUIInput.WasPressedThisFrame())
         {
             Invoke(nameof(HideInstructionPanel), 0.1f);
             dungeonEntranceVFX.SendEvent("OnDungeonStart");
