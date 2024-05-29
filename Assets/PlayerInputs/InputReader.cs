@@ -21,6 +21,13 @@ public class InputReader : ScriptableObject, PlayerInputActions.IPlayerActions
     public event UnityAction OnUseAbilityEvent = delegate { };
     public event UnityAction OnTelegrabGrabEvent = delegate { };
     public event UnityAction OnChangeCameraEvent = delegate { };
+    public event UnityAction OnPauseEvent = delegate { };
+    public event UnityAction OnOpenMapEvent = delegate { };
+    public event UnityAction OnDialogueUpEvent = delegate { };
+    public event UnityAction OnDialogueDownEvent = delegate { };
+    public event UnityAction OnSelectEvent = delegate { };
+    public event UnityAction OnCloseEvent = delegate { };
+    public event UnityAction OnDialogueNextEvent = delegate { };
     private PlayerInputActions playerInputActions;
     [Header("Input reader object")]
     [SerializeField] InputReader _inputReader;
@@ -96,5 +103,33 @@ public class InputReader : ScriptableObject, PlayerInputActions.IPlayerActions
     public void OnChangeCamera(InputAction.CallbackContext context)
     {
         OnChangeCameraEvent.Invoke();
+    }
+    public void OnPause(InputAction.CallbackContext context)
+    {
+        OnPauseEvent.Invoke();
+    }
+    public void OnOpenMap(InputAction.CallbackContext context)
+    {
+        OnOpenMapEvent.Invoke();
+    }
+    public void OnDialogueDown(InputAction.CallbackContext context)
+    {
+        OnDialogueDownEvent.Invoke();
+    }
+    public void OnDialogueUp(InputAction.CallbackContext context)
+    {
+        OnDialogueUpEvent.Invoke();
+    }
+    public void OnSelect(InputAction.CallbackContext context)
+    {
+        OnSelectEvent.Invoke();
+    }
+    public void OnClose(InputAction.CallbackContext context)
+    {
+        OnCloseEvent.Invoke();
+    }
+    public void OnDialogueNext(InputAction.CallbackContext context)
+    {
+        OnDialogueNextEvent.Invoke();
     }
 }

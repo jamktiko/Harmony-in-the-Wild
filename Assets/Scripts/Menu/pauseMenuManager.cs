@@ -65,7 +65,7 @@ public class PauseMenuManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (PlayerInputHandler.instance.PauseInput.WasPressedThisFrame())
         {
 
             //disable

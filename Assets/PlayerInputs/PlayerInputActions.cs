@@ -134,6 +134,69 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""662abd85-b2ad-4e89-be22-e04dd67fba18"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenMap"",
+                    ""type"": ""Button"",
+                    ""id"": ""e787940b-bd0b-4e5a-8943-7a47374f4a2b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DialogueUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""04046fa3-8c5b-4f32-9ce6-8e95d551f3e4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DialogueDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""11233df2-52ed-48bc-b628-a90c9eda5dc9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Select"",
+                    ""type"": ""Button"",
+                    ""id"": ""727bcc38-50ef-479f-9d01-458e05edf636"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Close"",
+                    ""type"": ""Button"",
+                    ""id"": ""fd1c56c8-3bfc-41db-a507-a8902b9e04a7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DialogueNext"",
+                    ""type"": ""Button"",
+                    ""id"": ""262bce86-b5f9-46cb-930f-1d4135f83e5b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -499,224 +562,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""ChargeJump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
-            ""name"": ""PlayerUI"",
-            ""id"": ""1fab9a98-928d-4959-b779-f1cb456f8818"",
-            ""actions"": [
-                {
-                    ""name"": ""DialogueNext"",
-                    ""type"": ""Button"",
-                    ""id"": ""013323f3-33fd-4f97-b2ab-fd3ecbe08f9e"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Close"",
-                    ""type"": ""Button"",
-                    ""id"": ""7a1ee529-d4b4-4291-819b-d84533d503d8"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Select"",
-                    ""type"": ""Button"",
-                    ""id"": ""73055ec1-a9eb-409d-87a2-353db6b9d811"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""DialogueDown"",
-                    ""type"": ""Button"",
-                    ""id"": ""39cf0405-2935-49e6-afde-8c7f922ec433"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""DialogueUp"",
-                    ""type"": ""Button"",
-                    ""id"": ""5f776407-4e8d-4513-a8f1-5abcc687cb38"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""OpenMap"",
-                    ""type"": ""Button"",
-                    ""id"": ""82e32914-b6fa-4dcb-b2f6-f7df8c50e5bf"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Pause"",
-                    ""type"": ""Button"",
-                    ""id"": ""55a6e9fc-ee6b-43f9-824a-97dafc347be9"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""bbcd608d-fcea-4e0f-814a-e2dbf3be3e2d"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""DialogueNext"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""44883ec3-89aa-46d0-9725-ab7916c8696f"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""DialogueNext"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""9b2e4a4a-a780-43ef-8679-8c9b20440f9d"",
-                    ""path"": ""<Keyboard>/x"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Close"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""25004841-abe5-443f-9ba5-38a14b297015"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Close"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""0e26b691-8d12-46d3-8726-420df77962df"",
-                    ""path"": ""<Keyboard>/enter"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Select"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""3253ad5a-55f3-4747-a53c-77aa7510e4bc"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Select"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""07a34177-a3d9-4ff0-8d3f-b70cafed16e2"",
-                    ""path"": ""<Keyboard>/downArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""DialogueDown"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""d73efd45-4937-4667-a334-dd1cc68c0f6f"",
-                    ""path"": ""<Gamepad>/dpad/down"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""DialogueDown"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""8ac0cfbd-18f3-405c-9896-dc65f6938538"",
-                    ""path"": ""<Keyboard>/upArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""DialogueUp"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""ac375b7a-91cd-46be-b94b-a61479bd6f33"",
-                    ""path"": ""<Gamepad>/dpad/up"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""DialogueUp"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""a2ae624c-55f7-4709-bf0e-f2e1e18d3c68"",
-                    ""path"": ""<Keyboard>/m"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""OpenMap"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""bb899f3f-0d26-4395-8812-e574fac9fd52"",
-                    ""path"": ""<DualShockGamepad>/touchpadButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""OpenMap"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""1f2410be-9708-490c-ad2d-9bf9a119dd35"",
-                    ""path"": ""<XInputController>/select"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""OpenMap"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""74794c9f-567a-4892-bd9e-098b8f79a322"",
+                    ""id"": ""f779a103-820f-4f6e-bf84-a8d145ed1541"",
                     ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -727,12 +576,166 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""95bbd4b5-03c5-4a39-bc00-67a7ffebd137"",
+                    ""id"": ""30dd3b0b-58c8-4388-9e8d-242596f0dbcc"",
                     ""path"": ""<Gamepad>/start"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a4d0fb8b-4f48-4076-90e1-7146191ab2fe"",
+                    ""path"": ""<Keyboard>/m"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""OpenMap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7750b85c-86e1-48f9-9685-f2b9a7c32723"",
+                    ""path"": ""<DualShockGamepad>/touchpadButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""OpenMap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7d6c3345-e233-4ac4-8f22-844791371ebe"",
+                    ""path"": ""<XInputController>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""OpenMap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""117d6553-cd6c-4a1b-9545-99fe3f8abe97"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""DialogueUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ec23c60e-6ac1-422e-a435-66b943302c9b"",
+                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""DialogueUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5e85d987-4d38-4733-9733-54436af05977"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""DialogueDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""68fe1f62-12de-45f2-92ed-2f65527451a4"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""DialogueDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3a6eef16-72dd-4960-a882-a5ab348bbc3d"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bd2176cb-71c1-4e6a-aa28-d6999219f3f1"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""667ddb10-d62e-4fd0-afca-e0dba012640d"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Close"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c7f0b432-1bad-415d-b0da-fa3a11131b7c"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Close"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6da9d92a-77fc-4980-a31d-a6a8180db790"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""DialogueNext"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""66b7bdb2-3354-439e-82cc-4be3f25c143d"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""DialogueNext"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""15a9a536-f421-4db2-9543-ba9ae318839a"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""DialogueNext"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -747,15 +750,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""type"": ""PassThrough"",
                     ""id"": ""9e2ce4f6-ee17-4ca2-be20-651664132d65"",
                     ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Map"",
-                    ""type"": ""Button"",
-                    ""id"": ""f99f1633-1e0d-4d56-93b6-19a5af5eabbb"",
-                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -1201,17 +1195,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Continue"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""95ab89e8-9057-4d66-9683-899dbbd3d429"",
-                    ""path"": ""<Keyboard>/m"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Map"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1260,19 +1243,16 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_AbilityToggle = m_Player.FindAction("AbilityToggle", throwIfNotFound: true);
         m_Player_TelegrabGrab = m_Player.FindAction("TelegrabGrab", throwIfNotFound: true);
         m_Player_ChangeCamera = m_Player.FindAction("ChangeCamera", throwIfNotFound: true);
-        // PlayerUI
-        m_PlayerUI = asset.FindActionMap("PlayerUI", throwIfNotFound: true);
-        m_PlayerUI_DialogueNext = m_PlayerUI.FindAction("DialogueNext", throwIfNotFound: true);
-        m_PlayerUI_Close = m_PlayerUI.FindAction("Close", throwIfNotFound: true);
-        m_PlayerUI_Select = m_PlayerUI.FindAction("Select", throwIfNotFound: true);
-        m_PlayerUI_DialogueDown = m_PlayerUI.FindAction("DialogueDown", throwIfNotFound: true);
-        m_PlayerUI_DialogueUp = m_PlayerUI.FindAction("DialogueUp", throwIfNotFound: true);
-        m_PlayerUI_OpenMap = m_PlayerUI.FindAction("OpenMap", throwIfNotFound: true);
-        m_PlayerUI_Pause = m_PlayerUI.FindAction("Pause", throwIfNotFound: true);
+        m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
+        m_Player_OpenMap = m_Player.FindAction("OpenMap", throwIfNotFound: true);
+        m_Player_DialogueUp = m_Player.FindAction("DialogueUp", throwIfNotFound: true);
+        m_Player_DialogueDown = m_Player.FindAction("DialogueDown", throwIfNotFound: true);
+        m_Player_Select = m_Player.FindAction("Select", throwIfNotFound: true);
+        m_Player_Close = m_Player.FindAction("Close", throwIfNotFound: true);
+        m_Player_DialogueNext = m_Player.FindAction("DialogueNext", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
-        m_UI_Map = m_UI.FindAction("Map", throwIfNotFound: true);
         m_UI_Continue = m_UI.FindAction("Continue", throwIfNotFound: true);
         m_UI_Confirm = m_UI.FindAction("Confirm", throwIfNotFound: true);
         m_UI_Submit = m_UI.FindAction("Submit", throwIfNotFound: true);
@@ -1357,6 +1337,13 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_AbilityToggle;
     private readonly InputAction m_Player_TelegrabGrab;
     private readonly InputAction m_Player_ChangeCamera;
+    private readonly InputAction m_Player_Pause;
+    private readonly InputAction m_Player_OpenMap;
+    private readonly InputAction m_Player_DialogueUp;
+    private readonly InputAction m_Player_DialogueDown;
+    private readonly InputAction m_Player_Select;
+    private readonly InputAction m_Player_Close;
+    private readonly InputAction m_Player_DialogueNext;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1373,6 +1360,13 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @AbilityToggle => m_Wrapper.m_Player_AbilityToggle;
         public InputAction @TelegrabGrab => m_Wrapper.m_Player_TelegrabGrab;
         public InputAction @ChangeCamera => m_Wrapper.m_Player_ChangeCamera;
+        public InputAction @Pause => m_Wrapper.m_Player_Pause;
+        public InputAction @OpenMap => m_Wrapper.m_Player_OpenMap;
+        public InputAction @DialogueUp => m_Wrapper.m_Player_DialogueUp;
+        public InputAction @DialogueDown => m_Wrapper.m_Player_DialogueDown;
+        public InputAction @Select => m_Wrapper.m_Player_Select;
+        public InputAction @Close => m_Wrapper.m_Player_Close;
+        public InputAction @DialogueNext => m_Wrapper.m_Player_DialogueNext;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1418,6 +1412,27 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @ChangeCamera.started += instance.OnChangeCamera;
             @ChangeCamera.performed += instance.OnChangeCamera;
             @ChangeCamera.canceled += instance.OnChangeCamera;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
+            @OpenMap.started += instance.OnOpenMap;
+            @OpenMap.performed += instance.OnOpenMap;
+            @OpenMap.canceled += instance.OnOpenMap;
+            @DialogueUp.started += instance.OnDialogueUp;
+            @DialogueUp.performed += instance.OnDialogueUp;
+            @DialogueUp.canceled += instance.OnDialogueUp;
+            @DialogueDown.started += instance.OnDialogueDown;
+            @DialogueDown.performed += instance.OnDialogueDown;
+            @DialogueDown.canceled += instance.OnDialogueDown;
+            @Select.started += instance.OnSelect;
+            @Select.performed += instance.OnSelect;
+            @Select.canceled += instance.OnSelect;
+            @Close.started += instance.OnClose;
+            @Close.performed += instance.OnClose;
+            @Close.canceled += instance.OnClose;
+            @DialogueNext.started += instance.OnDialogueNext;
+            @DialogueNext.performed += instance.OnDialogueNext;
+            @DialogueNext.canceled += instance.OnDialogueNext;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1458,6 +1473,27 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @ChangeCamera.started -= instance.OnChangeCamera;
             @ChangeCamera.performed -= instance.OnChangeCamera;
             @ChangeCamera.canceled -= instance.OnChangeCamera;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
+            @OpenMap.started -= instance.OnOpenMap;
+            @OpenMap.performed -= instance.OnOpenMap;
+            @OpenMap.canceled -= instance.OnOpenMap;
+            @DialogueUp.started -= instance.OnDialogueUp;
+            @DialogueUp.performed -= instance.OnDialogueUp;
+            @DialogueUp.canceled -= instance.OnDialogueUp;
+            @DialogueDown.started -= instance.OnDialogueDown;
+            @DialogueDown.performed -= instance.OnDialogueDown;
+            @DialogueDown.canceled -= instance.OnDialogueDown;
+            @Select.started -= instance.OnSelect;
+            @Select.performed -= instance.OnSelect;
+            @Select.canceled -= instance.OnSelect;
+            @Close.started -= instance.OnClose;
+            @Close.performed -= instance.OnClose;
+            @Close.canceled -= instance.OnClose;
+            @DialogueNext.started -= instance.OnDialogueNext;
+            @DialogueNext.performed -= instance.OnDialogueNext;
+            @DialogueNext.canceled -= instance.OnDialogueNext;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1476,105 +1512,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     }
     public PlayerActions @Player => new PlayerActions(this);
 
-    // PlayerUI
-    private readonly InputActionMap m_PlayerUI;
-    private List<IPlayerUIActions> m_PlayerUIActionsCallbackInterfaces = new List<IPlayerUIActions>();
-    private readonly InputAction m_PlayerUI_DialogueNext;
-    private readonly InputAction m_PlayerUI_Close;
-    private readonly InputAction m_PlayerUI_Select;
-    private readonly InputAction m_PlayerUI_DialogueDown;
-    private readonly InputAction m_PlayerUI_DialogueUp;
-    private readonly InputAction m_PlayerUI_OpenMap;
-    private readonly InputAction m_PlayerUI_Pause;
-    public struct PlayerUIActions
-    {
-        private @PlayerInputActions m_Wrapper;
-        public PlayerUIActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @DialogueNext => m_Wrapper.m_PlayerUI_DialogueNext;
-        public InputAction @Close => m_Wrapper.m_PlayerUI_Close;
-        public InputAction @Select => m_Wrapper.m_PlayerUI_Select;
-        public InputAction @DialogueDown => m_Wrapper.m_PlayerUI_DialogueDown;
-        public InputAction @DialogueUp => m_Wrapper.m_PlayerUI_DialogueUp;
-        public InputAction @OpenMap => m_Wrapper.m_PlayerUI_OpenMap;
-        public InputAction @Pause => m_Wrapper.m_PlayerUI_Pause;
-        public InputActionMap Get() { return m_Wrapper.m_PlayerUI; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(PlayerUIActions set) { return set.Get(); }
-        public void AddCallbacks(IPlayerUIActions instance)
-        {
-            if (instance == null || m_Wrapper.m_PlayerUIActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_PlayerUIActionsCallbackInterfaces.Add(instance);
-            @DialogueNext.started += instance.OnDialogueNext;
-            @DialogueNext.performed += instance.OnDialogueNext;
-            @DialogueNext.canceled += instance.OnDialogueNext;
-            @Close.started += instance.OnClose;
-            @Close.performed += instance.OnClose;
-            @Close.canceled += instance.OnClose;
-            @Select.started += instance.OnSelect;
-            @Select.performed += instance.OnSelect;
-            @Select.canceled += instance.OnSelect;
-            @DialogueDown.started += instance.OnDialogueDown;
-            @DialogueDown.performed += instance.OnDialogueDown;
-            @DialogueDown.canceled += instance.OnDialogueDown;
-            @DialogueUp.started += instance.OnDialogueUp;
-            @DialogueUp.performed += instance.OnDialogueUp;
-            @DialogueUp.canceled += instance.OnDialogueUp;
-            @OpenMap.started += instance.OnOpenMap;
-            @OpenMap.performed += instance.OnOpenMap;
-            @OpenMap.canceled += instance.OnOpenMap;
-            @Pause.started += instance.OnPause;
-            @Pause.performed += instance.OnPause;
-            @Pause.canceled += instance.OnPause;
-        }
-
-        private void UnregisterCallbacks(IPlayerUIActions instance)
-        {
-            @DialogueNext.started -= instance.OnDialogueNext;
-            @DialogueNext.performed -= instance.OnDialogueNext;
-            @DialogueNext.canceled -= instance.OnDialogueNext;
-            @Close.started -= instance.OnClose;
-            @Close.performed -= instance.OnClose;
-            @Close.canceled -= instance.OnClose;
-            @Select.started -= instance.OnSelect;
-            @Select.performed -= instance.OnSelect;
-            @Select.canceled -= instance.OnSelect;
-            @DialogueDown.started -= instance.OnDialogueDown;
-            @DialogueDown.performed -= instance.OnDialogueDown;
-            @DialogueDown.canceled -= instance.OnDialogueDown;
-            @DialogueUp.started -= instance.OnDialogueUp;
-            @DialogueUp.performed -= instance.OnDialogueUp;
-            @DialogueUp.canceled -= instance.OnDialogueUp;
-            @OpenMap.started -= instance.OnOpenMap;
-            @OpenMap.performed -= instance.OnOpenMap;
-            @OpenMap.canceled -= instance.OnOpenMap;
-            @Pause.started -= instance.OnPause;
-            @Pause.performed -= instance.OnPause;
-            @Pause.canceled -= instance.OnPause;
-        }
-
-        public void RemoveCallbacks(IPlayerUIActions instance)
-        {
-            if (m_Wrapper.m_PlayerUIActionsCallbackInterfaces.Remove(instance))
-                UnregisterCallbacks(instance);
-        }
-
-        public void SetCallbacks(IPlayerUIActions instance)
-        {
-            foreach (var item in m_Wrapper.m_PlayerUIActionsCallbackInterfaces)
-                UnregisterCallbacks(item);
-            m_Wrapper.m_PlayerUIActionsCallbackInterfaces.Clear();
-            AddCallbacks(instance);
-        }
-    }
-    public PlayerUIActions @PlayerUI => new PlayerUIActions(this);
-
     // UI
     private readonly InputActionMap m_UI;
     private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
     private readonly InputAction m_UI_Navigate;
-    private readonly InputAction m_UI_Map;
     private readonly InputAction m_UI_Continue;
     private readonly InputAction m_UI_Confirm;
     private readonly InputAction m_UI_Submit;
@@ -1591,7 +1532,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         private @PlayerInputActions m_Wrapper;
         public UIActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Navigate => m_Wrapper.m_UI_Navigate;
-        public InputAction @Map => m_Wrapper.m_UI_Map;
         public InputAction @Continue => m_Wrapper.m_UI_Continue;
         public InputAction @Confirm => m_Wrapper.m_UI_Confirm;
         public InputAction @Submit => m_Wrapper.m_UI_Submit;
@@ -1615,9 +1555,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Navigate.started += instance.OnNavigate;
             @Navigate.performed += instance.OnNavigate;
             @Navigate.canceled += instance.OnNavigate;
-            @Map.started += instance.OnMap;
-            @Map.performed += instance.OnMap;
-            @Map.canceled += instance.OnMap;
             @Continue.started += instance.OnContinue;
             @Continue.performed += instance.OnContinue;
             @Continue.canceled += instance.OnContinue;
@@ -1658,9 +1595,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Navigate.started -= instance.OnNavigate;
             @Navigate.performed -= instance.OnNavigate;
             @Navigate.canceled -= instance.OnNavigate;
-            @Map.started -= instance.OnMap;
-            @Map.performed -= instance.OnMap;
-            @Map.canceled -= instance.OnMap;
             @Continue.started -= instance.OnContinue;
             @Continue.performed -= instance.OnContinue;
             @Continue.canceled -= instance.OnContinue;
@@ -1743,21 +1677,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnAbilityToggle(InputAction.CallbackContext context);
         void OnTelegrabGrab(InputAction.CallbackContext context);
         void OnChangeCamera(InputAction.CallbackContext context);
-    }
-    public interface IPlayerUIActions
-    {
-        void OnDialogueNext(InputAction.CallbackContext context);
-        void OnClose(InputAction.CallbackContext context);
-        void OnSelect(InputAction.CallbackContext context);
-        void OnDialogueDown(InputAction.CallbackContext context);
-        void OnDialogueUp(InputAction.CallbackContext context);
-        void OnOpenMap(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnOpenMap(InputAction.CallbackContext context);
+        void OnDialogueUp(InputAction.CallbackContext context);
+        void OnDialogueDown(InputAction.CallbackContext context);
+        void OnSelect(InputAction.CallbackContext context);
+        void OnClose(InputAction.CallbackContext context);
+        void OnDialogueNext(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
         void OnNavigate(InputAction.CallbackContext context);
-        void OnMap(InputAction.CallbackContext context);
         void OnContinue(InputAction.CallbackContext context);
         void OnConfirm(InputAction.CallbackContext context);
         void OnSubmit(InputAction.CallbackContext context);

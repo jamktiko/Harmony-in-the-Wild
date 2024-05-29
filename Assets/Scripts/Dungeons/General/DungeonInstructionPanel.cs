@@ -33,10 +33,12 @@ public class DungeonInstructionPanel : MonoBehaviour
 
     void Update()
     {
-        if (PlayerInputHandler.instance.CloseUIInput.WasPressedThisFrame())
+        if (PlayerInputHandler.instance.CloseUIInput.WasPerformedThisFrame())
         {
+            PlayerInputHandler.instance.playerInput.currentActionMap = PlayerInputHandler.instance.playerInputActionMap;
             Invoke(nameof(HideInstructionPanel), 0.1f);
             dungeonEntranceVFX.SendEvent("OnDungeonStart");
+            
         }
     }
 

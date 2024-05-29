@@ -9,9 +9,6 @@ public class PlayerInputHandler : MonoBehaviour
 
     public PlayerInput playerInput;
     public InputActionMap playerInputActionMap;
-    public InputActionMap playerUIINputActionMap;
-    public InputActionMap UIInputActionMap;
-
     public InputAction MoveInput,
         SprintInput,
         LookInput,
@@ -30,7 +27,7 @@ public class PlayerInputHandler : MonoBehaviour
         DialogueDownInput,
         SelectInput,
         OpenMapInput,
-    PauseInput;
+        PauseInput;
 
     private void Awake()
     {
@@ -41,6 +38,7 @@ public class PlayerInputHandler : MonoBehaviour
     private void AssignInputs() 
     {
         playerInput = GetComponent<PlayerInput>();
+        playerInputActionMap = playerInput.actions.FindActionMap("Player");
         MoveInput = playerInput.actions.FindAction("Move");
         SprintInput = playerInput.actions.FindAction("Sprint");
         LookInput = playerInput.actions.FindAction("Look");
