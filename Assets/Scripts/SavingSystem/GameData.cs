@@ -7,4 +7,5 @@ public class GameData
     public string abilityData;
     public List<float> playerPositionData;
     public int treeOfLifeState;
+    public List<string> dialogueVariableData;
 }

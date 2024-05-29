@@ -330,6 +330,34 @@ public class DialogueManager : MonoBehaviour
         //instance = this;
         //dialogueCanvas = transform.GetChild(0).gameObject;
     }
-    
-    
+
+    public List<string> CollectDialogueVariableDataForSaving()
+    {
+        List<string> allDialogueVariableData = new List<string>();
+
+        foreach (KeyValuePair<string, Ink.Runtime.Object> variable in dialogueVariables.variables)
+        {
+            string variableDataToSave = GetSerializedDialogueVariableData(variable);
+            allDialogueVariableData.Add(variableDataToSave);
+        }
+
+        return allDialogueVariableData;
+    }
+
+    private string GetSerializedDialogueVariableData(KeyValuePair<string, Ink.Runtime.Object> dialogueVariable)
+    {
+        string serializedData = "";
+
+        try
+        {
+            serializedData = JsonUtility.ToJson(dialogueVariable);
+        }
+
+        catch (System.Exception e)
+        {
+            Debug.LogError("Failed to save dialogue variable data with id " + dialogueVariable.Key + ": " + e);
+        }
+
+        return serializedData;
+    }
 }

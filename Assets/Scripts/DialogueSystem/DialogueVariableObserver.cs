@@ -15,11 +15,27 @@ public class DialogueVariableObserver
 
         // initialize the dictionary
         variables = new Dictionary<string, Ink.Runtime.Object>();
+
+        // fetch loaded data
+        List<string> loadedData = SaveManager.instance.GetLoadedData("dialogue");
+
+        int currentVariableIndex = 0;
+
         foreach (string name in globalVariablesStory.variablesState)
         {
-            Ink.Runtime.Object value = globalVariablesStory.variablesState.GetVariableWithName(name);
-            variables.Add(name, value);
-            Debug.Log("Initialized global dialogue variable: " + name + " = " + value);
+            if (loadedData.Count > 0)
+            {
+                //variables.Add(LoadedVariable(loadedData[currentVariableIndex]));
+            }
+
+            else
+            {
+                Ink.Runtime.Object value = globalVariablesStory.variablesState.GetVariableWithName(name);
+                variables.Add(name, value);
+                Debug.Log("Initialized global dialogue variable: " + name + " = " + value);
+            }
+
+            currentVariableIndex++;
         }
     }
 
@@ -49,5 +65,22 @@ public class DialogueVariableObserver
         {
             story.variablesState.SetGlobal(variable.Key, variable.Value);
         }
+    }
+
+    private KeyValuePair<string, Ink.Runtime.Object> LoadedVariable(string serializedData)
+    {
+        KeyValuePair<string, Ink.Runtime.Object> variable = new KeyValuePair<string, Ink.Runtime.Object>();
+
+        try
+        {
+            variable = JsonUtility.FromJson<KeyValuePair<string, Ink.Runtime.Object>>(serializedData);
+        }
+
+        catch
+        {
+            Debug.Log("Error when loading saved dialogue variable: " + serializedData);
+        }
+
+        return variable;
     }
 }
