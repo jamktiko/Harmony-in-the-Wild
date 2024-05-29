@@ -9,7 +9,7 @@ public class FlowerZoneEnabler : MonoBehaviour
 
     private void Start()
     {
-        Invoke(nameof(SetVisibility), 0.1f);
+        Invoke(nameof(SetVisibility), 0.01f);
     }
 
     private void OnEnable()

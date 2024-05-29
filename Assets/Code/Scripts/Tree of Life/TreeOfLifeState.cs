@@ -19,6 +19,10 @@ public class TreeOfLifeState : MonoBehaviour
         {
             Debug.Log("There is more than one Tree Of Life State in the scene.");
         }
+
+        // fetch the latest saved ToL value
+
+        state = SaveManager.instance.FetchTreeOfLifeState();
     }
 
     private void OnEnable()

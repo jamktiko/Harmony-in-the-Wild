@@ -82,6 +82,7 @@ public class SaveManager : MonoBehaviour
         CollectQuestData();
         CollectAbilityData();
         //CollectPlayerPositionData();
+        CollectTreeOfLifeState();
         
     }
     private void CollectQuestData()
@@ -97,7 +98,15 @@ public class SaveManager : MonoBehaviour
 
     private void CollectTreeOfLifeState()
     {
-        gameData.treeOfLifeState = TreeOfLifeState.instance.GetTreeOfLifeState();
+        if(SceneManager.GetActiveScene().name == SceneManagerHelper.GetSceneName(SceneManagerHelper.Scene.Overworld))
+        {
+            gameData.treeOfLifeState = TreeOfLifeState.instance.GetTreeOfLifeState();
+        }
+    }
+
+    public int FetchTreeOfLifeState()
+    {
+        return gameData.treeOfLifeState;
     }
 
     //private void CollectPlayerPositionData()
