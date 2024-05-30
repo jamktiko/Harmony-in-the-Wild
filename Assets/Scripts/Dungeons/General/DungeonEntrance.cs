@@ -67,7 +67,14 @@ public class DungeonEntrance : MonoBehaviour
                 Debug.Log("This is where we save the data");
             }
 
-            else if (currentQuestState == QuestState.IN_PROGRESS)
+            else if (currentQuestState == QuestState.IN_PROGRESS || currentQuestState == QuestState.CAN_FINISH)
+            {
+                // add possible storybook config here & change goToScene to Storybook scene
+                StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, goToScene, false);
+                StartCoroutine(loadSceneWithLoadingScreenWithText(2));
+            }
+
+            else if (currentQuestState == QuestState.FINISHED)
             {
                 // add possible storybook config here & change goToScene to Storybook scene
                 StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, goToScene, false);
