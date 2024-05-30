@@ -11,6 +11,8 @@ public class PauseMenuManager : MonoBehaviour
     [SerializeField] GameObject MovementControlsMenuPanel;
     [SerializeField] GameObject GamePlayControlsMenuPanel;
     [SerializeField] GameObject SettingsMenuPanel;
+    [SerializeField] GameObject restartQuestPanel;
+    [SerializeField] GameObject exitQuestPanel;
     [SerializeField] CinemachineFreeLook cinemachineFreeLook;
     [SerializeField] Toggle InvertYAxis;
     [SerializeField] Toggle fullscreen;
@@ -20,6 +22,16 @@ public class PauseMenuManager : MonoBehaviour
     private bool isInvertErrorLogged = false; // Makes sure the warning that runs in the null check of the InvertYAxis runs once
 
 
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
     void Start()
     {
         pauseMenuPanel = GameObject.Find("PauseMenuEmpty").transform.Find("PauseMenu").gameObject;
@@ -28,6 +40,8 @@ public class PauseMenuManager : MonoBehaviour
         MovementControlsMenuPanel = options.transform.Find("MovementControlsMenu").gameObject;
         GamePlayControlsMenuPanel = options.transform.Find("GameplayControlsMenu").gameObject;
         SettingsMenuPanel = options.transform.Find("SettingsMenu").gameObject;
+        restartQuestPanel = pauseMenuPanel.transform.Find("RestartQuestButton").gameObject;
+        exitQuestPanel = pauseMenuPanel.transform.Find("ExitQuestButton").gameObject;
         cinemachineFreeLook = GameObject.Find("FreeLook Camera").GetComponent<CinemachineFreeLook>();
         InvertYAxis = SettingsMenuPanel.transform.Find("InvertCameraTickBox").GetComponent<Toggle>();
         fullscreen = SettingsMenuPanel.transform.Find("FullScreenTickBox").GetComponent<Toggle>();
@@ -60,6 +74,8 @@ public class PauseMenuManager : MonoBehaviour
             sensitivity.value = PlayerPrefs.GetFloat("sens", SliderValue2);
             cinemachineFreeLook.m_XAxis.m_MaxSpeed = PlayerPrefs.GetFloat("sens", SliderValue2);
         }
+
+        DisableQuestButtonsInit();
 
     }
 
@@ -181,6 +197,56 @@ public class PauseMenuManager : MonoBehaviour
         PlayerPrefs.SetFloat("sens", SliderValue2);
         cinemachineFreeLook.m_XAxis.m_MaxSpeed = PlayerPrefs.GetFloat("sens");
         Debug.Log("value changed");
+    }
+
+    public void ExitQuest()
+    {
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        if (currentSceneName != "Overworld")
+        {
+            Debug.Log("Quest has been exited. Loading Overworld.");
+            SceneManager.LoadScene("Overworld", LoadSceneMode.Single);
+            Resume();
+        }
+    }
+
+    public void RestartQuest()
+    {
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        if (currentSceneName != "Overworld")
+        {
+            Debug.Log("Quest has been restarted. Reloading scene.");
+            SceneManager.LoadScene(currentSceneName, LoadSceneMode.Single);
+            Resume();
+        }
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log("Scene loaded: " + scene.name); 
+        if ((scene.name == "Overworld" || scene.name == "MainMenu") && restartQuestPanel != null && exitQuestPanel != null)
+        {
+            Debug.Log("Scene loaded is Overworld or the main menu. Disabling quest buttons in pause menu.");
+            restartQuestPanel.SetActive(false);
+            exitQuestPanel.SetActive(false);
+        }
+        else if (restartQuestPanel != null && exitQuestPanel != null)
+        {
+            Debug.Log("Scene loaded is not overworld. Enabling quest buttons in pause menu.");
+            restartQuestPanel.SetActive(true);
+            exitQuestPanel.SetActive(true);
+        }
+    }
+
+    private void DisableQuestButtonsInit()
+    {
+        if (restartQuestPanel != null && exitQuestPanel != null)
+        {
+            Debug.Log("Quest buttons have been disabled.");
+            restartQuestPanel.SetActive(false);
+            exitQuestPanel.SetActive(false);
+        }
+
     }
 
 }
