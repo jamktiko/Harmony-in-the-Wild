@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 [System.Serializable]
 public class GameData
@@ -7,5 +8,5 @@ public class GameData
     public string abilityData;
     public List<float> playerPositionData;
     public int treeOfLifeState;
-    public List<string> dialogueVariableData;
+    public string dialogueVariableData;
 }

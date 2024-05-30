@@ -86,7 +86,6 @@ public class SaveManager : MonoBehaviour
         //CollectPlayerPositionData();
         CollectTreeOfLifeState();
         CollectDialogueVariableData();
-        
     }
 
     private void CollectQuestData()
@@ -181,6 +180,11 @@ public class SaveManager : MonoBehaviour
             }
         }
             return loadedDictionary;
+    }
+
+    public string LoadDialogueVariableData()
+    {
+        return gameData.dialogueVariableData;
     }
 
     //public List<float> GetLoadedPlayerPositionData()

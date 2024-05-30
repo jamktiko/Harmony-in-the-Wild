@@ -308,11 +308,6 @@ public class DialogueManager : MonoBehaviour
             Debug.Log("Ink Variables was found to be null: " + variableName);
         }
 
-        //else
-        //{
-        //    Debug.Log("Fetched value is: " + variableValue);
-        //}
-
         return variableValue;
     }
 
@@ -325,23 +320,22 @@ public class DialogueManager : MonoBehaviour
 
         canStartDialogue = true;
     }
-    private void OnLevelWasLoaded(int level)
+    /*private void OnLevelWasLoaded(int level)
     {
         //instance = this;
         //dialogueCanvas = transform.GetChild(0).gameObject;
-    }
+    }*/
 
-    public List<string> CollectDialogueVariableDataForSaving()
+    public string CollectDialogueVariableDataForSaving()
     {
-        List<string> allDialogueVariableData = new List<string>();
+        //foreach (KeyValuePair<string, Ink.Runtime.Object> variable in dialogueVariables.variables)
+        //{
+        //    string variableDataToSave = dialogueVariables.;
+        //    //string variableDataToSave = GetSerializedDialogueVariableData(variable);
+        //    allDialogueVariableData.Add(variableDataToSave);
+        //}
 
-        foreach (KeyValuePair<string, Ink.Runtime.Object> variable in dialogueVariables.variables)
-        {
-            string variableDataToSave = GetSerializedDialogueVariableData(variable);
-            allDialogueVariableData.Add(variableDataToSave);
-        }
-
-        return allDialogueVariableData;
+        return loadGlobalsJSON.ToString();
     }
 
     private string GetSerializedDialogueVariableData(KeyValuePair<string, Ink.Runtime.Object> dialogueVariable)
@@ -350,7 +344,9 @@ public class DialogueManager : MonoBehaviour
 
         try
         {
-            serializedData = JsonUtility.ToJson(dialogueVariable);
+            //serializedData = JsonConvert.SerializeObject(dialogueVariable);
+            Debug.Log(dialogueVariable);
+            Debug.Log(serializedData);
         }
 
         catch (System.Exception e)
