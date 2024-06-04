@@ -444,17 +444,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""64218707-0549-4544-8c8a-cb7eec4ef52d"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Sprint"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""dcfa814b-aee8-4591-8711-860a1c33bbbd"",
                     ""path"": ""<Keyboard>/leftCtrl"",
                     ""interactions"": """",

@@ -15,6 +15,7 @@ public class CollectableQuestStep_BoneToPick : QuestStep
 
     }
 
+
     private void UpdateState()
     {
         string state = itemsCollected.ToString();

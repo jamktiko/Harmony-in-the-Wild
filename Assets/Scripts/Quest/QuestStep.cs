@@ -1,3 +1,5 @@
+using Ink.Parsed;
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class QuestStep : MonoBehaviour
@@ -8,6 +10,11 @@ public abstract class QuestStep : MonoBehaviour
 
     private int stepIndex;
 
+    public string stepName;
+
+    public string objective;
+
+    public string progress;
     public void InitializeQuestStep(string id, int stepIndex, string questStepState)
     {
         questId = id;

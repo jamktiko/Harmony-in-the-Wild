@@ -29,13 +29,13 @@ public class DungeonInstructionPanel : MonoBehaviour
                 Debug.LogError("DungeonEntrance object not found in the hierarchy!");
             }
         }
+        Debug.Log(PlayerInputHandler.instance.playerInput.currentActionMap);
     }
 
     void Update()
     {
         if (PlayerInputHandler.instance.CloseUIInput.WasPerformedThisFrame())
         {
-            PlayerInputHandler.instance.playerInput.currentActionMap = PlayerInputHandler.instance.playerInputActionMap;
             Invoke(nameof(HideInstructionPanel), 0.1f);
             dungeonEntranceVFX.SendEvent("OnDungeonStart");
             

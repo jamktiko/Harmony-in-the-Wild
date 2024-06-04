@@ -31,8 +31,14 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
-
+        if (instance==null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         AssignInputs();
     }
     private void AssignInputs() 

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,6 +15,7 @@ public class QuestManager : MonoBehaviour
 
     private int currentPlayerLevel;
 
+    ShowQuestUI questUI;
     private void Awake()
     {
         if(instance != null)
@@ -334,6 +336,7 @@ public class QuestManager : MonoBehaviour
 
         CheckAllRequirements();
 
+        questUI = FindObjectOfType<ShowQuestUI>();
     }
 
     private void SubscribeToEvents()

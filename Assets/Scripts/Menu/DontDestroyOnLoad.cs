@@ -4,17 +4,19 @@ public class DontDestroyOnLoad : MonoBehaviour
 {
     [SerializeField] GameObject pauseMenuManager;
     [SerializeField] GameObject PauseMenuPanel;
-
+    public static DontDestroyOnLoad instance;
     void Awake()
     {
-        GameObject[] objects = GameObject.FindGameObjectsWithTag("Manager");
-        if (objects.Length > 1)
+        if (instance==null)
         {
-            Destroy(gameObject);
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+            Debug.LogWarning("Managers initialized");
         }
         else
         {
-            DontDestroyOnLoad(gameObject);
+            Debug.LogAssertion("Managers already initialized, destroying extra");
+            Destroy(gameObject);
         }
     }
 

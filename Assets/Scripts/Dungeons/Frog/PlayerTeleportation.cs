@@ -30,6 +30,6 @@ public class PlayerTeleportation : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         player.position = teleportationTarget.position;
 
-        GameEventsManager.instance.questEvents.UpdateQuestUI(QuestUIChange.UpdateCounter, "Learning stage " + newStageIndex + "/3");
+        GameEventsManager.instance.questEvents.AdvanceQuest("The Leaping Frog");
     }
 }

@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEditor.PackageManager;
+using UnityEngine.Events;
 
 public class ShowQuestUI : MonoBehaviour
 {
@@ -13,6 +15,7 @@ public class ShowQuestUI : MonoBehaviour
     private QuestUI currentQuestUI;
     private int currentObjective;
 
+    public UnityEvent AddTextToUI=new UnityEvent();
     private void OnEnable()
     {
         GameEventsManager.instance.questEvents.OnShowQuestUI += InitializeQuestUI;
