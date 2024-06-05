@@ -65,7 +65,13 @@ public class MainMenuManager : MonoBehaviour
         //reset the quests again
         //yes this is stupid. blame Awake()
         QuestManager.instance.questMap = QuestManager.instance.CreateQuestMap();
-
+        if (QuestManager.instance.transform.childCount>0)
+        {
+            for (int i = 0; i < QuestManager.instance.transform.childCount; i++)
+            {
+                Destroy(QuestManager.instance.transform.GetChild(i));
+            }
+        }
         SceneManager.LoadScene(playButtonSceneName); 
     }
 

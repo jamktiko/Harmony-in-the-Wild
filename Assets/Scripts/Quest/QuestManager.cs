@@ -27,7 +27,7 @@ public class QuestManager : MonoBehaviour
         instance = this;
 
         // initialize quest map
-        questMap = CreateQuestMap();
+        //questMap = CreateQuestMap();
         playerManager = FindObjectOfType<PlayerManager>();
     }
 
@@ -310,25 +310,20 @@ public class QuestManager : MonoBehaviour
 
     private void OnLevelWasLoaded(int level)
     {
-        UnsubscribeFromEvents();
-        SubscribeToEvents();
+        //UnsubscribeFromEvents();
+        //SubscribeToEvents();
 
-        Debug.Log("Currently loaded level: "+ level);
-        questMap = CreateQuestMap();
-        playerManager = FindObjectOfType<PlayerManager>();
+        //Debug.Log("Currently loaded level: "+ level);
+        ////questMap = CreateQuestMap();
+        //playerManager = FindObjectOfType<PlayerManager>();
         
-        // broadcast the initial state of all quests on startup
-        foreach (Quest quest in questMap.Values)
-        {
-            // initialize any loaded quest steps
-            if (quest.state == QuestState.IN_PROGRESS)
-            {
-                quest.InstantiateCurrentQuestStep(transform);
-            }
+        //// broadcast the initial state of all quests on startup
+        //foreach (Quest quest in questMap.Values)
+        //{
 
-            // broadcast the initial state of all quests
-            GameEventsManager.instance.questEvents.QuestStateChange(quest);
-        }
+        //    // broadcast the initial state of all quests
+        //    GameEventsManager.instance.questEvents.QuestStateChange(quest);
+        //}
         if (level != 0 || level != 1 || level != 9 || level != 2 || level != 11)
         {
             AbilityCycle = FindObjectOfType<AbilityCycle>();
