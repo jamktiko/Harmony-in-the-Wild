@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPCDialogue : MonoBehaviour
+public class NPC_Dialogue : MonoBehaviour
 {
     [SerializeField] private List<NPCQuestDialoguePair> questDialoguePairs;
     [SerializeField] private TextAsset defaultDialogue;
