@@ -17,7 +17,7 @@ public class NPC_Dialogue : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.E) && playerIsNear)
+        if(PlayerInputHandler.instance.InteractInput.WasPressedThisFrame() && playerIsNear)
         {
             SetDialogueToPlay();
         }

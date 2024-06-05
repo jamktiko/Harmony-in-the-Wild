@@ -10,16 +10,25 @@ public class TeleportBear : MonoBehaviour
 
     private void Start()
     {
-        bear = transform.parent.Find("TutorialBear(Clone)");
+        try
+        {
+            bear = transform.parent.Find("TutorialBear(Clone)");
+            Debug.Log("Target position: " + spawnPosition);
+            bear.position = spawnPosition;
+            bear.localRotation = Quaternion.Euler(0, -66, 0);
+            Debug.Log("Teleported to: " + bear.position);
+        } 
+        catch 
+        {
+            
+        }
+        
 
-        Debug.Log("Target position: " + spawnPosition);
-        bear.position = spawnPosition;
-        bear.localRotation = Quaternion.Euler(0, -66, 0);
-        Debug.Log("Teleported to: " + bear.position);
+        
     }
 
-    private void Update()
-    {
-        bear.position = spawnPosition;
-    }
+    //private void Update()
+    //{
+    //    bear.position = spawnPosition;
+    //}
 }

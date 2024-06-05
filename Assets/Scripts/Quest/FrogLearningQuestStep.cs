@@ -4,23 +4,26 @@ using UnityEngine;
 
 public class FrogLearningQuestStep : QuestStep
 {
-    bool completed=false;
+    [SerializeField] int roomnumber;
     // Start is called before the first frame update
     private void OnEnable()
     {
-        GameEventsManager.instance.questEvents.OnAdvanceQuest += CompleteDungeonQuestStep;
+        GameEventsManager.instance.questEvents.OnAdvanceDungeonQuest += FinishFrogQuestStep;
     }
     private void OnDisable()
     {
-        GameEventsManager.instance.questEvents.OnAdvanceQuest -= CompleteDungeonQuestStep;
+        GameEventsManager.instance.questEvents.OnAdvanceDungeonQuest -= FinishFrogQuestStep;
     }
-    private void CompleteDungeonQuestStep(string id)
+
+    private void FinishFrogQuestStep(string id,int stageIndex) 
     {
-     FinishQuestStep();
+        if (roomnumber==stageIndex)
+        {
+            FinishQuestStep();
+        }
     }
     // Update is called once per frame
     protected override void SetQuestStepState(string state)
     {
-        completed = true;
     }
 }

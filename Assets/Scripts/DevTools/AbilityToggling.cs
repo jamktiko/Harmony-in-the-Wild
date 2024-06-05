@@ -3,13 +3,13 @@ using UnityEngine.UI;
 
 public class AbilityToggling : MonoBehaviour
 {
-    [SerializeField] private int abilityIndex;
+    [SerializeField] Abilities abilities;
 
     //note: REDUNDANT replaced with AbilityManager
-    //private void Start()
-    //{
-    //    GetComponent<Toggle>().isOn = PlayerManager.instance.hasAbilityValues[abilityIndex];
-    //}
+    private void Start()
+    {
+        AbilityManager.instance.UnlockAbility(Abilities.ChargeJumping);
+    }
 
     //public void ToggleAbility()
     //{

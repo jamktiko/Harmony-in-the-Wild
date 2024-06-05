@@ -6,7 +6,7 @@ public class DungeonInstructionPanel : MonoBehaviour
     [SerializeField] private VisualEffect dungeonEntranceVFX;
     private int onDungeonStartID;
 
-    private void Awake()
+    private void Start()
     {
         onDungeonStartID = Shader.PropertyToID("OnDungeonStart");
 

@@ -69,7 +69,7 @@ public class MainMenuManager : MonoBehaviour
         {
             for (int i = 0; i < QuestManager.instance.transform.childCount; i++)
             {
-                Destroy(QuestManager.instance.transform.GetChild(i));
+                Destroy(QuestManager.instance.transform.GetChild(i).gameObject);
             }
         }
         SceneManager.LoadScene(playButtonSceneName); 

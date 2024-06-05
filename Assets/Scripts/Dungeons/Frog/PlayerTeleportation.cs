@@ -5,7 +5,8 @@ public class PlayerTeleportation : MonoBehaviour
 {
     [SerializeField] private Transform player;
     [SerializeField] private Transform teleportationTarget;
-    [SerializeField] private int newStageIndex;
+    [SerializeField] private int StageIndex;
+    [SerializeField] private string questName;
 
     private AudioSource audioSource;
 
@@ -29,7 +30,7 @@ public class PlayerTeleportation : MonoBehaviour
         //yield return new WaitForSeconds(audioSource.clip.length * 0.75f);
         yield return new WaitForSeconds(0.2f);
         player.position = teleportationTarget.position;
-
-        GameEventsManager.instance.questEvents.AdvanceQuest("The Leaping Frog");
+        Debug.Log("teleporting player");
+        GameEventsManager.instance.questEvents.AdvanceDungeonQuest(questName, StageIndex);
     }
 }

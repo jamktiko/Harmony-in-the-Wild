@@ -15,6 +15,8 @@ public class ChargeJumping : MonoBehaviour, IAbility
 
     private int onEnableChargeJumpID;
     private int onDisableChargeJumpID;
+    private bool vfxPlaying;
+
     void Awake()
     {
         if (instance != null && instance != this)
@@ -47,7 +49,7 @@ public class ChargeJumping : MonoBehaviour, IAbility
             ChargeJump();
         }
 
-        if (chargeJumpTimer != 14 && Input.GetButtonDown("Jump"))
+        if (chargeJumpTimer != 14 && PlayerInputHandler.instance.ChargeJumpInput.WasReleasedThisFrame())
         {
             ReleaseChargedJump();
         }
@@ -56,7 +58,12 @@ public class ChargeJumping : MonoBehaviour, IAbility
     {
         if (FoxMovement.instance != null)
         {
-            chargeJumpVFX.SendEvent(onEnableChargeJumpID);
+            if (!vfxPlaying)
+            {
+                chargeJumpVFX.SendEvent(onEnableChargeJumpID);
+                vfxPlaying = true;
+            }
+            
 
             FoxMovement.instance.rb.velocity = new Vector3(0f, 0f, 0f);
 
@@ -80,8 +87,8 @@ public class ChargeJumping : MonoBehaviour, IAbility
         if (FoxMovement.instance != null)
         {
             isChargingJump = false;
-
             chargeJumpVFX.SendEvent(onDisableChargeJumpID);
+            vfxPlaying = false;
             chargeJumpAudio.Stop();
 
             FoxMovement.instance.rb.AddForce(transform.up * chargeJumpTimer, ForceMode.Impulse);
