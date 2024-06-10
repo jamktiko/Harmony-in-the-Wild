@@ -39,7 +39,6 @@ public class TutorialFlower : MonoBehaviour
         if (!canBeCollected)
         {
             canBeCollected = true;
-            Debug.Log("Collecting flower enabled.");
         }
     }
 
@@ -72,7 +71,6 @@ public class TutorialFlower : MonoBehaviour
         if (currentTutorialQuestStepIndex == 1)
         {
             canBeCollected = true;
-            Debug.Log("Collecting flower enabled.");
         }
 
         else if (currentTutorialQuestStepIndex > 1)

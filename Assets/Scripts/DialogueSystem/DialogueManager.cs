@@ -47,12 +47,12 @@ public class DialogueManager : MonoBehaviour
         }
 
         instance = this;
-
-        dialogueVariables = new DialogueVariableObserver(loadGlobalsJSON);
     }
 
     private void Start()
     {
+        Invoke(nameof(InitializeDialogueVariables), 1f);
+
         dialogueCanvas.SetActive(false);
         isDialoguePlaying = false;
 
@@ -282,6 +282,8 @@ public class DialogueManager : MonoBehaviour
     {
         GameEventsManager.instance.dialogueEvents.EndDialogue();
 
+        SaveManager.instance.SaveGame();
+
         // stop listening the dialogue variable changes in the current story
         dialogueVariables.StopListening(currentStory);
 
@@ -297,6 +299,11 @@ public class DialogueManager : MonoBehaviour
         Cursor.visible = false;
     }
 
+    private void InitializeDialogueVariables()
+    {
+        dialogueVariables = new DialogueVariableObserver(loadGlobalsJSON);
+    }
+
     public Ink.Runtime.Object GetDialogueVariableState(string variableName)
     {
         Ink.Runtime.Object variableValue = null;
@@ -307,11 +314,6 @@ public class DialogueManager : MonoBehaviour
         {
             Debug.Log("Ink Variables was found to be null: " + variableName);
         }
-
-        //else
-        //{
-        //    Debug.Log("Fetched value is: " + variableValue);
-        //}
 
         return variableValue;
     }
@@ -325,11 +327,24 @@ public class DialogueManager : MonoBehaviour
 
         canStartDialogue = true;
     }
-    private void OnLevelWasLoaded(int level)
+    /*private void OnLevelWasLoaded(int level)
     {
         //instance = this;
         //dialogueCanvas = transform.GetChild(0).gameObject;
+    }*/
+
+    public string CollectDialogueVariableDataForSaving()
+    {
+        if(dialogueVariables != null)
+        {
+            string dataToJSON = dialogueVariables.ConvertDialogueVariablesToString(loadGlobalsJSON);
+            Debug.Log("About to save this dialogue data: " + dataToJSON);
+            return dataToJSON;
+        }
+
+        else
+        {
+            return "";
+        }
     }
-    
-    
 }

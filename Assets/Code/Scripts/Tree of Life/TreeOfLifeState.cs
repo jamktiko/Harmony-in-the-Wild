@@ -22,7 +22,7 @@ public class TreeOfLifeState : MonoBehaviour
 
         // fetch the latest saved ToL value
 
-        state = SaveManager.instance.FetchTreeOfLifeState();
+        state = SaveManager.instance.GetTreeOfLifeState();
     }
 
     private void OnEnable()

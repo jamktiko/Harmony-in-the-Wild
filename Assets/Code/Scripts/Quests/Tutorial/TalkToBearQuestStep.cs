@@ -29,12 +29,9 @@ public class TalkToBearQuestStep : QuestStep
         // check the latest completed dialogue from Ink
         int latestCompletedDialogue = ((Ink.Runtime.IntValue)DialogueManager.instance.GetDialogueVariableState("latestTutorialQuestStepDialogueCompleted")).value;
 
-        Debug.Log("Latest completed dialogue index: " + latestCompletedDialogue);
-
         // if the current value matches the target value, finish the quest step
         if (latestCompletedDialogue == targetDialogueIndex)
         {
-            Debug.Log("Finishing " + gameObject.name);
             FinishQuestStep();
         }
     }
