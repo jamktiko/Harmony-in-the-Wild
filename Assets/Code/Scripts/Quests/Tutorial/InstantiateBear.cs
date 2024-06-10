@@ -7,6 +7,7 @@ public class InstantiateBear : MonoBehaviour
 {
     [SerializeField] private GameObject tutorialBearPrefab;
     [SerializeField] private Vector3 spawnPosition;
+    [SerializeField] private Vector3 spawnRotation = new Vector3(0, 186, 0);
 
     private void OnEnable()
     {
@@ -26,7 +27,7 @@ public class InstantiateBear : MonoBehaviour
             GameObject bear = Instantiate(tutorialBearPrefab, spawnPosition, Quaternion.identity);
 
             bear.transform.parent = transform.parent;
-            bear.transform.Rotate(new Vector3(0, 186, 0));
+            bear.transform.Rotate(spawnRotation);
             bear.gameObject.SetActive(true);
         }
     }

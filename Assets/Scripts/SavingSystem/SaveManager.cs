@@ -112,7 +112,7 @@ public class SaveManager : MonoBehaviour
         gameData.dialogueVariableData = DialogueManager.instance.CollectDialogueVariableDataForSaving();
     }
 
-    public int FetchTreeOfLifeState()
+    public int GetTreeOfLifeState()
     {
         return gameData.treeOfLifeState;
     }

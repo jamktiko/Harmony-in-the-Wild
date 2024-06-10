@@ -10,7 +10,6 @@ public class StartTutorialQuest : MonoBehaviour
     {
         if (QuestManager.instance.CheckQuestState(questSO.id) == QuestState.CAN_START)
         {
-            Debug.Log("Start tutorial.");
             GameEventsManager.instance.questEvents.StartQuest(questSO.id);
             Destroy(this);
         }

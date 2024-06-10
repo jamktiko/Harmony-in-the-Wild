@@ -47,12 +47,12 @@ public class DialogueManager : MonoBehaviour
         }
 
         instance = this;
-
-        dialogueVariables = new DialogueVariableObserver(loadGlobalsJSON);
     }
 
     private void Start()
     {
+        Invoke(nameof(InitializeDialogueVariables), 1f);
+
         dialogueCanvas.SetActive(false);
         isDialoguePlaying = false;
 
@@ -282,6 +282,8 @@ public class DialogueManager : MonoBehaviour
     {
         GameEventsManager.instance.dialogueEvents.EndDialogue();
 
+        SaveManager.instance.SaveGame();
+
         // stop listening the dialogue variable changes in the current story
         dialogueVariables.StopListening(currentStory);
 
@@ -295,6 +297,11 @@ public class DialogueManager : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+    }
+
+    private void InitializeDialogueVariables()
+    {
+        dialogueVariables = new DialogueVariableObserver(loadGlobalsJSON);
     }
 
     public Ink.Runtime.Object GetDialogueVariableState(string variableName)
@@ -328,32 +335,16 @@ public class DialogueManager : MonoBehaviour
 
     public string CollectDialogueVariableDataForSaving()
     {
-        //foreach (KeyValuePair<string, Ink.Runtime.Object> variable in dialogueVariables.variables)
-        //{
-        //    string variableDataToSave = dialogueVariables.;
-        //    //string variableDataToSave = GetSerializedDialogueVariableData(variable);
-        //    allDialogueVariableData.Add(variableDataToSave);
-        //}
-
-        return loadGlobalsJSON.ToString();
-    }
-
-    private string GetSerializedDialogueVariableData(KeyValuePair<string, Ink.Runtime.Object> dialogueVariable)
-    {
-        string serializedData = "";
-
-        try
+        if(dialogueVariables != null)
         {
-            //serializedData = JsonConvert.SerializeObject(dialogueVariable);
-            Debug.Log(dialogueVariable);
-            Debug.Log(serializedData);
+            string dataToJSON = dialogueVariables.ConvertDialogueVariablesToString(loadGlobalsJSON);
+            Debug.Log("About to save this dialogue data: " + dataToJSON);
+            return dataToJSON;
         }
 
-        catch (System.Exception e)
+        else
         {
-            Debug.LogError("Failed to save dialogue variable data with id " + dialogueVariable.Key + ": " + e);
+            return "";
         }
-
-        return serializedData;
     }
 }

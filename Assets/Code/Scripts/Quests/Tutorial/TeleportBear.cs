@@ -5,6 +5,7 @@ using UnityEngine;
 public class TeleportBear : MonoBehaviour
 {
     [SerializeField] private Vector3 spawnPosition;
+    private Vector3 rotation = new Vector3(0, -66, 0);
 
     private Transform bear;
 
@@ -12,14 +13,10 @@ public class TeleportBear : MonoBehaviour
     {
         bear = transform.parent.Find("TutorialBear(Clone)");
 
-        Debug.Log("Target position: " + spawnPosition);
-        bear.position = spawnPosition;
-        bear.localRotation = Quaternion.Euler(0, -66, 0);
-        Debug.Log("Teleported to: " + bear.position);
-    }
-
-    private void Update()
-    {
-        bear.position = spawnPosition;
+        if(bear != null)
+        {
+            bear.position = spawnPosition;
+            bear.localRotation = Quaternion.Euler(rotation);
+        }
     }
 }

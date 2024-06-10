@@ -4,64 +4,40 @@ using UnityEngine;
 using Ink.Runtime;
 using System.IO;
 using UnityEditor;
+using Newtonsoft.Json;
 
 public class DialogueVariableObserver
 {
     public Dictionary<string, Ink.Runtime.Object> variables { get; private set; }
 
+    private Story globalVariablesStory;
+
     public DialogueVariableObserver(TextAsset loadGlobalsJSON)
     {
-        // create the story
-        Story globalVariablesStory = new Story(loadGlobalsJSON.text);
-
-        // initialize the dictionary
-        variables = new Dictionary<string, Ink.Runtime.Object>();
-
         // fetch loaded data
         string loadedData = SaveManager.instance.LoadDialogueVariableData();
 
-        if(loadedData != null)
+        if (loadedData != "")
         {
-            //TextAsset loadedGlobals = AssetDatabase.CreateAsset();
-            //globalVariablesStory = loadedData;
+            globalVariablesStory = new Story(loadedData);
+            //Debug.Log("Loaded dialogue variable data: " + loadedData);
         }
 
         else
         {
-            foreach(string name in globalVariablesStory.variablesState)
-            {
-                Ink.Runtime.Object value = globalVariablesStory.variablesState.GetVariableWithName(name);
-                variables.Add(name, value);
-                Debug.Log("Initialized global dialogue variable: " + name + " = " + value);
-            }
+            globalVariablesStory = new Story(loadGlobalsJSON.text);
+            //Debug.Log("Initialized dialogue variables with default values: " + loadGlobalsJSON);
         }
 
-        /*if(loadedData != null)
+        // initialize the dictionary
+        variables = new Dictionary<string, Ink.Runtime.Object>();
+
+        foreach (string name in globalVariablesStory.variablesState)
         {
-            string 
-        }*/
-
-        //int currentVariableIndex = 0;
-
-        //foreach (string name in globalVariablesStory.variablesState)
-        //{
-        //    if (loadedData != null)
-        //    {
-                
-        //        Ink.Runtime.Object value = loadedVariable.Value;
-        //        variables.Add(name, value);
-        //        Debug.Log("Loaded global dialogue variable added: " + name + " = " + value);
-        //    }
-
-        //    else
-        //    {
-        //        Ink.Runtime.Object value = globalVariablesStory.variablesState.GetVariableWithName(name);
-        //        variables.Add(name, value);
-        //        Debug.Log("Initialized global dialogue variable: " + name + " = " + value);
-        //    }
-
-        //    currentVariableIndex++;
-        //}
+            Ink.Runtime.Object value = globalVariablesStory.variablesState.GetVariableWithName(name);
+            variables.Add(name, value);
+            //Debug.Log("Initialized global dialogue variable: " + name + " = " + value);
+        }
     }
 
     public void StartListening(Story story)
@@ -84,7 +60,6 @@ public class DialogueVariableObserver
         }
 
         Debug.Log("Changed dialogue variable value:" + name + " = " + value);
-        SaveManager.instance.SaveGame();
     }
 
     private void VariablesToStory(Story story)
@@ -93,5 +68,21 @@ public class DialogueVariableObserver
         {
             story.variablesState.SetGlobal(variable.Key, variable.Value);
         }
+    }
+
+    public string ConvertDialogueVariablesToString(TextAsset globalJSON)
+    {
+        Story story = new Story(globalJSON.text);
+
+        string variableDataToJSON = "{\"inkVersion\":21,\"root\":[[\"\\n\",[\"done\",{\"#f\":5,\"#n\":\"g-0\"}],null],\"done\",{\"global decl\":[\"ev\"";
+
+        foreach (KeyValuePair<string, Ink.Runtime.Object> variable in variables)
+        {
+            variableDataToJSON += "," + variable.Value + ",{\"VAR=\":\"" + variable.Key + "\"}";
+        }
+
+        variableDataToJSON += ",\"/ev\",\"end\",null],\"#f\":1}],\"listDefs\":{}}" + "}";
+
+        return variableDataToJSON;
     }
 }
