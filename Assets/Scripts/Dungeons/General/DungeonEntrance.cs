@@ -18,6 +18,7 @@ public class DungeonEntrance : MonoBehaviour
     [SerializeField] private int storybookSectionIndex;
     [Tooltip("Tick if a quest is started when entering this dungeon")]
     [SerializeField] private bool activateQuestProgressTracking;
+    [SerializeField] private Transform respawnPoint;
 
     private string questId;
     private QuestState currentQuestState;
@@ -59,6 +60,8 @@ public class DungeonEntrance : MonoBehaviour
                     AbilityManager.instance.UnlockAbility(abilityGrantedForDungeon);
                     Debug.Log("Ability " + abilityGrantedForDungeon + " granted for dungeon entrance.");
                     GameEventsManager.instance.questEvents.StartQuest(questId);
+
+                    RespawnManager.instance.SetRespawnPosition(respawnPoint.position);
                 }
 
                 // add storybook config here & change goToScene to Storybook scene

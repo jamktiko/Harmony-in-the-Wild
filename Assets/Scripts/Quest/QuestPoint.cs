@@ -18,7 +18,7 @@ public class QuestPoint : MonoBehaviour
     private QuestPointDialogue questPointDialogue;
 
     [Header("RespawnPoint")]
-    [SerializeField] GameObject respawnPoint;
+    [SerializeField] private Transform respawnPoint;
 
     private void Awake()
     {
@@ -58,6 +58,7 @@ public class QuestPoint : MonoBehaviour
 
             GameEventsManager.instance.questEvents.StartQuest(questId);
             questPointDialogue.StartQuestDialogue();
+            RespawnManager.instance.SetRespawnPosition(respawnPoint.position);
         }
 
         else if(currentQuestState.Equals(QuestState.CAN_FINISH) && finishPoint)
@@ -73,8 +74,6 @@ public class QuestPoint : MonoBehaviour
         {
             questPointDialogue.AfterQuestFinishedDialogue();
         }
-
-        RespawnManager.instance.SetRespawnPosition(respawnPoint.transform.position);
     }
 
     private void QuestStateChange(Quest quest)

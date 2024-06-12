@@ -8,62 +8,37 @@ public class RespawnManager : MonoBehaviour
 {
     public static RespawnManager instance;
 
-    [SerializeField] private GameObject player;
-
-    private Vector3 defaultPlayerPosition = new Vector3(1627f, 118f, 360f);
-    private Vector3 respawnPosition;
-    private bool respawnPositionHasBeenSet = false;
+    private Vector3 defaultStartingPosition = new Vector3(1627f, 118f, 360f);
+    private Vector3 checkpointPosition;
 
     private void Awake()
     {
-        if (instance == null)
+        if (instance != null && instance != this)
         {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-
-            SceneManager.sceneLoaded -= OnSceneLoaded;
-            SceneManager.sceneLoaded += OnSceneLoaded;
-        }
-        else if (instance != this)
-        {
+            Debug.LogWarning("There is more than one Respawn Manager.");
             Destroy(gameObject);
-        }
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        player = GameObject.Find("Player_Spawn");
-
-        if (player == null)
-        {
-            Debug.LogWarning("Player GameObject not found in the scene.");
             return;
         }
 
+        instance = this;
+
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
         string activeSceneName = SceneManager.GetActiveScene().name;
         string overworldSceneName = SceneManagerHelper.GetSceneName(SceneManagerHelper.Scene.Overworld);
 
         if (activeSceneName == overworldSceneName)
         {
-            if (respawnPositionHasBeenSet)
-            {
-                player.transform.position = respawnPosition;
-            }
-            else
-            {
-                player.transform.position = defaultPlayerPosition;
-            }
-        }
-        else
-        {
-            return;
+            FoxMovement.instance.transform.position = checkpointPosition != null ? checkpointPosition : defaultStartingPosition;
         }
     }
 
     public void SetRespawnPosition(Vector3 respawnPointPosition)
     {
-        respawnPosition = respawnPointPosition;
-        respawnPositionHasBeenSet = true;
+        checkpointPosition = respawnPointPosition;
     }
 
     private void OnDestroy()
