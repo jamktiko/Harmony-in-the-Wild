@@ -23,7 +23,7 @@ public class QuestManager : MonoBehaviour
             Debug.LogWarning("There is more than one Quest Manager.");
             Destroy(gameObject);
         }
-
+        else
         instance = this;
 
         // initialize quest map

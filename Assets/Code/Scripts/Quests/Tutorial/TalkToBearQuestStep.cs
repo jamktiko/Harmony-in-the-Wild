@@ -1,27 +1,58 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class TalkToBearQuestStep : QuestStep
 {
     [Tooltip("Target index for the completed dialogue. Checking if the dialogue with this quest step has been completed.")]
     [SerializeField] private int targetDialogueIndex;
-
+    [SerializeField]Animator cinematicAnimator;
+    public UnityEvent animationEvent;
     private bool talkedToBear; // this might not be needed here, but to avoid any errors in the other quest code (state of the quest etc.), there's some value to be saved
 
     private void OnEnable()
     {
         GameEventsManager.instance.dialogueEvents.OnEndDialogue += CheckProgressInDialogue;
+        GameEventsManager.instance.questEvents.OnAdvanceQuest += PlayIntroCinematic;
+        try
+        {
+            cinematicAnimator = GameObject.Find("IntroCamera").GetComponent<Animator>();
+        }
+        catch (System.Exception)
+        {
+            cinematicAnimator = null;
+        }
+        
     }
 
     private void OnDisable()
     {
         GameEventsManager.instance.dialogueEvents.OnEndDialogue -= CheckProgressInDialogue;
+        GameEventsManager.instance.questEvents.OnAdvanceQuest -= PlayIntroCinematic;
     }
 
     private void CheckProgressInDialogue()
     {
         Invoke(nameof(FetchDialogueData), 1f);
+    }
+    private void PlayIntroCinematic(string name)
+    {
+        try
+        {
+            if (gameObject!=null)
+            {
+            if (gameObject.name.Contains("07"))
+            {
+                cinematicAnimator.enabled = true;
+                    animationEvent.Invoke();
+            }
+            }
+        }
+        catch (System.Exception)
+        {
+        }
+        
     }
 
     private void FetchDialogueData()
