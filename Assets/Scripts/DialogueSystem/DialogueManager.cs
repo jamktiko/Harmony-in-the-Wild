@@ -338,7 +338,7 @@ public class DialogueManager : MonoBehaviour
         if(dialogueVariables != null)
         {
             string dataToJSON = dialogueVariables.ConvertDialogueVariablesToString(loadGlobalsJSON);
-            Debug.Log("About to save this dialogue data: " + dataToJSON);
+            //Debug.Log("About to save this dialogue data: " + dataToJSON);
             return dataToJSON;
         }
 

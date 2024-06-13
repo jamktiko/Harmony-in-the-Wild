@@ -189,14 +189,14 @@ public class PauseMenuManager : MonoBehaviour
         SliderValue = value;
         PlayerPrefs.SetFloat("save", SliderValue);
         AudioListener.volume = PlayerPrefs.GetFloat("save");
-        Debug.Log("value changed");
+        //Debug.Log("value changed");
     }
     public void ChangeSensitivity(float value)
     {
         SliderValue2 = value;
         PlayerPrefs.SetFloat("sens", SliderValue2);
         cinemachineFreeLook.m_XAxis.m_MaxSpeed = PlayerPrefs.GetFloat("sens");
-        Debug.Log("value changed");
+        //Debug.Log("value changed");
     }
 
     public void ExitQuest()
@@ -204,7 +204,7 @@ public class PauseMenuManager : MonoBehaviour
         string currentSceneName = SceneManager.GetActiveScene().name;
         if (currentSceneName != "Overworld")
         {
-            Debug.Log("Quest has been exited. Loading Overworld.");
+            //Debug.Log("Quest has been exited. Loading Overworld.");
             SceneManager.LoadScene("Overworld", LoadSceneMode.Single);
             Resume();
         }
@@ -215,7 +215,7 @@ public class PauseMenuManager : MonoBehaviour
         string currentSceneName = SceneManager.GetActiveScene().name;
         if (currentSceneName != "Overworld")
         {
-            Debug.Log("Quest has been restarted. Reloading scene.");
+            //Debug.Log("Quest has been restarted. Reloading scene.");
             SceneManager.LoadScene(currentSceneName, LoadSceneMode.Single);
             Resume();
         }
@@ -223,16 +223,16 @@ public class PauseMenuManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("Scene loaded: " + scene.name); 
+        //Debug.Log("Scene loaded: " + scene.name); 
         if ((scene.name == "Overworld" || scene.name == "MainMenu") && restartQuestPanel != null && exitQuestPanel != null)
         {
-            Debug.Log("Scene loaded is Overworld or the main menu. Disabling quest buttons in pause menu.");
+            //Debug.Log("Scene loaded is Overworld or the main menu. Disabling quest buttons in pause menu.");
             restartQuestPanel.SetActive(false);
             exitQuestPanel.SetActive(false);
         }
         else if (restartQuestPanel != null && exitQuestPanel != null)
         {
-            Debug.Log("Scene loaded is not overworld. Enabling quest buttons in pause menu.");
+            //Debug.Log("Scene loaded is not overworld. Enabling quest buttons in pause menu.");
             restartQuestPanel.SetActive(true);
             exitQuestPanel.SetActive(true);
         }
@@ -242,11 +242,9 @@ public class PauseMenuManager : MonoBehaviour
     {
         if (restartQuestPanel != null && exitQuestPanel != null)
         {
-            Debug.Log("Quest buttons have been disabled.");
+            //Debug.Log("Quest buttons have been disabled.");
             restartQuestPanel.SetActive(false);
             exitQuestPanel.SetActive(false);
         }
-
     }
-
 }

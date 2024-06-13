@@ -6,7 +6,7 @@ public class GameData
 {
     public List<string> questData;
     public string abilityData;
-    public List<float> playerPositionData;
+    public string playerPositionData;
     public int treeOfLifeState;
     public string dialogueVariableData;
 }

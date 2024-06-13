@@ -54,6 +54,7 @@ public class SaveManager : MonoBehaviour
 
         dataToSave.questData = gameData.questData;
         dataToSave.abilityData = gameData.abilityData;
+        dataToSave.playerPositionData = gameData.playerPositionData;
         dataToSave.treeOfLifeState = gameData.treeOfLifeState;
         dataToSave.dialogueVariableData = gameData.dialogueVariableData;
 
@@ -71,7 +72,7 @@ public class SaveManager : MonoBehaviour
 
             gameData.questData = loadedData.questData;
             gameData.abilityData = loadedData.abilityData;
-            //gameData.playerPositionData = loadedData.playerPositionData;
+            gameData.playerPositionData = loadedData.playerPositionData;
             gameData.treeOfLifeState = loadedData.treeOfLifeState;
             gameData.dialogueVariableData = loadedData.dialogueVariableData;
 
@@ -83,7 +84,7 @@ public class SaveManager : MonoBehaviour
     {
         CollectQuestData();
         CollectAbilityData();
-        //CollectPlayerPositionData();
+        CollectPlayerPositionData();
         CollectTreeOfLifeState();
         CollectDialogueVariableData();
     }
@@ -96,7 +97,6 @@ public class SaveManager : MonoBehaviour
     private void CollectAbilityData()
     {
         gameData.abilityData = AbilityManager.instance.CollectAbilityDataForSaving();
-
     }
 
     private void CollectTreeOfLifeState()
@@ -117,24 +117,15 @@ public class SaveManager : MonoBehaviour
         return gameData.treeOfLifeState;
     }
 
-    //private void CollectPlayerPositionData()
-    //{
-    //    string activeSceneName = SceneManager.GetActiveScene().name;
-    //    string overworldSceneName = SceneManagerHelper.GetSceneName(SceneManagerHelper.Scene.Overworld);
-
-    //    if (activeSceneName == overworldSceneName)
-    //    {
-    //        gameData.playerPositionData = FoxMovement.instance.CollectPlayerPositionForSaving();
-    //    }
-    //    else
-    //    {
-    //        gameData.playerPositionData = new List<float> { 1627f, 118f, 360f };
-    //    }
-    //}
+    public void CollectPlayerPositionData()
+    {
+        gameData.playerPositionData = FoxMovement.instance.CollectPlayerPositionForSaving();
+        Debug.Log("saving position");
+    }
     #endregion
 
     #region GetDataForLoading
-    public List<string> GetLoadedData(string dataType)
+    public List<string> GetLoadedQuestData(string dataType)
     {
         List<string> data = new List<string>();
 
@@ -155,7 +146,7 @@ public class SaveManager : MonoBehaviour
         return data;
     }
     // Load dictionary from JSON
-    public Dictionary<Abilities, bool> LoadDictionaryFromJson()
+    public Dictionary<Abilities, bool> GetLoadedAbilityDictionary()
     {
         // Create a new Dictionary<Abilities, bool> to store the loaded data
         Dictionary<Abilities, bool> loadedDictionary = new Dictionary<Abilities, bool>();
@@ -182,35 +173,38 @@ public class SaveManager : MonoBehaviour
             return loadedDictionary;
     }
 
-    public string LoadDialogueVariableData()
+    public string GetLoadedDialogueVariables()
     {
         return gameData.dialogueVariableData;
     }
 
-    //public List<float> GetLoadedPlayerPositionData()
-    //{
-    //    List<float> data = new List<float>();
+    public List<float> GetLoadedPlayerPosition()
+    {
+        List<float> data = new List<float>();
 
-    //    // fetch the saved data from the file if there is a previous save
-    //    if (File.Exists(saveFilePath))
-    //    {
-    //        data = gameData.playerPositionData;
-    //    }
+        //fetch the saved data from the file if there is a previous save, else use default starting position
+        if (File.Exists(saveFilePath))
+        {
+            Debug.Log("loadplayerpos data: " + data + data.Count);
 
-    //    // if there isn't, return default position
-    //    else
-    //    {
-    //        data = new List<float> { 1627f, 118f, 360f };
-    //    }
+            string json = File.ReadAllText(saveFilePath);
+            GameData gameData = JsonConvert.DeserializeObject<GameData>(json);
 
-    //    return data;
-    //}
+            data = JsonConvert.DeserializeObject<List<float>>(gameData.playerPositionData);
+        }
+        else
+        {
+            data = new List<float> { 1627f, 118f, 360f };
+        }
+
+        return data;
+    }
     #endregion
 
-    private void DeleteSave()
+    public void DeleteSave()
     {
         File.Delete(saveFilePath);
 
-        Debug.LogError("The save file has been deleted. Please restart the game to avoid any errors.");
+        Debug.Log("Save file deleted.");
     }
 }

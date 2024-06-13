@@ -76,7 +76,7 @@ public class AbilityManager : MonoBehaviour
         }
         else
         {
-            Debug.Log($"Attempted to unlock an unrecognized ability: {abilityType}");
+            Debug.LogError($"Attempted to unlock an unrecognized ability: {abilityType}");
         }
     }
     public string CollectAbilityDataForSaving()
@@ -84,13 +84,13 @@ public class AbilityManager : MonoBehaviour
         string data = "";
         data = JsonConvert.SerializeObject(abilityStatuses);
 
-        Debug.Log("data: " + data);
+        //Debug.Log("data: " + data);
         return data;
     }
 
     public void LoadAbilityData()
     {
-        abilityStatuses = SaveManager.instance.LoadDictionaryFromJson();
+        abilityStatuses = SaveManager.instance.GetLoadedAbilityDictionary();
     }
 
     void KeepAbilityPartsAtPlayer()

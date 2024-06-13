@@ -29,7 +29,7 @@ public class DungeonInstructionPanel : MonoBehaviour
                 Debug.LogError("DungeonEntrance object not found in the hierarchy!");
             }
         }
-        Debug.Log(PlayerInputHandler.instance.playerInput.currentActionMap);
+        //Debug.Log(PlayerInputHandler.instance.playerInput.currentActionMap);
     }
 
     void Update()

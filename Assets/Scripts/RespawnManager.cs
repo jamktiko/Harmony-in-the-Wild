@@ -27,10 +27,7 @@ public class RespawnManager : MonoBehaviour
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        string activeSceneName = SceneManager.GetActiveScene().name;
-        string overworldSceneName = SceneManagerHelper.GetSceneName(SceneManagerHelper.Scene.Overworld);
-
-        if (activeSceneName == overworldSceneName)
+        if (SceneManager.GetActiveScene().name == SceneManagerHelper.GetSceneName(SceneManagerHelper.Scene.Overworld))
         {
             FoxMovement.instance.transform.position = checkpointPosition != null ? checkpointPosition : defaultStartingPosition;
         }

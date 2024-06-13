@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using Newtonsoft.Json;
 public class FoxMovement : MonoBehaviour
 {
     public static FoxMovement instance;
@@ -57,18 +57,13 @@ public class FoxMovement : MonoBehaviour
     private void Awake()
     {
         instance = this;
-
-        //if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(3) || SceneManager.GetSceneByBuildIndex(3).isLoaded)
-        //{
-        //    LoadPlayerPosition();
-        //}
     }
     void Start()
     {
-        //if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(3) || SceneManager.GetSceneByBuildIndex(3).isLoaded)
-        //{
-        //    LoadPlayerPosition();
-        //}
+        if (SceneManager.GetActiveScene().name == SceneManagerHelper.GetSceneName(SceneManagerHelper.Scene.Overworld))
+        {
+            //LoadPlayerPosition();
+        }
 
         rb.freezeRotation = true;
         abilityCycle = GetComponent<AbilityCycle>();
@@ -84,13 +79,6 @@ public class FoxMovement : MonoBehaviour
     }
     void Update()
     {
-        //if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(3) && !isLoaded)
-        //{
-        //    LoadPlayerPosition();
-
-        //    isLoaded = true;
-        //}
-
         SpeedControl();
         IsOnSlope();
         Animations();
@@ -105,6 +93,16 @@ public class FoxMovement : MonoBehaviour
         if (!DialogueManager.instance.isDialoguePlaying)
         {
             MovePlayer();
+        }
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            SaveManager.instance.CollectPlayerPositionData();
+        }
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            SaveManager.instance.GetLoadedPlayerPosition();
+            LoadPlayerPosition();
         }
     }
     #region INPUTS
@@ -345,26 +343,33 @@ public class FoxMovement : MonoBehaviour
         Gizmos.DrawSphere(foxMiddle.position, boxSize.y);
     }
     #endregion
-    //public List<float> CollectPlayerPositionForSaving()
-    //{
-    //    string activeSceneName = SceneManager.GetActiveScene().name;
-    //    string overworldSceneName = SceneManagerHelper.GetSceneName(SceneManagerHelper.Scene.Overworld);
 
-    //    if (activeSceneName == overworldSceneName)
-    //    {
-    //        return new List<float> { transform.position.x, transform.position.y, transform.position.z };
-    //    }
-    //    else
-    //    {
-    //        return new List<float> { 1627f, 118f, 360f };
-    //    }
-    //}
+    private void LoadPlayerPosition()
+    {
+        List<float> loadedData = SaveManager.instance.GetLoadedPlayerPosition();
 
-    //private void LoadPlayerPosition()
-    //{
-    //    transform.position = new Vector3(
-    //        SaveManager.instance.GetLoadedPlayerPositionData()[0],
-    //        SaveManager.instance.GetLoadedPlayerPositionData()[1],
-    //        SaveManager.instance.GetLoadedPlayerPositionData()[2]);
-    //}
+        if (loadedData.Count != 0)
+        {
+            Debug.Log($"playerpos data is: {loadedData} and individually: {loadedData.Count}, x: {loadedData[0]}, y: {loadedData[1]}, z: {loadedData[2]}");
+            gameObject.SetActive(false);
+            transform.position = new Vector3(loadedData[0], loadedData[1], loadedData[2]);
+            gameObject.SetActive(true);
+        }
+    }
+
+    public string CollectPlayerPositionForSaving()
+    {
+        List<float> playerPos = new List<float>();
+        string data = "";
+
+        if (SceneManager.GetActiveScene().name == SceneManagerHelper.GetSceneName(SceneManagerHelper.Scene.Overworld))
+        {
+            playerPos = new List<float> { transform.position.x, transform.position.y, transform.position.z };
+            Debug.Log($"playerPos is: {playerPos[0]}, {playerPos[1]}, {playerPos[2]}");
+        }
+
+        data = JsonConvert.SerializeObject(playerPos);
+
+        return data;
+    }
 }
