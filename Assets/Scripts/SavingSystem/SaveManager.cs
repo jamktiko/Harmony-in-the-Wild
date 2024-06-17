@@ -56,7 +56,10 @@ public class SaveManager : MonoBehaviour
             dataToSave.questData = gameData.questData;
             dataToSave.abilityData = gameData.abilityData;
 
-            dataToSave.playerPositionData = gameData.playerPositionData;
+            if (SceneManager.GetActiveScene().name == "Overworld")
+            {
+                dataToSave.playerPositionData = gameData.playerPositionData;
+            }
 
             dataToSave.treeOfLifeState = gameData.treeOfLifeState;
             dataToSave.dialogueVariableData = gameData.dialogueVariableData;
