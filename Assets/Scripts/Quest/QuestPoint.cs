@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
@@ -38,44 +39,40 @@ public class QuestPoint : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.E))
+        if(PlayerInputHandler.instance.InteractInput.WasPressedThisFrame()&&playerIsNear)
         {
+           currentQuestState= QuestManager.instance.questMap[questId].state;
             InteractedWithQuestPoint();
         }
     }
 
     private void InteractedWithQuestPoint()
     {
-        if (!playerIsNear)
-        {
-            return;
+            // start or finish a quest
+            if (currentQuestState.Equals(QuestState.CAN_START) && startPoint)
+            {
+                Debug.Log("Quest -1");
+
+                GameEventsManager.instance.questEvents.StartQuest(questId);
+                questPointDialogue.StartQuestDialogue();
+            }
+
+            else if (currentQuestState.Equals(QuestState.CAN_FINISH) && finishPoint)
+            {
+                Debug.Log("Quest 0");
+
+                GameEventsManager.instance.questEvents.FinishQuest(questId);
+                questPointDialogue.FinishQuestDialogue();
+            }
+
+            // if the quest has already been finished, trigger the default dialogue
+            else if (currentQuestState.Equals(QuestState.FINISHED))
+            {
+                questPointDialogue.AfterQuestFinishedDialogue();
+            }
+
+            RespawnManager.instance.SetRespawnPosition(respawnPoint.transform.position);
         }
-
-        // start or finish a quest
-        if(currentQuestState.Equals(QuestState.CAN_START) && startPoint)
-        {
-            Debug.Log("Quest -1");
-
-            GameEventsManager.instance.questEvents.StartQuest(questId);
-            questPointDialogue.StartQuestDialogue();
-        }
-
-        else if(currentQuestState.Equals(QuestState.CAN_FINISH) && finishPoint)
-        {
-            Debug.Log("Quest 0");
-
-            GameEventsManager.instance.questEvents.FinishQuest(questId);
-            questPointDialogue.FinishQuestDialogue();
-        }
-
-        // if the quest has already been finished, trigger the default dialogue
-        else if (currentQuestState.Equals(QuestState.FINISHED))
-        {
-            questPointDialogue.AfterQuestFinishedDialogue();
-        }
-
-        RespawnManager.instance.SetRespawnPosition(respawnPoint.transform.position);
-    }
 
     private void QuestStateChange(Quest quest)
     {

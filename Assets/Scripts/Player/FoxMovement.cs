@@ -323,8 +323,8 @@ public class FoxMovement : MonoBehaviour
     #region MISC
     private void SetDefaultAnimatorValues()
     {
-        playerAnimator.SetFloat("horMove", horizontalInput);
-        playerAnimator.SetFloat("vertMove", verticalInput);
+        playerAnimator.SetFloat("horMove", horizontalInput, 0.1f, Time.deltaTime);
+        playerAnimator.SetFloat("vertMove", verticalInput, 0.1f, Time.deltaTime);
         playerAnimator.SetBool("isJumping", false);
         playerAnimator.SetBool("isGliding", false);
         playerAnimator.SetBool("isGrounded", true);

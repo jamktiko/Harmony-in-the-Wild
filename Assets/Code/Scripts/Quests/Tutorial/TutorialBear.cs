@@ -47,7 +47,7 @@ public class TutorialBear : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && playerIsNear && isInteractable)
+        if (PlayerInputHandler.instance.InteractInput.WasPressedThisFrame() && playerIsNear && isInteractable)
         {
             InteractWithBear();
         }
