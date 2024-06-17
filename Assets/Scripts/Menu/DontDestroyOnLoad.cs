@@ -7,15 +7,15 @@ public class DontDestroyOnLoad : MonoBehaviour
     public static DontDestroyOnLoad instance;
     void Awake()
     {
-        if (instance==null)
+        if (instance == null)
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
-            Debug.LogWarning("Managers initialized");
+            //Debug.LogWarning("Managers initialized");
         }
         else
         {
-            Debug.LogAssertion("Managers already initialized, destroying extra");
+            Debug.LogWarning("Managers already initialized, destroying extra");
             Destroy(gameObject);
         }
     }

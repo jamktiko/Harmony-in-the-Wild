@@ -12,10 +12,9 @@ public class SaveManager : MonoBehaviour
 {
     public static SaveManager instance;
 
-    private string saveFilePath;
+    public string saveFilePath;
 
-    private GameData gameData = new GameData();
-    public string testInternal;
+    public GameData gameData = new GameData();
 
     private void Awake()
     {
@@ -49,19 +48,24 @@ public class SaveManager : MonoBehaviour
 
     public void SaveGame()
     {
-        CollectDataForSaving();
-        GameData dataToSave = new GameData();
+        if (SceneManager.GetActiveScene().name != "MainMenu" && SceneManager.GetActiveScene().name != "Storybook")
+        {
+            CollectDataForSaving();
+            GameData dataToSave = new GameData();
 
-        dataToSave.questData = gameData.questData;
-        dataToSave.abilityData = gameData.abilityData;
-        dataToSave.playerPositionData = gameData.playerPositionData;
-        dataToSave.treeOfLifeState = gameData.treeOfLifeState;
-        dataToSave.dialogueVariableData = gameData.dialogueVariableData;
+            dataToSave.questData = gameData.questData;
+            dataToSave.abilityData = gameData.abilityData;
 
-        string jsonData = JsonUtility.ToJson(dataToSave);
-        File.WriteAllText(saveFilePath, jsonData);
+            dataToSave.playerPositionData = gameData.playerPositionData;
 
-        Debug.Log("Game saved.");
+            dataToSave.treeOfLifeState = gameData.treeOfLifeState;
+            dataToSave.dialogueVariableData = gameData.dialogueVariableData;
+
+            string jsonData = JsonUtility.ToJson(dataToSave);
+            File.WriteAllText(saveFilePath, jsonData);
+
+            Debug.Log("Game saved.");
+        }
     }
     private void LoadGame()
     {
@@ -72,7 +76,9 @@ public class SaveManager : MonoBehaviour
 
             gameData.questData = loadedData.questData;
             gameData.abilityData = loadedData.abilityData;
+
             gameData.playerPositionData = loadedData.playerPositionData;
+
             gameData.treeOfLifeState = loadedData.treeOfLifeState;
             gameData.dialogueVariableData = loadedData.dialogueVariableData;
 
@@ -119,8 +125,10 @@ public class SaveManager : MonoBehaviour
 
     public void CollectPlayerPositionData()
     {
-        gameData.playerPositionData = FoxMovement.instance.CollectPlayerPositionForSaving();
-        Debug.Log("saving position");
+        if (FoxMovement.instance != null && SceneManager.GetActiveScene().name == SceneManagerHelper.GetSceneName(SceneManagerHelper.Scene.Overworld))
+        {
+            gameData.playerPositionData = FoxMovement.instance.CollectPlayerPositionForSaving();
+        }
     }
     #endregion
 
@@ -145,21 +153,12 @@ public class SaveManager : MonoBehaviour
 
         return data;
     }
-    // Load dictionary from JSON
     public Dictionary<Abilities, bool> GetLoadedAbilityDictionary()
     {
-        // Create a new Dictionary<Abilities, bool> to store the loaded data
         Dictionary<Abilities, bool> loadedDictionary = new Dictionary<Abilities, bool>();
 
         if (File.Exists(saveFilePath))
         {
-            // Read the JSON string from the file
-            string json = File.ReadAllText(saveFilePath);
-
-            // Deserialize the JSON string into a Dictionary<string, bool>
-
-            GameData gameData = JsonConvert.DeserializeObject<GameData>(json);
-
             loadedDictionary = JsonConvert.DeserializeObject<Dictionary<Abilities, bool>>(gameData.abilityData);
         }
         else
@@ -178,24 +177,12 @@ public class SaveManager : MonoBehaviour
         return gameData.dialogueVariableData;
     }
 
-    public List<float> GetLoadedPlayerPosition()
+    public PositionData GetLoadedPlayerPosition()
     {
-        List<float> data = new List<float>();
+        //fetch the saved data from the file if there is a previous save, else it uses default starting position from the GameData/PositionData class
 
-        //fetch the saved data from the file if there is a previous save, else use default starting position
-        if (File.Exists(saveFilePath))
-        {
-            Debug.Log("loadplayerpos data: " + data + data.Count);
-
-            string json = File.ReadAllText(saveFilePath);
-            GameData gameData = JsonConvert.DeserializeObject<GameData>(json);
-
-            data = JsonConvert.DeserializeObject<List<float>>(gameData.playerPositionData);
-        }
-        else
-        {
-            data = new List<float> { 1627f, 118f, 360f };
-        }
+        PositionData data = gameData.playerPositionData;
+        Debug.Log("SM loadplayerpos data: " + data);
 
         return data;
     }
@@ -204,6 +191,7 @@ public class SaveManager : MonoBehaviour
     public void DeleteSave()
     {
         File.Delete(saveFilePath);
+        gameData = new GameData();
 
         Debug.Log("Save file deleted.");
     }

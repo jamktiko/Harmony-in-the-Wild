@@ -44,6 +44,6 @@ public class TreeOfLifeState : MonoBehaviour
     {
         state++;
 
-        SaveManager.instance.SaveGame();
+        //SaveManager.instance.SaveGame();
     }
 }

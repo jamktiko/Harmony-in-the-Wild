@@ -13,7 +13,7 @@ public class TutorialBear : MonoBehaviour
     [SerializeField] private List<TextAsset> dialogueFiles;
 
     private bool isInteractable = true;
-    private int latestCompletedDialogueIndex = 0; // the index of the latest completed dialogue; will help in triggering the next dialogue after the previous one has been completed
+    //private int latestCompletedDialogueIndex = 0; // the index of the latest completed dialogue; will help in triggering the next dialogue after the previous one has been completed
     private int currentDialogueIndex = -1;
     private bool inkValueUpToDate; // bool to help updating the ink values as they are not currently saved anywhere else; ducktape solution for now
 

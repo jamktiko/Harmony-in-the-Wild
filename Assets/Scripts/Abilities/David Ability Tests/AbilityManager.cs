@@ -81,8 +81,7 @@ public class AbilityManager : MonoBehaviour
     }
     public string CollectAbilityDataForSaving()
     {
-        string data = "";
-        data = JsonConvert.SerializeObject(abilityStatuses);
+        string data = JsonConvert.SerializeObject(abilityStatuses);
 
         //Debug.Log("data: " + data);
         return data;

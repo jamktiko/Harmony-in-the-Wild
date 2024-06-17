@@ -11,7 +11,7 @@ public class SnowDiving : MonoBehaviour, IAbility
     [SerializeField] private VisualEffect snowDiveVFX;
     private int onEnableSnowDiveID;
 
-    [SerializeField] private float snowDiveTimer = 3f;
+    //[SerializeField] private float snowDiveTimer = 3f;
     void Awake()
     {
         if (instance != null && instance != this)

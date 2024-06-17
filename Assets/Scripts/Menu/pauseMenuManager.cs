@@ -195,7 +195,10 @@ public class PauseMenuManager : MonoBehaviour
     {
         SliderValue2 = value;
         PlayerPrefs.SetFloat("sens", SliderValue2);
-        cinemachineFreeLook.m_XAxis.m_MaxSpeed = PlayerPrefs.GetFloat("sens");
+        if (cinemachineFreeLook != null)
+        {
+            cinemachineFreeLook.m_XAxis.m_MaxSpeed = PlayerPrefs.GetFloat("sens");
+        }
         //Debug.Log("value changed");
     }
 

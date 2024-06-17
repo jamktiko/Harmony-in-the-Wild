@@ -10,7 +10,7 @@ public class QuestPointDialogue : MonoBehaviour
     [SerializeField] private TextAsset afterQuestFinishedDialogue;
 
     private AudioSource audioSource;
-    private bool canStartDialogue = true;
+    //private bool canStartDialogue = true;
 
     private void Start()
     {
@@ -61,12 +61,12 @@ public class QuestPointDialogue : MonoBehaviour
 
     private void PreventNewDialogue()
     {
-        canStartDialogue = false;
+        //canStartDialogue = false;
         Invoke(nameof(EnableNewDialogue), 2f);
     }
 
     private void EnableNewDialogue()
     {
-        canStartDialogue = true;
+        //canStartDialogue = true;
     }
 }

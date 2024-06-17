@@ -26,7 +26,7 @@ public class DungeonInstructionPanel : MonoBehaviour
             }
             else
             {
-                Debug.LogError("DungeonEntrance object not found in the hierarchy!");
+                Debug.LogWarning("DungeonEntrance object not found in the hierarchy!");
             }
         }
         //Debug.Log(PlayerInputHandler.instance.playerInput.currentActionMap);
@@ -37,8 +37,14 @@ public class DungeonInstructionPanel : MonoBehaviour
         if (PlayerInputHandler.instance.CloseUIInput.WasPerformedThisFrame())
         {
             Invoke(nameof(HideInstructionPanel), 0.1f);
-            dungeonEntranceVFX.SendEvent("OnDungeonStart");
-            
+            if (dungeonEntranceVFX != null)
+            {
+                dungeonEntranceVFX.SendEvent("OnDungeonStart");
+            }
+            else
+            {
+                Debug.LogWarning("dungeonEntranceVFX variable not assigned.");
+            }
         }
     }
 

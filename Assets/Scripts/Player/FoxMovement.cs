@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -45,7 +46,7 @@ public class FoxMovement : MonoBehaviour
     //[SerializeField] private Transform fox;
     //[SerializeField] private Transform arcticFox;
 
-    private float viewDistance = 50f;
+    //private float viewDistance = 50f;
     private Vector3 boxSize = new Vector3(0f, 2f, 2f);
 
     private AbilityCycle abilityCycle;
@@ -60,9 +61,9 @@ public class FoxMovement : MonoBehaviour
     }
     void Start()
     {
-        if (SceneManager.GetActiveScene().name == SceneManagerHelper.GetSceneName(SceneManagerHelper.Scene.Overworld))
+        if (File.Exists(SaveManager.instance.saveFilePath) && SceneManager.GetActiveScene().name == SceneManagerHelper.GetSceneName(SceneManagerHelper.Scene.Overworld))
         {
-            //LoadPlayerPosition();
+            LoadPlayerPosition();
         }
 
         rb.freezeRotation = true;
@@ -346,29 +347,25 @@ public class FoxMovement : MonoBehaviour
 
     private void LoadPlayerPosition()
     {
-        List<float> loadedData = SaveManager.instance.GetLoadedPlayerPosition();
+        PositionData loadedData = SaveManager.instance.GetLoadedPlayerPosition();
 
-        if (loadedData.Count != 0)
+        if (loadedData != null)
         {
-            Debug.Log($"playerpos data is: {loadedData} and individually: {loadedData.Count}, x: {loadedData[0]}, y: {loadedData[1]}, z: {loadedData[2]}");
+            Vector3 pos = new Vector3(loadedData.x, loadedData.y, loadedData.z);
+            Quaternion rot = new Quaternion(loadedData.rotX, loadedData.rotY, loadedData.rotZ, loadedData.rotW);
+            Debug.Log($"FM Loaded playerpos data is: {loadedData}");
+
             gameObject.SetActive(false);
-            transform.position = new Vector3(loadedData[0], loadedData[1], loadedData[2]);
+            transform.position = pos;
+            transform.rotation = rot;
             gameObject.SetActive(true);
         }
     }
 
-    public string CollectPlayerPositionForSaving()
+    public PositionData CollectPlayerPositionForSaving()
     {
-        List<float> playerPos = new List<float>();
-        string data = "";
-
-        if (SceneManager.GetActiveScene().name == SceneManagerHelper.GetSceneName(SceneManagerHelper.Scene.Overworld))
-        {
-            playerPos = new List<float> { transform.position.x, transform.position.y, transform.position.z };
-            Debug.Log($"playerPos is: {playerPos[0]}, {playerPos[1]}, {playerPos[2]}");
-        }
-
-        data = JsonConvert.SerializeObject(playerPos);
+        PositionData data = new PositionData(transform.position, orientation.transform.rotation);
+        Debug.Log($"FM CollectPos Position is: {data.x}, {data.y}, {data.z}. Rotation is: {data.rotX}, {data.rotY}, {data.rotZ}");
 
         return data;
     }
