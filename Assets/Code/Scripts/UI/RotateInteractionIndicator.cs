@@ -34,12 +34,12 @@ public class RotateInteractionIndicator : MonoBehaviour
         else
         {
             interactionIndicatorUI.SetActive(false);
+            
+            CalculateColliderBounds();
+            SetFixedHeight();
+
+            originalRotation = transform.rotation;
         }
-
-        CalculateColliderBounds();
-        SetFixedHeight();
-
-        originalRotation = transform.rotation;
     }
 
     private void Update()
