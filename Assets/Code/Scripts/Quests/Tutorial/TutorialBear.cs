@@ -72,7 +72,7 @@ public class TutorialBear : MonoBehaviour
     {
         if(updatedQuestId == questId)
         {
-            Invoke(nameof(UpdateDialogueProgressValues), 0.5f);
+            Invoke(nameof(UpdateDialogueProgressValues), 0.3f);
         }
     }
 

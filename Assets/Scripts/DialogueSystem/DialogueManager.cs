@@ -51,7 +51,7 @@ public class DialogueManager : MonoBehaviour
 
     private void Start()
     {
-        Invoke(nameof(InitializeDialogueVariables), 1f);
+        Invoke(nameof(InitializeDialogueVariables),0f);
 
         dialogueCanvas.SetActive(false);
         isDialoguePlaying = false;

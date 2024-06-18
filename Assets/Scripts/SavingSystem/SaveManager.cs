@@ -16,6 +16,8 @@ public class SaveManager : MonoBehaviour
 
     public GameData gameData = new GameData();
 
+    public static bool isSaving;
+
     private void Awake()
     {
         saveFilePath = Application.persistentDataPath + "/GameData.json";
@@ -91,11 +93,13 @@ public class SaveManager : MonoBehaviour
     #region CollectDataForSaving
     private void CollectDataForSaving()
     {
+        isSaving = true;
         CollectQuestData();
         CollectAbilityData();
         CollectPlayerPositionData();
         CollectTreeOfLifeState();
         CollectDialogueVariableData();
+        isSaving=false;
     }
 
     private void CollectQuestData()

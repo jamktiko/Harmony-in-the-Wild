@@ -34,7 +34,7 @@ public class TalkToBearQuestStep : QuestStep
 
     private void CheckProgressInDialogue()
     {
-        Invoke(nameof(FetchDialogueData), 1f);
+        Invoke(nameof(FetchDialogueData),0f);
     }
     private void PlayIntroCinematic(string name)
     {
