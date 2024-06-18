@@ -84,7 +84,10 @@ public class MinimapController : MonoBehaviour
         if (miniMapWorldObjectsLookup.TryGetValue(minimapWorldObject, out MinimapIcon icon))
         {
             miniMapWorldObjectsLookup.Remove(minimapWorldObject);
-            Destroy(icon.gameObject);
+            if (icon != null)
+            {
+                Destroy(icon.gameObject);
+            }
         }
     }
 

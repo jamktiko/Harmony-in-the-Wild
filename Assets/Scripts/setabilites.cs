@@ -11,6 +11,6 @@ public class SetAbilites : MonoBehaviour
         //{
         //    PlayerManager.instance.hasAbilityValues[i] = false;
         //}
-        SaveManager.instance.SaveGame();
+        //SaveManager.instance.SaveGame();
     }
 }

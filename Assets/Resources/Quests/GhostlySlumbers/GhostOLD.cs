@@ -8,7 +8,7 @@ public class Ghost : MonoBehaviour
     [SerializeField] private List<TextAsset> ghostInteractionOptions;
 
     [Header("Debugging")]
-    [SerializeField] private bool playerIsNear;
+    //[SerializeField] private bool playerIsNear;
 
     private GameObject character;
 
@@ -68,7 +68,7 @@ public class Ghost : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            playerIsNear = true;
+            //playerIsNear = true;
         }
     }
 
@@ -76,7 +76,7 @@ public class Ghost : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            playerIsNear = false;
+            //playerIsNear = false;
         }
     }
 }

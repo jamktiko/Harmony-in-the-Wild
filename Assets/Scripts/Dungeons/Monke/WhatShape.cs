@@ -3,14 +3,14 @@ using UnityEngine;
 public class WhatShape : MonoBehaviour
 {
     [SerializeField] string shapeName;
-    [SerializeField] bool isActive; //NOTE: What does this bool check?
+    //[SerializeField] bool isActive; //NOTE: What does this bool check?
     [SerializeField] AudioSource correctAudio;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.name.Contains(shapeName)) 
         {
-            isActive = true;
+            //isActive = true;
             correctAudio.Play();
 
             //BossDoorMonkey.instance.UpdateProgress(1);
@@ -20,7 +20,7 @@ public class WhatShape : MonoBehaviour
     {
         if (other.name.Contains(shapeName))
         {
-            isActive = false;
+            //isActive = false;
 
             //BossDoorMonkey.instance.UpdateProgress(-1);
         }

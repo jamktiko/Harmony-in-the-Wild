@@ -15,7 +15,7 @@ public class DialogueVariableObserver
     public DialogueVariableObserver(TextAsset loadGlobalsJSON)
     {
         // fetch loaded data
-        string loadedData = SaveManager.instance.LoadDialogueVariableData();
+        string loadedData = SaveManager.instance.GetLoadedDialogueVariables();
 
         if (loadedData != "")
         {

@@ -28,7 +28,7 @@ public class FlowerZoneEnabler : MonoBehaviour
 
         if(currentState >= enablingState)
         {
-            Debug.Log("Show zone: " + gameObject.name);
+            //Debug.Log("Show zone: " + gameObject.name);
 
             foreach(Transform child in transform)
             {
