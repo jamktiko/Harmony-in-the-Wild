@@ -125,7 +125,7 @@ public class QuestManager : MonoBehaviour
         Debug.Log("Changed quest state with ID: " + id + " to: " + state.ToString());
         Quest quest = GetQuestById(id);
         quest.state = state;
-        Debug.Log(quest.state.ToString());
+        //Debug.Log(quest.state.ToString());
         SaveManager.instance.SaveGame(); // Force save game when quest state changes
         GameEventsManager.instance.questEvents.QuestStateChange(quest);
     }
@@ -135,17 +135,17 @@ public class QuestManager : MonoBehaviour
         Quest quest = GetQuestById(id);
         if (quest.state == QuestState.CAN_START)
         {
-            Debug.Log("Start Quest: " + id);
+            //Debug.Log("Start Quest: " + id);
             quest.InstantiateCurrentQuestStep(transform);
             ChangeQuestState(quest.info.id, QuestState.IN_PROGRESS);
             AbilityAcquired(quest.info.abilityReward);
-            Debug.Log("Ability unlocked: " + quest.info.abilityReward);
+            //Debug.Log("Ability unlocked: " + quest.info.abilityReward);
         }
     }
 
     private void AdvanceQuest(string id)
     {
-        Debug.Log("Advance Quest: " + id);
+        //Debug.Log("Advance Quest: " + id);
         Quest quest = GetQuestById(id);
 
         // move on to the next step
@@ -154,21 +154,21 @@ public class QuestManager : MonoBehaviour
         // if there are more steps, instantiate the next one
         if (quest.CurrentStepExists())
         {   
-            Debug.Log("Quest " + id + " state advanced.");
+            //Debug.Log("Quest " + id + " state advanced.");
             quest.InstantiateCurrentQuestStep(transform);
         }
 
         // if there are no more steps, it means the quest is ready to  be finished
         else
         {
-            Debug.Log("Quest " + id + " state requested to can finish.");
+            //Debug.Log("Quest " + id + " state requested to can finish.");
             ChangeQuestState(quest.info.id, QuestState.CAN_FINISH);
         }
     }
 
     private void FinishQuest(string id)
     {
-        Debug.Log("Finished quest with ID: "+ id);
+        //Debug.Log("Finished quest with ID: "+ id);
         Quest quest = GetQuestById(id);
         ClaimRewards(quest);
         ChangeQuestState(quest.info.id, QuestState.FINISHED);
@@ -178,7 +178,7 @@ public class QuestManager : MonoBehaviour
 
     private void ClaimRewards(Quest quest)
     {
-        Debug.Log("Quest " + quest.info.id + " has been completed.");
+        //Debug.Log("Quest " + quest.info.id + " has been completed.");
 
         GameEventsManager.instance.playerEvents.ExperienceGained(quest.info.experienceReward);
 
@@ -205,7 +205,7 @@ public class QuestManager : MonoBehaviour
         Dictionary<string, Quest> idToQuestMap = new Dictionary<string, Quest>();
 
         // load loaded data from Save Manager
-        List<string> loadedQuestData = SaveManager.instance.GetLoadedData("quest");
+        List<string> loadedQuestData = SaveManager.instance.GetLoadedQuestData("quest");
 
         int currentQuestSOIndex = 0;
 

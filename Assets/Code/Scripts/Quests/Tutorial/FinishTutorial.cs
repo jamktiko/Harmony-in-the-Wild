@@ -15,17 +15,17 @@ public class FinishTutorial : MonoBehaviour
     {
         if (quest.info.id.Equals(tutorialQuest.id))
         {
-            Debug.Log("Checking whether tutorial can be finished...");
+            //Debug.Log("Checking whether tutorial can be finished...");
 
             if(quest.state == QuestState.CAN_FINISH)
             {
-                Debug.Log("Tutorial can be finished.");
+                //Debug.Log("Tutorial can be finished.");
                 GameEventsManager.instance.questEvents.FinishQuest(tutorialQuest.id);
             }
 
             else
             {
-                Debug.Log("Tutorial can't be finished, current state: " + quest.state);
+                //Debug.Log("Tutorial can't be finished, current state: " + quest.state);
             }
         }
     }

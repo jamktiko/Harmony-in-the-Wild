@@ -53,8 +53,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void StartNewGame() 
     {
-        File.Delete(Application.persistentDataPath + "/GameData.json");
-        Debug.LogError("The save file has been deleted. Please restart the game to avoid any errors.");
+        SaveManager.instance.DeleteSave();
 
         //reset the abilities again
         foreach (Abilities ability in Enum.GetValues(typeof(Abilities)))
@@ -124,12 +123,12 @@ public class MainMenuManager : MonoBehaviour
         if (PlayerPrefs.GetInt("InvertY")==1)
         {
             PlayerPrefs.SetInt("InvertY", 0);
-            Debug.Log("changed yes");
+            //Debug.Log("changed yes");
         }
         else
         {
             PlayerPrefs.SetInt("InvertY", 1);
-            Debug.Log("changed no");
+            //Debug.Log("changed no");
         }
     }
     public void CreditsButton() 

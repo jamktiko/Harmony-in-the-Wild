@@ -97,7 +97,7 @@ public class LoadingScene : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("lol");
+        //Debug.Log("lol");
         if (other.CompareTag("Trigger"))
         {
             StartCoroutine(LoadSceneWithLoadingScreenWithText2(sceneIndex));

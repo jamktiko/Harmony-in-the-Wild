@@ -19,7 +19,7 @@ public class QuestPoint : MonoBehaviour
     private QuestPointDialogue questPointDialogue;
 
     [Header("RespawnPoint")]
-    [SerializeField] GameObject respawnPoint;
+    [SerializeField] private Transform respawnPoint;
 
     private void Awake()
     {

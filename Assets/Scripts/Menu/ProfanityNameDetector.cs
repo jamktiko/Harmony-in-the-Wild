@@ -21,7 +21,7 @@ public class ProfanityNameDetector : MonoBehaviour
             inappropriateMessage.SetActive(false);
             foxNameInput = s;
             PlayerPrefs.SetString("foxName", foxNameInput);
-            Debug.Log(PlayerPrefs.GetString("foxName"));
+            //Debug.Log(PlayerPrefs.GetString("foxName"));
             sureMessage.SetActive(true);
         }
         else
