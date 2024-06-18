@@ -42,9 +42,4 @@ public class ToggleInteractionIndicator : MonoBehaviour
             rotationComponent.DisableInteractionIndicator();
         }
     }
-
-    private void LocatePlayerCameraOrientation(Transform parentObject)
-    {
-        parentObject.Find("Orientation");
-    }
 }
