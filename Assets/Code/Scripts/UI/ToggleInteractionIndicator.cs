@@ -9,7 +9,7 @@ public class ToggleInteractionIndicator : MonoBehaviour
 
     private void Start()
     {
-        rotationComponent = GetComponentInChildren<RotateInteractionIndicator>();
+        rotationComponent = GetComponent<RotateInteractionIndicator>();
 
         if(rotationComponent == null)
         {
@@ -22,15 +22,12 @@ public class ToggleInteractionIndicator : MonoBehaviour
     {
         if (other.CompareTag("Trigger"))
         {
-            Debug.Log("Player detected");
-
-            // locate the orientation object
-            Transform orientation = other.transform.parent.Find("Orientation");
+            // locate the player camera and enable interaction indicator
             GameObject camera = other.transform.parent.Find("FreeLook Camera").gameObject;
 
-            if(orientation != null)
+            if(camera != null)
             {
-                rotationComponent.EnableInteractionIndicator(other.gameObject, orientation);
+                rotationComponent.EnableInteractionIndicator(camera.transform);
             }
         }
     }
