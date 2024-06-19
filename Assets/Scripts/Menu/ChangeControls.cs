@@ -6,8 +6,6 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
-using static UnityEngine.Rendering.HDROutputUtils;
 
 [System.Serializable]
 public class ChangeControls : MonoBehaviour
