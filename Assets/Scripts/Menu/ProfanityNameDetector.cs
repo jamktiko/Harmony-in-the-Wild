@@ -1,8 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using ProfanityFilter.Interfaces;
 using ProfanityFilter;
-using UnityEditor.Build.Content;
 
 public class ProfanityNameDetector : MonoBehaviour
 {
