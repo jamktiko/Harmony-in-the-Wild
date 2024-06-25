@@ -8,7 +8,7 @@ public class TutorialFlower : MonoBehaviour
     [SerializeField] private QuestScriptableObject tutorialQuestSO;
 
     [SerializeField] private bool playerIsNear;
-    private bool canBeCollected;
+    [SerializeField]private bool canBeCollected;
 
     private void Awake()
     {
@@ -27,7 +27,7 @@ public class TutorialFlower : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.E) && playerIsNear && canBeCollected)
+        if(PlayerInputHandler.instance.InteractInput.WasPressedThisFrame() && playerIsNear && canBeCollected)
         {
             CollectFlowerQuestStep.instance.CollectFlower();
             Destroy(gameObject);

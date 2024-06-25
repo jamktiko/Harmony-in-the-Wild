@@ -23,7 +23,7 @@ public class QuestManager : MonoBehaviour
             Debug.LogWarning("There is more than one Quest Manager.");
             Destroy(gameObject);
         }
-
+        else
         instance = this;
 
         // initialize quest map
@@ -74,6 +74,13 @@ public class QuestManager : MonoBehaviour
         //        ChangeQuestState(quest.info.id, QuestState.CAN_START);
         //    }
         //}
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            foreach (var quest in questMap.Values)
+            {
+                Debug.Log(quest.info.name+" "+quest.state);
+            }
+        }
     }
 
     private void PlayerLevelChange(int Level) 

@@ -22,7 +22,7 @@ public class InstantiateBear : MonoBehaviour
     private void SpawnBearIntoScene(Scene newScene, LoadSceneMode mode)
     {
         // NOTE MATCH THIS TO NEW SCENE MANAGEMENT SYSTEM LATER
-        if(newScene.name == "Overworld" && !transform.parent.Find("TutorialBear(Clone)"))
+        if(newScene.name.Contains("Overworld",System.StringComparison.OrdinalIgnoreCase) && !transform.parent.Find("TutorialBear(Clone)"))
         {
             GameObject bear = Instantiate(tutorialBearPrefab, spawnPosition, Quaternion.identity);
 

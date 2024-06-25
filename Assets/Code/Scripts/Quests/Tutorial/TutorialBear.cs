@@ -47,7 +47,7 @@ public class TutorialBear : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && playerIsNear && isInteractable)
+        if (PlayerInputHandler.instance.InteractInput.WasPressedThisFrame() && playerIsNear && isInteractable)
         {
             InteractWithBear();
         }
@@ -72,7 +72,7 @@ public class TutorialBear : MonoBehaviour
     {
         if(updatedQuestId == questId)
         {
-            Invoke(nameof(UpdateDialogueProgressValues), 0.5f);
+            Invoke(nameof(UpdateDialogueProgressValues), 0.3f);
         }
     }
 

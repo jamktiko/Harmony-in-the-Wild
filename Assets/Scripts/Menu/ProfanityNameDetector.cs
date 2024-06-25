@@ -1,5 +1,8 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using ProfanityFilter.Interfaces;
+using ProfanityFilter;
+using UnityEditor.Build.Content;
 
 public class ProfanityNameDetector : MonoBehaviour
 {
@@ -12,19 +15,8 @@ public class ProfanityNameDetector : MonoBehaviour
 
     public void SaveName(string s) 
     {
-        if (s != "" 
-            && !s.Contains("nigger")
-            && !s.Contains("nigga")
-            && !s.Contains("fuck") 
-            && !s.Contains("shit") 
-            && !s.Contains("kys") 
-            && !s.Contains("kill") 
-            && !s.Contains("kill") 
-            && !s.Contains("rape") 
-            && !s.Contains("cunt") 
-            && !s.Contains("bitch")
-            && !s.Contains("kurva")
-            && !s.Contains("dead"))
+        var filter = new ProfanityFilterScript();
+        if (!filter.IsProfanity(s))
         {
             inappropriateMessage.SetActive(false);
             foxNameInput = s;
