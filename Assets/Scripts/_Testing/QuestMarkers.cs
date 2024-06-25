@@ -45,16 +45,16 @@ public class QuestMarkers : MonoBehaviour
         quest = QuestManager.instance.GetQuestById(id);
         questIndex = GetIndexFromId(quest.info.id);
 
-        Debug.Log(mapButtons[questIndex]);
-        Debug.Log(mapIndicators[questIndex]);
+        //Debug.Log(mapButtons[questIndex]);
+        //Debug.Log(mapIndicators[questIndex]);
         mapButtons[questIndex].SetActive(true);
         mapIndicators[questIndex].SetActive(false);
 
-        Debug.Log("QuestMarker says: questIndex - " + questIndex);
+        //Debug.Log("QuestMarker says: questIndex - " + questIndex);
 
         foreach (var pair in idToIndex)
         {
-            Debug.Log("Key: " + pair.Key + ", Value: " + pair.Value);
+            //Debug.Log("Key: " + pair.Key + ", Value: " + pair.Value);
         }
 
     }
