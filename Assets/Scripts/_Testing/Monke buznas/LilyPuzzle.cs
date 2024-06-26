@@ -42,6 +42,7 @@ public class LilyPuzzle : MonoBehaviour
     public void CheckPuzzleProgress(int change)
     {
         correctLilies += change;
+        GameEventsManager.instance.questEvents.UpdateQuestProgressInUI("Lilies placed " + correctLilies + "/3");
 
         if (socketsFilled >= 3)
         {
@@ -49,6 +50,7 @@ public class LilyPuzzle : MonoBehaviour
             {
                 //puzzle failed, reset it
                 Invoke("ResetPuzzle", 1f);
+                GameEventsManager.instance.questEvents.UpdateQuestProgressInUI("Lilies placed 0/3");
             }
             else
             {

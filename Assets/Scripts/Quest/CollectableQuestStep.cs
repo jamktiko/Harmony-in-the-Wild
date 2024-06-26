@@ -12,7 +12,7 @@ public class CollectableQuestStep : QuestStep
     {
         itemsCollected++;
         UpdateState();
-        GameEventsManager.instance.questEvents.UpdateQuestUI(progress + " " + itemsCollected + "/" + itemToComplete);
+        GameEventsManager.instance.questEvents.UpdateQuestProgressInUI(progress + " " + itemsCollected + "/" + itemToComplete);
 
         if (itemsCollected >= itemToComplete)
         {

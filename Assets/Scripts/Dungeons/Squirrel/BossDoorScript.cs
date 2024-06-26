@@ -26,7 +26,7 @@ public class BossDoorScript : MonoBehaviour
             isOpen = true;
             gameObject.GetComponent<AudioSource>().Play();
             anim.Play("Door_Open_ANI");
-            //GameEventsManager.instance.questEvents.UpdateQuestUI(QuestUIChange.ChangeObjective, "");
+            GameEventsManager.instance.questEvents.ShowQuestUI("The Flying Squirrel", "Find the door and enter to the boss area", "");
         }
     }
     private void OnTriggerEnter(Collider other)
@@ -39,6 +39,6 @@ public class BossDoorScript : MonoBehaviour
 
     public void UpdateQuestUI()
     {
-        //GameEventsManager.instance.questEvents.UpdateQuestUI(QuestUIChange.UpdateCounter, "Levers activated " + usedlevers + "/" + levers);
+        GameEventsManager.instance.questEvents.UpdateQuestProgressInUI("Levers activated " + usedlevers + "/" + levers);
     }
 }
