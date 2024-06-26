@@ -11,7 +11,7 @@ public class CollectableQuestStep_BoneToPick : QuestStep
         {
             FinishQuestStep();
         }
-        GameEventsManager.instance.questEvents.UpdateQuestUI(QuestUIChange.ChangeObjective, "");
+        //GameEventsManager.instance.questEvents.UpdateQuestUI(QuestUIChange.ChangeObjective, "");
 
     }
 

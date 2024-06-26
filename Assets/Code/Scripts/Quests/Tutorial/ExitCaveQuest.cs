@@ -21,6 +21,11 @@ public class ExitCaveQuest : QuestStep
         }
     }
 
+    private void Start()
+    {
+        GameEventsManager.instance.questEvents.ShowQuestUI(GetQuestId(), objective, progress);
+    }
+
     public void ExitCave()
     {
         // make the bear the child of Quest Manager

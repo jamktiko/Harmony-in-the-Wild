@@ -6,6 +6,11 @@ public class OpenMapQuestStep : QuestStep
 {
     private int mapActionsDone;
 
+    private void Start()
+    {
+        GameEventsManager.instance.questEvents.ShowQuestUI(GetQuestId(), objective, progress);
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.M))

@@ -10,11 +10,13 @@ public abstract class QuestStep : MonoBehaviour
 
     private int stepIndex;
 
-    public string stepName;
+    //public string stepName;
 
     public string objective;
 
+    [Tooltip("Set in the form as 'Apples collected '; rest is autofilled through script")]
     public string progress;
+
     public void InitializeQuestStep(string id, int stepIndex, string questStepState)
     {
         questId = id;

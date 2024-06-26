@@ -255,11 +255,11 @@ public class DialogueManager : MonoBehaviour
                     break;
 
                 case "showUI":
-                    GameEventsManager.instance.questEvents.ShowQuestUI(int.Parse(tagValue));
+                    //GameEventsManager.instance.questEvents.ShowQuestUI(int.Parse(tagValue));
                     break;
 
                 case "hideUI":
-                    GameEventsManager.instance.questEvents.HideQuestUI();
+                    //GameEventsManager.instance.questEvents.HideQuestUI();
                     break;
 
                 default:

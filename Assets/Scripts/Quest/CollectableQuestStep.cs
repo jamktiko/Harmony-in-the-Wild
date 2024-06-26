@@ -3,16 +3,21 @@ public class CollectableQuestStep : QuestStep
     public int itemsCollected =0;
     private int itemToComplete =3;
 
+    private void Start()
+    {
+        GameEventsManager.instance.questEvents.ShowQuestUI(GetQuestId(), objective, progress + " " + itemsCollected + "/" + itemToComplete);
+    }
+
     public void CollectableProgress()
     {
         itemsCollected++;
         UpdateState();
-        GameEventsManager.instance.questEvents.UpdateQuestUI(QuestUIChange.UpdateCounter, "Apples " + itemsCollected + "/" + itemToComplete);
+        GameEventsManager.instance.questEvents.UpdateQuestUI(progress + " " + itemsCollected + "/" + itemToComplete);
 
         if (itemsCollected >= itemToComplete)
         {
+            GameEventsManager.instance.questEvents.ShowQuestUI(GetQuestId(), "Return to the whale", "");
             FinishQuestStep();
-            GameEventsManager.instance.questEvents.UpdateQuestUI(QuestUIChange.ChangeObjective, "");
         }
     }
 
