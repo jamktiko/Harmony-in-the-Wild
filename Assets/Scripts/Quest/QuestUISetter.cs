@@ -7,11 +7,11 @@ public class QuestUISetter : MonoBehaviour
 
     private void Start()
     {
-        GameEventsManager.instance.questEvents.ShowQuestUI(questIndex);
+        //GameEventsManager.instance.questEvents.ShowQuestUI(questIndex);
 
         if (canGoToSecondObjective)
         {
-            GameEventsManager.instance.questEvents.UpdateQuestUI(QuestUIChange.ChangeObjective, "");
+            //GameEventsManager.instance.questEvents.UpdateQuestUI(QuestUIChange.ChangeObjective, "");
         }
     }
 }

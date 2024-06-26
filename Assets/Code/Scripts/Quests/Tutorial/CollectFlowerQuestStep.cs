@@ -21,6 +21,11 @@ public class CollectFlowerQuestStep : QuestStep
         }
     }
 
+    private void Start()
+    {
+        GameEventsManager.instance.questEvents.ShowQuestUI(GetQuestId(), objective, progress);
+    }
+
     public void CollectFlower()
     {
         FinishQuestStep();

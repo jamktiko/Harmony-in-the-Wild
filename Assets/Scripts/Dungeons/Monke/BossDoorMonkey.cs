@@ -19,6 +19,6 @@ public class BossDoorMonkey : MonoBehaviour
     {
         gameObject.GetComponent<AudioSource>().Play();
         anim.Play("Door_Open_ANI");
-        GameEventsManager.instance.questEvents.UpdateQuestUI(QuestUIChange.ChangeObjective, "");
+        //GameEventsManager.instance.questEvents.UpdateQuestUI(QuestUIChange.ChangeObjective, "");
     }
 }
