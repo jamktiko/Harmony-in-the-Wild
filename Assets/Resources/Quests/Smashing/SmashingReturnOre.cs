@@ -22,7 +22,7 @@ public class SmashingReturnOre : QuestStep
     {
         hasOre = true;
         FinishQuestStep();
-        //GameEventsManager.instance.questEvents.UpdateQuestUI(QuestUIChange.ChangeObjective, "");
+        GameEventsManager.instance.questEvents.ShowQuestUI(GetQuestId(), objective, progress);
     }
 
     private void UpdateState()

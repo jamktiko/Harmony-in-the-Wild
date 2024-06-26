@@ -34,7 +34,7 @@ public class SmashingAttemptCounter : QuestStep
 
         attemptsLeft = maxAttempts;
 
-        if(SceneManager.GetActiveScene().name == "Overworld")
+        if (SceneManager.GetActiveScene().name == "Overworld")
         {
             SmashingManager.instance.UpdateAttemptCounter(attemptsLeft, maxAttempts);
         }
@@ -52,7 +52,7 @@ public class SmashingAttemptCounter : QuestStep
         {
             attemptsLeft--;
 
-            Debug.Log("Attempts for locating the ore left: " + attemptsLeft);
+            //Debug.Log("Attempts for locating the ore left: " + attemptsLeft);
 
             if (attemptsLeft <= 0)
             {

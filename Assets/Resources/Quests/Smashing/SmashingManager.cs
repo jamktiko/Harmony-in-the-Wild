@@ -89,6 +89,6 @@ public class SmashingManager : MonoBehaviour
 
     public void UpdateAttemptCounter(int attemptsLeft, int maxAttempts)
     {
-        //GameEventsManager.instance.questEvents.UpdateQuestUI(QuestUIChange.UpdateCounter, "Attempts left " + attemptsLeft + "/" + maxAttempts);
+        GameEventsManager.instance.questEvents.ShowQuestUI("Smashing!", "Use the smashing ability to break rocks and retrieve the ore", "Attempts left " + attemptsLeft + "/" + maxAttempts);
     }
 }
