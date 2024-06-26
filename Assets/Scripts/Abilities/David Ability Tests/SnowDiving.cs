@@ -8,7 +8,7 @@ public class SnowDiving : MonoBehaviour, IAbility
     public static SnowDiving instance;
 
     public float snowDiveSpeed = 15f;
-    public float climbingSpeed = 0.25f;
+    public float climbingSpeed = 20f;
     public float pointDistance = 0.5f;
 
     [SerializeField] private AudioSource snowDivingAudio;
