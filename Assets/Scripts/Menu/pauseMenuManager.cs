@@ -42,20 +42,28 @@ public class PauseMenuManager : MonoBehaviour
         SettingsMenuPanel = options.transform.Find("SettingsMenu").gameObject;
         restartQuestPanel = pauseMenuPanel.transform.Find("RestartQuestButton").gameObject;
         exitQuestPanel = pauseMenuPanel.transform.Find("ExitQuestButton").gameObject;
-        cinemachineFreeLook = GameObject.Find("FreeLook Camera").GetComponent<CinemachineFreeLook>();
         InvertYAxis = SettingsMenuPanel.transform.Find("InvertCameraTickBox").GetComponent<Toggle>();
         fullscreen = SettingsMenuPanel.transform.Find("FullScreenTickBox").GetComponent<Toggle>();
         volume = SettingsMenuPanel.transform.Find("Volume").GetComponent<Slider>();
         sensitivity = SettingsMenuPanel.transform.Find("Sensitivity").GetComponent<Slider>();
-        if (PlayerPrefs.GetInt("InvertY") == 1)
+        try
+        {
+            cinemachineFreeLook = FoxMovement.instance.gameObject.GetComponentInChildren<CinemachineFreeLook>();
+        }
+        catch
+        {
+            cinemachineFreeLook=null;
+        }
+        
+        if (PlayerPrefs.GetInt("InvertY") == 1&&cinemachineFreeLook!=null)
         {
             cinemachineFreeLook.m_YAxis.m_InvertInput = true;
         }
-        else
+        else if (cinemachineFreeLook != null)
         {
             cinemachineFreeLook.m_YAxis.m_InvertInput = false;
         }
-        InvertYAxis.isOn = cinemachineFreeLook.m_YAxis.m_InvertInput;
+        InvertYAxis.isOn = PlayerPrefs.GetInt("InvertY") == 1 ? true : false;
         if (PlayerPrefs.GetFloat("save", SliderValue) == 0)
         {
             PlayerPrefs.SetFloat("save", 250);
@@ -71,8 +79,8 @@ public class PauseMenuManager : MonoBehaviour
         }
         else
         {
-            sensitivity.value = PlayerPrefs.GetFloat("sens", SliderValue2);
-            cinemachineFreeLook.m_XAxis.m_MaxSpeed = PlayerPrefs.GetFloat("sens", SliderValue2);
+            SliderValue2 = PlayerPrefs.GetFloat("sens");
+            sensitivity.value = PlayerPrefs.GetFloat("sens");
         }
 
         DisableQuestButtonsInit();
@@ -81,7 +89,7 @@ public class PauseMenuManager : MonoBehaviour
 
     private void Update()
     {
-        if (PlayerInputHandler.instance.PauseInput.WasPressedThisFrame())
+        if (PlayerInputHandler.instance.PauseInput.WasPressedThisFrame()&&FoxMovement.instance!=null)
         {
 
             //disable
@@ -92,6 +100,7 @@ public class PauseMenuManager : MonoBehaviour
                 ||SettingsMenuPanel.activeInHierarchy)
             {
                 Time.timeScale = 1f;
+                FoxMovement.instance.gameObject.GetComponentInChildren<CinemachineBrain>().m_UpdateMethod = CinemachineBrain.UpdateMethod.SmartUpdate;
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
                 pauseMenuPanel.SetActive(false);
@@ -106,6 +115,7 @@ public class PauseMenuManager : MonoBehaviour
             {
                 SaveManager.instance.SaveGame();
                 pauseMenuPanel.SetActive(true);
+                FoxMovement.instance.gameObject.GetComponentInChildren<CinemachineBrain>().m_UpdateMethod=CinemachineBrain.UpdateMethod.FixedUpdate;
                 Time.timeScale = 0f;
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
@@ -126,7 +136,11 @@ public class PauseMenuManager : MonoBehaviour
     }
     public void ChangeYInversion()
     {
-        cinemachineFreeLook.m_YAxis.m_InvertInput = InvertYAxis.isOn;
+        if (cinemachineFreeLook!=null) 
+        {
+            cinemachineFreeLook.m_YAxis.m_InvertInput = InvertYAxis.isOn;
+        }
+        
         if (InvertYAxis.isOn)
         {
             PlayerPrefs.SetInt("InvertY", 1);
@@ -143,6 +157,7 @@ public class PauseMenuManager : MonoBehaviour
     public void Resume()
     {
         Time.timeScale = 1f;
+        FoxMovement.instance.gameObject.GetComponentInChildren<CinemachineBrain>().m_UpdateMethod = CinemachineBrain.UpdateMethod.SmartUpdate;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         pauseMenuPanel.SetActive(false);
@@ -226,6 +241,14 @@ public class PauseMenuManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        try
+        {
+            cinemachineFreeLook = FoxMovement.instance.gameObject.GetComponentInChildren<CinemachineFreeLook>();
+        }
+        catch 
+        {
+            cinemachineFreeLook = null;
+        }
         //Debug.Log("Scene loaded: " + scene.name); 
         if ((scene.name == "Overworld" || scene.name == "MainMenu") && restartQuestPanel != null && exitQuestPanel != null)
         {
@@ -239,6 +262,23 @@ public class PauseMenuManager : MonoBehaviour
             restartQuestPanel.SetActive(true);
             exitQuestPanel.SetActive(true);
         }
+        if (FoxMovement.instance!=null)
+        {
+
+            if (PlayerPrefs.GetFloat("sens") == 0)
+            {
+                PlayerPrefs.SetFloat("sens", 200);
+                SliderValue2 = PlayerPrefs.GetFloat("sens");
+                sensitivity.value = SliderValue2;
+            }
+            else
+            {
+                SliderValue2 =  PlayerPrefs.GetFloat("sens");
+                sensitivity.value = PlayerPrefs.GetFloat("sens");
+                cinemachineFreeLook.m_XAxis.m_MaxSpeed = PlayerPrefs.GetFloat("sens", SliderValue2);
+            }
+        }
+        
     }
 
     private void DisableQuestButtonsInit()

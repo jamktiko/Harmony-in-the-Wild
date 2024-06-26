@@ -47,7 +47,7 @@ public class FoxMovement : MonoBehaviour
     //[SerializeField] private Transform arcticFox;
 
     //private float viewDistance = 50f;
-    private Vector3 boxSize = new Vector3(0f, 2f, 2f);
+    [SerializeField]private Vector3 boxSize = new Vector3(0f, 2f, 2f);
 
     private AbilityCycle abilityCycle;
     private bool isLoaded;
@@ -61,7 +61,7 @@ public class FoxMovement : MonoBehaviour
     }
     void Start()
     {
-        if (File.Exists(SaveManager.instance.saveFilePath) && SceneManager.GetActiveScene().name == SceneManagerHelper.GetSceneName(SceneManagerHelper.Scene.Overworld))
+        if (File.Exists(SaveManager.instance.saveFilePath) && SceneManager.GetActiveScene().name.Contains("Overworld"))
         {
             LoadPlayerPosition();
         }
@@ -289,9 +289,11 @@ public class FoxMovement : MonoBehaviour
 
         playerAnimator.SetBool("isChargingJump", false);
         playerAnimator.SetBool("isJumping", true);
+        playerAnimator.SetBool("isGrounded", false);
     }
     private void ResetJump()
     {
+        playerAnimator.SetBool("isJumping", false);
         isReadyToJump = true;
     }
     #endregion
@@ -324,7 +326,7 @@ public class FoxMovement : MonoBehaviour
     {
         playerAnimator.SetFloat("horMove", horizontalInput, 0.1f, Time.deltaTime);
         playerAnimator.SetFloat("vertMove", verticalInput, 0.1f, Time.deltaTime);
-        playerAnimator.SetBool("isJumping", false);
+        //playerAnimator.SetBool("isJumping", false);
         playerAnimator.SetBool("isGliding", false);
         playerAnimator.SetBool("isGrounded", true);
     }

@@ -7,7 +7,7 @@ public class MenuOnLevelLoaded : MonoBehaviour
     [SerializeField] private GameObject pauseMenuPanel;
     private void OnLevelWasLoaded(int level)
     {
-        if (level == 0)
+        if (level == 1)
         {
             pauseMenuPanel.SetActive(false);
         }
