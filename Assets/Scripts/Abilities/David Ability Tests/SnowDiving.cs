@@ -16,8 +16,7 @@ public class SnowDiving : MonoBehaviour, IAbility
 
     private int onEnableSnowDiveID;
     private bool isClimbing;
-    public List<Transform> movementPoints = new List<Transform>(); // List of objects to move
-
+    private List<Transform> movementPoints = new List<Transform>();
     void Awake()
     {
         if (instance != null && instance != this)
@@ -91,11 +90,11 @@ public class SnowDiving : MonoBehaviour, IAbility
             //keep moving object towards the point while it's far from it
             while (Vector3.Distance(movementPoints[i].position, FoxMovement.instance.gameObject.transform.position) > pointDistance)
             {
-                Vector3 direction = (movementPoints[i].position - FoxMovement.instance.gameObject.transform.position).normalized;
+                //Vector3 direction = (movementPoints[i].position - FoxMovement.instance.gameObject.transform.position).normalized;
                 //FoxMovement.instance.gameObject.transform.Translate(direction * climbingSpeed * Time.deltaTime, Space.World);
                 FoxMovement.instance.gameObject.transform.position = Vector3.MoveTowards(FoxMovement.instance.gameObject.transform.position, movementPoints[i].position, climbingSpeed * Time.deltaTime);
 
-                yield return null;
+                yield return new WaitForFixedUpdate();
             }
         }
 
