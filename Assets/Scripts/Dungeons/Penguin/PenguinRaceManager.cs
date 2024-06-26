@@ -19,8 +19,7 @@ public class PenguinRaceManager : MonoBehaviour
     [Header("Storybook Config")]
     [SerializeField] private int storybookSectionIndex;
 
-    [Header("Debug")]
-    [SerializeField] private int currentLap = 1;
+    private int currentLap = 1;
 
     public PenguinDungeonEvents penguinDungeonEvents;
 
@@ -50,10 +49,10 @@ public class PenguinRaceManager : MonoBehaviour
     {
         currentLap++;
 
-        if(currentLap <= 3)
+        if(currentLap <= 2)
         {
             penguinDungeonEvents.LapFinished();
-            lapCounterText.text = "Lap " + currentLap + "/3";
+            lapCounterText.text = "Lap " + currentLap + "/2";
         }
 
         else
