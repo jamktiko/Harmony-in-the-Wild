@@ -60,7 +60,7 @@ public class QuestEvents
 
     public event Action<string> OnUpdateQuestProgressInUI;
 
-    public void UpdateQuestUI(string progress)
+    public void UpdateQuestProgressInUI(string progress)
     {
         OnUpdateQuestProgressInUI?.Invoke(progress);
     }
