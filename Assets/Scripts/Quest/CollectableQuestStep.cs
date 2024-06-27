@@ -16,7 +16,6 @@ public class CollectableQuestStep : QuestStep
 
         if (itemsCollected >= itemToComplete)
         {
-            GameEventsManager.instance.questEvents.ShowQuestUI(GetQuestId(), "Return to the whale", "");
             FinishQuestStep();
         }
     }

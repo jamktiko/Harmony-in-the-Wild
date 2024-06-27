@@ -11,8 +11,6 @@ public class QuestUI : MonoBehaviour
     //public UnityEvent AddTextToUI=new UnityEvent();
     private void OnEnable()
     {
-        //GameEventsManager.instance.questEvents.OnShowQuestUI += InitializeQuestUI;
-        //GameEventsManager.instance.questEvents.OnUpdateQuestProgressInUI += UpdateQuestUI;
         GameEventsManager.instance.questEvents.OnShowQuestUI += InitializeQuestUI;
         GameEventsManager.instance.questEvents.OnUpdateQuestProgressInUI += ShowQuestProgressInUI;
         GameEventsManager.instance.questEvents.OnHideQuestUI += HideQuestUI;
@@ -20,8 +18,6 @@ public class QuestUI : MonoBehaviour
 
     private void OnDisable()
     {
-        //GameEventsManager.instance.questEvents.OnShowQuestUI -= InitializeQuestUI;
-        //GameEventsManager.instance.questEvents.OnUpdateQuestProgressInUI -= UpdateQuestUI;
         GameEventsManager.instance.questEvents.OnShowQuestUI -= InitializeQuestUI;
         GameEventsManager.instance.questEvents.OnUpdateQuestProgressInUI -= ShowQuestProgressInUI;
         GameEventsManager.instance.questEvents.OnHideQuestUI -= HideQuestUI;

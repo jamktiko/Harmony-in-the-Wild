@@ -33,7 +33,7 @@ public class GhostlySlumbersManager : QuestStep
         relativeInteractionStatus[relativeIndex] = true;
         relativesSpokenTo++;
 
-        //GameEventsManager.instance.questEvents.UpdateQuestUI("");
+        GameEventsManager.instance.questEvents.UpdateQuestProgressInUI(progress + " " + relativesSpokenTo + "/" + relativeInteractionStatus.Count);
 
         if (relativesSpokenTo < relativeInteractionStatus.Count)
         {
@@ -43,7 +43,6 @@ public class GhostlySlumbersManager : QuestStep
         else if(relativesSpokenTo >= relativeInteractionStatus.Count)
         {
             FinishQuestStep();
-            //GameEventsManager.instance.questEvents.UpdateQuestUI(QuestUIChange.ChangeObjective, "");
         }
     }
 
