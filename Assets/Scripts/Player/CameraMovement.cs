@@ -61,6 +61,7 @@ public class CameraMovement : MonoBehaviour
             else if (inputDir != Vector3.zero && foxMove.IsOnSlope() && slopeForward != Vector3.zero)
             {
                 foxObject.forward = Vector3.Slerp(foxObject.forward, inputDir.normalized + slopeForward, Time.deltaTime * rotationSpeed);
+                Mathf.Clamp(foxObject.rotation.eulerAngles.x, -35, 35);
                 slopeForward = Vector3.zero;
             }           
         }

@@ -203,6 +203,8 @@ public class FoxMovement : MonoBehaviour
         SetMovementSpeed(ref speed, ref modifier, isSnowDiveUnlocked);
 
         rb.AddForce(moveDirection.normalized * speed * 10f * modifier, ForceMode.Force);
+
+        playerAnimator.SetFloat("upMove", rb.velocity.y);
     }
 
     private void SetMovementSpeed(ref float speed, ref float modifier, bool isSnowDiveUnlocked)
@@ -252,6 +254,7 @@ public class FoxMovement : MonoBehaviour
         {
             rb.mass = 1f;
             rb.drag = groundDrag;
+            Debug.DrawRay(foxMiddle.position, Vector3.down, Color.cyan);
         }
         else
         {
@@ -314,7 +317,9 @@ public class FoxMovement : MonoBehaviour
     }
     public bool IsOnSlope()
     {
+        
         return Physics.Raycast(foxMiddle.position, Vector3.down, out hit3, playerHeight * 0.5f + 0.2f) && hit3.normal != Vector3.up;
+        
     }
     public bool HasClimbWallCollision()
     {

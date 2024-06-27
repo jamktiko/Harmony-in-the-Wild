@@ -86,7 +86,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 4
     m_ConditionEvent: upMove
-    m_EventTreshold: 0.2
+    m_EventTreshold: 5
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 2855722830428020403}
   m_Solo: 0
@@ -436,6 +436,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 2
     m_ConditionEvent: isChargingJump
     m_EventTreshold: 0
+  - m_ConditionMode: 3
+    m_ConditionEvent: upMove
+    m_EventTreshold: 0.5
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 2032477117454453308}
   m_Solo: 0
@@ -1460,6 +1463,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: isGrounded
     m_EventTreshold: 0
+  - m_ConditionMode: 3
+    m_ConditionEvent: upMove
+    m_EventTreshold: 0.5
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 2032477117454453308}
   m_Solo: 0
