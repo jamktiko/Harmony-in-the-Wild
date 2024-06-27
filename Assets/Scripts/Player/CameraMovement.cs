@@ -57,11 +57,12 @@ public class CameraMovement : MonoBehaviour
             {
                 foxObject.forward = Vector3.Slerp(foxObject.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
                 foxObject.eulerAngles=new Vector3 (0, foxObject.rotation.eulerAngles.y, foxObject.rotation.eulerAngles.z);
+                Mathf.Clamp(foxObject.rotation.eulerAngles.x, -20, 20);
             }
             else if (inputDir != Vector3.zero && foxMove.IsOnSlope() && slopeForward != Vector3.zero)
             {
                 foxObject.forward = Vector3.Slerp(foxObject.forward, inputDir.normalized + slopeForward, Time.deltaTime * rotationSpeed);
-                Mathf.Clamp(foxObject.rotation.eulerAngles.x, -35, 35);
+                Mathf.Clamp(foxObject.rotation.eulerAngles.x, -20, 20);
                 slopeForward = Vector3.zero;
             }           
         }
