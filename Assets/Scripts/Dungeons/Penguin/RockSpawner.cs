@@ -21,11 +21,13 @@ public class RockSpawner : MonoBehaviour
     private void OnEnable()
     {
         PenguinRaceManager.instance.penguinDungeonEvents.onLapInterrupted += DisableRockSpawning;
+        PenguinRaceManager.instance.penguinDungeonEvents.onLapFinished += IncreaseRockSpawning;
     }
 
     private void OnDisable()
     {
         PenguinRaceManager.instance.penguinDungeonEvents.onLapInterrupted -= DisableRockSpawning;
+        PenguinRaceManager.instance.penguinDungeonEvents.onLapFinished -= IncreaseRockSpawning;
     }
 
     private void SpawnRock()
@@ -46,6 +48,10 @@ public class RockSpawner : MonoBehaviour
         {
             SpawnRock();
         }
+    }
+    public void IncreaseRockSpawning()
+    {
+        spawnPauseTime = spawnPauseTime / 2;
     }
 
     // ----------------------------------------------------------
