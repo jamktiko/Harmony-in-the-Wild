@@ -95,17 +95,6 @@ public class FoxMovement : MonoBehaviour
         {
             MovePlayer();
         }
-
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            SaveManager.instance.CollectPlayerPositionData();
-            Debug.Log(SaveManager.instance.gameData.playerPositionData);
-        }
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            SaveManager.instance.GetLoadedPlayerPosition();
-            LoadPlayerPosition();
-        }
     }
     #region INPUTS
     private void ProcessInput()

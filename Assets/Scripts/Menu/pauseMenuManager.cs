@@ -1,5 +1,6 @@
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -16,8 +17,9 @@ public class PauseMenuManager : MonoBehaviour
     [SerializeField] CinemachineFreeLook cinemachineFreeLook;
     [SerializeField] Toggle InvertYAxis;
     [SerializeField] Toggle fullscreen;
-    [SerializeField] Slider volume, sensitivity;
-    private float SliderValueMaster,SliderValueMusic, SliderValue2;
+    [SerializeField] Slider Mastervolume, MusicVolume, sensitivity;
+    [SerializeField] AudioMixer mixer;
+    [SerializeField]private float SliderValueMaster,SliderValueMusic, SliderValue2;
 
     private bool isInvertErrorLogged = false; // Makes sure the warning that runs in the null check of the InvertYAxis runs once
 
@@ -44,8 +46,13 @@ public class PauseMenuManager : MonoBehaviour
         exitQuestPanel = pauseMenuPanel.transform.Find("ExitQuestButton").gameObject;
         InvertYAxis = SettingsMenuPanel.transform.Find("InvertCameraTickBox").GetComponent<Toggle>();
         fullscreen = SettingsMenuPanel.transform.Find("FullScreenTickBox").GetComponent<Toggle>();
-        volume = SettingsMenuPanel.transform.Find("Volume").GetComponent<Slider>();
+        Mastervolume = SettingsMenuPanel.transform.Find("MasterVolume").GetComponent<Slider>();
+        MusicVolume = SettingsMenuPanel.transform.Find("MusicVolume").GetComponent<Slider>();
         sensitivity = SettingsMenuPanel.transform.Find("Sensitivity").GetComponent<Slider>();
+        SliderValueMaster = PlayerPrefs.GetFloat("MasterVolume");
+        SliderValueMusic = PlayerPrefs.GetFloat("MusicVolume");
+        Mastervolume.value = SliderValueMaster;
+        MusicVolume.value = SliderValueMusic;
         try
         {
             cinemachineFreeLook = FoxMovement.instance.gameObject.GetComponentInChildren<CinemachineFreeLook>();
@@ -64,15 +71,6 @@ public class PauseMenuManager : MonoBehaviour
             cinemachineFreeLook.m_YAxis.m_InvertInput = false;
         }
         InvertYAxis.isOn = PlayerPrefs.GetInt("InvertY") == 1 ? true : false;
-        if (PlayerPrefs.GetFloat("save", SliderValueMaster) == 0)
-        {
-            PlayerPrefs.SetFloat("save", 250);
-        }
-        else
-        {
-            volume.value = PlayerPrefs.GetFloat("save", SliderValueMaster);
-            AudioListener.volume = PlayerPrefs.GetFloat("save", SliderValueMaster);
-        }
         if (PlayerPrefs.GetFloat("sens") == 0)
         {
             PlayerPrefs.SetFloat("sens", 250);
@@ -119,6 +117,8 @@ public class PauseMenuManager : MonoBehaviour
                 Time.timeScale = 0f;
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
+                SliderValueMaster = PlayerPrefs.GetFloat("MasterVolume");
+                SliderValueMusic = PlayerPrefs.GetFloat("MusicVolume");
             }
         }
         if (InvertYAxis != null)
@@ -188,6 +188,8 @@ public class PauseMenuManager : MonoBehaviour
     public void SettingsMenu()
     {
         SettingsMenuPanel.SetActive(true);
+        Mastervolume.value = SliderValueMaster;
+        MusicVolume.value = SliderValueMusic;
         pauseMenuPanel.SetActive(false);
         OptionsMenuPanel.SetActive(false);
     }
@@ -202,15 +204,15 @@ public class PauseMenuManager : MonoBehaviour
     public void ChangeSliderMasterVolume(float value)
     {
         SliderValueMaster = value;
-        PlayerPrefs.SetFloat("save", SliderValueMaster);
-        AudioListener.volume = PlayerPrefs.GetFloat("save");
+        PlayerPrefs.SetFloat("MasterVolume", SliderValueMaster);
+        mixer.SetFloat("MasterVolumeMixer", SliderValueMaster);
         //Debug.Log("value changed");
     }
     public void ChangeSliderMusicVolume(float value)
     {
         SliderValueMusic = value;
-        PlayerPrefs.SetFloat("save", SliderValueMaster);
-        AudioListener.volume = PlayerPrefs.GetFloat("save");
+        PlayerPrefs.SetFloat("MusicVolume", SliderValueMusic);
+        mixer.SetFloat("MusicVolumeMixer", SliderValueMusic);
         //Debug.Log("value changed");
     }
     public void ChangeSensitivity(float value)
