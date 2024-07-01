@@ -17,7 +17,7 @@ public class PauseMenuManager : MonoBehaviour
     [SerializeField] Toggle InvertYAxis;
     [SerializeField] Toggle fullscreen;
     [SerializeField] Slider volume, sensitivity;
-    private float SliderValue, SliderValue2;
+    private float SliderValueMaster,SliderValueMusic, SliderValue2;
 
     private bool isInvertErrorLogged = false; // Makes sure the warning that runs in the null check of the InvertYAxis runs once
 
@@ -64,14 +64,14 @@ public class PauseMenuManager : MonoBehaviour
             cinemachineFreeLook.m_YAxis.m_InvertInput = false;
         }
         InvertYAxis.isOn = PlayerPrefs.GetInt("InvertY") == 1 ? true : false;
-        if (PlayerPrefs.GetFloat("save", SliderValue) == 0)
+        if (PlayerPrefs.GetFloat("save", SliderValueMaster) == 0)
         {
             PlayerPrefs.SetFloat("save", 250);
         }
         else
         {
-            volume.value = PlayerPrefs.GetFloat("save", SliderValue);
-            AudioListener.volume = PlayerPrefs.GetFloat("save", SliderValue);
+            volume.value = PlayerPrefs.GetFloat("save", SliderValueMaster);
+            AudioListener.volume = PlayerPrefs.GetFloat("save", SliderValueMaster);
         }
         if (PlayerPrefs.GetFloat("sens") == 0)
         {
@@ -199,10 +199,17 @@ public class PauseMenuManager : MonoBehaviour
         MovementControlsMenuPanel.SetActive(false);
         GamePlayControlsMenuPanel.SetActive(false);
     }
-    public void ChangeSlider(float value)
+    public void ChangeSliderMasterVolume(float value)
     {
-        SliderValue = value;
-        PlayerPrefs.SetFloat("save", SliderValue);
+        SliderValueMaster = value;
+        PlayerPrefs.SetFloat("save", SliderValueMaster);
+        AudioListener.volume = PlayerPrefs.GetFloat("save");
+        //Debug.Log("value changed");
+    }
+    public void ChangeSliderMusicVolume(float value)
+    {
+        SliderValueMusic = value;
+        PlayerPrefs.SetFloat("save", SliderValueMaster);
         AudioListener.volume = PlayerPrefs.GetFloat("save");
         //Debug.Log("value changed");
     }

@@ -99,6 +99,7 @@ public class FoxMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.G))
         {
             SaveManager.instance.CollectPlayerPositionData();
+            Debug.Log(SaveManager.instance.gameData.playerPositionData);
         }
         if (Input.GetKeyDown(KeyCode.H))
         {
