@@ -67,14 +67,11 @@ public class QuestMarkers : MonoBehaviour
             if (quest.state == QuestState.FINISHED)
             {
                 questIndex = GetIndexFromId(quest.info.id);
-
-                //Debug.Log("QuestMarker says: quest.info.id - " + quest.info.id);
+                //Debug.Log($"QuestMarker says: quest.info.id is - {quest.info.id}. questIndex is - {questIndex}.");
                 mapButtons[questIndex].SetActive(true);
                 mapIndicators[questIndex].SetActive(false);
             }
         }
-
-        //Debug.Log("QuestMarker says: questIndex - " + questIndex);
     }
 
     int GetIndexFromId(string id)
