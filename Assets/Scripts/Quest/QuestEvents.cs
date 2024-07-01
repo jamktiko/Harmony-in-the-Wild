@@ -67,6 +67,13 @@ public class QuestEvents
 
     public event Action OnHideQuestUI;
 
+    public event Action<string> OnReturnToSideQuestPoint;
+
+    public void ReturnToSideQuestPoint(string id)
+    {
+        OnReturnToSideQuestPoint?.Invoke(id);
+    }
+
     public void HideQuestUI()
     {
         OnHideQuestUI?.Invoke();
