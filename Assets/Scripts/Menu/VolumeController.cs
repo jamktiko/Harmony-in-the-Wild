@@ -13,23 +13,14 @@ public class VolumeController : MonoBehaviour
 
     public void Start()
     {
-        if (PlayerPrefs.GetFloat("MasterVolume", MasterSliderValue) == 0) 
-        {
-            PlayerPrefs.SetFloat("MasterVolume", 0);
-            mixer.SetFloat("MasterVolumeMixer", PlayerPrefs.GetFloat("MasterVolume"));
-        }
-        if (PlayerPrefs.GetFloat("MusicVolume", MusicSliderValue) == 0)
-        {
-            PlayerPrefs.SetFloat("MusicVolume", 0);
-            mixer.SetFloat("MusicVolumeMixer", PlayerPrefs.GetFloat("MusicVolume"));
-        }
-        else
-        {
-            masterVolumeSlider.value = PlayerPrefs.GetFloat("MasterVolume", MasterSliderValue);
-            mixer.SetFloat("MusicVolumeMixer", PlayerPrefs.GetFloat("MusicVolume"));
-            musicVolumeSlider.value = PlayerPrefs.GetFloat("MusicVolume", MusicSliderValue);
-            mixer.SetFloat("MusicVolumeMixer", PlayerPrefs.GetFloat("MusicVolume"));
-        }
+        MasterSliderValue = PlayerPrefs.GetFloat("MasterVolume",0);
+        MusicSliderValue = PlayerPrefs.GetFloat("MusicVolume",0);
+        //set master volume
+        masterVolumeSlider.value = MasterSliderValue;
+        mixer.SetFloat("MasterVolumeMixer", MasterSliderValue);
+        //set music volume
+        musicVolumeSlider.value = MusicSliderValue;
+        mixer.SetFloat("MusicVolumeMixer", MusicSliderValue);
     }
 
     public void ChangeMasterSlider(float value) 
