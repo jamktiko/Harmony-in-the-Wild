@@ -35,7 +35,7 @@ public class ChangeControls : MonoBehaviour
 
         for (int i = 1; i < buttons.Count+1; i++)
         {
-            buttons[i-1].GetComponentInChildren<TMP_Text>().text = actionArray[i].GetBindingDisplayString(InputBinding.DisplayStringOptions.DontIncludeInteractions);
+            buttons[i-1].GetComponentInChildren<TMP_Text>().text = actionArray[i].GetBindingDisplayString();
         }
     }
     public void ChangeControl() 
@@ -59,7 +59,7 @@ public class ChangeControls : MonoBehaviour
         }
         for (int i = 1; i < buttons.Count + 1; i++)
         {
-            buttons[i - 1].GetComponentInChildren<TMP_Text>().text = actionArray[i].GetBindingDisplayString(InputBinding.DisplayStringOptions.DontIncludeInteractions);
+            buttons[i - 1].GetComponentInChildren<TMP_Text>().text = actionArray[i].GetBindingDisplayString();
         }
     }
     // Update is called once per frame
@@ -73,7 +73,7 @@ public class ChangeControls : MonoBehaviour
                 var rebinds = actionArray[buttons.IndexOf(currentButton) + 1].SaveBindingOverridesAsJson();
                 PlayerPrefs.SetString("rebinds", rebinds);
                 Debug.Log(actionArray[buttons.IndexOf(currentButton) + 1].GetBindingDisplayString());
-                currentButton.GetComponentInChildren<TMP_Text>().text = actionArray[buttons.IndexOf(currentButton) + 1].GetBindingDisplayString(InputBinding.DisplayStringOptions.DontIncludeInteractions);
+                currentButton.GetComponentInChildren<TMP_Text>().text = actionArray[buttons.IndexOf(currentButton) + 1].GetBindingDisplayString();
                 foreach (var button in buttons) { button.interactable = true; }
                 rebindOperation = null;
                 currentButton = null;
