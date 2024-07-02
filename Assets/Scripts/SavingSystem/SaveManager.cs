@@ -132,7 +132,7 @@ public class SaveManager : MonoBehaviour
 
     public void CollectPlayerPositionData()
     {
-        if (FoxMovement.instance != null && SceneManager.GetActiveScene().name == SceneManagerHelper.GetSceneName(SceneManagerHelper.Scene.Overworld))
+        if (FoxMovement.instance != null && SceneManager.GetActiveScene().name.Contains("Overworld"))
         {
             gameData.playerPositionData = FoxMovement.instance.CollectPlayerPositionForSaving();
         }
@@ -188,10 +188,11 @@ public class SaveManager : MonoBehaviour
     {
         //fetch the saved data from the file if there is a previous save, else it uses default starting position from the GameData/PositionData class
 
-        PositionData data = gameData.playerPositionData;
-        Debug.Log("SM loadplayerpos data: " + data);
+            PositionData data = gameData.playerPositionData;
+            Debug.Log("SM loadplayerpos data: " + data);
 
-        return data;
+            return data;
+        
     }
     #endregion
 
@@ -199,6 +200,7 @@ public class SaveManager : MonoBehaviour
     {
         File.Delete(saveFilePath);
         gameData = new GameData();
+        gameData.playerPositionData=new PositionData();
 
         Debug.Log("Save file deleted.");
     }

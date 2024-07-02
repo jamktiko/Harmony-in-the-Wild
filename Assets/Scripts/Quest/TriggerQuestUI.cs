@@ -15,7 +15,7 @@ public class TriggerQuestUI : MonoBehaviour
 
             if(currentState == QuestState.IN_PROGRESS)
             {
-                GameEventsManager.instance.questEvents.ShowQuestUI(questIndex);
+                //GameEventsManager.instance.questEvents.ShowQuestUI(questIndex);
             }
         }
     }

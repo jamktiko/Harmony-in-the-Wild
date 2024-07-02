@@ -32,6 +32,11 @@ public class TalkToBearQuestStep : QuestStep
         GameEventsManager.instance.questEvents.OnAdvanceQuest -= PlayIntroCinematic;
     }
 
+    private void Start()
+    {
+        GameEventsManager.instance.questEvents.ShowQuestUI(GetQuestId(), objective, progress);
+    }
+
     private void CheckProgressInDialogue()
     {
         Invoke(nameof(FetchDialogueData),0f);

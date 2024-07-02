@@ -15,12 +15,13 @@ public class PenguinRaceManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI lapCounterText;
     [SerializeField] private GameObject alertView;
     [SerializeField] private GameObject winView;
+    [SerializeField] private GameObject lap1_Obstacles;
+    [SerializeField] private GameObject lap2_Obstacles;
 
     [Header("Storybook Config")]
     [SerializeField] private int storybookSectionIndex;
 
-    [Header("Debug")]
-    [SerializeField] private int currentLap = 1;
+    private int currentLap = 1;
 
     public PenguinDungeonEvents penguinDungeonEvents;
 
@@ -50,10 +51,11 @@ public class PenguinRaceManager : MonoBehaviour
     {
         currentLap++;
 
-        if(currentLap <= 3)
+        if(currentLap <= 2)
         {
             penguinDungeonEvents.LapFinished();
-            lapCounterText.text = "Lap " + currentLap + "/3";
+            lapCounterText.text = "Lap " + currentLap + "/2";
+            ChangeLapObstacles();
         }
 
         else
@@ -68,6 +70,12 @@ public class PenguinRaceManager : MonoBehaviour
     // -----------------------------------------------------
     // PROGRESS-RELATED METHODS (can be called from anywhere)
     // -----------------------------------------------------
+
+    public void ChangeLapObstacles()
+    {
+        lap1_Obstacles.SetActive(false);
+        lap2_Obstacles.SetActive(true);
+    }
 
     public void WrongWay()
     {

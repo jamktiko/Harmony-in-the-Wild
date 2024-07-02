@@ -51,25 +51,38 @@ public class QuestEvents
         UnityEngine.Debug.Log("Invoked dungeon quest");
     }
 
-    public event Action<int> OnShowQuestUI;
+    public event Action<string, string, string> OnShowQuestUI;
 
-    public void ShowQuestUI(int questIndex)
+    public void ShowQuestUI(string questName, string description, string progress)
     {
-        OnShowQuestUI?.Invoke(questIndex);
-
+        OnShowQuestUI?.Invoke(questName, description, progress);
     }
 
-    public event Action<QuestUIChange, string> OnUpdateQuestUI;
+    public event Action<string> OnUpdateQuestProgressInUI;
 
-    public void UpdateQuestUI(QuestUIChange changeType, string newQuestText)
+    public void UpdateQuestProgressInUI(string progress)
     {
-        OnUpdateQuestUI?.Invoke(changeType, newQuestText);
+        OnUpdateQuestProgressInUI?.Invoke(progress);
     }
 
     public event Action OnHideQuestUI;
 
+    public event Action<string> OnReturnToSideQuestPoint;
+
+    public void ReturnToSideQuestPoint(string id)
+    {
+        OnReturnToSideQuestPoint?.Invoke(id);
+    }
+
     public void HideQuestUI()
     {
         OnHideQuestUI?.Invoke();
+    }
+
+    public event Action<string> OnChangeActiveQuest;
+
+    public void ChangeActiveQuest(string id)
+    {
+        OnChangeActiveQuest?.Invoke(id);
     }
 }

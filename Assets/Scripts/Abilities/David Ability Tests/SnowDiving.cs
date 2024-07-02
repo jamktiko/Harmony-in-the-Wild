@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -6,12 +8,15 @@ public class SnowDiving : MonoBehaviour, IAbility
     public static SnowDiving instance;
 
     public float snowDiveSpeed = 15f;
+    public float climbingSpeed = 20f;
+    public float pointDistance = 0.5f;
+
     [SerializeField] private AudioSource snowDivingAudio;
-
     [SerializeField] private VisualEffect snowDiveVFX;
-    private int onEnableSnowDiveID;
 
-    //[SerializeField] private float snowDiveTimer = 3f;
+    private int onEnableSnowDiveID;
+    private bool isClimbing;
+    private List<Transform> movementPoints = new List<Transform>();
     void Awake()
     {
         if (instance != null && instance != this)
@@ -54,10 +59,49 @@ public class SnowDiving : MonoBehaviour, IAbility
     private void ClimbSnowWall(RaycastHit hit)
     {
         Debug.Log("climbsnowwall called");
-        //climbing animation here (later will make more code for this)
-        snowDiveVFX.SendEvent(onEnableSnowDiveID);
-        FoxMovement.instance.gameObject.SetActive(false);
-        FoxMovement.instance.gameObject.transform.position = hit.transform.GetChild(0).position;
-        FoxMovement.instance.gameObject.SetActive(true);
+        if (!isClimbing)
+        {
+            isClimbing = true;
+            movementPoints.Clear();
+
+            //climbing animation here (later will make more code for this)
+            snowDiveVFX.SendEvent(onEnableSnowDiveID);
+
+            Transform movPointsParent = hit.transform.GetChild(0);
+
+            foreach (Transform child in movPointsParent.transform)
+            {
+                movementPoints.Add(child);
+            }
+
+            StartCoroutine(MoveObject());
+        }
+    }
+
+    IEnumerator MoveObject()
+    {
+        //turn off object to move it
+        FoxMovement.instance.rb.isKinematic = true;
+        FoxMovement.instance.rb.useGravity = false;
+
+        //move towards point by list index, stop when gone through all items in the list
+        for (int i = 0; i < movementPoints.Count; i++)
+        {
+            //keep moving object towards the point while it's far from it
+            while (Vector3.Distance(movementPoints[i].position, FoxMovement.instance.gameObject.transform.position) > pointDistance)
+            {
+                //Vector3 direction = (movementPoints[i].position - FoxMovement.instance.gameObject.transform.position).normalized;
+                //FoxMovement.instance.gameObject.transform.Translate(direction * climbingSpeed * Time.deltaTime, Space.World);
+                FoxMovement.instance.gameObject.transform.position = Vector3.MoveTowards(FoxMovement.instance.gameObject.transform.position, movementPoints[i].position, climbingSpeed * Time.deltaTime);
+
+                yield return new WaitForFixedUpdate();
+            }
+        }
+
+        //turn the object back on after moving it through all points in the list
+        movementPoints.Clear();
+        FoxMovement.instance.rb.isKinematic = false;
+        FoxMovement.instance.rb.useGravity = true;
+        isClimbing = false;
     }
 }

@@ -8,6 +8,7 @@ public class QuestScriptableObject : ScriptableObject
     [Header("General")]
     public string displayName;
     public string description;
+    public bool mainQuest;
 
     [Header("Requirements")]
     public int levelRequirement;

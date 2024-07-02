@@ -26,11 +26,9 @@ public class Destructible : MonoBehaviour
         StartCoroutine(DelayBetweenSmashableEffects());
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-
-        //note: replace with AbilityManager stuff
-        if (other.gameObject.CompareTag("Trigger") && AbilityManager.instance.abilityStatuses.TryGetValue(Abilities.RockDestroying, out bool isEnabled) && isEnabled)
+        if (other.gameObject.CompareTag("Trigger") && AbilityManager.instance.abilityStatuses.TryGetValue(Abilities.RockDestroying, out bool isUnlocked) && isUnlocked)
         {
             if (needsToBeFrozen)
             {
@@ -38,6 +36,7 @@ public class Destructible : MonoBehaviour
                 {
                     //audioSource.Play();
                     Instantiate(destroyedVersion, transform.position, transform.rotation);
+                    Debug.Log("ontriggerstay ran");
                     Destroy(gameObject);
                 }
 

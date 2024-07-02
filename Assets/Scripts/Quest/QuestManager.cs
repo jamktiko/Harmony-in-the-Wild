@@ -14,7 +14,6 @@ public class QuestManager : MonoBehaviour
 
     private int currentPlayerLevel;
 
-    ShowQuestUI questUI;
     private void Awake()
     {
         if(instance != null)
@@ -162,6 +161,12 @@ public class QuestManager : MonoBehaviour
         {
             //Debug.Log("Quest " + id + " state requested to can finish.");
             ChangeQuestState(quest.info.id, QuestState.CAN_FINISH);
+
+            // if you are finishing a side quest, call the event that will enable showing the final quest UI for that side quest
+            if (!quest.info.mainQuest)
+            {
+                GameEventsManager.instance.questEvents.ReturnToSideQuestPoint(id);
+            }
         }
     }
 
@@ -171,6 +176,7 @@ public class QuestManager : MonoBehaviour
         Quest quest = GetQuestById(id);
         ClaimRewards(quest);
         ChangeQuestState(quest.info.id, QuestState.FINISHED);
+        GameEventsManager.instance.questEvents.HideQuestUI();
         QuestCompletedUI.instance.ShowUI(id);
         CheckAllRequirements();
     }
@@ -197,6 +203,17 @@ public class QuestManager : MonoBehaviour
 
     public Dictionary<string, Quest> CreateQuestMap()
     {
+        if(questMap != null)
+        {
+            Debug.Log("Reset quest map");
+            questMap = null;
+
+            foreach(Transform questStep in transform)
+            {
+                Destroy(questStep.gameObject);
+            }
+        }
+
         // load all QuestInfoSOs in path Assets/Resources/Quests
         QuestScriptableObject[] allQuests = Resources.LoadAll<QuestScriptableObject>("Quests");
 
@@ -336,8 +353,6 @@ public class QuestManager : MonoBehaviour
         }
 
         CheckAllRequirements();
-
-        questUI = FindObjectOfType<ShowQuestUI>();
     }
 
     private void SubscribeToEvents()
