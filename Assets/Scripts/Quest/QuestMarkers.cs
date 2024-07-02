@@ -47,8 +47,8 @@ public class QuestMarkers : MonoBehaviour
 
         //Debug.Log(mapButtons[questIndex]);
         //Debug.Log(mapIndicators[questIndex]);
-        mapButtons[questIndex].SetActive(true);
-        mapIndicators[questIndex].SetActive(false);
+        //mapButtons[questIndex].SetActive(true);
+        //mapIndicators[questIndex].SetActive(false);
 
         //Debug.Log("QuestMarker says: questIndex - " + questIndex);
 
@@ -68,8 +68,8 @@ public class QuestMarkers : MonoBehaviour
             {
                 questIndex = GetIndexFromId(quest.info.id);
                 //Debug.Log($"QuestMarker says: quest.info.id is - {quest.info.id}. questIndex is - {questIndex}.");
-                mapButtons[questIndex].SetActive(true);
-                mapIndicators[questIndex].SetActive(false);
+                //mapButtons[questIndex].SetActive(true);
+                //mapIndicators[questIndex].SetActive(false);
             }
         }
     }

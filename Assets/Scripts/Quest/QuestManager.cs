@@ -351,8 +351,10 @@ public class QuestManager : MonoBehaviour
         {
             AbilityCycle = FindObjectOfType<AbilityCycle>();
         }
-
-        CheckAllRequirements();
+        if (level != 1)
+        {
+            CheckAllRequirements();
+        }
     }
 
     private void SubscribeToEvents()
