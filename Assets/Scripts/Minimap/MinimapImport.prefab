@@ -31,7 +31,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2128431574176211406}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -100,6 +99,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2128431572824082570}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -107,7 +107,6 @@ Transform:
   m_Children:
   - {fileID: 2128431573236089862}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2128431572824082573
 MonoBehaviour:
@@ -118,18 +117,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 2128431572824082570}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96146f425afc16b40bbb097bafbf5c8c, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e4d609256ad211448fb94bdc5f9e28f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  worldSize: {x: 250, y: 250}
+  worldSize: {x: 0, y: 0}
   fullScreenDimensions: {x: 1000, y: 1000}
   zoomSpeed: 0.1
   maxZoom: 10
   minZoom: 1
-  scrollViewRectTransform: {fileID: 2128431573952621838}
-  contentRectTransform: {fileID: 2128431574176211406}
-  minimapIconPrefab: {fileID: 5844549433415927625, guid: d3b591b998bbc194cb39de389e9b6bb2,
-    type: 3}
+  scrollViewRectTransform: {fileID: 0}
+  contentRectTransform: {fileID: 0}
+  minimapIconPrefab: {fileID: 0}
+  Offset: {x: 0, y: 0}
 --- !u!1 &2128431573236089863
 GameObject:
   m_ObjectHideFlags: 0
@@ -163,7 +162,6 @@ RectTransform:
   m_Children:
   - {fileID: 2128431573952621838}
   m_Father: {fileID: 2128431572824082572}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -187,7 +185,9 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -264,7 +264,6 @@ RectTransform:
   m_Children:
   - {fileID: 2128431574176211406}
   m_Father: {fileID: 2128431573952621838}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -353,7 +352,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2128431573952621838}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -431,7 +429,6 @@ RectTransform:
   - {fileID: 2128431573407224958}
   - {fileID: 2128431573272457834}
   m_Father: {fileID: 2128431573236089862}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -506,7 +503,6 @@ RectTransform:
   m_Children:
   - {fileID: 2128431572823596395}
   m_Father: {fileID: 2128431573272457834}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
