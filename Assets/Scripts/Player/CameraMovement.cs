@@ -48,6 +48,11 @@ public class CameraMovement : MonoBehaviour
         //rotate player object
         if (currentStyle == CameraStyle.Basic)
         {
+            if (foxObject.rotation.eulerAngles.x < 305)
+            {
+                foxObject.rotation = Quaternion.Euler(360, foxObject.rotation.eulerAngles.y, foxObject.rotation.eulerAngles.z);
+            }
+            //foxObject.rotation = Quaternion.Euler(Mathf.Clamp(foxObject.rotation.eulerAngles.x, -20, 20), foxObject.rotation.eulerAngles.y, foxObject.rotation.eulerAngles.z);
             float horizontalInput = Input.GetAxis("Horizontal");
             float verticalInput = Input.GetAxis("Vertical");
             Vector3 inputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
@@ -57,14 +62,15 @@ public class CameraMovement : MonoBehaviour
             {
                 foxObject.forward = Vector3.Slerp(foxObject.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
                 foxObject.eulerAngles=new Vector3 (0, foxObject.rotation.eulerAngles.y, foxObject.rotation.eulerAngles.z);
-                Mathf.Clamp(foxObject.rotation.eulerAngles.x, -20, 20);
             }
             else if (inputDir != Vector3.zero && foxMove.IsOnSlope() && slopeForward != Vector3.zero)
             {
                 foxObject.forward = Vector3.Slerp(foxObject.forward, inputDir.normalized + slopeForward, Time.deltaTime * rotationSpeed);
-                Mathf.Clamp(foxObject.rotation.eulerAngles.x, -20, 20);
                 slopeForward = Vector3.zero;
-            }           
+
+            }
+            
+
         }
         else if (currentStyle == CameraStyle.Telegrab)
         {

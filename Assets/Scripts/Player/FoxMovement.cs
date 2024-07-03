@@ -308,7 +308,7 @@ public class FoxMovement : MonoBehaviour
     public bool IsOnSlope()
     {
         
-        return Physics.Raycast(foxMiddle.position, Vector3.down, out hit3, playerHeight * 0.5f + 0.2f) && hit3.normal != Vector3.up;
+        return Physics.Raycast(foxMiddle.position, Vector3.down, out hit3, playerHeight + 0.2f) && hit3.normal != Vector3.up;
         
     }
     public bool HasClimbWallCollision()
