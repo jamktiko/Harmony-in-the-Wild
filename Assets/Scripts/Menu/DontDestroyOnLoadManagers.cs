@@ -1,17 +1,17 @@
 using UnityEngine;
 
-public class DontDestroyOnLoad : MonoBehaviour
+public class DontDestroyOnLoadManagers : MonoBehaviour
 {
     [SerializeField] GameObject pauseMenuManager;
     [SerializeField] GameObject PauseMenuPanel;
-    public static DontDestroyOnLoad instance;
+    public static DontDestroyOnLoadManagers instance;
     void Awake()
     {
         if (instance == null)
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
-            //Debug.LogWarning("Managers initialized");
+            Debug.LogWarning("Managers initialized");
         }
         else
         {

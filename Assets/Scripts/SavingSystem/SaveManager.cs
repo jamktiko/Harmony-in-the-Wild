@@ -22,13 +22,17 @@ public class SaveManager : MonoBehaviour
     {
         saveFilePath = Application.persistentDataPath + "/GameData.json";
 
-        if(instance != null)
+        if (DontDestroyOnLoadManagers.instance != null)
         {
-            Debug.LogWarning("There is more than one Save Manager.");
+            Debug.LogWarning("There is more than one Game Events Manager in the scene");
             Destroy(gameObject);
         }
 
-        instance = this;
+        else
+        {
+            instance = this;
+
+        }
 
         LoadGame();
     }
