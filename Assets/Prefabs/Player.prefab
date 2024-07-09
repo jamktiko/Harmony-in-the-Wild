@@ -95,6 +95,7 @@ MonoBehaviour:
   lookAtTarget: {fileID: 7257133651624216139}
   foxMiddle: {fileID: 5886543006674820558}
   foxBottom: {fileID: 1872091634216901717}
+  boxSize: {x: 0, y: 2, z: 2}
   playerAnimator: {fileID: 7942359235931176192}
 --- !u!114 &2369651547504860285
 MonoBehaviour:
@@ -490,11 +491,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 85d8dd25969b5af43950dc7765701a93, type: 3}
---- !u!20 &560989510800273734 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 2171295859300349060, guid: 85d8dd25969b5af43950dc7765701a93, type: 3}
-  m_PrefabInstance: {fileID: 1867013524424213954}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5192417178467457600 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5901928834434310018, guid: 85d8dd25969b5af43950dc7765701a93, type: 3}
@@ -1880,6 +1876,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 9d9ec499c1ecbfa43a862348aa3b38fc, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 067e2be21ce3e8d43a176f84ff7b00ef, type: 3}
+      propertyPath: m_KeepAnimatorStateOnDisable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6300622406659127624, guid: 067e2be21ce3e8d43a176f84ff7b00ef, type: 3}
       propertyPath: m_Layer
       value: 10
@@ -2301,7 +2301,7 @@ PrefabInstance:
     - target: {fileID: 926119953641431065, guid: 9d9c4558aef5b0f479da282cbd46d584, type: 3}
       propertyPath: m_Cameras.Array.data[0]
       value: 
-      objectReference: {fileID: 560989510800273734}
+      objectReference: {fileID: 0}
     - target: {fileID: 2210886842547583445, guid: 9d9c4558aef5b0f479da282cbd46d584, type: 3}
       propertyPath: rb
       value: 
