@@ -47,7 +47,7 @@ public class PlayerModelToggle : MonoBehaviour
             arcticFox.SetActive(false);
 
             currentAnimator = redFox.GetComponent<Animator>();
-            GetComponent<FoxMovement>().playerAnimator = currentAnimator;
+            FoxMovement.instance.playerAnimator = currentAnimator;
             playerCamera.foxObject = redFox.transform;
         }
     }
@@ -61,7 +61,7 @@ public class PlayerModelToggle : MonoBehaviour
             arcticFox.SetActive(true);
 
             currentAnimator = arcticFox.GetComponent<Animator>();
-            GetComponent<FoxMovement>().playerAnimator = currentAnimator;
+            FoxMovement.instance.playerAnimator = currentAnimator;
             playerCamera.foxObject = arcticFox.transform;
         }
     }
