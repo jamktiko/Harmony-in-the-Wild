@@ -24,7 +24,7 @@ public class Freeze : MonoBehaviour
         AbilityManager.instance.abilityStatuses.TryGetValue(Abilities.Freezing, out bool isUnlocked);
         AbilityCycle.instance.activeAbilities.TryGetValue(Abilities.Freezing, out bool isSelected);
 
-        if (PlayerInputHandler.instance.UseAbilityInput.WasPressedThisFrame() && isUnlocked && isSelected && !hasCooldown)
+        if (PlayerInputHandler.instance.UseAbilityInput.WasPressedThisFrame() && isUnlocked /*&& isSelected*/ && !hasCooldown)
         {
             isFreezingActivated = !isFreezingActivated;
             ActivateFreezeObject();

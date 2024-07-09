@@ -12,13 +12,17 @@ public class StorybookHandler : MonoBehaviour
     private void Awake()
     {
         // creating the instance for Storybook Handler
-        if (instance != null)
+        if (DontDestroyOnLoadManagers.instance != null)
         {
-            Debug.LogWarning("There is more than one Storybook Handler in the scene!");
+            Debug.LogWarning("There is more than one Game Events Manager in the scene");
             Destroy(gameObject);
         }
 
-        instance = this;
+        else
+        {
+            instance = this;
+
+        }
     }
 
     public void SetNewStorybookData(int index, string nextScene, bool isDungeonEnding)

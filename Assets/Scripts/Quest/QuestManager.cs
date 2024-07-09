@@ -16,13 +16,17 @@ public class QuestManager : MonoBehaviour
 
     private void Awake()
     {
-        if(instance != null)
+        if (DontDestroyOnLoadManagers.instance != null)
         {
-            Debug.LogWarning("There is more than one Quest Manager.");
+            Debug.LogWarning("There is more than one Game Events Manager in the scene");
             Destroy(gameObject);
         }
+
         else
-        instance = this;
+        {
+            instance = this;
+
+        }
 
         // initialize quest map
         //questMap = CreateQuestMap();
@@ -351,8 +355,10 @@ public class QuestManager : MonoBehaviour
         {
             AbilityCycle = FindObjectOfType<AbilityCycle>();
         }
-
-        CheckAllRequirements();
+        if (level != 1)
+        {
+            CheckAllRequirements();
+        }
     }
 
     private void SubscribeToEvents()
