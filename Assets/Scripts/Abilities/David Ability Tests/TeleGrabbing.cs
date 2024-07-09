@@ -25,6 +25,7 @@ public class TeleGrabbing : MonoBehaviour, IAbility
             Destroy(gameObject);
             return;
         }
+        else
         instance = this;
     }
     private void Start()
