@@ -68,7 +68,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""type"": ""Value"",
                     ""id"": ""0b07ca66-f4e1-4b11-8faa-9936ab120587"",
                     ""expectedControlType"": ""Vector2"",
-                    ""processors"": ""ScaleVector2(x=0.5,y=0.5)"",
+                    ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
                 },
@@ -193,6 +193,69 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""name"": ""DialogueNext"",
                     ""type"": ""Button"",
                     ""id"": ""262bce86-b5f9-46cb-930f-1d4135f83e5b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DebugSave"",
+                    ""type"": ""Button"",
+                    ""id"": ""38ff7016-b3fb-4a97-ad17-dde34087274c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DebugDeleteSave"",
+                    ""type"": ""Button"",
+                    ""id"": ""69b2c15f-1248-478f-95d3-3b33337140db"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DebugDeleteSave2"",
+                    ""type"": ""Button"",
+                    ""id"": ""704b6d20-f200-4ef8-b063-30e610710bc3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DebugReloadOverworld"",
+                    ""type"": ""Button"",
+                    ""id"": ""38286788-8f21-482e-9c67-d5f125d83c29"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DebugReloadMainMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""06ee0a0b-0dd2-4e43-95d9-d896aa75529b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DebugReloadCurrentScene"",
+                    ""type"": ""Button"",
+                    ""id"": ""0ef38736-d2f8-4700-a511-646f78576ee2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TogglePlayerModel"",
+                    ""type"": ""Button"",
+                    ""id"": ""83021d58-7177-4975-b865-f3fc5df7620f"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -727,6 +790,83 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""DialogueNext"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2ae3c5dd-4513-4e68-85b6-b7056f812816"",
+                    ""path"": ""<Keyboard>/o"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""DebugSave"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c6dda173-c04b-49f0-b2fe-874f7accdbb9"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""DebugDeleteSave"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8712c5eb-20e4-4bbf-bb73-c18afafa37e9"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""DebugDeleteSave2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""535af6c5-9712-4d76-b8be-c3eba10a0a13"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""DebugReloadOverworld"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""402b0475-01cf-4a52-b366-82faad05ad05"",
+                    ""path"": ""<Keyboard>/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""DebugReloadMainMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""112d3c19-f081-4c8e-a334-e289953ea3c2"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""DebugReloadCurrentScene"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ca9920f7-997d-462e-ba80-b43c5f1e9660"",
+                    ""path"": ""<Keyboard>/j"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""TogglePlayerModel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -1239,6 +1379,13 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Select = m_Player.FindAction("Select", throwIfNotFound: true);
         m_Player_Close = m_Player.FindAction("Close", throwIfNotFound: true);
         m_Player_DialogueNext = m_Player.FindAction("DialogueNext", throwIfNotFound: true);
+        m_Player_DebugSave = m_Player.FindAction("DebugSave", throwIfNotFound: true);
+        m_Player_DebugDeleteSave = m_Player.FindAction("DebugDeleteSave", throwIfNotFound: true);
+        m_Player_DebugDeleteSave2 = m_Player.FindAction("DebugDeleteSave2", throwIfNotFound: true);
+        m_Player_DebugReloadOverworld = m_Player.FindAction("DebugReloadOverworld", throwIfNotFound: true);
+        m_Player_DebugReloadMainMenu = m_Player.FindAction("DebugReloadMainMenu", throwIfNotFound: true);
+        m_Player_DebugReloadCurrentScene = m_Player.FindAction("DebugReloadCurrentScene", throwIfNotFound: true);
+        m_Player_TogglePlayerModel = m_Player.FindAction("TogglePlayerModel", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1333,6 +1480,13 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Select;
     private readonly InputAction m_Player_Close;
     private readonly InputAction m_Player_DialogueNext;
+    private readonly InputAction m_Player_DebugSave;
+    private readonly InputAction m_Player_DebugDeleteSave;
+    private readonly InputAction m_Player_DebugDeleteSave2;
+    private readonly InputAction m_Player_DebugReloadOverworld;
+    private readonly InputAction m_Player_DebugReloadMainMenu;
+    private readonly InputAction m_Player_DebugReloadCurrentScene;
+    private readonly InputAction m_Player_TogglePlayerModel;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1356,6 +1510,13 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Select => m_Wrapper.m_Player_Select;
         public InputAction @Close => m_Wrapper.m_Player_Close;
         public InputAction @DialogueNext => m_Wrapper.m_Player_DialogueNext;
+        public InputAction @DebugSave => m_Wrapper.m_Player_DebugSave;
+        public InputAction @DebugDeleteSave => m_Wrapper.m_Player_DebugDeleteSave;
+        public InputAction @DebugDeleteSave2 => m_Wrapper.m_Player_DebugDeleteSave2;
+        public InputAction @DebugReloadOverworld => m_Wrapper.m_Player_DebugReloadOverworld;
+        public InputAction @DebugReloadMainMenu => m_Wrapper.m_Player_DebugReloadMainMenu;
+        public InputAction @DebugReloadCurrentScene => m_Wrapper.m_Player_DebugReloadCurrentScene;
+        public InputAction @TogglePlayerModel => m_Wrapper.m_Player_TogglePlayerModel;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1422,6 +1583,27 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @DialogueNext.started += instance.OnDialogueNext;
             @DialogueNext.performed += instance.OnDialogueNext;
             @DialogueNext.canceled += instance.OnDialogueNext;
+            @DebugSave.started += instance.OnDebugSave;
+            @DebugSave.performed += instance.OnDebugSave;
+            @DebugSave.canceled += instance.OnDebugSave;
+            @DebugDeleteSave.started += instance.OnDebugDeleteSave;
+            @DebugDeleteSave.performed += instance.OnDebugDeleteSave;
+            @DebugDeleteSave.canceled += instance.OnDebugDeleteSave;
+            @DebugDeleteSave2.started += instance.OnDebugDeleteSave2;
+            @DebugDeleteSave2.performed += instance.OnDebugDeleteSave2;
+            @DebugDeleteSave2.canceled += instance.OnDebugDeleteSave2;
+            @DebugReloadOverworld.started += instance.OnDebugReloadOverworld;
+            @DebugReloadOverworld.performed += instance.OnDebugReloadOverworld;
+            @DebugReloadOverworld.canceled += instance.OnDebugReloadOverworld;
+            @DebugReloadMainMenu.started += instance.OnDebugReloadMainMenu;
+            @DebugReloadMainMenu.performed += instance.OnDebugReloadMainMenu;
+            @DebugReloadMainMenu.canceled += instance.OnDebugReloadMainMenu;
+            @DebugReloadCurrentScene.started += instance.OnDebugReloadCurrentScene;
+            @DebugReloadCurrentScene.performed += instance.OnDebugReloadCurrentScene;
+            @DebugReloadCurrentScene.canceled += instance.OnDebugReloadCurrentScene;
+            @TogglePlayerModel.started += instance.OnTogglePlayerModel;
+            @TogglePlayerModel.performed += instance.OnTogglePlayerModel;
+            @TogglePlayerModel.canceled += instance.OnTogglePlayerModel;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1483,6 +1665,27 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @DialogueNext.started -= instance.OnDialogueNext;
             @DialogueNext.performed -= instance.OnDialogueNext;
             @DialogueNext.canceled -= instance.OnDialogueNext;
+            @DebugSave.started -= instance.OnDebugSave;
+            @DebugSave.performed -= instance.OnDebugSave;
+            @DebugSave.canceled -= instance.OnDebugSave;
+            @DebugDeleteSave.started -= instance.OnDebugDeleteSave;
+            @DebugDeleteSave.performed -= instance.OnDebugDeleteSave;
+            @DebugDeleteSave.canceled -= instance.OnDebugDeleteSave;
+            @DebugDeleteSave2.started -= instance.OnDebugDeleteSave2;
+            @DebugDeleteSave2.performed -= instance.OnDebugDeleteSave2;
+            @DebugDeleteSave2.canceled -= instance.OnDebugDeleteSave2;
+            @DebugReloadOverworld.started -= instance.OnDebugReloadOverworld;
+            @DebugReloadOverworld.performed -= instance.OnDebugReloadOverworld;
+            @DebugReloadOverworld.canceled -= instance.OnDebugReloadOverworld;
+            @DebugReloadMainMenu.started -= instance.OnDebugReloadMainMenu;
+            @DebugReloadMainMenu.performed -= instance.OnDebugReloadMainMenu;
+            @DebugReloadMainMenu.canceled -= instance.OnDebugReloadMainMenu;
+            @DebugReloadCurrentScene.started -= instance.OnDebugReloadCurrentScene;
+            @DebugReloadCurrentScene.performed -= instance.OnDebugReloadCurrentScene;
+            @DebugReloadCurrentScene.canceled -= instance.OnDebugReloadCurrentScene;
+            @TogglePlayerModel.started -= instance.OnTogglePlayerModel;
+            @TogglePlayerModel.performed -= instance.OnTogglePlayerModel;
+            @TogglePlayerModel.canceled -= instance.OnTogglePlayerModel;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1673,6 +1876,13 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnSelect(InputAction.CallbackContext context);
         void OnClose(InputAction.CallbackContext context);
         void OnDialogueNext(InputAction.CallbackContext context);
+        void OnDebugSave(InputAction.CallbackContext context);
+        void OnDebugDeleteSave(InputAction.CallbackContext context);
+        void OnDebugDeleteSave2(InputAction.CallbackContext context);
+        void OnDebugReloadOverworld(InputAction.CallbackContext context);
+        void OnDebugReloadMainMenu(InputAction.CallbackContext context);
+        void OnDebugReloadCurrentScene(InputAction.CallbackContext context);
+        void OnTogglePlayerModel(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

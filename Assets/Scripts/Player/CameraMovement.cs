@@ -55,6 +55,9 @@ public class CameraMovement : MonoBehaviour
             //foxObject.rotation = Quaternion.Euler(Mathf.Clamp(foxObject.rotation.eulerAngles.x, -20, 20), foxObject.rotation.eulerAngles.y, foxObject.rotation.eulerAngles.z);
             float horizontalInput = Input.GetAxis("Horizontal");
             float verticalInput = Input.GetAxis("Vertical");
+            Debug.Log(horizontalInput + " " + verticalInput);
+            Vector2 mouseInput = PlayerInputHandler.instance.LookInput.ReadValue<Vector2>() * Time.smoothDeltaTime;
+            Debug.Log(mouseInput);
             Vector3 inputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
             Vector3 slopeForward = Vector3.ProjectOnPlane(foxObject.forward, foxMove.hit3.normal).normalized;
 

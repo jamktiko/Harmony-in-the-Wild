@@ -5,17 +5,17 @@ public class ReloadAfterStuck : MonoBehaviour
 {
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        if (PlayerInputHandler.instance.DebugReloadCurrentSceneInput.WasPressedThisFrame())
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
-        if (Input.GetKeyDown(KeyCode.T))
+        if (PlayerInputHandler.instance.DebugReloadOverworldInput.WasPressedThisFrame())
         {
             SceneManager.LoadScene("Overworld");
         }
 
-        if (Input.GetKeyDown(KeyCode.Y))
+        if (PlayerInputHandler.instance.DebugReloadMainMenuInput.WasPressedThisFrame())
         {
             SceneManager.LoadScene("MainMenu");
         }

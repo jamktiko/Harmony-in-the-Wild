@@ -12,7 +12,7 @@ public class PlayerModelToggle : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.J)) 
+        if (PlayerInputHandler.instance.TogglePlayerModelInput.WasPressedThisFrame()) 
             TogglePlayerModel();
     }
     private void TogglePlayerModel()
