@@ -56,7 +56,7 @@ public class AutoFlip : MonoBehaviour {
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !isAutoFlipping)
+        if (PlayerInputHandler.instance.JumpInput.WasPressedThisFrame() && !isAutoFlipping)
         {
             FlipRightPage();
         }

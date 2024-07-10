@@ -40,12 +40,12 @@ public class SaveManager : MonoBehaviour
     private void Update()
     {
 #if DEBUG
-        if (Input.GetKeyDown(KeyCode.O))
+        if (PlayerInputHandler.instance.DebugSaveInput.WasPressedThisFrame())
         {
             SaveGame();
         }
 
-        if (Input.GetKey(KeyCode.X) && Input.GetKeyDown(KeyCode.Z))
+        if (PlayerInputHandler.instance.DebugDeleteSaveInput.WasPerformedThisFrame() && PlayerInputHandler.instance.DebugDeleteSaveInput2.WasPressedThisFrame())
         {
             DeleteSave();
         }

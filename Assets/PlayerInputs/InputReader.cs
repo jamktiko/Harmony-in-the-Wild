@@ -28,6 +28,13 @@ public class InputReader : ScriptableObject, PlayerInputActions.IPlayerActions
     public event UnityAction OnSelectEvent = delegate { };
     public event UnityAction OnCloseEvent = delegate { };
     public event UnityAction OnDialogueNextEvent = delegate { };
+    public event UnityAction OnDebugSaveEvent = delegate { };
+    public event UnityAction OnDebugDeleteSaveEvent = delegate { };
+    public event UnityAction OnDebugDeleteSave2Event = delegate { };
+    public event UnityAction OnDebugReloadOverworldEvent = delegate { };
+    public event UnityAction OnDebugReloadMainMenuEvent = delegate { };
+    public event UnityAction OnDebugReloadCurrentSceneEvent = delegate { };
+    public event UnityAction OnTogglePlayerModelEvent = delegate { };
     private PlayerInputActions playerInputActions;
     [Header("Input reader object")]
     [SerializeField] InputReader _inputReader;
@@ -131,5 +138,33 @@ public class InputReader : ScriptableObject, PlayerInputActions.IPlayerActions
     public void OnDialogueNext(InputAction.CallbackContext context)
     {
         OnDialogueNextEvent.Invoke();
+    }
+    public void OnDebugSave(InputAction.CallbackContext context)
+    {
+        OnDebugSaveEvent.Invoke();
+    }
+    public void OnDebugDeleteSave(InputAction.CallbackContext context)
+    {
+        OnDebugDeleteSaveEvent.Invoke();
+    }
+    public void OnDebugDeleteSave2(InputAction.CallbackContext context)
+    {
+        OnDebugDeleteSave2Event.Invoke();
+    }
+    public void OnDebugReloadOverworld(InputAction.CallbackContext context)
+    {
+        OnDebugReloadOverworldEvent.Invoke();
+    }
+    public void OnDebugReloadMainMenu(InputAction.CallbackContext context)
+    {
+        OnDebugReloadMainMenuEvent.Invoke();
+    }
+    public void OnDebugReloadCurrentScene(InputAction.CallbackContext context)
+    {
+        OnDebugReloadCurrentSceneEvent.Invoke();
+    }
+    public void OnTogglePlayerModel(InputAction.CallbackContext context)
+    {
+        OnTogglePlayerModelEvent.Invoke();
     }
 }

@@ -27,7 +27,14 @@ public class PlayerInputHandler : MonoBehaviour
         DialogueDownInput,
         SelectInput,
         OpenMapInput,
-        PauseInput;
+        PauseInput,
+        DebugSaveInput,
+        DebugDeleteSaveInput,
+        DebugDeleteSaveInput2,
+        DebugReloadOverworldInput,
+        DebugReloadMainMenuInput,
+        DebugReloadCurrentSceneInput,
+        TogglePlayerModelInput;
 
     private void Awake()
     {
@@ -64,5 +71,12 @@ public class PlayerInputHandler : MonoBehaviour
         DialogueDownInput = playerInput.actions.FindAction("DialogueDown");
         OpenMapInput = playerInput.actions.FindAction("OpenMap");
         PauseInput = playerInput.actions.FindAction("Pause");
+        DebugSaveInput = playerInput.actions.FindAction("DebugSave");
+        DebugDeleteSaveInput = playerInput.actions.FindAction("DebugDeleteSave");
+        DebugDeleteSaveInput2 = playerInput.actions.FindAction("DebugDeleteSave2");
+        DebugReloadOverworldInput = playerInput.actions.FindAction("DebugReloadOverworld");
+        DebugReloadMainMenuInput = playerInput.actions.FindAction("DebugReloadMainMenu");
+        DebugReloadCurrentSceneInput = playerInput.actions.FindAction("DebugReloadCurrentScene");
+        TogglePlayerModelInput= playerInput.actions.FindAction("TogglePlayerModel");
     }
 }

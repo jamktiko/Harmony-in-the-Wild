@@ -14,14 +14,14 @@ public class ToggleCursorMode : MonoBehaviour
         Cursor.visible = false;
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        }
-    }
+    //private void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.U))
+    //    {
+    //        Cursor.lockState = CursorLockMode.None;
+    //        Cursor.visible = true;
+    //    }
+    //}
     private void Start()
     {
         Cursor.lockState = CursorLockMode.None;
