@@ -2,14 +2,12 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class FinishDungeon : MonoBehaviour
+public class DungeonEnding : MonoBehaviour
 {
     public const string StorybookSceneName = "Storybook";
 
     [Header("Config")]
     [SerializeField] private QuestScriptableObject questSO;
-    [SerializeField] private int stageIndex;
-    [SerializeField] private int gainedAbilityIndex; //NOTE: Is this used?
     [SerializeField] private int storybookSectionIndex;
     [SerializeField] private string goToScene;
 
@@ -17,6 +15,57 @@ public class FinishDungeon : MonoBehaviour
     private string questId;
 
     private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+
+        if (questSO != null)
+        {
+            questId = questSO.id;
+        }
+
+        else
+        {
+            Debug.LogWarning("No quest SO assigned to trigger the ending the dungeon!");
+        }
+    }
+
+    private void OnEnable()
+    {
+        GameEventsManager.instance.questEvents.OnFinishQuest += TriggerSceneTransition;
+    }
+
+    private void OnDisable()
+    {
+        GameEventsManager.instance.questEvents.OnFinishQuest -= TriggerSceneTransition;
+    }
+
+    private void TriggerSceneTransition(string id)
+    {
+        if(id == questId)
+        {
+            Debug.Log("Corresponding dungeon quest finished...");
+            StartCoroutine(ShowDungeonCompletedStorybook());
+        }
+
+        else
+        {
+            Debug.LogError("ID not matching for the current quest: " + id);
+        }
+    }
+
+    private IEnumerator ShowDungeonCompletedStorybook()
+    {
+        Debug.Log("Playing audio for dungeon completion and preparing to change scene...");
+        audioSource.Play();
+
+        yield return new WaitForSeconds(audioSource.clip.length + 0.5f);
+
+        StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, goToScene, false);
+        SceneManager.LoadScene(StorybookSceneName);
+    }
+
+
+    /*private void Start()
     {
         audioSource = GetComponent<AudioSource>();
 
@@ -36,7 +85,7 @@ public class FinishDungeon : MonoBehaviour
 
             if (questSO != null)
             {
-                GameEventsManager.instance.questEvents.AdvanceDungeonQuest(questId, stageIndex);
+                GameEventsManager.instance.questEvents.AdvanceDungeonQuest(questId);
                 QuestManager.instance.RequestFinishQuest(questId);
             }
             StartCoroutine(ShowDungeonCompletedStorybook());
@@ -55,5 +104,5 @@ public class FinishDungeon : MonoBehaviour
 
         StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, goToScene, false);
         SceneManager.LoadScene(StorybookSceneName);
-    }
+    }*/
 }

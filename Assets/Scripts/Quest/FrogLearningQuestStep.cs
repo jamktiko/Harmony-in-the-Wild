@@ -15,12 +15,12 @@ public class FrogLearningQuestStep : QuestStep
         GameEventsManager.instance.questEvents.OnAdvanceDungeonQuest -= FinishFrogQuestStep;
     }
 
-    private void FinishFrogQuestStep(string id,int stageIndex) 
+    private void FinishFrogQuestStep(string id) 
     {
-        if (roomnumber==stageIndex)
+        /*if (roomnumber==stageIndex)
         {
             FinishQuestStep();
-        }
+        }*/
     }
     // Update is called once per frame
     protected override void SetQuestStepState(string state)

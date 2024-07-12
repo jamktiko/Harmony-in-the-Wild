@@ -11,12 +11,15 @@ public class BossDoorScript : MonoBehaviour
     [SerializeField] Material usedMat;
 
     public Animator anim;
+    private FinishDungeonQuestStepWithTrigger finishDungeonQuestStep;
 
     void Start()
     {
         scripts=FindObjectsOfType<LeverScript>().ToList();
         usedlevers=scripts.Where(x=>x.wasUsed).Count();
         levers= scripts.Where(x => !x.wasUsed).Count();
+
+        finishDungeonQuestStep = GetComponent<FinishDungeonQuestStepWithTrigger>();
     }
 
     void Update()
@@ -26,6 +29,8 @@ public class BossDoorScript : MonoBehaviour
             isOpen = true;
             gameObject.GetComponent<AudioSource>().Play();
             anim.Play("Door_Open_ANI");
+
+            finishDungeonQuestStep.EnableInteraction();
             GameEventsManager.instance.questEvents.ShowQuestUI("The Flying Squirrel", "Find the door and enter to the boss area", "");
         }
     }
@@ -33,7 +38,7 @@ public class BossDoorScript : MonoBehaviour
     {
         if (isOpen&&other.CompareTag("Trigger")) 
         {
-            SceneManager.LoadScene("Dungeon_Squirrel_Boss");
+            //SceneManager.LoadScene("Dungeon_Squirrel_Boss");
         }
     }
 

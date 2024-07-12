@@ -40,15 +40,13 @@ public class QuestEvents
     public void QuestStepStateChange(string id, int stepIndex, QuestStepState questStepState)
     {
         OnQuestStepStateChange?.Invoke(id, stepIndex, questStepState);
-        
     }
 
-    public event Action<string, int> OnAdvanceDungeonQuest;
+    public event Action<string> OnAdvanceDungeonQuest;
 
-    public void AdvanceDungeonQuest(string id, int stageIndex)
+    public void AdvanceDungeonQuest(string id)
     {
-        OnAdvanceDungeonQuest?.Invoke(id, stageIndex);
-        UnityEngine.Debug.Log("Invoked dungeon quest");
+        OnAdvanceDungeonQuest?.Invoke(id);
     }
 
     public event Action<string, string, string> OnShowQuestUI;

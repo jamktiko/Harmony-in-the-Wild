@@ -29,10 +29,10 @@ public class CompleteDungeonQuest : QuestStep
         GameEventsManager.instance.questEvents.OnAdvanceDungeonQuest -= CompleteDungeon;
     }
 
-    public void CompleteDungeon(string id, int stageIndex)
+    public void CompleteDungeon(string id)
     {
         Debug.Log("CompleteDungeon has been called.");
-        if(id == dungeonQuestId && stageIndex == currentStageIndex)
+        if(id == dungeonQuestId)
         {
             stagesCompleted++;
 

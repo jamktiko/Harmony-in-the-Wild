@@ -147,7 +147,7 @@ public class QuestManager : MonoBehaviour
 
     private void AdvanceQuest(string id)
     {
-        //Debug.Log("Advance Quest: " + id);
+        Debug.Log("Advance Quest: " + id);
         Quest quest = GetQuestById(id);
 
         // move on to the next step
@@ -163,13 +163,18 @@ public class QuestManager : MonoBehaviour
         // if there are no more steps, it means the quest is ready to  be finished
         else
         {
-            //Debug.Log("Quest " + id + " state requested to can finish.");
-            ChangeQuestState(quest.info.id, QuestState.CAN_FINISH);
-
             // if you are finishing a side quest, call the event that will enable showing the final quest UI for that side quest
             if (!quest.info.mainQuest)
             {
+                ChangeQuestState(quest.info.id, QuestState.CAN_FINISH);
                 GameEventsManager.instance.questEvents.ReturnToSideQuestPoint(id);
+            }
+
+            // if you are finishing a main quest, instantly finish it since you won't need to return to any quest point for the actual finish
+            else
+            {
+                Debug.Log("About to finish dungeon quest: " + id);
+                GameEventsManager.instance.questEvents.FinishQuest(id);
             }
         }
     }
