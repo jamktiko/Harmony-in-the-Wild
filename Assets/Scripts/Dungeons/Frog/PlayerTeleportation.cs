@@ -33,6 +33,6 @@ public class PlayerTeleportation : MonoBehaviour
         player.position = teleportationTarget.position;
         FoxMovement.instance.gameObject.SetActive(true);
         Debug.Log("teleporting player");
-        GameEventsManager.instance.questEvents.AdvanceDungeonQuest(questName, stageIndex);
+        //GameEventsManager.instance.questEvents.AdvanceDungeonQuest(questName);
     }
 }

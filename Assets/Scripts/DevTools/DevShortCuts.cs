@@ -31,7 +31,7 @@ public class DevShortCuts : MonoBehaviour
         }
         if(Input.GetKey(KeyCode.B) && Input.GetKeyDown(KeyCode.S) && questSO != null)
         {
-            GameEventsManager.instance.questEvents.AdvanceDungeonQuest(questId, 1);
+            GameEventsManager.instance.questEvents.AdvanceDungeonQuest(questId);
             SceneManager.LoadScene(bossScene);
         }
 
