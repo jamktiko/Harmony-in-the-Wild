@@ -21,7 +21,7 @@ public class DungeonTransition : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Trigger"))
         {
-            GameEventsManager.instance.questEvents.AdvanceDungeonQuest(questId, stageIndex);
+            GameEventsManager.instance.questEvents.AdvanceDungeonQuest(questId);
 
             SceneManager.LoadScene(goToScene);
         }
