@@ -34,7 +34,8 @@ public class PlayerInputHandler : MonoBehaviour
         DebugReloadOverworldInput,
         DebugReloadMainMenuInput,
         DebugReloadCurrentSceneInput,
-        TogglePlayerModelInput;
+        TogglePlayerModelInput,
+        DebugDevToolsInput;
 
     private void Awake()
     {
@@ -78,5 +79,6 @@ public class PlayerInputHandler : MonoBehaviour
         DebugReloadMainMenuInput = playerInput.actions.FindAction("DebugReloadMainMenu");
         DebugReloadCurrentSceneInput = playerInput.actions.FindAction("DebugReloadCurrentScene");
         TogglePlayerModelInput= playerInput.actions.FindAction("TogglePlayerModel");
+        DebugDevToolsInput= playerInput.actions.FindAction("DebugDevTools");
     }
 }

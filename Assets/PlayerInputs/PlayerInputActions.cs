@@ -260,6 +260,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DebugDevTools"",
+                    ""type"": ""Button"",
+                    ""id"": ""cf2ac637-c277-4317-8ae6-1bfb54f39d4d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -867,6 +876,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""TogglePlayerModel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a0893f0d-7536-44b9-828e-01752c9d2261"",
+                    ""path"": ""<Keyboard>/comma"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""DebugDevTools"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -1386,6 +1406,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_DebugReloadMainMenu = m_Player.FindAction("DebugReloadMainMenu", throwIfNotFound: true);
         m_Player_DebugReloadCurrentScene = m_Player.FindAction("DebugReloadCurrentScene", throwIfNotFound: true);
         m_Player_TogglePlayerModel = m_Player.FindAction("TogglePlayerModel", throwIfNotFound: true);
+        m_Player_DebugDevTools = m_Player.FindAction("DebugDevTools", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1487,6 +1508,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_DebugReloadMainMenu;
     private readonly InputAction m_Player_DebugReloadCurrentScene;
     private readonly InputAction m_Player_TogglePlayerModel;
+    private readonly InputAction m_Player_DebugDevTools;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1517,6 +1539,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @DebugReloadMainMenu => m_Wrapper.m_Player_DebugReloadMainMenu;
         public InputAction @DebugReloadCurrentScene => m_Wrapper.m_Player_DebugReloadCurrentScene;
         public InputAction @TogglePlayerModel => m_Wrapper.m_Player_TogglePlayerModel;
+        public InputAction @DebugDevTools => m_Wrapper.m_Player_DebugDevTools;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1604,6 +1627,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @TogglePlayerModel.started += instance.OnTogglePlayerModel;
             @TogglePlayerModel.performed += instance.OnTogglePlayerModel;
             @TogglePlayerModel.canceled += instance.OnTogglePlayerModel;
+            @DebugDevTools.started += instance.OnDebugDevTools;
+            @DebugDevTools.performed += instance.OnDebugDevTools;
+            @DebugDevTools.canceled += instance.OnDebugDevTools;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1686,6 +1712,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @TogglePlayerModel.started -= instance.OnTogglePlayerModel;
             @TogglePlayerModel.performed -= instance.OnTogglePlayerModel;
             @TogglePlayerModel.canceled -= instance.OnTogglePlayerModel;
+            @DebugDevTools.started -= instance.OnDebugDevTools;
+            @DebugDevTools.performed -= instance.OnDebugDevTools;
+            @DebugDevTools.canceled -= instance.OnDebugDevTools;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1883,6 +1912,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnDebugReloadMainMenu(InputAction.CallbackContext context);
         void OnDebugReloadCurrentScene(InputAction.CallbackContext context);
         void OnTogglePlayerModel(InputAction.CallbackContext context);
+        void OnDebugDevTools(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
