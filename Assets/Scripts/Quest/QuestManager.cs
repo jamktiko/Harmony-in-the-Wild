@@ -16,7 +16,7 @@ public class QuestManager : MonoBehaviour
 
     private void Awake()
     {
-        if (DontDestroyOnLoadManagers.instance != null)
+        if (QuestManager.instance != null)
         {
             Debug.LogWarning("There is more than one Game Events Manager in the scene");
             Destroy(gameObject);

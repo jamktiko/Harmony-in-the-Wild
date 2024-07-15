@@ -118,16 +118,16 @@ public class MainMenuManager : MonoBehaviour
         gameplayControls.SetActive(true);
     }
 
-    public void ChangeYInversion()
+    public void ChangeYInversion(bool isOn)
     {
-        if (PlayerPrefs.GetInt("InvertY")==1)
+        if (isOn)
         {
-            PlayerPrefs.SetInt("InvertY", 0);
+            PlayerPrefs.SetInt("InvertY", 1);
             //Debug.Log("changed yes");
         }
         else
         {
-            PlayerPrefs.SetInt("InvertY", 1);
+            PlayerPrefs.SetInt("InvertY", 0);
             //Debug.Log("changed no");
         }
     }
