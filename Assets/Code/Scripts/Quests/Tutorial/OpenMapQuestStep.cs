@@ -13,7 +13,7 @@ public class OpenMapQuestStep : QuestStep
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.M))
+        if (PlayerInputHandler.instance.OpenMapInput.WasPressedThisFrame())
         {
             ToggleMap();
         }

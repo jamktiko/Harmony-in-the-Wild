@@ -21,7 +21,7 @@ public class GrowthTester : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.O))
+        if (PlayerInputHandler.instance.DebugDeleteSaveInput.WasPressedThisFrame())
         {
             if (objectToEnable != null)
             {

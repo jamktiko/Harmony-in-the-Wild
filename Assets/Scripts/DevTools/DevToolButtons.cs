@@ -7,7 +7,7 @@ public class DevToolButtons : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Comma))
+        if (PlayerInputHandler.instance.DebugDevToolsInput.WasPressedThisFrame())
         {
             transform.GetChild(0).gameObject.SetActive(!transform.GetChild(0).gameObject.activeInHierarchy);
         }

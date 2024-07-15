@@ -10,7 +10,7 @@ public class turnoffSwimmingColliders : MonoBehaviour
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.E) && isActive)
+            if (PlayerInputHandler.instance.InteractInput.WasPressedThisFrame() && isActive)
             {
                 used = true;
                 Destroy(colliders);

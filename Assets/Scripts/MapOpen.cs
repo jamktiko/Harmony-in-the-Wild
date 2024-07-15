@@ -37,7 +37,7 @@ public class MapOpen : MonoBehaviour
 
     private void HandleMapToggle()
     {
-        if (Input.GetKeyDown(KeyCode.M))
+        if (PlayerInputHandler.instance.OpenMapInput.WasPressedThisFrame())
         {
             ToggleMapVisibility();
             UpdateCursorState();
@@ -68,7 +68,7 @@ public class MapOpen : MonoBehaviour
 
     private void HandleDebugFeatures()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        if (PlayerInputHandler.instance.JumpInput.WasPressedThisFrame())
         {
             ToggleDebugFeatures();
         }

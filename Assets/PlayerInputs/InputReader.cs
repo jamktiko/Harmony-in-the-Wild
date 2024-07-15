@@ -35,6 +35,7 @@ public class InputReader : ScriptableObject, PlayerInputActions.IPlayerActions
     public event UnityAction OnDebugReloadMainMenuEvent = delegate { };
     public event UnityAction OnDebugReloadCurrentSceneEvent = delegate { };
     public event UnityAction OnTogglePlayerModelEvent = delegate { };
+    public event UnityAction OnDebugDevToolsEvent = delegate { };
     private PlayerInputActions playerInputActions;
     [Header("Input reader object")]
     [SerializeField] InputReader _inputReader;
@@ -166,5 +167,9 @@ public class InputReader : ScriptableObject, PlayerInputActions.IPlayerActions
     public void OnTogglePlayerModel(InputAction.CallbackContext context)
     {
         OnTogglePlayerModelEvent.Invoke();
+    }
+    public void OnDebugDevTools(InputAction.CallbackContext context)
+    {
+        OnDebugDevToolsEvent.Invoke();
     }
 }
