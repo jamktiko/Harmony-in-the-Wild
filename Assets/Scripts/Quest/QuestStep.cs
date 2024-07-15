@@ -12,6 +12,8 @@ public abstract class QuestStep : MonoBehaviour
 
     //public string stepName;
 
+    [Header("Fill for Side Quests Only")]
+
     public string objective;
 
     [Tooltip("Set in the form as 'Apples collected '; rest is autofilled through script")]
