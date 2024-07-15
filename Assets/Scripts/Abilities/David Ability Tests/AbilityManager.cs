@@ -21,8 +21,11 @@ public class AbilityManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
-        instance = this;
+        else 
+        { 
+            instance = this; 
+        }
+        
 
         abilities = new Dictionary<Abilities, IAbility>();
 

@@ -12,7 +12,7 @@ public class StorybookHandler : MonoBehaviour
     private void Awake()
     {
         // creating the instance for Storybook Handler
-        if (DontDestroyOnLoadManagers.instance != null)
+        if (StorybookHandler.instance != null)
         {
             Debug.LogWarning("There is more than one Game Events Manager in the scene");
             Destroy(gameObject);

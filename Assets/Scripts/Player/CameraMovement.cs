@@ -27,6 +27,10 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] public GameObject freeLookCam;
     [SerializeField] public GameObject telegrabCam;
 
+    [SerializeField] float horizontalInput;
+    [SerializeField] float verticalInput;
+    [SerializeField] Vector2 mouseInput;
+
 
     void Start()
     {
@@ -53,11 +57,8 @@ public class CameraMovement : MonoBehaviour
                 foxObject.rotation = Quaternion.Euler(360, foxObject.rotation.eulerAngles.y, foxObject.rotation.eulerAngles.z);
             }
             //foxObject.rotation = Quaternion.Euler(Mathf.Clamp(foxObject.rotation.eulerAngles.x, -20, 20), foxObject.rotation.eulerAngles.y, foxObject.rotation.eulerAngles.z);
-            float horizontalInput = Input.GetAxis("Horizontal");
-            float verticalInput = Input.GetAxis("Vertical");
-            Debug.Log(horizontalInput + " " + verticalInput);
-            Vector2 mouseInput = PlayerInputHandler.instance.LookInput.ReadValue<Vector2>() * Time.smoothDeltaTime;
-            Debug.Log(mouseInput);
+            float horizontalInput = PlayerInputHandler.instance.MoveInput.ReadValue<Vector2>().x;
+            float verticalInput = PlayerInputHandler.instance.MoveInput.ReadValue<Vector2>().y;
             Vector3 inputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
             Vector3 slopeForward = Vector3.ProjectOnPlane(foxObject.forward, foxMove.hit3.normal).normalized;
 

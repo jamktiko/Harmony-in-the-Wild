@@ -19,8 +19,11 @@ public class RespawnManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
-        instance = this;
+        else 
+        {
+            instance = this;
+        }
+        
 
         SceneManager.sceneLoaded -= OnSceneLoaded;
         SceneManager.sceneLoaded += OnSceneLoaded;

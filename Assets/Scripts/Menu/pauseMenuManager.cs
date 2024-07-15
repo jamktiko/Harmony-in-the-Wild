@@ -79,10 +79,10 @@ public class PauseMenuManager : MonoBehaviour
                 SliderValueMusic = PlayerPrefs.GetFloat("MusicVolume");
             }
         }
-        if (InvertYAxis != null)
-        {
-            InvertYAxis.onValueChanged.AddListener(delegate { ChangeYInversion(); });
-        }
+        //if (InvertYAxis != null)
+        //{
+        //    InvertYAxis.onValueChanged.AddListener(delegate { ChangeYInversion(); });
+        //}
         else
         {
             if (!isInvertErrorLogged)
@@ -92,14 +92,14 @@ public class PauseMenuManager : MonoBehaviour
             }
         }
     }
-    public void ChangeYInversion()
+    public void ChangeYInversion(bool isOn)
     {
         if (cinemachineFreeLook != null)
         {
             cinemachineFreeLook.m_YAxis.m_InvertInput = InvertYAxis.isOn;
         }
 
-        if (InvertYAxis.isOn)
+        if (isOn)
         {
             PlayerPrefs.SetInt("InvertY", 1);
         }
