@@ -57,7 +57,16 @@ public class FoxMovement : MonoBehaviour
     private List<AnimatorControllerParameter> animatorBools = new List<AnimatorControllerParameter>();
     private void Awake()
     {
-        instance = this;
+        if (FoxMovement.instance != null)
+        {
+            Debug.LogWarning("There is more than one FoxMovement in the scene!");
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+
+        }
     }
     void Start()
     {

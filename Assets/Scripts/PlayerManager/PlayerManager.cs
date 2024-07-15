@@ -9,7 +9,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private int level;
     private void Awake()
     {
-        if (DontDestroyOnLoadManagers.instance != null)
+        if (PlayerManager.instance != null)
         {
             Debug.LogWarning("There is more than one Game Events Manager in the scene");
             Destroy(gameObject);
