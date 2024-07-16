@@ -5,37 +5,39 @@ using System;
 
 public class AbilityTestingTools : MonoBehaviour
 {
-    [Header(" K = check one \n L = check all \n U = unlock one \n Y = unlock all")]
+    [Header(" K = check one \n L = check all \n U = unlock one \n I = unlock all")]
     public Abilities abilityToUnlock;
 
     private void Update()
     {
-        ////check one
-        //if (Input.GetKeyDown(KeyCode.K))
-        //{
-        //    LogAbilityStatus();
-        //}
+        //check one
+        if (PlayerInputHandler.instance.DebugAbilitiesCheckOne.WasPressedThisFrame())
+        {
+            LogAbilityStatus();
+        }
 
-        ////check all
-        //if (Input.GetKeyDown(KeyCode.L))
-        //{
-        //    LogAllAbilityStatuses();
-        //}
+        //check all
+        if (PlayerInputHandler.instance.DebugAbilitiesCheckAll.WasPressedThisFrame())
+        {
+            LogAllAbilityStatuses();
+        }
 
-        ////unlock one
-        //if (Input.GetKeyDown(KeyCode.U))
-        //{
-        //    AbilityManager.instance.UnlockAbility(abilityToUnlock);
-        //}
+        //unlock one
+        if (PlayerInputHandler.instance.DebugAbilitiesUnlockOne.WasPressedThisFrame())
+        {
+            AbilityManager.instance.UnlockAbility(abilityToUnlock);
+        }
 
-        ////unlock all
-        //if (Input.GetKeyDown(KeyCode.Y))
-        //{
-        //    foreach (Abilities ability in Enum.GetValues(typeof(Abilities)))
-        //    {
-        //        AbilityManager.instance.abilityStatuses[ability] = true;
-        //    }
-        //}
+        //unlock all
+        if (PlayerInputHandler.instance.DebugAbilitiesUnlockAll.WasPressedThisFrame())
+        {
+            foreach (Abilities ability in Enum.GetValues(typeof(Abilities)))
+            {
+                AbilityManager.instance.abilityStatuses[ability] = true;
+            }
+
+            Debug.Log("All abilities unlocked");
+        }
     }
 
     private void LogAbilityStatus()

@@ -43,7 +43,7 @@ public class SnowDiving : MonoBehaviour, IAbility
         {
             Debug.DrawLine(FoxMovement.instance.cameraPosition.position, hit.point);
             ClimbSnowWall(hit);
-            Debug.Log("if in Activate called and it hit: " + hit);
+            //Debug.Log("if in Activate called and it hit: " + hit);
         }
     }
     private void SnowDive()
@@ -74,8 +74,35 @@ public class SnowDiving : MonoBehaviour, IAbility
                 movementPoints.Add(child);
             }
 
+            FindClosestPoint();
+
             StartCoroutine(MoveObject());
         }
+    }
+    private void FindClosestPoint()
+    {
+        Transform closestChild = null;
+        float closestDistance = float.MaxValue;
+        Vector3 playerPosition = FoxMovement.instance.gameObject.transform.position;
+
+        foreach (Transform child in movementPoints)
+        {
+            float distance = Vector3.Distance(playerPosition, child.position);
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                closestChild = child;
+            }
+        }
+
+        int targetIndex = movementPoints.IndexOf(closestChild);
+
+        if (targetIndex > 0)
+        {
+            movementPoints.RemoveRange(0, targetIndex);
+        }
+        
+        //Debug.Log($"Closest child to the player is: {closestChild.name} with index {targetIndex}");
     }
 
     IEnumerator MoveObject()

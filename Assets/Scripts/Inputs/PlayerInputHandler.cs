@@ -28,14 +28,18 @@ public class PlayerInputHandler : MonoBehaviour
         SelectInput,
         OpenMapInput,
         PauseInput,
+        TogglePlayerModelInput,
         DebugSaveInput,
         DebugDeleteSaveInput,
         DebugDeleteSaveInput2,
         DebugReloadOverworldInput,
         DebugReloadMainMenuInput,
         DebugReloadCurrentSceneInput,
-        TogglePlayerModelInput,
-        DebugDevToolsInput;
+        DebugDevToolsInput,
+        DebugAbilitiesCheckOne,
+        DebugAbilitiesCheckAll,
+        DebugAbilitiesUnlockOne,
+        DebugAbilitiesUnlockAll;
 
     private void Awake()
     {
@@ -72,13 +76,17 @@ public class PlayerInputHandler : MonoBehaviour
         DialogueDownInput = playerInput.actions.FindAction("DialogueDown");
         OpenMapInput = playerInput.actions.FindAction("OpenMap");
         PauseInput = playerInput.actions.FindAction("Pause");
+        TogglePlayerModelInput= playerInput.actions.FindAction("TogglePlayerModel");
         DebugSaveInput = playerInput.actions.FindAction("DebugSave");
         DebugDeleteSaveInput = playerInput.actions.FindAction("DebugDeleteSave");
         DebugDeleteSaveInput2 = playerInput.actions.FindAction("DebugDeleteSave2");
         DebugReloadOverworldInput = playerInput.actions.FindAction("DebugReloadOverworld");
         DebugReloadMainMenuInput = playerInput.actions.FindAction("DebugReloadMainMenu");
         DebugReloadCurrentSceneInput = playerInput.actions.FindAction("DebugReloadCurrentScene");
-        TogglePlayerModelInput= playerInput.actions.FindAction("TogglePlayerModel");
         DebugDevToolsInput= playerInput.actions.FindAction("DebugDevTools");
+        DebugAbilitiesCheckOne = playerInput.actions.FindAction("DebugAbilitiesCheckOne");
+        DebugAbilitiesCheckAll = playerInput.actions.FindAction("DebugAbilitiesCheckAll");
+        DebugAbilitiesUnlockOne = playerInput.actions.FindAction("DebugAbilitiesUnlockOne");
+        DebugAbilitiesUnlockAll = playerInput.actions.FindAction("DebugAbilitiesUnlockAll");
     }
 }
