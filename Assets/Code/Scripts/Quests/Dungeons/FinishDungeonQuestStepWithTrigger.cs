@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class FinishDungeonQuestStepWithTrigger : MonoBehaviour
 {
     [SerializeField] private QuestScriptableObject dungeonQuest;
+    [Tooltip("If this box is ticked, you can immediately interact with the object without any other conditions as prerequisities.")]
+    [SerializeField] private bool enableInteractionFromStart;
 
     [Header("For Learning Stages Only")]
     [SerializeField] private bool isLearningStage;
@@ -17,15 +19,25 @@ public class FinishDungeonQuestStepWithTrigger : MonoBehaviour
     private void Start()
     {
         questId = dungeonQuest.id;
+
+        if (enableInteractionFromStart)
+        {
+            canFinishQuest = true;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Detected a collider on door");
+        if (!canFinishQuest)
+        {
+            Debug.LogWarning("Interaction with the transition object has not been enabled yet. Check if enabling it" +
+                "has been called from other scripts handling the enabling conditions (for example, collecting items) " +
+                "or that Enable Interaction From Start has been ticked.");
+            return;
+        }
 
         if(canFinishQuest && other.CompareTag("Trigger"))
         {
-            Debug.Log("Advancing in dungeon quest");
             GameEventsManager.instance.questEvents.AdvanceDungeonQuest(questId);
             
             if (isLearningStage)
@@ -43,6 +55,5 @@ public class FinishDungeonQuestStepWithTrigger : MonoBehaviour
     public void EnableInteraction()
     {
         canFinishQuest = true;
-        Debug.Log("Enabled interaction with final door");
     }
 }
