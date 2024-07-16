@@ -26,6 +26,7 @@ public class DialogueManager : MonoBehaviour
 
     [Header("Public Values for References")]
     public bool isDialoguePlaying;
+    public bool canStartDialogue = true;
 
     [Header("Ink Globals")]
     [SerializeField] private TextAsset loadGlobalsJSON;
@@ -34,7 +35,6 @@ public class DialogueManager : MonoBehaviour
     private DialogueVariableObserver dialogueVariables;
     private Story currentStory;
     private TextMeshProUGUI[] choicesText;
-    private bool canStartDialogue = true;
 
     private void Awake()
     {
