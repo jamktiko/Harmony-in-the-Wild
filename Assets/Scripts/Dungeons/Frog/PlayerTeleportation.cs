@@ -5,8 +5,6 @@ public class PlayerTeleportation : MonoBehaviour
 {
     [SerializeField] private Transform player;
     [SerializeField] private Transform teleportationTarget;
-    [SerializeField] private int stageIndex;
-    [SerializeField] private string questName;
 
     private AudioSource audioSource;
 
@@ -33,6 +31,5 @@ public class PlayerTeleportation : MonoBehaviour
         player.position = teleportationTarget.position;
         FoxMovement.instance.gameObject.SetActive(true);
         Debug.Log("teleporting player");
-        //GameEventsManager.instance.questEvents.AdvanceDungeonQuest(questName);
     }
 }
