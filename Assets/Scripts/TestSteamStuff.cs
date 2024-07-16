@@ -14,7 +14,7 @@ public class TestSteamStuff : MonoBehaviour
         catch (System.Exception e)
         {
             //something went wrong etc etc
-            Debug.Log(e);
+            Debug.LogError(e);
         }
     }
     private void Update()
