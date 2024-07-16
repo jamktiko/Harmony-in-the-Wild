@@ -40,6 +40,7 @@ public class TestSteamStuff : MonoBehaviour
     private void OnApplicationQuit()
     {
         //it will show u are still playing the game on Steam until you close Unity
+        //unless this runs, you'll have a change stuck in Github that you cant discard
         Steamworks.SteamClient.Shutdown();
     }
 
