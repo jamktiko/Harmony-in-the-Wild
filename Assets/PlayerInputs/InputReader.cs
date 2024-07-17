@@ -36,6 +36,10 @@ public class InputReader : ScriptableObject, PlayerInputActions.IPlayerActions
     public event UnityAction OnDebugReloadCurrentSceneEvent = delegate { };
     public event UnityAction OnTogglePlayerModelEvent = delegate { };
     public event UnityAction OnDebugDevToolsEvent = delegate { };
+    public event UnityAction OnDebugLogAbilityStatusEvent = delegate { };
+    public event UnityAction OnDebugLogAllAbilityStatusEvent = delegate { };
+    public event UnityAction OnDebugAbilityUnlockEvent = delegate { };
+    public event UnityAction OnDebugAbilityUnlockAllEvent = delegate { };
     private PlayerInputActions playerInputActions;
     [Header("Input reader object")]
     [SerializeField] InputReader _inputReader;
@@ -171,5 +175,21 @@ public class InputReader : ScriptableObject, PlayerInputActions.IPlayerActions
     public void OnDebugDevTools(InputAction.CallbackContext context)
     {
         OnDebugDevToolsEvent.Invoke();
+    }
+    public void OnDebugLogAbilityStatus(InputAction.CallbackContext context)
+    {
+        OnDebugLogAbilityStatusEvent.Invoke();
+    }
+    public void OnDebugLogAllAbilityStatus(InputAction.CallbackContext context)
+    {
+        OnDebugLogAllAbilityStatusEvent.Invoke();
+    }
+    public void OnDebugAbilityUnlock(InputAction.CallbackContext context)
+    {
+        OnDebugAbilityUnlockEvent.Invoke();
+    }
+    public void OnDebugAbilityUnlockAll(InputAction.CallbackContext context)
+    {
+        OnDebugAbilityUnlockAllEvent.Invoke();
     }
 }

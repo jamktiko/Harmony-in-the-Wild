@@ -35,7 +35,11 @@ public class PlayerInputHandler : MonoBehaviour
         DebugReloadMainMenuInput,
         DebugReloadCurrentSceneInput,
         TogglePlayerModelInput,
-        DebugDevToolsInput;
+        DebugDevToolsInput,
+        DebugLogAbilityStatusInput,
+        DebugLogAllAbilityStatusInput,
+        DebugAbilityUnlockInput,
+        DebugAbilityUnlockAllInput;
 
     private void Awake()
     {
@@ -80,5 +84,9 @@ public class PlayerInputHandler : MonoBehaviour
         DebugReloadCurrentSceneInput = playerInput.actions.FindAction("DebugReloadCurrentScene");
         TogglePlayerModelInput= playerInput.actions.FindAction("TogglePlayerModel");
         DebugDevToolsInput= playerInput.actions.FindAction("DebugDevTools");
+        DebugLogAbilityStatusInput = playerInput.actions.FindAction("DebugLogAbilityStatus");
+        DebugLogAllAbilityStatusInput = playerInput.actions.FindAction("DebugLogAllAbilityStatus");
+        DebugAbilityUnlockInput = playerInput.actions.FindAction("DebugAbilityUnlock");
+        DebugAbilityUnlockAllInput = playerInput.actions.FindAction("DebugAbilityUnlockAll");
     }
 }
