@@ -10,32 +10,36 @@ public class AbilityTestingTools : MonoBehaviour
 
     private void Update()
     {
-        ////check one
-        //if (Input.GetKeyDown(KeyCode.K))
-        //{
-        //    LogAbilityStatus();
-        //}
+        //check one
+        //K
+        if (PlayerInputHandler.instance.DebugLogAbilityStatusInput.WasPressedThisFrame())
+        {
+            LogAbilityStatus();
+        }
 
-        ////check all
-        //if (Input.GetKeyDown(KeyCode.L))
-        //{
-        //    LogAllAbilityStatuses();
-        //}
+        //check all
+        //L
+        if (PlayerInputHandler.instance.DebugLogAllAbilityStatusInput.WasPressedThisFrame())
+        {
+            LogAllAbilityStatuses();
+        }
 
-        ////unlock one
-        //if (Input.GetKeyDown(KeyCode.U))
-        //{
-        //    AbilityManager.instance.UnlockAbility(abilityToUnlock);
-        //}
+        //unlock one
+        //U
+        if (PlayerInputHandler.instance.DebugAbilityUnlockInput.WasPressedThisFrame())
+        {
+            AbilityManager.instance.UnlockAbility(abilityToUnlock);
+        }
 
-        ////unlock all
-        //if (Input.GetKeyDown(KeyCode.Y))
-        //{
-        //    foreach (Abilities ability in Enum.GetValues(typeof(Abilities)))
-        //    {
-        //        AbilityManager.instance.abilityStatuses[ability] = true;
-        //    }
-        //}
+        //unlock all
+        //Y
+        if (PlayerInputHandler.instance.DebugAbilityUnlockAllInput.WasPressedThisFrame())
+        {
+            foreach (Abilities ability in Enum.GetValues(typeof(Abilities)))
+            {
+                AbilityManager.instance.abilityStatuses[ability] = true;
+            }
+        }
     }
 
     private void LogAbilityStatus()
