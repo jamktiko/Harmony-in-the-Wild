@@ -56,6 +56,7 @@ public class LilyPuzzle : MonoBehaviour
             {
                 //complete puzzle, open door
                 BossDoorMonkey.instance.CompletePuzzle();
+                GameEventsManager.instance.questEvents.ShowQuestUI("The Handy Monkey", "Find the door and complete the quest", "");
             }
         }
 
