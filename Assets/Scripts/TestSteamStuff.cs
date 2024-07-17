@@ -9,7 +9,7 @@ public class TestSteamStuff : MonoBehaviour
     {
         try
         {
-            Steamworks.SteamClient.Init(123456789);
+            Steamworks.SteamClient.Init(2700090);
         }
         catch (System.Exception e)
         {
@@ -21,19 +21,24 @@ public class TestSteamStuff : MonoBehaviour
     {
         Steamworks.SteamClient.RunCallbacks();
 
-        if (Keyboard.current.gKey.wasPressedThisFrame && Keyboard.current.leftShiftKey.wasPressedThisFrame)
+        if (Keyboard.current.gKey.wasPressedThisFrame)
         {
-            IsThisAchievementUnlocked("asd");
+            IsThisAchievementUnlocked("ACH_TEST");
         }
 
-        if (Keyboard.current.hKey.wasPressedThisFrame && Keyboard.current.leftShiftKey.wasPressedThisFrame)
+        if (Keyboard.current.hKey.wasPressedThisFrame)
         {
-            UnlockAchievement("asd");
+            UnlockAchievement("ACH_TEST");
         }
 
-        if (Keyboard.current.jKey.wasPressedThisFrame && Keyboard.current.leftShiftKey.wasPressedThisFrame)
+        if (Keyboard.current.jKey.wasPressedThisFrame)
         {
-            ClearAchievementStatus("asd");
+            ClearAchievementStatus("ACH_TEST");
+        }
+
+        if (Keyboard.current.vKey.wasPressedThisFrame)
+        {
+            Steamworks.SteamClient.Shutdown();
         }
     }
 
