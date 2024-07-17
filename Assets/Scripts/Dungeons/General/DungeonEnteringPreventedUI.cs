@@ -9,7 +9,7 @@ public class DungeonEnteringPreventedUI : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.X))
+        if (PlayerInputHandler.instance.CloseUIInput.WasPressedThisFrame())
         {
             CloseView();
         }
