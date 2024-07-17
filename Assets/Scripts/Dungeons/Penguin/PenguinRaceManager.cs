@@ -54,7 +54,7 @@ public class PenguinRaceManager : MonoBehaviour
         {
             penguinDungeonEvents.LapFinished();
             GameEventsManager.instance.questEvents.UpdateQuestProgressInUI("Lap " + currentLap + "/2");
-            ChangeLapObstacles();
+            AddLapObstacles();
         }
 
         else
@@ -70,9 +70,8 @@ public class PenguinRaceManager : MonoBehaviour
     // PROGRESS-RELATED METHODS (can be called from anywhere)
     // -----------------------------------------------------
 
-    public void ChangeLapObstacles()
+    public void AddLapObstacles()
     {
-        lap1_Obstacles.SetActive(false);
         lap2_Obstacles.SetActive(true);
     }
 

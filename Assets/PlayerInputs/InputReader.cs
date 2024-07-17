@@ -28,14 +28,18 @@ public class InputReader : ScriptableObject, PlayerInputActions.IPlayerActions
     public event UnityAction OnSelectEvent = delegate { };
     public event UnityAction OnCloseEvent = delegate { };
     public event UnityAction OnDialogueNextEvent = delegate { };
+    public event UnityAction OnTogglePlayerModelEvent = delegate { };
     public event UnityAction OnDebugSaveEvent = delegate { };
     public event UnityAction OnDebugDeleteSaveEvent = delegate { };
     public event UnityAction OnDebugDeleteSave2Event = delegate { };
     public event UnityAction OnDebugReloadOverworldEvent = delegate { };
     public event UnityAction OnDebugReloadMainMenuEvent = delegate { };
     public event UnityAction OnDebugReloadCurrentSceneEvent = delegate { };
-    public event UnityAction OnTogglePlayerModelEvent = delegate { };
     public event UnityAction OnDebugDevToolsEvent = delegate { };
+    public event UnityAction OnDebugAbilitiesCheckOneEvent = delegate { };
+    public event UnityAction OnDebugAbilitiesCheckAllEvent = delegate { };
+    public event UnityAction OnDebugAbilitiesUnlockOneEvent = delegate { };
+    public event UnityAction OnDebugAbilitiesUnlockAllEvent = delegate { };
     private PlayerInputActions playerInputActions;
     [Header("Input reader object")]
     [SerializeField] InputReader _inputReader;
@@ -140,6 +144,10 @@ public class InputReader : ScriptableObject, PlayerInputActions.IPlayerActions
     {
         OnDialogueNextEvent.Invoke();
     }
+    public void OnTogglePlayerModel(InputAction.CallbackContext context)
+    {
+        OnTogglePlayerModelEvent.Invoke();
+    }
     public void OnDebugSave(InputAction.CallbackContext context)
     {
         OnDebugSaveEvent.Invoke();
@@ -164,12 +172,24 @@ public class InputReader : ScriptableObject, PlayerInputActions.IPlayerActions
     {
         OnDebugReloadCurrentSceneEvent.Invoke();
     }
-    public void OnTogglePlayerModel(InputAction.CallbackContext context)
-    {
-        OnTogglePlayerModelEvent.Invoke();
-    }
     public void OnDebugDevTools(InputAction.CallbackContext context)
     {
         OnDebugDevToolsEvent.Invoke();
+    }
+    public void OnDebugAbilitiesCheckOne(InputAction.CallbackContext context)
+    {
+        OnDebugAbilitiesCheckOneEvent.Invoke();
+    }
+    public void OnDebugAbilitiesCheckAll(InputAction.CallbackContext context)
+    {
+        OnDebugAbilitiesCheckAllEvent.Invoke();
+    }
+    public void OnDebugAbilitiesUnlockOne(InputAction.CallbackContext context)
+    {
+        OnDebugAbilitiesUnlockOneEvent.Invoke();
+    }
+    public void OnDebugAbilitiesUnlockAll(InputAction.CallbackContext context)
+    {
+        OnDebugAbilitiesUnlockAllEvent.Invoke();
     }
 }

@@ -8,7 +8,7 @@ public class Ore : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && playerIsNear)
+        if (PlayerInputHandler.instance.InteractInput.WasPressedThisFrame() && playerIsNear)
         {
 
             Invoke("DestroyObject", 0.5f);

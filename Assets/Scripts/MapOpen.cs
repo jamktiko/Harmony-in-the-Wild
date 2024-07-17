@@ -39,6 +39,8 @@ public class MapOpen : MonoBehaviour
     {
         if (PlayerInputHandler.instance.OpenMapInput.WasPressedThisFrame())
         {
+            DialogueManager.instance.canStartDialogue = !DialogueManager.instance.canStartDialogue;
+
             ToggleMapVisibility();
             UpdateCursorState();
             ToggleDepthOfField();
