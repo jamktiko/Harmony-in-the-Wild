@@ -14,10 +14,10 @@ public class DungeonEntrance : MonoBehaviour
     [SerializeField] private GameObject dungeonEnteringPreventedUI;
 
     [Header("Config")]
-    [SerializeField] private string goToScene; //NOTE: Doesn't feel like the best way to handle scene changes
+    [SerializeField] private SceneManagerHelper.Scene learningStage;
+    [SerializeField] private SceneManagerHelper.Scene bossStage;
     [SerializeField] private int storybookSectionIndex;
     [Tooltip("Tick if a quest is started when entering this dungeon")]
-    [SerializeField] private bool activateQuestProgressTracking;
     [SerializeField] private Transform respawnPoint;
 
     private string questId;
@@ -31,7 +31,10 @@ public class DungeonEntrance : MonoBehaviour
         if(dungeonQuest != null)
         {
             questId = dungeonQuest.id;
-            StartCoroutine(QuestProgressCheckDelay());
+
+            currentQuest = QuestManager.instance.GetQuestById(questId);
+
+            currentQuestState = currentQuest.state;
         }
     }
 
@@ -55,32 +58,38 @@ public class DungeonEntrance : MonoBehaviour
         {
             if(currentQuestState == QuestState.CAN_START)
             {
-                if (activateQuestProgressTracking)
-                {
-                    AbilityManager.instance.UnlockAbility(abilityGrantedForDungeon);
-                    Debug.Log("Ability " + abilityGrantedForDungeon + " granted for dungeon entrance.");
-                    GameEventsManager.instance.questEvents.StartQuest(questId);
+                AbilityManager.instance.UnlockAbility(abilityGrantedForDungeon);
+                Debug.Log("Ability " + abilityGrantedForDungeon + " granted for dungeon entrance.");
+                GameEventsManager.instance.questEvents.StartQuest(questId);
 
-                    RespawnManager.instance.SetRespawnPosition(respawnPoint.position);
-                }
+                RespawnManager.instance.SetRespawnPosition(respawnPoint.position);
 
-                // add storybook config here & change goToScene to Storybook scene
-                StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, goToScene, false);
+                StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, SceneManagerHelper.GetSceneName(learningStage), false);
                 StartCoroutine(loadSceneWithLoadingScreenWithText(2));
-                Debug.Log("This is where we save the data");
+                //Debug.Log("This is where we save the data");
             }
 
-            else if (currentQuestState == QuestState.IN_PROGRESS || currentQuestState == QuestState.CAN_FINISH)
+            else if (currentQuestState == QuestState.IN_PROGRESS)
             {
-                // add possible storybook config here & change goToScene to Storybook scene
-                StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, goToScene, false);
+                int currentQuestStepIndex = QuestManager.instance.GetQuestById(dungeonQuest.id).GetCurrentQuestStepIndex();
+
+                if(currentQuestStepIndex == 0)
+                {
+                    StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, SceneManagerHelper.GetSceneName(learningStage), false);
+                }
+
+                else
+                {
+                    StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, SceneManagerHelper.GetSceneName(bossStage), false);
+                }
+
                 StartCoroutine(loadSceneWithLoadingScreenWithText(2));
             }
 
             else if (currentQuestState == QuestState.FINISHED)
             {
                 // add possible storybook config here & change goToScene to Storybook scene
-                StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, goToScene, false);
+                StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, SceneManagerHelper.GetSceneName(learningStage), false);
                 StartCoroutine(loadSceneWithLoadingScreenWithText(2));
             }
 
@@ -105,16 +114,6 @@ public class DungeonEntrance : MonoBehaviour
         }
     }
 
-    // NOTE! CHANGE THIS TO START ONCE THE MANAGERS ARE INITIALIZED IN MAIN MENU
-    // NOTE! THIS DELAY IS HERE FOR TESTING PURPOSES ONLY TO MAKE SURE THE SAVED DATA IS LOADED BEFORE TRYING TO REFERENCE TO IT
-    private IEnumerator QuestProgressCheckDelay()
-    {
-        yield return new WaitForSeconds(1);
-
-        currentQuest = QuestManager.instance.GetQuestById(questId);
-
-        currentQuestState = currentQuest.state;
-    }
     IEnumerator loadSceneWithLoadingScreenWithText(int sceneId)
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneId);

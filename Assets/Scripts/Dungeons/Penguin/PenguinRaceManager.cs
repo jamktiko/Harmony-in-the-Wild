@@ -14,7 +14,6 @@ public class PenguinRaceManager : MonoBehaviour
     [Header("Needed References")]
     [SerializeField] private TextMeshProUGUI lapCounterText;
     [SerializeField] private GameObject alertView;
-    [SerializeField] private GameObject winView;
     [SerializeField] private GameObject lap1_Obstacles;
     [SerializeField] private GameObject lap2_Obstacles;
 
@@ -54,14 +53,14 @@ public class PenguinRaceManager : MonoBehaviour
         if(currentLap <= 2)
         {
             penguinDungeonEvents.LapFinished();
-            lapCounterText.text = "Lap " + currentLap + "/2";
+            GameEventsManager.instance.questEvents.UpdateQuestProgressInUI("Lap " + currentLap + "/2");
             ChangeLapObstacles();
         }
 
         else
         {
             penguinDungeonEvents.RaceFinished();
-            GameEventsManager.instance.questEvents.FinishQuest(questSO.id);
+            GameEventsManager.instance.questEvents.AdvanceDungeonQuest(questSO.id);
             StartCoroutine(TransitionToOverworld());
         }
 

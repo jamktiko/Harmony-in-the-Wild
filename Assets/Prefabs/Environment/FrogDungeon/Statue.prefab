@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4932932867097604055}
   - component: {fileID: 6918444492080207722}
+  - component: {fileID: 2278996172809342045}
   - component: {fileID: 866464477994424218}
   - component: {fileID: 258100068377597653}
   m_Layer: 0
@@ -48,10 +49,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questSO: {fileID: 11400000, guid: 6319434f68453f54fa60900a7e1a1800, type: 2}
-  stageIndex: 2
-  gainedAbilityIndex: 2
   storybookSectionIndex: 2
   goToScene: Overworld
+--- !u!114 &2278996172809342045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3154389755912290639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0278fc788d16f324085205cb32be4a63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dungeonQuest: {fileID: 11400000, guid: 6319434f68453f54fa60900a7e1a1800, type: 2}
+  enableInteractionFromStart: 1
+  isLearningStage: 0
+  nextScene: 3
 --- !u!135 &866464477994424218
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -287,8 +302,8 @@ MonoBehaviour:
   shootingCooldown: 7
   projectilePrefab: {fileID: 5350282230572478794, guid: f2a7be876171bf9439187a9c9593ea44, type: 3}
   shootingSpot: {fileID: 7809461863335420280}
-  player: {fileID: 0}
   instructionPanel: {fileID: 0}
+  player: {fileID: 0}
 --- !u!82 &2267034606903961421
 AudioSource:
   m_ObjectHideFlags: 0
