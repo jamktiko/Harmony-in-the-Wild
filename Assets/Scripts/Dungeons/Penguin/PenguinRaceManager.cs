@@ -97,7 +97,7 @@ public class PenguinRaceManager : MonoBehaviour
     {
         yield return new WaitForSeconds(3f);
 
-        StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, "DemoEnd", true);
+        StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, "Overworld", true);
         SceneManager.LoadScene("Storybook");
     }
 }

@@ -60,18 +60,18 @@ public class QuestMarkers : MonoBehaviour
     }
     private void Update()
     {
-        int questIndex = 0;
+        //int questIndex = 0;
 
-        foreach (Quest quest in QuestManager.instance.questMap.Values)
-        {
-            if (quest.state == QuestState.FINISHED)
-            {
-                questIndex = GetIndexFromId(quest.info.id);
-                //Debug.Log($"QuestMarker says: quest.info.id is - {quest.info.id}. questIndex is - {questIndex}.");
-                //mapButtons[questIndex].SetActive(true);
-                //mapIndicators[questIndex].SetActive(false);
-            }
-        }
+        //foreach (Quest quest in QuestManager.instance.questMap.Values)
+        //{
+        //    if (quest.state == QuestState.FINISHED)
+        //    {
+        //        questIndex = GetIndexFromId(quest.info.id);
+        //        //Debug.Log($"QuestMarker says: quest.info.id is - {quest.info.id}. questIndex is - {questIndex}.");
+        //        //mapButtons[questIndex].SetActive(true);
+        //        //mapIndicators[questIndex].SetActive(false);
+        //    }
+        //}
     }
 
     int GetIndexFromId(string id)

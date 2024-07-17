@@ -11,7 +11,7 @@ public class Ore : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) && playerIsNear)
         {
 
-            Invoke("DestroyObject", 1);
+            Invoke("DestroyObject", 0.5f);
             SmashingReturnOre.instance.PickUpOre();
         }
     }
