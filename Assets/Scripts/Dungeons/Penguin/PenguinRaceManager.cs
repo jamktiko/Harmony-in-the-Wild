@@ -60,8 +60,8 @@ public class PenguinRaceManager : MonoBehaviour
         else
         {
             penguinDungeonEvents.RaceFinished();
-            GameEventsManager.instance.questEvents.AdvanceDungeonQuest(questSO.id);
-            StartCoroutine(TransitionToOverworld());
+            //GameEventsManager.instance.questEvents.AdvanceDungeonQuest(questSO.id);
+            //StartCoroutine(TransitionToOverworld());
         }
 
     }
@@ -91,13 +91,13 @@ public class PenguinRaceManager : MonoBehaviour
         alertView.SetActive(false);
     }
 
-    private IEnumerator TransitionToOverworld()
+    /*private IEnumerator TransitionToOverworld()
     {
         yield return new WaitForSeconds(3f);
 
         StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, "Overworld", true);
         SceneManager.LoadScene("Storybook");
-    }
+    }*/
 }
 
 public class PenguinDungeonEvents

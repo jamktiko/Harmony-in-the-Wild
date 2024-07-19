@@ -10,9 +10,14 @@ public class RallyTimer : MonoBehaviour
     private bool raceInProgress;
     private float currentTime;
 
-    private void Start()
+    private void OnEnable()
     {
-        ToggleTimer(true);
+        PenguinRaceManager.instance.penguinDungeonEvents.onRaceFinished += StopTimer;
+    }
+
+    private void OnDisable()
+    {
+        PenguinRaceManager.instance.penguinDungeonEvents.onRaceFinished -= StopTimer;
     }
 
     private void Update()
@@ -26,7 +31,13 @@ public class RallyTimer : MonoBehaviour
 
     public void ToggleTimer(bool timerOn)
     {
+        transform.GetChild(0).gameObject.SetActive(timerOn);
         raceInProgress = timerOn;
+    }
+
+    private void StopTimer()
+    {
+        ToggleTimer(false);
     }
 
     private void UpdateTimer()
@@ -36,5 +47,14 @@ public class RallyTimer : MonoBehaviour
         int milliseconds = Mathf.FloorToInt(currentTime * 100 % 100);
 
         timerText.text = string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, milliseconds);
+    }
+
+    public string GetFinalTime()
+    {
+        int minutes = Mathf.FloorToInt(currentTime / 60);
+        int seconds = Mathf.FloorToInt(currentTime % 60);
+        int milliseconds = Mathf.FloorToInt(currentTime * 100 % 100);
+
+        return string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, milliseconds);
     }
 }

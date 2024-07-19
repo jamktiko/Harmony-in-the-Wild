@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Freeze : MonoBehaviour
 {
-    public const string DungeonPenguinSceneName = "Dungeon_Penguin";
+    public const string DungeonPenguinSceneName = "RallyBuild_Penguin";
 
     [Header("Config")]
     [SerializeField] private float aoeRadius;
@@ -47,14 +47,22 @@ public class Freeze : MonoBehaviour
                     freezable.FreezeObject();
 
                     if (freezeAudio != null)
-                    freezeAudio.Play();
+                    {
+                        freezeAudio.Play();
+                    }
                 }
             }
         }
 
         if(SceneManager.GetActiveScene().name == DungeonPenguinSceneName)
         {
+            Debug.Log("starting cooldown");
             StartCoroutine(FreezeCooldown());
+        }
+
+        else
+        {
+            Debug.Log(SceneManager.GetActiveScene().name + "/" + DungeonPenguinSceneName);
         }
     }
 

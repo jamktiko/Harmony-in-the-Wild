@@ -22,6 +22,16 @@ public class Freezable : MonoBehaviour
     private void Start()
     {
         TryGetComponent<Rigidbody>(out rb);
+
+        if(canBeFrozen == null)
+        {
+            canBeFrozen = transform.Find("Effects").Find("FreezableRock").gameObject;
+
+            if(canBeFrozen == null)
+            {
+                Debug.Log("Couldn't find freezable effect reference for " + gameObject.name);
+            }
+        }
     }
 
     public void FreezeObject()

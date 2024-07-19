@@ -24,7 +24,7 @@ public class HitCounterVisualIndicator : MonoBehaviour
 
     private void OnEnable()
     {
-        if(currentScene == "Dungeon_Penguin")
+        if(currentScene == "RallyBuild_Penguin")
         {
             PenguinRaceManager.instance.penguinDungeonEvents.onLapFinished += ResetHealth;
             PenguinRaceManager.instance.penguinDungeonEvents.onLapInterrupted += ResetHealth;
@@ -33,7 +33,7 @@ public class HitCounterVisualIndicator : MonoBehaviour
 
     private void OnDisable()
     {
-        if(currentScene == "Dungeon_Penguin")
+        if(currentScene == "RallyBuild_Penguin")
         {
             PenguinRaceManager.instance.penguinDungeonEvents.onLapFinished -= ResetHealth;
             PenguinRaceManager.instance.penguinDungeonEvents.onLapInterrupted -= ResetHealth;
