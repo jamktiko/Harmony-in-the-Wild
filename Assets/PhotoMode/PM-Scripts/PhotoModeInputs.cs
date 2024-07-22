@@ -26,6 +26,7 @@ namespace PhotoMode
         [SerializeField] private InputActionAsset photoModeActionAsset;
         public InputActionReference submitAction;
         public InputActionReference navigationAction;
+        public InputActionReference moveAction;
         public InputActionReference lookAction;
         public InputActionReference pauseAction;
         public InputActionReference resetAction;
@@ -57,6 +58,7 @@ namespace PhotoMode
         //Input results
         [Header("Input Values")]
         public Vector2 moveAxis;
+        public Vector2 moveAxisCamera;
         public Vector2 lookAxis;
         public float modifier1_value;
         public float modifier2_value;
@@ -71,6 +73,8 @@ namespace PhotoMode
 
             //Navigation Input
             navigationAction.action.performed += NavigateAction_performed;
+
+            moveAction.action.performed += MoveAction_performed;
 
             //Look Input
             lookAction.action.performed += LookAction_performed;
@@ -140,6 +144,10 @@ namespace PhotoMode
         private void NavigateAction_performed(InputAction.CallbackContext callback)
         {
             moveAxis = callback.ReadValue<Vector2>();
+        }
+        private void MoveAction_performed(InputAction.CallbackContext callback)
+        {
+            moveAxisCamera = callback.ReadValue<Vector2>();
         }
 
         private void LookAction_performed(InputAction.CallbackContext callback)
