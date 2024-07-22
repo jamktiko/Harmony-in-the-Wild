@@ -49,12 +49,17 @@ public class RallyTimer : MonoBehaviour
         timerText.text = string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, milliseconds);
     }
 
-    public string GetFinalTime()
+    public string GetFinalTimeAsString()
     {
         int minutes = Mathf.FloorToInt(currentTime / 60);
         int seconds = Mathf.FloorToInt(currentTime % 60);
         int milliseconds = Mathf.FloorToInt(currentTime * 100 % 100);
 
         return string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, milliseconds);
+    }
+
+    public float GetFinalTimeAsFloat()
+    {
+        return currentTime;
     }
 }

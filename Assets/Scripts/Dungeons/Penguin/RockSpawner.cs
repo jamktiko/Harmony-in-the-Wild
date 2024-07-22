@@ -51,7 +51,7 @@ public class RockSpawner : MonoBehaviour
     }
     public void IncreaseRockSpawning()
     {
-        spawnPauseTime = spawnPauseTime / 2;
+        spawnPauseTime = spawnPauseTime * 0.3f;
     }
 
     // ----------------------------------------------------------
