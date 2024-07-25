@@ -25,6 +25,11 @@ public class RotateInteractionIndicator : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        DisableInteractionIndicator();
+    }
+
     private void Update()
     {
         if (playerIsNear)
