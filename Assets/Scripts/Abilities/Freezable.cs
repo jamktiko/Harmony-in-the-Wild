@@ -34,6 +34,12 @@ public class Freezable : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        SwapMaterials(false);
+        isFrozen = false;
+    }
+
     public void FreezeObject()
     {
         Debug.Log(gameObject.name + " has been frozen.");

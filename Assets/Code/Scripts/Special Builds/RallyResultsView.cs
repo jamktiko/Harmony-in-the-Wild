@@ -26,6 +26,9 @@ public class RallyResultsView : MonoBehaviour
 
     private void ShowView()
     {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
         transform.GetChild(0).gameObject.SetActive(true);
 
         // set timer text

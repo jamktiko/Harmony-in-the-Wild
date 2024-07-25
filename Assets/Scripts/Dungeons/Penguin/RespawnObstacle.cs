@@ -19,10 +19,13 @@ public class RespawnObstacle : MonoBehaviour
 
     private void RespawnObject()
     {
+        transform.GetChild(0).gameObject.SetActive(true);
+
         // if the object has no more childs (they have been destroyed during the game), respawn them
-        if(transform.childCount == 0)
+        /*if (transform.childCount == 0)
         {
-            Instantiate(objectPrefab, transform);
-        }
+            objectPrefab.SetActive(true);
+            //Instantiate(objectPrefab, transform);
+        }*/
     }
 }

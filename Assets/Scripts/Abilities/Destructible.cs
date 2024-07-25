@@ -36,8 +36,9 @@ public class Destructible : MonoBehaviour
                 {
                     //audioSource.Play();
                     Instantiate(destroyedVersion, transform.position, transform.rotation);
-                    Debug.Log("ontriggerstay ran");
-                    Destroy(gameObject);
+                    //Debug.Log("ontriggerstay ran");
+                    //Destroy(gameObject);
+                    gameObject.SetActive(false);
                 }
 
                 else
