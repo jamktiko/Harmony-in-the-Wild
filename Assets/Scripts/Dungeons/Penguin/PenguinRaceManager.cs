@@ -132,4 +132,21 @@ public class PenguinDungeonEvents
             onRaceFinished();
         }
     }
+
+    public event Action<HitType> onShowHitPopUp;
+
+    public void ShowHitPopUp(HitType hitType)
+    {
+        if(onShowHitPopUp != null)
+        {
+            onShowHitPopUp(hitType);
+        }
+    }
+}
+
+public enum HitType
+{
+    ClosingWall,
+    FallingRocks,
+    Killzone
 }

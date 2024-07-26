@@ -21,6 +21,8 @@ public class HitCounter : MonoBehaviour
     {
         if (isInstaKill)
         {
+            PenguinRaceManager.instance.penguinDungeonEvents.ShowHitPopUp(HitType.ClosingWall);
+
             ReturnPlayerToStart();
 
             if(deathEvent != null)
@@ -35,6 +37,8 @@ public class HitCounter : MonoBehaviour
 
             if (currentHits >= maxHits)
             {
+                PenguinRaceManager.instance.penguinDungeonEvents.ShowHitPopUp(HitType.FallingRocks);
+
                 ReturnPlayerToStart();
 
                 if(deathEvent != null)

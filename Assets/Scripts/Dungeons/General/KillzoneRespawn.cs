@@ -12,6 +12,8 @@ public class KillzoneRespawn : MonoBehaviour
             //other.GetComponent<FoxMove>().enabled = false;
             //other.GetComponent<CharacterController>().enabled = false;
 
+            PenguinRaceManager.instance.penguinDungeonEvents.ShowHitPopUp(HitType.Killzone);
+
             other.transform.parent.position = respawnPosition.position;
 
             //other.GetComponent<FoxMove>().enabled = true;
