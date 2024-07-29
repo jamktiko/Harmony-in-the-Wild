@@ -31,7 +31,8 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] float verticalInput;
     [SerializeField] Vector2 mouseInput;
 
-    private bool canMoveCamera = true;
+    private bool canMoveCamera = false;
+    private bool gameFinished = false;
 
     void Start()
     {
@@ -55,6 +56,16 @@ public class CameraMovement : MonoBehaviour
 
     void Update()
     {
+        if (gameFinished)
+        {
+            return;
+        }
+
+        if (!gameFinished && !canMoveCamera && PlayerInputHandler.instance.CloseUIInput.WasPerformedThisFrame())
+        {
+            EnableCameraMovement();
+        }
+
         if (canMoveCamera)
         {
             //rotate orientation
@@ -112,9 +123,16 @@ public class CameraMovement : MonoBehaviour
         }
     }
 
+    private void EnableCameraMovement()
+    {
+        freeLookCam.GetComponent<Cinemachine.CinemachineFreeLook>().enabled = true;
+        canMoveCamera = true;
+    }
+
     private void DisableCameraMovement()
     {
         freeLookCam.GetComponent<Cinemachine.CinemachineFreeLook>().enabled = false;
         canMoveCamera = false;
+        gameFinished = true;
     }
 }

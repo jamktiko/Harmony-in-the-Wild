@@ -125,6 +125,8 @@ public class ClosingWall : MonoBehaviour
     private void ResetWallPosition()
     {
         transform.position = targetPositions[0];
+        startSpot = targetPositions[0];
+        currentTargetPosition = targetPositions[1];
         elapsedTime = 0;
         isPlayerNear = false;
     }

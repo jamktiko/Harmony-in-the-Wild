@@ -52,6 +52,9 @@ public class FoxMovement : MonoBehaviour
     private AbilityCycle abilityCycle;
     private bool isLoaded;
 
+    private bool canMove = false;
+    private bool gameFinished = false;
+
     [Header("Animations")]
     public Animator playerAnimator;
     private List<AnimatorControllerParameter> animatorBools = new List<AnimatorControllerParameter>();
@@ -86,23 +89,46 @@ public class FoxMovement : MonoBehaviour
                 animatorBools.Add(item);
             }
         }
+
+        PenguinRaceManager.instance.penguinDungeonEvents.onRaceFinished += DisableMovement;
     }
+
+    private void OnDisable()
+    {
+        PenguinRaceManager.instance.penguinDungeonEvents.onRaceFinished -= DisableMovement;
+    }
+
     void Update()
     {
-        SpeedControl();
-        IsOnSlope();
-        Animations();
-
-        if (!DialogueManager.instance.isDialoguePlaying)
+        if (PlayerInputHandler.instance.CloseUIInput.WasPerformedThisFrame())
         {
-            ProcessInput();
+            if (!canMove && !gameFinished)
+            {
+                EnableMovement();
+            }
         }
+            
+        if (canMove && !gameFinished)
+        {
+            SpeedControl();
+            IsOnSlope();
+            Animations();
+
+            if (!DialogueManager.instance.isDialoguePlaying)
+            {
+                ProcessInput();
+            }
+        }
+        
     }
     private void FixedUpdate()
     {
-        if (!DialogueManager.instance.isDialoguePlaying)
+        if (canMove && !gameFinished)
         {
-            MovePlayer();
+            if (!DialogueManager.instance.isDialoguePlaying)
+            {
+                MovePlayer();
+            }
         }
     }
     #region INPUTS
@@ -374,5 +400,24 @@ public class FoxMovement : MonoBehaviour
         Debug.Log($"FM CollectPos Position is: {data.x}, {data.y}, {data.z}. Rotation is: {data.rotX}, {data.rotY}, {data.rotZ}");
 
         return data;
+    }
+
+    private void EnableMovement()
+    {
+        canMove = true;
+    }
+
+    private void DisableMovement()
+    {
+        canMove = false;
+        gameFinished = true;
+
+        Invoke(nameof(ResetAnimatorValues), 0.2f);  
+    }
+
+    private void ResetAnimatorValues()
+    {
+        playerAnimator.SetFloat("horMove", 0);
+        playerAnimator.SetFloat("vertMove", 0);
     }
 }
