@@ -40,6 +40,7 @@ public class Freezable : MonoBehaviour
         {
             SwapMaterials(false);
             isFrozen = false;
+            canBeFrozen.SetActive(true);
         }
     }
 
