@@ -26,7 +26,7 @@ public class Freezable : MonoBehaviour
 
     public void FreezeObject()
     {
-        Debug.Log(gameObject.name + " has been frozen.");
+        //Debug.Log(gameObject.name + " has been frozen.");
         isFrozen = true;
 
         if (rb != null)
