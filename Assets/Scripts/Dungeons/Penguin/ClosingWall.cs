@@ -44,6 +44,8 @@ public class ClosingWall : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log("distance from wall to targetSpot is:" + Vector3.Distance(transform.position, targetSpot.position));
+
         if (isPlayerNear && !freezable.isFrozen && canMove)
         {
             switch (currentMovement)
@@ -82,12 +84,12 @@ public class ClosingWall : MonoBehaviour
         }
 
         // disable collider if the 
-        if (freezable.isFrozen && coll.isTrigger)
+        if (freezable.isFrozen || Vector3.Distance(transform.position, targetSpot.position) > 2f)
         {
             coll.isTrigger = false;
         }
 
-        else if (!freezable.isFrozen && !coll.isTrigger)
+        else
         {
             coll.isTrigger = true;
         }
