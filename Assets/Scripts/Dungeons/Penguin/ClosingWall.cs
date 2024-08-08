@@ -44,7 +44,7 @@ public class ClosingWall : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("distance from wall to targetSpot is:" + Vector3.Distance(transform.position, targetSpot.position));
+        //Debug.Log("distance from wall to targetSpot is:" + Vector3.Distance(transform.position, targetSpot.position));
 
         if (isPlayerNear && !freezable.isFrozen && canMove)
         {
@@ -146,7 +146,7 @@ public class ClosingWall : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Trigger"))
         {
-            Debug.Log("Player was hit by a closing wall.");
+            //Debug.Log("Player was hit by a closing wall.");
             other.GetComponentInParent<HitCounter>().TakeHit(true);
         }
     }
