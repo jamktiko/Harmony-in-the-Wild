@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GraphicsSettings : MonoBehaviour
+public class GraphicsSettingsResolutions : MonoBehaviour
 {
     private Resolution[] resolutions;
     public TMPro.TMP_Dropdown resolutionDropdown; //Note: Work with [SerializeField] private and GetResolutionDropdown() if it needs to be accessed
