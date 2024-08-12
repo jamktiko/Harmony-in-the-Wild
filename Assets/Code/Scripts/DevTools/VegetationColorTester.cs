@@ -11,7 +11,7 @@ public class VegetationColorTester : MonoBehaviour
     [SerializeField] private Color aliveColor;
 
     private float updateState = 0f;
-    private float updateAmount = 0.25f;
+    private float updateAmount = 1f;
 
     private void Start()
     {
