@@ -6,6 +6,7 @@ using System.Data;
 using System;
 using UnityEngine.SceneManagement;
 
+[System.Serializable]
 public class Discord_Controller : MonoBehaviour
 {
     public long applicationID;
@@ -15,6 +16,10 @@ public class Discord_Controller : MonoBehaviour
     [Space]
     public string largeImage = "game_logo";
     public string largeText = "Harmony in The Wild";
+
+
+    [SerializeField]
+    string[] detailsValues;
 
     Rigidbody rb;
     private long time;
@@ -68,6 +73,22 @@ public class Discord_Controller : MonoBehaviour
     {
         try
         {
+            if (SceneManager.GetActiveScene().name.Contains("Dungeon"))
+            {
+                details = detailsValues[2];
+            }
+            else if (SceneManager.GetActiveScene().name.Contains("OverWorld"))
+            {
+                details = detailsValues[0];
+            }
+            else if (SceneManager.GetActiveScene().name.Contains("Tutorial"))
+            {
+                details = detailsValues[3];
+            }
+            else
+            {
+                details = detailsValues[1];
+            }
             var activityManager = discord.GetActivityManager();
             var activity = new Discord.Activity
             {
