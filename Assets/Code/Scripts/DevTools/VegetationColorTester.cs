@@ -9,6 +9,7 @@ public class VegetationColorTester : MonoBehaviour
     [SerializeField] private Color aliveColor;
 
     private float updateState = 0f;
+    private float updateAmount = 0.25f;
 
     private void Start()
     {
@@ -17,9 +18,18 @@ public class VegetationColorTester : MonoBehaviour
 
     private void Update()
     {
-        if (PlayerInputHandler.instance.OpenMapInput.WasPressedThisFrame() && updateState < 1f)
+        if (PlayerInputHandler.instance.DebugVegetationColorChanger.WasPressedThisFrame())
         {
-            UpdateVegetationColor();    
+            if(updateState < 1f)
+            {
+                StartCoroutine(SmoothVegetationColorUpdate());
+            }
+
+            else
+            {
+                updateState = 0f;
+                StartCoroutine(SmoothVegetationColorUpdate());
+            }
         }
     }
 
@@ -33,10 +43,28 @@ public class VegetationColorTester : MonoBehaviour
 
     private void InitializeShaderValues()
     {
-        updateState = (float)TreeOfLifeState.instance.GetTreeOfLifeState();
+        updateState = 0f;
+        //updateState = TreeOfLifeState.instance.GetTreeOfLifeState();
 
         Color currentColor = Color.Lerp(deadColor, aliveColor, updateState);
 
         leafMaterial.SetColor("_LeafColor", currentColor);
+    }
+    
+    private IEnumerator SmoothVegetationColorUpdate()
+    {
+        float currentUpdateAmount = 0f;
+
+        while (currentUpdateAmount < updateAmount)
+        {
+            updateState += 0.01f;
+            currentUpdateAmount += 0.01f;
+
+            Color currentColor = Color.Lerp(deadColor, aliveColor, updateState);
+
+            leafMaterial.SetColor("_LeafColor", currentColor);
+
+            yield return new WaitForSeconds(0.01f);
+        }
     }
 }

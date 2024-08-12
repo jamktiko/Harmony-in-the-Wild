@@ -115,7 +115,6 @@ public class GrowthController : MonoBehaviour
             default:
                 Debug.Log("Error in initializing the growth shader. State of ToL out of bounds.");
                 break;
-
         }
 
         InitializeMaterials(leafGrow, flowerGrow);

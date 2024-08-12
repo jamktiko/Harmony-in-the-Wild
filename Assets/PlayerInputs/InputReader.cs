@@ -40,6 +40,8 @@ public class InputReader : ScriptableObject, PlayerInputActions.IPlayerActions
     public event UnityAction OnDebugAbilitiesCheckAllEvent = delegate { };
     public event UnityAction OnDebugAbilitiesUnlockOneEvent = delegate { };
     public event UnityAction OnDebugAbilitiesUnlockAllEvent = delegate { };
+    public event UnityAction OnDebugVegetationColorChangerEvent = delegate { };
+    public event UnityAction OnDebugTrailerCameraToggleEvent = delegate { };
     private PlayerInputActions playerInputActions;
     [Header("Input reader object")]
     [SerializeField] InputReader _inputReader;
@@ -191,5 +193,15 @@ public class InputReader : ScriptableObject, PlayerInputActions.IPlayerActions
     public void OnDebugAbilitiesUnlockAll(InputAction.CallbackContext context)
     {
         OnDebugAbilitiesUnlockAllEvent.Invoke();
+    }
+
+    public void OnDebugVegetationColorChanger(InputAction.CallbackContext context)
+    {
+        OnDebugVegetationColorChangerEvent.Invoke();
+    }
+
+    public void OnDebugTrailerCameraToggle(InputAction.CallbackContext context)
+    {
+        OnDebugTrailerCameraToggleEvent.Invoke();
     }
 }

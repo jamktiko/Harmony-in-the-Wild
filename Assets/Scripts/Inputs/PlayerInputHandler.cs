@@ -39,7 +39,10 @@ public class PlayerInputHandler : MonoBehaviour
         DebugAbilitiesCheckOne,
         DebugAbilitiesCheckAll,
         DebugAbilitiesUnlockOne,
-        DebugAbilitiesUnlockAll;
+        DebugAbilitiesUnlockAll,
+        DebugVegetationColorChanger,
+        DebugTrailerCameraToggle;
+    
 
     private void Awake()
     {
@@ -88,5 +91,7 @@ public class PlayerInputHandler : MonoBehaviour
         DebugAbilitiesCheckAll = playerInput.actions.FindAction("DebugAbilitiesCheckAll");
         DebugAbilitiesUnlockOne = playerInput.actions.FindAction("DebugAbilitiesUnlockOne");
         DebugAbilitiesUnlockAll = playerInput.actions.FindAction("DebugAbilitiesUnlockAll");
+        DebugVegetationColorChanger = playerInput.actions.FindAction("DebugVegetationColorChanger");
+        DebugTrailerCameraToggle = playerInput.actions.FindAction("DebugTrailerCameraToggle");
     }
 }
