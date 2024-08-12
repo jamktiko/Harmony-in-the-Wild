@@ -93,7 +93,7 @@ public class Discord_Controller : MonoBehaviour
             var activity = new Discord.Activity
             {
                 Details = details,
-                State = state + SceneManager.GetActiveScene().name,
+                //State = state + SceneManager.GetActiveScene().name,
                 Assets =
                 {
                     LargeImage = largeImage,
