@@ -17,16 +17,15 @@ public class TrailerCameraDevTool : MonoBehaviour
 
     void Update()
     {
-        // Movement Input
-        float moveHorizontal = Input.GetAxis("Horizontal"); // A and D
-        float moveVertical = Input.GetAxis("Vertical");     // W and S
+        float horizontalInput = PlayerInputHandler.instance.MoveInput.ReadValue<Vector2>().x;
+        float verticalInput = PlayerInputHandler.instance.MoveInput.ReadValue<Vector2>().y;
 
-        Vector3 movement = transform.forward * moveVertical + transform.right * moveHorizontal;
+        Vector3 movement = transform.forward * verticalInput + transform.right * horizontalInput;
         transform.position += movement * moveSpeed * Time.deltaTime;
 
         // Mouse Input
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
+        float mouseX = PlayerInputHandler.instance.LookInput.ReadValue<Vector2>().x * mouseSensitivity;
+        float mouseY = PlayerInputHandler.instance.LookInput.ReadValue<Vector2>().y * mouseSensitivity;
 
         // Adjust the rotation based on the mouse movement
         yaw += mouseX;
