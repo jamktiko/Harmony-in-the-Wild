@@ -5,7 +5,9 @@ using UnityEngine;
 public class VegetationColorTester : MonoBehaviour
 {
     [SerializeField] private Material leafMaterial;
+    [SerializeField] private Material pineLeafMaterial;
     [SerializeField] private Color deadColor;
+    [SerializeField] private Color deadPineColor;
     [SerializeField] private Color aliveColor;
 
     private float updateState = 0f;
@@ -36,9 +38,10 @@ public class VegetationColorTester : MonoBehaviour
     private void UpdateVegetationColor()
     {
         updateState += 0.25f;
-        Color currentColor = Color.Lerp(deadColor, aliveColor, updateState);
+        //Color currentColor = Color.Lerp(deadColor, aliveColor, updateState);
 
-        leafMaterial.SetColor("_LeafColor", currentColor);
+        leafMaterial.SetColor("_LeafColor", Color.Lerp(deadColor, aliveColor, updateState));
+        pineLeafMaterial.SetColor("_LeafColor", Color.Lerp(deadPineColor, aliveColor, updateState));
     }
 
     private void InitializeShaderValues()
@@ -48,7 +51,8 @@ public class VegetationColorTester : MonoBehaviour
 
         Color currentColor = Color.Lerp(deadColor, aliveColor, updateState);
 
-        leafMaterial.SetColor("_LeafColor", currentColor);
+        leafMaterial.SetColor("_LeafColor", Color.Lerp(deadColor, aliveColor, updateState));
+        pineLeafMaterial.SetColor("_LeafColor", Color.Lerp(deadPineColor, aliveColor, updateState));
     }
     
     private IEnumerator SmoothVegetationColorUpdate()
@@ -60,9 +64,10 @@ public class VegetationColorTester : MonoBehaviour
             updateState += 0.01f;
             currentUpdateAmount += 0.01f;
 
-            Color currentColor = Color.Lerp(deadColor, aliveColor, updateState);
+            leafMaterial.SetColor("_LeafColor", Color.Lerp(deadColor, aliveColor, updateState));
+            pineLeafMaterial.SetColor("_LeafColor", Color.Lerp(deadPineColor, aliveColor, updateState));
 
-            leafMaterial.SetColor("_LeafColor", currentColor);
+            //leafMaterial.SetColor("_LeafColor", currentColor);
 
             yield return new WaitForSeconds(0.01f);
         }
