@@ -10,11 +10,27 @@ public class MinimapWorldObject : MonoBehaviour
 
     private void Start()
     {
-        MinimapController.Instance.RegisterMinimapWorldObject(this, followObject);
+        try
+        {
+            MinimapController.Instance.RegisterMinimapWorldObject(this, followObject);
+
+        }
+        catch (System.Exception)
+        {
+            Debug.LogAssertion("no Minimap in the scene");
+        }
     }
 
     private void OnDestroy()
     {
-        MinimapController.Instance.RemoveMinimapWorldObject(this);
+        try
+        {
+            MinimapController.Instance.RemoveMinimapWorldObject(this);
+        }
+        catch (System.Exception)
+        {
+            Debug.LogAssertion("no Minimap in the scene");
+        }
+        
     }
 }
