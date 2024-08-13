@@ -36,7 +36,7 @@ public class GrowthTester : MonoBehaviour
 
             if (cameraRotator != null)
             {
-                cameraRotator.StartRotation();
+                //cameraRotator.StartRotation();
             }
         }
     }

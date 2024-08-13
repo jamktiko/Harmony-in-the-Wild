@@ -12,7 +12,7 @@ public class GrowthController : MonoBehaviour
     public Material flowerMaterial;
     private float leafGrowIncrement = 0.5f;
     private float flowerGrowIncrement = 0.5f;
-    private float duration = 10f;
+    private float duration = 5f;
     private bool isGrowing = false;
 
     private void Start()
@@ -28,6 +28,22 @@ public class GrowthController : MonoBehaviour
     private void OnDisable()
     {
         GameEventsManager.instance.cinematicsEvents.OnStartCinematics -= TriggerGrowth;
+    }
+
+    private void Update()
+    {
+        //NOTE ONLY FOR TRAILER RECORDING, DELETE LATER !!
+        if (PlayerInputHandler.instance.DebugDeleteSaveInput.WasPerformedThisFrame())
+        {
+            flowerMaterial.SetFloat("_Grow", 0);
+            StartCoroutine(SmoothGrow(leafMaterial, 0, 1));
+            Invoke(nameof(StartFlowerGrow), duration);
+        }
+    }
+
+    private void StartFlowerGrow()
+    {
+        StartCoroutine(SmoothGrow(flowerMaterial, 0, 1));
     }
 
     public void TriggerGrowth()
