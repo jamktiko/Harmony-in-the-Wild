@@ -34,5 +34,15 @@ public class TrailerCameraDevTool : MonoBehaviour
 
         // Apply rotation to the player
         transform.eulerAngles = new Vector3(pitch, yaw, 0.0f);
+
+        if (PlayerInputHandler.instance.DebugIncreaseTrailerCameraSpeed.WasPressedThisFrame())
+        {
+            moveSpeed += 2f;
+        }
+
+        else if (PlayerInputHandler.instance.DebugDecreaseTrailerCameraSpeed.WasPressedThisFrame())
+        {
+            moveSpeed -= 2f;
+        }
     }
 }

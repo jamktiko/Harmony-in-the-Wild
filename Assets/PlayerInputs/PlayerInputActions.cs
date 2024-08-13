@@ -323,6 +323,33 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DebugHideUI"",
+                    ""type"": ""Button"",
+                    ""id"": ""bd1fcf46-1af8-4c82-ae4e-e910c4cd6e87"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DebugIncreaseTrailerCameraSpeed"",
+                    ""type"": ""Button"",
+                    ""id"": ""85a0d9ce-72be-4202-8c9a-eb3dc50c7184"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DebugDecreaseTrailerCameraSpeed"",
+                    ""type"": ""Button"",
+                    ""id"": ""285cace7-fe1c-4795-ada4-30669a62effc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -1007,6 +1034,39 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""DebugTrailerCameraToggle"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9b57cae5-fd5e-4f06-8e93-846d579c00d5"",
+                    ""path"": ""<Keyboard>/9"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DebugHideUI"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3244fd97-aa94-46a8-a246-305c63d13e6b"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DebugIncreaseTrailerCameraSpeed"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2c733dc5-9d0b-471a-92fb-ce3d9afdab2c"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DebugDecreaseTrailerCameraSpeed"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -1533,6 +1593,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_DebugDevTools = m_Player.FindAction("DebugDevTools", throwIfNotFound: true);
         m_Player_DebugVegetationColorChanger = m_Player.FindAction("DebugVegetationColorChanger", throwIfNotFound: true);
         m_Player_DebugTrailerCameraToggle = m_Player.FindAction("DebugTrailerCameraToggle", throwIfNotFound: true);
+        m_Player_DebugHideUI = m_Player.FindAction("DebugHideUI", throwIfNotFound: true);
+        m_Player_DebugIncreaseTrailerCameraSpeed = m_Player.FindAction("DebugIncreaseTrailerCameraSpeed", throwIfNotFound: true);
+        m_Player_DebugDecreaseTrailerCameraSpeed = m_Player.FindAction("DebugDecreaseTrailerCameraSpeed", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1641,6 +1704,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_DebugDevTools;
     private readonly InputAction m_Player_DebugVegetationColorChanger;
     private readonly InputAction m_Player_DebugTrailerCameraToggle;
+    private readonly InputAction m_Player_DebugHideUI;
+    private readonly InputAction m_Player_DebugIncreaseTrailerCameraSpeed;
+    private readonly InputAction m_Player_DebugDecreaseTrailerCameraSpeed;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1678,6 +1744,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @DebugDevTools => m_Wrapper.m_Player_DebugDevTools;
         public InputAction @DebugVegetationColorChanger => m_Wrapper.m_Player_DebugVegetationColorChanger;
         public InputAction @DebugTrailerCameraToggle => m_Wrapper.m_Player_DebugTrailerCameraToggle;
+        public InputAction @DebugHideUI => m_Wrapper.m_Player_DebugHideUI;
+        public InputAction @DebugIncreaseTrailerCameraSpeed => m_Wrapper.m_Player_DebugIncreaseTrailerCameraSpeed;
+        public InputAction @DebugDecreaseTrailerCameraSpeed => m_Wrapper.m_Player_DebugDecreaseTrailerCameraSpeed;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1786,6 +1855,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @DebugTrailerCameraToggle.started += instance.OnDebugTrailerCameraToggle;
             @DebugTrailerCameraToggle.performed += instance.OnDebugTrailerCameraToggle;
             @DebugTrailerCameraToggle.canceled += instance.OnDebugTrailerCameraToggle;
+            @DebugHideUI.started += instance.OnDebugHideUI;
+            @DebugHideUI.performed += instance.OnDebugHideUI;
+            @DebugHideUI.canceled += instance.OnDebugHideUI;
+            @DebugIncreaseTrailerCameraSpeed.started += instance.OnDebugIncreaseTrailerCameraSpeed;
+            @DebugIncreaseTrailerCameraSpeed.performed += instance.OnDebugIncreaseTrailerCameraSpeed;
+            @DebugIncreaseTrailerCameraSpeed.canceled += instance.OnDebugIncreaseTrailerCameraSpeed;
+            @DebugDecreaseTrailerCameraSpeed.started += instance.OnDebugDecreaseTrailerCameraSpeed;
+            @DebugDecreaseTrailerCameraSpeed.performed += instance.OnDebugDecreaseTrailerCameraSpeed;
+            @DebugDecreaseTrailerCameraSpeed.canceled += instance.OnDebugDecreaseTrailerCameraSpeed;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1889,6 +1967,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @DebugTrailerCameraToggle.started -= instance.OnDebugTrailerCameraToggle;
             @DebugTrailerCameraToggle.performed -= instance.OnDebugTrailerCameraToggle;
             @DebugTrailerCameraToggle.canceled -= instance.OnDebugTrailerCameraToggle;
+            @DebugHideUI.started -= instance.OnDebugHideUI;
+            @DebugHideUI.performed -= instance.OnDebugHideUI;
+            @DebugHideUI.canceled -= instance.OnDebugHideUI;
+            @DebugIncreaseTrailerCameraSpeed.started -= instance.OnDebugIncreaseTrailerCameraSpeed;
+            @DebugIncreaseTrailerCameraSpeed.performed -= instance.OnDebugIncreaseTrailerCameraSpeed;
+            @DebugIncreaseTrailerCameraSpeed.canceled -= instance.OnDebugIncreaseTrailerCameraSpeed;
+            @DebugDecreaseTrailerCameraSpeed.started -= instance.OnDebugDecreaseTrailerCameraSpeed;
+            @DebugDecreaseTrailerCameraSpeed.performed -= instance.OnDebugDecreaseTrailerCameraSpeed;
+            @DebugDecreaseTrailerCameraSpeed.canceled -= instance.OnDebugDecreaseTrailerCameraSpeed;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -2093,6 +2180,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnDebugDevTools(InputAction.CallbackContext context);
         void OnDebugVegetationColorChanger(InputAction.CallbackContext context);
         void OnDebugTrailerCameraToggle(InputAction.CallbackContext context);
+        void OnDebugHideUI(InputAction.CallbackContext context);
+        void OnDebugIncreaseTrailerCameraSpeed(InputAction.CallbackContext context);
+        void OnDebugDecreaseTrailerCameraSpeed(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

@@ -41,7 +41,10 @@ public class PlayerInputHandler : MonoBehaviour
         DebugAbilitiesUnlockOne,
         DebugAbilitiesUnlockAll,
         DebugVegetationColorChanger,
-        DebugTrailerCameraToggle;
+        DebugTrailerCameraToggle,
+        DebugHideUI,
+        DebugIncreaseTrailerCameraSpeed,
+        DebugDecreaseTrailerCameraSpeed;
     
 
     private void Awake()
@@ -93,5 +96,8 @@ public class PlayerInputHandler : MonoBehaviour
         DebugAbilitiesUnlockAll = playerInput.actions.FindAction("DebugAbilitiesUnlockAll");
         DebugVegetationColorChanger = playerInput.actions.FindAction("DebugVegetationColorChanger");
         DebugTrailerCameraToggle = playerInput.actions.FindAction("DebugTrailerCameraToggle");
+        DebugHideUI = playerInput.actions.FindAction("DebugHideUI");
+        DebugIncreaseTrailerCameraSpeed = playerInput.actions.FindAction("DebugIncreaseTrailerCameraSpeed");
+        DebugDecreaseTrailerCameraSpeed = playerInput.actions.FindAction("DebugDecreaseTrailerCameraSpeed");
     }
 }
