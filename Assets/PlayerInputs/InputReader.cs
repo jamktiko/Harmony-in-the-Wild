@@ -223,10 +223,14 @@ public class InputReader : ScriptableObject, PlayerInputActions.IPlayerActions
     public void OnDebugDecreaseTrailerCameraSpeed(InputAction.CallbackContext context)
     {
         OnDebugDecreaseTrailerCameraSpeedEvent.Invoke();
+
+    }
+
     public void OnCinematicCamera(InputAction.CallbackContext context)
     {
         OnCinematicCameraEvent.Invoke();
     }
+
     public void OnSwitchTimeScale(InputAction.CallbackContext context)
     {
         OnSwitchTimeScaleEvent.Invoke();

@@ -44,8 +44,7 @@ public class PlayerInputHandler : MonoBehaviour
         DebugTrailerCameraToggle,
         DebugHideUI,
         DebugIncreaseTrailerCameraSpeed,
-        DebugDecreaseTrailerCameraSpeed;
-    
+        DebugDecreaseTrailerCameraSpeed,
         CinematicCamera,
         SwitchTimeScale;
 
