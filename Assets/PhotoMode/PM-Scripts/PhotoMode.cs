@@ -89,7 +89,7 @@ namespace PhotoMode
             // Photo Mode declarations
             photoModeEventSystem = GetComponentInChildren<EventSystem>();
             photoModeInputs = GetComponent<PhotoModeInputs>();
-            photoModeCamera = GetComponentInChildren<CinemachineFreeLook>();
+            photoModeCamera = GetComponentInChildren<NoClipMovement>().GetComponentInChildren<CinemachineFreeLook>();
             photoModeCameraOffset = photoModeCamera.GetComponent<CinemachineCameraOffset>();
             photoModeUI = transform.Find("PhotoMode_UI");
             photoModeVolume = GetComponentInChildren<Volume>();

@@ -310,6 +310,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""name"": ""DebugVegetationColorChanger"",
                     ""type"": ""Button"",
                     ""id"": ""acbe6c1c-0d54-4c1c-86ea-d628e7c66091"",
+                    ""name"": ""CinematicCamera"",
+                    ""type"": ""Button"",
+                    ""id"": ""867f139e-0c37-4b71-a9ec-66d71f1c1347"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -346,6 +349,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""name"": ""DebugDecreaseTrailerCameraSpeed"",
                     ""type"": ""Button"",
                     ""id"": ""285cace7-fe1c-4795-ada4-30669a62effc"",
+                    ""name"": ""SwitchTimeScale"",
+                    ""type"": ""Button"",
+                    ""id"": ""b2543765-74b9-438e-9e1c-2c44983fecbe"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -479,7 +485,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""id"": ""8c8e490b-c610-4785-884f-f04217b23ca4"",
                     ""path"": ""<Pointer>/delta"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""NormalizeVector2"",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""Look"",
                     ""isComposite"": false,
@@ -1021,6 +1027,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""DebugVegetationColorChanger"",
+                    ""id"": ""cd555b05-78c1-4e4a-96cb-e3e2850f4538"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""CinematicCamera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -1065,6 +1077,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""DebugDecreaseTrailerCameraSpeed"",
+                    ""id"": ""bccb3b33-2bc6-45db-9aec-09126e2402b8"",
+                    ""path"": ""<Keyboard>/v"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchTimeScale"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1596,6 +1614,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_DebugHideUI = m_Player.FindAction("DebugHideUI", throwIfNotFound: true);
         m_Player_DebugIncreaseTrailerCameraSpeed = m_Player.FindAction("DebugIncreaseTrailerCameraSpeed", throwIfNotFound: true);
         m_Player_DebugDecreaseTrailerCameraSpeed = m_Player.FindAction("DebugDecreaseTrailerCameraSpeed", throwIfNotFound: true);
+        m_Player_CinematicCamera = m_Player.FindAction("CinematicCamera", throwIfNotFound: true);
+        m_Player_SwitchTimeScale = m_Player.FindAction("SwitchTimeScale", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1707,6 +1727,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_DebugHideUI;
     private readonly InputAction m_Player_DebugIncreaseTrailerCameraSpeed;
     private readonly InputAction m_Player_DebugDecreaseTrailerCameraSpeed;
+    private readonly InputAction m_Player_CinematicCamera;
+    private readonly InputAction m_Player_SwitchTimeScale;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1747,6 +1769,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @DebugHideUI => m_Wrapper.m_Player_DebugHideUI;
         public InputAction @DebugIncreaseTrailerCameraSpeed => m_Wrapper.m_Player_DebugIncreaseTrailerCameraSpeed;
         public InputAction @DebugDecreaseTrailerCameraSpeed => m_Wrapper.m_Player_DebugDecreaseTrailerCameraSpeed;
+        public InputAction @CinematicCamera => m_Wrapper.m_Player_CinematicCamera;
+        public InputAction @SwitchTimeScale => m_Wrapper.m_Player_SwitchTimeScale;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1864,6 +1888,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @DebugDecreaseTrailerCameraSpeed.started += instance.OnDebugDecreaseTrailerCameraSpeed;
             @DebugDecreaseTrailerCameraSpeed.performed += instance.OnDebugDecreaseTrailerCameraSpeed;
             @DebugDecreaseTrailerCameraSpeed.canceled += instance.OnDebugDecreaseTrailerCameraSpeed;
+            @CinematicCamera.started += instance.OnCinematicCamera;
+            @CinematicCamera.performed += instance.OnCinematicCamera;
+            @CinematicCamera.canceled += instance.OnCinematicCamera;
+            @SwitchTimeScale.started += instance.OnSwitchTimeScale;
+            @SwitchTimeScale.performed += instance.OnSwitchTimeScale;
+            @SwitchTimeScale.canceled += instance.OnSwitchTimeScale;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1976,6 +2006,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @DebugDecreaseTrailerCameraSpeed.started -= instance.OnDebugDecreaseTrailerCameraSpeed;
             @DebugDecreaseTrailerCameraSpeed.performed -= instance.OnDebugDecreaseTrailerCameraSpeed;
             @DebugDecreaseTrailerCameraSpeed.canceled -= instance.OnDebugDecreaseTrailerCameraSpeed;
+            @CinematicCamera.started -= instance.OnCinematicCamera;
+            @CinematicCamera.performed -= instance.OnCinematicCamera;
+            @CinematicCamera.canceled -= instance.OnCinematicCamera;
+            @SwitchTimeScale.started -= instance.OnSwitchTimeScale;
+            @SwitchTimeScale.performed -= instance.OnSwitchTimeScale;
+            @SwitchTimeScale.canceled -= instance.OnSwitchTimeScale;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -2183,6 +2219,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnDebugHideUI(InputAction.CallbackContext context);
         void OnDebugIncreaseTrailerCameraSpeed(InputAction.CallbackContext context);
         void OnDebugDecreaseTrailerCameraSpeed(InputAction.CallbackContext context);
+        void OnCinematicCamera(InputAction.CallbackContext context);
+        void OnSwitchTimeScale(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

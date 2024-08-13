@@ -46,6 +46,8 @@ public class PlayerInputHandler : MonoBehaviour
         DebugIncreaseTrailerCameraSpeed,
         DebugDecreaseTrailerCameraSpeed;
     
+        CinematicCamera,
+        SwitchTimeScale;
 
     private void Awake()
     {
@@ -99,5 +101,7 @@ public class PlayerInputHandler : MonoBehaviour
         DebugHideUI = playerInput.actions.FindAction("DebugHideUI");
         DebugIncreaseTrailerCameraSpeed = playerInput.actions.FindAction("DebugIncreaseTrailerCameraSpeed");
         DebugDecreaseTrailerCameraSpeed = playerInput.actions.FindAction("DebugDecreaseTrailerCameraSpeed");
+        CinematicCamera= playerInput.actions.FindAction("CinematicCamera");
+        SwitchTimeScale= playerInput.actions.FindAction("SwitchTimeScale");
     }
 }
