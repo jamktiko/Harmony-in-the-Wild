@@ -305,6 +305,24 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CinematicCamera"",
+                    ""type"": ""Button"",
+                    ""id"": ""867f139e-0c37-4b71-a9ec-66d71f1c1347"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SwitchTimeScale"",
+                    ""type"": ""Button"",
+                    ""id"": ""b2543765-74b9-438e-9e1c-2c44983fecbe"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -434,7 +452,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""id"": ""8c8e490b-c610-4785-884f-f04217b23ca4"",
                     ""path"": ""<Pointer>/delta"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""NormalizeVector2"",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""Look"",
                     ""isComposite"": false,
@@ -967,6 +985,28 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""TogglePlayerModel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cd555b05-78c1-4e4a-96cb-e3e2850f4538"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""CinematicCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bccb3b33-2bc6-45db-9aec-09126e2402b8"",
+                    ""path"": ""<Keyboard>/v"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchTimeScale"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -1491,6 +1531,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_DebugReloadMainMenu = m_Player.FindAction("DebugReloadMainMenu", throwIfNotFound: true);
         m_Player_DebugReloadCurrentScene = m_Player.FindAction("DebugReloadCurrentScene", throwIfNotFound: true);
         m_Player_DebugDevTools = m_Player.FindAction("DebugDevTools", throwIfNotFound: true);
+        m_Player_CinematicCamera = m_Player.FindAction("CinematicCamera", throwIfNotFound: true);
+        m_Player_SwitchTimeScale = m_Player.FindAction("SwitchTimeScale", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1597,6 +1639,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_DebugReloadMainMenu;
     private readonly InputAction m_Player_DebugReloadCurrentScene;
     private readonly InputAction m_Player_DebugDevTools;
+    private readonly InputAction m_Player_CinematicCamera;
+    private readonly InputAction m_Player_SwitchTimeScale;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1632,6 +1676,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @DebugReloadMainMenu => m_Wrapper.m_Player_DebugReloadMainMenu;
         public InputAction @DebugReloadCurrentScene => m_Wrapper.m_Player_DebugReloadCurrentScene;
         public InputAction @DebugDevTools => m_Wrapper.m_Player_DebugDevTools;
+        public InputAction @CinematicCamera => m_Wrapper.m_Player_CinematicCamera;
+        public InputAction @SwitchTimeScale => m_Wrapper.m_Player_SwitchTimeScale;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1734,6 +1780,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @DebugDevTools.started += instance.OnDebugDevTools;
             @DebugDevTools.performed += instance.OnDebugDevTools;
             @DebugDevTools.canceled += instance.OnDebugDevTools;
+            @CinematicCamera.started += instance.OnCinematicCamera;
+            @CinematicCamera.performed += instance.OnCinematicCamera;
+            @CinematicCamera.canceled += instance.OnCinematicCamera;
+            @SwitchTimeScale.started += instance.OnSwitchTimeScale;
+            @SwitchTimeScale.performed += instance.OnSwitchTimeScale;
+            @SwitchTimeScale.canceled += instance.OnSwitchTimeScale;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1831,6 +1883,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @DebugDevTools.started -= instance.OnDebugDevTools;
             @DebugDevTools.performed -= instance.OnDebugDevTools;
             @DebugDevTools.canceled -= instance.OnDebugDevTools;
+            @CinematicCamera.started -= instance.OnCinematicCamera;
+            @CinematicCamera.performed -= instance.OnCinematicCamera;
+            @CinematicCamera.canceled -= instance.OnCinematicCamera;
+            @SwitchTimeScale.started -= instance.OnSwitchTimeScale;
+            @SwitchTimeScale.performed -= instance.OnSwitchTimeScale;
+            @SwitchTimeScale.canceled -= instance.OnSwitchTimeScale;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -2033,6 +2091,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnDebugReloadMainMenu(InputAction.CallbackContext context);
         void OnDebugReloadCurrentScene(InputAction.CallbackContext context);
         void OnDebugDevTools(InputAction.CallbackContext context);
+        void OnCinematicCamera(InputAction.CallbackContext context);
+        void OnSwitchTimeScale(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

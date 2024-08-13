@@ -39,7 +39,9 @@ public class PlayerInputHandler : MonoBehaviour
         DebugAbilitiesCheckOne,
         DebugAbilitiesCheckAll,
         DebugAbilitiesUnlockOne,
-        DebugAbilitiesUnlockAll;
+        DebugAbilitiesUnlockAll,
+        CinematicCamera,
+        SwitchTimeScale;
 
     private void Awake()
     {
@@ -88,5 +90,7 @@ public class PlayerInputHandler : MonoBehaviour
         DebugAbilitiesCheckAll = playerInput.actions.FindAction("DebugAbilitiesCheckAll");
         DebugAbilitiesUnlockOne = playerInput.actions.FindAction("DebugAbilitiesUnlockOne");
         DebugAbilitiesUnlockAll = playerInput.actions.FindAction("DebugAbilitiesUnlockAll");
+        CinematicCamera= playerInput.actions.FindAction("CinematicCamera");
+        SwitchTimeScale= playerInput.actions.FindAction("SwitchTimeScale");
     }
 }

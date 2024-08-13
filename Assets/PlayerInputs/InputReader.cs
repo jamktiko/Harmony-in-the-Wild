@@ -40,6 +40,8 @@ public class InputReader : ScriptableObject, PlayerInputActions.IPlayerActions
     public event UnityAction OnDebugAbilitiesCheckAllEvent = delegate { };
     public event UnityAction OnDebugAbilitiesUnlockOneEvent = delegate { };
     public event UnityAction OnDebugAbilitiesUnlockAllEvent = delegate { };
+    public event UnityAction OnCinematicCameraEvent = delegate { };
+    public event UnityAction OnSwitchTimeScaleEvent = delegate { };
     private PlayerInputActions playerInputActions;
     [Header("Input reader object")]
     [SerializeField] InputReader _inputReader;
@@ -191,5 +193,13 @@ public class InputReader : ScriptableObject, PlayerInputActions.IPlayerActions
     public void OnDebugAbilitiesUnlockAll(InputAction.CallbackContext context)
     {
         OnDebugAbilitiesUnlockAllEvent.Invoke();
+    }
+    public void OnCinematicCamera(InputAction.CallbackContext context)
+    {
+        OnCinematicCameraEvent.Invoke();
+    }
+    public void OnSwitchTimeScale(InputAction.CallbackContext context)
+    {
+        OnSwitchTimeScaleEvent.Invoke();
     }
 }

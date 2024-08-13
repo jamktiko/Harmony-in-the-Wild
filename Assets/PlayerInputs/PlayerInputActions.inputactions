@@ -283,6 +283,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "CinematicCamera",
+                    "type": "Button",
+                    "id": "867f139e-0c37-4b71-a9ec-66d71f1c1347",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SwitchTimeScale",
+                    "type": "Button",
+                    "id": "b2543765-74b9-438e-9e1c-2c44983fecbe",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -412,7 +430,7 @@
                     "id": "8c8e490b-c610-4785-884f-f04217b23ca4",
                     "path": "<Pointer>/delta",
                     "interactions": "",
-                    "processors": "",
+                    "processors": "NormalizeVector2",
                     "groups": ";Keyboard&Mouse",
                     "action": "Look",
                     "isComposite": false,
@@ -943,6 +961,28 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "TogglePlayerModel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cd555b05-78c1-4e4a-96cb-e3e2850f4538",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "CinematicCamera",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bccb3b33-2bc6-45db-9aec-09126e2402b8",
+                    "path": "<Keyboard>/v",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SwitchTimeScale",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
