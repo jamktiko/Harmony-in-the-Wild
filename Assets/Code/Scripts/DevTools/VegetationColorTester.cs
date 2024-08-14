@@ -11,7 +11,7 @@ public class VegetationColorTester : MonoBehaviour
     [SerializeField] private Color aliveColor;
 
     private float updateState = 0f;
-    private float updateAmount = 1f;
+    private float updateAmount = 0.125f;
 
     private void Start()
     {
@@ -22,22 +22,24 @@ public class VegetationColorTester : MonoBehaviour
     {
         if (PlayerInputHandler.instance.DebugVegetationColorChanger.WasPressedThisFrame())
         {
+            UpdateVegetationColor();
+
             if(updateState < 1f)
             {
-                StartCoroutine(SmoothVegetationColorUpdate());
+                //StartCoroutine(SmoothVegetationColorUpdate());
             }
 
             else
             {
-                updateState = 0f;
-                StartCoroutine(SmoothVegetationColorUpdate());
+                //updateState = 0f;
+                //StartCoroutine(SmoothVegetationColorUpdate());
             }
         }
     }
 
     private void UpdateVegetationColor()
     {
-        updateState += 0.25f;
+        updateState += updateAmount;
         //Color currentColor = Color.Lerp(deadColor, aliveColor, updateState);
 
         leafMaterial.SetColor("_LeafColor", Color.Lerp(deadColor, aliveColor, updateState));
