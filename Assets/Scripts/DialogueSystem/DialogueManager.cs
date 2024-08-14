@@ -123,9 +123,8 @@ public class DialogueManager : MonoBehaviour
             isDialoguePlaying = true;
             dialogueCanvas.SetActive(true);
 
-            // NOTE DISABLED FOR TRAILER RECORDING; ENABLE LATER AGAIN !!
-            //Cursor.lockState = CursorLockMode.None;
-            //Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
 
             ContinueDialogue();
 

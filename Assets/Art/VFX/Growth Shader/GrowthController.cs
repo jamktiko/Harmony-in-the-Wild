@@ -32,13 +32,13 @@ public class GrowthController : MonoBehaviour
 
     private void Update()
     {
-        //NOTE ONLY FOR TRAILER RECORDING, DELETE LATER !!
+        /*//NOTE ONLY FOR TRAILER RECORDING, DELETE LATER !!
         if (PlayerInputHandler.instance.DebugDeleteSaveInput.WasPerformedThisFrame())
         {
             flowerMaterial.SetFloat("_Grow", 0);
             StartCoroutine(SmoothGrow(leafMaterial, 0, 1));
             Invoke(nameof(StartFlowerGrow), duration);
-        }
+        }*/
     }
 
     private void StartFlowerGrow()
