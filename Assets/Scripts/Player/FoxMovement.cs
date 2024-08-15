@@ -24,8 +24,10 @@ public class FoxMovement : MonoBehaviour
     private Vector3 moveDirection;
 
     [Header("Slopes")]
-    public RaycastHit hit3;
+    public RaycastHit SlopeHit;
     [SerializeField] private float playerHeight;
+    [SerializeField] private float maxSlopeAngle;
+    private bool exitingSlope;
 
     [Header("Jump")]
     [SerializeField] private float jumpForce = 15f;
@@ -201,6 +203,19 @@ public class FoxMovement : MonoBehaviour
 
         SetMovementSpeed(ref speed, ref modifier, isSnowDiveUnlocked);
 
+        //On slope
+        if (IsOnSlope()&&!exitingSlope)
+        {
+            rb.AddForce(GetSlopeMoveDirection() * moveSpeed * 20f, ForceMode.Force);
+
+            if (rb.velocity.y > 0)
+            {
+                rb.AddForce(Vector3.down * 80f, ForceMode.Force);
+            }
+            //turn gravity off when on slope
+            rb.useGravity = !IsOnSlope();
+        }
+
         rb.AddForce(moveDirection.normalized * speed * 10f * modifier, ForceMode.Force);
 
         playerAnimator.SetFloat("upMove", rb.velocity.y);
@@ -208,6 +223,16 @@ public class FoxMovement : MonoBehaviour
 
     private void SetMovementSpeed(ref float speed, ref float modifier, bool isSnowDiveUnlocked)
     {
+
+        //Limit speed on Slope
+        if (IsOnSlope()&&!exitingSlope)
+        {
+            if (rb.velocity.magnitude>moveSpeed)
+            {
+                rb.velocity = rb.velocity.normalized * moveSpeed;
+            }
+        }
+
         //Walking
         if (IsGrounded() && !isSprinting)
         {
@@ -229,6 +254,7 @@ public class FoxMovement : MonoBehaviour
         //In air, Gliding
         if (!IsGrounded() && !IsInWater() && Gliding.instance.isGliding)
         {
+            rb.useGravity = true;
             speed = moveSpeed;
             modifier = Gliding.instance.glidingMultiplier;
         }
@@ -236,6 +262,7 @@ public class FoxMovement : MonoBehaviour
         //In air, NOT Gliding
         if (!IsGrounded() && !IsInWater() && !Gliding.instance.isGliding)
         {
+            rb.useGravity = true;
             speed = moveSpeed;
             modifier = Gliding.instance.airMultiplier;
         }
@@ -245,6 +272,8 @@ public class FoxMovement : MonoBehaviour
         {
             speed = SnowDiving.instance.snowDiveSpeed;
         }
+
+        
     }
 
     private void Walk()
@@ -284,6 +313,8 @@ public class FoxMovement : MonoBehaviour
     }
     private void Jump()
     {
+        exitingSlope = true;
+
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
@@ -297,6 +328,7 @@ public class FoxMovement : MonoBehaviour
     {
         playerAnimator.SetBool("isJumping", false);
         isReadyToJump = true;
+        exitingSlope = false;
     }
     #endregion
     #region CHECKS
@@ -316,9 +348,20 @@ public class FoxMovement : MonoBehaviour
     }
     public bool IsOnSlope()
     {
+
+        //return Physics.Raycast(foxMiddle.position, Vector3.down, out SlopeHit, playerHeight + 0.2f) && SlopeHit.normal != Vector3.up;
+
+        if (Physics.Raycast(foxMiddle.position, Vector3.down, out SlopeHit, playerHeight +0.2f))
+        {
+            float angle = Vector3.Angle(Vector3.up, SlopeHit.normal);
+            return angle < maxSlopeAngle && angle != 0;
+        }
+        return false;
         
-        return Physics.Raycast(foxMiddle.position, Vector3.down, out hit3, playerHeight + 0.2f) && hit3.normal != Vector3.up;
-        
+    }
+    private Vector3 GetSlopeMoveDirection() 
+    {
+        return Vector3.ProjectOnPlane(moveDirection, SlopeHit.normal).normalized;
     }
     public bool HasClimbWallCollision()
     {

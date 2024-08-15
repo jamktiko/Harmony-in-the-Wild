@@ -60,7 +60,7 @@ public class CameraMovement : MonoBehaviour
             float horizontalInput = PlayerInputHandler.instance.MoveInput.ReadValue<Vector2>().x;
             float verticalInput = PlayerInputHandler.instance.MoveInput.ReadValue<Vector2>().y;
             Vector3 inputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
-            Vector3 slopeForward = Vector3.ProjectOnPlane(foxObject.forward, foxMove.hit3.normal).normalized;
+            Vector3 slopeForward = Vector3.ProjectOnPlane(foxObject.forward, foxMove.SlopeHit.normal).normalized;
 
             if (inputDir != Vector3.zero && !foxMove.IsOnSlope())
             {
@@ -79,7 +79,7 @@ public class CameraMovement : MonoBehaviour
         else if (currentStyle == CameraStyle.Telegrab)
         {
             Vector3 dirtoTelegraphLookAt = TelegrabLookAt.position - new Vector3(transform.position.x, TelegrabLookAt.position.y, transform.position.z);
-            Vector3 slopeForward = Vector3.ProjectOnPlane(foxObject.forward, foxMove.hit3.normal).normalized;
+            Vector3 slopeForward = Vector3.ProjectOnPlane(foxObject.forward, foxMove.SlopeHit.normal).normalized;
             if (foxMove.IsOnSlope())
             {
                 orientation.forward =Vector3.Slerp(orientation.forward, dirtoTelegraphLookAt.normalized + slopeForward, Time.deltaTime * rotationSpeed);
