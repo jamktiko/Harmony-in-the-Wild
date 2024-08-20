@@ -52,10 +52,7 @@ public class CameraMovement : MonoBehaviour
         //rotate player object
         if (currentStyle == CameraStyle.Basic)
         {
-            if (foxObject.rotation.eulerAngles.x < 305)
-            {
-                foxObject.rotation = Quaternion.Euler(360, foxObject.rotation.eulerAngles.y, foxObject.rotation.eulerAngles.z);
-            }
+            
             //foxObject.rotation = Quaternion.Euler(Mathf.Clamp(foxObject.rotation.eulerAngles.x, -20, 20), foxObject.rotation.eulerAngles.y, foxObject.rotation.eulerAngles.z);
             float horizontalInput = PlayerInputHandler.instance.MoveInput.ReadValue<Vector2>().x;
             float verticalInput = PlayerInputHandler.instance.MoveInput.ReadValue<Vector2>().y;
@@ -73,7 +70,14 @@ public class CameraMovement : MonoBehaviour
                 slopeForward = Vector3.zero;
 
             }
-            
+            else if (!foxMove.IsOnSlope())
+            {
+                if (foxObject.rotation.eulerAngles.x < 305)
+            {
+                foxObject.rotation = Quaternion.Euler(360, foxObject.rotation.eulerAngles.y, foxObject.rotation.eulerAngles.z);
+            }
+            }
+
 
         }
         else if (currentStyle == CameraStyle.Telegrab)

@@ -44,6 +44,7 @@ public class FoxMovement : MonoBehaviour
     public Transform cameraPosition;
     [SerializeField] private Transform lookAtTarget;
     [SerializeField] public Transform foxMiddle;
+    [SerializeField] public Transform foxFront;
     [SerializeField] private Transform foxBottom;
     //[SerializeField] private Transform fox;
     //[SerializeField] private Transform arcticFox;
@@ -227,15 +228,20 @@ public class FoxMovement : MonoBehaviour
         //Limit speed on Slope
         if (IsOnSlope()&&!exitingSlope)
         {
-            if (rb.velocity.magnitude>moveSpeed)
+            if (rb.velocity.magnitude>moveSpeed&&!isSprinting)
             {
                 rb.velocity = rb.velocity.normalized * moveSpeed;
+            }
+            else if (rb.velocity.magnitude > sprintSpeed && isSprinting)
+            {
+                rb.velocity = rb.velocity.normalized * sprintSpeed;
             }
         }
 
         //Walking
         if (IsGrounded() && !isSprinting)
         {
+            rb.useGravity = true;
             speed = moveSpeed;
         }
 
@@ -243,18 +249,20 @@ public class FoxMovement : MonoBehaviour
         if (IsGrounded() && isSprinting)
         {
             speed = sprintSpeed;
+            rb.useGravity = true;
         }
 
         //Swimming
         if (IsInWater())
         {
             speed = Swimming.instance.swimSpeed;
+            rb.useGravity = true;
         }
 
         //In air, Gliding
         if (!IsGrounded() && !IsInWater() && Gliding.instance.isGliding)
         {
-            rb.useGravity = true;
+            //rb.useGravity = true;
             speed = moveSpeed;
             modifier = Gliding.instance.glidingMultiplier;
         }
@@ -262,7 +270,7 @@ public class FoxMovement : MonoBehaviour
         //In air, NOT Gliding
         if (!IsGrounded() && !IsInWater() && !Gliding.instance.isGliding)
         {
-            rb.useGravity = true;
+            //rb.useGravity = true;
             speed = moveSpeed;
             modifier = Gliding.instance.airMultiplier;
         }
@@ -282,7 +290,7 @@ public class FoxMovement : MonoBehaviour
         {
             rb.mass = 1f;
             rb.drag = groundDrag;
-            Debug.DrawRay(foxMiddle.position, Vector3.down, Color.cyan);
+            
         }
         else
         {
@@ -351,10 +359,12 @@ public class FoxMovement : MonoBehaviour
 
         //return Physics.Raycast(foxMiddle.position, Vector3.down, out SlopeHit, playerHeight + 0.2f) && SlopeHit.normal != Vector3.up;
 
-        if (Physics.Raycast(foxMiddle.position, Vector3.down, out SlopeHit, playerHeight +0.2f))
+        if (Physics.Raycast(foxFront.position, Vector3.down, out SlopeHit, playerHeight *0.5f+0.2f))
         {
             float angle = Vector3.Angle(Vector3.up, SlopeHit.normal);
+            Debug.DrawRay(foxMiddle.position, Vector3.down, Color.cyan);
             return angle < maxSlopeAngle && angle != 0;
+            
         }
         return false;
         
