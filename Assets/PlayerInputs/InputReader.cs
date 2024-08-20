@@ -40,6 +40,11 @@ public class InputReader : ScriptableObject, PlayerInputActions.IPlayerActions
     public event UnityAction OnDebugAbilitiesCheckAllEvent = delegate { };
     public event UnityAction OnDebugAbilitiesUnlockOneEvent = delegate { };
     public event UnityAction OnDebugAbilitiesUnlockAllEvent = delegate { };
+    public event UnityAction OnDebugVegetationColorChangerEvent = delegate { };
+    public event UnityAction OnDebugTrailerCameraToggleEvent = delegate { };
+    public event UnityAction OnDebugHideUIEvent = delegate { };
+    public event UnityAction OnDebugIncreaseTrailerCameraSpeedEvent = delegate { };
+    public event UnityAction OnDebugDecreaseTrailerCameraSpeedEvent = delegate { };
     public event UnityAction OnCinematicCameraEvent = delegate { };
     public event UnityAction OnSwitchTimeScaleEvent = delegate { };
     private PlayerInputActions playerInputActions;
@@ -194,10 +199,38 @@ public class InputReader : ScriptableObject, PlayerInputActions.IPlayerActions
     {
         OnDebugAbilitiesUnlockAllEvent.Invoke();
     }
+
+    public void OnDebugVegetationColorChanger(InputAction.CallbackContext context)
+    {
+        OnDebugVegetationColorChangerEvent.Invoke();
+    }
+
+    public void OnDebugTrailerCameraToggle(InputAction.CallbackContext context)
+    {
+        OnDebugTrailerCameraToggleEvent.Invoke();
+    }
+
+    public void OnDebugHideUI(InputAction.CallbackContext context)
+    {
+        OnDebugHideUIEvent.Invoke();
+    }
+
+    public void OnDebugIncreaseTrailerCameraSpeed(InputAction.CallbackContext context)
+    {
+        OnDebugIncreaseTrailerCameraSpeedEvent.Invoke();
+    }
+
+    public void OnDebugDecreaseTrailerCameraSpeed(InputAction.CallbackContext context)
+    {
+        OnDebugDecreaseTrailerCameraSpeedEvent.Invoke();
+
+    }
+
     public void OnCinematicCamera(InputAction.CallbackContext context)
     {
         OnCinematicCameraEvent.Invoke();
     }
+
     public void OnSwitchTimeScale(InputAction.CallbackContext context)
     {
         OnSwitchTimeScaleEvent.Invoke();

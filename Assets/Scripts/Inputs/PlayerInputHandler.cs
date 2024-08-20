@@ -40,6 +40,11 @@ public class PlayerInputHandler : MonoBehaviour
         DebugAbilitiesCheckAll,
         DebugAbilitiesUnlockOne,
         DebugAbilitiesUnlockAll,
+        DebugVegetationColorChanger,
+        DebugTrailerCameraToggle,
+        DebugHideUI,
+        DebugIncreaseTrailerCameraSpeed,
+        DebugDecreaseTrailerCameraSpeed,
         CinematicCamera,
         SwitchTimeScale;
 
@@ -90,6 +95,11 @@ public class PlayerInputHandler : MonoBehaviour
         DebugAbilitiesCheckAll = playerInput.actions.FindAction("DebugAbilitiesCheckAll");
         DebugAbilitiesUnlockOne = playerInput.actions.FindAction("DebugAbilitiesUnlockOne");
         DebugAbilitiesUnlockAll = playerInput.actions.FindAction("DebugAbilitiesUnlockAll");
+        DebugVegetationColorChanger = playerInput.actions.FindAction("DebugVegetationColorChanger");
+        DebugTrailerCameraToggle = playerInput.actions.FindAction("DebugTrailerCameraToggle");
+        DebugHideUI = playerInput.actions.FindAction("DebugHideUI");
+        DebugIncreaseTrailerCameraSpeed = playerInput.actions.FindAction("DebugIncreaseTrailerCameraSpeed");
+        DebugDecreaseTrailerCameraSpeed = playerInput.actions.FindAction("DebugDecreaseTrailerCameraSpeed");
         CinematicCamera= playerInput.actions.FindAction("CinematicCamera");
         SwitchTimeScale= playerInput.actions.FindAction("SwitchTimeScale");
     }

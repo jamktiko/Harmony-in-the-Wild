@@ -307,9 +307,54 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""DebugVegetationColorChanger"",
+                    ""type"": ""Button"",
+                    ""id"": ""acbe6c1c-0d54-4c1c-86ea-d628e7c66091"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DebugTrailerCameraToggle"",
+                    ""type"": ""Button"",
+                    ""id"": ""2f20bc3d-e1e4-4524-9c76-3cbd804f799f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DebugHideUI"",
+                    ""type"": ""Button"",
+                    ""id"": ""bd1fcf46-1af8-4c82-ae4e-e910c4cd6e87"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DebugIncreaseTrailerCameraSpeed"",
+                    ""type"": ""Button"",
+                    ""id"": ""85a0d9ce-72be-4202-8c9a-eb3dc50c7184"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DebugDecreaseTrailerCameraSpeed"",
+                    ""type"": ""Button"",
+                    ""id"": ""285cace7-fe1c-4795-ada4-30669a62effc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""CinematicCamera"",
                     ""type"": ""Button"",
-                    ""id"": ""867f139e-0c37-4b71-a9ec-66d71f1c1347"",
+                    ""id"": ""2783ffea-264a-44fe-b3c4-f1aa455a6d24"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -318,7 +363,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""SwitchTimeScale"",
                     ""type"": ""Button"",
-                    ""id"": ""b2543765-74b9-438e-9e1c-2c44983fecbe"",
+                    ""id"": ""dfbceb4d-be81-424f-990e-19f0a7b6f4d2"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -988,18 +1033,73 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""cd555b05-78c1-4e4a-96cb-e3e2850f4538"",
+                    ""id"": ""6de8666c-a59c-4fc2-9327-bc343d5e5862"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DebugVegetationColorChanger"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d6dca73a-f13c-4dc0-8957-c5e96cdb5741"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DebugTrailerCameraToggle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9b57cae5-fd5e-4f06-8e93-846d579c00d5"",
+                    ""path"": ""<Keyboard>/9"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DebugHideUI"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3244fd97-aa94-46a8-a246-305c63d13e6b"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DebugIncreaseTrailerCameraSpeed"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2c733dc5-9d0b-471a-92fb-ce3d9afdab2c"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DebugDecreaseTrailerCameraSpeed"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""37a614eb-7f04-4bf2-9ae6-ed34c9925225"",
                     ""path"": ""<Keyboard>/p"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
+                    ""groups"": """",
                     ""action"": ""CinematicCamera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""bccb3b33-2bc6-45db-9aec-09126e2402b8"",
+                    ""id"": ""17d8b297-a5f8-439d-9330-03e41fb31654"",
                     ""path"": ""<Keyboard>/v"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -1531,6 +1631,11 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_DebugReloadMainMenu = m_Player.FindAction("DebugReloadMainMenu", throwIfNotFound: true);
         m_Player_DebugReloadCurrentScene = m_Player.FindAction("DebugReloadCurrentScene", throwIfNotFound: true);
         m_Player_DebugDevTools = m_Player.FindAction("DebugDevTools", throwIfNotFound: true);
+        m_Player_DebugVegetationColorChanger = m_Player.FindAction("DebugVegetationColorChanger", throwIfNotFound: true);
+        m_Player_DebugTrailerCameraToggle = m_Player.FindAction("DebugTrailerCameraToggle", throwIfNotFound: true);
+        m_Player_DebugHideUI = m_Player.FindAction("DebugHideUI", throwIfNotFound: true);
+        m_Player_DebugIncreaseTrailerCameraSpeed = m_Player.FindAction("DebugIncreaseTrailerCameraSpeed", throwIfNotFound: true);
+        m_Player_DebugDecreaseTrailerCameraSpeed = m_Player.FindAction("DebugDecreaseTrailerCameraSpeed", throwIfNotFound: true);
         m_Player_CinematicCamera = m_Player.FindAction("CinematicCamera", throwIfNotFound: true);
         m_Player_SwitchTimeScale = m_Player.FindAction("SwitchTimeScale", throwIfNotFound: true);
         // UI
@@ -1639,6 +1744,11 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_DebugReloadMainMenu;
     private readonly InputAction m_Player_DebugReloadCurrentScene;
     private readonly InputAction m_Player_DebugDevTools;
+    private readonly InputAction m_Player_DebugVegetationColorChanger;
+    private readonly InputAction m_Player_DebugTrailerCameraToggle;
+    private readonly InputAction m_Player_DebugHideUI;
+    private readonly InputAction m_Player_DebugIncreaseTrailerCameraSpeed;
+    private readonly InputAction m_Player_DebugDecreaseTrailerCameraSpeed;
     private readonly InputAction m_Player_CinematicCamera;
     private readonly InputAction m_Player_SwitchTimeScale;
     public struct PlayerActions
@@ -1676,6 +1786,11 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @DebugReloadMainMenu => m_Wrapper.m_Player_DebugReloadMainMenu;
         public InputAction @DebugReloadCurrentScene => m_Wrapper.m_Player_DebugReloadCurrentScene;
         public InputAction @DebugDevTools => m_Wrapper.m_Player_DebugDevTools;
+        public InputAction @DebugVegetationColorChanger => m_Wrapper.m_Player_DebugVegetationColorChanger;
+        public InputAction @DebugTrailerCameraToggle => m_Wrapper.m_Player_DebugTrailerCameraToggle;
+        public InputAction @DebugHideUI => m_Wrapper.m_Player_DebugHideUI;
+        public InputAction @DebugIncreaseTrailerCameraSpeed => m_Wrapper.m_Player_DebugIncreaseTrailerCameraSpeed;
+        public InputAction @DebugDecreaseTrailerCameraSpeed => m_Wrapper.m_Player_DebugDecreaseTrailerCameraSpeed;
         public InputAction @CinematicCamera => m_Wrapper.m_Player_CinematicCamera;
         public InputAction @SwitchTimeScale => m_Wrapper.m_Player_SwitchTimeScale;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
@@ -1780,6 +1895,21 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @DebugDevTools.started += instance.OnDebugDevTools;
             @DebugDevTools.performed += instance.OnDebugDevTools;
             @DebugDevTools.canceled += instance.OnDebugDevTools;
+            @DebugVegetationColorChanger.started += instance.OnDebugVegetationColorChanger;
+            @DebugVegetationColorChanger.performed += instance.OnDebugVegetationColorChanger;
+            @DebugVegetationColorChanger.canceled += instance.OnDebugVegetationColorChanger;
+            @DebugTrailerCameraToggle.started += instance.OnDebugTrailerCameraToggle;
+            @DebugTrailerCameraToggle.performed += instance.OnDebugTrailerCameraToggle;
+            @DebugTrailerCameraToggle.canceled += instance.OnDebugTrailerCameraToggle;
+            @DebugHideUI.started += instance.OnDebugHideUI;
+            @DebugHideUI.performed += instance.OnDebugHideUI;
+            @DebugHideUI.canceled += instance.OnDebugHideUI;
+            @DebugIncreaseTrailerCameraSpeed.started += instance.OnDebugIncreaseTrailerCameraSpeed;
+            @DebugIncreaseTrailerCameraSpeed.performed += instance.OnDebugIncreaseTrailerCameraSpeed;
+            @DebugIncreaseTrailerCameraSpeed.canceled += instance.OnDebugIncreaseTrailerCameraSpeed;
+            @DebugDecreaseTrailerCameraSpeed.started += instance.OnDebugDecreaseTrailerCameraSpeed;
+            @DebugDecreaseTrailerCameraSpeed.performed += instance.OnDebugDecreaseTrailerCameraSpeed;
+            @DebugDecreaseTrailerCameraSpeed.canceled += instance.OnDebugDecreaseTrailerCameraSpeed;
             @CinematicCamera.started += instance.OnCinematicCamera;
             @CinematicCamera.performed += instance.OnCinematicCamera;
             @CinematicCamera.canceled += instance.OnCinematicCamera;
@@ -1883,6 +2013,21 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @DebugDevTools.started -= instance.OnDebugDevTools;
             @DebugDevTools.performed -= instance.OnDebugDevTools;
             @DebugDevTools.canceled -= instance.OnDebugDevTools;
+            @DebugVegetationColorChanger.started -= instance.OnDebugVegetationColorChanger;
+            @DebugVegetationColorChanger.performed -= instance.OnDebugVegetationColorChanger;
+            @DebugVegetationColorChanger.canceled -= instance.OnDebugVegetationColorChanger;
+            @DebugTrailerCameraToggle.started -= instance.OnDebugTrailerCameraToggle;
+            @DebugTrailerCameraToggle.performed -= instance.OnDebugTrailerCameraToggle;
+            @DebugTrailerCameraToggle.canceled -= instance.OnDebugTrailerCameraToggle;
+            @DebugHideUI.started -= instance.OnDebugHideUI;
+            @DebugHideUI.performed -= instance.OnDebugHideUI;
+            @DebugHideUI.canceled -= instance.OnDebugHideUI;
+            @DebugIncreaseTrailerCameraSpeed.started -= instance.OnDebugIncreaseTrailerCameraSpeed;
+            @DebugIncreaseTrailerCameraSpeed.performed -= instance.OnDebugIncreaseTrailerCameraSpeed;
+            @DebugIncreaseTrailerCameraSpeed.canceled -= instance.OnDebugIncreaseTrailerCameraSpeed;
+            @DebugDecreaseTrailerCameraSpeed.started -= instance.OnDebugDecreaseTrailerCameraSpeed;
+            @DebugDecreaseTrailerCameraSpeed.performed -= instance.OnDebugDecreaseTrailerCameraSpeed;
+            @DebugDecreaseTrailerCameraSpeed.canceled -= instance.OnDebugDecreaseTrailerCameraSpeed;
             @CinematicCamera.started -= instance.OnCinematicCamera;
             @CinematicCamera.performed -= instance.OnCinematicCamera;
             @CinematicCamera.canceled -= instance.OnCinematicCamera;
@@ -2091,6 +2236,11 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnDebugReloadMainMenu(InputAction.CallbackContext context);
         void OnDebugReloadCurrentScene(InputAction.CallbackContext context);
         void OnDebugDevTools(InputAction.CallbackContext context);
+        void OnDebugVegetationColorChanger(InputAction.CallbackContext context);
+        void OnDebugTrailerCameraToggle(InputAction.CallbackContext context);
+        void OnDebugHideUI(InputAction.CallbackContext context);
+        void OnDebugIncreaseTrailerCameraSpeed(InputAction.CallbackContext context);
+        void OnDebugDecreaseTrailerCameraSpeed(InputAction.CallbackContext context);
         void OnCinematicCamera(InputAction.CallbackContext context);
         void OnSwitchTimeScale(InputAction.CallbackContext context);
     }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class QuestPointDialogue : MonoBehaviour
 {
     [Header("Dialogue Files")]
+    [SerializeField] private TextAsset requirementsNotMetDialogue;
     [SerializeField] private TextAsset startQuestDialogue;
     [SerializeField] private TextAsset finishQuestDialogue;
     [SerializeField] private TextAsset afterQuestFinishedDialogue;
@@ -25,6 +26,14 @@ public class QuestPointDialogue : MonoBehaviour
     private void OnDisable()
     {
         GameEventsManager.instance.dialogueEvents.OnEndDialogue -= PreventNewDialogue;
+    }
+
+    public void RequirementsNotMetDialogue()
+    {
+        if(requirementsNotMetDialogue != null)
+        {
+            DialogueManager.instance.StartDialogue(requirementsNotMetDialogue);
+        }
     }
 
     public void StartQuestDialogue()

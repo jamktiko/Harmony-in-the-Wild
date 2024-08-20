@@ -71,9 +71,10 @@ MonoBehaviour:
   dungeonQuest: {fileID: 11400000, guid: 4910e7629d1e3ed46b741c9ecf0f0cca, type: 2}
   abilityGrantedForDungeon: 1
   dungeonEnteringPreventedUI: {fileID: 0}
-  goToScene: Dungeon_Squirrel_Learning
+  learningStage: 0
+  bossStage: 0
   storybookSectionIndex: 5
-  activateQuestProgressTracking: 1
+  respawnPoint: {fileID: 0}
   loadingScreen: {fileID: 0}
   loadingScreenText: {fileID: 0}
 --- !u!1 &1156876507242924835
@@ -90,7 +91,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3655841163801507815
 Transform:
@@ -132,7 +133,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3989628734805376467
 Transform:
@@ -167,7 +168,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!224 &2124281209143253458
 RectTransform:
@@ -301,7 +302,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4893516042971466099
 Transform:
@@ -337,7 +338,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!224 &2328312154913114166
 RectTransform:
@@ -474,6 +475,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stand
       objectReference: {fileID: 0}
+    - target: {fileID: 6002270855294248649, guid: 7c627b7f786e3e04a86cd5a9f63a0c00, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -495,6 +500,10 @@ PrefabInstance:
     - target: {fileID: 1005171171890641205, guid: 37e175973f8fe5f4aabfc8d0ec06c835, type: 3}
       propertyPath: m_Name
       value: TFF_Stone_Slab_02A
+      objectReference: {fileID: 0}
+    - target: {fileID: 1005171171890641205, guid: 37e175973f8fe5f4aabfc8d0ec06c835, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 1005171171890996501, guid: 37e175973f8fe5f4aabfc8d0ec06c835, type: 3}
       propertyPath: m_LocalScale.x
@@ -614,6 +623,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TFF_Rock_Medium_03A
       objectReference: {fileID: 0}
+    - target: {fileID: 8772648035309327700, guid: c8b1da0fbab714f47847c30e2149442d, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -680,6 +693,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TFF_Rock_Large_05A
       objectReference: {fileID: 0}
+    - target: {fileID: 5279046732762050657, guid: 10f7890dcc972314eab7ccfcf445c176, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -701,6 +718,10 @@ PrefabInstance:
     - target: {fileID: 3799213099928599575, guid: a81763150bed0ad459b6743638ad5be4, type: 3}
       propertyPath: m_Name
       value: TFF_Rock_Medium_06A
+      objectReference: {fileID: 0}
+    - target: {fileID: 3799213099928599575, guid: a81763150bed0ad459b6743638ad5be4, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 3799213099928952887, guid: a81763150bed0ad459b6743638ad5be4, type: 3}
       propertyPath: m_LocalScale.x
@@ -824,6 +845,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TFF_Rock_Large_04A
       objectReference: {fileID: 0}
+    - target: {fileID: 6503860231370189630, guid: dfba2029821729e49af979214c5837ba, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -890,6 +915,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TFF_Rock_Large_01A_1
       objectReference: {fileID: 0}
+    - target: {fileID: 8929002069413036059, guid: 3c93b2ebe78e2fa48b763dff787aaeef, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -911,6 +940,10 @@ PrefabInstance:
     - target: {fileID: 2225471985321404540, guid: 8675a68ceb6c1e048a68267417757d73, type: 3}
       propertyPath: m_Name
       value: TFF_Wood_Log_02A
+      objectReference: {fileID: 0}
+    - target: {fileID: 2225471985321404540, guid: 8675a68ceb6c1e048a68267417757d73, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 2225471985321636956, guid: 8675a68ceb6c1e048a68267417757d73, type: 3}
       propertyPath: m_LocalScale.x
@@ -1034,6 +1067,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TFF_Rock_Medium_01A_1
       objectReference: {fileID: 0}
+    - target: {fileID: 1151587133200583922, guid: 27cf8fcce199b284291e36c407c78ca1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1095,6 +1132,10 @@ PrefabInstance:
     - target: {fileID: 8929002069413036059, guid: 3c93b2ebe78e2fa48b763dff787aaeef, type: 3}
       propertyPath: m_Name
       value: TFF_Rock_Large_01A
+      objectReference: {fileID: 0}
+    - target: {fileID: 8929002069413036059, guid: 3c93b2ebe78e2fa48b763dff787aaeef, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1170,6 +1211,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TFF_Rock_Medium_02A
       objectReference: {fileID: 0}
+    - target: {fileID: 7018119237136094062, guid: c50c2430bda2db5498adb34b279a4c01, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1191,6 +1236,10 @@ PrefabInstance:
     - target: {fileID: 3977365282198030536, guid: 98bd1645b1b8d7a4d93c120852cde4a8, type: 3}
       propertyPath: m_Name
       value: TFF_Rock_Large_02A
+      objectReference: {fileID: 0}
+    - target: {fileID: 3977365282198030536, guid: 98bd1645b1b8d7a4d93c120852cde4a8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 3977365282198197480, guid: 98bd1645b1b8d7a4d93c120852cde4a8, type: 3}
       propertyPath: m_LocalScale.y
@@ -1313,6 +1362,10 @@ PrefabInstance:
     - target: {fileID: 1151587133200583922, guid: 27cf8fcce199b284291e36c407c78ca1, type: 3}
       propertyPath: m_Name
       value: TFF_Rock_Medium_01A
+      objectReference: {fileID: 0}
+    - target: {fileID: 1151587133200583922, guid: 27cf8fcce199b284291e36c407c78ca1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
