@@ -15,7 +15,6 @@ public class TeleportBear : MonoBehaviour
     }
     public void TeleportBearToTree() 
     {
-
         bear = GameObject.Find("TutorialBear(Clone)").transform;
         if (bear != null)
         {

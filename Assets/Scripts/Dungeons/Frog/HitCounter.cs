@@ -17,6 +17,9 @@ public class HitCounter : MonoBehaviour
  
     private int currentHits;
 
+    // missing hit pop up !!
+    // need to figure out how to implement it
+
     public void TakeHit(bool isInstaKill)
     {
         if (isInstaKill)

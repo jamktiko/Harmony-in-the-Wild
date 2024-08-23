@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 using TMPro;
 
-public class RallyTimer : MonoBehaviour
+public class PenguinTimer : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI timerText;
 
@@ -61,5 +61,10 @@ public class RallyTimer : MonoBehaviour
     public float GetFinalTimeAsFloat()
     {
         return currentTime;
+    }
+
+    private void UpdateLapCounter()
+    {
+
     }
 }

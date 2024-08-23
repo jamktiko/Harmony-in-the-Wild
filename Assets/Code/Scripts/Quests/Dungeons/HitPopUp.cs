@@ -5,7 +5,7 @@ using TMPro;
 
 public class HitPopUp : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI hitText;
+    /*[SerializeField] private TextMeshProUGUI hitText;
     [SerializeField] private Animator animator;
 
     private void Start()
@@ -41,5 +41,5 @@ public class HitPopUp : MonoBehaviour
         }
 
         animator.SetTrigger("showAnim");
-    }
+    }*/
 }

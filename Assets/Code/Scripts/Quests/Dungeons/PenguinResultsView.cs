@@ -4,12 +4,12 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-public class RallyResultsView : MonoBehaviour
+public class PenguinResultsView : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private TextMeshProUGUI trophyText;
     [SerializeField] private Image trophyImage;
-    [SerializeField] private RallyTimer timer;
+    [SerializeField] private PenguinTimer timer;
 
     [Header("Trophy Config")]
     [SerializeField] private float highestTrophy = 120f;
