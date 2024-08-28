@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 
@@ -15,7 +16,6 @@ public class ClosingWall : MonoBehaviour
     [SerializeField] private bool isPlayerNear;
 
     // private variables
-    private ClosingWallMovement currentMovement = ClosingWallMovement.Down;
     private bool canMove = true;
     private Vector3 startSpot;
     private float timeToTargetSpot;
@@ -23,6 +23,8 @@ public class ClosingWall : MonoBehaviour
     private Freezable freezable;
     private Collider coll;
     private float elapsedPercentage;
+    private List<Vector3> targetPositions = new List<Vector3>();
+    private Vector3 currentTargetPosition;
 
     private void Start()
     {
@@ -31,6 +33,12 @@ public class ClosingWall : MonoBehaviour
         coll = GetComponent<BoxCollider>();
 
         SetTimeToTarget();
+
+        // initialize target position list
+        targetPositions.Add(startSpot);
+        targetPositions.Add(targetSpot.position);
+
+        currentTargetPosition = targetSpot.position;
 
         PenguinRaceManager.instance.penguinDungeonEvents.onLapInterrupted += ResetWallPosition;
         PenguinRaceManager.instance.penguinDungeonEvents.onLapFinished += ResetAfterFinishedLap;
@@ -46,51 +54,55 @@ public class ClosingWall : MonoBehaviour
     {
         if (isPlayerNear && !freezable.isFrozen && canMove)
         {
-            switch (currentMovement)
-            {
-                case ClosingWallMovement.Down:
-                    elapsedTime += Time.deltaTime;
-                    elapsedPercentage = elapsedTime / timeToTargetSpot;
-                    elapsedPercentage = Mathf.SmoothStep(0, 1, elapsedPercentage);
-                    transform.position = Vector3.Lerp(startSpot, targetSpot.position, elapsedPercentage);
-
-                    if(Vector3.Distance(transform.position, targetSpot.position) < 0.2f)
-                    {
-                        currentMovement = ClosingWallMovement.Paused;
-                    }
-
-                    break;
-
-                case ClosingWallMovement.Up:
-                    elapsedTime += Time.deltaTime;
-                    elapsedPercentage = elapsedTime / timeToTargetSpot;
-                    elapsedPercentage = Mathf.SmoothStep(0, 1, elapsedPercentage);
-                    transform.position = Vector3.Lerp(targetSpot.position, startSpot, elapsedPercentage);
-
-                    if (Vector3.Distance(transform.position, startSpot) < 0.2f)
-                    {
-                        currentMovement = ClosingWallMovement.Paused;
-                    }
-
-                    break;
-
-                case ClosingWallMovement.Paused:
-                    canMove = false;
-                    StartCoroutine(PauseMovement());
-                    break;
-            }
+            MoveWall();
         }
 
-        // disable collider if the 
+        // disable collider if the wall has been frozen, so it's not damaging the player when they walk past it
         if (freezable.isFrozen && coll.isTrigger)
         {
+            //Debug.Log("Disabled collider");
             coll.isTrigger = false;
         }
 
         else if (!freezable.isFrozen && !coll.isTrigger)
         {
+            //Debug.Log("Enabled collider");
             coll.isTrigger = true;
         }
+    }
+
+    private void MoveWall()
+    {
+        // update progress values
+        elapsedTime += Time.deltaTime;
+        elapsedPercentage = elapsedTime / timeToTargetSpot;
+        elapsedPercentage = Mathf.SmoothStep(0, 1, elapsedPercentage);
+
+        transform.position = Vector3.Lerp(startSpot, currentTargetPosition, elapsedPercentage);
+
+        if (elapsedPercentage >= 1)
+        {
+            ChangeTargetPosition();
+        }
+    }
+
+    private void ChangeTargetPosition()
+    {
+        // set position
+        if (currentTargetPosition == targetPositions[0])
+        {
+            currentTargetPosition = targetPositions[1];
+            startSpot = targetPositions[0];
+        }
+
+        else
+        {
+            currentTargetPosition = targetPositions[0];
+            startSpot = targetPositions[1];
+        }
+
+        // set progress values
+        elapsedTime = 0;
     }
 
     private void SetTimeToTarget()
@@ -99,7 +111,6 @@ public class ClosingWall : MonoBehaviour
         timeToTargetSpot = distanceToTarget / wallMovingSpeed;
     }
 
-    //NOTE: Is this used?
     public void PlayerGettingClose()
     {
         isPlayerNear = true;
@@ -113,31 +124,11 @@ public class ClosingWall : MonoBehaviour
 
     private void ResetWallPosition()
     {
-        if(transform.position != startSpot)
-        {
-            transform.position = startSpot;
-            elapsedTime = 0;
-            isPlayerNear = false;
-        }
-    }
-
-    private IEnumerator PauseMovement()
-    {
-        yield return new WaitForSeconds(timeOnTargetSpot);
-
+        transform.position = targetPositions[0];
+        startSpot = targetPositions[0];
+        currentTargetPosition = targetPositions[1];
         elapsedTime = 0;
-
-        if (Vector3.Distance(transform.position, startSpot) < 0.2f)
-        {
-            currentMovement = ClosingWallMovement.Down;
-        }
-
-        else
-        {
-            currentMovement = ClosingWallMovement.Up;
-        }
-
-        canMove = true;
+        isPlayerNear = false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -148,11 +139,4 @@ public class ClosingWall : MonoBehaviour
             other.GetComponentInParent<HitCounter>().TakeHit(true);
         }
     }
-}
-
-public enum ClosingWallMovement
-{
-    Down,
-    Up,
-    Paused
 }

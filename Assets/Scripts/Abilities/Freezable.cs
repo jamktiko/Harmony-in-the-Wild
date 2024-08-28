@@ -22,6 +22,26 @@ public class Freezable : MonoBehaviour
     private void Start()
     {
         TryGetComponent<Rigidbody>(out rb);
+
+        if (canBeFrozen == null)
+        {
+            canBeFrozen = transform.Find("Effects").Find("FreezableRock").gameObject;
+
+            if (canBeFrozen == null)
+            {
+                Debug.Log("Couldn't find freezable effect reference for " + gameObject.name);
+            }
+        }
+    }
+
+    private void OnEnable()
+    {
+        if (originalMaterials.Count > 0)
+        {
+            SwapMaterials(false);
+            isFrozen = false;
+            canBeFrozen.SetActive(true);
+        }
     }
 
     public void FreezeObject()
@@ -36,8 +56,10 @@ public class Freezable : MonoBehaviour
         }
 
         if (canBeFrozen != null)
+        {
             canBeFrozen.SetActive(false);
-
+        }
+            
         // Material swapping
         SwapMaterials(true);
 
