@@ -53,7 +53,7 @@ public class PenguinRaceManager : MonoBehaviour
         if(currentLap <= 2)
         {
             penguinDungeonEvents.LapFinished();
-            GameEventsManager.instance.questEvents.UpdateQuestProgressInUI("Lap " + currentLap + "/2");
+            //GameEventsManager.instance.questEvents.UpdateQuestProgressInUI("Lap " + currentLap + "/2");
             AddLapObstacles();
         }
 
