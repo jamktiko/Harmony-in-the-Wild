@@ -88,17 +88,25 @@ public class ClosingWall : MonoBehaviour
 
     private void ChangeTargetPosition()
     {
-        // set position
+        // set target position
         if (currentTargetPosition == targetPositions[0])
         {
+            // go down
             currentTargetPosition = targetPositions[1];
             startSpot = targetPositions[0];
+
+            // enable collider
+            coll.enabled = true;
         }
 
         else
         {
+            // go up
             currentTargetPosition = targetPositions[0];
             startSpot = targetPositions[1];
+
+            // disable collider
+            coll.enabled = false;
         }
 
         // set progress values
