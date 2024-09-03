@@ -9,8 +9,13 @@ public class DungeonQuestDialogue : MonoBehaviour
     [SerializeField] private List<TextAsset> progressDialogue;
     [SerializeField] private TextAsset endDungeonDialogue;
 
-    public void StartDungeonDialogue()
+    public void PlayStartDungeonDialogue()
     {
         DialogueManager.instance.StartDialogue(startDungeonDialogue[Random.Range(0, startDungeonDialogue.Count)]);
+    }
+
+    public void PlayFinishDungeonDialogue()
+    {
+        DialogueManager.instance.StartDialogue(endDungeonDialogue);
     }
 }

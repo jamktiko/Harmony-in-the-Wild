@@ -16,6 +16,7 @@ public class PenguinRaceManager : MonoBehaviour
     [SerializeField] private GameObject alertView;
     [SerializeField] private GameObject lap1_Obstacles;
     [SerializeField] private GameObject lap2_Obstacles;
+    [SerializeField] private DungeonQuestDialogue dungeonQuestDialogue;
 
     [Header("Storybook Config")]
     [SerializeField] private int storybookSectionIndex;
@@ -93,6 +94,16 @@ public class PenguinRaceManager : MonoBehaviour
 
     private IEnumerator TransitionToOverworld()
     {
+        if (dungeonQuestDialogue != null)
+        {
+            dungeonQuestDialogue.PlayFinishDungeonDialogue();
+        }
+
+        else
+        {
+            Debug.LogWarning("No Dungeon Quest Dialogue component assigned to Penguin Race Manager. Please check inspector!");
+        }
+
         yield return new WaitForSeconds(3f);
 
         StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, "OverWorld - VS", true);

@@ -4,6 +4,7 @@ using UnityEngine.VFX;
 public class DungeonInstructionPanel : MonoBehaviour
 {
     [SerializeField] private VisualEffect dungeonEntranceVFX;
+    [SerializeField] private DungeonQuestDialogue dungeonQuestDialogue;
     private int onDungeonStartID;
 
     private void Start()
@@ -37,10 +38,12 @@ public class DungeonInstructionPanel : MonoBehaviour
         if (PlayerInputHandler.instance.CloseUIInput.WasPerformedThisFrame())
         {
             Invoke(nameof(HideInstructionPanel), 0.1f);
+
             if (dungeonEntranceVFX != null)
             {
                 dungeonEntranceVFX.SendEvent("OnDungeonStart");
             }
+
             else
             {
                 Debug.LogWarning("dungeonEntranceVFX variable not assigned.");
@@ -51,5 +54,15 @@ public class DungeonInstructionPanel : MonoBehaviour
     private void HideInstructionPanel()
     {
         gameObject.SetActive(false);
+
+        if(dungeonQuestDialogue != null)
+        {
+            dungeonQuestDialogue.PlayStartDungeonDialogue();
+        }
+
+        else
+        {
+            Debug.LogWarning("No Dungeon Quest Dialogue component assigned to Info Board. Please check inspector!");
+        }
     }
 }
