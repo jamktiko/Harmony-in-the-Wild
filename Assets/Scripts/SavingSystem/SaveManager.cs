@@ -40,15 +40,15 @@ public class SaveManager : MonoBehaviour
     private void Update()
     {
 #if DEBUG
-        //if (PlayerInputHandler.instance.DebugSaveInput.WasPressedThisFrame())
-        //{
-        //    SaveGame();
-        //}
+        /*if (PlayerInputHandler.instance.DebugSaveInput.WasPressedThisFrame())
+        {
+            SaveGame();
+        }
 
-        //if (PlayerInputHandler.instance.DebugDeleteSaveInput.WasPerformedThisFrame() && PlayerInputHandler.instance.DebugDeleteSaveInput2.WasPressedThisFrame())
-        //{
-        //    DeleteSave();
-        //}
+        if (PlayerInputHandler.instance.DebugDeleteSaveInput.WasPerformedThisFrame() && PlayerInputHandler.instance.DebugDeleteSaveInput2.WasPressedThisFrame())
+        {
+            DeleteSave();
+        }*/
 #endif
     }
 
@@ -118,7 +118,7 @@ public class SaveManager : MonoBehaviour
 
     private void CollectTreeOfLifeState()
     {
-        if(SceneManager.GetActiveScene().name == SceneManagerHelper.GetSceneName(SceneManagerHelper.Scene.Overworld))
+        if(SceneManager.GetActiveScene().name == SceneManagerHelper.GetSceneName(SceneManagerHelper.Scene.Overworld) || SceneManager.GetActiveScene().name == "OverWorld - VS")
         {
             gameData.treeOfLifeState = TreeOfLifeState.instance.GetTreeOfLifeState();
         }

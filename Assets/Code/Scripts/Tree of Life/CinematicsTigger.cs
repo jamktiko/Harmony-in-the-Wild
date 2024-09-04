@@ -21,6 +21,8 @@ public class CinematicsTigger : MonoBehaviour
 
         currentTreeOfLifeState = TreeOfLifeState.instance.GetTreeOfLifeState();
 
+        Debug.Log("Tree of Life state: " + currentTreeOfLifeState + ", quests completed: " + questsCompleted);
+
         if(questsCompleted > currentTreeOfLifeState)
         {
             GameEventsManager.instance.cinematicsEvents.StartCinematics();
