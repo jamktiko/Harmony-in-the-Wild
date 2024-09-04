@@ -7,6 +7,7 @@ public class MapOpen : MonoBehaviour
 {
     [SerializeField] GameObject mapPanel;
     [SerializeField] GameObject mapCam;
+    [SerializeField] GameObject PlayerDisplayCanvas;
     [SerializeField] internal Volume globalVolume;
 
     private UnityEngine.Rendering.Universal.DepthOfField depthOfField;
@@ -51,6 +52,7 @@ public class MapOpen : MonoBehaviour
     {
         mapCam.SetActive(!mapCam.activeInHierarchy);
         mapPanel.SetActive(!mapPanel.activeInHierarchy);
+        PlayerDisplayCanvas.SetActive(!PlayerDisplayCanvas.activeInHierarchy);
     }
 
     private void UpdateCursorState()
@@ -70,10 +72,10 @@ public class MapOpen : MonoBehaviour
 
     private void HandleDebugFeatures()
     {
-        if (PlayerInputHandler.instance.JumpInput.WasPressedThisFrame())
-        {
-            ToggleDebugFeatures();
-        }
+        //if (PlayerInputHandler.instance.JumpInput.WasPressedThisFrame())
+        //{
+        //    ToggleDebugFeatures();
+        //}
     }
 
     private void ToggleDebugFeatures()

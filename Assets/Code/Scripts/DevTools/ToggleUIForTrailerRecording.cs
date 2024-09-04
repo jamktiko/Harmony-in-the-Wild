@@ -11,10 +11,10 @@ public class ToggleUIForTrailerRecording : MonoBehaviour
 
     void Update()
     {
-        if (PlayerInputHandler.instance.DebugHideUI.WasPressedThisFrame())
-        {
-            ToggleVisibility();
-        }
+        //if (PlayerInputHandler.instance.DebugHideUI.WasPressedThisFrame())
+        //{
+        //    ToggleVisibility();
+        //}
     }
 
     private void ToggleVisibility()
