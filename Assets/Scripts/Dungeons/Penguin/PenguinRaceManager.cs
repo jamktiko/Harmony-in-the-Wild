@@ -38,16 +38,6 @@ public class PenguinRaceManager : MonoBehaviour
         penguinDungeonEvents = new PenguinDungeonEvents();
     }
 
-    private void OnEnable()
-    {
-        GameEventsManager.instance.dialogueEvents.OnEndDialogue += TransitionToOverworld;
-    }
-
-    private void OnDisable()
-    {
-        GameEventsManager.instance.dialogueEvents.OnEndDialogue -= TransitionToOverworld;
-    }
-
     // ---------------------
     // TRIGGER CUSTOM EVENTS
     // ---------------------
@@ -64,7 +54,6 @@ public class PenguinRaceManager : MonoBehaviour
         if(currentLap <= 2)
         {
             penguinDungeonEvents.LapFinished();
-            lapCounterText.text = "Lap " + currentLap + "/2";
             //GameEventsManager.instance.questEvents.UpdateQuestProgressInUI("Lap " + currentLap + "/2");
             AddLapObstacles();
         }
@@ -73,7 +62,7 @@ public class PenguinRaceManager : MonoBehaviour
         {
             penguinDungeonEvents.RaceFinished();
             GameEventsManager.instance.questEvents.AdvanceDungeonQuest(questSO.id);
-            TriggerFinishDungeonDialogue();
+            StartCoroutine(TransitionToOverworld());
         }
 
     }
@@ -103,25 +92,7 @@ public class PenguinRaceManager : MonoBehaviour
         alertView.SetActive(false);
     }
 
-    private void TransitionToOverworld()
-    {
-        if(dungeonQuestDialogue != null)
-        {
-            if (dungeonQuestDialogue.FinalDialogueCompleted())
-            {
-                StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, "OverWorld - VS", true);
-                SceneManager.LoadScene("Storybook");
-            }
-        }
-
-        else
-        {
-            Debug.LogWarning("No Dungeon Quest Dialogue component assigned to Penguin Race Manager. Please check inspector!");
-        }
-    }
-
-
-    private void TriggerFinishDungeonDialogue()
+    private IEnumerator TransitionToOverworld()
     {
         if (dungeonQuestDialogue != null)
         {
@@ -132,6 +103,11 @@ public class PenguinRaceManager : MonoBehaviour
         {
             Debug.LogWarning("No Dungeon Quest Dialogue component assigned to Penguin Race Manager. Please check inspector!");
         }
+
+        yield return new WaitForSeconds(3f);
+
+        StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, "OverWorld - VS", true);
+        SceneManager.LoadScene("Storybook");
     }
 }
 
