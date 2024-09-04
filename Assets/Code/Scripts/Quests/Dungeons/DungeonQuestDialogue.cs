@@ -9,6 +9,8 @@ public class DungeonQuestDialogue : MonoBehaviour
     [SerializeField] private List<TextAsset> progressDialogue;
     [SerializeField] private TextAsset endDungeonDialogue;
 
+    private bool hadFinalDialogue = false;
+
     public void PlayStartDungeonDialogue()
     {
         DialogueManager.instance.StartDialogue(startDungeonDialogue[Random.Range(0, startDungeonDialogue.Count)]);
@@ -17,5 +19,12 @@ public class DungeonQuestDialogue : MonoBehaviour
     public void PlayFinishDungeonDialogue()
     {
         DialogueManager.instance.StartDialogue(endDungeonDialogue);
+
+        hadFinalDialogue = true;
+    }
+
+    public bool FinalDialogueCompleted()
+    {
+        return hadFinalDialogue;
     }
 }
