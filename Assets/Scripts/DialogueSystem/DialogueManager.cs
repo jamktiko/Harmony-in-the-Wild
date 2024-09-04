@@ -131,6 +131,11 @@ public class DialogueManager : MonoBehaviour
             // start listening the variable changes in the current story
             dialogueVariables.StartListening(currentStory);
         }
+
+        else
+        {
+            Debug.Log("Can't start dialogue right now, system on cooldown. You might be trying to talk to the same character too quickly.");
+        }
     }
 
     public void ContinueDialogue()
@@ -326,7 +331,7 @@ public class DialogueManager : MonoBehaviour
     {
         canStartDialogue = false;
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1.5f);
 
         canStartDialogue = true;
     }

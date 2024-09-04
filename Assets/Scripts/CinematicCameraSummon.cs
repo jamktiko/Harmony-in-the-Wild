@@ -8,7 +8,7 @@ public class CinematicCameraSummon : MonoBehaviour
     [SerializeField]GameObject instance;
     private void Update()
     {
-        StartCinematicCamera();
+        //StartCinematicCamera();
     }
     void StartCinematicCamera() 
     {
