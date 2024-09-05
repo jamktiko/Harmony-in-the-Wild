@@ -118,7 +118,7 @@ public class SaveManager : MonoBehaviour
 
     private void CollectTreeOfLifeState()
     {
-        if(SceneManager.GetActiveScene().name == SceneManagerHelper.GetSceneName(SceneManagerHelper.Scene.Overworld))
+        if(SceneManager.GetActiveScene().name == SceneManagerHelper.GetSceneName(SceneManagerHelper.Scene.Overworld) || SceneManager.GetActiveScene().name == "OverWorld - VS")
         {
             gameData.treeOfLifeState = TreeOfLifeState.instance.GetTreeOfLifeState();
         }
