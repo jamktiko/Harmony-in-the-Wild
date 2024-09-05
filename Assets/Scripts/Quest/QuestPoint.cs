@@ -17,6 +17,7 @@ public class QuestPoint : MonoBehaviour
     private string questId;
     private QuestState currentQuestState;
     private QuestPointDialogue questPointDialogue;
+    private bool readyToCompleteQuest;
 
     [Header("RespawnPoint")]
     [SerializeField] private Transform respawnPoint;
@@ -30,11 +31,13 @@ public class QuestPoint : MonoBehaviour
     private void OnEnable()
     {
         GameEventsManager.instance.questEvents.OnQuestStateChange += QuestStateChange;
+        GameEventsManager.instance.dialogueEvents.OnEndDialogue += CompleteQuest;
     }
 
     private void OnDisable()
     {
         GameEventsManager.instance.questEvents.OnQuestStateChange -= QuestStateChange;
+        GameEventsManager.instance.dialogueEvents.OnEndDialogue -= CompleteQuest;
     }
 
     private void Update()
@@ -57,7 +60,7 @@ public class QuestPoint : MonoBehaviour
         // start or finish a quest
         if (currentQuestState.Equals(QuestState.CAN_START) && startPoint)
         {
-            Debug.Log("Quest -1");
+            //Debug.Log("Quest -1");
 
             GameEventsManager.instance.questEvents.StartQuest(questId);
             questPointDialogue.StartQuestDialogue();
@@ -65,9 +68,8 @@ public class QuestPoint : MonoBehaviour
 
         else if (currentQuestState.Equals(QuestState.CAN_FINISH) && finishPoint)
         {
-            Debug.Log("Quest 0");
-
-            GameEventsManager.instance.questEvents.FinishQuest(questId);
+            //Debug.Log("Quest 0");
+            readyToCompleteQuest = true;
             questPointDialogue.FinishQuestDialogue();
         }
 
@@ -78,6 +80,14 @@ public class QuestPoint : MonoBehaviour
          }
 
          RespawnManager.instance.SetRespawnPosition(respawnPoint.transform.position);
+    }
+
+    private void CompleteQuest()
+    {
+        if (playerIsNear && readyToCompleteQuest && currentQuestState.Equals(QuestState.CAN_FINISH))
+        {
+            GameEventsManager.instance.questEvents.FinishQuest(questId);
+        }
     }
 
     private void QuestStateChange(Quest quest)
