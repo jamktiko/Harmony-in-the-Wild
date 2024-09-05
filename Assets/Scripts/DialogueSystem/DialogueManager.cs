@@ -17,7 +17,7 @@ public class DialogueManager : MonoBehaviour
     [Header("Dialogue UI")]
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private TextMeshProUGUI speakerText;
-    [SerializeField] private GameObject exitButton;
+    //[SerializeField] private GameObject exitButton;
 
     [Header("Choices")]
     [SerializeField] private bool isChoiceAvailable;
@@ -148,7 +148,7 @@ public class DialogueManager : MonoBehaviour
 
             DisplayChoices();
 
-            if (!currentStory.canContinue)
+            /*if (!currentStory.canContinue)
             {
                 exitButton.SetActive(true);
             }
@@ -156,7 +156,7 @@ public class DialogueManager : MonoBehaviour
             else
             {
                 exitButton.SetActive(false);
-            }
+            }*/
         }
     }
 
@@ -281,7 +281,7 @@ public class DialogueManager : MonoBehaviour
     {
         if (!currentStory.canContinue)
         {
-            exitButton.SetActive(false);
+            //exitButton.SetActive(false);
             EndDialogue();
         }
     }
@@ -298,7 +298,7 @@ public class DialogueManager : MonoBehaviour
         isDialoguePlaying = false;
         dialogueText.text = "";
 
-        exitButton.SetActive(false);
+        //exitButton.SetActive(false);
         dialogueCanvas.SetActive(false);
 
         StartCoroutine(DelayBetweenDialogues());

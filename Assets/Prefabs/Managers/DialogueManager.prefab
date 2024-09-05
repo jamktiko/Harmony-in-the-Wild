@@ -150,7 +150,7 @@ MonoBehaviour:
   dialogueCanvas: {fileID: 3996838238449288892}
   dialogueText: {fileID: 7417714872121978830}
   speakerText: {fileID: 6420145593189325778}
-  exitButton: {fileID: 8275755435341985376}
+  exitButton: {fileID: 0}
   isChoiceAvailable: 0
   currentChoiceIndex: 0
   choiceButtons:
@@ -158,6 +158,7 @@ MonoBehaviour:
   - {fileID: 7041466318723078097}
   - {fileID: 5558107629752631680}
   isDialoguePlaying: 0
+  canStartDialogue: 1
   loadGlobalsJSON: {fileID: 4900000, guid: e4ae1fef3d82906448367b683877d91e, type: 3}
 --- !u!1001 &1765724083291040231
 PrefabInstance:
@@ -264,7 +265,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4110715964706260459}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7663014448650198919, guid: 646e5eb95441cdd468606adf5d53eb70, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 646e5eb95441cdd468606adf5d53eb70, type: 3}
@@ -310,8 +312,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &8275755435341985376 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7663014448650198919, guid: 646e5eb95441cdd468606adf5d53eb70, type: 3}
-  m_PrefabInstance: {fileID: 1765724083291040231}
-  m_PrefabAsset: {fileID: 0}
