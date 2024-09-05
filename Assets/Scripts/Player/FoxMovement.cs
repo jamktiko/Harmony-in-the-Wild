@@ -90,6 +90,19 @@ public class FoxMovement : MonoBehaviour
             }
         }
     }
+
+    private void OnEnable()
+    {
+        GameEventsManager.instance.dialogueEvents.OnStartDialogue += DisableMovementForDialogue;
+        GameEventsManager.instance.dialogueEvents.OnEndDialogue += EnableMovementAfterDialogue;
+    }
+
+    private void OnDisable()
+    {
+        GameEventsManager.instance.dialogueEvents.OnStartDialogue -= DisableMovementForDialogue;
+        GameEventsManager.instance.dialogueEvents.OnEndDialogue -= EnableMovementAfterDialogue;
+    }
+
     void Update()
     {
         SpeedControl();
@@ -427,5 +440,17 @@ public class FoxMovement : MonoBehaviour
         Debug.Log($"FM CollectPos Position is: {data.x}, {data.y}, {data.z}. Rotation is: {data.rotX}, {data.rotY}, {data.rotZ}");
 
         return data;
+    }
+
+    // prevent jumping when dialogue starts
+    private void DisableMovementForDialogue()
+    {
+        isReadyToJump = false;
+    }
+
+    // get ready to enable jumping when dialogue has ended
+    private void EnableMovementAfterDialogue()
+    {
+        Invoke(nameof(ResetJump), 0.3f);   
     }
 }

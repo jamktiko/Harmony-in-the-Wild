@@ -44,14 +44,17 @@ public class ChargeJumping : MonoBehaviour, IAbility
     }
     private void Update()
     {
-        if (isChargingJump)
+        if (isChargeJumpActivated)
         {
-            ChargeJump();
-        }
+            if (isChargingJump)
+            {
+                ChargeJump();
+            }
 
-        if (chargeJumpTimer != 14 && PlayerInputHandler.instance.ChargeJumpInput.WasReleasedThisFrame())
-        {
-            ReleaseChargedJump();
+            if (chargeJumpTimer != 14 && PlayerInputHandler.instance.ChargeJumpInput.WasReleasedThisFrame())
+            {
+                ReleaseChargedJump();
+            }
         }
     }
     private void ChargeJump()
