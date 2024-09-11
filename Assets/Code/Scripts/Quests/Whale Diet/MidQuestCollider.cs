@@ -7,6 +7,7 @@ public class MidQuestCollider : MonoBehaviour
     [SerializeField] private QuestScriptableObject quest;
 
     private QuestState currentState;
+    private List<Transform> childColliders = new List<Transform>();
 
     private void Start()
     {
@@ -57,5 +58,10 @@ public class MidQuestCollider : MonoBehaviour
                 DisableQuestColliders();
             }
         }
+    }
+
+    public void AddChildTransformToList(Transform child)
+    {
+        childColliders.Add(child);
     }
 }
