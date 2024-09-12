@@ -44,31 +44,32 @@ public class QuestPoint : MonoBehaviour
     {
         if(PlayerInputHandler.instance.InteractInput.WasPressedThisFrame()&&playerIsNear)
         {
-           currentQuestState= QuestManager.instance.questMap[questId].state;
             InteractedWithQuestPoint();
         }
     }
 
     private void InteractedWithQuestPoint()
     {
+        currentQuestState = QuestManager.instance.questMap[questId].state;
+
         // play dialogue if you are not able to start the quest yet
-        if(currentQuestState.Equals(QuestState.REQUIREMENTS_NOT_MET) && startPoint)
+        if (currentQuestState.Equals(QuestState.REQUIREMENTS_NOT_MET) && startPoint)
         {
+            Debug.Log("Interacting with quest point, not ready for this quest yet!");
             questPointDialogue.RequirementsNotMetDialogue();
         }
 
         // start or finish a quest
-        if (currentQuestState.Equals(QuestState.CAN_START) && startPoint)
+        else if (currentQuestState.Equals(QuestState.CAN_START) && startPoint)
         {
-            //Debug.Log("Quest -1");
-
+            Debug.Log("Interacting with quest point, about to start a quest.");
             GameEventsManager.instance.questEvents.StartQuest(questId);
             questPointDialogue.StartQuestDialogue();
         }
 
         else if (currentQuestState.Equals(QuestState.CAN_FINISH) && finishPoint)
         {
-            //Debug.Log("Quest 0");
+            Debug.Log("Interacting with quest point, about to finish a quest.");
             readyToCompleteQuest = true;
             questPointDialogue.FinishQuestDialogue();
         }
@@ -76,6 +77,7 @@ public class QuestPoint : MonoBehaviour
          // if the quest has already been finished, trigger the default dialogue
          else if (currentQuestState.Equals(QuestState.FINISHED))
          {
+            Debug.Log("Interacting with quest point, quest has been completed previously.");
             questPointDialogue.AfterQuestFinishedDialogue();
          }
 

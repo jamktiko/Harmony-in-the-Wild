@@ -25,7 +25,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject[] choiceButtons;
 
     [Header("Public Values for References")]
-    public bool isDialoguePlaying;
+    public bool isDialoguePlaying = false;
     public bool canStartDialogue = true;
 
     [Header("Ink Globals")]
@@ -113,7 +113,7 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(TextAsset inkJSON)
     {
-        if (canStartDialogue)
+        if (!isDialoguePlaying)
         {
             Debug.Log("Start dialogue.");
 

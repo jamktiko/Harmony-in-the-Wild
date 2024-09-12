@@ -26,12 +26,12 @@ public class PreQuestCollider : MonoBehaviour
 
     private void OnEnable()
     {
-        GameEventsManager.instance.questEvents.OnFinishQuest += UpdateQuestProgressStatus;
+        GameEventsManager.instance.questEvents.OnStartQuest += UpdateQuestProgressStatus;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.questEvents.OnFinishQuest -= UpdateQuestProgressStatus;
+        GameEventsManager.instance.questEvents.OnStartQuest -= UpdateQuestProgressStatus;
     }
 
     private void CheckQuestProgressStatus()

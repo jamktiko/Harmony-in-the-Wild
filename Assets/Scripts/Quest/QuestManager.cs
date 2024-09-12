@@ -16,7 +16,7 @@ public class QuestManager : MonoBehaviour
 
     private void Awake()
     {
-        if (QuestManager.instance != null)
+        if (instance != null)
         {
             Debug.LogWarning("There is more than one Game Events Manager in the scene");
             Destroy(gameObject);
@@ -50,16 +50,18 @@ public class QuestManager : MonoBehaviour
         foreach (Quest quest in questMap.Values)
         {
             // initialize any loaded quest steps
-            if(quest.state == QuestState.IN_PROGRESS)
+            if (quest.state == QuestState.IN_PROGRESS)
             {
                 quest.InstantiateCurrentQuestStep(transform);
             }
 
             // broadcast the initial state of all quests
             GameEventsManager.instance.questEvents.QuestStateChange(quest);
+
+            Debug.Log(quest.info.id + ": state is set to " + quest.state);
         }
 
-        if(SceneManager.GetActiveScene().name == "Overworld" && AbilityCycle == null)
+        if (SceneManager.GetActiveScene().name == "Overworld" && AbilityCycle == null)
         {
             AbilityCycle = FindObjectOfType<AbilityCycle>(); // In case Overworld is loaded in editor, find AbilityCycle
         }
@@ -107,10 +109,10 @@ public class QuestManager : MonoBehaviour
         // start true and prove to be false
         bool meetsRequirements = true;
 
-        if (currentPlayerLevel<quest.info.levelRequirement)
+        /*if (currentPlayerLevel<quest.info.levelRequirement)
         {
             meetsRequirements = false;
-        }
+        }*/
         foreach(QuestScriptableObject prerequisiteQuestInfo in quest.info.questPrerequisites)
         {
             if(GetQuestById(prerequisiteQuestInfo.id).state != QuestState.FINISHED)
