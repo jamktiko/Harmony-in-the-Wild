@@ -14,8 +14,6 @@ public class DungeonQuestDialogue : MonoBehaviour
     public void PlayStartDungeonDialogue()
     {
         DialogueManager.instance.StartDialogue(startDungeonDialogue[Random.Range(0, startDungeonDialogue.Count)]);
-
-        hadFinalDialogue = true;
     }
 
     public void PlayFinishDungeonDialogue()
