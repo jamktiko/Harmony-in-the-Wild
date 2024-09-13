@@ -85,6 +85,10 @@ public class Discord_Controller : MonoBehaviour
             {
                 details = detailsValues[3];
             }
+            else if (SceneManager.GetActiveScene().name.Contains("StoryBook"))
+            {
+                details = detailsValues[4];
+            }
             else
             {
                 details = detailsValues[1];
