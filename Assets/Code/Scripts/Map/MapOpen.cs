@@ -21,6 +21,7 @@ public class MapOpen : MonoBehaviour
     private void CheckDepthOfField()
     {
         if (globalVolume.profile.TryGet(out depthOfField))
+
         {
             //Debug.Log("Depth of Field found in the Global Volume.");
         }
