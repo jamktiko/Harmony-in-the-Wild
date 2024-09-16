@@ -11,7 +11,7 @@ public class InteractableKey : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.E) && isActive && !wasUsed)
+        if(PlayerInputHandler.instance.InteractInput.WasPressedThisFrame() && isActive && !wasUsed)
         {
             UseKey();
         }
