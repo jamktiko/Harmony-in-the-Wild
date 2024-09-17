@@ -1109,6 +1109,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d478b2b8ec2d3b94287284e3ba189f86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minDuration: 2
+  maxDuration: 10
   destinations:
   - {fileID: 5930916961184379365}
   - {fileID: 1733597590530714817}
@@ -1151,20 +1153,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9119a06e63a73c147a4c62af3c29424b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueOptions:
-  - questSO: {fileID: 0}
-    dialogueToPlay: {fileID: 4900000, guid: 73ea2ef3894f73a4e9ccbba9907ceb85, type: 3}
-  - questSO: {fileID: 11400000, guid: 6319434f68453f54fa60900a7e1a1800, type: 2}
-    dialogueToPlay: {fileID: 4900000, guid: 31dfa23f8d11e124e8986ebfff47eca4, type: 3}
-  - questSO: {fileID: 11400000, guid: 4910e7629d1e3ed46b741c9ecf0f0cca, type: 2}
-    dialogueToPlay: {fileID: 4900000, guid: fe1b8ab724860424885be83437d58ab4, type: 3}
-  - questSO: {fileID: 11400000, guid: 51b0eaf0d5c760142acce377ae186057, type: 2}
-    dialogueToPlay: {fileID: 4900000, guid: 21d85acde594e004e8213664a663a7bb, type: 3}
-  - questSO: {fileID: 11400000, guid: 3bf14c600c45f4240b2ce1650a704374, type: 2}
-    dialogueToPlay: {fileID: 4900000, guid: 1231a9605352f014e9d5727307bce10f, type: 3}
-  - questSO: {fileID: 11400000, guid: 67bfb164cd74e6141ab54fbfba7167be, type: 2}
-    dialogueToPlay: {fileID: 4900000, guid: 2d257c90eec81744db559f2bc67b323b, type: 3}
-  latestQuest: {fileID: 11400000, guid: 6319434f68453f54fa60900a7e1a1800, type: 2}
+  questDialoguePairs: []
+  defaultDialogue: {fileID: 0}
 --- !u!135 &6600405665450660356
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2567,9 +2557,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5a2e4341efb1d0d43b703c5576e76a1d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5133911551893446278}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5a2e4341efb1d0d43b703c5576e76a1d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1836706352678817021}
   m_SourcePrefab: {fileID: 100100000, guid: 5a2e4341efb1d0d43b703c5576e76a1d, type: 3}
 --- !u!4 &126983411522177515 stripped
 Transform:
@@ -2942,19 +2929,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1836706352678817021
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5710169143547100872}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ff2dc266a1495546b130e4006a1593e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agent: {fileID: 8996846662733078890}
 --- !u!4 &5772414000934382146 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1433352734247430619, guid: 5a2e4341efb1d0d43b703c5576e76a1d, type: 3}
