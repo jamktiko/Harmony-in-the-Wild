@@ -16,7 +16,7 @@ public class QuestGhost : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (PlayerInputHandler.instance.InteractInput.WasPressedThisFrame())
         {
             InteractWithGhost();
         }
