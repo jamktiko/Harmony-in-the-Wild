@@ -17,6 +17,7 @@ public class PenguinRaceManager : MonoBehaviour
     [SerializeField] private GameObject lap1_Obstacles;
     [SerializeField] private GameObject lap2_Obstacles;
     [SerializeField] private DungeonQuestDialogue dungeonQuestDialogue;
+    [SerializeField] private PenguinTimer timer;
 
     [Header("Storybook Config")]
     [SerializeField] private int storybookSectionIndex;
@@ -71,9 +72,7 @@ public class PenguinRaceManager : MonoBehaviour
 
         else
         {
-            penguinDungeonEvents.RaceFinished();
-            GameEventsManager.instance.questEvents.AdvanceDungeonQuest(questSO.id);
-            TriggerFinishDungeonDialogue();
+            CheckQuestCompletionRequirements();
         }
 
     }
@@ -101,6 +100,24 @@ public class PenguinRaceManager : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
 
         alertView.SetActive(false);
+    }
+
+    private void CheckQuestCompletionRequirements()
+    {
+        float time = timer.GetFinalTimeAsFloat();
+
+        if (time < 180f)
+        {
+            penguinDungeonEvents.RaceFinished();
+            GameEventsManager.instance.questEvents.AdvanceDungeonQuest(questSO.id);
+            TriggerFinishDungeonDialogue();
+        }
+
+        else
+        {
+            Debug.Log("Not fast enough, try again");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
 
     private void TransitionToOverworld()
