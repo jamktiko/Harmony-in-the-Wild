@@ -82,6 +82,18 @@ public class AbilityManager : MonoBehaviour
             Debug.LogError($"Attempted to unlock an unrecognized ability: {abilityType}");
         }
     }
+
+    // Method to lock an ability again if needed (most likely since you haven't yet completed the corresponding quest)
+    public void LockAbility(Abilities abilityType)
+    {
+        if (abilityStatuses.ContainsKey(abilityType))
+        {
+            abilityStatuses[abilityType] = false;
+
+            Debug.Log($"Ability {abilityType} has been locked again. Corresponding dungeon was not yet completed.");
+        }
+    }
+
     public string CollectAbilityDataForSaving()
     {
         string data = JsonConvert.SerializeObject(abilityStatuses);
