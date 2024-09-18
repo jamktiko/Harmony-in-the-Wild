@@ -22,7 +22,7 @@ public class FixSplineObjectRotation : MonoBehaviour
         {
             var currentKnot = spline.ToArray()[i];
 
-            spline.SetTangentMode(i, mode: TangentMode.Linear, BezierTangent.Out);
+            //spline.SetTangentMode(i, mode: TangentMode.Linear, BezierTangent.Out);
             currentKnot.Rotation = Quaternion.Euler(0, 0, 0);
 
             spline.SetKnot(i, currentKnot);
