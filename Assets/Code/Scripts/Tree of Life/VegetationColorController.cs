@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VegetationColorTester : MonoBehaviour
+// handles vegetation color changes
+// sets the initial color on start, as well as triggers the changes when cinematics are played
+
+public class VegetationColorController : MonoBehaviour
 {
     [SerializeField] private Material leafMaterial;
     [SerializeField] private Material pineLeafMaterial;
@@ -11,56 +14,45 @@ public class VegetationColorTester : MonoBehaviour
     [SerializeField] private Color aliveColor;
 
     private float updateState = 0f;
-    private float updateAmount = 0.125f;
+    private float updateAmount = 0.25f;
 
     private void Start()
     {
         InitializeShaderValues();
     }
 
-    private void Update()
+    private void OnEnable()
     {
-        if (PlayerInputHandler.instance.DebugVegetationColorChanger.WasPressedThisFrame())
-        {
-            UpdateVegetationColor();
-
-            if(updateState < 1f)
-            {
-                //StartCoroutine(SmoothVegetationColorUpdate());
-            }
-
-            else
-            {
-                //updateState = 0f;
-                //StartCoroutine(SmoothVegetationColorUpdate());
-            }
-        }
+        GameEventsManager.instance.cinematicsEvents.OnStartCinematics += TriggerVegetationColorChanges;
     }
 
-    private void UpdateVegetationColor()
+    private void OnDisable()
     {
-        updateState += updateAmount;
-        //Color currentColor = Color.Lerp(deadColor, aliveColor, updateState);
-
-        leafMaterial.SetColor("_LeafColor", Color.Lerp(deadColor, aliveColor, updateState));
-        pineLeafMaterial.SetColor("_LeafColor", Color.Lerp(deadPineColor, aliveColor, updateState));
+        GameEventsManager.instance.cinematicsEvents.OnStartCinematics -= TriggerVegetationColorChanges;
     }
 
     private void InitializeShaderValues()
     {
-        updateState = 0f;
-        //updateState = TreeOfLifeState.instance.GetTreeOfLifeState();
+        // check the current state of ToL progress; set the color update value to be the same
+        updateState = TreeOfLifeState.instance.GetTreeOfLifeState();
 
-        Color currentColor = Color.Lerp(deadColor, aliveColor, updateState);
-
+        // use Color.Lerp to detect the value between the two colors that matches the desired update state
         leafMaterial.SetColor("_LeafColor", Color.Lerp(deadColor, aliveColor, updateState));
         pineLeafMaterial.SetColor("_LeafColor", Color.Lerp(deadPineColor, aliveColor, updateState));
     }
     
+    private void TriggerVegetationColorChanges()
+    {
+        StartCoroutine(SmoothVegetationColorUpdate());
+    }
+
     private IEnumerator SmoothVegetationColorUpdate()
     {
+        updateState = TreeOfLifeState.instance.GetTreeOfLifeState();
+
         float currentUpdateAmount = 0f;
 
+        // gradually calculate the new color for the vegetation based on the update state
         while (currentUpdateAmount < updateAmount)
         {
             updateState += 0.01f;
@@ -68,8 +60,6 @@ public class VegetationColorTester : MonoBehaviour
 
             leafMaterial.SetColor("_LeafColor", Color.Lerp(deadColor, aliveColor, updateState));
             pineLeafMaterial.SetColor("_LeafColor", Color.Lerp(deadPineColor, aliveColor, updateState));
-
-            //leafMaterial.SetColor("_LeafColor", currentColor);
 
             yield return new WaitForSeconds(0.01f);
         }
