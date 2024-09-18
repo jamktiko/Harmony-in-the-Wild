@@ -40,15 +40,15 @@ public class SaveManager : MonoBehaviour
     private void Update()
     {
 #if DEBUG
-        //if (PlayerInputHandler.instance.DebugSaveInput.WasPressedThisFrame())
-        //{
-        //    SaveGame();
-        //}
+        if (PlayerInputHandler.instance.DebugSaveInput.WasPressedThisFrame())
+        {
+            SaveGame();
+        }
 
-        //if (PlayerInputHandler.instance.DebugDeleteSaveInput.WasPerformedThisFrame() && PlayerInputHandler.instance.DebugDeleteSaveInput2.WasPressedThisFrame())
-        //{
-        //    DeleteSave();
-        //}
+        if (PlayerInputHandler.instance.DebugDeleteSaveInput.WasPerformedThisFrame() && PlayerInputHandler.instance.DebugDeleteSaveInput2.WasPressedThisFrame())
+        {
+            DeleteSave();
+        }
 #endif
     }
 
@@ -134,11 +134,13 @@ public class SaveManager : MonoBehaviour
         return gameData.treeOfLifeState;
     }
 
+    // this is probably causing the issues that teleports the player inside the dungeon entrances, making a loop between scene transitions
+    // uncommenting this for now, if we want to use exact position for saving the data, we might need to think of other options /Jutta
     public void CollectPlayerPositionData()
     {
         if (FoxMovement.instance != null && SceneManager.GetActiveScene().name.Contains("Overworld"))
         {
-            gameData.playerPositionData = FoxMovement.instance.CollectPlayerPositionForSaving();
+            //gameData.playerPositionData = FoxMovement.instance.CollectPlayerPositionForSaving();
         }
     }
     #endregion
