@@ -31,17 +31,19 @@ public class DungeonEnding : MonoBehaviour
 
     private void OnEnable()
     {
-        GameEventsManager.instance.questEvents.OnFinishQuest += TriggerSceneTransition;
+        //GameEventsManager.instance.questEvents.OnFinishQuest += TriggerSceneTransition;
+        GameEventsManager.instance.questEvents.OnQuestStateChange += TriggerSceneTransition;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.questEvents.OnFinishQuest -= TriggerSceneTransition;
+        //GameEventsManager.instance.questEvents.OnFinishQuest -= TriggerSceneTransition;
+        GameEventsManager.instance.questEvents.OnQuestStateChange -= TriggerSceneTransition;
     }
 
-    private void TriggerSceneTransition(string id)
+    private void TriggerSceneTransition(Quest quest)
     {
-        if(id == questId)
+        if(quest.info.id == questId && quest.state == QuestState.CAN_FINISH)
         {
             Debug.Log("Corresponding dungeon quest finished...");
             StartCoroutine(ShowDungeonCompletedStorybook());
@@ -49,7 +51,7 @@ public class DungeonEnding : MonoBehaviour
 
         else
         {
-            Debug.LogError("ID not matching for the current quest: " + id);
+            Debug.LogError("ID not matching for the current quest: " + quest.info.id);
         }
     }
 

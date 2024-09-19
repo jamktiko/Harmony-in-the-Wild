@@ -35,7 +35,7 @@ public class CinematicsTigger : MonoBehaviour
         {
             QuestState questState = QuestManager.instance.CheckQuestState(quest.id);
 
-            if(questState == QuestState.FINISHED)
+            if(questState == QuestState.FINISHED || questState == QuestState.CAN_FINISH)
             {
                 questsCompleted++;
             }

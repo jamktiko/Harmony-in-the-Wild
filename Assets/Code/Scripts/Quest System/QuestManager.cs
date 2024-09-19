@@ -176,7 +176,8 @@ public class QuestManager : MonoBehaviour
             else
             {
                 Debug.Log("About to finish dungeon quest: " + id);
-                GameEventsManager.instance.questEvents.FinishQuest(id);
+                ChangeQuestState(quest.info.id, QuestState.CAN_FINISH);
+                //GameEventsManager.instance.questEvents.FinishQuest(id);
             }
         }
     }
