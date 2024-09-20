@@ -5,7 +5,8 @@ public class DungeonAbilityActivator : MonoBehaviour
 {
     [Header("Config")]
     [Tooltip("Index of the major ability gained in this dungeon. If set to -1, no major abilities are activated.")]
-    [SerializeField] private int enabledAbility;
+    //[SerializeField] private int enabledAbility;
+    [SerializeField] private Abilities enabledAbility = Abilities.None;
 
     private void Start()
     {
@@ -15,6 +16,12 @@ public class DungeonAbilityActivator : MonoBehaviour
     private IEnumerator ActivateAbilities()
     {
         yield return new WaitForSeconds(1f);
+
+        if(enabledAbility != Abilities.None)
+        {
+            AbilityManager.instance.UnlockAbility(enabledAbility);
+        }
+        
 
         // if enabled ability index is set to -1, enable only minor abilities
         //note: replace with AbilityManager stuff
