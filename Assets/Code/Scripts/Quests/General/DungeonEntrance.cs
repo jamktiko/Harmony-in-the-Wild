@@ -72,8 +72,10 @@ public class DungeonEntrance : MonoBehaviour
             else if (currentQuestState == QuestState.IN_PROGRESS)
             {
                 int currentQuestStepIndex = QuestManager.instance.GetQuestById(dungeonQuest.id).GetCurrentQuestStepIndex();
+                AbilityManager.instance.UnlockAbility(abilityGrantedForDungeon);
+                RespawnManager.instance.SetRespawnPosition(respawnPoint.position);
 
-                if(currentQuestStepIndex == 0)
+                if (currentQuestStepIndex == 0)
                 {
                     StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, SceneManagerHelper.GetSceneName(learningStage), false);
                 }
@@ -88,6 +90,8 @@ public class DungeonEntrance : MonoBehaviour
 
             else if (currentQuestState == QuestState.FINISHED)
             {
+                RespawnManager.instance.SetRespawnPosition(respawnPoint.position);
+
                 // add possible storybook config here & change goToScene to Storybook scene
                 StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, SceneManagerHelper.GetSceneName(learningStage), false);
                 StartCoroutine(loadSceneWithLoadingScreenWithText(2));

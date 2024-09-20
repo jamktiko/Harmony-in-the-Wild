@@ -432,6 +432,11 @@ public class FoxMovement : MonoBehaviour
             transform.rotation = rot;
             gameObject.SetActive(true);
         }
+
+        else
+        {
+            Debug.Log("No saved position to be loaded. Spawning to a default location.");
+        }
     }
 
     public PositionData CollectPlayerPositionForSaving()

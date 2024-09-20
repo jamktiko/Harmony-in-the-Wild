@@ -39,6 +39,7 @@ public class RespawnManager : MonoBehaviour
     public void SetRespawnPosition(Vector3 respawnPointPosition)
     {
         checkpointPosition = respawnPointPosition;
+        SaveManager.instance.SaveGame();
     }
 
     private void OnDestroy()
