@@ -23,10 +23,9 @@ public class RespawnManager : MonoBehaviour
         {
             instance = this;
         }
-        
 
-        SceneManager.sceneLoaded -= OnSceneLoaded;
         SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
