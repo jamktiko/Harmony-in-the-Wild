@@ -25,7 +25,6 @@ public class RespawnManager : MonoBehaviour
         }
 
         SceneManager.sceneLoaded += OnSceneLoaded;
-        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
@@ -41,7 +40,7 @@ public class RespawnManager : MonoBehaviour
         SaveManager.instance.SaveGame();
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
