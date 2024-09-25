@@ -18,6 +18,7 @@ public class QuestMarkers : MonoBehaviour
     private void Start()
     {
         Invoke("GrabQuestIds", 1f);
+        Invoke(nameof(InitializeMapMarkers), 1f);
     }
     void GrabQuestIds()
     {
@@ -42,8 +43,8 @@ public class QuestMarkers : MonoBehaviour
     {
         //Debug.Log("string id is: " + id);
 
-        quest = QuestManager.instance.GetQuestById(id);
-        questIndex = GetIndexFromId(quest.info.id);
+        //quest = QuestManager.instance.GetQuestById(id);
+        //questIndex = GetIndexFromId(quest.info.id);
 
         //Debug.Log(mapButtons[questIndex]);
         //Debug.Log(mapIndicators[questIndex]);
@@ -60,18 +61,29 @@ public class QuestMarkers : MonoBehaviour
     }
     private void Update()
     {
-        //int questIndex = 0;
+        
+    }
 
-        //foreach (Quest quest in QuestManager.instance.questMap.Values)
-        //{
-        //    if (quest.state == QuestState.FINISHED)
-        //    {
-        //        questIndex = GetIndexFromId(quest.info.id);
-        //        //Debug.Log($"QuestMarker says: quest.info.id is - {quest.info.id}. questIndex is - {questIndex}.");
-        //        //mapButtons[questIndex].SetActive(true);
-        //        //mapIndicators[questIndex].SetActive(false);
-        //    }
-        //}
+    private void InitializeMapMarkers()
+    {
+        int questIndex = 0;
+
+        foreach (Quest quest in QuestManager.instance.questMap.Values)
+        {
+            questIndex = GetIndexFromId(quest.info.id);
+
+            if(mapButtons[questIndex] != null)
+            {
+                Debug.Log($"Fast travel enabled: quest.info.id is - {quest.info.id}. questIndex is - {questIndex}.");
+                //mapButtons[questIndex].SetActive(true);
+                //mapIndicators[questIndex].SetActive(true);
+            }
+
+            else
+            {
+                Debug.Log($"Fast travel was not enabled: quest.info.id is - {quest.info.id}. questIndex is - {questIndex}. No fast travel button assigned for it");
+            }
+        }
     }
 
     int GetIndexFromId(string id)

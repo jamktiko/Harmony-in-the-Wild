@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class TeleportUsingMap : MonoBehaviour
 {
-    private Transform player;
+    [SerializeField] private Transform player;
     private void Start()
     {
-        GameObject[] playerTags = GameObject.FindGameObjectsWithTag("Player");
+        /*GameObject[] playerTags = GameObject.FindGameObjectsWithTag("Player");
 
         foreach (GameObject playerOption in playerTags)
         {
@@ -15,11 +15,11 @@ public class TeleportUsingMap : MonoBehaviour
             {
                 player = playerOption.transform;
             }
-        }
+        }*/
     }
     public void TeleportTo()
     {
-        //Debug.Log("Hello yes I been clicked");
+        Debug.Log("Hello yes I been clicked");
 
         player.gameObject.SetActive(false);
         player.transform.position = transform.position;
