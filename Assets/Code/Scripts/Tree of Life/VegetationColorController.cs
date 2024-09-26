@@ -55,13 +55,14 @@ public class VegetationColorController : MonoBehaviour
         // gradually calculate the new color for the vegetation based on the update state
         while (currentUpdateAmount < updateAmount)
         {
+            //Debug.Log("Vegetation color update state is: " + updateState);
             updateState += 0.01f;
             currentUpdateAmount += 0.01f;
 
             leafMaterial.SetColor("_LeafColor", Color.Lerp(deadColor, aliveColor, updateState));
             pineLeafMaterial.SetColor("_LeafColor", Color.Lerp(deadPineColor, aliveColor, updateState));
 
-            yield return new WaitForSeconds(0.01f);
+            yield return new WaitForSeconds(0.1f);
         }
     }
 }
