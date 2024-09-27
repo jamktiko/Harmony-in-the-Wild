@@ -4,7 +4,7 @@ Where is it, where is it, where is it... #speaker:Wolf
     + [Have you lost something?] -> dialogueAfterChoice
 
 === dialogueAfterChoice ===
-Oh, hey. Didn’t hear anyone coming, I was so lost in my thoughts. #speaker:Wolf
+Oh, hi. Didn’t hear anyone coming, I was so lost in my thoughts. #speaker:Wolf
 But now that you are here, have you seen it? 
 Seen what? #speaker:Fox
 My bone! I’m so hungry but I can’t find it anymore. #speaker:Wolf

@@ -15,6 +15,27 @@ public class CinematicsTigger : MonoBehaviour
         CheckForTreeOfLifeUpdate();
     }
 
+    // Jutta's testing thingies; please don't delete yet, I think things might break later and this is a easy way to keep testing fixes quickly :)
+    /*private void OnEnable()
+    {
+        GameEventsManager.instance.questEvents.OnFinishQuest += DebugCinematics;
+    }
+
+    private void OnDisable()
+    {
+        GameEventsManager.instance.questEvents.OnFinishQuest -= DebugCinematics;
+    }
+
+    private void DebugCinematics(string id)
+    {
+        if(id == "Whale Diet")
+        {
+            GameEventsManager.instance.cinematicsEvents.StartCinematics();
+
+            Debug.Log("Trigger cinematics now!");
+        }
+    }*/
+
     private void CheckForTreeOfLifeUpdate()
     {
         FetchQuestProgress();
@@ -35,7 +56,7 @@ public class CinematicsTigger : MonoBehaviour
         {
             QuestState questState = QuestManager.instance.CheckQuestState(quest.id);
 
-            if(questState == QuestState.FINISHED)
+            if(questState == QuestState.FINISHED || questState == QuestState.CAN_FINISH)
             {
                 questsCompleted++;
             }
