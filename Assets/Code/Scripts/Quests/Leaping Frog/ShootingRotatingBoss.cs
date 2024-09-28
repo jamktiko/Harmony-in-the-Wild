@@ -17,6 +17,8 @@ public class ShootingRotatingBoss : MonoBehaviour
 
     private bool canShoot = true;
     private AudioSource audioSource;
+    private Coroutine cooldownCoroutine;
+    private Coroutine initializationCoroutine;
 
     private void Start()
     {
@@ -31,7 +33,7 @@ public class ShootingRotatingBoss : MonoBehaviour
         if (canShoot && CanSeePlayer() && !instructionPanel.gameObject.activeInHierarchy)
         {
             canShoot = false;
-            StartCoroutine(InitializeShooting());
+            initializationCoroutine = StartCoroutine(InitializeShooting());
         }
     }
 
@@ -42,7 +44,7 @@ public class ShootingRotatingBoss : MonoBehaviour
 
         if(Physics.Raycast(shootingSpot.position, currentDirection, out hit))
         {
-            if (hit.collider.CompareTag("Player"))
+            if (hit.collider.CompareTag("Trigger"))
             {
                 return true;
             }
@@ -62,7 +64,7 @@ public class ShootingRotatingBoss : MonoBehaviour
 
     private void ShootProjectile()
     {
-        StartCoroutine(ShootingCooldown());
+        cooldownCoroutine = StartCoroutine(ShootingCooldown());
 
         GameObject newProjectile = Instantiate(projectilePrefab, shootingSpot);
 
@@ -74,5 +76,12 @@ public class ShootingRotatingBoss : MonoBehaviour
         yield return new WaitForSeconds(shootingCooldown);
 
         canShoot = true;
+    }
+
+    public void DisableShooting()
+    {
+        StopAllCoroutines();
+
+        canShoot = false;
     }
 }
