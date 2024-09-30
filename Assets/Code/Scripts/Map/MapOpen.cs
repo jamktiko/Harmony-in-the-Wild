@@ -6,6 +6,7 @@ using UnityEngine.Rendering.Universal;
 public class MapOpen : MonoBehaviour
 {
     [SerializeField] GameObject mapPanel;
+    [SerializeField] GameObject TeleportPanel;
     [SerializeField] GameObject mapCam;
     [SerializeField] GameObject PlayerDisplayCanvas;
     [SerializeField] internal Volume globalVolume;
@@ -53,7 +54,8 @@ public class MapOpen : MonoBehaviour
     {
         mapCam.SetActive(!mapCam.activeInHierarchy);
         mapPanel.SetActive(!mapPanel.activeInHierarchy);
-        PlayerDisplayCanvas.SetActive(!PlayerDisplayCanvas.activeInHierarchy);
+        TeleportPanel.SetActive(!TeleportPanel.activeInHierarchy);
+        //PlayerDisplayCanvas.SetActive(!PlayerDisplayCanvas.activeInHierarchy);
     }
 
     private void UpdateCursorState()
