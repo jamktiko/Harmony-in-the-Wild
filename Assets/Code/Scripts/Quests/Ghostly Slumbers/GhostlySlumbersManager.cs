@@ -26,6 +26,9 @@ public class GhostlySlumbersManager : QuestStep
         {
             relative.SetActive(true);
         }
+
+        GameEventsManager.instance.questEvents.ShowQuestUI(GetQuestId(), objective, progress + " " + relativesSpokenTo + "/" + relativeInteractionStatus.Count);
+
     }
 
     public void TalkedToRelative(int relativeIndex)
