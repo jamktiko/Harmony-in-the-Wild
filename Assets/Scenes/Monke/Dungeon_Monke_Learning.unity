@@ -1697,7 +1697,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4296425940649565959, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.0019232911
+      value: 0.0019232901
       objectReference: {fileID: 0}
     - target: {fileID: 4296425940649565959, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.y
@@ -1705,7 +1705,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4296425940649565959, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0025847238
+      value: 0.0025847224
       objectReference: {fileID: 0}
     - target: {fileID: 4978085730567127345, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5295,7 +5295,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3045083116153047730, guid: fea564bdbd735f848be52e21ccb3ad7d, type: 3}
       propertyPath: m_text
-      value: Place 4 objects to their corresponding places.
+      value: Place 3 shiny lilies to corresponding pads.
       objectReference: {fileID: 0}
     - target: {fileID: 3045083116153047730, guid: fea564bdbd735f848be52e21ccb3ad7d, type: 3}
       propertyPath: m_fontAsset
@@ -5311,9 +5311,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3863589415443621647, guid: fea564bdbd735f848be52e21ccb3ad7d, type: 3}
       propertyPath: m_text
-      value: "Search the area to locate slots where you can place surrounding objects
-        and use Telegrab to move them.\n\n Use [F] to activate Telegrab and left-click
-        to move objects.\n\n"
+      value: 'Search the area to locate slots where you can place the shiny lilies
+        and use Telegrab to move them.
+
+
+        Use [F] to activate Telegrab and
+        left-click to move objects.
+
+
+'
       objectReference: {fileID: 0}
     - target: {fileID: 3863589415443621647, guid: fea564bdbd735f848be52e21ccb3ad7d, type: 3}
       propertyPath: m_fontAsset
@@ -5973,6 +5979,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2697871883864831489}
   - component: {fileID: 4410413261550557945}
+  - component: {fileID: 4410413261550557946}
   m_Layer: 0
   m_Name: Planks2
   m_TagString: Untagged
@@ -6156,6 +6163,7 @@ GameObject:
   - component: {fileID: 50354428419014720}
   - component: {fileID: 3029014742354201143}
   - component: {fileID: 1457132710784483198}
+  - component: {fileID: 4129357935249203844}
   m_Layer: 0
   m_Name: Stone
   m_TagString: Untagged
@@ -6163,6 +6171,27 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &4129357935249203844
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4129357935249203843}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.08948287, y: 0.020781333, z: 0.06518345}
+  m_Center: {x: 0.0000000030877727, y: 0.00174279, z: 0.027591722}
 --- !u!137 &4410413261550557945
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -6217,6 +6246,27 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.0006741807, y: 0.02639694, z: -0.006028225}
     m_Extent: {x: 0.024299081, y: 0.014462082, z: 0.00065222755}
   m_DirtyAABB: 0
+--- !u!65 &4410413261550557946
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 756001892789309479}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.15780382, y: 0.004235744, z: 0.09392006}
+  m_Center: {x: -0.06479554, y: -0.007194085, z: -0.14313748}
 --- !u!1 &4899950593289065563
 GameObject:
   m_ObjectHideFlags: 0
@@ -6547,6 +6597,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4015862490240244574}
   - component: {fileID: 5489017333331087882}
+  - component: {fileID: 7166410815892056957}
   m_Layer: 0
   m_Name: Planks
   m_TagString: Untagged
@@ -6554,6 +6605,27 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &7166410815892056957
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7166410815892056956}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.051351305, y: 0.0034298585, z: 0.04776234}
+  m_Center: {x: 0.00019142445, y: -0.000000010244548, z: -0.011123089}
 --- !u!4 &7529466593623007942
 Transform:
   m_ObjectHideFlags: 0
