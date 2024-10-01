@@ -73,10 +73,10 @@ public class FoxMovement : MonoBehaviour
     }
     void Start()
     {
-        if (File.Exists(SaveManager.instance.saveFilePath) && SceneManager.GetActiveScene().name.Contains("Overworld"))
+        /*if (File.Exists(SaveManager.instance.saveFilePath) && SceneManager.GetActiveScene().name.Contains("Overworld"))
         {
             LoadPlayerPosition();
-        }
+        }*/
 
         rb.freezeRotation = true;
         abilityCycle = GetComponent<AbilityCycle>();
