@@ -423,7 +423,7 @@ public class FoxMovement : MonoBehaviour
 
         if (loadedData != null)
         {
-            Vector3 pos = new Vector3(loadedData.x, loadedData.y, loadedData.z);
+            Vector3 pos = RespawnManager.instance.checkpointPosition;
             Quaternion rot = new Quaternion(loadedData.rotX, loadedData.rotY, loadedData.rotZ, loadedData.rotW);
             Debug.Log($"FM Loaded playerpos data is: {loadedData}");
 

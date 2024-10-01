@@ -58,12 +58,10 @@ public class DungeonEntrance : MonoBehaviour
         {
             if(currentQuestState == QuestState.CAN_START)
             {
+                RespawnManager.instance.SetRespawnPosition(respawnPoint.position);
                 AbilityManager.instance.UnlockAbility(abilityGrantedForDungeon);
                 Debug.Log("Ability " + abilityGrantedForDungeon + " granted for dungeon entrance.");
                 GameEventsManager.instance.questEvents.StartQuest(questId);
-
-                RespawnManager.instance.SetRespawnPosition(respawnPoint.position);
-
                 StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, SceneManagerHelper.GetSceneName(learningStage), false);
                 StartCoroutine(loadSceneWithLoadingScreenWithText(2));
                 //Debug.Log("This is where we save the data");
@@ -71,9 +69,10 @@ public class DungeonEntrance : MonoBehaviour
 
             else if (currentQuestState == QuestState.IN_PROGRESS)
             {
+                RespawnManager.instance.SetRespawnPosition(respawnPoint.position);
                 int currentQuestStepIndex = QuestManager.instance.GetQuestById(dungeonQuest.id).GetCurrentQuestStepIndex();
                 AbilityManager.instance.UnlockAbility(abilityGrantedForDungeon);
-                RespawnManager.instance.SetRespawnPosition(respawnPoint.position);
+                
 
                 if (currentQuestStepIndex == 0)
                 {
