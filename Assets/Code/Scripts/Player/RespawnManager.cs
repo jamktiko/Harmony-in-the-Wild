@@ -24,15 +24,15 @@ public class RespawnManager : MonoBehaviour
             instance = this;
         }
 
-        SceneManager.sceneLoaded += OnSceneLoaded;
+       // SceneManager.sceneLoaded += OnSceneLoaded;
     }
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        if (SceneManager.GetActiveScene().name == SceneManagerHelper.GetSceneName(SceneManagerHelper.Scene.Overworld))
-        {
-            FoxMovement.instance.transform.position = checkpointPosition != null ? checkpointPosition : defaultStartingPosition;
-        }
-    }
+    //private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    //{
+    //    if (SceneManager.GetActiveScene().name == SceneManagerHelper.GetSceneName(SceneManagerHelper.Scene.Overworld))
+    //    {
+    //        FoxMovement.instance.transform.position = checkpointPosition != null ? checkpointPosition : defaultStartingPosition;
+    //    }
+    //}
 
     public void SetRespawnPosition(Vector3 respawnPointPosition)
     {
@@ -42,6 +42,6 @@ public class RespawnManager : MonoBehaviour
 
     private void OnDisable()
     {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
+     //   SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }
