@@ -15,17 +15,17 @@ public class PlayerModelToggle : MonoBehaviour
         if (PlayerInputHandler.instance.TogglePlayerModelInput.WasPressedThisFrame()) 
             TogglePlayerModel();
     }
-    private void TogglePlayerModel()
+    public void TogglePlayerModel()
     {
         ChangeVFX();
 
         if (redFox.activeInHierarchy)
         {
-            ChangeModelToForest();
+            ChangeModelToArctic();
         }
         else
         {
-            ChangeModelToArctic();
+            ChangeModelToForest();
         }
     }
     private void ChangeVFX()

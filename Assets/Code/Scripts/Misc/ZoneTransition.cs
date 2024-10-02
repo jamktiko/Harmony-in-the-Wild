@@ -14,8 +14,10 @@ public class ZoneTransition : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        modelToggle.TogglePlayerModel();
+
         //entered forest
-        if (FoxMovement.instance.gameObject != null && gameObject.name == "Forest")
+        /*if (FoxMovement.instance.gameObject != null && gameObject.name == "RedFoxFinal")
         {
             modelToggle.ChangeModelToForest();
             arcticTheme.Stop();
@@ -28,7 +30,7 @@ public class ZoneTransition : MonoBehaviour
             modelToggle.ChangeModelToArctic();
             forestTheme.Stop();
             arcticTheme.Play();
-        }
+        }*/
 
         //Debug.Log($"{name} entered");
     }
