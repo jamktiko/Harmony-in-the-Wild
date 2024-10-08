@@ -24,15 +24,15 @@ public class RespawnManager : MonoBehaviour
             instance = this;
         }
 
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        //SceneManager.sceneLoaded += OnSceneLoaded;
     }
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    /*private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (SceneManager.GetActiveScene().name == SceneManagerHelper.GetSceneName(SceneManagerHelper.Scene.Overworld))
         {
             FoxMovement.instance.transform.position = checkpointPosition != null ? checkpointPosition : defaultStartingPosition;
         }
-    }
+    }*/
 
     public void SetRespawnPosition(Vector3 respawnPointPosition)
     {
@@ -40,8 +40,20 @@ public class RespawnManager : MonoBehaviour
         SaveManager.instance.SaveGame();
     }
 
-    private void OnDisable()
+    public PositionData GetLatestRespawnPoint()
+    {
+        PositionData respawnPoint = new PositionData();
+
+        // set new position
+        respawnPoint.x = checkpointPosition.x;
+        respawnPoint.y = checkpointPosition.y;
+        respawnPoint.z = checkpointPosition.z;
+
+        return respawnPoint;
+    }
+
+    /*private void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
+    }*/
 }
