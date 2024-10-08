@@ -19,7 +19,7 @@ public class PlayerModelToggle : MonoBehaviour
     {
         ChangeVFX();
 
-        if (redFox.activeInHierarchy)
+        if (!redFox.activeInHierarchy)
         {
             ChangeModelToForest();
         }
