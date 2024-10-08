@@ -17,6 +17,7 @@ public class QuestPoint : MonoBehaviour
     private string questId;
     private QuestState currentQuestState;
     private QuestPointDialogue questPointDialogue;
+    private bool readyToStartQuest;
     private bool readyToCompleteQuest;
 
     [Header("RespawnPoint")]
@@ -63,7 +64,7 @@ public class QuestPoint : MonoBehaviour
         else if (currentQuestState.Equals(QuestState.CAN_START) && startPoint)
         {
             Debug.Log("Interacting with quest point, about to start a quest.");
-            GameEventsManager.instance.questEvents.StartQuest(questId);
+            readyToStartQuest = true;
             questPointDialogue.StartQuestDialogue();
         }
 
@@ -86,7 +87,12 @@ public class QuestPoint : MonoBehaviour
 
     private void CompleteQuest()
     {
-        if (playerIsNear && readyToCompleteQuest && currentQuestState.Equals(QuestState.CAN_FINISH))
+        if(playerIsNear && readyToStartQuest && !readyToCompleteQuest && currentQuestState.Equals(QuestState.CAN_START))
+        {
+            GameEventsManager.instance.questEvents.StartQuest(questId);
+        }
+
+        else if (playerIsNear && readyToCompleteQuest && currentQuestState.Equals(QuestState.CAN_FINISH))
         {
             GameEventsManager.instance.questEvents.FinishQuest(questId);
         }
