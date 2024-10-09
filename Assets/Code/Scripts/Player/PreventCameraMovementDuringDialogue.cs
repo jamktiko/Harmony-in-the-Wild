@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,12 +17,10 @@ public class PreventCameraMovementDuringDialogue : MonoBehaviour
     private void DisableMovement()
     {
         cameraMovement.enabled = false;
-        freeLookCamera.SetActive(false);
     }
 
     private void EnableMovement()
     {
         cameraMovement.enabled = true;
-        freeLookCamera.SetActive(true);
     }
 }
