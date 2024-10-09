@@ -14,7 +14,7 @@ public class VegetationColorController : MonoBehaviour
     [SerializeField] private Color aliveColor;
 
     private float updateState = 0f;
-    private float updateAmount = 0.25f;
+    private float updateAmount = 1f;
 
     private void Start()
     {
@@ -79,15 +79,15 @@ public class VegetationColorController : MonoBehaviour
                 break;
 
             case 1:
-                newState = 0.25f;
+                newState = 1f;
                 break;
 
             case 2:
-                newState = 0.5f;
+                newState = 1f;
                 break;
 
             case 3:
-                newState = 0.75f;
+                newState = 1f;
                 break;
 
             case 4:

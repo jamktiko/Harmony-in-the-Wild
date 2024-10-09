@@ -53,7 +53,7 @@ public class GrowthController : MonoBehaviour
         if (isGrowing) return;
 
         float currentLeafGrow = leafMaterial.GetFloat("_Grow");
-        if (currentLeafGrow < 1f)
+        /*if (currentLeafGrow < 1f)
         {
             StartCoroutine(SmoothGrow(leafMaterial, currentLeafGrow, Mathf.Min(currentLeafGrow + leafGrowIncrement, 1f)));
         }
@@ -61,7 +61,10 @@ public class GrowthController : MonoBehaviour
         {
             float currentFlowerGrow = flowerMaterial.GetFloat("_Grow");
             StartCoroutine(SmoothGrow(flowerMaterial, currentFlowerGrow, currentFlowerGrow + flowerGrowIncrement));
-        }
+        }*/
+
+        StartCoroutine(SmoothGrow(leafMaterial, 0, 1));
+        StartCoroutine(SmoothGrow(flowerMaterial, 0, 1));
     }
 
     private IEnumerator SmoothGrow(Material material, float startValue, float endValue)
@@ -117,18 +120,18 @@ public class GrowthController : MonoBehaviour
                 break;
 
             case 1:
-                leafGrow = 0.5f;
-                flowerGrow = 0;
+                leafGrow = 1f;
+                flowerGrow = 1f;
                 break;
 
             case 2:
                 leafGrow = 1f;
-                flowerGrow = 0;
+                flowerGrow = 1f;
                 break;
 
             case 3:
                 leafGrow = 1f;
-                flowerGrow = 0.5f;
+                flowerGrow = 1f;
                 break;
 
             case 4:
