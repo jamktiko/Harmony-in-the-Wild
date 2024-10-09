@@ -5,7 +5,10 @@ public class DungeonInstructionPanel : MonoBehaviour
 {
     [SerializeField] private VisualEffect dungeonEntranceVFX;
     [SerializeField] private DungeonQuestDialogue dungeonQuestDialogue;
+    [SerializeField] private GameObject closingInstructions;
     private int onDungeonStartID;
+    private float timeToEnableHidingInstructions = 3f;
+    private bool canHideInstructions = false;
 
     private void Start()
     {
@@ -31,11 +34,13 @@ public class DungeonInstructionPanel : MonoBehaviour
             }
         }
         //Debug.Log(PlayerInputHandler.instance.playerInput.currentActionMap);
+
+        Invoke(nameof(EnableHidingInstructions), timeToEnableHidingInstructions);
     }
 
     void Update()
     {
-        if (PlayerInputHandler.instance.CloseUIInput.WasPerformedThisFrame())
+        if (PlayerInputHandler.instance.CloseUIInput.WasPerformedThisFrame() && canHideInstructions)
         {
             Invoke(nameof(HideInstructionPanel), 0.1f);
 
@@ -64,5 +69,11 @@ public class DungeonInstructionPanel : MonoBehaviour
         {
             Debug.LogWarning("No Dungeon Quest Dialogue component assigned to Info Board. Please check inspector!");
         }
+    }
+
+    private void EnableHidingInstructions()
+    {
+        canHideInstructions = true;
+        closingInstructions.SetActive(true);
     }
 }

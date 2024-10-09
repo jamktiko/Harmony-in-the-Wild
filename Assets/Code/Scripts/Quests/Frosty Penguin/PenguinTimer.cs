@@ -6,6 +6,7 @@ using TMPro;
 public class PenguinTimer : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI timerText;
+    [SerializeField] private float maxTime = 180f;
 
     private bool raceInProgress;
     private float currentTime;
@@ -25,6 +26,13 @@ public class PenguinTimer : MonoBehaviour
         if (raceInProgress)
         {
             currentTime += Time.deltaTime;
+
+            if(currentTime >= maxTime)
+            {
+                raceInProgress = false;
+                PenguinRaceManager.instance.penguinDungeonEvents.TimeRanOut();
+            }
+
             UpdateTimer();
         }
     }
