@@ -14,6 +14,12 @@ public class PreventCameraMovementDuringDialogue : MonoBehaviour
         GameEventsManager.instance.dialogueEvents.OnEndDialogue += EnableMovement;
     }
 
+    private void OnDisable()
+    {
+        GameEventsManager.instance.dialogueEvents.OnStartDialogue -= DisableMovement;
+        GameEventsManager.instance.dialogueEvents.OnEndDialogue -= EnableMovement;
+    }
+
     private void DisableMovement()
     {
         cameraMovement.enabled = false;

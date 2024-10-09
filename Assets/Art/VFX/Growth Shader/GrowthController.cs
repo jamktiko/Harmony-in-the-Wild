@@ -14,8 +14,7 @@ public class GrowthController : MonoBehaviour
     private float duration = 5f;
     private bool isGrowing = false;
 
-    [Header("VS Config")]
-    [SerializeField] private bool isVerticalSliceScene = false;
+
 
     private void Start()
     {
@@ -82,12 +81,6 @@ public class GrowthController : MonoBehaviour
 
         material.SetFloat("_Grow", endValue);
         isGrowing = false;
-
-        // if in the vertical slice, show demo end after the first ToL cinematics
-        if (isVerticalSliceScene)
-        {
-            UnityEngine.SceneManagement.SceneManager.LoadScene("DemoEnd");
-        }
     }
 
     public void SaveGrowthValues()

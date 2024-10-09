@@ -23,6 +23,7 @@ public class PlayerModelToggle : MonoBehaviour
         {
             ChangeModelToForest();
         }
+
         else
         {
             ChangeModelToArctic();
