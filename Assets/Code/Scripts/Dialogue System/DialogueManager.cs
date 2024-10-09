@@ -123,8 +123,8 @@ public class DialogueManager : MonoBehaviour
             isDialoguePlaying = true;
             dialogueCanvas.SetActive(true);
 
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            //Cursor.lockState = CursorLockMode.None;
+            //Cursor.visible = true;
 
             ContinueDialogue();
 
@@ -303,8 +303,8 @@ public class DialogueManager : MonoBehaviour
 
         StartCoroutine(DelayBetweenDialogues());
 
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
     }
 
     private void InitializeDialogueVariables()
