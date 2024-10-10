@@ -74,9 +74,14 @@ public class FoxMovement : MonoBehaviour
     }
     void Start()
     {
-        if (File.Exists(SaveManager.instance.saveFilePath) && SceneManager.GetActiveScene().name.Contains("Overworld"))
+        if(SceneManager.GetActiveScene().name.Contains("Overworld") || SceneManager.GetActiveScene().name.Contains("OverWorld"))
         {
-            LoadPlayerPosition();
+            canMove = true;
+            
+            if (File.Exists(SaveManager.instance.saveFilePath))
+            {
+                LoadPlayerPosition();
+            }
         }
 
         rb.freezeRotation = true;
