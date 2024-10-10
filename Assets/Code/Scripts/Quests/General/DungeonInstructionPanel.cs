@@ -12,6 +12,9 @@ public class DungeonInstructionPanel : MonoBehaviour
 
     private void Start()
     {
+        // make the player stop moving through dialogue events
+        GameEventsManager.instance.dialogueEvents.StartDialogue();
+
         onDungeonStartID = Shader.PropertyToID("OnDungeonStart");
 
         // Check if the dungeonEntranceVFX is not assigned in the inspector
@@ -60,7 +63,10 @@ public class DungeonInstructionPanel : MonoBehaviour
     {
         gameObject.SetActive(false);
 
-        if(dungeonQuestDialogue != null)
+        // enable player movement through dialogue events
+        GameEventsManager.instance.dialogueEvents.EndDialogue();
+
+        if (dungeonQuestDialogue != null)
         {
             dungeonQuestDialogue.PlayStartDungeonDialogue();
         }
