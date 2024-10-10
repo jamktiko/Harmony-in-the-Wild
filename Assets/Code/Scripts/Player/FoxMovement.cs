@@ -14,6 +14,7 @@ public class FoxMovement : MonoBehaviour
     public Rigidbody rb;
     public float moveSpeed = 7f;
     public float sprintSpeed = 12f;
+    private bool canMove;
 
     [SerializeField] private Transform orientation;
     [SerializeField] private float groundDrag = 5f;
@@ -109,14 +110,14 @@ public class FoxMovement : MonoBehaviour
         IsOnSlope();
         Animations();
 
-        if (!DialogueManager.instance.isDialoguePlaying)
+        if (!DialogueManager.instance.isDialoguePlaying && canMove)
         {
             ProcessInput();
         }
     }
     private void FixedUpdate()
     {
-        if (!DialogueManager.instance.isDialoguePlaying)
+        if (!DialogueManager.instance.isDialoguePlaying && canMove)
         {
             MovePlayer();
         }
@@ -450,12 +451,14 @@ public class FoxMovement : MonoBehaviour
     // prevent jumping when dialogue starts
     private void DisableMovementForDialogue()
     {
+        canMove = false;
         isReadyToJump = false;
     }
 
     // get ready to enable jumping when dialogue has ended
     private void EnableMovementAfterDialogue()
     {
+        canMove = true;
         Invoke(nameof(ResetJump), 0.3f);   
     }
 }

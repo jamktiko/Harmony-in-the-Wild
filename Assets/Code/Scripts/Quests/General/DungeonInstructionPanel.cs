@@ -13,7 +13,7 @@ public class DungeonInstructionPanel : MonoBehaviour
     private void Start()
     {
         // make the player stop moving through dialogue events
-        GameEventsManager.instance.dialogueEvents.StartDialogue();
+        Invoke(nameof(CallDialogueEvent), 0.1f);
 
         onDungeonStartID = Shader.PropertyToID("OnDungeonStart");
 
@@ -57,6 +57,11 @@ public class DungeonInstructionPanel : MonoBehaviour
                 Debug.LogWarning("dungeonEntranceVFX variable not assigned.");
             }
         }
+    }
+
+    private void CallDialogueEvent()
+    {
+        GameEventsManager.instance.dialogueEvents.StartDialogue();
     }
 
     private void HideInstructionPanel()
