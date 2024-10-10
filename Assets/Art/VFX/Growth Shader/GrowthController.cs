@@ -76,7 +76,7 @@ public class GrowthController : MonoBehaviour
             elapsedTime += Time.deltaTime;
             float newValue = Mathf.Lerp(startValue, endValue, elapsedTime / duration);
             material.SetFloat("_Grow", newValue);
-            yield return null;
+            yield return new WaitForSeconds(0.05f);
         }
 
         material.SetFloat("_Grow", endValue);
