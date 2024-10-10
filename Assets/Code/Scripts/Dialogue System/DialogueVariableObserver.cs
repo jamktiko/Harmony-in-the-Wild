@@ -78,7 +78,15 @@ public class DialogueVariableObserver
 
         foreach (KeyValuePair<string, Ink.Runtime.Object> variable in variables)
         {
-            variableDataToJSON += "," + variable.Value + ",{\"VAR=\":\"" + variable.Key + "\"}";
+            if(variable.Value != null)
+            {
+                variableDataToJSON += "," + 0 + ",{\"VAR=\":\"" + variable.Key + "\"}";
+            }
+
+            else
+            {
+                variableDataToJSON += "," + variable.Value + ",{\"VAR=\":\"" + variable.Key + "\"}";
+            }
         }
 
         variableDataToJSON += ",\"/ev\",\"end\",null],\"#f\":1}],\"listDefs\":{}}" + "}";
