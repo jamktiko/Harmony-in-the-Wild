@@ -15,6 +15,7 @@ public class FoxMovement : MonoBehaviour
     public float moveSpeed = 7f;
     public float sprintSpeed = 12f;
     private bool canMove;
+    [SerializeField] private bool enableMovementOnStart;
 
     [SerializeField] private Transform orientation;
     [SerializeField] private float groundDrag = 5f;
@@ -82,6 +83,11 @@ public class FoxMovement : MonoBehaviour
             {
                 LoadPlayerPosition();
             }
+        }
+
+        if (enableMovementOnStart)
+        {
+            canMove = true;
         }
 
         rb.freezeRotation = true;
