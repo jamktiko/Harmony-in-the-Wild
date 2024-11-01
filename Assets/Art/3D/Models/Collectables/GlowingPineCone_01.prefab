@@ -9,12 +9,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6315782514430678181}
-  m_Layer: 0
+  - component: {fileID: 861880762646783360}
+  - component: {fileID: 6892506816072541799}
+  m_Layer: 16
   m_Name: GlowingPineCone_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &6315782514430678181
 Transform:
@@ -26,13 +28,47 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 238.529, y: 41.708, z: 293.53412}
-  m_LocalScale: {x: 2.35, y: 2.35, z: 2.35}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7032970235329908595}
   - {fileID: 8388505415658550412}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &861880762646783360
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3589941646583307800}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 16384
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6892506816072541799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3589941646583307800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea6e6cbad05605147932979550e0317e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactable: 0
 --- !u!1001 &3178358480661512108
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -101,6 +137,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: TFF_Pine_Cone_02A
       objectReference: {fileID: 0}
+    - target: {fileID: 5585005701863206143, guid: b618807605939db45ba47f47aad0c0ca, type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 5585005701863206143, guid: b618807605939db45ba47f47aad0c0ca, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5585005701865206335, guid: b618807605939db45ba47f47aad0c0ca, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -126,6 +170,10 @@ PrefabInstance:
     - target: {fileID: 2822266823418367851, guid: 1f4120be03d41cc468f5d14fcf4647bd, type: 3}
       propertyPath: m_Name
       value: TFF_Glowing_Lilly_02B
+      objectReference: {fileID: 0}
+    - target: {fileID: 2822266823418367851, guid: 1f4120be03d41cc468f5d14fcf4647bd, type: 3}
+      propertyPath: m_Layer
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 2822266823418794827, guid: 1f4120be03d41cc468f5d14fcf4647bd, type: 3}
       propertyPath: m_LocalPosition.x
