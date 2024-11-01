@@ -34,7 +34,8 @@ public class VegetationColorController : MonoBehaviour
     private void InitializeShaderValues()
     {
         // check the current state of ToL progress; set the color update value to be the same
-        updateState = TreeOfLifeState.instance.GetTreeOfLifeState();
+        int treeOfLifeState = TreeOfLifeState.instance.GetTreeOfLifeState();
+        updateState = SetNewUpdateState(treeOfLifeState);
 
         // use Color.Lerp to detect the value between the two colors that matches the desired update state
         leafMaterial.SetColor("_LeafColor", Color.Lerp(deadColor, aliveColor, updateState));
@@ -48,7 +49,8 @@ public class VegetationColorController : MonoBehaviour
 
     private IEnumerator SmoothVegetationColorUpdate()
     {
-        updateState = TreeOfLifeState.instance.GetTreeOfLifeState();
+        int treeOfLifeState = TreeOfLifeState.instance.GetTreeOfLifeState();
+        updateState = SetNewUpdateState(treeOfLifeState);
 
         float currentUpdateAmount = 0f;
 
@@ -64,5 +66,35 @@ public class VegetationColorController : MonoBehaviour
 
             yield return new WaitForSeconds(0.1f);
         }
+    }
+
+    private float SetNewUpdateState(int treeOfLifeState)
+    {
+        float newState = 0;
+
+        switch (treeOfLifeState)
+        {
+            case 0:
+                newState = 0;
+                break;
+
+            case 1:
+                newState = 0.25f;
+                break;
+
+            case 2:
+                newState = 0.5f;
+                break;
+
+            case 3:
+                newState = 0.75f;
+                break;
+
+            case 4:
+                newState = 1f;
+                break;
+        }
+
+        return newState;
     }
 }

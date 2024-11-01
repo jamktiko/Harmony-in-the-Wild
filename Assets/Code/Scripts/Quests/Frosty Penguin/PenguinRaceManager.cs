@@ -18,6 +18,7 @@ public class PenguinRaceManager : MonoBehaviour
     [SerializeField] private GameObject lap2_Obstacles;
     [SerializeField] private DungeonQuestDialogue dungeonQuestDialogue;
     [SerializeField] private PenguinTimer timer;
+    [SerializeField] private GameObject tooSlowView;
 
     [Header("Storybook Config")]
     [SerializeField] private int storybookSectionIndex;
@@ -37,6 +38,8 @@ public class PenguinRaceManager : MonoBehaviour
         instance = this;
 
         penguinDungeonEvents = new PenguinDungeonEvents();
+        
+        penguinDungeonEvents.onTimeRanOut += ShowCursor;
     }
 
     private void OnEnable()
@@ -47,6 +50,7 @@ public class PenguinRaceManager : MonoBehaviour
     private void OnDisable()
     {
         GameEventsManager.instance.dialogueEvents.OnEndDialogue -= TransitionToOverworld;
+        penguinDungeonEvents.onTimeRanOut -= ShowCursor;
     }
 
     // ---------------------
@@ -66,7 +70,6 @@ public class PenguinRaceManager : MonoBehaviour
         {
             penguinDungeonEvents.LapFinished();
             lapCounterText.text = "Lap " + currentLap + "/2";
-            //GameEventsManager.instance.questEvents.UpdateQuestProgressInUI("Lap " + currentLap + "/2");
             AddLapObstacles();
         }
 
@@ -112,12 +115,6 @@ public class PenguinRaceManager : MonoBehaviour
             GameEventsManager.instance.questEvents.AdvanceDungeonQuest(questSO.id);
             TriggerFinishDungeonDialogue();
         }
-
-        else
-        {
-            Debug.Log("Not fast enough, try again");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
     }
 
     private void TransitionToOverworld()
@@ -148,6 +145,12 @@ public class PenguinRaceManager : MonoBehaviour
         {
             Debug.LogWarning("No Dungeon Quest Dialogue component assigned to Penguin Race Manager. Please check inspector!");
         }
+    }
+
+    private void ShowCursor()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 }
 
@@ -180,6 +183,16 @@ public class PenguinDungeonEvents
         if (onRaceFinished != null)
         {
             onRaceFinished();
+        }
+    }
+
+    public event Action onTimeRanOut;
+
+    public void TimeRanOut()
+    {
+        if(onTimeRanOut != null)
+        {
+            onTimeRanOut();
         }
     }
 }

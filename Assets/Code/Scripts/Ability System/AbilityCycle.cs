@@ -4,11 +4,14 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
+
 public class AbilityCycle : MonoBehaviour
 {
     public static AbilityCycle instance;
 
     [SerializeField] private TMP_Text abilityUIText;
+    [SerializeField] private Image abilityBackground;
     public Dictionary<Abilities, bool> activeAbilities = new Dictionary<Abilities, bool>();
     private List<Abilities> abilityKeys;
     public Abilities selectedAbility = Abilities.None;
@@ -63,7 +66,8 @@ public class AbilityCycle : MonoBehaviour
 
                     abilityUIText.text = "Selected Ability: " + selectedAbility;
                     abilityUIText.color = Color.black;
-                    StartCoroutine(DelayFadeTextToFullAlpha(2f, abilityUIText));
+                    abilityBackground.color = Color.white;
+                    StartCoroutine(DelayFadeTextToFullAlpha(2f, abilityUIText, abilityBackground));
 
                     //activeAbilities.TryGetValue(selectedAbility, out bool isSelected2);
                     //Debug.Log("2. Selected ability is: " + selectedAbility + " and it is: " + isSelected2);
@@ -72,7 +76,8 @@ public class AbilityCycle : MonoBehaviour
                 {
                     abilityUIText.text = "You haven't unlocked that ability yet.";
                     abilityUIText.color = Color.black;
-                    StartCoroutine(DelayFadeTextToFullAlpha(2f, abilityUIText));
+                    abilityBackground.color = Color.white;
+                    StartCoroutine(DelayFadeTextToFullAlpha(2f, abilityUIText, abilityBackground));
                 }
             }
             else
@@ -81,13 +86,15 @@ public class AbilityCycle : MonoBehaviour
             }
         }
     }
-    public IEnumerator DelayFadeTextToFullAlpha(float t, TMP_Text i)
+    public IEnumerator DelayFadeTextToFullAlpha(float t, TMP_Text i, Image p)
     {
         yield return new WaitForSeconds(1);
         i.color = new Color(i.color.r, i.color.g, i.color.b, 1);
+        p.color = new Color(p.color.r, p.color.g, p.color.b, 1);
         while (i.color.a > 0.0f)
         {
             i.color = new Color(i.color.r, i.color.g, i.color.b, i.color.a - (Time.deltaTime / t));
+            p.color = new Color(p.color.r, p.color.g, p.color.b, p.color.a - (Time.deltaTime / t));
             yield return null;
         }
     }

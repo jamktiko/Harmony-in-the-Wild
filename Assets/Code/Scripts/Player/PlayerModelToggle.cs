@@ -12,14 +12,14 @@ public class PlayerModelToggle : MonoBehaviour
 
     private void Update()
     {
-        if (PlayerInputHandler.instance.TogglePlayerModelInput.WasPressedThisFrame()) 
-            TogglePlayerModel();
+        //if (PlayerInputHandler.instance.TogglePlayerModelInput.WasPressedThisFrame()) 
+        //    TogglePlayerModel();
     }
     private void TogglePlayerModel()
     {
         ChangeVFX();
 
-        if (redFox.activeInHierarchy)
+        if (!redFox.activeInHierarchy)
         {
             ChangeModelToForest();
         }

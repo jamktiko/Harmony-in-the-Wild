@@ -141,6 +141,7 @@ public class SaveManager : MonoBehaviour
         if (FoxMovement.instance != null && SceneManager.GetActiveScene().name.Contains("Overworld"))
         {
             //gameData.playerPositionData = FoxMovement.instance.CollectPlayerPositionForSaving();
+            gameData.playerPositionData = RespawnManager.instance.GetLatestRespawnPoint();
         }
     }
     #endregion

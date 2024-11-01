@@ -26,9 +26,9 @@ public class PositionData
     //default starting position
     public PositionData()
     {
-        x = 1627f;
-        y = 118f;
-        z = 360f;
+        x = 219f;
+        y = 103f;
+        z = 757f;
 
         rotX = 0;
         rotY = 0;
