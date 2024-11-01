@@ -1,0 +1,2 @@
+VAR latestTutorialQuestStepDialogueCompleted = 0
+VAR latestWhaleQuestStepDialogueCompleted = 0
