@@ -65,6 +65,11 @@ public class QuestEvents
 
     public event Action OnHideQuestUI;
 
+    public void HideQuestUI()
+    {
+        OnHideQuestUI?.Invoke();
+    }
+
     public event Action<string> OnReturnToSideQuestPoint;
 
     public void ReturnToSideQuestPoint(string id)
@@ -72,15 +77,24 @@ public class QuestEvents
         OnReturnToSideQuestPoint?.Invoke(id);
     }
 
-    public void HideQuestUI()
-    {
-        OnHideQuestUI?.Invoke();
-    }
-
     public event Action<string> OnChangeActiveQuest;
 
     public void ChangeActiveQuest(string id)
     {
         OnChangeActiveQuest?.Invoke(id);
+    }
+
+    public event Action OnStartMovingWhale;
+
+    public void StartMovingWhale()
+    {
+        OnStartMovingWhale?.Invoke();
+    }
+
+    public event Action OnReachWhaleDestination;
+
+    public void ReachWhaleDestination()
+    {
+        OnReachWhaleDestination?.Invoke();
     }
 }

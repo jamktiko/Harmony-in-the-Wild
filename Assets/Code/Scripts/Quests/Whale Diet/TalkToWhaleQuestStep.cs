@@ -7,6 +7,11 @@ public class TalkToWhaleQuestStep : QuestStep
     [Tooltip("Target index for the completed dialogue. Checking if the dialogue with this quest step has been completed.")]
     [SerializeField] private int targetDialogueIndex;
 
+    private void Start()
+    {
+        GameEventsManager.instance.questEvents.ShowQuestUI(GetQuestId(), objective, progress);
+    }
+
     private void OnEnable()
     {
         GameEventsManager.instance.dialogueEvents.OnEndDialogue += CheckProgressInDialogue;
