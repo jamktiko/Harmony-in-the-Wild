@@ -43,11 +43,25 @@ public class RespawnManager : MonoBehaviour
     public PositionData GetLatestRespawnPoint()
     {
         PositionData respawnPoint = new PositionData();
+        
+        if(checkpointPosition == Vector3.zero)
+        {
+            respawnPoint.x = defaultStartingPosition.x;
+            respawnPoint.y = defaultStartingPosition.y;
+            respawnPoint.z = defaultStartingPosition.z;
 
-        // set new position
-        respawnPoint.x = checkpointPosition.x;
-        respawnPoint.y = checkpointPosition.y;
-        respawnPoint.z = checkpointPosition.z;
+            Debug.Log("Using default values for position saving.");
+        }
+
+        else
+        {
+            // set new position
+            respawnPoint.x = checkpointPosition.x;
+            respawnPoint.y = checkpointPosition.y;
+            respawnPoint.z = checkpointPosition.z;
+
+            Debug.Log("Using custom values for position saving.");
+        }
 
         return respawnPoint;
     }
