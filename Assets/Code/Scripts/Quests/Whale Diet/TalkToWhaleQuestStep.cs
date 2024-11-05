@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TalkToWhaleQuestStep : QuestStep
 {
@@ -10,16 +11,27 @@ public class TalkToWhaleQuestStep : QuestStep
     private void Start()
     {
         GameEventsManager.instance.questEvents.ShowQuestUI(GetQuestId(), objective, progress);
+        GameEventsManager.instance.dialogueEvents.SetMidQuestDialogue(0, GetQuestId());
     }
 
     private void OnEnable()
     {
         GameEventsManager.instance.dialogueEvents.OnEndDialogue += CheckProgressInDialogue;
+        SceneManager.sceneLoaded += SetMidQuestDialogueInOverworld;
     }
 
     private void OnDisable()
     {
         GameEventsManager.instance.dialogueEvents.OnEndDialogue -= CheckProgressInDialogue;
+        SceneManager.sceneLoaded -= SetMidQuestDialogueInOverworld;
+    }
+
+    private void SetMidQuestDialogueInOverworld(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name.Contains("Overworld", System.StringComparison.CurrentCultureIgnoreCase))
+        {
+            GameEventsManager.instance.dialogueEvents.SetMidQuestDialogue(0, GetQuestId());
+        }
     }
 
     private void CheckProgressInDialogue()

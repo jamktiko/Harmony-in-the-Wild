@@ -18,4 +18,11 @@ public class DialogueEvents
     {
         OnEndDialogue?.Invoke();
     }
+
+    public event Action<int, string> OnSetMidQuestDialogue;
+
+    public void SetMidQuestDialogue(int dialogueIndex, string questId)
+    {
+        OnSetMidQuestDialogue?.Invoke(dialogueIndex, questId);
+    }
 }
