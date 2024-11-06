@@ -53,16 +53,17 @@ public class WhaleMovement : MonoBehaviour
         if (currentDestinationIndex < destinations.Count - 1)
         {
             currentDestinationIndex++;
+
+            currentDestination = destinations[currentDestinationIndex].position;
+
+            StartCoroutine(WalkToDestination());
         }
 
         else
         {
             GameEventsManager.instance.questEvents.ReachWhaleDestination();
+
         }
-
-        currentDestination = destinations[currentDestinationIndex].position;
-
-        StartCoroutine(WalkToDestination());
     }
 
     private IEnumerator WalkToDestination()

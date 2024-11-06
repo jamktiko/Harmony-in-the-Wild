@@ -34,14 +34,14 @@ public class QuestPoint : MonoBehaviour
     private void OnEnable()
     {
         GameEventsManager.instance.questEvents.OnQuestStateChange += QuestStateChange;
-        GameEventsManager.instance.dialogueEvents.OnEndDialogue += CompleteQuest;
+        GameEventsManager.instance.dialogueEvents.OnEndDialogue += StartOrCompleteQuest;
         GameEventsManager.instance.dialogueEvents.OnSetMidQuestDialogue += SetMidQuestDialogue;
     }
 
     private void OnDisable()
     {
         GameEventsManager.instance.questEvents.OnQuestStateChange -= QuestStateChange;
-        GameEventsManager.instance.dialogueEvents.OnEndDialogue -= CompleteQuest;
+        GameEventsManager.instance.dialogueEvents.OnEndDialogue -= StartOrCompleteQuest;
         GameEventsManager.instance.dialogueEvents.OnSetMidQuestDialogue -= SetMidQuestDialogue;
     }
 
@@ -88,6 +88,7 @@ public class QuestPoint : MonoBehaviour
 
         else if (currentQuestState.Equals(QuestState.IN_PROGRESS) && midQuestDialogueSet)
         {
+            Debug.Log("Interacting with quest point, about to start a mid quest dialogue.");
             questPointDialogue.MidQuestDialogue(midQuestDialogueIndex);
             midQuestDialogueSet = false;
         }
@@ -95,7 +96,7 @@ public class QuestPoint : MonoBehaviour
          RespawnManager.instance.SetRespawnPosition(respawnPoint.transform.position);
     }
 
-    private void CompleteQuest()
+    private void StartOrCompleteQuest()
     {
         if(playerIsNear && readyToStartQuest && !readyToCompleteQuest && currentQuestState.Equals(QuestState.CAN_START))
         {
