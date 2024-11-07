@@ -28,6 +28,8 @@ public class NPC_Dialogue : MonoBehaviour
         // fetch a random dialogue from the list of possible dialogues
         int dialogueIndex = Random.Range(0, possibleDialogues.Count);
 
+        Debug.Log("Ready to start a NPC dialogue.");
+
         DialogueManager.instance.StartDialogue(possibleDialogues[dialogueIndex]);
     }
 
@@ -53,7 +55,7 @@ public class NPC_Dialogue : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Trigger"))
         {
             playerIsNear = true;
         }
@@ -61,7 +63,7 @@ public class NPC_Dialogue : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Trigger"))
         {
             playerIsNear = false;
         }

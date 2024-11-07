@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 455065321260585153}
   - component: {fileID: 7351155801748498108}
   - component: {fileID: 9201191723535627510}
+  - component: {fileID: 4312094785568241539}
+  - component: {fileID: 4287141040998691696}
   m_Layer: 14
   m_Name: TutorialBear
   m_TagString: Untagged
@@ -190,6 +192,42 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4312094785568241539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8386741832940132358}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9119a06e63a73c147a4c62af3c29424b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questDialoguePairs:
+  - mainQuest: {fileID: 11400000, guid: 6319434f68453f54fa60900a7e1a1800, type: 2}
+    dialogueOption: {fileID: 4900000, guid: 918f6eee02d7bd7499449128a991626a, type: 3}
+  - mainQuest: {fileID: 11400000, guid: 51b0eaf0d5c760142acce377ae186057, type: 2}
+    dialogueOption: {fileID: 4900000, guid: 14007cb5c7c3dff4f8d587d187b2dfb3, type: 3}
+  - mainQuest: {fileID: 11400000, guid: 3bf14c600c45f4240b2ce1650a704374, type: 2}
+    dialogueOption: {fileID: 4900000, guid: d9b84e1b8cdbaf94b8525392f1a7236e, type: 3}
+  - mainQuest: {fileID: 11400000, guid: 4910e7629d1e3ed46b741c9ecf0f0cca, type: 2}
+    dialogueOption: {fileID: 4900000, guid: 4f7d9aad5e05b1d46a56e0053d9969d8, type: 3}
+  defaultDialogue: {fileID: 4900000, guid: bb74efd03e69dbb448ebede85afa1a4d, type: 3}
+--- !u!114 &4287141040998691696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8386741832940132358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcb3bc0675961834aaa470912f469dd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tutorialQuest: {fileID: 11400000, guid: ea1126578fde2af4c9e01401991f35c1, type: 2}
+  npcDialogue: {fileID: 4312094785568241539}
 --- !u!1001 &5633394063593371190
 PrefabInstance:
   m_ObjectHideFlags: 0

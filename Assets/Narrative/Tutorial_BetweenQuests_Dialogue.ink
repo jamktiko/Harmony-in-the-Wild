@@ -1,2 +1,2 @@
-This is the dialogue you should see between quests. Do some more stuff to proceed with the story. #speaker:Bear
+I think you might still have something to do related to the task we discussed beforehand. #speaker:Bear
 -> END

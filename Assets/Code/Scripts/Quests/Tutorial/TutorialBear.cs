@@ -55,6 +55,13 @@ public class TutorialBear : MonoBehaviour
 
     private void InteractWithBear()
     {
+        audioSource.Play();
+
+        if (QuestManager.instance.CheckQuestState(questId) == QuestState.FINISHED)
+        {
+            return;
+        }
+
         if (dialogueFiles[currentDialogueIndex] != null)
         {
             DialogueManager.instance.StartDialogue(dialogueFiles[currentDialogueIndex]);
@@ -64,8 +71,6 @@ public class TutorialBear : MonoBehaviour
         {
             DialogueManager.instance.StartDialogue(dialogueBetweenQuests);
         }
-
-        audioSource.Play();
     }
 
     private void CheckDialogueProgressChanges(string updatedQuestId)
