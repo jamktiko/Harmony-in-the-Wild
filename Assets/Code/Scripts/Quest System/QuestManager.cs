@@ -2,15 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class QuestManager : MonoBehaviour
 {
     public Dictionary<string, Quest> questMap;
 
     public static QuestManager instance;
+    private int curID = 0;
 
     [SerializeField] private PlayerManager playerManager;
     [SerializeField] private AbilityCycle AbilityCycle;
+    [SerializeField] private Image[] mapQuestMarkers;
+    [SerializeField] private Sprite[] mapQuestMarkersBW;
+    [SerializeField] private Sprite[] mapQuestMarkersColour;
 
     private int currentPlayerLevel;
 
@@ -27,7 +32,6 @@ public class QuestManager : MonoBehaviour
             instance = this;
 
         }
-
         // initialize quest map
         //questMap = CreateQuestMap();
         playerManager = FindObjectOfType<PlayerManager>();
@@ -85,6 +89,28 @@ public class QuestManager : MonoBehaviour
         //        Debug.Log(quest.info.name+" "+quest.state);
         //    }
         //}
+    }
+
+    public int NextID()
+    {
+        return curID++;
+    }
+
+    private void SetQuestMarkers()
+    {
+        if (questMap != null)
+        {
+            foreach (KeyValuePair<string, Quest> quest in questMap)
+            {
+                if (quest.Value.info.numericID < mapQuestMarkers.Length)
+                {
+                    if (quest.Value.state == QuestState.REQUIREMENTS_NOT_MET)
+                        mapQuestMarkers[quest.Value.info.numericID].sprite = mapQuestMarkersBW[quest.Value.info.numericID];
+                    else
+                        mapQuestMarkers[quest.Value.info.numericID].sprite = mapQuestMarkersColour[quest.Value.info.numericID];
+                }
+            }
+        }
     }
 
     private void PlayerLevelChange(int Level) 

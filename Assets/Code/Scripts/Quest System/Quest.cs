@@ -5,7 +5,6 @@ public class Quest
     public QuestScriptableObject info;
 
     public QuestState state;
-
     private int currentQuestStepIndex;
     private QuestStepState[] questStepStates;
 
