@@ -39,7 +39,7 @@ public class MainMenuManager : MonoBehaviour
 
     private void LoadSavedGame()
     {
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(14);
     }
 
     private void CheckSavedGame()
