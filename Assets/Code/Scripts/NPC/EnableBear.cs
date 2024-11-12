@@ -8,11 +8,14 @@ public class EnableBear : MonoBehaviour
 
     private void Start()
     {
-        QuestState state = QuestManager.instance.CheckQuestState(tutorialQuest.id);
+        Transform questManager = QuestManager.instance.transform;
 
-        if(state != QuestState.FINISHED)
+        foreach(Transform child in questManager)
         {
-            gameObject.SetActive(false);
+            if (child.name.Contains("Bear"))
+            {
+                gameObject.SetActive(false);
+            }
         }
     }
 }
