@@ -1,13 +1,16 @@
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
+#if UNITY_EDITOR
+
 [RequireComponent(typeof(Terrain))]
-public class TerrainTreesToGameObjects : MonoBehaviour
+public class TerrainTreesToPrefabInstances : MonoBehaviour
 {
     [ContextMenu("Extract")]
     public void Extract()
     {
-        Debug.Log("TerrainTreesToGameObjects::Extract");
+        Debug.Log("TerrainTreesToPrefabInstances::Extract");
         Terrain terrain = GetComponent<Terrain>();
 
         // Delete previously created tree GameObjects under the Terrain
@@ -23,6 +26,14 @@ public class TerrainTreesToGameObjects : MonoBehaviour
         for (int i = 0; i < terrain.terrainData.treePrototypes.Length; i++)
         {
             TreePrototype tree = terrain.terrainData.treePrototypes[i];
+            GameObject prefab = tree.prefab;
+
+            // Check if the tree prototype's prefab exists as an asset
+            if (prefab == null || PrefabUtility.GetPrefabAssetType(prefab) == PrefabAssetType.NotAPrefab)
+            {
+                Debug.LogWarning($"Tree prototype {i} does not have a valid prefab asset. Skipping.");
+                continue;
+            }
 
             // Get all instances matching the current prototype index
             TreeInstance[] instances = terrain.terrainData.treeInstances
@@ -38,27 +49,43 @@ public class TerrainTreesToGameObjects : MonoBehaviour
                 // Un-normalize position to world-space
                 Vector3 worldPosition = Vector3.Scale(instance.position, terrain.terrainData.size) + terrain.GetPosition();
 
-                // Instantiate a copy of the tree prefab at the calculated position
-                GameObject treeObject = Instantiate(tree.prefab, worldPosition, Quaternion.identity);
-                treeObject.name = tree.prefab.name + "_Instance_" + j;
+                // Instantiate a linked prefab instance at the calculated position
+                GameObject treeObject = (GameObject)PrefabUtility.InstantiatePrefab(prefab, terrain.transform);
+                treeObject.name = prefab.name + "_Instance_" + j;
 
-                // Set tree's scale based on instance width and height scales
+                // Set the scale based on the TreeInstance's width and height
                 treeObject.transform.localScale = new Vector3(instance.widthScale, instance.heightScale, instance.widthScale);
 
-                // Set parent to keep hierarchy tidy and for easy management
+                // Set position and parent to the terrain for organization
+                treeObject.transform.position = worldPosition;
                 treeObject.transform.parent = terrain.transform;
 
-                // Optional: Set layer to match either tree prefab layer or terrain layer
+                // Optional: Set layer according to terrain or prototype layer
                 if (terrain.preserveTreePrototypeLayers)
-                    treeObject.layer = tree.prefab.layer;
+                    treeObject.layer = prefab.layer;
                 else
                     treeObject.layer = terrain.gameObject.layer;
-            }
+            }       
         }
 
-        // Remove all tree instances from the terrain
-        terrain.terrainData.treeInstances = new TreeInstance[0];
+        // Get only tree instances that should be kept (those that use a prefab that has )
+        TreeInstance[] instancesToKeep = terrain.terrainData.treeInstances
+            .Where(instance =>
+            {
+        // Get the prefab for the current tree instance's prototype index
+        int prototypeIndex = instance.prototypeIndex;
+                GameObject prefab = terrain.terrainData.treePrototypes[prototypeIndex].prefab;
 
-        Debug.Log("All tree instances have been removed from the terrain and copied as GameObjects.");
+        // Check if the prefab name contains "Grass"
+        return prefab != null && prefab.name.Contains("Grass");
+            })
+            .ToArray();
+
+        // Update the terrain's treeInstances with only the instances to keep
+        terrain.terrainData.treeInstances = instancesToKeep;
+
+        Debug.Log("Non-Grass tree instances have been removed, only 'Grass' trees are kept on the terrain.");
     }
 }
+
+#endif
