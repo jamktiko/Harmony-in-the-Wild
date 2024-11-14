@@ -8,7 +8,7 @@ public class RespawnManager : MonoBehaviour
 {
     public static RespawnManager instance;
 
-    private Vector3 defaultStartingPosition = new Vector3(219f, 103f, 757f);
+    private Vector3 defaultStartingPosition = new Vector3(1627f, 118f, 360f);
     private Vector3 checkpointPosition;
 
     private void Awake()

@@ -81,7 +81,8 @@ public class FoxMovement : MonoBehaviour
             
             if (File.Exists(SaveManager.instance.saveFilePath))
             {
-                LoadPlayerPosition();
+                Invoke(nameof(LoadPlayerPosition), 0.2f);
+                //LoadPlayerPosition();
             }
         }
 

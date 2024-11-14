@@ -139,7 +139,7 @@ public class SaveManager : MonoBehaviour
     // uncommenting this for now, if we want to use exact position for saving the data, we might need to think of other options /Jutta
     public void CollectPlayerPositionData()
     {
-        if (FoxMovement.instance != null && SceneManager.GetActiveScene().name.Contains("Overworld"))
+        if (FoxMovement.instance != null && (SceneManager.GetActiveScene().name.Contains("Overworld") || SceneManager.GetActiveScene().name.Contains("OverWorld")))
         {
             //gameData.playerPositionData = FoxMovement.instance.CollectPlayerPositionForSaving();
             gameData.playerPositionData = RespawnManager.instance.GetLatestRespawnPoint();
