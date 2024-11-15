@@ -70,6 +70,7 @@ public class SaveManager : MonoBehaviour
 
             dataToSave.treeOfLifeState = gameData.treeOfLifeState;
             dataToSave.dialogueVariableData = gameData.dialogueVariableData;
+            dataToSave.activeQuest = QuestManager.instance.GetActiveQuest();
 
             string jsonData = JsonUtility.ToJson(dataToSave);
             File.WriteAllText(saveFilePath, jsonData);
@@ -91,6 +92,9 @@ public class SaveManager : MonoBehaviour
 
             gameData.treeOfLifeState = loadedData.treeOfLifeState;
             gameData.dialogueVariableData = loadedData.dialogueVariableData;
+
+            gameData.activeQuest = loadedData.activeQuest;
+            GameEventsManager.instance.questEvents.ChangeActiveQuest(gameData.activeQuest);
 
             Debug.Log("Game loaded.");
         }
@@ -146,6 +150,7 @@ public class SaveManager : MonoBehaviour
             Debug.Log("Saving player position: " + gameData.playerPositionData.x + ", " + gameData.playerPositionData.y + ", " + gameData.playerPositionData.z);
         }
     }
+
     #endregion
 
     #region GetDataForLoading

@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameData
 {
     public List<string> questData;
+    public string activeQuest;
     public string abilityData;
     public PositionData playerPositionData;
     public int treeOfLifeState;
