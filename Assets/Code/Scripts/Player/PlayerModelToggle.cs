@@ -15,7 +15,7 @@ public class PlayerModelToggle : MonoBehaviour
         if (PlayerInputHandler.instance.TogglePlayerModelInput.WasPressedThisFrame()) 
             TogglePlayerModel();
     }
-    private void TogglePlayerModel()
+    public void TogglePlayerModel()
     {
         ChangeVFX();
 

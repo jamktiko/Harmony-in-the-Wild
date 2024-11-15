@@ -3,6 +3,8 @@ using UnityEngine;
 public class ZoneTransition : MonoBehaviour
 {
     [SerializeField] PlayerModelToggle modelToggle;
+    [SerializeField] GameObject redFox;
+    [SerializeField] GameObject arcticFox;
 
     [Header("Forest")]
     [SerializeField] AudioSource forest;
@@ -15,7 +17,7 @@ public class ZoneTransition : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //entered forest
-        if (FoxMovement.instance.gameObject != null && gameObject.name == "Forest")
+        if (FoxMovement.instance.gameObject != null && arcticFox.activeInHierarchy)
         {
             modelToggle.ChangeModelToForest();
             arcticTheme.Stop();
@@ -23,7 +25,7 @@ public class ZoneTransition : MonoBehaviour
         }
 
         //entered arctic
-        if (FoxMovement.instance.gameObject != null && gameObject.name == "Arctic")
+        if (FoxMovement.instance.gameObject != null && redFox.activeInHierarchy)
         {
             modelToggle.ChangeModelToArctic();
             forestTheme.Stop();

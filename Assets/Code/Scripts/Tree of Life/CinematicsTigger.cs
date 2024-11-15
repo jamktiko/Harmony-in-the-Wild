@@ -12,7 +12,7 @@ public class CinematicsTigger : MonoBehaviour
 
     private void Start()
     {
-        CheckForTreeOfLifeUpdate();
+        Invoke(nameof(CheckForTreeOfLifeUpdate), 0.3f);
     }
 
     // Jutta's testing thingies; please don't delete yet, I think things might break later and this is a easy way to keep testing fixes quickly :)
