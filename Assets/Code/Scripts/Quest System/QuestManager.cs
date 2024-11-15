@@ -13,6 +13,7 @@ public class QuestManager : MonoBehaviour
     [SerializeField] private AbilityCycle AbilityCycle;
 
     private int currentPlayerLevel;
+    private string currentActiveQuest;
 
     private void Awake()
     {
@@ -190,6 +191,7 @@ public class QuestManager : MonoBehaviour
         ChangeQuestState(quest.info.id, QuestState.FINISHED);
         GameEventsManager.instance.questEvents.HideQuestUI();
         QuestCompletedUI.instance.ShowUI(id);
+        ResetActiveQuest();
         CheckAllRequirements();
     }
 
@@ -211,6 +213,21 @@ public class QuestManager : MonoBehaviour
         Quest quest = GetQuestById(id);
         quest.StoreQuestStepState(questStepState, stepIndex);
         ChangeQuestState(id, quest.state);
+    }
+
+    private void SetActiveQuest(string id)
+    {
+        currentActiveQuest = id;
+    }
+
+    private void ResetActiveQuest()
+    {
+        currentActiveQuest = "";
+    }
+
+    public string GetActiveQuest()
+    {
+        return currentActiveQuest;
     }
 
     public Dictionary<string, Quest> CreateQuestMap()
@@ -380,6 +397,8 @@ public class QuestManager : MonoBehaviour
 
         GameEventsManager.instance.playerEvents.OnExperienceGained += PlayerLevelChange;
         GameEventsManager.instance.playerEvents.OnAbilityAcquired += AbilityAcquired;
+
+        GameEventsManager.instance.questEvents.OnChangeActiveQuest += SetActiveQuest;
     }
 
     private void UnsubscribeFromEvents()
@@ -393,6 +412,8 @@ public class QuestManager : MonoBehaviour
 
         GameEventsManager.instance.playerEvents.OnExperienceGained -= PlayerLevelChange;
         GameEventsManager.instance.playerEvents.OnAbilityAcquired -= AbilityAcquired;
+
+        GameEventsManager.instance.questEvents.OnChangeActiveQuest -= SetActiveQuest;
     }
     public void RequestFinishQuest(string id) // For some reason the event doesn't trigger reliably so as a workaround to ensure dungeons finish, this is called.
     {
