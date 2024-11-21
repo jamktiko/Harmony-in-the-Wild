@@ -1,7 +1,7 @@
 INCLUDE Globals.ink
 
 You found your way here. Amazing! #speaker:Bear
-This is Heart of Island. The place where all aspects of nature meet. The forest, the snow, the ocean.
+This is Heart of Island.
 What is that? #speaker:Fox
 This? The Tree of Life. #speaker:Bear
 It represents the state of the island. The harmony in the wild. The happiness and peace we have here.
