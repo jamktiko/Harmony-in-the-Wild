@@ -14,6 +14,8 @@ public class CameraMovement : MonoBehaviour
     public Transform fox;
     public Transform foxObject;
     public Transform foxMiddle;
+    public Transform foxBottom;
+    public Transform foxFront;
     public Rigidbody rb;
     public FoxMovement foxMove;
 
@@ -95,5 +97,18 @@ public class CameraMovement : MonoBehaviour
                 foxObject.forward = dirtoTelegraphLookAt.normalized;
             }
         }
+    }
+    void UpdateCharacterBones() 
+    {
+        RaycastHit clavicle_hit;
+        RaycastHit ButtHit;
+
+        if (Physics.Raycast(foxFront.position, Vector3.down, out clavicle_hit, 10) && Physics.Raycast(foxBottom.position, Vector3.down, out ButtHit, 10))
+        {
+
+        }
+        
+
+
     }
 }

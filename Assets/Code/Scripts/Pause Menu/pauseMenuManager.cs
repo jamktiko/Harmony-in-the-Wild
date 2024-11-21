@@ -64,6 +64,7 @@ public class PauseMenuManager : MonoBehaviour
                 MovementControlsMenuPanel.SetActive(false);
                 GamePlayControlsMenuPanel.SetActive(false);
                 SettingsMenuPanel.SetActive(false);
+                GameEventsManager.instance.playerEvents.ToggleInputActions(true);
             }
 
             //enable
@@ -77,6 +78,7 @@ public class PauseMenuManager : MonoBehaviour
                 Cursor.visible = true;
                 SliderValueMaster = PlayerPrefs.GetFloat("MasterVolume");
                 SliderValueMusic = PlayerPrefs.GetFloat("MusicVolume");
+                GameEventsManager.instance.playerEvents.ToggleInputActions(false);
             }
         }
         //if (InvertYAxis != null)

@@ -35,6 +35,7 @@ public class DialogueManager : MonoBehaviour
     private DialogueVariableObserver dialogueVariables;
     private Story currentStory;
     private TextMeshProUGUI[] choicesText;
+    private bool canInteractWith = true;   // boolean to detect whether you can use the input; not interactable if for example pause menu is opened
 
     private void Awake()
     {
@@ -69,9 +70,19 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        GameEventsManager.instance.playerEvents.OnToggleInputActions += ToggleInteractability;
+    }
+
+    private void OnDisable()
+    {
+        GameEventsManager.instance.playerEvents.OnToggleInputActions -= ToggleInteractability;
+    }
+
     private void Update()
     {
-        if (isDialoguePlaying)
+        if (isDialoguePlaying && canInteractWith)
         {
             // make the selected choice
             if (PlayerInputHandler.instance.SelectInput.WasPressedThisFrame() && isChoiceAvailable)
@@ -354,5 +365,10 @@ public class DialogueManager : MonoBehaviour
         {
             return "";
         }
+    }
+
+    private void ToggleInteractability(bool enableInteractions)
+    {
+        canInteractWith = enableInteractions;
     }
 }
