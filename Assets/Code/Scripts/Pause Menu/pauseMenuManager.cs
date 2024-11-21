@@ -189,10 +189,10 @@ public class PauseMenuManager : MonoBehaviour
     public void ExitQuest()
     {
         string currentSceneName = SceneManager.GetActiveScene().name;
-        if (currentSceneName != "Overworld")
+        if (currentSceneName != "OverWorld - VS")
         {
             //Debug.Log("Quest has been exited. Loading Overworld.");
-            SceneManager.LoadScene("Overworld", LoadSceneMode.Single);
+            SceneManager.LoadScene("OverWorld - VS", LoadSceneMode.Single);
             Resume();
         }
     }
@@ -200,7 +200,7 @@ public class PauseMenuManager : MonoBehaviour
     public void RestartQuest()
     {
         string currentSceneName = SceneManager.GetActiveScene().name;
-        if (currentSceneName != "Overworld")
+        if (currentSceneName != "OverWorld - VS")
         {
             //Debug.Log("Quest has been restarted. Reloading scene.");
             SceneManager.LoadScene(currentSceneName, LoadSceneMode.Single);
@@ -220,7 +220,7 @@ public class PauseMenuManager : MonoBehaviour
             cinemachineFreeLook = null;
         }
         //Debug.Log("Scene loaded: " + scene.name); 
-        if ((scene.name == "Overworld" || scene.name == "MainMenu") && restartQuestPanel != null && exitQuestPanel != null)
+        if ((scene.name == "OverWorld - VS" || scene.name == "MainMenu") && restartQuestPanel != null && exitQuestPanel != null)
         {
             //Debug.Log("Scene loaded is Overworld or the main menu. Disabling quest buttons in pause menu.");
             restartQuestPanel.SetActive(false);
