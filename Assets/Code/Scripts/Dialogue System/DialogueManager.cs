@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using Ink.Runtime;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -73,11 +74,13 @@ public class DialogueManager : MonoBehaviour
     private void OnEnable()
     {
         GameEventsManager.instance.playerEvents.OnToggleInputActions += ToggleInteractability;
+        SceneManager.sceneLoaded += ResetInteractibilityOnSceneChange;
     }
 
     private void OnDisable()
     {
         GameEventsManager.instance.playerEvents.OnToggleInputActions -= ToggleInteractability;
+        SceneManager.sceneLoaded -= ResetInteractibilityOnSceneChange;
     }
 
     private void Update()
@@ -119,6 +122,11 @@ public class DialogueManager : MonoBehaviour
             {
                 EndDialogue();
             }
+        }
+
+        else if (!canInteractWith)
+        {
+            Debug.Log("Dialogue not proceeding, interacting is disabled!");
         }
     }
 
@@ -370,5 +378,10 @@ public class DialogueManager : MonoBehaviour
     private void ToggleInteractability(bool enableInteractions)
     {
         canInteractWith = enableInteractions;
+    }
+
+    private void ResetInteractibilityOnSceneChange(Scene scene, LoadSceneMode mode)
+    {
+        canInteractWith = true;
     }
 }

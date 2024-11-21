@@ -48,6 +48,11 @@ public class CinematicsTigger : MonoBehaviour
 
             Debug.Log("Trigger cinematics now!");
         }
+
+        else
+        {
+            Debug.Log("No progress in main quests, no need to trigger cinematics.");
+        }
     }
 
     private void FetchQuestProgress()
