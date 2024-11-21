@@ -21,5 +21,10 @@ public class CreditsRoll : MonoBehaviour
         {
             rectTransform.anchoredPosition = new Vector2(0f, -1200f);
         }
+
+        else
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+        }
     }
 }

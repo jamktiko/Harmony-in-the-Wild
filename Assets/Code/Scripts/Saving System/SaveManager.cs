@@ -127,6 +127,11 @@ public class SaveManager : MonoBehaviour
         {
             gameData.treeOfLifeState = TreeOfLifeState.instance.GetTreeOfLifeState();
         }
+
+        else
+        {
+            Debug.Log("No ToL state fetched, not in Overworld.");
+        }
     }
 
     private void CollectDialogueVariableData()
