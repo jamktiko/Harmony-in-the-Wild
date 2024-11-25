@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Gliding : MonoBehaviour, IAbility
@@ -8,6 +9,7 @@ public class Gliding : MonoBehaviour, IAbility
     public float airMultiplier = 0.7f;
     public bool isGliding;
     [SerializeField] private AudioSource glidingAudio;
+    private List<ParticleSystem> glideParticleEmission = new List<ParticleSystem>();
 
     void Awake()
     {
@@ -32,12 +34,62 @@ public class Gliding : MonoBehaviour, IAbility
         {
             DisableGliding();
         }
+        if (glideParticleEmission.Count < 1 || glideParticleEmission[0] == null)
+        {
+            glideParticleEmission.Clear();
+            Transform player = null;
+            foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Player"))
+            {
+                player = obj.transform;
+                break;
+            }
+            if (player)
+            {
+                while (player.parent != null)
+                    player = player.parent;
+                FindVFX(player);
+            }
+        }
     }
+
+    private void FindVFX(Transform cur)
+    {
+        if (cur.gameObject.name == "GlideTrail" || cur.gameObject.name == "GlideParticles")
+        {
+            ParticleSystem curParticles = cur.gameObject.GetComponent<ParticleSystem>();
+            if (curParticles != null)
+            {
+                glideParticleEmission.Add(curParticles);
+                var emission = curParticles.emission;
+                emission.enabled = false;
+            }
+        }
+        foreach (Transform t in cur)
+            FindVFX(t);
+    }
+
     public void Activate()
     {
         isGliding = !isGliding;
 
         Debug.Log("Gliding activated");
+
+        if (isGliding)
+        {
+            for (int i = 0; i < glideParticleEmission.Count; i++)
+            {
+                var emission = glideParticleEmission[i].emission;
+                emission.enabled = true;
+            }
+        }
+        else
+        {
+            for (int i = 0; i < glideParticleEmission.Count; i++)
+            {
+                var emission = glideParticleEmission[i].emission;
+                emission.enabled = false;
+            }
+        }
     }
     private void Glide()
     {
@@ -90,5 +142,10 @@ public class Gliding : MonoBehaviour, IAbility
             FoxMovement.instance.rb.useGravity = true;
         }
         FoxMovement.instance.playerAnimator.SetBool("isGliding", false);
+        for (int i = 0; i < glideParticleEmission.Count; i++)
+        {
+            var emission = glideParticleEmission[i].emission;
+            emission.enabled = false;
+        }
     }
 }
