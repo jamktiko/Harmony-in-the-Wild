@@ -13,7 +13,7 @@ public class QuestManager : MonoBehaviour
 
     [SerializeField] private PlayerManager playerManager;
     [SerializeField] private AbilityCycle AbilityCycle;
-    [SerializeField] private SpriteRenderer[] mapQuestMarkers;
+    [SerializeField] private Image[] mapQuestMarkers;
     [SerializeField] private Sprite[] mapQuestMarkersBW;
     [SerializeField] private Sprite[] mapQuestMarkersColour;
 
