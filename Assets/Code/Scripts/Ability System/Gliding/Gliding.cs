@@ -51,6 +51,7 @@ public class Gliding : MonoBehaviour, IAbility
             }
         }
     }
+
     private void FindVFX(Transform cur)
     {
         if (cur.gameObject.name == "GlideTrail" || cur.gameObject.name == "GlideParticles")
@@ -66,6 +67,7 @@ public class Gliding : MonoBehaviour, IAbility
         foreach (Transform t in cur)
             FindVFX(t);
     }
+
     public void Activate()
     {
         isGliding = !isGliding;

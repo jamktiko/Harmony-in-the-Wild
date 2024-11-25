@@ -2,31 +2,50 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class PreventCameraMovementDuringDialogue : MonoBehaviour
 {
-    [SerializeField] private CameraMovement cameraMovement;
-    [SerializeField] private GameObject freeLookCamera;
+    [SerializeField] private GameObject cameraMovement;
+    [SerializeField] private CinemachineFreeLook freeLookCamera;
 
-    private void OnEnable()
+    private void Start()
     {
         GameEventsManager.instance.dialogueEvents.OnStartDialogue += DisableMovement;
         GameEventsManager.instance.dialogueEvents.OnEndDialogue += EnableMovement;
     }
 
-    private void OnDisable()
-    {
-        GameEventsManager.instance.dialogueEvents.OnStartDialogue -= DisableMovement;
-        GameEventsManager.instance.dialogueEvents.OnEndDialogue -= EnableMovement;
-    }
-
     private void DisableMovement()
     {
-        cameraMovement.enabled = false;
+        Debug.Log("Camera movement disabled!");
+
+        if(cameraMovement == null)
+        {
+            Debug.Log("No camera movement attached to PreventCameraMovementDuringDialogue!");
+        }
+
+        else
+        {
+            cameraMovement.GetComponent<CameraMovement>().enabled = false;
+            freeLookCamera.m_YAxis.m_MaxSpeed = 0;
+            freeLookCamera.m_XAxis.m_MaxSpeed = 0;
+        }
     }
 
     private void EnableMovement()
     {
-        cameraMovement.enabled = true;
+        Debug.Log("Camera movement enabled!");
+
+        if(cameraMovement == null)
+        {
+            Debug.Log("No camera movement attached to PreventCameraMovementDuringDialogue!");
+        }
+
+        else
+        {
+            cameraMovement.GetComponent<CameraMovement>().enabled = true;
+            freeLookCamera.m_YAxis.m_MaxSpeed = 0.001f;
+            freeLookCamera.m_XAxis.m_MaxSpeed = 0.1f;
+        }
     }
 }

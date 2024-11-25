@@ -19,6 +19,8 @@ public class QuestPoint : MonoBehaviour
     private QuestPointDialogue questPointDialogue;
     private bool readyToStartQuest;
     private bool readyToCompleteQuest;
+    private bool midQuestDialogueSet = false;
+    private int midQuestDialogueIndex = 0;
 
     [Header("RespawnPoint")]
     [SerializeField] private Transform respawnPoint;
@@ -32,13 +34,15 @@ public class QuestPoint : MonoBehaviour
     private void OnEnable()
     {
         GameEventsManager.instance.questEvents.OnQuestStateChange += QuestStateChange;
-        GameEventsManager.instance.dialogueEvents.OnEndDialogue += CompleteQuest;
+        GameEventsManager.instance.dialogueEvents.OnEndDialogue += StartOrCompleteQuest;
+        GameEventsManager.instance.dialogueEvents.OnSetMidQuestDialogue += SetMidQuestDialogue;
     }
 
     private void OnDisable()
     {
         GameEventsManager.instance.questEvents.OnQuestStateChange -= QuestStateChange;
-        GameEventsManager.instance.dialogueEvents.OnEndDialogue -= CompleteQuest;
+        GameEventsManager.instance.dialogueEvents.OnEndDialogue -= StartOrCompleteQuest;
+        GameEventsManager.instance.dialogueEvents.OnSetMidQuestDialogue -= SetMidQuestDialogue;
     }
 
     private void Update()
@@ -82,10 +86,17 @@ public class QuestPoint : MonoBehaviour
             questPointDialogue.AfterQuestFinishedDialogue();
          }
 
+        else if (currentQuestState.Equals(QuestState.IN_PROGRESS) && midQuestDialogueSet)
+        {
+            Debug.Log("Interacting with quest point, about to start a mid quest dialogue.");
+            questPointDialogue.MidQuestDialogue(midQuestDialogueIndex);
+            midQuestDialogueSet = false;
+        }
+
          RespawnManager.instance.SetRespawnPosition(respawnPoint.transform.position);
     }
 
-    private void CompleteQuest()
+    private void StartOrCompleteQuest()
     {
         if(playerIsNear && readyToStartQuest && !readyToCompleteQuest && currentQuestState.Equals(QuestState.CAN_START))
         {
@@ -111,6 +122,15 @@ public class QuestPoint : MonoBehaviour
     public string ReturnQuestId()
     {
         return questId;
+    }
+
+    private void SetMidQuestDialogue(int dialogueIndex, string id)
+    {
+        if(id == questId)
+        {
+            midQuestDialogueSet = true;
+            midQuestDialogueIndex = dialogueIndex;
+        }
     }
 
     private void OnTriggerEnter(Collider other)

@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1737629258957209357}
   - component: {fileID: 786823304400153143}
-  - component: {fileID: -1209382841810619666}
+  - component: {fileID: 225980170640709645}
+  - component: {fileID: 7154044818430727635}
   - component: {fileID: -3931754827528084264}
   - component: {fileID: 1571408588579280426}
   m_Layer: 0
@@ -55,7 +56,7 @@ MonoBehaviour:
   finishPoint: 1
   playerIsNear: 0
   respawnPoint: {fileID: 0}
---- !u!114 &-1209382841810619666
+--- !u!114 &225980170640709645
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -68,7 +69,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questInfoForPoint: {fileID: 11400000, guid: eb8d46205e60dd6478703e929f233b6b, type: 2}
-  finalCallToAction: Return to the whale
+  finalCallToAction: Talk to the whale once more
+--- !u!114 &7154044818430727635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3129236401650727929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a7fe9283e86644c9d5b5d19d622b87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 8
+  rotationSpeed: 0.7
+  maxDistanceToPlayer: 20
+  destinations: []
+  player: {fileID: 0}
 --- !u!114 &-3931754827528084264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85,6 +103,8 @@ MonoBehaviour:
   startQuestDialogue: {fileID: 4900000, guid: b6093098c58856740b0b686f60142deb, type: 3}
   finishQuestDialogue: {fileID: 4900000, guid: 417c7a7d1ec99094a9642f21eff64ce9, type: 3}
   afterQuestFinishedDialogue: {fileID: 4900000, guid: 99d3d20a3154be046b1b1722f7107685, type: 3}
+  midQuestDialogues:
+  - {fileID: 4900000, guid: 7be308f088cc2a847b0699031d83b608, type: 3}
 --- !u!135 &1571408588579280426
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -104,8 +124,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 4.51
-  m_Center: {x: 0, y: 0, z: 1.9}
+  m_Radius: 7.1779165
+  m_Center: {x: 0.0000000132233815, y: 0, z: -0.7679166}
 --- !u!1001 &5573793932115005552
 PrefabInstance:
   m_ObjectHideFlags: 0

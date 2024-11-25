@@ -9,6 +9,7 @@ public class QuestPointDialogue : MonoBehaviour
     [SerializeField] private TextAsset startQuestDialogue;
     [SerializeField] private TextAsset finishQuestDialogue;
     [SerializeField] private TextAsset afterQuestFinishedDialogue;
+    [SerializeField] private List<TextAsset> midQuestDialogues;
 
     private AudioSource audioSource;
     //private bool canStartDialogue = true;
@@ -59,6 +60,15 @@ public class QuestPointDialogue : MonoBehaviour
         if (afterQuestFinishedDialogue != null)
         {
             DialogueManager.instance.StartDialogue(afterQuestFinishedDialogue);
+            PlayDialogueSound();
+        }
+    }
+
+    public void MidQuestDialogue(int index)
+    {
+        if (midQuestDialogues[index] != null)
+        {
+            DialogueManager.instance.StartDialogue(midQuestDialogues[index]);
             PlayDialogueSound();
         }
     }

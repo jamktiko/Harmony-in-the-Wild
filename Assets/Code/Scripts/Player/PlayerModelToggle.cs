@@ -12,10 +12,10 @@ public class PlayerModelToggle : MonoBehaviour
 
     private void Update()
     {
-        //if (PlayerInputHandler.instance.TogglePlayerModelInput.WasPressedThisFrame()) 
-        //    TogglePlayerModel();
+        if (PlayerInputHandler.instance.TogglePlayerModelInput.WasPressedThisFrame()) 
+            TogglePlayerModel();
     }
-    public void TogglePlayerModel()
+    private void TogglePlayerModel()
     {
         ChangeVFX();
 
@@ -23,7 +23,6 @@ public class PlayerModelToggle : MonoBehaviour
         {
             ChangeModelToForest();
         }
-
         else
         {
             ChangeModelToArctic();

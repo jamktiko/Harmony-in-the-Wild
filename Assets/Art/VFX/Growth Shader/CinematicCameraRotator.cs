@@ -10,9 +10,6 @@ public class CinematicCameraRotator : MonoBehaviour
     public GameObject objectToEnable;
     public GrowthController growthController;
 
-    [Header("VS Config")]
-    [SerializeField] private bool isVerticalSliceScene = false;
-
     void Start()
     {
         originalRotation = transform.rotation;
@@ -42,12 +39,6 @@ public class CinematicCameraRotator : MonoBehaviour
                 }
 
                 GameEventsManager.instance.cinematicsEvents.EndCinematics();
-
-                // if in the vertical slice, show demo end after the first ToL cinematics
-                if (isVerticalSliceScene)
-                {
-                    UnityEngine.SceneManagement.SceneManager.LoadScene("DemoEnd");
-                }
             }
         }
     }

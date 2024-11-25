@@ -26,7 +26,6 @@ public class QuestScriptableObject : ScriptableObject
     {
 #if UNITY_EDITOR
         id = this.name;
-        numericID = QuestManager.instance.NextID();
         UnityEditor.EditorUtility.SetDirty(this);
 #endif
     }

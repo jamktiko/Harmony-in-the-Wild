@@ -12,27 +12,24 @@ public class ZoneTransition : MonoBehaviour
     [SerializeField] AudioSource arctic;
     [SerializeField] AudioSource arcticTheme;
 
-    private bool onForestSide = true;
-
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Trigger"))
+        //entered forest
+        if (FoxMovement.instance.gameObject != null && gameObject.name == "Forest")
         {
-            modelToggle.TogglePlayerModel();
-
-            onForestSide = !onForestSide;
-
-            if (onForestSide)
-            {
-                arcticTheme.Stop();
-                forestTheme.Play();
-            }
-
-            else
-            {
-                forestTheme.Stop();
-                arcticTheme.Play();
-            }
+            modelToggle.ChangeModelToForest();
+            arcticTheme.Stop();
+            forestTheme.Play();
         }
+
+        //entered arctic
+        if (FoxMovement.instance.gameObject != null && gameObject.name == "Arctic")
+        {
+            modelToggle.ChangeModelToArctic();
+            forestTheme.Stop();
+            arcticTheme.Play();
+        }
+
+        //Debug.Log($"{name} entered");
     }
 }

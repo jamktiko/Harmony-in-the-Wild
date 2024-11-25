@@ -15,6 +15,9 @@ public class AbilityCycle : MonoBehaviour
     public Dictionary<Abilities, bool> activeAbilities = new Dictionary<Abilities, bool>();
     private List<Abilities> abilityKeys;
     public Abilities selectedAbility = Abilities.None;
+
+    private bool canInteractWith = true;   // boolean to detect whether you can use the input; not interactable if for example pause menu is opened
+
     public void Awake()
     {
         if (instance != null && instance != this)
@@ -32,6 +35,16 @@ public class AbilityCycle : MonoBehaviour
         abilityKeys = new List<Abilities>(activeAbilities.Keys);
     }
 
+    private void OnEnable()
+    {
+        GameEventsManager.instance.playerEvents.OnToggleInputActions += ToggleInteractability;
+    }
+
+    private void OnDisable()
+    {
+        GameEventsManager.instance.playerEvents.OnToggleInputActions -= ToggleInteractability;
+    }
+
     void Update()
     {
         SwitchAbility();
@@ -45,7 +58,7 @@ public class AbilityCycle : MonoBehaviour
     }
     private void SwitchAbility()
     {
-        if (PlayerInputHandler.instance.AbilityToggleInput.WasPressedThisFrame())
+        if (PlayerInputHandler.instance.AbilityToggleInput.WasPressedThisFrame() && canInteractWith)
         {
             activeAbilities.TryGetValue(selectedAbility, out bool isSelected);
             //Debug.Log("1. Selected ability is: " + selectedAbility + " and it is: " + isSelected);
@@ -97,5 +110,10 @@ public class AbilityCycle : MonoBehaviour
             p.color = new Color(p.color.r, p.color.g, p.color.b, p.color.a - (Time.deltaTime / t));
             yield return null;
         }
+    }
+
+    private void ToggleInteractability(bool enableInteractions)
+    {
+        canInteractWith = enableInteractions;
     }
 }

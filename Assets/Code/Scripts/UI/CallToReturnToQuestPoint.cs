@@ -25,7 +25,7 @@ public class CallToReturnToQuestPoint : MonoBehaviour
 
     private void UpdateQuestUI(string id)
     {
-        // if the corresponding quest is being uopdated to CAN_FINISH state, use this UI
+        // if the corresponding quest is being updated to CAN_FINISH state, use this UI
         if(questId == id)
         {
             GameEventsManager.instance.questEvents.ShowQuestUI(questId, finalCallToAction, "");

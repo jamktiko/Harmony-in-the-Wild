@@ -64,6 +64,7 @@ public class PauseMenuManager : MonoBehaviour
                 MovementControlsMenuPanel.SetActive(false);
                 GamePlayControlsMenuPanel.SetActive(false);
                 SettingsMenuPanel.SetActive(false);
+                GameEventsManager.instance.playerEvents.ToggleInputActions(true);
             }
 
             //enable
@@ -77,6 +78,7 @@ public class PauseMenuManager : MonoBehaviour
                 Cursor.visible = true;
                 SliderValueMaster = PlayerPrefs.GetFloat("MasterVolume");
                 SliderValueMusic = PlayerPrefs.GetFloat("MusicVolume");
+                GameEventsManager.instance.playerEvents.ToggleInputActions(false);
             }
         }
         //if (InvertYAxis != null)
@@ -187,10 +189,10 @@ public class PauseMenuManager : MonoBehaviour
     public void ExitQuest()
     {
         string currentSceneName = SceneManager.GetActiveScene().name;
-        if (currentSceneName != "OverWorld - VS")
+        if (currentSceneName != "Overworld")
         {
             //Debug.Log("Quest has been exited. Loading Overworld.");
-            SceneManager.LoadScene("OverWorld - VS", LoadSceneMode.Single);
+            SceneManager.LoadScene("Overworld", LoadSceneMode.Single);
             Resume();
         }
     }
@@ -198,7 +200,7 @@ public class PauseMenuManager : MonoBehaviour
     public void RestartQuest()
     {
         string currentSceneName = SceneManager.GetActiveScene().name;
-        if (currentSceneName != "OverWorld - VS")
+        if (currentSceneName != "Overworld")
         {
             //Debug.Log("Quest has been restarted. Reloading scene.");
             SceneManager.LoadScene(currentSceneName, LoadSceneMode.Single);
@@ -218,7 +220,7 @@ public class PauseMenuManager : MonoBehaviour
             cinemachineFreeLook = null;
         }
         //Debug.Log("Scene loaded: " + scene.name); 
-        if ((scene.name == "OverWorld - VS" || scene.name == "MainMenu") && restartQuestPanel != null && exitQuestPanel != null)
+        if ((scene.name == "Overworld" || scene.name == "MainMenu") && restartQuestPanel != null && exitQuestPanel != null)
         {
             //Debug.Log("Scene loaded is Overworld or the main menu. Disabling quest buttons in pause menu.");
             restartQuestPanel.SetActive(false);

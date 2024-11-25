@@ -9,12 +9,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6315782514430678181}
-  m_Layer: 0
+  - component: {fileID: 861880762646783360}
+  - component: {fileID: 6892506816072541799}
+  m_Layer: 16
   m_Name: GlowingPineCone_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &6315782514430678181
 Transform:
@@ -26,13 +28,49 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 238.529, y: 41.708, z: 293.53412}
-  m_LocalScale: {x: 2.35, y: 2.35, z: 2.35}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7032970235329908595}
   - {fileID: 8388505415658550412}
+  - {fileID: 9213913646945519384}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &861880762646783360
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3589941646583307800}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 16384
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6892506816072541799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3589941646583307800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea6e6cbad05605147932979550e0317e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactable: 0
+  interactionIndicator: {fileID: 6939478442139531230}
 --- !u!1001 &3178358480661512108
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -101,6 +139,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: TFF_Pine_Cone_02A
       objectReference: {fileID: 0}
+    - target: {fileID: 5585005701863206143, guid: b618807605939db45ba47f47aad0c0ca, type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 5585005701863206143, guid: b618807605939db45ba47f47aad0c0ca, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5585005701865206335, guid: b618807605939db45ba47f47aad0c0ca, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -115,6 +161,89 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5585005701862912223, guid: b618807605939db45ba47f47aad0c0ca, type: 3}
   m_PrefabInstance: {fileID: 3178358480661512108}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5291569372580272946
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6315782514430678181}
+    m_Modifications:
+    - target: {fileID: 2964094982942551276, guid: b77187ba1f112de49bb070bcf9fdaf46, type: 3}
+      propertyPath: m_Name
+      value: InteractionIndicatorTrigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 3787103246542851495, guid: b77187ba1f112de49bb070bcf9fdaf46, type: 3}
+      propertyPath: m_Radius
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3940944248738946090, guid: b77187ba1f112de49bb070bcf9fdaf46, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3940944248738946090, guid: b77187ba1f112de49bb070bcf9fdaf46, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.533
+      objectReference: {fileID: 0}
+    - target: {fileID: 3940944248738946090, guid: b77187ba1f112de49bb070bcf9fdaf46, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3940944248738946090, guid: b77187ba1f112de49bb070bcf9fdaf46, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3940944248738946090, guid: b77187ba1f112de49bb070bcf9fdaf46, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3940944248738946090, guid: b77187ba1f112de49bb070bcf9fdaf46, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3940944248738946090, guid: b77187ba1f112de49bb070bcf9fdaf46, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3940944248738946090, guid: b77187ba1f112de49bb070bcf9fdaf46, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3940944248738946090, guid: b77187ba1f112de49bb070bcf9fdaf46, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3940944248738946090, guid: b77187ba1f112de49bb070bcf9fdaf46, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9032388937620601683, guid: b77187ba1f112de49bb070bcf9fdaf46, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.061
+      objectReference: {fileID: 0}
+    - target: {fileID: 9032388937620601683, guid: b77187ba1f112de49bb070bcf9fdaf46, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9032388937620601683, guid: b77187ba1f112de49bb070bcf9fdaf46, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.411
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b77187ba1f112de49bb070bcf9fdaf46, type: 3}
+--- !u!1 &6939478442139531230 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2964094982942551276, guid: b77187ba1f112de49bb070bcf9fdaf46, type: 3}
+  m_PrefabInstance: {fileID: 5291569372580272946}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &9213913646945519384 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3940944248738946090, guid: b77187ba1f112de49bb070bcf9fdaf46, type: 3}
+  m_PrefabInstance: {fileID: 5291569372580272946}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5999711156128442311
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -126,6 +255,10 @@ PrefabInstance:
     - target: {fileID: 2822266823418367851, guid: 1f4120be03d41cc468f5d14fcf4647bd, type: 3}
       propertyPath: m_Name
       value: TFF_Glowing_Lilly_02B
+      objectReference: {fileID: 0}
+    - target: {fileID: 2822266823418367851, guid: 1f4120be03d41cc468f5d14fcf4647bd, type: 3}
+      propertyPath: m_Layer
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 2822266823418794827, guid: 1f4120be03d41cc468f5d14fcf4647bd, type: 3}
       propertyPath: m_LocalPosition.x

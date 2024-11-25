@@ -62,13 +62,15 @@ public class SaveManager : MonoBehaviour
             dataToSave.questData = gameData.questData;
             dataToSave.abilityData = gameData.abilityData;
 
-            if (SceneManager.GetActiveScene().name == "Overworld")
+            if (SceneManager.GetActiveScene().name == "Overworld" || SceneManager.GetActiveScene().name == "OverWorld - VS")
             {
                 dataToSave.playerPositionData = gameData.playerPositionData;
+                Debug.Log("Saving player position in Overworld...");
             }
 
             dataToSave.treeOfLifeState = gameData.treeOfLifeState;
             dataToSave.dialogueVariableData = gameData.dialogueVariableData;
+            dataToSave.activeQuest = QuestManager.instance.GetActiveQuest();
 
             string jsonData = JsonUtility.ToJson(dataToSave);
             File.WriteAllText(saveFilePath, jsonData);
@@ -90,6 +92,9 @@ public class SaveManager : MonoBehaviour
 
             gameData.treeOfLifeState = loadedData.treeOfLifeState;
             gameData.dialogueVariableData = loadedData.dialogueVariableData;
+
+            gameData.activeQuest = loadedData.activeQuest;
+            GameEventsManager.instance.questEvents.ChangeActiveQuest(gameData.activeQuest);
 
             Debug.Log("Game loaded.");
         }
@@ -122,6 +127,11 @@ public class SaveManager : MonoBehaviour
         {
             gameData.treeOfLifeState = TreeOfLifeState.instance.GetTreeOfLifeState();
         }
+
+        else
+        {
+            Debug.Log("No ToL state fetched, not in Overworld.");
+        }
     }
 
     private void CollectDialogueVariableData()
@@ -142,8 +152,10 @@ public class SaveManager : MonoBehaviour
         {
             //gameData.playerPositionData = FoxMovement.instance.CollectPlayerPositionForSaving();
             gameData.playerPositionData = RespawnManager.instance.GetLatestRespawnPoint();
+            Debug.Log("Saving player position: " + gameData.playerPositionData.x + ", " + gameData.playerPositionData.y + ", " + gameData.playerPositionData.z);
         }
     }
+
     #endregion
 
     #region GetDataForLoading

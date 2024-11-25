@@ -1,1 +1,0 @@
-VAR latestTutorialQuestStepDialogueCompleted = 0

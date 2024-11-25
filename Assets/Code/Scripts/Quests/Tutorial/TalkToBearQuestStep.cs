@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class TalkToBearQuestStep : QuestStep
 {
@@ -15,6 +16,9 @@ public class TalkToBearQuestStep : QuestStep
     {
         GameEventsManager.instance.dialogueEvents.OnEndDialogue += CheckProgressInDialogue;
         GameEventsManager.instance.questEvents.OnAdvanceQuest += PlayIntroCinematic;
+
+        SceneManager.sceneLoaded += UpdateQuestUI;
+
         try
         {
             cinematicAnimator = GameObject.Find("IntroCamera").GetComponent<Animator>();
@@ -30,6 +34,8 @@ public class TalkToBearQuestStep : QuestStep
     {
         GameEventsManager.instance.dialogueEvents.OnEndDialogue -= CheckProgressInDialogue;
         GameEventsManager.instance.questEvents.OnAdvanceQuest -= PlayIntroCinematic;
+
+        SceneManager.sceneLoaded -= UpdateQuestUI;
     }
 
     private void Start()
@@ -37,9 +43,17 @@ public class TalkToBearQuestStep : QuestStep
         GameEventsManager.instance.questEvents.ShowQuestUI(GetQuestId(), objective, progress);
     }
 
+    private void UpdateQuestUI(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name.Contains("Overworld", System.StringComparison.CurrentCultureIgnoreCase))
+        {
+            GameEventsManager.instance.questEvents.ShowQuestUI(GetQuestId(), objective, progress);
+        }     
+    }
+
     private void CheckProgressInDialogue()
     {
-        Invoke(nameof(FetchDialogueData),0f);
+        Invoke(nameof(FetchDialogueData),0.01f);
     }
     private void PlayIntroCinematic(string name)
     {
@@ -64,6 +78,8 @@ public class TalkToBearQuestStep : QuestStep
     {
         // check the latest completed dialogue from Ink
         int latestCompletedDialogue = ((Ink.Runtime.IntValue)DialogueManager.instance.GetDialogueVariableState("latestTutorialQuestStepDialogueCompleted")).value;
+
+        Debug.Log("Latest completed dialogue: " + latestCompletedDialogue + ", target dialogue: " + targetDialogueIndex);
 
         // if the current value matches the target value, finish the quest step
         if (latestCompletedDialogue == targetDialogueIndex)

@@ -123,7 +123,7 @@ public class PenguinRaceManager : MonoBehaviour
         {
             if (dungeonQuestDialogue.FinalDialogueCompleted())
             {
-                StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, "OverWorld - VS", true);
+                StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, "Overworld", true);
                 SceneManager.LoadScene("Storybook");
             }
         }

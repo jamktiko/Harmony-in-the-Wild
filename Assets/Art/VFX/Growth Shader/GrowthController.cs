@@ -14,7 +14,8 @@ public class GrowthController : MonoBehaviour
     private float duration = 5f;
     private bool isGrowing = false;
 
-
+    [Header("VS Config")]
+    [SerializeField] private bool isVerticalSliceScene = false;
 
     private void Start()
     {
@@ -52,7 +53,7 @@ public class GrowthController : MonoBehaviour
         if (isGrowing) return;
 
         float currentLeafGrow = leafMaterial.GetFloat("_Grow");
-        /*if (currentLeafGrow < 1f)
+        if (currentLeafGrow < 1f)
         {
             StartCoroutine(SmoothGrow(leafMaterial, currentLeafGrow, Mathf.Min(currentLeafGrow + leafGrowIncrement, 1f)));
         }
@@ -60,10 +61,7 @@ public class GrowthController : MonoBehaviour
         {
             float currentFlowerGrow = flowerMaterial.GetFloat("_Grow");
             StartCoroutine(SmoothGrow(flowerMaterial, currentFlowerGrow, currentFlowerGrow + flowerGrowIncrement));
-        }*/
-
-        StartCoroutine(SmoothGrow(leafMaterial, 0, 1));
-        StartCoroutine(SmoothGrow(flowerMaterial, 0, 1));
+        }
     }
 
     private IEnumerator SmoothGrow(Material material, float startValue, float endValue)
@@ -76,11 +74,17 @@ public class GrowthController : MonoBehaviour
             elapsedTime += Time.deltaTime;
             float newValue = Mathf.Lerp(startValue, endValue, elapsedTime / duration);
             material.SetFloat("_Grow", newValue);
-            yield return new WaitForSeconds(0.05f);
+            yield return null;
         }
 
         material.SetFloat("_Grow", endValue);
         isGrowing = false;
+
+        // if in the vertical slice, show demo end after the first ToL cinematics
+        if (isVerticalSliceScene)
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("DemoEnd");
+        }
     }
 
     public void SaveGrowthValues()
@@ -113,18 +117,18 @@ public class GrowthController : MonoBehaviour
                 break;
 
             case 1:
-                leafGrow = 1f;
-                flowerGrow = 1f;
+                leafGrow = 0.5f;
+                flowerGrow = 0;
                 break;
 
             case 2:
                 leafGrow = 1f;
-                flowerGrow = 1f;
+                flowerGrow = 0;
                 break;
 
             case 3:
                 leafGrow = 1f;
-                flowerGrow = 1f;
+                flowerGrow = 0.5f;
                 break;
 
             case 4:

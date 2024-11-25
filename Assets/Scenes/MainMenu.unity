@@ -7151,7 +7151,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4499113958719802704, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4499113958719802704, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -7289,13 +7289,25 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: PauseMenuManager, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 8195650870888388845, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: f04175c327c0b574a8de697199647f3c, type: 3}
     - target: {fileID: 8215659131270659888, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1731928052}
+    - target: {fileID: 8215659131270659888, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: returnToMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 8215659131270659888, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PauseMenuManager, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 9198797658315884758, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9198797658315884758, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -7462,7 +7474,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 4039591810923578567, guid: 0836fcbbe03bd634181a25d5e7402191, type: 2}
   m_audioClip: {fileID: 8300000, guid: b1e29cf4a70e03e4885a96b7e2e62f85, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.3
+  m_Volume: 0.24
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -7721,10 +7733,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 568026403}
-        m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
-        m_MethodName: BackButton
-        m_Mode: 1
+      - m_Target: {fileID: 1861638002}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -7732,6 +7744,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 814495493}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1394693557
 MonoBehaviour:
@@ -8804,7 +8828,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1684327853}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd49c118764cd18439d0808035ab5bbb, type: 3}
+  m_Script: {fileID: 11500000, guid: 527f1745cb7f14540bb9a0dc52b1fd9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   keyboardIndicators:
@@ -8814,11 +8838,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 3b53b2fd50ad3f34da2f39aaca7a0372, type: 3}
   - {fileID: 21300000, guid: 103ff2e592dace34883518a58bf8c3a9, type: 3}
   gamepadIndicators:
-  - {fileID: 21300000, guid: c8f0d22e083acdd4ebf3f79c5a2c8c96, type: 3}
-  - {fileID: 21300000, guid: 60dbaad51734e3c4e9a09e374856b7b3, type: 3}
-  - {fileID: 21300000, guid: cf138095d126d95439567f9eae914e73, type: 3}
-  - {fileID: 21300000, guid: e36012f04b554f94fb8a6f994984af7e, type: 3}
-  - {fileID: 21300000, guid: 4d152384b41268f4fbaae1d9ca0dfae2, type: 3}
+  - {fileID: 21300000, guid: f6353838d806d764393d4b2b450b803a, type: 3}
+  - {fileID: 21300000, guid: f2d4d1b8d852acb4297ba0f9db18e2fc, type: 3}
+  - {fileID: 21300000, guid: 9521683466c6f0a4bb18905751440211, type: 3}
+  - {fileID: 21300000, guid: 2536b21e03431524e8b4ad138fd5436e, type: 3}
+  - {fileID: 21300000, guid: d8c2d59e8f18514448047c12823bd0ac, type: 3}
 --- !u!1 &1707882180
 GameObject:
   m_ObjectHideFlags: 0
@@ -10390,7 +10414,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1961704184}
+      - m_Target: {fileID: 814495493}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6

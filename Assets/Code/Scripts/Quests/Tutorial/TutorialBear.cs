@@ -14,7 +14,7 @@ public class TutorialBear : MonoBehaviour
 
     private bool isInteractable = true;
     //private int latestCompletedDialogueIndex = 0; // the index of the latest completed dialogue; will help in triggering the next dialogue after the previous one has been completed
-    private int currentDialogueIndex = -1;
+    private int currentDialogueIndex = -2;
     private bool inkValueUpToDate; // bool to help updating the ink values as they are not currently saved anywhere else; ducktape solution for now
 
     private string questId;
@@ -55,6 +55,13 @@ public class TutorialBear : MonoBehaviour
 
     private void InteractWithBear()
     {
+        audioSource.Play();
+
+        if (QuestManager.instance.CheckQuestState(questId) == QuestState.FINISHED)
+        {
+            return;
+        }
+
         if (dialogueFiles[currentDialogueIndex] != null)
         {
             DialogueManager.instance.StartDialogue(dialogueFiles[currentDialogueIndex]);
@@ -64,8 +71,6 @@ public class TutorialBear : MonoBehaviour
         {
             DialogueManager.instance.StartDialogue(dialogueBetweenQuests);
         }
-
-        audioSource.Play();
     }
 
     private void CheckDialogueProgressChanges(string updatedQuestId)
