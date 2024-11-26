@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 public class QuestUI : MonoBehaviour
 {
@@ -27,9 +28,38 @@ public class QuestUI : MonoBehaviour
     {
         transform.GetChild(0).gameObject.SetActive(true);
 
-        questTextComponents[0].text = questName;
-        questTextComponents[1].text = description;
-        questTextComponents[2].text = progress;
+        questTextComponents[0].text = ProcessTextForInputs(questName);
+        questTextComponents[1].text = ProcessTextForInputs(description);
+        questTextComponents[2].text = ProcessTextForInputs(progress);
+    }
+
+    // Detect inputs from string denoted as |(input)|, and change them to the appropriate input method key.
+    private string ProcessTextForInputs(string text)
+    {
+        string ret = "";
+        int index = 0;
+
+        for (int i = 0; i < text.Length; i++)
+        {
+            if (text[i] == '|')
+            {
+                ret += text.Substring(index, i - index);
+                index = i + 1;
+                while (text[index] != '|')
+                    index++;
+                if (index - 1 > i && InputSprites.instance.keySetups.ContainsKey(text.Substring(i + 1, index - i - 1)))
+                {
+                    if (Gamepad.current == null || Keyboard.current.lastUpdateTime > Gamepad.current.lastUpdateTime || Mouse.current.lastUpdateTime > Gamepad.current.lastUpdateTime)
+                        ret += InputSprites.instance.keySetups[text.Substring(i + 1, index - i - 1)].keyboard;
+                    else
+                        ret += InputSprites.instance.keySetups[text.Substring(i + 1, index - i - 1)].gamepad;
+                }
+                index++; i = index;
+            }
+        }
+
+        if (ret.Length < 1) return text;
+        return ret;
     }
 
     private void ShowQuestProgressInUI(string currentState)
