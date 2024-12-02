@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.UI;
 using UnityEngine.Rendering.Universal;
 
 public class MapOpen : MonoBehaviour
@@ -9,6 +10,9 @@ public class MapOpen : MonoBehaviour
     [SerializeField] GameObject mapCam;
     [SerializeField] GameObject PlayerDisplayCanvas;
     [SerializeField] internal Volume globalVolume;
+
+    [Header("Indicators")]
+    [SerializeField] private Image[] mapQuestMarkers;
 
     private UnityEngine.Rendering.Universal.DepthOfField depthOfField;
 
@@ -55,7 +59,7 @@ public class MapOpen : MonoBehaviour
         mapPanel.SetActive(!mapPanel.activeInHierarchy);
         //PlayerDisplayCanvas.SetActive(!PlayerDisplayCanvas.activeInHierarchy);
         if (mapPanel.activeSelf)
-            QuestManager.instance.SetQuestMarkers();
+            QuestManager.instance.SetQuestMarkers(mapQuestMarkers);
     }
 
     private void UpdateCursorState()
