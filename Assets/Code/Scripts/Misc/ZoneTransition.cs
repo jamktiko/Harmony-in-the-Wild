@@ -7,15 +7,17 @@ public class ZoneTransition : MonoBehaviour
     [Header("Forest")]
     [SerializeField] AudioSource forest;
     [SerializeField] AudioSource forestTheme;
+    [SerializeField] private GameObject redFoxModel;
 
     [Header("Arctic")]
     [SerializeField] AudioSource arctic;
     [SerializeField] AudioSource arcticTheme;
+    [SerializeField] private GameObject arcticFoxModel;
 
     private void OnTriggerEnter(Collider other)
     {
         //entered forest
-        if (FoxMovement.instance.gameObject != null && gameObject.name == "Forest")
+        if (FoxMovement.instance.gameObject != null && arcticFoxModel.activeInHierarchy)
         {
             modelToggle.ChangeModelToForest();
             arcticTheme.Stop();
@@ -23,7 +25,7 @@ public class ZoneTransition : MonoBehaviour
         }
 
         //entered arctic
-        if (FoxMovement.instance.gameObject != null && gameObject.name == "Arctic")
+        if (FoxMovement.instance.gameObject != null && redFoxModel.activeInHierarchy)
         {
             modelToggle.ChangeModelToArctic();
             forestTheme.Stop();
