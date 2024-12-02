@@ -56,6 +56,10 @@ public class FoxMovement : MonoBehaviour
 
     private AbilityCycle abilityCycle;
     private bool isLoaded;
+    private bool wasGrounded;
+    private bool grounded;
+    private float jumpApex;
+    private ParticleSystem[] landingEffects;
 
     [Header("Animations")]
     public Animator playerAnimator;
@@ -71,6 +75,18 @@ public class FoxMovement : MonoBehaviour
         {
             instance = this;
 
+        }
+        landingEffects = new ParticleSystem[4];
+        foreach (Transform t in transform)
+        {
+            if (t.gameObject.name == "Landing_WaterImpact")
+                landingEffects[0] = t.GetComponent<ParticleSystem>();
+            else if (t.gameObject.name == "Landing_WaterImpactDrops")
+                landingEffects[1] = t.GetComponent<ParticleSystem>();
+            else if (t.gameObject.name == "Landing_SnowImpact_PS")
+                landingEffects[2] = t.GetComponent<ParticleSystem>();
+            else if (t.gameObject.name == "Landing_DustImpact_PS")
+                landingEffects[3] = t.GetComponent<ParticleSystem>();
         }
     }
     void Start()
@@ -118,6 +134,8 @@ public class FoxMovement : MonoBehaviour
 
     void Update()
     {
+        grounded = IsGrounded();
+        Landing();
         SpeedControl();
         IsOnSlope();
         Animations();
@@ -126,6 +144,7 @@ public class FoxMovement : MonoBehaviour
         {
             ProcessInput();
         }
+        wasGrounded = grounded;
     }
     private void FixedUpdate()
     {
@@ -150,7 +169,7 @@ public class FoxMovement : MonoBehaviour
     void AbilityInputs()
     {
         //gliding
-        if (PlayerInputHandler.instance.JumpInput.WasPressedThisFrame() && !IsGrounded() && !IsInWater())
+        if (PlayerInputHandler.instance.JumpInput.WasPressedThisFrame() && !grounded && !IsInWater())
         {
             AbilityManager.instance.ActivateAbilityIfUnlocked(Abilities.Gliding);
         }
@@ -159,7 +178,7 @@ public class FoxMovement : MonoBehaviour
         AbilityManager.instance.ActivateAbilityIfUnlocked(Abilities.Swimming);
 
         //chargejumping
-        if (PlayerInputHandler.instance.JumpInput.WasPressedThisFrame() && IsGrounded())
+        if (PlayerInputHandler.instance.JumpInput.WasPressedThisFrame() && grounded)
         {
             AbilityManager.instance.ActivateAbilityIfUnlocked(Abilities.ChargeJumping);
         }
@@ -201,6 +220,36 @@ public class FoxMovement : MonoBehaviour
             TeleGrabbing.instance.isTelegrabActivated = false;
             TeleGrabbing.instance.ActivateTelegrabCamera();
         }
+    }
+    private void Landing()
+    {
+        if (!wasGrounded && grounded)
+        {
+            float scale = (jumpApex - transform.position.y) * .25f;
+            if (scale > 1.5f) scale = 1.5f;
+            else if (scale < .05f) scale = .05f;
+            if (IsInWater())
+            {
+                landingEffects[0].transform.localScale = new Vector3(scale, scale, scale);
+                landingEffects[0].Play();
+                landingEffects[1].transform.localScale = new Vector3(scale, scale, scale);
+                landingEffects[1].Play();
+            }
+            else if (IsInSnow())
+            {
+                landingEffects[2].transform.localScale = new Vector3(scale, scale, scale);
+                landingEffects[2].Play();
+            }
+            else
+            {
+                landingEffects[3].transform.localScale = new Vector3(scale, scale, scale);
+                landingEffects[3].Play();
+            }
+            jumpApex = 0;
+        }
+        else if (!grounded && transform.position.y > jumpApex)
+            jumpApex = transform.position.y;
+
     }
     private void SprintInput()
     {
@@ -265,14 +314,14 @@ public class FoxMovement : MonoBehaviour
         }
 
         //Walking
-        if (IsGrounded() && !isSprinting)
+        if (grounded && !isSprinting)
         {
             rb.useGravity = true;
             speed = moveSpeed;
         }
 
         //Sprinting
-        if (IsGrounded() && isSprinting)
+        if (grounded && isSprinting)
         {
             speed = sprintSpeed;
             rb.useGravity = true;
@@ -286,7 +335,7 @@ public class FoxMovement : MonoBehaviour
         }
 
         //In air, Gliding
-        if (!IsGrounded() && !IsInWater() && Gliding.instance.isGliding)
+        if (!grounded && !IsInWater() && Gliding.instance.isGliding)
         {
             //rb.useGravity = true;
             speed = moveSpeed;
@@ -294,7 +343,7 @@ public class FoxMovement : MonoBehaviour
         }
 
         //In air, NOT Gliding
-        if (!IsGrounded() && !IsInWater() && !Gliding.instance.isGliding)
+        if (!grounded && !IsInWater() && !Gliding.instance.isGliding)
         {
             //rb.useGravity = true;
             speed = moveSpeed;
@@ -302,7 +351,7 @@ public class FoxMovement : MonoBehaviour
         }
 
         //Walking on snow
-        if (IsInSnow() && IsGrounded() && isSnowDiveUnlocked)
+        if (IsInSnow() && grounded && isSnowDiveUnlocked)
         {
             speed = SnowDiving.instance.snowDiveSpeed;
         }
@@ -312,7 +361,7 @@ public class FoxMovement : MonoBehaviour
 
     private void Walk()
     {
-        if (IsGrounded())
+        if (grounded)
         {
             rb.mass = 1f;
             rb.drag = groundDrag;
@@ -323,7 +372,7 @@ public class FoxMovement : MonoBehaviour
             rb.drag = 0;
         }
 
-        if (IsGrounded())
+        if (grounded)
         {
             //walking animation here
             playerAnimator.speed = 1f;
@@ -331,7 +380,7 @@ public class FoxMovement : MonoBehaviour
             SetDefaultAnimatorValues();
         }
 
-        if (IsGrounded() && moveDirection == Vector3.zero)
+        if (grounded && moveDirection == Vector3.zero)
         {
             //idle animation here
             SetDefaultAnimatorValues();
@@ -339,7 +388,7 @@ public class FoxMovement : MonoBehaviour
     }
     private void Sprint()
     {
-        if (IsGrounded() && isSprinting)
+        if (grounded && isSprinting)
         {
             //running animation here
             SetDefaultAnimatorValues();

@@ -4,6 +4,7 @@ using UnityEngine;
 public class QuestScriptableObject : ScriptableObject
 {
     [field: SerializeField] public string id { get; private set; }
+    public int numericID;
 
     [Header("General")]
     public string displayName;

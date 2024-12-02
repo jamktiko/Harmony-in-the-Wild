@@ -53,7 +53,9 @@ public class MapOpen : MonoBehaviour
     {
         mapCam.SetActive(!mapCam.activeInHierarchy);
         mapPanel.SetActive(!mapPanel.activeInHierarchy);
-        PlayerDisplayCanvas.SetActive(!PlayerDisplayCanvas.activeInHierarchy);
+        //PlayerDisplayCanvas.SetActive(!PlayerDisplayCanvas.activeInHierarchy);
+        if (mapPanel.activeSelf)
+            QuestManager.instance.SetQuestMarkers();
     }
 
     private void UpdateCursorState()
