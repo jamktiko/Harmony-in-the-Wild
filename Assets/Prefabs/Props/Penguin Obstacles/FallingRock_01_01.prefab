@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 8559819091733322626}
   - component: {fileID: 8674063486701341361}
   - component: {fileID: 6550755193876164653}
+  - component: {fileID: 7228552892737238058}
+  - component: {fileID: 4329918593271673208}
   m_Layer: 9
   m_Name: FallingRock_01_01
   m_TagString: Untagged
@@ -63,10 +65,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 911b2efc81add4f4aa9173e6acbf7f9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFreezed: 0
+  isFrozen: 0
   freezeTime: 6
-  isFreezedEffect: {fileID: 2370397564851233691}
-  canBeFreezed: {fileID: 5325146721834824058}
+  canBeFrozen: {fileID: 0}
+  newFrozenMaterial: {fileID: 0}
 --- !u!54 &8674063486701341361
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -115,6 +117,114 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1.55
   m_Center: {x: 0, y: 0.63, z: 0}
+--- !u!114 &7228552892737238058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 253577635815006895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f9d2273a32556b4eae1853e0633edba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!82 &4329918593271673208
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 253577635815006895}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: e671b576902f2ac49bbeca7b0cda2f64, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &5238058903111584336
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,11 +422,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 425522, guid: a838e4fa071a15f49b2f897cccaa5c90, type: 3}
   m_PrefabInstance: {fileID: 5325146721834926370}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &5325146721834824058 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 159832, guid: a838e4fa071a15f49b2f897cccaa5c90, type: 3}
-  m_PrefabInstance: {fileID: 5325146721834926370}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6750179186665174486
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -410,11 +515,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: effb650189dc5714e9e9801b1cfb3991, type: 3}
---- !u!1 &2370397564851233691 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9027514048236820045, guid: effb650189dc5714e9e9801b1cfb3991, type: 3}
-  m_PrefabInstance: {fileID: 6750179186665174486}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2370397564851233692 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9027514048236820042, guid: effb650189dc5714e9e9801b1cfb3991, type: 3}

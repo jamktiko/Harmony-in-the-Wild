@@ -10,14 +10,16 @@ public class FallingRock : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Trigger"))
         {
+            GetComponent<RandomizeAudioValues>().PlaySound();
             Instantiate(destroyEffect, transform.position, Quaternion.identity);
-            Destroy(gameObject);
+            Destroy(gameObject, 1f); // NOTE! delete this when full audio revamp has been done
 
             other.GetComponentInParent<HitCounter>().TakeHit(false);
         }
 
         else
         {
+            GetComponent<RandomizeAudioValues>().PlaySound();
             StartCoroutine(SelfDestruction());
         }
     }
@@ -26,7 +28,7 @@ public class FallingRock : MonoBehaviour
     {
         yield return new WaitForSeconds(selfDestructionTime);
 
-        Instantiate(destroyEffect, transform.position, Quaternion.identity);
+        Instantiate(destroyEffect, transform.position, Quaternion.identity);      
         Destroy(gameObject);
     }
 }
