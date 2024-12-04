@@ -1,7 +1,7 @@
 public class CollectableQuestStep : QuestStep
 {
-    public int itemsCollected =0;
-    private int itemToComplete =3;
+    public int itemsCollected = 0;
+    private int itemToComplete = 5;
 
     private void Start()
     {
