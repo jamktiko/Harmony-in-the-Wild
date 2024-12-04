@@ -124,10 +124,10 @@ public class DialogueManager : MonoBehaviour
             }
         }
 
-        else if (!canInteractWith)
-        {
-            Debug.Log("Dialogue not proceeding, interacting is disabled!");
-        }
+        //else if (!canInteractWith)
+        //{
+        //    Debug.Log("Dialogue not proceeding, interacting is disabled!");
+        //}
     }
 
     public void StartDialogue(TextAsset inkJSON)
@@ -378,6 +378,8 @@ public class DialogueManager : MonoBehaviour
     private void ToggleInteractability(bool enableInteractions)
     {
         canInteractWith = enableInteractions;
+
+        Debug.Log("Dialogue interactability: " + enableInteractions);
     }
 
     private void ResetInteractibilityOnSceneChange(Scene scene, LoadSceneMode mode)

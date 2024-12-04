@@ -55,45 +55,59 @@ public class PauseMenuManager : MonoBehaviour
                 || GamePlayControlsMenuPanel.activeInHierarchy
                 || SettingsMenuPanel.activeInHierarchy)
             {
-                Time.timeScale = 1f;
-                FoxMovement.instance.gameObject.GetComponentInChildren<CinemachineBrain>().m_UpdateMethod = CinemachineBrain.UpdateMethod.SmartUpdate;
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-                pauseMenuPanel.SetActive(false);
-                OptionsMenuPanel.SetActive(false);
-                MovementControlsMenuPanel.SetActive(false);
-                GamePlayControlsMenuPanel.SetActive(false);
-                SettingsMenuPanel.SetActive(false);
-                GameEventsManager.instance.playerEvents.ToggleInputActions(true);
+                Debug.Log("Disable pause menu.");
+                Invoke(nameof(DisablePauseMenu), 0.2f);
             }
 
             //enable
             else
             {
-                SaveManager.instance.SaveGame();
-                pauseMenuPanel.SetActive(true);
-                FoxMovement.instance.gameObject.GetComponentInChildren<CinemachineBrain>().m_UpdateMethod = CinemachineBrain.UpdateMethod.FixedUpdate;
-                Time.timeScale = 0f;
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-                SliderValueMaster = PlayerPrefs.GetFloat("MasterVolume");
-                SliderValueMusic = PlayerPrefs.GetFloat("MusicVolume");
-                GameEventsManager.instance.playerEvents.ToggleInputActions(false);
+                EnablePauseMenu();
             }
         }
         //if (InvertYAxis != null)
         //{
         //    InvertYAxis.onValueChanged.AddListener(delegate { ChangeYInversion(); });
         //}
-        else
-        {
-            if (!isInvertErrorLogged)
-            {
-                Debug.LogError("InvertYAxis is not assigned. Make sure it is assigned in the Inspector. (SettingsMenuPanel is probably not set)");
-                isInvertErrorLogged = true;  // Set the flag to true after logging the warning
-            }
-        }
+        //else
+        //{
+        //    if (!isInvertErrorLogged)
+        //    {
+        //        Debug.LogError("InvertYAxis is not assigned. Make sure it is assigned in the Inspector. (SettingsMenuPanel is probably not set)");
+        //        isInvertErrorLogged = true;  // Set the flag to true after logging the warning
+        //    }
+        //}
     }
+
+    private void EnablePauseMenu()
+    {
+        GameEventsManager.instance.playerEvents.ToggleInputActions(false);
+
+        SaveManager.instance.SaveGame();
+        pauseMenuPanel.SetActive(true);
+        FoxMovement.instance.gameObject.GetComponentInChildren<CinemachineBrain>().m_UpdateMethod = CinemachineBrain.UpdateMethod.FixedUpdate;
+        Time.timeScale = 0f;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        SliderValueMaster = PlayerPrefs.GetFloat("MasterVolume");
+        SliderValueMusic = PlayerPrefs.GetFloat("MusicVolume");
+    }
+
+    private void DisablePauseMenu()
+    {
+        GameEventsManager.instance.playerEvents.ToggleInputActions(true);
+
+        Time.timeScale = 1f;
+        FoxMovement.instance.gameObject.GetComponentInChildren<CinemachineBrain>().m_UpdateMethod = CinemachineBrain.UpdateMethod.SmartUpdate;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        pauseMenuPanel.SetActive(false);
+        OptionsMenuPanel.SetActive(false);
+        MovementControlsMenuPanel.SetActive(false);
+        GamePlayControlsMenuPanel.SetActive(false);
+        SettingsMenuPanel.SetActive(false);
+    }
+
     public void ChangeYInversion(bool isOn)
     {
         if (cinemachineFreeLook != null)
@@ -116,6 +130,8 @@ public class PauseMenuManager : MonoBehaviour
     }
     public void Resume()
     {
+        GameEventsManager.instance.playerEvents.ToggleInputActions(true);
+
         Time.timeScale = 1f;
         FoxMovement.instance.gameObject.GetComponentInChildren<CinemachineBrain>().m_UpdateMethod = CinemachineBrain.UpdateMethod.SmartUpdate;
         Cursor.lockState = CursorLockMode.Locked;
