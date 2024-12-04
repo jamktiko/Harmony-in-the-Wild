@@ -11,7 +11,7 @@ public class GrowthController : MonoBehaviour
     public Material flowerMaterial;
     private float leafGrowIncrement = 0.5f;
     private float flowerGrowIncrement = 0.5f;
-    private float duration = 5f;
+    private float duration = 10f;
     private bool isGrowing = false;
 
     [Header("VS Config")]
