@@ -1,13 +1,18 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Berries : MonoBehaviour
 {
     [SerializeField] bool interactable;
     [SerializeField] static int BerryCollectableCount;
     [SerializeField] private GameObject interactionIndicator;
+
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag=="Trigger")
@@ -31,9 +36,10 @@ public class Berries : MonoBehaviour
             {
                 interactionIndicator.SetActive(false);
 
-                BerryCollectableCount++;
-                Destroy(gameObject);
-            }); ;
+                PlayerManager.instance.Berries++;
+                PlayerManager.instance.BerryData[transform.parent.name] = false;
+                gameObject.SetActive(false);
+            });
         }
     }
     private void Update()

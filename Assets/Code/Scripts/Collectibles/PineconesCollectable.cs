@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class PineconesCollectable : MonoBehaviour
@@ -8,6 +9,7 @@ public class PineconesCollectable : MonoBehaviour
     [SerializeField] bool interactable;
     [SerializeField] static int PineCollectableCount;
     [SerializeField] private GameObject interactionIndicator;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Trigger")
@@ -31,9 +33,11 @@ public class PineconesCollectable : MonoBehaviour
             {
                 interactionIndicator.SetActive(false);
 
-                PineCollectableCount++;
-                Destroy(gameObject);
-            }); ;
+                PlayerManager.instance.PineCones++;
+                
+                PlayerManager.instance.BerryData[transform.name] = false;
+                gameObject.SetActive(false);
+            }); 
             //transform.DOScale(0f, 0.5f).OnComplete(() =>
             //{
             //    CollectableCount++;

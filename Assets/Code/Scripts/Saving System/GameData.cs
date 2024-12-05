@@ -10,6 +10,10 @@ public class GameData
     public PositionData playerPositionData;
     public int treeOfLifeState;
     public string dialogueVariableData;
+    public int BerryCollectibles;
+    public string berryData;
+    public int PineconeCollectibles;
+    public string PineconeData;
 }
 
 [System.Serializable]

@@ -1,4 +1,5 @@
 using Cinemachine;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
@@ -20,6 +21,8 @@ public class PauseMenuManager : MonoBehaviour
     [SerializeField] Slider Mastervolume, MusicVolume, sensitivity;
     [SerializeField] AudioMixer mixer;
     [SerializeField] private float SliderValueMaster, SliderValueMusic, SliderValue2;
+    [SerializeField] public TMP_Text BerryCounter, PineconeCounter;
+
 
     private bool isInvertErrorLogged = false; // Makes sure the warning that runs in the null check of the InvertYAxis runs once
 
@@ -91,6 +94,8 @@ public class PauseMenuManager : MonoBehaviour
         Cursor.visible = true;
         SliderValueMaster = PlayerPrefs.GetFloat("MasterVolume");
         SliderValueMusic = PlayerPrefs.GetFloat("MusicVolume");
+        BerryCounter.text = "Berries: " + PlayerManager.instance.Berries;
+        PineconeCounter.text = "Pinecones: " + PlayerManager.instance.PineCones;
     }
 
     private void DisablePauseMenu()
@@ -296,6 +301,8 @@ public class PauseMenuManager : MonoBehaviour
         SliderValueMusic = PlayerPrefs.GetFloat("MusicVolume");
         Mastervolume.value = SliderValueMaster;
         MusicVolume.value = SliderValueMusic;
+        BerryCounter= pauseMenuPanel.transform.Find("BerryCount").GetComponent<TMP_Text>();
+        PineconeCounter = pauseMenuPanel.transform.Find("PineconeCount").GetComponent<TMP_Text>();
         try
         {
             cinemachineFreeLook = FoxMovement.instance.gameObject.GetComponentInChildren<CinemachineFreeLook>();
