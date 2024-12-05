@@ -1,6 +1,6 @@
 INCLUDE Globals.ink
 
-You are finally awake! It is an honor to be in the same room as the chosen one.. #speaker:Bear
+You are finally awake! It is an honor to be in the same room as the chosen one. #speaker:Bear
 What do you mean? #speaker:Fox
 You see, when you were sleeping, I saw your tail glowing. #speaker:Bear
 According to the old legends, a fox with a glowing tail is the child of an ancient cosmic fox of auroras.
