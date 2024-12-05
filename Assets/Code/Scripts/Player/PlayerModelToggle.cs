@@ -66,4 +66,42 @@ public class PlayerModelToggle : MonoBehaviour
         }
     }
 
+    public void ChangeModelTo(FoxModel model)
+    {
+        if (model == FoxModel.Arctic)
+        {
+            if (!arcticFox.activeInHierarchy)
+            {
+                ChangeVFX();
+
+                redFox.SetActive(false);
+                arcticFox.SetActive(true);
+
+                currentAnimator = arcticFox.GetComponent<Animator>();
+                FoxMovement.instance.playerAnimator = currentAnimator;
+                playerCamera.foxObject = arcticFox.transform;
+            }
+        }
+
+        else if(model == FoxModel.RedFox)
+        {
+            if (!redFox.activeInHierarchy)
+            {
+                ChangeVFX();
+
+                redFox.SetActive(true);
+                arcticFox.SetActive(false);
+
+                currentAnimator = redFox.GetComponent<Animator>();
+                FoxMovement.instance.playerAnimator = currentAnimator;
+                playerCamera.foxObject = redFox.transform;
+            }
+        }
+    }
+}
+
+public enum FoxModel
+{
+    RedFox,
+    Arctic
 }
