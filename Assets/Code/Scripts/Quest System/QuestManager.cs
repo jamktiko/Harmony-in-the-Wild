@@ -164,8 +164,12 @@ public class QuestManager : MonoBehaviour
             //Debug.Log("Start Quest: " + id);
             quest.InstantiateCurrentQuestStep(transform);
             ChangeQuestState(quest.info.id, QuestState.IN_PROGRESS);
-            AbilityAcquired(quest.info.abilityReward);
-            //Debug.Log("Ability unlocked: " + quest.info.abilityReward);
+
+            if(id != "Tutorial")
+            {
+                AbilityAcquired(quest.info.abilityReward);
+                //Debug.Log("Ability unlocked: " + quest.info.abilityReward);
+            }
         }
     }
 
