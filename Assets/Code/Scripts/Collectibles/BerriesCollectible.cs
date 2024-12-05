@@ -37,6 +37,10 @@ public class Berries : MonoBehaviour
                 interactionIndicator.SetActive(false);
 
                 PlayerManager.instance.Berries++;
+                if (Steamworks.SteamClient.IsValid)
+                {
+                    SteamManager.instance.AchievementProgressBerry("stat_2");
+                }
                 PlayerManager.instance.BerryData[transform.parent.name] = false;
                 gameObject.SetActive(false);
             });

@@ -3,13 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class TestSteamStuff : MonoBehaviour
+public class SteamManager : MonoBehaviour
 {
-    void Start()
+    public static SteamManager instance;
+
+    public void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Debug.LogWarning("There is more than one Ability Manager.");
+            Destroy(gameObject);
+            return;
+        }
+        else
+        {
+            instance = this;
+        }
+    }
+        void Start()
     {
         try
         {
-            Steamworks.SteamClient.Init(2700090);
+            Steamworks.SteamClient.Init(3385150);
+
+            Debug.Log("successfully connected to Steam!");
+            Debug.Log(Steamworks.SteamClient.AppId);
         }
         catch (System.Exception e)
         {
@@ -23,22 +41,22 @@ public class TestSteamStuff : MonoBehaviour
 
         if (Keyboard.current.gKey.wasPressedThisFrame)
         {
-            IsThisAchievementUnlocked("ACH_TEST");
+            IsThisAchievementUnlocked("BERRY_ACH");
         }
 
         if (Keyboard.current.hKey.wasPressedThisFrame)
         {
-            UnlockAchievement("ACH_TEST");
+            UnlockAchievement("BERRY_ACH");
         }
 
         if (Keyboard.current.jKey.wasPressedThisFrame)
         {
-            ClearAchievementStatus("ACH_TEST");
+            ClearAchievementStatus("BERRY_ACH");
         }
 
         if (Keyboard.current.vKey.wasPressedThisFrame)
         {
-            Steamworks.SteamClient.Shutdown();
+            AchievementProgressBerry("stat_2");
         }
     }
 
@@ -62,6 +80,19 @@ public class TestSteamStuff : MonoBehaviour
         ach.Trigger();
 
         Debug.Log($"Achievement {id} unlocked");
+    }
+
+    public void AchievementProgressBerry(string id)
+    {
+        var stat = new Steamworks.Data.Stat(id);
+        stat.Add(1);
+
+        if (stat.GetInt()>=50)
+        {
+            UnlockAchievement("BERRY_ACH");
+        }
+
+        Debug.Log($"Achievement {id} progressed");
     }
 
     public void ClearAchievementStatus(string id)
