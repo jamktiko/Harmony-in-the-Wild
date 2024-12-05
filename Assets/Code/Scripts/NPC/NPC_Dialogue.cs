@@ -13,6 +13,8 @@ public class NPC_Dialogue : MonoBehaviour
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+
         Invoke(nameof(CreateListOfPossibleDialogues), 1f);
     }
 
