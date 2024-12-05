@@ -18,6 +18,7 @@ public class RotateInteractionIndicator : MonoBehaviour
     private Transform cameraOrientation;
 
     private GameObject interactionIndicatorUI;
+    private bool isFlipping = false;
 
     private void Start()
     {
@@ -88,6 +89,13 @@ public class RotateInteractionIndicator : MonoBehaviour
 
     private void FlipToOtherPivotPoint()
     {
+        if (isFlipping)
+        {
+            return;
+        }
+
+        isFlipping = true;
+
         // change pivot point location
         Vector3 newPivotPosition = pivotPoint.localPosition;
         newPivotPosition.x *= -1f;
@@ -118,5 +126,7 @@ public class RotateInteractionIndicator : MonoBehaviour
         {
             boxContent.localRotation = Quaternion.Euler(0, 180, 0);
         }
+
+        isFlipping = false;
     }
 }
