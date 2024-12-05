@@ -1,9 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RotateInteractionIndicator : MonoBehaviour
 {
+    [Header("Needed References")]
+    [SerializeField] private Transform pivotPoint;
+    [SerializeField] private RectTransform canvas;
+    [SerializeField] private RectTransform boxContent;
+
+    [Header("Flip Config")]
+    [SerializeField] private float flipAngle;
+    private bool isFlipped = false;
+
     private bool playerIsNear;
     private Transform cameraOrientation;
 
@@ -47,6 +57,19 @@ public class RotateInteractionIndicator : MonoBehaviour
 
         Quaternion rotation = Quaternion.LookRotation(directionToPlayer);
         interactionIndicatorUI.transform.rotation = Quaternion.Euler(0, rotation.eulerAngles.y, 0);
+
+        // if rotation is over set value, flip to the other pivot point
+        if (interactionIndicatorUI.transform.eulerAngles.y > flipAngle && interactionIndicatorUI.transform.eulerAngles.y < 180f && !isFlipped)
+        {
+            isFlipped = true;
+            FlipToOtherPivotPoint();
+        }
+
+        else if ((interactionIndicatorUI.transform.eulerAngles.y <= flipAngle || interactionIndicatorUI.transform.eulerAngles.y >= 180f) && isFlipped)
+        {
+            isFlipped = false;
+            FlipToOtherPivotPoint();
+        }
     }
 
     public void EnableInteractionIndicator(Transform orientation)
@@ -61,5 +84,39 @@ public class RotateInteractionIndicator : MonoBehaviour
     {
         playerIsNear = false;
         interactionIndicatorUI.SetActive(false);
+    }
+
+    private void FlipToOtherPivotPoint()
+    {
+        // change pivot point location
+        Vector3 newPivotPosition = pivotPoint.localPosition;
+        newPivotPosition.x *= -1f;
+        pivotPoint.localPosition = newPivotPosition;
+
+        // change canvas transform settings
+        Vector3 newCanvasPosition = canvas.localPosition;
+        newCanvasPosition.x *= -1f;
+        canvas.localPosition = newCanvasPosition;
+
+        if(canvas.localRotation.y != 0)
+        {
+            canvas.localRotation = Quaternion.Euler(0, 0, 0);
+        }
+
+        else
+        {
+            canvas.localRotation = Quaternion.Euler(0, 180, 0);
+        }
+
+        // flip the content in the UI box
+        if(boxContent.localRotation.y != 0)
+        {
+            boxContent.localRotation = Quaternion.Euler(0, 0, 0);
+        }
+
+        else
+        {
+            boxContent.localRotation = Quaternion.Euler(0, 180, 0);
+        }
     }
 }

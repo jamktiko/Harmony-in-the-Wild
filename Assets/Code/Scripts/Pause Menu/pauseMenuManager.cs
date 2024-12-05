@@ -55,45 +55,59 @@ public class PauseMenuManager : MonoBehaviour
                 || GamePlayControlsMenuPanel.activeInHierarchy
                 || SettingsMenuPanel.activeInHierarchy)
             {
-                Time.timeScale = 1f;
-                FoxMovement.instance.gameObject.GetComponentInChildren<CinemachineBrain>().m_UpdateMethod = CinemachineBrain.UpdateMethod.SmartUpdate;
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-                pauseMenuPanel.SetActive(false);
-                OptionsMenuPanel.SetActive(false);
-                MovementControlsMenuPanel.SetActive(false);
-                GamePlayControlsMenuPanel.SetActive(false);
-                SettingsMenuPanel.SetActive(false);
-                GameEventsManager.instance.playerEvents.ToggleInputActions(true);
+                Debug.Log("Disable pause menu.");
+                Invoke(nameof(DisablePauseMenu), 0.2f);
             }
 
             //enable
             else
             {
-                SaveManager.instance.SaveGame();
-                pauseMenuPanel.SetActive(true);
-                FoxMovement.instance.gameObject.GetComponentInChildren<CinemachineBrain>().m_UpdateMethod = CinemachineBrain.UpdateMethod.FixedUpdate;
-                Time.timeScale = 0f;
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-                SliderValueMaster = PlayerPrefs.GetFloat("MasterVolume");
-                SliderValueMusic = PlayerPrefs.GetFloat("MusicVolume");
-                GameEventsManager.instance.playerEvents.ToggleInputActions(false);
+                EnablePauseMenu();
             }
         }
         //if (InvertYAxis != null)
         //{
         //    InvertYAxis.onValueChanged.AddListener(delegate { ChangeYInversion(); });
         //}
-        else
-        {
-            if (!isInvertErrorLogged)
-            {
-                Debug.LogError("InvertYAxis is not assigned. Make sure it is assigned in the Inspector. (SettingsMenuPanel is probably not set)");
-                isInvertErrorLogged = true;  // Set the flag to true after logging the warning
-            }
-        }
+        //else
+        //{
+        //    if (!isInvertErrorLogged)
+        //    {
+        //        Debug.LogError("InvertYAxis is not assigned. Make sure it is assigned in the Inspector. (SettingsMenuPanel is probably not set)");
+        //        isInvertErrorLogged = true;  // Set the flag to true after logging the warning
+        //    }
+        //}
     }
+
+    private void EnablePauseMenu()
+    {
+        GameEventsManager.instance.playerEvents.ToggleInputActions(false);
+
+        SaveManager.instance.SaveGame();
+        pauseMenuPanel.SetActive(true);
+        FoxMovement.instance.gameObject.GetComponentInChildren<CinemachineBrain>().m_UpdateMethod = CinemachineBrain.UpdateMethod.FixedUpdate;
+        Time.timeScale = 0f;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        SliderValueMaster = PlayerPrefs.GetFloat("MasterVolume");
+        SliderValueMusic = PlayerPrefs.GetFloat("MusicVolume");
+    }
+
+    private void DisablePauseMenu()
+    {
+        GameEventsManager.instance.playerEvents.ToggleInputActions(true);
+
+        Time.timeScale = 1f;
+        FoxMovement.instance.gameObject.GetComponentInChildren<CinemachineBrain>().m_UpdateMethod = CinemachineBrain.UpdateMethod.SmartUpdate;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        pauseMenuPanel.SetActive(false);
+        OptionsMenuPanel.SetActive(false);
+        MovementControlsMenuPanel.SetActive(false);
+        GamePlayControlsMenuPanel.SetActive(false);
+        SettingsMenuPanel.SetActive(false);
+    }
+
     public void ChangeYInversion(bool isOn)
     {
         if (cinemachineFreeLook != null)
@@ -116,6 +130,8 @@ public class PauseMenuManager : MonoBehaviour
     }
     public void Resume()
     {
+        GameEventsManager.instance.playerEvents.ToggleInputActions(true);
+
         Time.timeScale = 1f;
         FoxMovement.instance.gameObject.GetComponentInChildren<CinemachineBrain>().m_UpdateMethod = CinemachineBrain.UpdateMethod.SmartUpdate;
         Cursor.lockState = CursorLockMode.Locked;
@@ -189,10 +205,10 @@ public class PauseMenuManager : MonoBehaviour
     public void ExitQuest()
     {
         string currentSceneName = SceneManager.GetActiveScene().name;
-        if (currentSceneName != "Overworld")
+        if (currentSceneName != "OverWorld - VS")
         {
             //Debug.Log("Quest has been exited. Loading Overworld.");
-            SceneManager.LoadScene("Overworld", LoadSceneMode.Single);
+            SceneManager.LoadScene("OverWorld - VS", LoadSceneMode.Single);
             Resume();
         }
     }
@@ -200,7 +216,7 @@ public class PauseMenuManager : MonoBehaviour
     public void RestartQuest()
     {
         string currentSceneName = SceneManager.GetActiveScene().name;
-        if (currentSceneName != "Overworld")
+        if (currentSceneName != "OverWorld - VS")
         {
             //Debug.Log("Quest has been restarted. Reloading scene.");
             SceneManager.LoadScene(currentSceneName, LoadSceneMode.Single);
@@ -220,7 +236,7 @@ public class PauseMenuManager : MonoBehaviour
             cinemachineFreeLook = null;
         }
         //Debug.Log("Scene loaded: " + scene.name); 
-        if ((scene.name == "Overworld" || scene.name == "MainMenu") && restartQuestPanel != null && exitQuestPanel != null)
+        if ((scene.name == "OverWorld - VS" || scene.name == "MainMenu") && restartQuestPanel != null && exitQuestPanel != null)
         {
             //Debug.Log("Scene loaded is Overworld or the main menu. Disabling quest buttons in pause menu.");
             restartQuestPanel.SetActive(false);
