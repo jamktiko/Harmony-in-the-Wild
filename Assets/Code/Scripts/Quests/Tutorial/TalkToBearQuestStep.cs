@@ -57,21 +57,23 @@ public class TalkToBearQuestStep : QuestStep
     }
     private void PlayIntroCinematic(string name)
     {
-        try
+        if(name == "Tutorial")
         {
-            if (gameObject!=null)
+            try
             {
-            if (gameObject.name.Contains("07"))
-            {
-                cinematicAnimator.enabled = true;
-                    animationEvent.Invoke();
+                if (gameObject != null)
+                {
+                    if (gameObject.name.Contains("07"))
+                    {
+                        cinematicAnimator.enabled = true;
+                        animationEvent.Invoke();
+                    }
+                }
             }
+            catch (System.Exception)
+            {
             }
         }
-        catch (System.Exception)
-        {
-        }
-        
     }
 
     private void FetchDialogueData()
