@@ -255,6 +255,7 @@ public class FoxMovement : MonoBehaviour
     }
     private void SprintInput()
     {
+
         isSprinting = PlayerInputHandler.instance.SprintInput.IsPressed();
     }
     private void JumpInput()
@@ -396,7 +397,11 @@ public class FoxMovement : MonoBehaviour
     {
         if (grounded && isSprinting)
         {
-            playerAnimator.SetBool("isSprinting", true);
+            if (horizontalInput!=0||verticalInput!=0)
+            {
+                playerAnimator.SetBool("isSprinting", true);
+            }
+
         }
     }
     private void Jump()
