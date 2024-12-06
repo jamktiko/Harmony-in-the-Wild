@@ -8,7 +8,7 @@ public class CollectibleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (SaveManager.instance.gameData.berryData!=null || SaveManager.instance.gameData.PineconeData !=null)
+        if (SaveManager.instance.gameData.berryData!="{}" && SaveManager.instance.gameData.PineconeData !="{}")
         {
             int i=0;
             int x=0;

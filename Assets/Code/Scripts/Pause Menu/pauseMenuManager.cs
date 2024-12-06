@@ -94,8 +94,8 @@ public class PauseMenuManager : MonoBehaviour
         Cursor.visible = true;
         SliderValueMaster = PlayerPrefs.GetFloat("MasterVolume");
         SliderValueMusic = PlayerPrefs.GetFloat("MusicVolume");
-        BerryCounter.text = "Berries: " + PlayerManager.instance.Berries;
-        PineconeCounter.text = "Pinecones: " + PlayerManager.instance.PineCones;
+        BerryCounter.text = "Berries: " + PlayerManager.instance.Berries + " / " + PlayerManager.instance.BerryData.Count;
+        PineconeCounter.text = "Pinecones: " + PlayerManager.instance.PineCones + " / " + PlayerManager.instance.PineConeData.Count;
     }
 
     private void DisablePauseMenu()
