@@ -4921,6 +4921,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 277539432986678036, guid: 51f9ee4d7c9bd494ab7403e6280fa755, type: 3}
+      propertyPath: m_Pitch
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 277539432986678036, guid: 51f9ee4d7c9bd494ab7403e6280fa755, type: 3}
+      propertyPath: m_Volume
+      value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 277539432986678036, guid: 51f9ee4d7c9bd494ab7403e6280fa755, type: 3}
+      propertyPath: MaxDistance
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 277539432986678036, guid: 51f9ee4d7c9bd494ab7403e6280fa755, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 024d57c913d90c34a8752c3d3946e831, type: 3}
     - target: {fileID: 409117729734165256, guid: 51f9ee4d7c9bd494ab7403e6280fa755, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1341.45
@@ -4989,10 +5005,42 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7917438173103881879, guid: 51f9ee4d7c9bd494ab7403e6280fa755, type: 3}
+      propertyPath: m_Pitch
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7917438173103881879, guid: 51f9ee4d7c9bd494ab7403e6280fa755, type: 3}
+      propertyPath: m_Volume
+      value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 7917438173103881879, guid: 51f9ee4d7c9bd494ab7403e6280fa755, type: 3}
+      propertyPath: MaxDistance
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7917438173103881879, guid: 51f9ee4d7c9bd494ab7403e6280fa755, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 024d57c913d90c34a8752c3d3946e831, type: 3}
     - target: {fileID: 8391957711160082229, guid: 51f9ee4d7c9bd494ab7403e6280fa755, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9123686092343848210, guid: 51f9ee4d7c9bd494ab7403e6280fa755, type: 3}
+      propertyPath: m_Pitch
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 9123686092343848210, guid: 51f9ee4d7c9bd494ab7403e6280fa755, type: 3}
+      propertyPath: m_Volume
+      value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 9123686092343848210, guid: 51f9ee4d7c9bd494ab7403e6280fa755, type: 3}
+      propertyPath: MaxDistance
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9123686092343848210, guid: 51f9ee4d7c9bd494ab7403e6280fa755, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 024d57c913d90c34a8752c3d3946e831, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 4437728678846984328, guid: 51f9ee4d7c9bd494ab7403e6280fa755, type: 3}
@@ -5263,17 +5311,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a3f8035779ad6e74799bdff1e15d59ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &188824044 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2076101324828534567, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
-  m_PrefabInstance: {fileID: 1828156829}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9434ec07a26146f4bbfdd09916de01b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &193049915
@@ -22997,13 +23034,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adf01f80feec59b42b723c53ddc70463, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modelToggle: {fileID: 188824044}
   forest: {fileID: 0}
   forestTheme: {fileID: 2094349317}
   redFoxModel: {fileID: 1828156841}
   arctic: {fileID: 0}
   arcticTheme: {fileID: 1461796153}
   arcticFoxModel: {fileID: 1373961311}
+  onTriggerEnterEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &819134470
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -28683,6 +28722,14 @@ PrefabInstance:
     - target: {fileID: 8737061293505190598, guid: b4fdcfed49f9bac43a8d4efad4df228f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8847071244254428228, guid: b4fdcfed49f9bac43a8d4efad4df228f, type: 3}
+      propertyPath: m_Volume
+      value: 0.38
+      objectReference: {fileID: 0}
+    - target: {fileID: 8847071244254428228, guid: b4fdcfed49f9bac43a8d4efad4df228f, type: 3}
+      propertyPath: MaxDistance
+      value: 40
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
