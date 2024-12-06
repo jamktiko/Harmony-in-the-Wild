@@ -4663,6 +4663,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adf01f80feec59b42b723c53ddc70463, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transitionTime: 1.25
   forestTheme: {fileID: 2094349317}
   redFoxModel: {fileID: 1828156841}
   arcticTheme: {fileID: 1461796153}
@@ -19818,7 +19819,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 588484052}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0633154, y: -0.30907586, z: -0.02062738, w: 0.9487032}
+  m_LocalRotation: {x: -0.06331539, y: -0.30907583, z: -0.02062738, w: 0.9487032}
   m_LocalPosition: {x: -21.112183, y: 150.70956, z: -9.84433}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -21882,6 +21883,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adf01f80feec59b42b723c53ddc70463, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transitionTime: 1.25
   forestTheme: {fileID: 2094349317}
   redFoxModel: {fileID: 1828156841}
   arcticTheme: {fileID: 1461796153}
@@ -22107,19 +22109,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4402705516632114122, guid: e1a6cf10b36eded47ad5f63d18eb646f, type: 3}
       propertyPath: m_Color.b
-      value: 0.6037736
+      value: 0.990566
       objectReference: {fileID: 0}
     - target: {fileID: 4402705516632114122, guid: e1a6cf10b36eded47ad5f63d18eb646f, type: 3}
       propertyPath: m_Color.g
-      value: 0.5219676
+      value: 0.990566
       objectReference: {fileID: 0}
     - target: {fileID: 4402705516632114122, guid: e1a6cf10b36eded47ad5f63d18eb646f, type: 3}
       propertyPath: m_Color.r
-      value: 0.26486292
+      value: 0.990566
       objectReference: {fileID: 0}
     - target: {fileID: 4402705516632114122, guid: e1a6cf10b36eded47ad5f63d18eb646f, type: 3}
       propertyPath: m_Intensity
-      value: 0.2
+      value: 0.97
       objectReference: {fileID: 0}
     - target: {fileID: 4402705516632114122, guid: e1a6cf10b36eded47ad5f63d18eb646f, type: 3}
       propertyPath: m_ColorTemperature
@@ -22127,7 +22129,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4402705516632114122, guid: e1a6cf10b36eded47ad5f63d18eb646f, type: 3}
       propertyPath: m_UseColorTemperature
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5212487887094825598, guid: e1a6cf10b36eded47ad5f63d18eb646f, type: 3}
       propertyPath: m_Name
@@ -22136,6 +22138,10 @@ PrefabInstance:
     - target: {fileID: 5212487887094825598, guid: e1a6cf10b36eded47ad5f63d18eb646f, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6167561378255057114, guid: e1a6cf10b36eded47ad5f63d18eb646f, type: 3}
+      propertyPath: m_Intensity
+      value: 1.7
       objectReference: {fileID: 0}
     - target: {fileID: 7721950135616500078, guid: e1a6cf10b36eded47ad5f63d18eb646f, type: 3}
       propertyPath: m_IsActive
@@ -26196,9 +26202,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: TerrainGroup_0
       objectReference: {fileID: 0}
+    - target: {fileID: 6791841418956509023, guid: 7756c8dd28db6154593760ee7d066c9e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7607217613289961051, guid: 7756c8dd28db6154593760ee7d066c9e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8361269971298914384, guid: 7756c8dd28db6154593760ee7d066c9e, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8772967123694785436, guid: 7756c8dd28db6154593760ee7d066c9e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9095019752162015987, guid: 7756c8dd28db6154593760ee7d066c9e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -26537,7 +26559,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1090507646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26572,8 +26594,8 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 0.9245283, g: 0.9130408, b: 0.8852795, a: 1}
-  m_Intensity: 1.78
+  m_Color: {r: 0.9056604, g: 0.9017444, b: 0.89284444, a: 1}
+  m_Intensity: 1.61
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -26617,7 +26639,7 @@ Light:
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
   m_ColorTemperature: 5013
-  m_UseColorTemperature: 1
+  m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 7.3333335, y: 6e-44, z: 1.1e-43, w: 8.0922e-41}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
@@ -46865,7 +46887,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1995894948
 Transform:
   m_ObjectHideFlags: 0
@@ -46916,7 +46938,7 @@ Light:
   m_Type: 3
   m_Shape: 0
   m_Color: {r: 0.6886792, g: 0.64410275, b: 0.5035155, a: 1}
-  m_Intensity: 0.7
+  m_Intensity: 0
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
