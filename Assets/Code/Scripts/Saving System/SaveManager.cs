@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
 using Newtonsoft.Json;
-using UnityEngine.InputSystem.Android;
 
 //This script handles both saving and loading of gameData.
 
