@@ -14,6 +14,8 @@ public class Freezable : MonoBehaviour
     [Header("Needed References")]
     [SerializeField] private GameObject canBeFrozen;
     [SerializeField] private Material newFrozenMaterial;
+    [SerializeField] private AudioSource Freeze;
+    [SerializeField] private AudioClip FreezeClip;
 
     private Rigidbody rb;
     private Vector3 targetPosition;
@@ -48,11 +50,12 @@ public class Freezable : MonoBehaviour
     {
         Debug.Log(gameObject.name + " has been frozen.");
         isFrozen = true;
-
+        Freeze.PlayOneShot(FreezeClip);
         if (rb != null)
         {
             rb.useGravity = false;
             rb.constraints = RigidbodyConstraints.FreezeAll;
+            
         }
 
         if (canBeFrozen != null)
