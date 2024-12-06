@@ -39,33 +39,33 @@ public class SteamManager : MonoBehaviour
     {
         Steamworks.SteamClient.RunCallbacks();
 
-        if (Keyboard.current.gKey.wasPressedThisFrame)
-        {
-            IsThisAchievementUnlocked("BERRY_ACH");
-        }
+        //if (Keyboard.current.gKey.wasPressedThisFrame)
+        //{
+        //    IsThisAchievementUnlocked("BERRY_ACH");
+        //}
 
-        if (Keyboard.current.hKey.wasPressedThisFrame)
-        {
-            UnlockAchievement("BERRY_ACH");
-        }
+        //if (Keyboard.current.hKey.wasPressedThisFrame)
+        //{
+        //    UnlockAchievement("BERRY_ACH");
+        //}
 
-        if (Keyboard.current.jKey.wasPressedThisFrame)
-        {
-            ClearAchievementStatus("BERRY_ACH");
-            ClearAchievementStatus("BERRY_ACH_2");
-            ClearAchievementStatus("PINE_ACH_1");
-            ClearAchievementStatus("PINE_ACH_2");
-            ClearAchievementStatus("PINE_BERRY_ACH");
-        }
+        //if (Keyboard.current.jKey.wasPressedThisFrame)
+        //{
+        //    ClearAchievementStatus("BERRY_ACH");
+        //    ClearAchievementStatus("BERRY_ACH_2");
+        //    ClearAchievementStatus("PINE_ACH_1");
+        //    ClearAchievementStatus("PINE_ACH_2");
+        //    ClearAchievementStatus("PINE_BERRY_ACH");
+        //}
 
-        if (Keyboard.current.vKey.wasPressedThisFrame)
-        {
-            AchievementProgressBerry("stat_2");
-        }
-        if (Keyboard.current.mKey.wasPressedThisFrame)
-        {
-            AchievementProgressBerry("stat_3");
-        }
+        //if (Keyboard.current.vKey.wasPressedThisFrame)
+        //{
+        //    AchievementProgressBerry("stat_2");
+        //}
+        //if (Keyboard.current.mKey.wasPressedThisFrame)
+        //{
+        //    AchievementProgressBerry("stat_3");
+        //}
     }
 
     private void OnApplicationQuit()
