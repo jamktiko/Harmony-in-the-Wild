@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,6 +12,12 @@ public class Berries : MonoBehaviour
     [SerializeField] bool interactable;
     [SerializeField] static int BerryCollectableCount;
     [SerializeField] private GameObject interactionIndicator;
+    [SerializeField] private TMP_Text notifText;
+
+    private void Start()
+    {
+        notifText=GameObject.Find("CollectibleNotification").GetComponent<TMP_Text>();
+    }
 
 
     private void OnTriggerEnter(Collider other)
@@ -45,9 +52,19 @@ public class Berries : MonoBehaviour
                     SteamManager.instance.AchievementProgressBerry("stat_2");
                 }
                 PlayerManager.instance.BerryData[transform.parent.name] = false;
+                CollectibleNotification(notifText, "Berries");
+                Invoke("CollectibleNotificationDisappear",7f);
                 gameObject.SetActive(false);
             });
         }
+    }
+    private void CollectibleNotification(TMP_Text notifText, string CollectibleType)
+    {
+        notifText.text = CollectibleType + " collected: " + (CollectibleType.Contains("Berries") ? PlayerManager.instance.Berries : PlayerManager.instance.PineCones);
+    }
+    private void CollectibleNotificationDisappear()
+    {
+        notifText.text = "";
     }
     private void Update()
     {
