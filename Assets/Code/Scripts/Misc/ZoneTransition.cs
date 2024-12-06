@@ -4,12 +4,10 @@ using UnityEngine.Events;
 public class ZoneTransition : MonoBehaviour
 {
     [Header("Forest")]
-    [SerializeField] AudioSource forest;
     [SerializeField] AudioSource forestTheme;
     [SerializeField] private GameObject redFoxModel;
 
     [Header("Arctic")]
-    [SerializeField] AudioSource arctic;
     [SerializeField] AudioSource arcticTheme;
     [SerializeField] private GameObject arcticFoxModel;
 
@@ -45,6 +43,21 @@ public class ZoneTransition : MonoBehaviour
         }*/
 
         //Debug.Log($"{name} entered");
+    }
+
+    public void ChangeThemeTo(string themeName)
+    {
+        if(themeName == "Arctic")
+        {
+            forestTheme.Stop();
+            arcticTheme.Play();
+        }
+
+        else if(themeName == "Forest")
+        {
+            arcticTheme.Stop();
+            forestTheme.Play();
+        }
     }
 }
 

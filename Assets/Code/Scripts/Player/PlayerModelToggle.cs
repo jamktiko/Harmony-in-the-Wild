@@ -66,9 +66,9 @@ public class PlayerModelToggle : MonoBehaviour
         }
     }
 
-    public void ChangeModelTo(FoxModel model)
+    public void ChangeModelTo(string modelName)
     {
-        if (model == FoxModel.Arctic)
+        if (modelName == "Arctic")
         {
             if (!arcticFox.activeInHierarchy)
             {
@@ -83,7 +83,7 @@ public class PlayerModelToggle : MonoBehaviour
             }
         }
 
-        else if(model == FoxModel.RedFox)
+        else if(modelName == "Forest")
         {
             if (!redFox.activeInHierarchy)
             {
@@ -98,10 +98,4 @@ public class PlayerModelToggle : MonoBehaviour
             }
         }
     }
-}
-
-public enum FoxModel
-{
-    RedFox,
-    Arctic
 }

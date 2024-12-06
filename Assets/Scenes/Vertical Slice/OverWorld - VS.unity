@@ -14,10 +14,10 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 0
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  m_FogMode: 1
-  m_FogDensity: 0.01
+  m_Fog: 1
+  m_FogColor: {r: 0.43529412, g: 0.69803923, b: 0.7882353, a: 1}
+  m_FogMode: 3
+  m_FogDensity: 0.005
   m_LinearFogStart: 10
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
@@ -4547,16 +4547,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 110493375}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.08, y: 0.08, z: 0.08}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 779010019}
+  m_Father: {fileID: 1226399297}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1268, y: 150}
+  m_AnchoredPosition: {x: 386.94, y: -613.2}
   m_SizeDelta: {x: 1015, y: 1177}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &110493377
@@ -4597,6 +4597,103 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 110493375}
   m_CullTransparentMesh: 1
+--- !u!1 &115047069
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 115047070}
+  - component: {fileID: 115047072}
+  - component: {fileID: 115047071}
+  m_Layer: 14
+  m_Name: Arctic
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &115047070
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 115047069}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1471}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 900434893}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &115047071
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 115047069}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 5562.3164, y: 2000, z: 2312.043}
+  m_Center: {x: 413.125, y: 0, z: -412}
+--- !u!114 &115047072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 115047069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adf01f80feec59b42b723c53ddc70463, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  forestTheme: {fileID: 2094349317}
+  redFoxModel: {fileID: 1828156841}
+  arcticTheme: {fileID: 1461796153}
+  arcticFoxModel: {fileID: 1373961311}
+  onTriggerEnterEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 115047072}
+        m_TargetAssemblyTypeName: ZoneTransition, Assembly-CSharp
+        m_MethodName: ChangeThemeTo
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Arctic
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 188824044}
+        m_TargetAssemblyTypeName: PlayerModelToggle, Assembly-CSharp
+        m_MethodName: ChangeModelTo
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Arctic
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &116676447
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21695,6 +21792,103 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8810930883753460009, guid: 0c842a1766d856a43a581907c6dae922, type: 3}
   m_PrefabInstance: {fileID: 734334729}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &736236844
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 736236845}
+  - component: {fileID: 736236847}
+  - component: {fileID: 736236846}
+  m_Layer: 14
+  m_Name: Forest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &736236845
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736236844}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -1550}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 900434893}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &736236846
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736236844}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3448, y: 2000, z: 1183}
+  m_Center: {x: 1021.24384, y: 0, z: 890.1826}
+--- !u!114 &736236847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736236844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adf01f80feec59b42b723c53ddc70463, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  forestTheme: {fileID: 2094349317}
+  redFoxModel: {fileID: 1828156841}
+  arcticTheme: {fileID: 1461796153}
+  arcticFoxModel: {fileID: 1373961311}
+  onTriggerEnterEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 115047072}
+        m_TargetAssemblyTypeName: ZoneTransition, Assembly-CSharp
+        m_MethodName: ChangeThemeTo
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Forest
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 188824044}
+        m_TargetAssemblyTypeName: PlayerModelToggle, Assembly-CSharp
+        m_MethodName: ChangeModelTo
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Forest
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &738549321
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22345,11 +22539,10 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1226399297}
   - {fileID: 790385921}
-  - {fileID: 110493376}
   m_Father: {fileID: 1593828740}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -23475,11 +23668,11 @@ PrefabInstance:
       objectReference: {fileID: -5193064971425993332, guid: 49dbdddc373b47643be0e658fec1888f, type: 2}
     - target: {fileID: 4628193414633398990, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5891336148669933440, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5917213939870780397, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
       propertyPath: PauseInput.m_Name
@@ -23495,7 +23688,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6431893357360490502, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6503556533208406952, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -23547,7 +23740,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7802303629692366246, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -23978,6 +24171,39 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 899754219}
   m_CullTransparentMesh: 1
+--- !u!1 &900434892
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 900434893}
+  m_Layer: 14
+  m_Name: TerrainDivider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &900434893
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 900434892}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 86.2, y: 36.35, z: 1268.09}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 736236845}
+  - {fileID: 115047070}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &915107339
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27860,12 +28086,13 @@ RectTransform:
   - {fileID: 213093820}
   - {fileID: 1497856742}
   - {fileID: 2014908385}
+  - {fileID: 110493376}
   m_Father: {fileID: 779010019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 960, y: 540}
-  m_SizeDelta: {x: 1920, y: 1080}
+  m_SizeDelta: {x: 1331.2, y: 924.95}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1226399298
 MonoBehaviour:
@@ -27881,9 +28108,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerImage: {fileID: 790385922}
   mapImage: {fileID: 1226399299}
-  mapSize: {x: 2048, y: 1423}
-  worldSize: {x: 3800, y: 4900}
-  offset: {x: 460, y: 70}
+  mapSize: {x: 1331.2, y: 924.95}
+  worldSize: {x: 3500, y: 2150}
+  offset: {x: 3256, y: 1100}
   mapAnchor: {fileID: 779010019}
   playerRed: {fileID: 1828156840}
   playerArctic: {fileID: 1373961312}
@@ -46932,7 +47159,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 56a4de36e6c4c4e4c8db452bf94b57f9, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.622
   m_Pitch: 1
   Loop: 1
@@ -47836,7 +48063,7 @@ SceneRoots:
   - {fileID: 1280045462}
   - {fileID: 1232588186}
   - {fileID: 1176360291}
-  - {fileID: 819134471}
+  - {fileID: 900434893}
   - {fileID: 1393270222}
   - {fileID: 456375019}
   - {fileID: 1318570366}

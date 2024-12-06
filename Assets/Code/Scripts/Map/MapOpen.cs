@@ -55,7 +55,7 @@ public class MapOpen : MonoBehaviour
 
     private void ToggleMapVisibility()
     {
-        mapCam.SetActive(!mapCam.activeInHierarchy);
+        //mapCam.SetActive(!mapCam.activeInHierarchy);
         mapPanel.SetActive(!mapPanel.activeInHierarchy);
         //PlayerDisplayCanvas.SetActive(!PlayerDisplayCanvas.activeInHierarchy);
         if (mapPanel.activeSelf)
