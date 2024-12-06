@@ -28,15 +28,19 @@ public class PineconesCollectable : MonoBehaviour
     {
         if (interactable)
         {
+            FoxMovement.instance.playerAnimator.SetBool("isCollectingPinecone", true);
+
             Sequence mySequence = DOTween.Sequence();
             mySequence.Append(transform.DOScale(1.3f, 0.5f)).Append(transform.DOScale(0f, 0.5f)).OnComplete(() =>
             {
                 interactionIndicator.SetActive(false);
 
+                FoxMovement.instance.playerAnimator.SetBool("isCollectingPinecone",false);
+
                 PlayerManager.instance.PineCones++;
                 if (Steamworks.SteamClient.IsValid)
                 {
-                    //add pinecone stat increase here
+                    SteamManager.instance.AchievementProgressPinecone("stat_3");
                 }
                 PlayerManager.instance.BerryData[transform.name] = false;
                 gameObject.SetActive(false);

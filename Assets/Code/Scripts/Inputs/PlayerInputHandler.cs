@@ -46,6 +46,8 @@ public class PlayerInputHandler : MonoBehaviour
         DebugIncreaseTrailerCameraSpeed,
         DebugDecreaseTrailerCameraSpeed,
         CinematicCamera,
+        LayInput,
+        SitInput,
         SwitchTimeScale;
 
     private void Awake()
@@ -102,5 +104,7 @@ public class PlayerInputHandler : MonoBehaviour
         DebugDecreaseTrailerCameraSpeed = playerInput.actions.FindAction("DebugDecreaseTrailerCameraSpeed");
         CinematicCamera= playerInput.actions.FindAction("CinematicCamera");
         SwitchTimeScale= playerInput.actions.FindAction("SwitchTimeScale");
+        LayInput = playerInput.actions.FindAction("Lay");
+        SitInput = playerInput.actions.FindAction("Sit");
     }
 }
