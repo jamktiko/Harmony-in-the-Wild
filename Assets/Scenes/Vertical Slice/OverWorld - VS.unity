@@ -20,11 +20,11 @@ RenderSettings:
   m_FogDensity: 0.005
   m_LinearFogStart: 10
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
-  m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
-  m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
+  m_AmbientSkyColor: {r: 1, g: 1, b: 1, a: 1}
+  m_AmbientEquatorColor: {r: 0.7058824, g: 0.5803922, b: 0.48235294, a: 1}
+  m_AmbientGroundColor: {r: 0.30980393, g: 0.30980393, b: 0.4509804, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
+  m_AmbientMode: 1
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: 9873fbde6fe03504a9da2612241c5d71, type: 2}
   m_HaloStrength: 0.5
@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0}
+  m_Sun: {fileID: 745501970}
   m_IndirectSpecularColor: {r: 0.09671705, g: 0.21786618, b: 0.3686118, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
@@ -22111,6 +22111,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1702975533432673399, guid: e1a6cf10b36eded47ad5f63d18eb646f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2638334573587752154, guid: e1a6cf10b36eded47ad5f63d18eb646f, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -22149,11 +22153,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5212487887094825598, guid: e1a6cf10b36eded47ad5f63d18eb646f, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6167561378255057114, guid: e1a6cf10b36eded47ad5f63d18eb646f, type: 3}
       propertyPath: m_Intensity
       value: 1.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6167561378255057114, guid: e1a6cf10b36eded47ad5f63d18eb646f, type: 3}
+      propertyPath: m_Shadows.m_Strength
+      value: 0.401
       objectReference: {fileID: 0}
     - target: {fileID: 7721950135616500078, guid: e1a6cf10b36eded47ad5f63d18eb646f, type: 3}
       propertyPath: m_IsActive
@@ -22213,6 +22221,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e1a6cf10b36eded47ad5f63d18eb646f, type: 3}
+--- !u!108 &745501970 stripped
+Light:
+  m_CorrespondingSourceObject: {fileID: 6167561378255057114, guid: e1a6cf10b36eded47ad5f63d18eb646f, type: 3}
+  m_PrefabInstance: {fileID: 745501969}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &748997673 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2936256424570922068, guid: 7756c8dd28db6154593760ee7d066c9e, type: 3}
@@ -26607,13 +26620,13 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 0.9056604, g: 0.9017444, b: 0.89284444, a: 1}
-  m_Intensity: 1.61
+  m_Intensity: 1.55
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 0
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 0.3
@@ -26644,7 +26657,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 5046255
+    m_Bits: 5111791
   m_RenderingLayerMask: 1
   m_Lightmapping: 1
   m_LightShadowCasterMode: 0
@@ -26665,13 +26678,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1090507645}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.47711122, y: -0.22504182, z: 0.12784155, w: 0.83986765}
+  m_LocalRotation: {x: -0.06489968, y: -0.861957, z: 0.4896597, w: -0.1142441}
   m_LocalPosition: {x: 605, y: 89, z: -448}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 979010041}
-  m_LocalEulerAnglesHint: {x: 59.2, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 59.2, y: -195.1, z: 0}
 --- !u!1001 &1103672117
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -47162,7 +47175,7 @@ Light:
   m_Type: 3
   m_Shape: 0
   m_Color: {r: 0.6886792, g: 0.64410275, b: 0.5035155, a: 1}
-  m_Intensity: 0
+  m_Intensity: 6.67
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
