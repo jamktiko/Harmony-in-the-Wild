@@ -36,7 +36,7 @@ public class PineconesCollectable : MonoBehaviour
                 PlayerManager.instance.PineCones++;
                 if (Steamworks.SteamClient.IsValid)
                 {
-                    //add pinecone stat increase here
+                    SteamManager.instance.AchievementProgressPinecone("stat_3");
                 }
                 PlayerManager.instance.BerryData[transform.name] = false;
                 gameObject.SetActive(false);

@@ -52,11 +52,19 @@ public class SteamManager : MonoBehaviour
         if (Keyboard.current.jKey.wasPressedThisFrame)
         {
             ClearAchievementStatus("BERRY_ACH");
+            ClearAchievementStatus("BERRY_ACH_2");
+            ClearAchievementStatus("PINE_ACH_1");
+            ClearAchievementStatus("PINE_ACH_2");
+            ClearAchievementStatus("PINE_BERRY_ACH");
         }
 
         if (Keyboard.current.vKey.wasPressedThisFrame)
         {
             AchievementProgressBerry("stat_2");
+        }
+        if (Keyboard.current.mKey.wasPressedThisFrame)
+        {
+            AchievementProgressBerry("stat_3");
         }
     }
 
@@ -87,13 +95,47 @@ public class SteamManager : MonoBehaviour
         var stat = new Steamworks.Data.Stat(id);
         stat.Add(1);
 
-        if (stat.GetInt()>=50)
+        if (stat.GetInt() >= 10 && stat.GetInt() != 25)
         {
             UnlockAchievement("BERRY_ACH");
+        }
+        else if (stat.GetInt() == 25)
+        {
+            UnlockAchievement("BERRY_ACH_2");
+
+            GetMasterGathererAchievement();
         }
 
         Debug.Log($"Achievement {id} progressed");
     }
+    public void AchievementProgressPinecone(string id)
+    {
+        var stat = new Steamworks.Data.Stat(id);
+        stat.Add(1);
+
+        if (stat.GetInt() >=10&& stat.GetInt() != 25)
+        {
+            UnlockAchievement("PINE_ACH_1");
+        }
+        else if (stat.GetInt() == 25)
+        {
+            UnlockAchievement("PINE_ACH_2");
+
+            GetMasterGathererAchievement();
+        }
+
+        Debug.Log($"Achievement {id} progressed");
+    }
+
+    public void GetMasterGathererAchievement() 
+    {
+        if (new Steamworks.Data.Stat("stat_2").GetInt()>=25&& new Steamworks.Data.Stat("stat_3").GetInt()>=25)
+        {
+            UnlockAchievement("PINE_BERRY_ACH");
+        }
+    }
+
+
 
     public void ClearAchievementStatus(string id)
     {
