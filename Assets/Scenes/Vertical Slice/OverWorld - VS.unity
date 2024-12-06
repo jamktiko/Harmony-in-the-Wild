@@ -5265,17 +5265,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3f8035779ad6e74799bdff1e15d59ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &188824044 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2076101324828534567, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
-  m_PrefabInstance: {fileID: 1828156829}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9434ec07a26146f4bbfdd09916de01b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &193049915
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6117,6 +6106,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1069509445}
     m_Modifications:
+    - target: {fileID: 5043052130892409024, guid: 0c842a1766d856a43a581907c6dae922, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5652140682242110871, guid: 0c842a1766d856a43a581907c6dae922, type: 3}
       propertyPath: m_Name
       value: Bush_berries_44
@@ -22997,13 +22990,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adf01f80feec59b42b723c53ddc70463, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modelToggle: {fileID: 188824044}
   forest: {fileID: 0}
   forestTheme: {fileID: 2094349317}
   redFoxModel: {fileID: 1828156841}
   arctic: {fileID: 0}
   arcticTheme: {fileID: 1461796153}
   arcticFoxModel: {fileID: 1373961311}
+  onTriggerEnterEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &819134470
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -23436,11 +23431,11 @@ PrefabInstance:
       objectReference: {fileID: -5193064971425993332, guid: 49dbdddc373b47643be0e658fec1888f, type: 2}
     - target: {fileID: 4628193414633398990, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5891336148669933440, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5917213939870780397, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
       propertyPath: PauseInput.m_Name
@@ -23456,7 +23451,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6431893357360490502, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6503556533208406952, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -23508,7 +23503,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7802303629692366246, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -31467,18 +31462,6 @@ PrefabInstance:
       value: Bush_berries
       objectReference: {fileID: 0}
     - target: {fileID: 8810930883753460009, guid: 0c842a1766d856a43a581907c6dae922, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8810930883753460009, guid: 0c842a1766d856a43a581907c6dae922, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8810930883753460009, guid: 0c842a1766d856a43a581907c6dae922, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8810930883753460009, guid: 0c842a1766d856a43a581907c6dae922, type: 3}
       propertyPath: m_LocalPosition.x
       value: 30.04404
       objectReference: {fileID: 0}
@@ -34093,6 +34076,14 @@ PrefabInstance:
     - target: {fileID: 2717344169337505173, guid: ae19c24da516b5f4180577612087c52b, type: 3}
       propertyPath: m_Name
       value: Water
+      objectReference: {fileID: 0}
+    - target: {fileID: 5757254777170520021, guid: ae19c24da516b5f4180577612087c52b, type: 3}
+      propertyPath: m_Size.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5757254777170520021, guid: ae19c24da516b5f4180577612087c52b, type: 3}
+      propertyPath: m_Center.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6709541489701345718, guid: ae19c24da516b5f4180577612087c52b, type: 3}
       propertyPath: m_LocalPosition.x
