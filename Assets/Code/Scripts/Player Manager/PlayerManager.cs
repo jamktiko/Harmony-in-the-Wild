@@ -1,7 +1,9 @@
 using Ink.Runtime;
 using Newtonsoft.Json;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 [System.Serializable]
@@ -60,4 +62,5 @@ public class PlayerManager : MonoBehaviour
     //{
     //    return defaultPlayerPosition;
     //}
+    
 }
