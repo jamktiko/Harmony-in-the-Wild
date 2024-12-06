@@ -4650,7 +4650,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 5562.3164, y: 2000, z: 2312.043}
-  m_Center: {x: 413.125, y: 0, z: -480.7}
+  m_Center: {x: 413.125, y: 0, z: -407.16}
 --- !u!114 &115047072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4683,7 +4683,7 @@ MonoBehaviour:
           m_StringArgument: Arctic
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 317538487}
         m_TargetAssemblyTypeName: PlayerModelToggle, Assembly-CSharp
         m_MethodName: ChangeModelTo
         m_Mode: 5
@@ -7578,6 +7578,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 425534014567878704, guid: bb61352eae54f8b46a4c995d380a8332, type: 3}
   m_PrefabInstance: {fileID: 313392677}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &317538487 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2076101324828534567, guid: 72f92276cc2e0de4ba9dc6a41d927fa5, type: 3}
+  m_PrefabInstance: {fileID: 1828156829}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9434ec07a26146f4bbfdd09916de01b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &321765651
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21881,7 +21892,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3448, y: 2000, z: 1187.5}
+  m_Size: {x: 3448, y: 2000, z: 1393.7}
   m_Center: {x: 1021.24384, y: 0, z: 713.7}
 --- !u!114 &736236847
 MonoBehaviour:
@@ -21915,7 +21926,7 @@ MonoBehaviour:
           m_StringArgument: Forest
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 317538487}
         m_TargetAssemblyTypeName: PlayerModelToggle, Assembly-CSharp
         m_MethodName: ChangeModelTo
         m_Mode: 5
@@ -23256,80 +23267,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8929002069412551739, guid: 3c93b2ebe78e2fa48b763dff787aaeef, type: 3}
   m_PrefabInstance: {fileID: 815165923}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &819134468
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 819134471}
-  - component: {fileID: 819134470}
-  - component: {fileID: 819134469}
-  m_Layer: 14
-  m_Name: TerrainDivider
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &819134469
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 819134468}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adf01f80feec59b42b723c53ddc70463, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  transitionTime: 0.75
-  forestTheme: {fileID: 2094349317}
-  redFoxModel: {fileID: 1828156841}
-  arcticTheme: {fileID: 1461796153}
-  arcticFoxModel: {fileID: 1373961311}
-  onTriggerEnterEvent:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!65 &819134470
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 819134468}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 4578.5654, y: 757.6839, z: 1}
-  m_Center: {x: 1160.0922, y: 360.20987, z: 0}
---- !u!4 &819134471
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 819134468}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.07820589, z: -0, w: 0.9969372}
-  m_LocalPosition: {x: 114, y: 36.350006, z: 1454}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 8.971, z: 0}
 --- !u!1 &826894807
 GameObject:
   m_ObjectHideFlags: 0
@@ -49647,4 +49584,3 @@ SceneRoots:
   - {fileID: 1754786479}
   - {fileID: 1711307764}
   - {fileID: 1263464267}
-  - {fileID: 819134471}
