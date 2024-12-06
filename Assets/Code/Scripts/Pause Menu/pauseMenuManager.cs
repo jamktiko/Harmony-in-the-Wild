@@ -94,8 +94,8 @@ public class PauseMenuManager : MonoBehaviour
         Cursor.visible = true;
         SliderValueMaster = PlayerPrefs.GetFloat("MasterVolume");
         SliderValueMusic = PlayerPrefs.GetFloat("MusicVolume");
-        BerryCounter.text = "Berries: " + PlayerManager.instance.Berries + " / " + PlayerManager.instance.BerryData.Count;
-        PineconeCounter.text = "Pinecones: " + PlayerManager.instance.PineCones + " / " + PlayerManager.instance.PineConeData.Count;
+        BerryCounter.text =  PlayerManager.instance.Berries + " / " + PlayerManager.instance.BerryData.Count;
+        PineconeCounter.text =  PlayerManager.instance.PineCones + " / " + PlayerManager.instance.PineConeData.Count;
     }
 
     private void DisablePauseMenu()
@@ -301,8 +301,8 @@ public class PauseMenuManager : MonoBehaviour
         SliderValueMusic = PlayerPrefs.GetFloat("MusicVolume");
         Mastervolume.value = SliderValueMaster;
         MusicVolume.value = SliderValueMusic;
-        BerryCounter= pauseMenuPanel.transform.Find("BerryCount").GetComponent<TMP_Text>();
-        PineconeCounter = pauseMenuPanel.transform.Find("PineconeCount").GetComponent<TMP_Text>();
+        BerryCounter= pauseMenuPanel.transform.Find("ImageBerry").GetChild(0).GetComponent<TMP_Text>();
+        PineconeCounter = pauseMenuPanel.transform.Find("ImageCone").GetChild(0).GetComponent<TMP_Text>();
         try
         {
             cinemachineFreeLook = FoxMovement.instance.gameObject.GetComponentInChildren<CinemachineFreeLook>();
