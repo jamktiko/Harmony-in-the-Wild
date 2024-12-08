@@ -13,7 +13,7 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private GameObject settings;
     [SerializeField] private GameObject gameplayControls;
     [SerializeField] private GameObject movementControls;
-    [SerializeField] private Toggle invertYAxis; 
+    [SerializeField] private Toggle invertYAxis;
 
     [SerializeField] private string playButtonSceneName; //TODO: don't rely on strings in inspector
     [SerializeField] private Button continueButton;
@@ -34,7 +34,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void ContinueButton()
     {
-            LoadSavedGame();
+        LoadSavedGame();
     }
 
     private void LoadSavedGame()
@@ -44,14 +44,14 @@ public class MainMenuManager : MonoBehaviour
 
     private void CheckSavedGame()
     {
-        if (!continueButton.IsInteractable()&& File.Exists(Application.persistentDataPath + "/GameData.json"))
+        if (!continueButton.IsInteractable() && File.Exists(Application.persistentDataPath + "/GameData.json"))
         {
-            continueButton.interactable = true;        
+            continueButton.interactable = true;
         }
-        
+
     }
 
-    public void StartNewGame() 
+    public void StartNewGame()
     {
         SaveManager.instance.DeleteSave();
 
@@ -64,28 +64,28 @@ public class MainMenuManager : MonoBehaviour
         //reset the quests again
         //yes this is stupid. blame Awake()
         QuestManager.instance.questMap = QuestManager.instance.CreateQuestMap();
-        if (QuestManager.instance.transform.childCount>0)
+        if (QuestManager.instance.transform.childCount > 0)
         {
             for (int i = 0; i < QuestManager.instance.transform.childCount; i++)
             {
                 Destroy(QuestManager.instance.transform.GetChild(i).gameObject);
             }
         }
-        SceneManager.LoadScene(playButtonSceneName); 
+        SceneManager.LoadScene(playButtonSceneName);
     }
 
-    public void ExitGame() 
+    public void ExitGame()
     {
         Application.Quit();
     }
 
-    public void Options() 
+    public void Options()
     {
         options.SetActive(true);
         mainMenu.SetActive(false);
     }
 
-    public void BackButton() 
+    public void BackButton()
     {
         mainMenu.SetActive(true);
         options.SetActive(false);
@@ -131,8 +131,14 @@ public class MainMenuManager : MonoBehaviour
             //Debug.Log("changed no");
         }
     }
-    public void CreditsButton() 
+    public void CreditsButton()
     {
         SceneManager.LoadScene(CreditsSceneName);
+    }
+
+    public void DiscordButton() 
+    {
+        Application.OpenURL("https://discord.gg/7jwSSEn22M");
+        Debug.Log("is this working?");
     }
 }
