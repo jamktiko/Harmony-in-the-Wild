@@ -132,7 +132,7 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(TextAsset inkJSON)
     {
-        if (!isDialoguePlaying)
+        if (!isDialoguePlaying && canStartDialogue)
         {
             Debug.Log("Start dialogue.");
 
