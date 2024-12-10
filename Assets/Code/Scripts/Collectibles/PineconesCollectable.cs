@@ -48,7 +48,7 @@ public class PineconesCollectable : MonoBehaviour
                 {
                     SteamManager.instance.AchievementProgressPinecone("stat_3");
                 }
-                PlayerManager.instance.BerryData[transform.name] = false;
+                PlayerManager.instance.PineConeData[transform.name] = false;
                 CollectibleNotification(notifText, "Pinecones");
                 Invoke("CollectibleNotificationDisappear", 7f);
                 gameObject.SetActive(false);

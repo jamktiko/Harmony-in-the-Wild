@@ -59,7 +59,7 @@ public class PauseMenuManager : MonoBehaviour
                 || SettingsMenuPanel.activeInHierarchy)
             {
                 Debug.Log("Disable pause menu.");
-                Invoke(nameof(DisablePauseMenu), 0.2f);
+                DisablePauseMenu();
             }
 
             //enable
