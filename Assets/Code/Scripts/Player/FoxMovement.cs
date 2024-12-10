@@ -37,6 +37,10 @@ public class FoxMovement : MonoBehaviour
     [SerializeField] private float jumpCooldown = 1f;
 
     [HideInInspector] public bool isReadyToJump = true;
+    [HideInInspector] public bool isReadyToSwim = true;
+    [HideInInspector] public bool isReadyToShake = true;
+
+
 
     [Header("Checks")]
     [SerializeField] private LayerMask groundLayerMask;
@@ -506,6 +510,37 @@ public class FoxMovement : MonoBehaviour
         {
             PlayerInputHandler.instance.MoveInput.Enable();
         }
+    }
+
+    public void CooldownTrigger(string boolName) 
+    {
+        playerAnimator.SetBool(boolName, false);
+        if (boolName == "isReadyToSwim")
+        {
+            isReadyToSwim = false;
+        }
+        else
+        {
+            isReadyToShake = false;
+        }
+        StartCoroutine(StartCooldown(boolName));
+    }
+    IEnumerator StartCooldown(string boolName)
+    {
+       
+        yield return new WaitForSeconds(30f);
+        playerAnimator.SetBool(boolName, true);
+        if (boolName == "isReadyToSwim")
+        {
+            isReadyToSwim = true;
+            playerAnimator.SetBool(boolName, true);
+        }
+        else
+        {
+            isReadyToShake = true;
+            playerAnimator.SetBool(boolName, true);
+        }
+
     }
     void OnDrawGizmos()
     {

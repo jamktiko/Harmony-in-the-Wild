@@ -37,7 +37,7 @@ public class PineconesCollectable : MonoBehaviour
             FoxMovement.instance.playerAnimator.SetBool("isCollectingPinecone", true);
 
             Sequence mySequence = DOTween.Sequence();
-            mySequence.Append(transform.DOScale(1.3f, 0.5f)).Append(transform.DOScale(0f, 3f)).OnComplete(() =>
+            mySequence.Append(transform.DOScale(1.3f, 3.5f)).Append(transform.DOScale(0f, 3f)).OnComplete(() =>
             {
                 interactionIndicator.SetActive(false);
 
