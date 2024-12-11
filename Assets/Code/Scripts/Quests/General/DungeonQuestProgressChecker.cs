@@ -38,7 +38,12 @@ public class DungeonQuestProgressChecker : MonoBehaviour
     private void CheckForAbilityLock()
     {
         // if quest is still in progress, lock the ability so the player cannot yet use it in Overworld
-        if (currentState != QuestState.FINISHED || currentState != QuestState.CAN_FINISH)
+        if (currentState == QuestState.FINISHED || currentState == QuestState.CAN_FINISH)
+        {
+            return;
+        }
+
+        else
         {
             AbilityManager.instance.LockAbility(ability);
         }
