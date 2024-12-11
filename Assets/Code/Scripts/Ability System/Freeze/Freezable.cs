@@ -41,9 +41,10 @@ public class Freezable : MonoBehaviour
         if (originalMaterials.Count > 0)
         {
             SwapMaterials(false);
-            isFrozen = false;
-            canBeFrozen.SetActive(true);
         }
+
+        isFrozen = false;
+        canBeFrozen.SetActive(true);
     }
 
     public void FreezeObject()
