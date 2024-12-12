@@ -15,7 +15,10 @@ public class UnstuckRescue : MonoBehaviour
             gameObject.SetActive(false);
         }
 
-        GetNeededData();
+        else
+        {
+            GetNeededData();
+        }
     }
 
     private void GetNeededData()

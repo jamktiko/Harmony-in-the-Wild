@@ -241,7 +241,7 @@ public class PauseMenuManager : MonoBehaviour
             cinemachineFreeLook = null;
         }
         //Debug.Log("Scene loaded: " + scene.name); 
-        if ((scene.name == "OverWorld - VS" || scene.name == "MainMenu") && restartQuestPanel != null && exitQuestPanel != null)
+        if ((scene.name == "OverWorld - VS" || scene.name == "MainMenu" || scene.name == "Tutorial") && restartQuestPanel != null && exitQuestPanel != null)
         {
             //Debug.Log("Scene loaded is Overworld or the main menu. Disabling quest buttons in pause menu.");
             restartQuestPanel.SetActive(false);
@@ -301,8 +301,8 @@ public class PauseMenuManager : MonoBehaviour
         SliderValueMusic = PlayerPrefs.GetFloat("MusicVolume");
         Mastervolume.value = SliderValueMaster;
         MusicVolume.value = SliderValueMusic;
-        BerryCounter= pauseMenuPanel.transform.Find("ImageBerry").GetChild(0).GetComponent<TMP_Text>();
-        PineconeCounter = pauseMenuPanel.transform.Find("ImageCone").GetChild(0).GetComponent<TMP_Text>();
+        BerryCounter= pauseMenuPanel.transform.Find("BerryCounter").GetChild(1).GetComponent<TMP_Text>();
+        PineconeCounter = pauseMenuPanel.transform.Find("PineconeCounter").GetChild(1).GetComponent<TMP_Text>();
         try
         {
             cinemachineFreeLook = FoxMovement.instance.gameObject.GetComponentInChildren<CinemachineFreeLook>();
