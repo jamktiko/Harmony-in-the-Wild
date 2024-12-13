@@ -51,7 +51,17 @@ public class Freezable : MonoBehaviour
     {
         Debug.Log(gameObject.name + " has been frozen.");
         isFrozen = true;
-        Freeze.PlayOneShot(FreezeClip);
+
+        if(Freeze != null)
+        {
+            Freeze.PlayOneShot(FreezeClip);
+        }
+
+        else
+        {
+            Debug.LogWarning("No Audio Source assigned for " + gameObject.name + "; no freezing audio played.");
+        }
+        
         if (rb != null)
         {
             rb.useGravity = false;
