@@ -129,12 +129,14 @@ public class FoxMovement : MonoBehaviour
     {
         GameEventsManager.instance.dialogueEvents.OnStartDialogue += DisableMovementForDialogue;
         GameEventsManager.instance.dialogueEvents.OnEndDialogue += EnableMovementAfterDialogue;
+        GameEventsManager.instance.playerEvents.OnChangePlayerModel += DisableMovementForSetTime;
     }
 
     private void OnDisable()
     {
         GameEventsManager.instance.dialogueEvents.OnStartDialogue -= DisableMovementForDialogue;
         GameEventsManager.instance.dialogueEvents.OnEndDialogue -= EnableMovementAfterDialogue;
+        GameEventsManager.instance.playerEvents.OnChangePlayerModel -= DisableMovementForSetTime;
     }
 
     void Update()
@@ -591,5 +593,18 @@ public class FoxMovement : MonoBehaviour
     {
         canMove = true;
         Invoke(nameof(ResetJump), 0.3f);   
+    }
+
+    private void DisableMovementForSetTime()
+    {
+        canMove = false;
+        isReadyToJump = false;
+        Invoke(nameof(EnableMovementAfterSetTime), 1.3f);
+    }
+
+    private void EnableMovementAfterSetTime()
+    {
+        canMove = true;
+        isReadyToJump = true;
     }
 }

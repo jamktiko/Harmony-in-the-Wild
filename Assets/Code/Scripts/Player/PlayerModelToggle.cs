@@ -17,15 +17,15 @@ public class PlayerModelToggle : MonoBehaviour
     }
     private void TogglePlayerModel()
     {
-        ChangeVFX();
+        //ChangeVFX();
 
         if (!redFox.activeInHierarchy)
         {
-            ChangeModelToForest();
+            //ChangeModelToForest();
         }
         else
         {
-            ChangeModelToArctic();
+            //ChangeModelToArctic();
         }
     }
     private void ChangeVFX()
@@ -37,10 +37,12 @@ public class PlayerModelToggle : MonoBehaviour
         effectPosition = new Vector3(transform.position.x, transform.position.y + 0.8f, transform.position.z);
         Instantiate(changeEffect, effectPosition, Quaternion.identity);
     }
-    public void ChangeModelToForest()
+    /*public void ChangeModelToForest()
     {
         if (!redFox.activeInHierarchy)
         {
+            GameEventsManager.instance.playerEvents.ChangePlayerModel();
+
             ChangeVFX();
 
             redFox.SetActive(true);
@@ -55,6 +57,8 @@ public class PlayerModelToggle : MonoBehaviour
     {
         if (redFox.activeInHierarchy)
         {
+            GameEventsManager.instance.playerEvents.ChangePlayerModel();
+
             ChangeVFX();
 
             redFox.SetActive(false);
@@ -64,10 +68,12 @@ public class PlayerModelToggle : MonoBehaviour
             FoxMovement.instance.playerAnimator = currentAnimator;
             playerCamera.foxObject = arcticFox.transform;
         }
-    }
+    }*/
 
     public void ChangeModelTo(string modelName)
     {
+        GameEventsManager.instance.playerEvents.ChangePlayerModel();
+
         if (modelName == "Arctic")
         {
             if (!arcticFox.activeInHierarchy)
