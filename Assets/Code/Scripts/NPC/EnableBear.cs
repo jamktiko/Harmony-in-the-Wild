@@ -8,13 +8,25 @@ public class EnableBear : MonoBehaviour
 
     private void Start()
     {
-        Transform questManager = QuestManager.instance.transform;
+        QuestState currentState = QuestManager.instance.CheckQuestState(tutorialQuest.id);
 
-        foreach(Transform child in questManager)
+        // if quest is finished, keep the bear enabled
+        if(currentState == QuestState.FINISHED)
         {
-            if (child.name.Contains("Bear"))
+            return;
+        }
+
+        // otherwise disable this bear, since there is another one controlled by Quest Manager
+        else
+        {
+            Transform questManager = QuestManager.instance.transform;
+
+            foreach (Transform child in questManager)
             {
-                gameObject.SetActive(false);
+                if (child.name.Contains("Bear"))
+                {
+                    gameObject.SetActive(false);
+                }
             }
         }
     }
