@@ -17,20 +17,21 @@ public class TalkToWhaleQuestStep : QuestStep
     private void OnEnable()
     {
         GameEventsManager.instance.dialogueEvents.OnEndDialogue += CheckProgressInDialogue;
-        SceneManager.sceneLoaded += SetMidQuestDialogueInOverworld;
+        SceneManager.sceneLoaded += SetInfoInOverworld;
     }
 
     private void OnDisable()
     {
         GameEventsManager.instance.dialogueEvents.OnEndDialogue -= CheckProgressInDialogue;
-        SceneManager.sceneLoaded -= SetMidQuestDialogueInOverworld;
+        SceneManager.sceneLoaded -= SetInfoInOverworld;
     }
 
-    private void SetMidQuestDialogueInOverworld(Scene scene, LoadSceneMode mode)
+    private void SetInfoInOverworld(Scene scene, LoadSceneMode mode)
     {
         if (scene.name.Contains("Overworld", System.StringComparison.CurrentCultureIgnoreCase))
         {
             GameEventsManager.instance.dialogueEvents.SetMidQuestDialogue(0, GetQuestId());
+            GameEventsManager.instance.questEvents.ShowQuestUI(GetQuestId(), objective, progress);
         }
     }
 

@@ -22,8 +22,16 @@ public class WhaleMovement : MonoBehaviour
 
     private void Start()
     {
-        defaultSpeed = moveSpeed;
-        currentDestination = destinations[0].position;
+        if(QuestManager.instance.CheckQuestState("Whale Diet") == QuestState.CAN_FINISH)
+        {
+            transform.position = destinations[destinations.Count - 1].position;
+        }
+
+        else
+        {
+            defaultSpeed = moveSpeed;
+            currentDestination = destinations[0].position;
+        }
     }
 
     private void OnEnable()
@@ -43,6 +51,8 @@ public class WhaleMovement : MonoBehaviour
 
     private void EnableMovement()
     {
+        Debug.Log("Start whale movement...");
+
         StartCoroutine(WalkToDestination());
     }
 
@@ -62,7 +72,6 @@ public class WhaleMovement : MonoBehaviour
         else
         {
             GameEventsManager.instance.questEvents.ReachWhaleDestination();
-
         }
     }
 
@@ -109,26 +118,12 @@ public class WhaleMovement : MonoBehaviour
 
     private IEnumerator Idle()
     {
-        //animator.SetTrigger("idle");
+        Debug.Log("Waiting player to get near whale...");
 
         yield return new WaitUntil(() => playerIsNear);
 
+        Debug.Log("Player is near, whale will start moving again!");
+
         StartCoroutine(WalkToDestination());
     }
-
-    /*private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Trigger"))
-        {
-            playerIsNear = true;
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("Trigger"))
-        {
-            playerIsNear = false;
-        }
-    }*/
 }
