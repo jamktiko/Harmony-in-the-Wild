@@ -12,6 +12,8 @@ public class PineconesCollectable : MonoBehaviour
     [SerializeField] private GameObject interactionIndicator;
     [SerializeField] private TMP_Text notifText;
 
+    private bool hasBeenCollected = false;
+
     private void Start()
     {
         notifText = GameObject.Find("CollectibleNotification").GetComponent<TMP_Text>();
@@ -70,8 +72,10 @@ public class PineconesCollectable : MonoBehaviour
     }
     private void Update()
     {
-        if (PlayerInputHandler.instance.InteractInput.WasPerformedThisFrame())
+        if (PlayerInputHandler.instance.InteractInput.WasPerformedThisFrame() && !hasBeenCollected)
         {
+            hasBeenCollected = true;
+
             CollectCone();
         }
     }
