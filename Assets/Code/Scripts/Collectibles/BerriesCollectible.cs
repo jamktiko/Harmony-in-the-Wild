@@ -70,7 +70,7 @@ public class Berries : MonoBehaviour
     }
     private void Update()
     {
-        if (PlayerInputHandler.instance.InteractInput.WasPerformedThisFrame() && !hasBeenCollected)
+        if (PlayerInputHandler.instance.InteractInput.WasPerformedThisFrame() && interactable && !hasBeenCollected)
         {
             hasBeenCollected = true;
             CollectBerry();
