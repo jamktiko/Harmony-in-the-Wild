@@ -6,13 +6,17 @@ public class Interactable_ChristmasPresent : MonoBehaviour
 {
     [SerializeField] bool isActive = false;
     [SerializeField] public bool wasUsed = false; //Note: does this need to be public? private and method to pass value
-    [SerializeField] GameObject hat;
+    [SerializeField] List<GameObject> hats;
 
     void Update()
     {
         if (PlayerInputHandler.instance.InteractInput.WasPressedThisFrame() && isActive)
         {
-            hat.SetActive(true);
+            foreach(GameObject hat in hats)
+            {
+                hat.SetActive(true);
+            }
+
             SteamManager.instance.UnlockAchievement("CHRIMIS_ACH");
         }
     }
