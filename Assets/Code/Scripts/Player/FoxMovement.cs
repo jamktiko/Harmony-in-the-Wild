@@ -497,6 +497,7 @@ public class FoxMovement : MonoBehaviour
         {
             playerAnimator.SetBool("isSitting", !playerAnimator.GetBool("isSitting"));
         }
+
         if (PlayerInputHandler.instance.LayInput.WasPerformedThisFrame())
         {
             playerAnimator.SetBool("isLaying", !playerAnimator.GetBool("isLaying"));
@@ -507,10 +508,12 @@ public class FoxMovement : MonoBehaviour
         if (PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Armature|FoxLieDownAni")|| PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("PL_StandUp_ANI") || PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("PL_Sitting_ANI") ||PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("PL_OutOfWater_ANI")|| PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("PL_PickUpFromBush_ANI") || PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("PL_PickUpFromGround_ANI")||PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("PL_EnterWater_ANI"))
         {
             PlayerInputHandler.instance.MoveInput.Disable();
+            PlayerInputHandler.instance.JumpInput.Disable();
         }
         else if (!PlayerInputHandler.instance.MoveInput.enabled)
         {
             PlayerInputHandler.instance.MoveInput.Enable();
+            PlayerInputHandler.instance.JumpInput.Enable();
         }
     }
 
