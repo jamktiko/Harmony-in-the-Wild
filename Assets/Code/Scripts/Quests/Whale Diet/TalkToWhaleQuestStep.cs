@@ -37,7 +37,7 @@ public class TalkToWhaleQuestStep : QuestStep
 
     private void CheckProgressInDialogue()
     {
-        Invoke(nameof(FetchDialogueData), 0.01f);
+        Invoke(nameof(FetchDialogueData), 0.1f);
     }
 
     private void FetchDialogueData()
