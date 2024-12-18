@@ -45,7 +45,7 @@ public class MainMenuManager : MonoBehaviour
         if(QuestManager.instance.CheckQuestState("Tutorial") != QuestState.FINISHED)
         {
             // check the current quest step state to see if there's still something to be done in Bear Cave
-            if(QuestManager.instance.GetQuestById("Tutorial").GetCurrentQuestStepIndex() <= 4)
+            if(QuestManager.instance.GetQuestById("Tutorial").GetCurrentQuestStepIndex() < 4)
             {
                 SceneManager.LoadScene("Tutorial");
             }

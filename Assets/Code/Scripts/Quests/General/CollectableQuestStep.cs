@@ -24,7 +24,7 @@ public class CollectableQuestStep : QuestStep
     {
         if (scene.name.Contains("Overworld", System.StringComparison.CurrentCultureIgnoreCase))
         {
-            GameEventsManager.instance.questEvents.ShowQuestUI(GetQuestId(), objective, progress);
+            GameEventsManager.instance.questEvents.ShowQuestUI(GetQuestId(), objective, progress + " " + itemsCollected + "/" + itemToComplete);
         }
     }
 

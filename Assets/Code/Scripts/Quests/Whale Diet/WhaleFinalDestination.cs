@@ -5,6 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class WhaleFinalDestination : QuestStep
 {
+    private void Start()
+    {
+        GameEventsManager.instance.questEvents.StartMovingWhale();
+
+        GameEventsManager.instance.questEvents.ShowQuestUI(GetQuestId(), objective, progress);
+    }
+
     private void OnEnable()
     {
         GameEventsManager.instance.questEvents.OnReachWhaleDestination += CompleteQuestStep;
