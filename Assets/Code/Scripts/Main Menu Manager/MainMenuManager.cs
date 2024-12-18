@@ -39,7 +39,29 @@ public class MainMenuManager : MonoBehaviour
 
     private void LoadSavedGame()
     {
-        SceneManager.LoadScene(14);
+        Debug.Log("State of Tutorial: " + QuestManager.instance.CheckQuestState("Tutorial") + ", quest step index: " + QuestManager.instance.GetQuestById("Tutorial").GetCurrentQuestStepIndex());
+
+        // check if tutorial is still in progress
+        if(QuestManager.instance.CheckQuestState("Tutorial") != QuestState.FINISHED)
+        {
+            // check the current quest step state to see if there's still something to be done in Bear Cave
+            if(QuestManager.instance.GetQuestById("Tutorial").GetCurrentQuestStepIndex() <= 4)
+            {
+                SceneManager.LoadScene("Tutorial");
+            }
+
+            // otherwise transfer to Overworld so the quest can be finished there
+            else
+            {
+                SceneManager.LoadScene(14);
+            }
+        }
+
+        // if tutorial has been finished, go to Overworld
+        else
+        {
+            SceneManager.LoadScene(14);
+        }      
     }
 
     private void CheckSavedGame()
