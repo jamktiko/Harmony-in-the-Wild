@@ -48,6 +48,15 @@ public class TalkToBearQuestStep : QuestStep
         if (scene.name.Contains("Overworld", System.StringComparison.CurrentCultureIgnoreCase) || scene.name.Contains("Tutorial", System.StringComparison.CurrentCultureIgnoreCase))
         {
             GameEventsManager.instance.questEvents.ShowQuestUI(GetQuestId(), objective, progress);
+
+            try
+            {
+                cinematicAnimator = GameObject.Find("IntroCamera").GetComponent<Animator>();
+            }
+            catch (System.Exception)
+            {
+                cinematicAnimator = null;
+            }
         }     
     }
 

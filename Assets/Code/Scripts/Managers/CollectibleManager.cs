@@ -16,6 +16,13 @@ public class CollectibleManager : MonoBehaviour
             foreach (var berry in PlayerManager.instance.BerryData)
             {
                 GameObject.Find(berry.Key).transform.GetChild(0).gameObject.SetActive(berry.Value);
+
+                // disable interaction indicator if these berries have already been collected
+                if(berry.Value == false)
+                {
+                    GameObject.Find(berry.Key).transform.GetChild(2).gameObject.SetActive(false);
+                }
+
                 x++;
             }
             foreach (var cone in PlayerManager.instance.PineConeData)

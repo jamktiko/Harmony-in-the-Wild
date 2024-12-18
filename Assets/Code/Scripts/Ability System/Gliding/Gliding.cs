@@ -142,13 +142,16 @@ public class Gliding : MonoBehaviour, IAbility
             FoxMovement.instance.rb.useGravity = true;
         }
         FoxMovement.instance.playerAnimator.SetBool("isGliding", false);
-        
-        if(glideParticleEmission != null)
+
+        if (glideParticleEmission != null)
         {
             for (int i = 0; i < glideParticleEmission.Count; i++)
             {
-                var emission = glideParticleEmission[i].emission;
-                emission.enabled = false;
+                if(glideParticleEmission[i] = null)
+                {
+                    var emission = glideParticleEmission[i].emission;
+                    emission.enabled = false;
+                }          
             }
         }
     }
