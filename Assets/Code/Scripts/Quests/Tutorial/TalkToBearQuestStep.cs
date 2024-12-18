@@ -45,7 +45,7 @@ public class TalkToBearQuestStep : QuestStep
 
     private void UpdateQuestUI(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name.Contains("Overworld", System.StringComparison.CurrentCultureIgnoreCase))
+        if (scene.name.Contains("Overworld", System.StringComparison.CurrentCultureIgnoreCase) || scene.name.Contains("Tutorial", System.StringComparison.CurrentCultureIgnoreCase))
         {
             GameEventsManager.instance.questEvents.ShowQuestUI(GetQuestId(), objective, progress);
         }     

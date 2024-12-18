@@ -1,3 +1,5 @@
+using UnityEngine.SceneManagement;
+
 public class CollectableQuestStep : QuestStep
 {
     public int itemsCollected = 0;
@@ -6,6 +8,24 @@ public class CollectableQuestStep : QuestStep
     private void Start()
     {
         GameEventsManager.instance.questEvents.ShowQuestUI(GetQuestId(), objective, progress + " " + itemsCollected + "/" + itemToComplete);
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += SetUIInOverworld;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= SetUIInOverworld;
+    }
+
+    private void SetUIInOverworld(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name.Contains("Overworld", System.StringComparison.CurrentCultureIgnoreCase))
+        {
+            GameEventsManager.instance.questEvents.ShowQuestUI(GetQuestId(), objective, progress);
+        }
     }
 
     public void CollectableProgress()
