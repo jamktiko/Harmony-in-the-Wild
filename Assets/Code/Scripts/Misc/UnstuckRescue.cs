@@ -29,6 +29,8 @@ public class UnstuckRescue : MonoBehaviour
 
     public void Unstuck()
     {
+        player = UnstuckDataBank.instance.GetPlayer();
+
         nearestRescuePoint = FindNearestRescuePoint();
         MovePlayerToSafeLocation();
     }
@@ -41,6 +43,7 @@ public class UnstuckRescue : MonoBehaviour
         foreach (Transform rescuePoint in rescuePoints)
         {
             float distanceToPlayer = Vector3.Distance(player.position, rescuePoint.position);
+            Debug.Log("Distance to player: " + distanceToPlayer);
 
             if(distanceToPlayer < smallestDistance || smallestDistance == -1f)
             {
