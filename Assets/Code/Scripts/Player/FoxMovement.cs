@@ -399,6 +399,7 @@ public class FoxMovement : MonoBehaviour
             SetDefaultAnimatorValues();
         }
     }
+
     private void Sprint()
     {
         if (grounded && isSprinting)
@@ -496,11 +497,13 @@ public class FoxMovement : MonoBehaviour
         if (PlayerInputHandler.instance.SitInput.WasPerformedThisFrame())
         {
             playerAnimator.SetBool("isSitting", !playerAnimator.GetBool("isSitting"));
+            playerAnimator.SetBool("isLaying", false);
         }
 
         if (PlayerInputHandler.instance.LayInput.WasPerformedThisFrame())
         {
             playerAnimator.SetBool("isLaying", !playerAnimator.GetBool("isLaying"));
+            playerAnimator.SetBool("isSitting", false);
         }
     }
     private void AnimationConditions() 
