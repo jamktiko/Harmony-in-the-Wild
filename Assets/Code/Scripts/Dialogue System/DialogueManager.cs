@@ -354,7 +354,7 @@ public class DialogueManager : MonoBehaviour
     {
         canStartDialogue = false;
 
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3f);
 
         canStartDialogue = true;
         dialogueCooldown = null;
