@@ -70,10 +70,10 @@ public class CollectableQuestStep : QuestStep
         if (itemsCollected >= itemToComplete)
         {
             // hide remaining apples
-            foreach(GameObject apple in apples)
-            {
-                apple.SetActive(false);
-            }
+            //foreach(GameObject apple in apples)
+            //{
+            //    apple.SetActive(false);
+            //}
 
             FinishQuestStep();
         }
