@@ -124,7 +124,7 @@ public class PenguinRaceManager : MonoBehaviour
             if (dungeonQuestDialogue.FinalDialogueCompleted())
             {
                 StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, "OverWorld - VS", true);
-                SceneManager.LoadScene("Storybook");
+                GameEventsManager.instance.uiEvents.ShowLoadingScreen("Storybook");
             }
         }
 

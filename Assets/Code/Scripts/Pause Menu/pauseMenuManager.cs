@@ -152,7 +152,8 @@ public class PauseMenuManager : MonoBehaviour
     public void returnToMenu()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("MainMenu");
+
+        GameEventsManager.instance.uiEvents.ShowLoadingScreen("MainMenu");
     }
     public void GameplayMenu()
     {
@@ -213,7 +214,9 @@ public class PauseMenuManager : MonoBehaviour
         if (currentSceneName != "OverWorld - VS")
         {
             //Debug.Log("Quest has been exited. Loading Overworld.");
-            SceneManager.LoadScene("OverWorld - VS", LoadSceneMode.Single);
+
+            GameEventsManager.instance.uiEvents.ShowLoadingScreen("OverWorld - VS");
+
             Resume();
         }
     }
@@ -224,7 +227,9 @@ public class PauseMenuManager : MonoBehaviour
         if (currentSceneName != "OverWorld - VS")
         {
             //Debug.Log("Quest has been restarted. Reloading scene.");
-            SceneManager.LoadScene(currentSceneName, LoadSceneMode.Single);
+
+            GameEventsManager.instance.uiEvents.ShowLoadingScreen(currentSceneName);
+
             Resume();
         }
     }

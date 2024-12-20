@@ -1695,6 +1695,7 @@ GameObject:
   - component: {fileID: 1331429645}
   - component: {fileID: 1331429644}
   - component: {fileID: 1331429643}
+  - component: {fileID: 1331429646}
   m_Layer: 5
   m_Name: yes
   m_TagString: Untagged
@@ -1766,10 +1767,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1613179038}
-        m_TargetAssemblyTypeName: LoadingScene, Assembly-CSharp
-        m_MethodName: LoadSceneWithText2
-        m_Mode: 3
+      - m_Target: {fileID: 1331429646}
+        m_TargetAssemblyTypeName: CallLoadingScreen, Assembly-CSharp
+        m_MethodName: ChangeScene
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1816,6 +1817,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1331429641}
   m_CullTransparentMesh: 1
+--- !u!114 &1331429646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1331429641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56a80183c51e35547aa4650792c5b490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  newSceneName: Tutorial
 --- !u!1 &1462337162
 GameObject:
   m_ObjectHideFlags: 0
@@ -2262,6 +2276,10 @@ PrefabInstance:
     - target: {fileID: 3397596876206555361, guid: bdd1451933799b242aa78806b2f82f84, type: 3}
       propertyPath: m_Name
       value: LoadingScrene
+      objectReference: {fileID: 0}
+    - target: {fileID: 3397596876206555361, guid: bdd1451933799b242aa78806b2f82f84, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8717361013794524561, guid: bdd1451933799b242aa78806b2f82f84, type: 3}
       propertyPath: sceneIndex

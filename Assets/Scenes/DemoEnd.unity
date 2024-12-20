@@ -915,9 +915,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1844460400}
-        m_TargetAssemblyTypeName: SceneTransition, Assembly-CSharp
-        m_MethodName: GoToScene
+      - m_Target: {fileID: 1844460403}
+        m_TargetAssemblyTypeName: CallLoadingScreen, Assembly-CSharp
+        m_MethodName: ChangeScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1129,9 +1129,9 @@ GameObject:
   - component: {fileID: 1844460398}
   - component: {fileID: 1844460397}
   - component: {fileID: 1844460396}
-  - component: {fileID: 1844460400}
   - component: {fileID: 1844460401}
   - component: {fileID: 1844460402}
+  - component: {fileID: 1844460403}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1225,19 +1225,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1844460400
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1844460395}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 145b5da0ae1d36a49bb99bceee439634, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  goToScene: OverWorld - VS
 --- !u!114 &1844460401
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1262,6 +1249,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d444f1db310cc0b4183eb05c8cadf129, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1844460403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1844460395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56a80183c51e35547aa4650792c5b490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  newSceneName: OverWorld - VS
 --- !u!1001 &2085051001
 PrefabInstance:
   m_ObjectHideFlags: 0
