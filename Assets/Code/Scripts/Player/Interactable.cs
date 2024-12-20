@@ -21,10 +21,10 @@ public class Interactable : MonoBehaviour
             //Debug.Log("object found!");
             Destroy(gameObject);
         }
-        else if (PlayerInputHandler.instance.InteractInput.WasPressedThisFrame() && isActive && QuestManager.instance.CheckQuestState("Whale Diet").Equals(QuestState.FINISHED))
-        {
-            wasUsed = true;
-        }
+        //else if (PlayerInputHandler.instance.InteractInput.WasPressedThisFrame() && isActive && QuestManager.instance.CheckQuestState("Whale Diet").Equals(QuestState.FINISHED))
+        //{
+        //    wasUsed = true;
+        //}
     }
 
     private void OnTriggerEnter(Collider other)

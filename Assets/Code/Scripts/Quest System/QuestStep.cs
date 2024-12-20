@@ -29,6 +29,11 @@ public abstract class QuestStep : MonoBehaviour
             SetQuestStepState(questStepState);
         }
 
+        else if (id == "Whale Diet")
+        {
+            SetQuestStepState("0");
+        }
+
         SaveManager.instance.SaveGame();
     }
 

@@ -11,10 +11,9 @@ public class CollectableQuestStep : QuestStep
 
     private void Start()
     {
-        InitializeQuestUI();
-
         if(SceneManager.GetActiveScene().name.Contains("Overworld", System.StringComparison.CurrentCultureIgnoreCase))
         {
+            InitializeQuestUI();
             SetAppleObjects();
 
             if(itemStates.Count <= 0)
@@ -56,9 +55,9 @@ public class CollectableQuestStep : QuestStep
     public void CollectableProgress(int itemIndex)
     {
         // don't proceed if the index is falsely set or the corresponding item has already been collected
-        if(itemIndex < 0 || itemIndex >= itemToComplete || itemStates[itemIndex])
+        if(itemIndex < 0 || itemStates[itemIndex])
         {
-            Debug.Log("Invalid item index or corresponding apple has already been collected.");
+            Debug.Log("Invalid item index or corresponding apple has already been collected. Index: " + itemIndex);
             return;
         }
 
@@ -100,7 +99,7 @@ public class CollectableQuestStep : QuestStep
 
     private void InitializeItemStates()
     {
-        foreach(GameObject apple in apples)
+        for (int i = 0; i <= 10; i++)
         {
             itemStates.Add(false);
         }
@@ -127,8 +126,10 @@ public class CollectableQuestStep : QuestStep
 
     protected override void SetQuestStepState(string state)
     {
+        Debug.Log("Setting whale data");
         if (string.IsNullOrEmpty(state))
         {
+            Debug.Log("Empty state found");
             InitializeItemStates();
             return;
         }
@@ -139,11 +140,17 @@ public class CollectableQuestStep : QuestStep
         if(stateParts.Length == 1)
         {
             itemsCollected = int.Parse(stateParts[0]);
-            InitializeItemStates();
+
+            if (itemStates.Count <= 0 || itemStates == null)
+            {
+                Debug.Log("Initializing after outdated data format");
+                InitializeItemStates();
+            }
         }
 
         else
         {
+            Debug.Log("Setting saved values");
             itemsCollected = itemsCollected = int.Parse(stateParts[0]);
             itemStates = ParseItemStates(stateParts[1]);
         }

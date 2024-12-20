@@ -20,16 +20,16 @@ public class AppleDataHolder : MonoBehaviour
         {
             instance = this;
         }
+    }
 
+    public List<GameObject> GetApples()
+    {
         // initialize the apple list
         foreach (Transform child in transform)
         {
             apples.Add(child.gameObject);
         }
-    }
 
-    public List<GameObject> GetApples()
-    {
         return apples;
     }
 }

@@ -55,8 +55,6 @@ public class LoadingScene : MonoBehaviour
 
         while (!operation.isDone)
         {
-            float progressValue = Mathf.Clamp01(operation.progress / 0.9f);
-
             loadingScreenText.text = "Loading.";
 
             yield return new WaitForSeconds(0.5f);

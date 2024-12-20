@@ -24,12 +24,18 @@ public class UnstuckRescue : MonoBehaviour
     private void GetNeededData()
     {
         rescuePoints = UnstuckDataBank.instance.GetRescuePoints();
-        player = UnstuckDataBank.instance.GetPlayer();
+        player = FoxMovement.instance.transform;
     }
 
     public void Unstuck()
     {
-        player = UnstuckDataBank.instance.GetPlayer();
+        player = FoxMovement.instance.transform;
+
+        if(player == null)
+        {
+            Debug.LogWarning("No player reference for Unstuck button!");
+            return;
+        }
 
         nearestRescuePoint = FindNearestRescuePoint();
         MovePlayerToSafeLocation();
