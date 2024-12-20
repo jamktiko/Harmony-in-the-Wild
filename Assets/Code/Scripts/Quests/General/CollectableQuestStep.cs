@@ -16,7 +16,11 @@ public class CollectableQuestStep : QuestStep
         if(SceneManager.GetActiveScene().name.Contains("Overworld", System.StringComparison.CurrentCultureIgnoreCase))
         {
             SetAppleObjects();
-            InitializeItemStates();
+
+            if(itemStates.Count <= 0)
+            {
+                InitializeItemStates();
+            }
         }
     }
 
@@ -36,7 +40,11 @@ public class CollectableQuestStep : QuestStep
         {
             InitializeQuestUI();
             SetAppleObjects();
-            InitializeItemStates();
+
+            if(itemStates.Count <= 0)
+            {
+                InitializeItemStates();
+            }
         }
     }
 
