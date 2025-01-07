@@ -11,10 +11,13 @@ public class TeleGrabbing : MonoBehaviour, IAbility
     [SerializeField] private Material materialForGrabbedObject;
     [SerializeField] private GameObject telegrabUI;
     [SerializeField] private AudioSource telegrabAudio;
+    [SerializeField] private Light telegrabGlowPrefab;
 
     private float viewDistance = 50f;
     private Transform grabbedObjectPosition;
     private GameObject grabbedGameObject;
+    private Light telegrabGlow;
+
     //note: remove this script and use a dictionary somehow instead cus extra scripts = stinky
     //private List<TelegrabObject> telegrabObjects = new List<TelegrabObject>();
     void Awake()
@@ -31,6 +34,7 @@ public class TeleGrabbing : MonoBehaviour, IAbility
     private void Start()
     {
         AbilityManager.instance.RegisterAbility(Abilities.TeleGrabbing, this);
+        telegrabGlow = Instantiate(telegrabGlowPrefab);
     }
     private void Update()
     {
@@ -88,6 +92,7 @@ public class TeleGrabbing : MonoBehaviour, IAbility
             grabbedGameObject.transform.GetComponent<Rigidbody>().isKinematic = true;
             isObjectGrabbed = true;
 
+            StartCoroutine(TelegrabVFXControl());
             telegrabAudio.Play();
     }
 
@@ -98,6 +103,7 @@ public class TeleGrabbing : MonoBehaviour, IAbility
         //    telegrabObject.gameObject.GetComponent<MeshRenderer>().material = telegrabObject.telegrabMaterial;
         //}
 
+        FoxMovement.instance.telegrabEffect.SendEvent("Sparks");
         grabbedGameObject.transform.parent = null;
         grabbedGameObject.transform.GetComponent<Rigidbody>().isKinematic = false;
         isObjectGrabbed = false;
@@ -133,5 +139,46 @@ public class TeleGrabbing : MonoBehaviour, IAbility
             yield return new WaitForSeconds(0.2f);
             telegrabUI.SetActive(false);
         }
+    }
+
+    IEnumerator TelegrabVFXControl()
+    {
+        telegrabGlow.gameObject.SetActive(true);
+        telegrabGlow.transform.SetParent(grabbedGameObject.transform);
+        telegrabGlow.transform.localPosition = Vector3.zero;
+        FoxMovement.instance.telegrabEffect.SetInt("SpawnMultiplier", 1);
+        Vector3 boundsSize = grabbedGameObject.GetComponent<MeshFilter>().sharedMesh.bounds.size;
+        FoxMovement.instance.telegrabEffect.SetVector3("TargetBounds", boundsSize);
+        float noiseX = UnityEngine.Random.Range(0, 100f);
+        float noiseY = UnityEngine.Random.Range(0, 100f);
+        float targetIntensity = (boundsSize.x + boundsSize.y + boundsSize.z) / 6;
+        while (telegrabGlow.intensity < targetIntensity + targetIntensity * Mathf.PerlinNoise(noiseX, noiseY))
+        {
+            if (!isObjectGrabbed)
+                break;
+            FoxMovement.instance.telegrabEffect.SetVector3("TargetPos", grabbedGameObject.transform.position);
+            telegrabGlow.intensity += Time.deltaTime;
+            yield return null;
+        }
+        while (true)
+        {
+            if (!isObjectGrabbed)
+                break;
+            FoxMovement.instance.telegrabEffect.SetVector3("TargetPos", grabbedGameObject.transform.position);
+            noiseX += Time.deltaTime * .01f;
+            telegrabGlow.intensity = targetIntensity + targetIntensity * Mathf.PerlinNoise(noiseX, noiseY);
+            yield return null;
+        }
+        FoxMovement.instance.telegrabEffect.SetInt("SpawnMultiplier", 0);
+        while (telegrabGlow.intensity > 0)
+        {
+            if (isObjectGrabbed)
+                break;
+            FoxMovement.instance.telegrabEffect.SetVector3("TargetPos", grabbedGameObject.transform.position);
+            telegrabGlow.intensity -= Time.deltaTime;
+            yield return null;
+        }
+        telegrabGlow.transform.SetParent(null);
+        telegrabGlow.gameObject.SetActive(false);
     }
 }
