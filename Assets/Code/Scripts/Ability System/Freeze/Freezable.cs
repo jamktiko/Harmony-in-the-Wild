@@ -14,6 +14,8 @@ public class Freezable : MonoBehaviour
     [Header("Needed References")]
     [SerializeField] private GameObject canBeFrozen;
     [SerializeField] private Material newFrozenMaterial;
+    [SerializeField] private AudioSource Freeze;
+    [SerializeField] private AudioClip FreezeClip;
 
     private Rigidbody rb;
     private Vector3 targetPosition;
@@ -39,9 +41,10 @@ public class Freezable : MonoBehaviour
         if (originalMaterials.Count > 0)
         {
             SwapMaterials(false);
-            isFrozen = false;
-            canBeFrozen.SetActive(true);
         }
+
+        isFrozen = false;
+        canBeFrozen.SetActive(true);
     }
 
     public void FreezeObject()
@@ -49,10 +52,21 @@ public class Freezable : MonoBehaviour
         Debug.Log(gameObject.name + " has been frozen.");
         isFrozen = true;
 
+        if(Freeze != null)
+        {
+            Freeze.PlayOneShot(FreezeClip);
+        }
+
+        else
+        {
+            Debug.LogWarning("No Audio Source assigned for " + gameObject.name + "; no freezing audio played.");
+        }
+        
         if (rb != null)
         {
             rb.useGravity = false;
             rb.constraints = RigidbodyConstraints.FreezeAll;
+            
         }
 
         if (canBeFrozen != null)

@@ -9,6 +9,7 @@ public class VerticalSlicePenguin : MonoBehaviour
         AbilityManager.instance.UnlockAbility(Abilities.RockDestroying);
         AbilityManager.instance.UnlockAbility(Abilities.SnowDiving);
         AbilityManager.instance.UnlockAbility(Abilities.Freezing);
+        AbilityManager.instance.LockAbility(Abilities.Gliding);
         AbilityCycle.instance.selectedAbility = Abilities.Freezing;
     }
 

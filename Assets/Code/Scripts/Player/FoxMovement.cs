@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Newtonsoft.Json;
 using UnityEngine.VFX;
+using UnityEngine.InputSystem;
 
 public class FoxMovement : MonoBehaviour
 {
@@ -38,6 +39,10 @@ public class FoxMovement : MonoBehaviour
     [SerializeField] private float jumpCooldown = 1f;
 
     [HideInInspector] public bool isReadyToJump = true;
+    [HideInInspector] public bool isReadyToSwim = true;
+    [HideInInspector] public bool isReadyToShake = true;
+
+
 
     [Header("Checks")]
     [SerializeField] private LayerMask groundLayerMask;
@@ -102,7 +107,8 @@ public class FoxMovement : MonoBehaviour
             
             if (File.Exists(SaveManager.instance.saveFilePath))
             {
-                LoadPlayerPosition();
+                Invoke(nameof(LoadPlayerPosition), 0.2f);
+                //LoadPlayerPosition();
             }
         }
 
@@ -128,12 +134,14 @@ public class FoxMovement : MonoBehaviour
     {
         GameEventsManager.instance.dialogueEvents.OnStartDialogue += DisableMovementForDialogue;
         GameEventsManager.instance.dialogueEvents.OnEndDialogue += EnableMovementAfterDialogue;
+        GameEventsManager.instance.playerEvents.OnChangePlayerModel += DisableMovementForSetTime;
     }
 
     private void OnDisable()
     {
         GameEventsManager.instance.dialogueEvents.OnStartDialogue -= DisableMovementForDialogue;
         GameEventsManager.instance.dialogueEvents.OnEndDialogue -= EnableMovementAfterDialogue;
+        GameEventsManager.instance.playerEvents.OnChangePlayerModel -= DisableMovementForSetTime;
     }
 
     void Update()
@@ -168,6 +176,7 @@ public class FoxMovement : MonoBehaviour
         JumpInput();
         AbilityInputs();
         SelectAbility();
+        SitAndLay();
     }
 
     void AbilityInputs()
@@ -257,6 +266,7 @@ public class FoxMovement : MonoBehaviour
     }
     private void SprintInput()
     {
+
         isSprinting = PlayerInputHandler.instance.SprintInput.IsPressed();
     }
     private void JumpInput()
@@ -273,6 +283,7 @@ public class FoxMovement : MonoBehaviour
     {
         Walk();
         Sprint();
+        AnimationConditions();
     }
     #region MOVEMENT
     private void MovePlayer()
@@ -322,6 +333,8 @@ public class FoxMovement : MonoBehaviour
         {
             rb.useGravity = true;
             speed = moveSpeed;
+
+            SetDefaultAnimatorValues();
         }
 
         //Sprinting
@@ -336,6 +349,7 @@ public class FoxMovement : MonoBehaviour
         {
             speed = Swimming.instance.swimSpeed;
             rb.useGravity = true;
+            playerAnimator.SetBool("isSwimming", true);
         }
 
         //In air, Gliding
@@ -390,12 +404,16 @@ public class FoxMovement : MonoBehaviour
             SetDefaultAnimatorValues();
         }
     }
+
     private void Sprint()
     {
         if (grounded && isSprinting)
         {
-            //running animation here
-            SetDefaultAnimatorValues();
+            if (horizontalInput!=0||verticalInput!=0)
+            {
+                playerAnimator.SetBool("isSprinting", true);
+            }
+
         }
     }
     private void Jump()
@@ -410,6 +428,7 @@ public class FoxMovement : MonoBehaviour
         playerAnimator.SetBool("isChargingJump", false);
         playerAnimator.SetBool("isJumping", true);
         playerAnimator.SetBool("isGrounded", false);
+        playerAnimator.SetBool("isSprinting", false);
     }
     private void ResetJump()
     {
@@ -465,6 +484,8 @@ public class FoxMovement : MonoBehaviour
         //playerAnimator.SetBool("isJumping", false);
         playerAnimator.SetBool("isGliding", false);
         playerAnimator.SetBool("isGrounded", true);
+        playerAnimator.SetBool("isSprinting", false);
+        playerAnimator.SetBool("isSwimming", false);
     }
     private void SpeedControl()
     {
@@ -475,6 +496,64 @@ public class FoxMovement : MonoBehaviour
             Vector3 limitedVel = flatVel.normalized * moveSpeed;
             rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
         }
+    }
+    private void SitAndLay() 
+    {
+        if (PlayerInputHandler.instance.SitInput.WasPerformedThisFrame())
+        {
+            playerAnimator.SetBool("isSitting", !playerAnimator.GetBool("isSitting"));
+            playerAnimator.SetBool("isLaying", false);
+        }
+
+        if (PlayerInputHandler.instance.LayInput.WasPerformedThisFrame())
+        {
+            playerAnimator.SetBool("isLaying", !playerAnimator.GetBool("isLaying"));
+            playerAnimator.SetBool("isSitting", false);
+        }
+    }
+    private void AnimationConditions() 
+    {
+        if (PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Armature|FoxLieDownAni")|| PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("PL_StandUp_ANI") || PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("PL_Sitting_ANI") ||PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("PL_OutOfWater_ANI")|| PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("PL_PickUpFromBush_ANI") || PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("PL_PickUpFromGround_ANI")||PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("PL_EnterWater_ANI"))
+        {
+            PlayerInputHandler.instance.MoveInput.Disable();
+            PlayerInputHandler.instance.JumpInput.Disable();
+        }
+        else if (!PlayerInputHandler.instance.MoveInput.enabled)
+        {
+            PlayerInputHandler.instance.MoveInput.Enable();
+            PlayerInputHandler.instance.JumpInput.Enable();
+        }
+    }
+
+    public void CooldownTrigger(string boolName) 
+    {
+        playerAnimator.SetBool(boolName, false);
+        if (boolName == "isReadyToSwim")
+        {
+            isReadyToSwim = false;
+        }
+        else
+        {
+            isReadyToShake = false;
+        }
+        StartCoroutine(StartCooldown(boolName));
+    }
+    IEnumerator StartCooldown(string boolName)
+    {
+       
+        yield return new WaitForSeconds(30f);
+        playerAnimator.SetBool(boolName, true);
+        if (boolName == "isReadyToSwim")
+        {
+            isReadyToSwim = true;
+            playerAnimator.SetBool(boolName, true);
+        }
+        else
+        {
+            isReadyToShake = true;
+            playerAnimator.SetBool(boolName, true);
+        }
+
     }
     void OnDrawGizmos()
     {
@@ -525,5 +604,18 @@ public class FoxMovement : MonoBehaviour
     {
         canMove = true;
         Invoke(nameof(ResetJump), 0.3f);   
+    }
+
+    private void DisableMovementForSetTime()
+    {
+        canMove = false;
+        isReadyToJump = false;
+        Invoke(nameof(EnableMovementAfterSetTime), 1.3f);
+    }
+
+    private void EnableMovementAfterSetTime()
+    {
+        canMove = true;
+        isReadyToJump = true;
     }
 }

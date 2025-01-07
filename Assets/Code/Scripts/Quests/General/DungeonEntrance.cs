@@ -65,8 +65,8 @@ public class DungeonEntrance : MonoBehaviour
                 RespawnManager.instance.SetRespawnPosition(respawnPoint.position);
 
                 StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, SceneManagerHelper.GetSceneName(learningStage), false);
-                StartCoroutine(loadSceneWithLoadingScreenWithText(2));
-                //Debug.Log("This is where we save the data");
+
+                GameEventsManager.instance.uiEvents.ShowLoadingScreen("Storybook");
             }
 
             else if (currentQuestState == QuestState.IN_PROGRESS)
@@ -85,7 +85,7 @@ public class DungeonEntrance : MonoBehaviour
                     StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, SceneManagerHelper.GetSceneName(bossStage), false);
                 }
 
-                StartCoroutine(loadSceneWithLoadingScreenWithText(2));
+                GameEventsManager.instance.uiEvents.ShowLoadingScreen("Storybook");
             }
 
             else if (currentQuestState == QuestState.FINISHED)
@@ -94,7 +94,8 @@ public class DungeonEntrance : MonoBehaviour
 
                 // add possible storybook config here & change goToScene to Storybook scene
                 StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, SceneManagerHelper.GetSceneName(learningStage), false);
-                StartCoroutine(loadSceneWithLoadingScreenWithText(2));
+
+                GameEventsManager.instance.uiEvents.ShowLoadingScreen("Storybook");
             }
 
             else

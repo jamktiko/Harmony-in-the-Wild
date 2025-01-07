@@ -7,10 +7,6 @@ using UnityEngine.SceneManagement;
 public class ExitCaveTrigger : MonoBehaviour
 {
     [SerializeField] private QuestScriptableObject questSO;
-    [SerializeField] private GameObject bearInstance;
-    [SerializeField]private GameObject loadingScreen;
-    [SerializeField]private TMP_Text loadingScreenText;
-    [SerializeField]private int sceneIndex;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -18,13 +14,14 @@ public class ExitCaveTrigger : MonoBehaviour
 
         if (other.gameObject.CompareTag("Trigger") && currentQuestStepIndex >= 3)
         {
-            //ExitCaveQuest.instance.ExitCave(bearInstance);
             ExitCaveQuest.instance.ExitCave();
-            StartCoroutine(LoadSceneWithLoadingScreenWithText2(sceneIndex));
+            GameEventsManager.instance.uiEvents.ShowLoadingScreen("OverWorld - VS");
+
+            //StartCoroutine(LoadSceneWithLoadingScreenWithText2(sceneIndex));
             
         }
     }
-    IEnumerator LoadSceneWithLoadingScreenWithText2(int sceneId)
+    /*IEnumerator LoadSceneWithLoadingScreenWithText2(int sceneId)
     {
         Debug.Log(SaveManager.instance.gameData.playerPositionData);
         GameObject screen = Instantiate(loadingScreen,GameObject.FindGameObjectWithTag("Canvas").transform);
@@ -51,5 +48,5 @@ public class ExitCaveTrigger : MonoBehaviour
             }
             yield return null;
         }
-    }
+    }*/
 }

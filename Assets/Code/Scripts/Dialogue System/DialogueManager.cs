@@ -37,6 +37,7 @@ public class DialogueManager : MonoBehaviour
     private Story currentStory;
     private TextMeshProUGUI[] choicesText;
     private bool canInteractWith = true;   // boolean to detect whether you can use the input; not interactable if for example pause menu is opened
+    private Coroutine dialogueCooldown = null;
 
     private void Awake()
     {
@@ -132,7 +133,7 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(TextAsset inkJSON)
     {
-        if (!isDialoguePlaying)
+        if (!isDialoguePlaying && canStartDialogue)
         {
             Debug.Log("Start dialogue.");
 
@@ -320,7 +321,10 @@ public class DialogueManager : MonoBehaviour
         //exitButton.SetActive(false);
         dialogueCanvas.SetActive(false);
 
-        StartCoroutine(DelayBetweenDialogues());
+        if(dialogueCooldown == null)
+        {
+            dialogueCooldown = StartCoroutine(DelayBetweenDialogues());
+        }
 
         //Cursor.lockState = CursorLockMode.Locked;
         //Cursor.visible = false;
@@ -350,9 +354,10 @@ public class DialogueManager : MonoBehaviour
     {
         canStartDialogue = false;
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(3f);
 
         canStartDialogue = true;
+        dialogueCooldown = null;
     }
     /*private void OnLevelWasLoaded(int level)
     {
@@ -384,6 +389,12 @@ public class DialogueManager : MonoBehaviour
 
     private void ResetInteractibilityOnSceneChange(Scene scene, LoadSceneMode mode)
     {
+        if(dialogueCooldown != null)
+        {
+            StopCoroutine(dialogueCooldown);
+            dialogueCooldown = null;
+        }
+
         canInteractWith = true;
     }
 }

@@ -19,10 +19,12 @@ public class PlayerModelToggle : MonoBehaviour
         if (PlayerInputHandler.instance.TogglePlayerModelInput.WasPressedThisFrame())
             TogglePlayerModelPublic();
     }
+
     public void TogglePlayerModelPublic(int model = 0)
     {
         StartCoroutine(TogglePlayerModel(model));
     }
+
     IEnumerator TogglePlayerModel(int model)
     {
         bool snow = false;
@@ -33,13 +35,14 @@ public class PlayerModelToggle : MonoBehaviour
         yield return new WaitForSeconds(3.5f);
         if (!snow)
         {
-            ChangeModelToForest();
+            //ChangeModelToForest();
         }
         else
         {
-            ChangeModelToArctic();
+            //ChangeModelToArctic();
         }
     }
+
     IEnumerator MaintainRotation(float duration)
     {
         while (duration > 0)
@@ -52,6 +55,7 @@ public class PlayerModelToggle : MonoBehaviour
             yield return null;
         }
     }
+    
     private void ChangeVFX(bool snow)
     {
         //effectPosition = new Vector3(transform.position.x, transform.position.y + 0.4f, transform.position.z);
@@ -71,10 +75,14 @@ public class PlayerModelToggle : MonoBehaviour
                 changePSAutumn[i].Play();
             }
     }
-    public void ChangeModelToForest()
+    /*public void ChangeModelToForest()
     {
         if (!redFox.activeInHierarchy)
         {
+            GameEventsManager.instance.playerEvents.ChangePlayerModel();
+
+            ChangeVFX();
+
             redFox.SetActive(true);
             redFox.transform.rotation = arcticFox.transform.rotation;
             arcticFox.SetActive(false);
@@ -88,6 +96,10 @@ public class PlayerModelToggle : MonoBehaviour
     {
         if (redFox.activeInHierarchy)
         {
+            GameEventsManager.instance.playerEvents.ChangePlayerModel();
+
+            ChangeVFX();
+
             redFox.SetActive(false);
             arcticFox.transform.rotation = redFox.transform.rotation;
             arcticFox.SetActive(true);
@@ -96,6 +108,40 @@ public class PlayerModelToggle : MonoBehaviour
             FoxMovement.instance.playerAnimator = currentAnimator;
             playerCamera.foxObject = arcticFox.transform;
         }
-    }
+    }*/
 
+    public void ChangeModelTo(string modelName)
+    {
+        GameEventsManager.instance.playerEvents.ChangePlayerModel();
+
+        if (modelName == "Arctic")
+        {
+            if (!arcticFox.activeInHierarchy)
+            {
+                ChangeVFX();
+
+                redFox.SetActive(false);
+                arcticFox.SetActive(true);
+
+                currentAnimator = arcticFox.GetComponent<Animator>();
+                FoxMovement.instance.playerAnimator = currentAnimator;
+                playerCamera.foxObject = arcticFox.transform;
+            }
+        }
+
+        else if(modelName == "Forest")
+        {
+            if (!redFox.activeInHierarchy)
+            {
+                ChangeVFX();
+
+                redFox.SetActive(true);
+                arcticFox.SetActive(false);
+
+                currentAnimator = redFox.GetComponent<Animator>();
+                FoxMovement.instance.playerAnimator = currentAnimator;
+                playerCamera.foxObject = redFox.transform;
+            }
+        }
+    }
 }

@@ -1,4 +1,5 @@
 using Cinemachine;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
@@ -20,6 +21,8 @@ public class PauseMenuManager : MonoBehaviour
     [SerializeField] Slider Mastervolume, MusicVolume, sensitivity;
     [SerializeField] AudioMixer mixer;
     [SerializeField] private float SliderValueMaster, SliderValueMusic, SliderValue2;
+    [SerializeField] public TMP_Text BerryCounter, PineconeCounter;
+
 
     private bool isInvertErrorLogged = false; // Makes sure the warning that runs in the null check of the InvertYAxis runs once
 
@@ -56,7 +59,7 @@ public class PauseMenuManager : MonoBehaviour
                 || SettingsMenuPanel.activeInHierarchy)
             {
                 Debug.Log("Disable pause menu.");
-                Invoke(nameof(DisablePauseMenu), 0.2f);
+                DisablePauseMenu();
             }
 
             //enable
@@ -91,6 +94,8 @@ public class PauseMenuManager : MonoBehaviour
         Cursor.visible = true;
         SliderValueMaster = PlayerPrefs.GetFloat("MasterVolume");
         SliderValueMusic = PlayerPrefs.GetFloat("MusicVolume");
+        BerryCounter.text =  PlayerManager.instance.Berries + " / " + PlayerManager.instance.BerryData.Count;
+        PineconeCounter.text =  PlayerManager.instance.PineCones + " / " + PlayerManager.instance.PineConeData.Count;
     }
 
     private void DisablePauseMenu()
@@ -147,7 +152,8 @@ public class PauseMenuManager : MonoBehaviour
     public void returnToMenu()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("MainMenu");
+
+        GameEventsManager.instance.uiEvents.ShowLoadingScreen("MainMenu");
     }
     public void GameplayMenu()
     {
@@ -205,10 +211,12 @@ public class PauseMenuManager : MonoBehaviour
     public void ExitQuest()
     {
         string currentSceneName = SceneManager.GetActiveScene().name;
-        if (currentSceneName != "Overworld")
+        if (currentSceneName != "OverWorld - VS")
         {
             //Debug.Log("Quest has been exited. Loading Overworld.");
-            SceneManager.LoadScene("Overworld", LoadSceneMode.Single);
+
+            GameEventsManager.instance.uiEvents.ShowLoadingScreen("OverWorld - VS");
+
             Resume();
         }
     }
@@ -216,10 +224,12 @@ public class PauseMenuManager : MonoBehaviour
     public void RestartQuest()
     {
         string currentSceneName = SceneManager.GetActiveScene().name;
-        if (currentSceneName != "Overworld")
+        if (currentSceneName != "OverWorld - VS")
         {
             //Debug.Log("Quest has been restarted. Reloading scene.");
-            SceneManager.LoadScene(currentSceneName, LoadSceneMode.Single);
+
+            GameEventsManager.instance.uiEvents.ShowLoadingScreen(currentSceneName);
+
             Resume();
         }
     }
@@ -236,7 +246,7 @@ public class PauseMenuManager : MonoBehaviour
             cinemachineFreeLook = null;
         }
         //Debug.Log("Scene loaded: " + scene.name); 
-        if ((scene.name == "Overworld" || scene.name == "MainMenu") && restartQuestPanel != null && exitQuestPanel != null)
+        if ((scene.name == "OverWorld - VS" || scene.name == "MainMenu" || scene.name == "Tutorial") && restartQuestPanel != null && exitQuestPanel != null)
         {
             //Debug.Log("Scene loaded is Overworld or the main menu. Disabling quest buttons in pause menu.");
             restartQuestPanel.SetActive(false);
@@ -296,6 +306,8 @@ public class PauseMenuManager : MonoBehaviour
         SliderValueMusic = PlayerPrefs.GetFloat("MusicVolume");
         Mastervolume.value = SliderValueMaster;
         MusicVolume.value = SliderValueMusic;
+        BerryCounter= pauseMenuPanel.transform.Find("BerryCounter").GetChild(1).GetComponent<TMP_Text>();
+        PineconeCounter = pauseMenuPanel.transform.Find("PineconeCounter").GetChild(1).GetComponent<TMP_Text>();
         try
         {
             cinemachineFreeLook = FoxMovement.instance.gameObject.GetComponentInChildren<CinemachineFreeLook>();

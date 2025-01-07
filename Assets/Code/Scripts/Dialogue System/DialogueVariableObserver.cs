@@ -60,6 +60,8 @@ public class DialogueVariableObserver
         }
 
         Debug.Log("Changed dialogue variable value:" + name + " = " + value);
+
+        SaveManager.instance.SaveGame();
     }
 
     private void VariablesToStory(Story story)
@@ -78,7 +80,7 @@ public class DialogueVariableObserver
 
         foreach (KeyValuePair<string, Ink.Runtime.Object> variable in variables)
         {
-            if(variable.Value != null)
+            if(variable.Value == null)
             {
                 variableDataToJSON += "," + 0 + ",{\"VAR=\":\"" + variable.Key + "\"}";
             }

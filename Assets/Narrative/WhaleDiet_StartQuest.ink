@@ -4,9 +4,8 @@ I haven’t seen a whale in ages either. What’s it like to be a whale? #speake
 It’s amazing! #speaker:Whale
 I can spend all the time in the water. Imagine – swimming all day, all night. What would you rather be doing? 
 You are right. That sounds great. #speaker:Fox
-I’ve never learnt how to swim.
-Really? But that’s so easy and fun! #speaker:Whale
-How about we make a deal? I help you learn to swim as I have fins. And you help me in something else because you have legs. 
+Sadly I’ve never learnt how to swim properly. I don't have the courage to go swim in the ocean.
+Really? How about we make a deal? I help you to become a strong swimmer as I have fins. And you help me in something else because you have legs. #speaker:Whale
 Of course! What could I do in return? #speaker:Fox
 I’m very hungry. I heard there are delicious fruits on the land, but sadly, I can’t go there. #speaker:Whale
 But you can. 

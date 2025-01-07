@@ -39,4 +39,11 @@ public class PlayerEvents
     {
         OnToggleInputActions?.Invoke(enableInputActions);
     }
+
+    public event Action OnChangePlayerModel;
+
+    public void ChangePlayerModel()
+    {
+        OnChangePlayerModel?.Invoke();
+    }
 }

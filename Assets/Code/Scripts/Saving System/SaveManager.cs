@@ -72,6 +72,12 @@ public class SaveManager : MonoBehaviour
             dataToSave.dialogueVariableData = gameData.dialogueVariableData;
             dataToSave.activeQuest = QuestManager.instance.GetActiveQuest();
 
+            dataToSave.BerryCollectibles=gameData.BerryCollectibles;
+            dataToSave.PineconeCollectibles= gameData.PineconeCollectibles;
+
+            dataToSave.berryData = gameData.berryData;
+            dataToSave.PineconeData=gameData.PineconeData;
+
             string jsonData = JsonUtility.ToJson(dataToSave);
             File.WriteAllText(saveFilePath, jsonData);
 
@@ -93,6 +99,12 @@ public class SaveManager : MonoBehaviour
             gameData.treeOfLifeState = loadedData.treeOfLifeState;
             gameData.dialogueVariableData = loadedData.dialogueVariableData;
 
+            gameData.BerryCollectibles = loadedData.BerryCollectibles;
+            gameData.PineconeCollectibles = loadedData.PineconeCollectibles;
+
+            gameData.berryData =loadedData.berryData;
+            gameData.PineconeData =loadedData.PineconeData;
+
             gameData.activeQuest = loadedData.activeQuest;
             GameEventsManager.instance.questEvents.ChangeActiveQuest(gameData.activeQuest);
 
@@ -108,6 +120,8 @@ public class SaveManager : MonoBehaviour
         CollectPlayerPositionData();
         CollectTreeOfLifeState();
         CollectDialogueVariableData();
+        CollectBerryCollectibleData();
+        CollectPineConeCollectibleData();
         isSaving=false;
     }
 
@@ -148,12 +162,22 @@ public class SaveManager : MonoBehaviour
     // uncommenting this for now, if we want to use exact position for saving the data, we might need to think of other options /Jutta
     public void CollectPlayerPositionData()
     {
-        if (FoxMovement.instance != null && SceneManager.GetActiveScene().name.Contains("Overworld"))
+        if (FoxMovement.instance != null && (SceneManager.GetActiveScene().name.Contains("Overworld") || SceneManager.GetActiveScene().name.Contains("OverWorld")))
         {
             //gameData.playerPositionData = FoxMovement.instance.CollectPlayerPositionForSaving();
             gameData.playerPositionData = RespawnManager.instance.GetLatestRespawnPoint();
             Debug.Log("Saving player position: " + gameData.playerPositionData.x + ", " + gameData.playerPositionData.y + ", " + gameData.playerPositionData.z);
         }
+    }
+
+    public void CollectBerryCollectibleData() 
+    {
+        gameData.berryData=PlayerManager.instance.CollectBerryDataForSaving();
+    }
+
+    public void CollectPineConeCollectibleData() 
+    {
+        gameData.PineconeData = PlayerManager.instance.CollectPineconeDataForSaving();
     }
 
     #endregion
@@ -179,6 +203,25 @@ public class SaveManager : MonoBehaviour
 
         return data;
     }
+
+    public Dictionary<string, bool> GetLoadedBerryDictionary()
+    {
+        Dictionary<string, bool> loadedDictionary = new Dictionary<string, bool>();
+
+        loadedDictionary = JsonConvert.DeserializeObject<Dictionary<string, bool>>(gameData.berryData);
+
+        return loadedDictionary;
+    }
+
+    public Dictionary<string, bool> GetLoadedPineConeDictionary() 
+    {
+        Dictionary<string,bool> loadedDictionary = new Dictionary<string,bool>();
+
+        loadedDictionary = JsonConvert.DeserializeObject<Dictionary<string, bool>>(gameData.PineconeData);
+
+        return loadedDictionary;
+    }
+
     public Dictionary<Abilities, bool> GetLoadedAbilityDictionary()
     {
         Dictionary<Abilities, bool> loadedDictionary = new Dictionary<Abilities, bool>();

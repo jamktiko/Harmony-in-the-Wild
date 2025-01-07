@@ -10,6 +10,10 @@ public class GameData
     public PositionData playerPositionData;
     public int treeOfLifeState;
     public string dialogueVariableData;
+    public int BerryCollectibles;
+    public string berryData;
+    public int PineconeCollectibles;
+    public string PineconeData;
 }
 
 [System.Serializable]
@@ -27,9 +31,9 @@ public class PositionData
     //default starting position
     public PositionData()
     {
-        x = 219f;
-        y = 103f;
-        z = 757f;
+        x = 1627f;
+        y = 118f;
+        z = 360f;
 
         rotX = 0;
         rotY = 0;

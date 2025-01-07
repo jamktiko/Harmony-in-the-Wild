@@ -45,9 +45,18 @@ public class TalkToBearQuestStep : QuestStep
 
     private void UpdateQuestUI(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name.Contains("Overworld", System.StringComparison.CurrentCultureIgnoreCase))
+        if (scene.name.Contains("Overworld", System.StringComparison.CurrentCultureIgnoreCase) || scene.name.Contains("Tutorial", System.StringComparison.CurrentCultureIgnoreCase))
         {
             GameEventsManager.instance.questEvents.ShowQuestUI(GetQuestId(), objective, progress);
+
+            try
+            {
+                cinematicAnimator = GameObject.Find("IntroCamera").GetComponent<Animator>();
+            }
+            catch (System.Exception)
+            {
+                cinematicAnimator = null;
+            }
         }     
     }
 
@@ -57,21 +66,23 @@ public class TalkToBearQuestStep : QuestStep
     }
     private void PlayIntroCinematic(string name)
     {
-        try
+        if(name == "Tutorial")
         {
-            if (gameObject!=null)
+            try
             {
-            if (gameObject.name.Contains("07"))
-            {
-                cinematicAnimator.enabled = true;
-                    animationEvent.Invoke();
+                if (gameObject != null)
+                {
+                    if (gameObject.name.Contains("07"))
+                    {
+                        cinematicAnimator.enabled = true;
+                        animationEvent.Invoke();
+                    }
+                }
             }
+            catch (System.Exception)
+            {
             }
         }
-        catch (System.Exception)
-        {
-        }
-        
     }
 
     private void FetchDialogueData()
