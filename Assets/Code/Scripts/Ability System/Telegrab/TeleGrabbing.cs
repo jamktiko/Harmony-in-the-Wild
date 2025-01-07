@@ -151,7 +151,8 @@ public class TeleGrabbing : MonoBehaviour, IAbility
         FoxMovement.instance.telegrabEffect.SetVector3("TargetBounds", boundsSize);
         float noiseX = UnityEngine.Random.Range(0, 100f);
         float noiseY = UnityEngine.Random.Range(0, 100f);
-        float targetIntensity = (boundsSize.x + boundsSize.y + boundsSize.z) / 6;
+        float targetIntensity = (boundsSize.x + boundsSize.y + boundsSize.z) / 10;
+        telegrabGlow.range = targetIntensity * 5;
         while (telegrabGlow.intensity < targetIntensity + targetIntensity * Mathf.PerlinNoise(noiseX, noiseY))
         {
             if (!isObjectGrabbed)
