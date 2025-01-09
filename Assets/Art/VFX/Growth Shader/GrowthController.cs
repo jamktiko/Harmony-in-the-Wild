@@ -83,7 +83,7 @@ public class GrowthController : MonoBehaviour
         // if in the vertical slice, show demo end after the first ToL cinematics
         if (isVerticalSliceScene)
         {
-            GameEventsManager.instance.uiEvents.ShowLoadingScreen("DemoEnd");
+            GameEventsManager.instance.uiEvents.ShowLoadingScreen(SceneManagerHelper.Scene.DemoEnd);
         }
     }
 

@@ -34,6 +34,6 @@ public class ProfanityNameDetector : MonoBehaviour
     }
     public void YesButton()
     {
-        SceneManager.LoadScene("OverWorld");
+        SceneManagerHelper.LoadScene(SceneManagerHelper.Scene.Overworld);
     }
 }

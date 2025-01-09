@@ -32,25 +32,25 @@ public class LoadingScene : MonoBehaviour
         GameEventsManager.instance.uiEvents.OnShowLoadingScreen -= ToggleLoadingScene;
     }
 
-    private void ToggleLoadingScene(string newScene)
+    private void ToggleLoadingScene(SceneManagerHelper.Scene newScene)
     {
         loadingScreen.SetActive(true);
 
         StartCoroutine(PlayLoadingScreen(newScene));
     }
 
-    private IEnumerator PlayLoadingScreen(string sceneName)
+    private IEnumerator PlayLoadingScreen(SceneManagerHelper.Scene sceneName)
     {
         AsyncOperation operation;
 
-        if(sceneName == "")
+        if(sceneName == SceneManagerHelper.Scene.NoName)
         {
-            operation = SceneManager.LoadSceneAsync(StorybookHandler.instance.GetNextScene());
+            operation = SceneManagerHelper.LoadSceneAsync(StorybookHandler.instance.GetNextScene());
         }
 
         else
         {
-            operation = SceneManager.LoadSceneAsync(sceneName);
+            operation = SceneManagerHelper.LoadSceneAsync(sceneName);
         }
 
         while (!operation.isDone)

@@ -385,35 +385,8 @@ public class QuestManager : MonoBehaviour
         return quest;
     }
 
-    private void OnLevelWasLoaded(int level)
-    {
-        //UnsubscribeFromEvents();
-        //SubscribeToEvents();
-
-        //Debug.Log("Currently loaded level: "+ level);
-        ////questMap = CreateQuestMap();
-        //playerManager = FindObjectOfType<PlayerManager>();
-        
-        //// broadcast the initial state of all quests on startup
-        //foreach (Quest quest in questMap.Values)
-        //{
-
-        //    // broadcast the initial state of all quests
-        //    GameEventsManager.instance.questEvents.QuestStateChange(quest);
-        //}
-        if (level != 0 || level != 1 || level != 9 || level != 2 || level != 11)
-        {
-            AbilityCycle = FindObjectOfType<AbilityCycle>();
-        }
-        if (level != 1)
-        {
-            CheckAllRequirements();
-        }
-    }
-
     private void SubscribeToEvents()
     {
-        //Debug.Log("Subscribing to quest events...");
         GameEventsManager.instance.questEvents.OnStartQuest += StartQuest;
         GameEventsManager.instance.questEvents.OnAdvanceQuest += AdvanceQuest;
         GameEventsManager.instance.questEvents.OnFinishQuest += FinishQuest;
@@ -428,7 +401,6 @@ public class QuestManager : MonoBehaviour
 
     private void UnsubscribeFromEvents()
     {
-        Debug.Log("Un-subscribing from quest events...");
         GameEventsManager.instance.questEvents.OnStartQuest -= StartQuest;
         GameEventsManager.instance.questEvents.OnAdvanceQuest -= AdvanceQuest;
         GameEventsManager.instance.questEvents.OnFinishQuest -= FinishQuest;

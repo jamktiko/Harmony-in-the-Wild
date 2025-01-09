@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using UnityEngine;
 using TMPro;
-using UnityEngine.SceneManagement;
 
 public class PenguinRaceManager : MonoBehaviour
 {
@@ -123,8 +122,8 @@ public class PenguinRaceManager : MonoBehaviour
         {
             if (dungeonQuestDialogue.FinalDialogueCompleted())
             {
-                StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, "OverWorld - VS", true);
-                GameEventsManager.instance.uiEvents.ShowLoadingScreen("Storybook");
+                StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, SceneManagerHelper.Scene.Overworld_VS, true);
+                GameEventsManager.instance.uiEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Storybook);
             }
         }
 

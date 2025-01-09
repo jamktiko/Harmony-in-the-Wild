@@ -6,6 +6,6 @@ public class ResetStorybookOnDemoEnd : MonoBehaviour
 {
     private void Start()
     {
-        StorybookHandler.instance.SetNewStorybookData(0, "Naming", false);
+        StorybookHandler.instance.SetNewStorybookData(0, SceneManagerHelper.Scene.Naming, false);
     }
 }
