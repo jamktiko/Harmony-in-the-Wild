@@ -35,6 +35,7 @@ public class TeleGrabbing : MonoBehaviour, IAbility
     {
         AbilityManager.instance.RegisterAbility(Abilities.TeleGrabbing, this);
         telegrabGlow = Instantiate(telegrabGlowPrefab);
+        telegrabGlow.gameObject.SetActive(false);
     }
     private void Update()
     {
