@@ -118,7 +118,7 @@ public class PlayerModelToggle : MonoBehaviour
         {
             if (!arcticFox.activeInHierarchy)
             {
-                ChangeVFX();
+                ChangeVFX(true);
 
                 redFox.SetActive(false);
                 arcticFox.SetActive(true);
@@ -133,7 +133,7 @@ public class PlayerModelToggle : MonoBehaviour
         {
             if (!redFox.activeInHierarchy)
             {
-                ChangeVFX();
+                ChangeVFX(false);
 
                 redFox.SetActive(true);
                 arcticFox.SetActive(false);
