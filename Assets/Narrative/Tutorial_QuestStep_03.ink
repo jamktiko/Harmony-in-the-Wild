@@ -6,6 +6,5 @@ There are a lot of resources like this scattered across the island, gather them 
 Based on my research, you should have magical powers dormant within you.
 They must have just awakened within you since you seem unaware of them.
 Timing couldn’t be any more perfect though. This island needs your help. There are evil forces tormenting us.
-Let’s go outside. I have something to show you.
-~ latestTutorialQuestStepDialogueCompleted = 2
+Let’s go outside. I have something to show you. #variableChange:Tutorial_03
 -> END

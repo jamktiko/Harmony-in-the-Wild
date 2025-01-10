@@ -50,6 +50,8 @@ public class QuestManager : MonoBehaviour
     private void Start()
     {
         questMap = CreateQuestMap();
+        CheckAllRequirements();
+
         playerManager = FindObjectOfType<PlayerManager>();
         // broadcast the initial state of all quests on startup
         foreach (Quest quest in questMap.Values)
@@ -114,7 +116,7 @@ public class QuestManager : MonoBehaviour
         currentPlayerLevel = Level;
     }
 
-    private void CheckAllRequirements()
+    public void CheckAllRequirements()
     {
         // loop through all quests
         foreach (Quest quest in questMap.Values)

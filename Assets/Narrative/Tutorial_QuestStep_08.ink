@@ -28,6 +28,5 @@ That sounds like a big responsibility. Will you help me? #speaker:Fox
 At this point I am far too old for adventures and challenges. #speaker:Bear
 As a symbol of the island's trust in you, the Tree of Life has gifted you a new ability — gliding. 
 With this power, you can leap into the air and gracefully navigate across the land. Use it well as you explore the island and uncover its secrets.
-We all have faith in you, young fox. You can help all of us.
-~ latestTutorialQuestStepDialogueCompleted = 5
+We all have faith in you, young fox. You can help all of us. #variableChange:Tutorial_08
 -> END
