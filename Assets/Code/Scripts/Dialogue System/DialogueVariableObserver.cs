@@ -12,20 +12,22 @@ public class DialogueVariableObserver
 
     public DialogueVariableObserver()
     {
+        variables = DialogueVariableInitializer.initialVariables;
+
         // fetch loaded data
-        string loadedData = SaveManager.instance.GetLoadedDialogueVariables();
+        //string loadedData = SaveManager.instance.GetLoadedDialogueVariables();
 
-        if (loadedData != "")
-        {
-            variables = DialogueVariableInitializer.initialVariables;
-            //Debug.Log("Loaded dialogue variable data: " + loadedData);
-        }
+        //if (loadedData != "")
+        //{
+        //    variables = DialogueVariableInitializer.initialVariables;
+        //    //Debug.Log("Loaded dialogue variable data: " + loadedData);
+        //}
 
-        else
-        {
-            variables = DialogueVariableInitializer.initialVariables;
-            //Debug.Log("Initialized dialogue variables with default values: " + loadGlobalsJSON);
-        }
+        //else
+        //{
+        //    variables = DialogueVariableInitializer.initialVariables;
+        //    //Debug.Log("Initialized dialogue variables with default values: " + loadGlobalsJSON);
+        //}
     }
 
     public void ChangeVariable(string variable)
@@ -37,6 +39,8 @@ public class DialogueVariableObserver
         variables[correctEnum] = true;
 
         SaveManager.instance.SaveGame();
+
+        GameEventsManager.instance.dialogueEvents.ChangeDialogueVaribale(correctEnum);
     }
 
     private DialogueVariables GetVariableEnum(string variableName)
