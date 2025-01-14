@@ -7,6 +7,5 @@ According to the old legends, a fox with a glowing tail is the child of an ancie
 Believe me. I have been researching old ancient texts during my adventures.
 Oh, speaking of research. I’m currently working on a rare potion. Could you help me a little?
 There’s a flower growing on top of that rock. Would you please fetch it for me?
-I’ll then tell you more.
-~ latestTutorialQuestStepDialogueCompleted = 1
+I’ll then tell you more. #variableChange:Tutorial_01
 -> END

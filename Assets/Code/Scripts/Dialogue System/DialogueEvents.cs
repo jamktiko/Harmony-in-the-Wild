@@ -25,4 +25,11 @@ public class DialogueEvents
     {
         OnSetMidQuestDialogue?.Invoke(dialogueIndex, questId);
     }
+
+    public event Action<DialogueVariables> OnChangeDialogueVariable;
+
+    public void ChangeDialogueVaribale(DialogueVariables changedVariable)
+    {
+        OnChangeDialogueVariable?.Invoke(changedVariable);
+    }
 }

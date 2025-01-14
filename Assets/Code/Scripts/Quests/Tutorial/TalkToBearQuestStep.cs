@@ -6,15 +6,14 @@ using UnityEngine.SceneManagement;
 
 public class TalkToBearQuestStep : QuestStep
 {
-    [Tooltip("Target index for the completed dialogue. Checking if the dialogue with this quest step has been completed.")]
-    [SerializeField] private int targetDialogueIndex;
+    [SerializeField] DialogueVariables dialogueToPassForProgress;
     [SerializeField]Animator cinematicAnimator;
     public UnityEvent animationEvent;
     private bool talkedToBear; // this might not be needed here, but to avoid any errors in the other quest code (state of the quest etc.), there's some value to be saved
 
     private void OnEnable()
     {
-        GameEventsManager.instance.dialogueEvents.OnEndDialogue += CheckProgressInDialogue;
+        GameEventsManager.instance.dialogueEvents.OnChangeDialogueVariable += CheckProgressInDialogue;
         GameEventsManager.instance.questEvents.OnAdvanceQuest += PlayIntroCinematic;
 
         SceneManager.sceneLoaded += UpdateQuestUI;
@@ -32,7 +31,7 @@ public class TalkToBearQuestStep : QuestStep
 
     private void OnDisable()
     {
-        GameEventsManager.instance.dialogueEvents.OnEndDialogue -= CheckProgressInDialogue;
+        GameEventsManager.instance.dialogueEvents.OnChangeDialogueVariable -= CheckProgressInDialogue;
         GameEventsManager.instance.questEvents.OnAdvanceQuest -= PlayIntroCinematic;
 
         SceneManager.sceneLoaded -= UpdateQuestUI;
@@ -60,9 +59,12 @@ public class TalkToBearQuestStep : QuestStep
         }     
     }
 
-    private void CheckProgressInDialogue()
+    private void CheckProgressInDialogue(DialogueVariables changedVariable)
     {
-        Invoke(nameof(FetchDialogueData),0.01f);
+        if(changedVariable == dialogueToPassForProgress)
+        {
+            FinishQuestStep();
+        }
     }
     private void PlayIntroCinematic(string name)
     {
@@ -82,20 +84,6 @@ public class TalkToBearQuestStep : QuestStep
             catch (System.Exception)
             {
             }
-        }
-    }
-
-    private void FetchDialogueData()
-    {
-        // check the latest completed dialogue from Ink
-        int latestCompletedDialogue = ((Ink.Runtime.IntValue)DialogueManager.instance.GetDialogueVariableState("latestTutorialQuestStepDialogueCompleted")).value;
-
-        Debug.Log("Latest completed dialogue: " + latestCompletedDialogue + ", target dialogue: " + targetDialogueIndex);
-
-        // if the current value matches the target value, finish the quest step
-        if (latestCompletedDialogue == targetDialogueIndex)
-        {
-            FinishQuestStep();
         }
     }
 

@@ -149,7 +149,7 @@ public class DialogueManager : MonoBehaviour
             ContinueDialogue();
 
             // start listening the variable changes in the current story
-            dialogueVariables.StartListening(currentStory);
+            //dialogueVariables.StartListening(currentStory);
         }
 
         else
@@ -290,6 +290,10 @@ public class DialogueManager : MonoBehaviour
                     //GameEventsManager.instance.questEvents.HideQuestUI();
                     break;
 
+                case "variableChange":
+                    dialogueVariables.ChangeVariable(tagValue);
+                    break;
+
                 default:
                     Debug.LogWarning("No tag key set for " + tag);
                     break;
@@ -313,7 +317,7 @@ public class DialogueManager : MonoBehaviour
         SaveManager.instance.SaveGame();
 
         // stop listening the dialogue variable changes in the current story
-        dialogueVariables.StopListening(currentStory);
+        //dialogueVariables.StopListening(currentStory);
 
         isDialoguePlaying = false;
         dialogueText.text = "";
@@ -332,14 +336,15 @@ public class DialogueManager : MonoBehaviour
 
     private void InitializeDialogueVariables()
     {
-        dialogueVariables = new DialogueVariableObserver(loadGlobalsJSON);
+        dialogueVariables = new DialogueVariableObserver();
+        //dialogueVariables = new DialogueVariableObserver(loadGlobalsJSON);
     }
 
     public Ink.Runtime.Object GetDialogueVariableState(string variableName)
     {
         Ink.Runtime.Object variableValue = null;
 
-        dialogueVariables.variables.TryGetValue(variableName, out variableValue);
+        //dialogueVariables.variables.TryGetValue(variableName, out variableValue);
 
         if(variableValue == null)
         {
@@ -369,9 +374,10 @@ public class DialogueManager : MonoBehaviour
     {
         if(dialogueVariables != null)
         {
-            string dataToJSON = dialogueVariables.ConvertDialogueVariablesToString(loadGlobalsJSON);
+            //string dataToJSON = dialogueVariables.ConvertDialogueVariablesToString(loadGlobalsJSON);
             //Debug.Log("About to save this dialogue data: " + dataToJSON);
-            return dataToJSON;
+            //return dataToJSON;
+            return "";
         }
 
         else
