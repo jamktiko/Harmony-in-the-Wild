@@ -340,20 +340,6 @@ public class DialogueManager : MonoBehaviour
         //dialogueVariables = new DialogueVariableObserver(loadGlobalsJSON);
     }
 
-    public Ink.Runtime.Object GetDialogueVariableState(string variableName)
-    {
-        Ink.Runtime.Object variableValue = null;
-
-        //dialogueVariables.variables.TryGetValue(variableName, out variableValue);
-
-        if(variableValue == null)
-        {
-            Debug.Log("Ink Variables was found to be null: " + variableName);
-        }
-
-        return variableValue;
-    }
-
     // delay between dialogues to prevent a bug from moving from one dialogue to another with the same character without player pressing any keys
     private IEnumerator DelayBetweenDialogues()
     {
@@ -374,10 +360,9 @@ public class DialogueManager : MonoBehaviour
     {
         if(dialogueVariables != null)
         {
-            //string dataToJSON = dialogueVariables.ConvertDialogueVariablesToString(loadGlobalsJSON);
-            //Debug.Log("About to save this dialogue data: " + dataToJSON);
-            //return dataToJSON;
-            return "";
+            string dataToJSON = dialogueVariables.ConvertVariablesToString();
+
+            return dataToJSON;
         }
 
         else

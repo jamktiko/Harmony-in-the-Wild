@@ -15,19 +15,25 @@ public class DialogueVariableObserver
         variables = DialogueVariableInitializer.initialVariables;
 
         // fetch loaded data
-        //string loadedData = SaveManager.instance.GetLoadedDialogueVariables();
+        string loadedData = SaveManager.instance.GetLoadedDialogueVariables();
 
-        //if (loadedData != "")
-        //{
-        //    variables = DialogueVariableInitializer.initialVariables;
-        //    //Debug.Log("Loaded dialogue variable data: " + loadedData);
-        //}
+        if (loadedData != "")
+        {
+            SetSavedVariables(loadedData);
+            //Debug.Log("Loaded dialogue variable data: " + loadedData);
+        }
+    }
 
-        //else
-        //{
-        //    variables = DialogueVariableInitializer.initialVariables;
-        //    //Debug.Log("Initialized dialogue variables with default values: " + loadGlobalsJSON);
-        //}
+    private void SetSavedVariables(string loadedData)
+    {
+        if (loadedData.Contains("inkVersion"))
+        {
+            return;
+        }
+
+        string[] loadedValues = loadedData.Split(",");
+
+        
     }
 
     public void ChangeVariable(string variable)
@@ -75,6 +81,26 @@ public class DialogueVariableObserver
         }
 
         return name;
+    }
+
+    public string ConvertVariablesToString()
+    {
+        string variablesToJSON = "";
+
+        foreach(KeyValuePair<DialogueVariables, bool> value in variables)
+        {
+            if(variablesToJSON == "")
+            {
+                variablesToJSON += value.Value;
+            }
+
+            else
+            {
+                variablesToJSON += "," + value.Value;
+            }
+        }
+
+        return variablesToJSON;
     }
 
     /*public Dictionary<string, Ink.Runtime.Object> variables { get; private set; }
