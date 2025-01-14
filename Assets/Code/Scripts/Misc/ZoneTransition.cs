@@ -44,7 +44,7 @@ public class ZoneTransition : MonoBehaviour
         //entered forest
         /*if (FoxMovement.instance.gameObject != null && arcticFoxModel.activeInHierarchy)
         {
-            modelToggle.ChangeModelToForest();
+            modelToggle.TogglePlayerModelPublic(1);
             arcticTheme.Stop();
             forestTheme.Play();
         }
@@ -52,7 +52,7 @@ public class ZoneTransition : MonoBehaviour
         //entered arctic
         if (FoxMovement.instance.gameObject != null && redFoxModel.activeInHierarchy)
         {
-            modelToggle.ChangeModelToArctic();
+            modelToggle.TogglePlayerModelPublic(2);
             forestTheme.Stop();
             arcticTheme.Play();
         }*/

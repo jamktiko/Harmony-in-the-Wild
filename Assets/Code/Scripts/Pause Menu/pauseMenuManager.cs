@@ -153,7 +153,7 @@ public class PauseMenuManager : MonoBehaviour
     {
         Time.timeScale = 1f;
 
-        GameEventsManager.instance.uiEvents.ShowLoadingScreen("MainMenu");
+        GameEventsManager.instance.uiEvents.ShowLoadingScreen(SceneManagerHelper.Scene.MainMenu);
     }
     public void GameplayMenu()
     {
@@ -215,7 +215,7 @@ public class PauseMenuManager : MonoBehaviour
         {
             //Debug.Log("Quest has been exited. Loading Overworld.");
 
-            GameEventsManager.instance.uiEvents.ShowLoadingScreen("OverWorld - VS");
+            GameEventsManager.instance.uiEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Overworld_VS);
 
             Resume();
         }
@@ -228,7 +228,7 @@ public class PauseMenuManager : MonoBehaviour
         {
             //Debug.Log("Quest has been restarted. Reloading scene.");
 
-            GameEventsManager.instance.uiEvents.ShowLoadingScreen(currentSceneName);
+            GameEventsManager.instance.uiEvents.ShowLoadingScreen(SceneManagerHelper.GetSceneEnum(currentSceneName));
 
             Resume();
         }

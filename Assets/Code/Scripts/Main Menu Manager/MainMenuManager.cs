@@ -45,20 +45,20 @@ public class MainMenuManager : MonoBehaviour
             // check the current quest step state to see if there's still something to be done in Bear Cave
             if(QuestManager.instance.GetQuestById("Tutorial").GetCurrentQuestStepIndex() < 4)
             {
-                GameEventsManager.instance.uiEvents.ShowLoadingScreen("Tutorial");
+                GameEventsManager.instance.uiEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Tutorial);
             }
 
             // otherwise transfer to Overworld so the quest can be finished there
             else
             {
-                GameEventsManager.instance.uiEvents.ShowLoadingScreen("OverWorld - VS");
+                GameEventsManager.instance.uiEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Overworld_VS);
             }
         }
 
         // if tutorial has been finished, go to Overworld
         else
         {
-            GameEventsManager.instance.uiEvents.ShowLoadingScreen("OverWorld - VS");
+            GameEventsManager.instance.uiEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Overworld_VS);
         }      
     }
 
@@ -92,7 +92,7 @@ public class MainMenuManager : MonoBehaviour
             }
         }
 
-        GameEventsManager.instance.uiEvents.ShowLoadingScreen("Storybook");
+        GameEventsManager.instance.uiEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Storybook);
     }
 
     public void ExitGame()
@@ -154,12 +154,11 @@ public class MainMenuManager : MonoBehaviour
     }
     public void CreditsButton()
     {
-        SceneManager.LoadScene(CreditsSceneName);
+        SceneManagerHelper.LoadScene(SceneManagerHelper.Scene.Credits);
     }
 
     public void DiscordButton() 
     {
         Application.OpenURL("https://discord.gg/7jwSSEn22M");
-        Debug.Log("is this working?");
     }
 }

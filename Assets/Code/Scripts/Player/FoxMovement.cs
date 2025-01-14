@@ -5,7 +5,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Newtonsoft.Json;
+using UnityEngine.VFX;
 using UnityEngine.InputSystem;
+
 public class FoxMovement : MonoBehaviour
 {
     public static FoxMovement instance;
@@ -69,6 +71,9 @@ public class FoxMovement : MonoBehaviour
     [Header("Animations")]
     public Animator playerAnimator;
     private List<AnimatorControllerParameter> animatorBools = new List<AnimatorControllerParameter>();
+
+    [Header("VFX")]
+    public VisualEffect telegrabEffect;
     private void Awake()
     {
         if (FoxMovement.instance != null)

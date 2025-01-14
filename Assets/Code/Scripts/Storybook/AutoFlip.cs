@@ -16,7 +16,7 @@ public class AutoFlip : MonoBehaviour {
     private AudioSource audioSource;
     private int maxSpreads;
     private int currentSpread;
-    private string nextScene;
+    private SceneManagerHelper.Scene nextScene;
     private bool isAutoFlipping = false;
     private float pageFlipTime = 1;
 
@@ -74,7 +74,7 @@ public class AutoFlip : MonoBehaviour {
 
         if(currentSpread > maxSpreads)
         {
-            SceneManager.LoadScene(nextScene);
+            GameEventsManager.instance.uiEvents.ShowLoadingScreen(nextScene);
             return;
         }
 

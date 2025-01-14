@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CallLoadingScreen : MonoBehaviour
 {
-    [SerializeField] private string newSceneName;
+    [SerializeField] private SceneManagerHelper.Scene newSceneName;
 
     public void ChangeScene()
     {
