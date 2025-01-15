@@ -85,7 +85,7 @@ public class PauseMenuManager : MonoBehaviour
     private void EnablePauseMenu()
     {
         GameEventsManager.instance.playerEvents.ToggleInputActions(false);
-
+        PlayerInputHandler.instance.PauseInput.Enable();
         SaveManager.instance.SaveGame();
         pauseMenuPanel.SetActive(true);
         FoxMovement.instance.gameObject.GetComponentInChildren<CinemachineBrain>().m_UpdateMethod = CinemachineBrain.UpdateMethod.FixedUpdate;
