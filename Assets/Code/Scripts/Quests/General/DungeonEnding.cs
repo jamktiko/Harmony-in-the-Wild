@@ -9,7 +9,7 @@ public class DungeonEnding : MonoBehaviour
     [Header("Config")]
     [SerializeField] private QuestScriptableObject questSO;
     [SerializeField] private int storybookSectionIndex;
-    [SerializeField] private string goToScene;
+    [SerializeField] private SceneManagerHelper.Scene goToScene = SceneManagerHelper.Scene.Overworld;
 
     private AudioSource audioSource; //NOTE: USe descriptive name
     private string questId;
@@ -63,7 +63,7 @@ public class DungeonEnding : MonoBehaviour
         yield return new WaitForSeconds(audioSource.clip.length + 0.5f);
 
         StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, goToScene, false);
-        SceneManager.LoadScene(StorybookSceneName);
+        SceneManagerHelper.LoadScene(SceneManagerHelper.Scene.Storybook);
     }
 
 

@@ -27,12 +27,12 @@ public class DevShortCuts : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Tab) && Input.GetKeyDown(KeyCode.R))
         {
-            SceneManager.LoadScene("Overworld");
+            //SceneManager.LoadScene("Overworld");
         }
         if(Input.GetKey(KeyCode.B) && Input.GetKeyDown(KeyCode.S) && questSO != null)
         {
-            GameEventsManager.instance.questEvents.AdvanceDungeonQuest(questId);
-            SceneManager.LoadScene(bossScene);
+            //GameEventsManager.instance.questEvents.AdvanceDungeonQuest(questId);
+            //SceneManager.LoadScene(bossScene);
         }
 
         if (Input.GetKey(KeyCode.N) && Input.GetKeyDown(KeyCode.P))

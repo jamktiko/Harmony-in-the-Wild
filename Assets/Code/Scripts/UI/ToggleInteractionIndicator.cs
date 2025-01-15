@@ -1,10 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(SphereCollider))]
 public class ToggleInteractionIndicator : MonoBehaviour
 {
+    public Image actionIndicator;
+    public int actionIndex = 0;
+
     private RotateInteractionIndicator rotationComponent;
 
     private void Start()
@@ -27,8 +32,19 @@ public class ToggleInteractionIndicator : MonoBehaviour
 
             if(camera != null)
             {
+                Debug.Log("Interaction indicator enabled!");
                 rotationComponent.EnableInteractionIndicator(camera.transform);
             }
+
+            else
+            {
+                Debug.Log("No camera located for the interaction indicator!");
+            }
+
+            if (Gamepad.current == null || Keyboard.current.lastUpdateTime > Gamepad.current.lastUpdateTime || Mouse.current.lastUpdateTime > Gamepad.current.lastUpdateTime)
+                actionIndicator.sprite = InputSprites.instance.keyboardIndicators[actionIndex];
+            else
+                actionIndicator.sprite = InputSprites.instance.gamepadIndicators[actionIndex];
         }
     }
 

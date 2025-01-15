@@ -2,17 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class QuestManager : MonoBehaviour
 {
     public Dictionary<string, Quest> questMap;
+    private int curID = 0;
 
     public static QuestManager instance;
 
     [SerializeField] private PlayerManager playerManager;
     [SerializeField] private AbilityCycle AbilityCycle;
+    [SerializeField] private Sprite[] mapQuestMarkersBW;
+    [SerializeField] private Sprite[] mapQuestMarkersColour;
 
     private int currentPlayerLevel;
+    private string currentActiveQuest;
 
     private void Awake()
     {
@@ -45,6 +50,8 @@ public class QuestManager : MonoBehaviour
     private void Start()
     {
         questMap = CreateQuestMap();
+        CheckAllRequirements();
+
         playerManager = FindObjectOfType<PlayerManager>();
         // broadcast the initial state of all quests on startup
         foreach (Quest quest in questMap.Values)
@@ -87,12 +94,29 @@ public class QuestManager : MonoBehaviour
         //}
     }
 
+    public void SetQuestMarkers(Image[] mapQuestMarkers)
+    {
+        if (questMap != null)
+        {
+            foreach (KeyValuePair<string, Quest> quest in questMap)
+            {
+                if (quest.Value.info.numericID < mapQuestMarkers.Length)
+                {
+                    if (quest.Value.state == QuestState.REQUIREMENTS_NOT_MET)
+                        mapQuestMarkers[quest.Value.info.numericID].sprite = mapQuestMarkersBW[quest.Value.info.numericID];
+                    else
+                        mapQuestMarkers[quest.Value.info.numericID].sprite = mapQuestMarkersColour[quest.Value.info.numericID];
+                }
+            }
+        }
+    }
+
     private void PlayerLevelChange(int Level) 
     {
         currentPlayerLevel = Level;
     }
 
-    private void CheckAllRequirements()
+    public void CheckAllRequirements()
     {
         // loop through all quests
         foreach (Quest quest in questMap.Values)
@@ -142,8 +166,12 @@ public class QuestManager : MonoBehaviour
             //Debug.Log("Start Quest: " + id);
             quest.InstantiateCurrentQuestStep(transform);
             ChangeQuestState(quest.info.id, QuestState.IN_PROGRESS);
-            AbilityAcquired(quest.info.abilityReward);
-            //Debug.Log("Ability unlocked: " + quest.info.abilityReward);
+
+            if(id != "Tutorial")
+            {
+                AbilityAcquired(quest.info.abilityReward);
+                //Debug.Log("Ability unlocked: " + quest.info.abilityReward);
+            }
         }
     }
 
@@ -190,6 +218,7 @@ public class QuestManager : MonoBehaviour
         ChangeQuestState(quest.info.id, QuestState.FINISHED);
         GameEventsManager.instance.questEvents.HideQuestUI();
         QuestCompletedUI.instance.ShowUI(id);
+        ResetActiveQuest();
         CheckAllRequirements();
     }
 
@@ -211,6 +240,21 @@ public class QuestManager : MonoBehaviour
         Quest quest = GetQuestById(id);
         quest.StoreQuestStepState(questStepState, stepIndex);
         ChangeQuestState(id, quest.state);
+    }
+
+    private void SetActiveQuest(string id)
+    {
+        currentActiveQuest = id;
+    }
+
+    private void ResetActiveQuest()
+    {
+        currentActiveQuest = "";
+    }
+
+    public string GetActiveQuest()
+    {
+        return currentActiveQuest;
     }
 
     public Dictionary<string, Quest> CreateQuestMap()
@@ -343,35 +387,8 @@ public class QuestManager : MonoBehaviour
         return quest;
     }
 
-    private void OnLevelWasLoaded(int level)
-    {
-        //UnsubscribeFromEvents();
-        //SubscribeToEvents();
-
-        //Debug.Log("Currently loaded level: "+ level);
-        ////questMap = CreateQuestMap();
-        //playerManager = FindObjectOfType<PlayerManager>();
-        
-        //// broadcast the initial state of all quests on startup
-        //foreach (Quest quest in questMap.Values)
-        //{
-
-        //    // broadcast the initial state of all quests
-        //    GameEventsManager.instance.questEvents.QuestStateChange(quest);
-        //}
-        if (level != 0 || level != 1 || level != 9 || level != 2 || level != 11)
-        {
-            AbilityCycle = FindObjectOfType<AbilityCycle>();
-        }
-        if (level != 1)
-        {
-            CheckAllRequirements();
-        }
-    }
-
     private void SubscribeToEvents()
     {
-        //Debug.Log("Subscribing to quest events...");
         GameEventsManager.instance.questEvents.OnStartQuest += StartQuest;
         GameEventsManager.instance.questEvents.OnAdvanceQuest += AdvanceQuest;
         GameEventsManager.instance.questEvents.OnFinishQuest += FinishQuest;
@@ -380,11 +397,12 @@ public class QuestManager : MonoBehaviour
 
         GameEventsManager.instance.playerEvents.OnExperienceGained += PlayerLevelChange;
         GameEventsManager.instance.playerEvents.OnAbilityAcquired += AbilityAcquired;
+
+        GameEventsManager.instance.questEvents.OnChangeActiveQuest += SetActiveQuest;
     }
 
     private void UnsubscribeFromEvents()
     {
-        Debug.Log("Un-subscribing from quest events...");
         GameEventsManager.instance.questEvents.OnStartQuest -= StartQuest;
         GameEventsManager.instance.questEvents.OnAdvanceQuest -= AdvanceQuest;
         GameEventsManager.instance.questEvents.OnFinishQuest -= FinishQuest;
@@ -393,6 +411,8 @@ public class QuestManager : MonoBehaviour
 
         GameEventsManager.instance.playerEvents.OnExperienceGained -= PlayerLevelChange;
         GameEventsManager.instance.playerEvents.OnAbilityAcquired -= AbilityAcquired;
+
+        GameEventsManager.instance.questEvents.OnChangeActiveQuest -= SetActiveQuest;
     }
     public void RequestFinishQuest(string id) // For some reason the event doesn't trigger reliably so as a workaround to ensure dungeons finish, this is called.
     {

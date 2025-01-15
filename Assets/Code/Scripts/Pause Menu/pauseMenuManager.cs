@@ -1,4 +1,5 @@
 using Cinemachine;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
@@ -20,6 +21,8 @@ public class PauseMenuManager : MonoBehaviour
     [SerializeField] Slider Mastervolume, MusicVolume, sensitivity;
     [SerializeField] AudioMixer mixer;
     [SerializeField] private float SliderValueMaster, SliderValueMusic, SliderValue2;
+    [SerializeField] public TMP_Text BerryCounter, PineconeCounter;
+
 
     private bool isInvertErrorLogged = false; // Makes sure the warning that runs in the null check of the InvertYAxis runs once
 
@@ -55,43 +58,61 @@ public class PauseMenuManager : MonoBehaviour
                 || GamePlayControlsMenuPanel.activeInHierarchy
                 || SettingsMenuPanel.activeInHierarchy)
             {
-                Time.timeScale = 1f;
-                FoxMovement.instance.gameObject.GetComponentInChildren<CinemachineBrain>().m_UpdateMethod = CinemachineBrain.UpdateMethod.SmartUpdate;
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-                pauseMenuPanel.SetActive(false);
-                OptionsMenuPanel.SetActive(false);
-                MovementControlsMenuPanel.SetActive(false);
-                GamePlayControlsMenuPanel.SetActive(false);
-                SettingsMenuPanel.SetActive(false);
+                Debug.Log("Disable pause menu.");
+                DisablePauseMenu();
             }
 
             //enable
             else
             {
-                SaveManager.instance.SaveGame();
-                pauseMenuPanel.SetActive(true);
-                FoxMovement.instance.gameObject.GetComponentInChildren<CinemachineBrain>().m_UpdateMethod = CinemachineBrain.UpdateMethod.FixedUpdate;
-                Time.timeScale = 0f;
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-                SliderValueMaster = PlayerPrefs.GetFloat("MasterVolume");
-                SliderValueMusic = PlayerPrefs.GetFloat("MusicVolume");
+                EnablePauseMenu();
             }
         }
         //if (InvertYAxis != null)
         //{
         //    InvertYAxis.onValueChanged.AddListener(delegate { ChangeYInversion(); });
         //}
-        else
-        {
-            if (!isInvertErrorLogged)
-            {
-                Debug.LogError("InvertYAxis is not assigned. Make sure it is assigned in the Inspector. (SettingsMenuPanel is probably not set)");
-                isInvertErrorLogged = true;  // Set the flag to true after logging the warning
-            }
-        }
+        //else
+        //{
+        //    if (!isInvertErrorLogged)
+        //    {
+        //        Debug.LogError("InvertYAxis is not assigned. Make sure it is assigned in the Inspector. (SettingsMenuPanel is probably not set)");
+        //        isInvertErrorLogged = true;  // Set the flag to true after logging the warning
+        //    }
+        //}
     }
+
+    private void EnablePauseMenu()
+    {
+        GameEventsManager.instance.playerEvents.ToggleInputActions(false);
+
+        SaveManager.instance.SaveGame();
+        pauseMenuPanel.SetActive(true);
+        FoxMovement.instance.gameObject.GetComponentInChildren<CinemachineBrain>().m_UpdateMethod = CinemachineBrain.UpdateMethod.FixedUpdate;
+        Time.timeScale = 0f;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        SliderValueMaster = PlayerPrefs.GetFloat("MasterVolume");
+        SliderValueMusic = PlayerPrefs.GetFloat("MusicVolume");
+        BerryCounter.text =  PlayerManager.instance.Berries + " / " + PlayerManager.instance.BerryData.Count;
+        PineconeCounter.text =  PlayerManager.instance.PineCones + " / " + PlayerManager.instance.PineConeData.Count;
+    }
+
+    private void DisablePauseMenu()
+    {
+        GameEventsManager.instance.playerEvents.ToggleInputActions(true);
+
+        Time.timeScale = 1f;
+        FoxMovement.instance.gameObject.GetComponentInChildren<CinemachineBrain>().m_UpdateMethod = CinemachineBrain.UpdateMethod.SmartUpdate;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        pauseMenuPanel.SetActive(false);
+        OptionsMenuPanel.SetActive(false);
+        MovementControlsMenuPanel.SetActive(false);
+        GamePlayControlsMenuPanel.SetActive(false);
+        SettingsMenuPanel.SetActive(false);
+    }
+
     public void ChangeYInversion(bool isOn)
     {
         if (cinemachineFreeLook != null)
@@ -114,6 +135,8 @@ public class PauseMenuManager : MonoBehaviour
     }
     public void Resume()
     {
+        GameEventsManager.instance.playerEvents.ToggleInputActions(true);
+
         Time.timeScale = 1f;
         FoxMovement.instance.gameObject.GetComponentInChildren<CinemachineBrain>().m_UpdateMethod = CinemachineBrain.UpdateMethod.SmartUpdate;
         Cursor.lockState = CursorLockMode.Locked;
@@ -129,7 +152,8 @@ public class PauseMenuManager : MonoBehaviour
     public void returnToMenu()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("MainMenu");
+
+        GameEventsManager.instance.uiEvents.ShowLoadingScreen(SceneManagerHelper.Scene.MainMenu);
     }
     public void GameplayMenu()
     {
@@ -187,10 +211,12 @@ public class PauseMenuManager : MonoBehaviour
     public void ExitQuest()
     {
         string currentSceneName = SceneManager.GetActiveScene().name;
-        if (currentSceneName != "Overworld")
+        if (currentSceneName != "OverWorld - VS")
         {
             //Debug.Log("Quest has been exited. Loading Overworld.");
-            SceneManager.LoadScene("Overworld", LoadSceneMode.Single);
+
+            GameEventsManager.instance.uiEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Overworld_VS);
+
             Resume();
         }
     }
@@ -198,10 +224,12 @@ public class PauseMenuManager : MonoBehaviour
     public void RestartQuest()
     {
         string currentSceneName = SceneManager.GetActiveScene().name;
-        if (currentSceneName != "Overworld")
+        if (currentSceneName != "OverWorld - VS")
         {
             //Debug.Log("Quest has been restarted. Reloading scene.");
-            SceneManager.LoadScene(currentSceneName, LoadSceneMode.Single);
+
+            GameEventsManager.instance.uiEvents.ShowLoadingScreen(SceneManagerHelper.GetSceneEnum(currentSceneName));
+
             Resume();
         }
     }
@@ -218,7 +246,7 @@ public class PauseMenuManager : MonoBehaviour
             cinemachineFreeLook = null;
         }
         //Debug.Log("Scene loaded: " + scene.name); 
-        if ((scene.name == "Overworld" || scene.name == "MainMenu") && restartQuestPanel != null && exitQuestPanel != null)
+        if ((scene.name == "OverWorld - VS" || scene.name == "MainMenu" || scene.name == "Tutorial") && restartQuestPanel != null && exitQuestPanel != null)
         {
             //Debug.Log("Scene loaded is Overworld or the main menu. Disabling quest buttons in pause menu.");
             restartQuestPanel.SetActive(false);
@@ -278,6 +306,8 @@ public class PauseMenuManager : MonoBehaviour
         SliderValueMusic = PlayerPrefs.GetFloat("MusicVolume");
         Mastervolume.value = SliderValueMaster;
         MusicVolume.value = SliderValueMusic;
+        BerryCounter= pauseMenuPanel.transform.Find("BerryCounter").GetChild(1).GetComponent<TMP_Text>();
+        PineconeCounter = pauseMenuPanel.transform.Find("PineconeCounter").GetChild(1).GetComponent<TMP_Text>();
         try
         {
             cinemachineFreeLook = FoxMovement.instance.gameObject.GetComponentInChildren<CinemachineFreeLook>();

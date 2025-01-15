@@ -10,7 +10,7 @@ public class EndingTransition : MonoBehaviour
 
     [SerializeField] private QuestScriptableObject questSO;
     [SerializeField] private int storybookSectionIndex;
-    [SerializeField] private string goToScene;
+    [SerializeField] private SceneManagerHelper.Scene goToScene;
 
     private void Start()
     {

@@ -1,12 +1,15 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEngine.VFX;
 
 public class QuestCompletedUI : MonoBehaviour
 {
     public static QuestCompletedUI instance;
 
     [SerializeField] private float showTime = 4f;
+
+    private VisualEffect completedEffect;
 
     private void Awake()
     {
@@ -17,12 +20,23 @@ public class QuestCompletedUI : MonoBehaviour
         }
 
         instance = this;
+        foreach (Transform t in transform)
+        {
+            if (t.GetComponent<VisualEffect>()) 
+            { 
+                completedEffect = t.GetComponent<VisualEffect>();
+                break;
+            }
+        }
     }
 
     public void ShowUI(string questName)
     {
         transform.GetChild(0).gameObject.SetActive(true);
         GetComponentInChildren<TextMeshProUGUI>().text = questName;
+        completedEffect.gameObject.SetActive(true);
+        completedEffect.Stop();
+        completedEffect.Play();
 
         StartCoroutine(DelayBeforeHiding());
     }

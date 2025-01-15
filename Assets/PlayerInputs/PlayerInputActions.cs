@@ -368,6 +368,24 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Lay"",
+                    ""type"": ""Button"",
+                    ""id"": ""d8d6e891-4646-47dc-9419-fc2cb28433ef"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Sit"",
+                    ""type"": ""Button"",
+                    ""id"": ""9a0be9a4-b135-4790-a917-98cb042c5d37"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -486,7 +504,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""id"": ""c1f7a91b-d0fd-4a62-997e-7fb9b69bf235"",
                     ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""ScaleVector2(x=32,y=32)"",
                     ""groups"": "";Gamepad"",
                     ""action"": ""Look"",
                     ""isComposite"": false,
@@ -497,7 +515,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""id"": ""8c8e490b-c610-4785-884f-f04217b23ca4"",
                     ""path"": ""<Pointer>/delta"",
                     ""interactions"": """",
-                    ""processors"": ""NormalizeVector2"",
+                    ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""Look"",
                     ""isComposite"": false,
@@ -1107,6 +1125,50 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""SwitchTimeScale"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bc8cfc38-02d5-454f-927f-9fc4660d8359"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Lay"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b72b16ea-7c7f-4e5d-a699-fabc704cfafd"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Lay"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bbd0f76c-bbaf-44c4-87c1-7280dcde0de2"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Sit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8239c7c5-5b85-4af8-a2e1-939f350eb410"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Sit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -1638,6 +1700,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_DebugDecreaseTrailerCameraSpeed = m_Player.FindAction("DebugDecreaseTrailerCameraSpeed", throwIfNotFound: true);
         m_Player_CinematicCamera = m_Player.FindAction("CinematicCamera", throwIfNotFound: true);
         m_Player_SwitchTimeScale = m_Player.FindAction("SwitchTimeScale", throwIfNotFound: true);
+        m_Player_Lay = m_Player.FindAction("Lay", throwIfNotFound: true);
+        m_Player_Sit = m_Player.FindAction("Sit", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1751,6 +1815,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_DebugDecreaseTrailerCameraSpeed;
     private readonly InputAction m_Player_CinematicCamera;
     private readonly InputAction m_Player_SwitchTimeScale;
+    private readonly InputAction m_Player_Lay;
+    private readonly InputAction m_Player_Sit;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1793,6 +1859,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @DebugDecreaseTrailerCameraSpeed => m_Wrapper.m_Player_DebugDecreaseTrailerCameraSpeed;
         public InputAction @CinematicCamera => m_Wrapper.m_Player_CinematicCamera;
         public InputAction @SwitchTimeScale => m_Wrapper.m_Player_SwitchTimeScale;
+        public InputAction @Lay => m_Wrapper.m_Player_Lay;
+        public InputAction @Sit => m_Wrapper.m_Player_Sit;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1916,6 +1984,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @SwitchTimeScale.started += instance.OnSwitchTimeScale;
             @SwitchTimeScale.performed += instance.OnSwitchTimeScale;
             @SwitchTimeScale.canceled += instance.OnSwitchTimeScale;
+            @Lay.started += instance.OnLay;
+            @Lay.performed += instance.OnLay;
+            @Lay.canceled += instance.OnLay;
+            @Sit.started += instance.OnSit;
+            @Sit.performed += instance.OnSit;
+            @Sit.canceled += instance.OnSit;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -2034,6 +2108,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @SwitchTimeScale.started -= instance.OnSwitchTimeScale;
             @SwitchTimeScale.performed -= instance.OnSwitchTimeScale;
             @SwitchTimeScale.canceled -= instance.OnSwitchTimeScale;
+            @Lay.started -= instance.OnLay;
+            @Lay.performed -= instance.OnLay;
+            @Lay.canceled -= instance.OnLay;
+            @Sit.started -= instance.OnSit;
+            @Sit.performed -= instance.OnSit;
+            @Sit.canceled -= instance.OnSit;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -2243,6 +2323,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnDebugDecreaseTrailerCameraSpeed(InputAction.CallbackContext context);
         void OnCinematicCamera(InputAction.CallbackContext context);
         void OnSwitchTimeScale(InputAction.CallbackContext context);
+        void OnLay(InputAction.CallbackContext context);
+        void OnSit(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

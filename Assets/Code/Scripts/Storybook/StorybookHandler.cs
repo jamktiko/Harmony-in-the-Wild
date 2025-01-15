@@ -7,12 +7,12 @@ public class StorybookHandler : MonoBehaviour
     private int currentStorybookSectionIndex = 0;
     private bool isDungeonEndStory = false;
 
-    public string sceneAfterStorybook = "Naming"; //NOTE: Redo Scene management across project?
+    public SceneManagerHelper.Scene sceneAfterStorybook = SceneManagerHelper.Scene.Naming;
 
     private void Awake()
     {
         // creating the instance for Storybook Handler
-        if (StorybookHandler.instance != null)
+        if (instance != null)
         {
             Debug.LogWarning("There is more than one Game Events Manager in the scene");
             Destroy(gameObject);
@@ -25,7 +25,7 @@ public class StorybookHandler : MonoBehaviour
         }
     }
 
-    public void SetNewStorybookData(int index, string nextScene, bool isDungeonEnding)
+    public void SetNewStorybookData(int index, SceneManagerHelper.Scene nextScene, bool isDungeonEnding)
     {
         currentStorybookSectionIndex = index;
         sceneAfterStorybook = nextScene;
@@ -37,7 +37,7 @@ public class StorybookHandler : MonoBehaviour
         return currentStorybookSectionIndex;
     }
 
-    public string GetNextScene()
+    public SceneManagerHelper.Scene GetNextScene()
     {
         return sceneAfterStorybook;
     }

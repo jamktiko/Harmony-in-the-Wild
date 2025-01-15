@@ -47,6 +47,8 @@ public class InputReader : ScriptableObject, PlayerInputActions.IPlayerActions
     public event UnityAction OnDebugDecreaseTrailerCameraSpeedEvent = delegate { };
     public event UnityAction OnCinematicCameraEvent = delegate { };
     public event UnityAction OnSwitchTimeScaleEvent = delegate { };
+    public event UnityAction OnLayEvent = delegate { };
+    public event UnityAction OnSitEvent = delegate { };
     private PlayerInputActions playerInputActions;
     [Header("Input reader object")]
     [SerializeField] InputReader _inputReader;
@@ -234,5 +236,13 @@ public class InputReader : ScriptableObject, PlayerInputActions.IPlayerActions
     public void OnSwitchTimeScale(InputAction.CallbackContext context)
     {
         OnSwitchTimeScaleEvent.Invoke();
+    }
+    public void OnLay(InputAction.CallbackContext context)
+    {
+        OnLayEvent.Invoke();
+    }
+    public void OnSit(InputAction.CallbackContext context)
+    {
+        OnSitEvent.Invoke();
     }
 }

@@ -8,7 +8,76 @@ using Newtonsoft.Json;
 
 public class DialogueVariableObserver
 {
-    public Dictionary<string, Ink.Runtime.Object> variables { get; private set; }
+    public Dictionary<DialogueVariables, bool> variables { get; private set; }
+
+    public DialogueVariableObserver()
+    {
+        variables = DialogueVariableInitializer.initialVariables;
+
+        // fetch loaded data
+        //string loadedData = SaveManager.instance.GetLoadedDialogueVariables();
+
+        //if (loadedData != "")
+        //{
+        //    variables = DialogueVariableInitializer.initialVariables;
+        //    //Debug.Log("Loaded dialogue variable data: " + loadedData);
+        //}
+
+        //else
+        //{
+        //    variables = DialogueVariableInitializer.initialVariables;
+        //    //Debug.Log("Initialized dialogue variables with default values: " + loadGlobalsJSON);
+        //}
+    }
+
+    public void ChangeVariable(string variable)
+    {
+        // fetch the correct enum based on given string
+        DialogueVariables correctEnum = GetVariableEnum(variable);
+
+        // set the value to be true, since the corresponding dialogue has been pass
+        variables[correctEnum] = true;
+
+        SaveManager.instance.SaveGame();
+
+        GameEventsManager.instance.dialogueEvents.ChangeDialogueVaribale(correctEnum);
+    }
+
+    private DialogueVariables GetVariableEnum(string variableName)
+    {
+        DialogueVariables name = DialogueVariables.Tutorial_01;
+
+        switch (variableName)
+        {
+            case "Tutorial_01":
+                name = DialogueVariables.Tutorial_01;
+                break;
+
+            case "Tutorial_03":
+                name = DialogueVariables.Tutorial_03;
+                break;
+
+            case "Tutorial_05":
+                name = DialogueVariables.Tutorial_05;
+                break;
+
+            case "Tutorial_07":
+                name = DialogueVariables.Tutorial_07;
+                break;
+
+            case "Tutorial_08":
+                name = DialogueVariables.Tutorial_08;
+                break;
+
+            case "WhaleDiet_02":
+                name = DialogueVariables.Tutorial_01;
+                break;
+        }
+
+        return name;
+    }
+
+    /*public Dictionary<string, Ink.Runtime.Object> variables { get; private set; }
 
     private Story globalVariablesStory;
 
@@ -60,6 +129,8 @@ public class DialogueVariableObserver
         }
 
         Debug.Log("Changed dialogue variable value:" + name + " = " + value);
+
+        SaveManager.instance.SaveGame();
     }
 
     private void VariablesToStory(Story story)
@@ -78,7 +149,7 @@ public class DialogueVariableObserver
 
         foreach (KeyValuePair<string, Ink.Runtime.Object> variable in variables)
         {
-            if(variable.Value != null)
+            if(variable.Value == null)
             {
                 variableDataToJSON += "," + 0 + ",{\"VAR=\":\"" + variable.Key + "\"}";
             }
@@ -92,5 +163,5 @@ public class DialogueVariableObserver
         variableDataToJSON += ",\"/ev\",\"end\",null],\"#f\":1}],\"listDefs\":{}}" + "}";
 
         return variableDataToJSON;
-    }
+    }*/
 }

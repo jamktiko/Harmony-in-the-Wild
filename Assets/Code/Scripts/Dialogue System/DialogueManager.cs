@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using Ink.Runtime;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -35,6 +36,8 @@ public class DialogueManager : MonoBehaviour
     private DialogueVariableObserver dialogueVariables;
     private Story currentStory;
     private TextMeshProUGUI[] choicesText;
+    private bool canInteractWith = true;   // boolean to detect whether you can use the input; not interactable if for example pause menu is opened
+    private Coroutine dialogueCooldown = null;
 
     private void Awake()
     {
@@ -69,9 +72,21 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        GameEventsManager.instance.playerEvents.OnToggleInputActions += ToggleInteractability;
+        SceneManager.sceneLoaded += ResetInteractibilityOnSceneChange;
+    }
+
+    private void OnDisable()
+    {
+        GameEventsManager.instance.playerEvents.OnToggleInputActions -= ToggleInteractability;
+        SceneManager.sceneLoaded -= ResetInteractibilityOnSceneChange;
+    }
+
     private void Update()
     {
-        if (isDialoguePlaying)
+        if (isDialoguePlaying && canInteractWith)
         {
             // make the selected choice
             if (PlayerInputHandler.instance.SelectInput.WasPressedThisFrame() && isChoiceAvailable)
@@ -109,11 +124,16 @@ public class DialogueManager : MonoBehaviour
                 EndDialogue();
             }
         }
+
+        //else if (!canInteractWith)
+        //{
+        //    Debug.Log("Dialogue not proceeding, interacting is disabled!");
+        //}
     }
 
     public void StartDialogue(TextAsset inkJSON)
     {
-        if (!isDialoguePlaying)
+        if (!isDialoguePlaying && canStartDialogue)
         {
             Debug.Log("Start dialogue.");
 
@@ -129,7 +149,7 @@ public class DialogueManager : MonoBehaviour
             ContinueDialogue();
 
             // start listening the variable changes in the current story
-            dialogueVariables.StartListening(currentStory);
+            //dialogueVariables.StartListening(currentStory);
         }
 
         else
@@ -270,6 +290,10 @@ public class DialogueManager : MonoBehaviour
                     //GameEventsManager.instance.questEvents.HideQuestUI();
                     break;
 
+                case "variableChange":
+                    dialogueVariables.ChangeVariable(tagValue);
+                    break;
+
                 default:
                     Debug.LogWarning("No tag key set for " + tag);
                     break;
@@ -293,7 +317,7 @@ public class DialogueManager : MonoBehaviour
         SaveManager.instance.SaveGame();
 
         // stop listening the dialogue variable changes in the current story
-        dialogueVariables.StopListening(currentStory);
+        //dialogueVariables.StopListening(currentStory);
 
         isDialoguePlaying = false;
         dialogueText.text = "";
@@ -301,7 +325,10 @@ public class DialogueManager : MonoBehaviour
         //exitButton.SetActive(false);
         dialogueCanvas.SetActive(false);
 
-        StartCoroutine(DelayBetweenDialogues());
+        if(dialogueCooldown == null)
+        {
+            dialogueCooldown = StartCoroutine(DelayBetweenDialogues());
+        }
 
         //Cursor.lockState = CursorLockMode.Locked;
         //Cursor.visible = false;
@@ -309,14 +336,15 @@ public class DialogueManager : MonoBehaviour
 
     private void InitializeDialogueVariables()
     {
-        dialogueVariables = new DialogueVariableObserver(loadGlobalsJSON);
+        dialogueVariables = new DialogueVariableObserver();
+        //dialogueVariables = new DialogueVariableObserver(loadGlobalsJSON);
     }
 
     public Ink.Runtime.Object GetDialogueVariableState(string variableName)
     {
         Ink.Runtime.Object variableValue = null;
 
-        dialogueVariables.variables.TryGetValue(variableName, out variableValue);
+        //dialogueVariables.variables.TryGetValue(variableName, out variableValue);
 
         if(variableValue == null)
         {
@@ -331,9 +359,10 @@ public class DialogueManager : MonoBehaviour
     {
         canStartDialogue = false;
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(3f);
 
         canStartDialogue = true;
+        dialogueCooldown = null;
     }
     /*private void OnLevelWasLoaded(int level)
     {
@@ -345,14 +374,33 @@ public class DialogueManager : MonoBehaviour
     {
         if(dialogueVariables != null)
         {
-            string dataToJSON = dialogueVariables.ConvertDialogueVariablesToString(loadGlobalsJSON);
+            //string dataToJSON = dialogueVariables.ConvertDialogueVariablesToString(loadGlobalsJSON);
             //Debug.Log("About to save this dialogue data: " + dataToJSON);
-            return dataToJSON;
+            //return dataToJSON;
+            return "";
         }
 
         else
         {
             return "";
         }
+    }
+
+    private void ToggleInteractability(bool enableInteractions)
+    {
+        canInteractWith = enableInteractions;
+
+        Debug.Log("Dialogue interactability: " + enableInteractions);
+    }
+
+    private void ResetInteractibilityOnSceneChange(Scene scene, LoadSceneMode mode)
+    {
+        if(dialogueCooldown != null)
+        {
+            StopCoroutine(dialogueCooldown);
+            dialogueCooldown = null;
+        }
+
+        canInteractWith = true;
     }
 }

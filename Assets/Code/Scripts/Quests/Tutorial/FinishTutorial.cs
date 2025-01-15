@@ -21,6 +21,7 @@ public class FinishTutorial : MonoBehaviour
             {
                 //Debug.Log("Tutorial can be finished.");
                 GameEventsManager.instance.questEvents.FinishQuest(tutorialQuest.id);
+                SteamManager.instance.UnlockAchievement("TUTORIAL_ACH");
             }
 
             else

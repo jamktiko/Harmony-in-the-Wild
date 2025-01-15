@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2986432541082491624}
   - component: {fileID: 2465899495602118036}
   - component: {fileID: 1787345447625059662}
+  - component: {fileID: 2161452709811199242}
   m_Layer: 14
   m_Name: Collectable_Apple
   m_TagString: Untagged
@@ -70,6 +71,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isActive: 0
   wasUsed: 0
+--- !u!114 &2161452709811199242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5878758980790848269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8808670b63605b34abeee378e162da0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questSO: {fileID: 11400000, guid: eb8d46205e60dd6478703e929f233b6b, type: 2}
 --- !u!1001 &241573029593812463
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -82,9 +96,17 @@ PrefabInstance:
       propertyPath: m_Radius
       value: 1.61
       objectReference: {fileID: 0}
+    - target: {fileID: 412590277552427794, guid: b77187ba1f112de49bb070bcf9fdaf46, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 112.7
+      objectReference: {fileID: 0}
     - target: {fileID: 1315634699064366365, guid: b77187ba1f112de49bb070bcf9fdaf46, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2039859586690094888, guid: b77187ba1f112de49bb070bcf9fdaf46, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 184.99
       objectReference: {fileID: 0}
     - target: {fileID: 2964094982942551276, guid: b77187ba1f112de49bb070bcf9fdaf46, type: 3}
       propertyPath: m_Name
@@ -134,13 +156,33 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9032388937620601683, guid: b77187ba1f112de49bb070bcf9fdaf46, type: 3}
+    - target: {fileID: 5866520984061964175, guid: b77187ba1f112de49bb070bcf9fdaf46, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.324
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866520984061964175, guid: b77187ba1f112de49bb070bcf9fdaf46, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.063
+      objectReference: {fileID: 0}
+    - target: {fileID: 6577381383336313947, guid: b77187ba1f112de49bb070bcf9fdaf46, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 7.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8459762571060275113, guid: b77187ba1f112de49bb070bcf9fdaf46, type: 3}
+      propertyPath: m_text
+      value: Collect
       objectReference: {fileID: 0}
     - target: {fileID: 9032388937620601683, guid: b77187ba1f112de49bb070bcf9fdaf46, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0.393
+      propertyPath: m_LocalScale.x
+      value: 0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 9032388937620601683, guid: b77187ba1f112de49bb070bcf9fdaf46, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 9032388937620601683, guid: b77187ba1f112de49bb070bcf9fdaf46, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.06
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

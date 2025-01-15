@@ -13,7 +13,7 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private GameObject settings;
     [SerializeField] private GameObject gameplayControls;
     [SerializeField] private GameObject movementControls;
-    [SerializeField] private Toggle invertYAxis; 
+    [SerializeField] private Toggle invertYAxis;
 
     [SerializeField] private string playButtonSceneName; //TODO: don't rely on strings in inspector
     [SerializeField] private Button continueButton;
@@ -34,24 +34,44 @@ public class MainMenuManager : MonoBehaviour
 
     public void ContinueButton()
     {
-            LoadSavedGame();
+        LoadSavedGame();
     }
 
     private void LoadSavedGame()
     {
-        SceneManager.LoadScene(3);
+        // check if tutorial is still in progress
+        if(QuestManager.instance.CheckQuestState("Tutorial") != QuestState.FINISHED)
+        {
+            // check the current quest step state to see if there's still something to be done in Bear Cave
+            if(QuestManager.instance.GetQuestById("Tutorial").GetCurrentQuestStepIndex() < 4)
+            {
+                GameEventsManager.instance.uiEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Tutorial);
+            }
+
+            // otherwise transfer to Overworld so the quest can be finished there
+            else
+            {
+                GameEventsManager.instance.uiEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Overworld_VS);
+            }
+        }
+
+        // if tutorial has been finished, go to Overworld
+        else
+        {
+            GameEventsManager.instance.uiEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Overworld_VS);
+        }      
     }
 
     private void CheckSavedGame()
     {
-        if (!continueButton.IsInteractable()&& File.Exists(Application.persistentDataPath + "/GameData.json"))
+        if (!continueButton.IsInteractable() && File.Exists(Application.persistentDataPath + "/GameData.json"))
         {
-            continueButton.interactable = true;        
+            continueButton.interactable = true;
         }
-        
+
     }
 
-    public void StartNewGame() 
+    public void StartNewGame()
     {
         SaveManager.instance.DeleteSave();
 
@@ -64,28 +84,31 @@ public class MainMenuManager : MonoBehaviour
         //reset the quests again
         //yes this is stupid. blame Awake()
         QuestManager.instance.questMap = QuestManager.instance.CreateQuestMap();
-        if (QuestManager.instance.transform.childCount>0)
+        QuestManager.instance.CheckAllRequirements();
+
+        if (QuestManager.instance.transform.childCount > 0)
         {
             for (int i = 0; i < QuestManager.instance.transform.childCount; i++)
             {
                 Destroy(QuestManager.instance.transform.GetChild(i).gameObject);
             }
         }
-        SceneManager.LoadScene(playButtonSceneName); 
+
+        GameEventsManager.instance.uiEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Storybook);
     }
 
-    public void ExitGame() 
+    public void ExitGame()
     {
         Application.Quit();
     }
 
-    public void Options() 
+    public void Options()
     {
         options.SetActive(true);
         mainMenu.SetActive(false);
     }
 
-    public void BackButton() 
+    public void BackButton()
     {
         mainMenu.SetActive(true);
         options.SetActive(false);
@@ -131,8 +154,13 @@ public class MainMenuManager : MonoBehaviour
             //Debug.Log("changed no");
         }
     }
-    public void CreditsButton() 
+    public void CreditsButton()
     {
-        SceneManager.LoadScene(CreditsSceneName);
+        SceneManagerHelper.LoadScene(SceneManagerHelper.Scene.Credits);
+    }
+
+    public void DiscordButton() 
+    {
+        Application.OpenURL("https://discord.gg/7jwSSEn22M");
     }
 }

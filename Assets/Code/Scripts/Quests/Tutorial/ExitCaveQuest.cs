@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ExitCaveQuest : QuestStep
 {
@@ -26,13 +27,26 @@ public class ExitCaveQuest : QuestStep
         GameEventsManager.instance.questEvents.ShowQuestUI(GetQuestId(), objective, progress);
     }
 
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += SetUIInTutorial;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= SetUIInTutorial;
+    }
+
+    private void SetUIInTutorial(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name.Contains("Tutorial", System.StringComparison.CurrentCultureIgnoreCase))
+        {
+            GameEventsManager.instance.questEvents.ShowQuestUI(GetQuestId(), objective, progress);
+        }
+    }
+
     public void ExitCave()
     {
-        // make the bear the child of Quest Manager
-        //bear.transform.parent = transform.parent;
-
-        Debug.Log("Fetching latest completed dialogue value before leaving the cave: " + ((Ink.Runtime.IntValue)DialogueManager.instance.GetDialogueVariableState("latestTutorialQuestStepDialogueCompleted")).value);
-
         FinishQuestStep();
     }
 

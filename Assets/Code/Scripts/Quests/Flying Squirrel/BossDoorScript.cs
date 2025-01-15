@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class BossDoorScript : MonoBehaviour
 {
@@ -32,13 +31,6 @@ public class BossDoorScript : MonoBehaviour
 
             finishDungeonQuestStep.EnableInteraction();
             GameEventsManager.instance.questEvents.ShowQuestUI("The Flying Squirrel", "Find the door and enter to the boss area", "");
-        }
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (isOpen&&other.CompareTag("Trigger")) 
-        {
-            //SceneManager.LoadScene("Dungeon_Squirrel_Boss");
         }
     }
 

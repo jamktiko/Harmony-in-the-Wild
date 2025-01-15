@@ -32,4 +32,18 @@ public class PlayerEvents
     {
         OnGhostSpeakActivated?.Invoke();
     }
+
+    public event Action<bool> OnToggleInputActions;
+
+    public void ToggleInputActions(bool enableInputActions)
+    {
+        OnToggleInputActions?.Invoke(enableInputActions);
+    }
+
+    public event Action OnChangePlayerModel;
+
+    public void ChangePlayerModel()
+    {
+        OnChangePlayerModel?.Invoke();
+    }
 }

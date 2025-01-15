@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CollectFlowerQuestStep : QuestStep
 {
@@ -24,6 +25,24 @@ public class CollectFlowerQuestStep : QuestStep
     private void Start()
     {
         GameEventsManager.instance.questEvents.ShowQuestUI(GetQuestId(), objective, progress);
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += SetUIInTutorial;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= SetUIInTutorial;
+    }
+
+    private void SetUIInTutorial(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name.Contains("Tutorial", System.StringComparison.CurrentCultureIgnoreCase))
+        {
+            GameEventsManager.instance.questEvents.ShowQuestUI(GetQuestId(), objective, progress);
+        }
     }
 
     public void CollectFlower()

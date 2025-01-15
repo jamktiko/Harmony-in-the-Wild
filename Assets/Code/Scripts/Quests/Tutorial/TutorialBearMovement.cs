@@ -11,6 +11,7 @@ public class TutorialBearMovement : MonoBehaviour
     [Header("Other Needed References")]
     [SerializeField] private QuestScriptableObject tutorialQuestSO;
     [SerializeField] private Animator animator;
+    [SerializeField] private GameObject interactionIndicator;
 
     private bool canMove;
     private NavMeshAgent agent;
@@ -60,6 +61,16 @@ public class TutorialBearMovement : MonoBehaviour
         {
             canMove = true;
             animator.SetTrigger("walk");
+
+            if(interactionIndicator != null)
+            {
+                interactionIndicator.SetActive(false);
+            }
+
+            else
+            {
+                Debug.LogError("No interaction indicator attached to Tutorial Bear!");
+            }
         }
     }
 }
