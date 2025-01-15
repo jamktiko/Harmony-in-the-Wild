@@ -271,7 +271,7 @@ public class FoxMovement : MonoBehaviour
     }
     private void JumpInput()
     {
-        if (PlayerInputHandler.instance.JumpInput.WasPressedThisFrame() && isReadyToJump && IsGrounded() && !ChargeJumping.instance.isChargeJumpActivated)
+        if (PlayerInputHandler.instance.JumpInput.WasPressedThisFrame() && isReadyToJump && IsGrounded() && !ChargeJumping.instance.isChargeJumpActivated&&PlayerInputHandler.instance.JumpInput.enabled)
         {
             isReadyToJump = false;
             Jump();

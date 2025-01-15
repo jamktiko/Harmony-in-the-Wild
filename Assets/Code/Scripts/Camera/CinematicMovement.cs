@@ -179,7 +179,7 @@ public class CinematicMovement : MonoBehaviour
     {
 
             // Jump
-            if (PlayerInputHandler.instance.JumpInput.WasPerformedThisFrame())
+            if (PlayerInputHandler.instance.JumpInput.WasPerformedThisFrame()&& PlayerInputHandler.instance.JumpInput.enabled)
             {
                 // the square root of H * -2 * G = how much velocity needed to reach desired height
                 _verticalVelocity += 1.0f;
