@@ -38,7 +38,6 @@ public class DialogueManager : MonoBehaviour
     private TextMeshProUGUI[] choicesText;
     private bool canInteractWith = true;   // boolean to detect whether you can use the input; not interactable if for example pause menu is opened
     private Coroutine dialogueCooldown = null;
-    private bool prepareToCallQuestDialogueProgress = false;
 
     private void Awake()
     {
@@ -285,7 +284,6 @@ public class DialogueManager : MonoBehaviour
 
                 case "variableChange":
                     dialogueVariables.ChangeVariable(tagValue);
-                    prepareToCallQuestDialogueProgress = true;
                     break;
 
                 default:
@@ -306,11 +304,7 @@ public class DialogueManager : MonoBehaviour
 
     private void EndDialogue()
     {
-        if (prepareToCallQuestDialogueProgress)
-        {
-            dialogueVariables.CallVariableChangeEvent();
-            prepareToCallQuestDialogueProgress = false;
-        }
+        dialogueVariables.CallVariableChangeEvent();
 
         GameEventsManager.instance.dialogueEvents.EndDialogue();
 

@@ -10,6 +10,8 @@ public class QuestPoint : MonoBehaviour
     [Header("Config")]
     [SerializeField] private bool startPoint = true;
     [SerializeField] private bool finishPoint = true;
+    [Tooltip("You only need to set this for the quests that have dialogue related progress. Otherwise can be left as Default.")]
+    [SerializeField] private DialogueQuestNPCs character;
 
     [Header("Dialogue Config")]
     [SerializeField] private bool playerIsNear = false;
@@ -93,7 +95,7 @@ public class QuestPoint : MonoBehaviour
             midQuestDialogueSet = false;
         }
 
-         RespawnManager.instance.SetRespawnPosition(respawnPoint.transform.position);
+        RespawnManager.instance.SetRespawnPosition(respawnPoint.transform.position);
     }
 
     private void StartOrCompleteQuest()
@@ -138,6 +140,11 @@ public class QuestPoint : MonoBehaviour
         if (other.CompareTag("Trigger"))
         {
             playerIsNear = true;
+
+            if (character != DialogueQuestNPCs.Default)
+            {
+                GameEventsManager.instance.dialogueEvents.RegisterPlayerNearNPC(character, playerIsNear);
+            }
         }
     }
 
@@ -146,6 +153,11 @@ public class QuestPoint : MonoBehaviour
         if (other.CompareTag("Trigger"))
         {
             playerIsNear = false;
+
+            if (character != DialogueQuestNPCs.Default)
+            {
+                GameEventsManager.instance.dialogueEvents.RegisterPlayerNearNPC(character, playerIsNear);
+            }
         }
     }
 }

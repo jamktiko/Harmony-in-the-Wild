@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class TalkToWhaleQuestStep : QuestStep
 {
     [SerializeField] DialogueVariables dialogueToPassForProgress;
+    private DialogueQuestNPCs character = DialogueQuestNPCs.Whale;
+    private bool canProgressQuest;
 
     private void Start()
     {
@@ -16,12 +18,14 @@ public class TalkToWhaleQuestStep : QuestStep
     private void OnEnable()
     {
         GameEventsManager.instance.dialogueEvents.OnChangeDialogueVariable += CheckProgressInDialogue;
+        GameEventsManager.instance.dialogueEvents.OnRegisterPlayerNearNPC += PlayerIsClose;
         SceneManager.sceneLoaded += SetInfoInOverworld;
     }
 
     private void OnDisable()
     {
         GameEventsManager.instance.dialogueEvents.OnChangeDialogueVariable -= CheckProgressInDialogue;
+        GameEventsManager.instance.dialogueEvents.OnRegisterPlayerNearNPC -= PlayerIsClose;
         SceneManager.sceneLoaded -= SetInfoInOverworld;
     }
 
@@ -36,9 +40,17 @@ public class TalkToWhaleQuestStep : QuestStep
 
     private void CheckProgressInDialogue(DialogueVariables changedVariable)
     {
-        if (changedVariable == dialogueToPassForProgress)
+        if (changedVariable == dialogueToPassForProgress && canProgressQuest)
         {
             FinishQuestStep();
+        }
+    }
+
+    private void PlayerIsClose(DialogueQuestNPCs npc, bool isClose)
+    {
+        if (npc == character)
+        {
+            canProgressQuest = isClose;
         }
     }
 
