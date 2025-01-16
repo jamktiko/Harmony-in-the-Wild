@@ -76,6 +76,8 @@ public class TutorialBear : MonoBehaviour
     {
         if(updatedQuestId == questId)
         {
+            GameEventsManager.instance.dialogueEvents.RegisterPlayerNearNPC(character, playerIsNear);
+
             Invoke(nameof(UpdateDialogueProgressValues), 0.3f);
         }
     }

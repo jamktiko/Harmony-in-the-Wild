@@ -101,7 +101,7 @@ public class DialogueVariableObserver
                 break;
 
             case "WhaleDiet_02":
-                name = DialogueVariables.Tutorial_01;
+                name = DialogueVariables.WhaleDiet_02;
                 break;
         }
 
