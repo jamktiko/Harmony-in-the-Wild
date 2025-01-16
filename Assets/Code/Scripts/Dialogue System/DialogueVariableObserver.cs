@@ -1,14 +1,12 @@
-using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
-using Ink.Runtime;
-using System.IO;
-using UnityEditor;
-using Newtonsoft.Json;
 
 public class DialogueVariableObserver
 {
     public Dictionary<DialogueVariables, bool> variables { get; private set; }
+
+    private DialogueVariables latestChangedVariable;
 
     public DialogueVariableObserver()
     {
@@ -19,8 +17,14 @@ public class DialogueVariableObserver
 
         if (loadedData != "")
         {
+            Debug.Log("Dialogue variable data fetched, starting to deserialize.");
             SetSavedVariables(loadedData);
             //Debug.Log("Loaded dialogue variable data: " + loadedData);
+        }
+
+        else
+        {
+            Debug.Log("Loaded dialogue variable data was empty. Using default values instead.");
         }
     }
 
@@ -28,12 +32,33 @@ public class DialogueVariableObserver
     {
         if (loadedData.Contains("inkVersion"))
         {
+            Debug.Log("Old version of saved dialogue variable data detected. Using default values instead.");
             return;
         }
 
         string[] loadedValues = loadedData.Split(",");
 
-        
+        int index = 0;
+        foreach(var key in variables.Keys.ToArray())
+        {
+            if (index < loadedValues.Length)
+            {
+                bool newValue = System.Convert.ToBoolean(loadedValues[index]);
+                variables[key] = newValue;
+                index++;
+            }
+        }
+
+        Debug.Log("Dialogue variables loaded!");
+        foreach(var kvp in variables)
+        {
+            Debug.Log($"{kvp.Key}: {kvp.Value}");
+        }
+    }
+
+    public void CallVariableChangeEvent()
+    {
+        GameEventsManager.instance.dialogueEvents.ChangeDialogueVariable(latestChangedVariable);
     }
 
     public void ChangeVariable(string variable)
@@ -44,9 +69,9 @@ public class DialogueVariableObserver
         // set the value to be true, since the corresponding dialogue has been pass
         variables[correctEnum] = true;
 
-        SaveManager.instance.SaveGame();
+        latestChangedVariable = correctEnum;
 
-        GameEventsManager.instance.dialogueEvents.ChangeDialogueVaribale(correctEnum);
+        SaveManager.instance.SaveGame();
     }
 
     private DialogueVariables GetVariableEnum(string variableName)

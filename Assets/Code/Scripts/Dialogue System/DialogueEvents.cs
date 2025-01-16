@@ -28,7 +28,7 @@ public class DialogueEvents
 
     public event Action<DialogueVariables> OnChangeDialogueVariable;
 
-    public void ChangeDialogueVaribale(DialogueVariables changedVariable)
+    public void ChangeDialogueVariable(DialogueVariables changedVariable)
     {
         OnChangeDialogueVariable?.Invoke(changedVariable);
     }

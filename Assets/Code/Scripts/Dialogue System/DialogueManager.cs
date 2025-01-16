@@ -38,6 +38,7 @@ public class DialogueManager : MonoBehaviour
     private TextMeshProUGUI[] choicesText;
     private bool canInteractWith = true;   // boolean to detect whether you can use the input; not interactable if for example pause menu is opened
     private Coroutine dialogueCooldown = null;
+    private bool prepareToCallQuestDialogueProgress = false;
 
     private void Awake()
     {
@@ -282,16 +283,9 @@ public class DialogueManager : MonoBehaviour
                     }
                     break;
 
-                case "showUI":
-                    //GameEventsManager.instance.questEvents.ShowQuestUI(int.Parse(tagValue));
-                    break;
-
-                case "hideUI":
-                    //GameEventsManager.instance.questEvents.HideQuestUI();
-                    break;
-
                 case "variableChange":
                     dialogueVariables.ChangeVariable(tagValue);
+                    prepareToCallQuestDialogueProgress = true;
                     break;
 
                 default:
@@ -312,6 +306,12 @@ public class DialogueManager : MonoBehaviour
 
     private void EndDialogue()
     {
+        if (prepareToCallQuestDialogueProgress)
+        {
+            dialogueVariables.CallVariableChangeEvent();
+            prepareToCallQuestDialogueProgress = false;
+        }
+
         GameEventsManager.instance.dialogueEvents.EndDialogue();
 
         SaveManager.instance.SaveGame();
@@ -322,7 +322,6 @@ public class DialogueManager : MonoBehaviour
         isDialoguePlaying = false;
         dialogueText.text = "";
 
-        //exitButton.SetActive(false);
         dialogueCanvas.SetActive(false);
 
         if(dialogueCooldown == null)
@@ -330,14 +329,12 @@ public class DialogueManager : MonoBehaviour
             dialogueCooldown = StartCoroutine(DelayBetweenDialogues());
         }
 
-        //Cursor.lockState = CursorLockMode.Locked;
-        //Cursor.visible = false;
+
     }
 
     private void InitializeDialogueVariables()
     {
         dialogueVariables = new DialogueVariableObserver();
-        //dialogueVariables = new DialogueVariableObserver(loadGlobalsJSON);
     }
 
     // delay between dialogues to prevent a bug from moving from one dialogue to another with the same character without player pressing any keys
@@ -350,11 +347,6 @@ public class DialogueManager : MonoBehaviour
         canStartDialogue = true;
         dialogueCooldown = null;
     }
-    /*private void OnLevelWasLoaded(int level)
-    {
-        //instance = this;
-        //dialogueCanvas = transform.GetChild(0).gameObject;
-    }*/
 
     public string CollectDialogueVariableDataForSaving()
     {
@@ -384,6 +376,7 @@ public class DialogueManager : MonoBehaviour
         {
             StopCoroutine(dialogueCooldown);
             dialogueCooldown = null;
+            canStartDialogue = true;
         }
 
         canInteractWith = true;
