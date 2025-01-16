@@ -90,9 +90,18 @@ public class QuestPoint : MonoBehaviour
 
         else if (currentQuestState.Equals(QuestState.IN_PROGRESS) && midQuestDialogueSet)
         {
-            Debug.Log("Interacting with quest point, about to start a mid quest dialogue.");
-            questPointDialogue.MidQuestDialogue(midQuestDialogueIndex);
-            midQuestDialogueSet = false;
+            if (midQuestDialogueSet)
+            {
+                Debug.Log("Interacting with quest point, about to start a mid quest dialogue.");
+                questPointDialogue.MidQuestDialogue(midQuestDialogueIndex);
+                midQuestDialogueSet = false;
+            }
+
+            else
+            {
+                Debug.Log("Interacting with quest point, about to start a quest in progress dialogue.");
+                questPointDialogue.QuestInProgressDialogue();
+            }
         }
 
         RespawnManager.instance.SetRespawnPosition(respawnPoint.transform.position);
