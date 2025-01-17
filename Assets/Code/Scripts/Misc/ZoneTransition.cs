@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.Events;
+using UnityEngine.UIElements;
 
 public class ZoneTransition : MonoBehaviour
 {
@@ -23,22 +24,35 @@ public class ZoneTransition : MonoBehaviour
     private float maxArcticVolume;
     private float maxForestVolume;
 
+    private bool canTriggerChange = false; // this bool is enabled a bit after the scene is loaded; the point is to prevent the change being trigger when entering the scene
+
     private void Start()
     {
         maxArcticVolume = arcticTheme.volume;
         maxForestVolume = forestTheme.volume;
+
+        Invoke(nameof(EnableTransition), 2f);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(onTriggerEnterEvent != null)
+        if(onTriggerEnterEvent != null && canTriggerChange)
         {
             onTriggerEnterEvent.Invoke();
         }
 
         else
         {
-            Debug.Log("No trigger events defined for trigger enter!");
+            if (canTriggerChange)
+            {
+                Debug.Log("No trigger events defined for zone transition's trigger enter!");
+            }
+
+            else
+            {
+                Debug.Log("Zone transition changes are not yet enabled!");
+            }
+                
         }
 
         //entered forest
@@ -127,6 +141,11 @@ public class ZoneTransition : MonoBehaviour
                 yield return null;
             }
         }
+    }
+
+    private void EnableTransition()
+    {
+        canTriggerChange = true;
     }
 }
 
