@@ -9,12 +9,15 @@ public class TalkToBearQuestStep : QuestStep
     [SerializeField] DialogueVariables dialogueToPassForProgress;
     [SerializeField]Animator cinematicAnimator;
     public UnityEvent animationEvent;
+    private DialogueQuestNPCs character = DialogueQuestNPCs.Bear;
     private bool talkedToBear; // this might not be needed here, but to avoid any errors in the other quest code (state of the quest etc.), there's some value to be saved
+    private bool canProgressQuest = false;
 
     private void OnEnable()
     {
         GameEventsManager.instance.dialogueEvents.OnChangeDialogueVariable += CheckProgressInDialogue;
         GameEventsManager.instance.questEvents.OnAdvanceQuest += PlayIntroCinematic;
+        GameEventsManager.instance.dialogueEvents.OnRegisterPlayerNearNPC += PlayerIsClose;
 
         SceneManager.sceneLoaded += UpdateQuestUI;
 
@@ -33,6 +36,7 @@ public class TalkToBearQuestStep : QuestStep
     {
         GameEventsManager.instance.dialogueEvents.OnChangeDialogueVariable -= CheckProgressInDialogue;
         GameEventsManager.instance.questEvents.OnAdvanceQuest -= PlayIntroCinematic;
+        GameEventsManager.instance.dialogueEvents.OnRegisterPlayerNearNPC -= PlayerIsClose;
 
         SceneManager.sceneLoaded -= UpdateQuestUI;
     }
@@ -61,11 +65,26 @@ public class TalkToBearQuestStep : QuestStep
 
     private void CheckProgressInDialogue(DialogueVariables changedVariable)
     {
-        if(changedVariable == dialogueToPassForProgress)
+        if(changedVariable == dialogueToPassForProgress && canProgressQuest)
         {
             FinishQuestStep();
         }
     }
+
+    private void PlayerIsClose(DialogueQuestNPCs npc, bool isClose)
+    {
+        if(npc == character)
+        {
+            Debug.Log("Toggling quest progress for tutorial: " + isClose);
+            canProgressQuest = isClose;
+        }
+
+        else
+        {
+            Debug.Log("Character not matching for tutorial progress.");
+        }
+    }
+
     private void PlayIntroCinematic(string name)
     {
         if(name == "Tutorial")

@@ -26,3 +26,10 @@ public static class DialogueVariableInitializer
         {DialogueVariables.WhaleDiet_02, false},
     };
 }
+
+public enum DialogueQuestNPCs
+{
+    Default,
+    Bear,
+    Whale
+}

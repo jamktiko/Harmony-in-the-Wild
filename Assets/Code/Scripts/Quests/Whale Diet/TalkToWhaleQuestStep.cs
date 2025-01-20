@@ -5,8 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class TalkToWhaleQuestStep : QuestStep
 {
-    [Tooltip("Target index for the completed dialogue. Checking if the dialogue with this quest step has been completed.")]
-    [SerializeField] private int targetDialogueIndex;
+    [SerializeField] DialogueVariables dialogueToPassForProgress;
+    private DialogueQuestNPCs character = DialogueQuestNPCs.Whale;
+    private bool canProgressQuest;
 
     private void Start()
     {
@@ -16,13 +17,15 @@ public class TalkToWhaleQuestStep : QuestStep
 
     private void OnEnable()
     {
-        GameEventsManager.instance.dialogueEvents.OnEndDialogue += CheckProgressInDialogue;
+        GameEventsManager.instance.dialogueEvents.OnChangeDialogueVariable += CheckProgressInDialogue;
+        GameEventsManager.instance.dialogueEvents.OnRegisterPlayerNearNPC += PlayerIsClose;
         SceneManager.sceneLoaded += SetInfoInOverworld;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.dialogueEvents.OnEndDialogue -= CheckProgressInDialogue;
+        GameEventsManager.instance.dialogueEvents.OnChangeDialogueVariable -= CheckProgressInDialogue;
+        GameEventsManager.instance.dialogueEvents.OnRegisterPlayerNearNPC -= PlayerIsClose;
         SceneManager.sceneLoaded -= SetInfoInOverworld;
     }
 
@@ -35,22 +38,19 @@ public class TalkToWhaleQuestStep : QuestStep
         }
     }
 
-    private void CheckProgressInDialogue()
+    private void CheckProgressInDialogue(DialogueVariables changedVariable)
     {
-        Invoke(nameof(FetchDialogueData), 0.1f);
-    }
-
-    private void FetchDialogueData()
-    {
-        // check the latest completed dialogue from Ink
-        int latestCompletedDialogue = ((Ink.Runtime.IntValue)DialogueManager.instance.GetDialogueVariableState("latestWhaleQuestStepDialogueCompleted")).value;
-
-        Debug.Log("Latest completed dialogue with the whale: " + latestCompletedDialogue + ", target dialogue: " + targetDialogueIndex);
-
-        // if the current value matches the target value, finish the quest step
-        if (latestCompletedDialogue == targetDialogueIndex)
+        if (changedVariable == dialogueToPassForProgress && canProgressQuest)
         {
             FinishQuestStep();
+        }
+    }
+
+    private void PlayerIsClose(DialogueQuestNPCs npc, bool isClose)
+    {
+        if (npc == character)
+        {
+            canProgressQuest = isClose;
         }
     }
 

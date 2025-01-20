@@ -282,14 +282,6 @@ public class DialogueManager : MonoBehaviour
                     }
                     break;
 
-                case "showUI":
-                    //GameEventsManager.instance.questEvents.ShowQuestUI(int.Parse(tagValue));
-                    break;
-
-                case "hideUI":
-                    //GameEventsManager.instance.questEvents.HideQuestUI();
-                    break;
-
                 case "variableChange":
                     dialogueVariables.ChangeVariable(tagValue);
                     break;
@@ -312,6 +304,8 @@ public class DialogueManager : MonoBehaviour
 
     private void EndDialogue()
     {
+        dialogueVariables.CallVariableChangeEvent();
+
         GameEventsManager.instance.dialogueEvents.EndDialogue();
 
         SaveManager.instance.SaveGame();
@@ -322,7 +316,6 @@ public class DialogueManager : MonoBehaviour
         isDialoguePlaying = false;
         dialogueText.text = "";
 
-        //exitButton.SetActive(false);
         dialogueCanvas.SetActive(false);
 
         if(dialogueCooldown == null)
@@ -330,28 +323,12 @@ public class DialogueManager : MonoBehaviour
             dialogueCooldown = StartCoroutine(DelayBetweenDialogues());
         }
 
-        //Cursor.lockState = CursorLockMode.Locked;
-        //Cursor.visible = false;
+
     }
 
     private void InitializeDialogueVariables()
     {
         dialogueVariables = new DialogueVariableObserver();
-        //dialogueVariables = new DialogueVariableObserver(loadGlobalsJSON);
-    }
-
-    public Ink.Runtime.Object GetDialogueVariableState(string variableName)
-    {
-        Ink.Runtime.Object variableValue = null;
-
-        //dialogueVariables.variables.TryGetValue(variableName, out variableValue);
-
-        if(variableValue == null)
-        {
-            Debug.Log("Ink Variables was found to be null: " + variableName);
-        }
-
-        return variableValue;
     }
 
     // delay between dialogues to prevent a bug from moving from one dialogue to another with the same character without player pressing any keys
@@ -364,20 +341,14 @@ public class DialogueManager : MonoBehaviour
         canStartDialogue = true;
         dialogueCooldown = null;
     }
-    /*private void OnLevelWasLoaded(int level)
-    {
-        //instance = this;
-        //dialogueCanvas = transform.GetChild(0).gameObject;
-    }*/
 
     public string CollectDialogueVariableDataForSaving()
     {
         if(dialogueVariables != null)
         {
-            //string dataToJSON = dialogueVariables.ConvertDialogueVariablesToString(loadGlobalsJSON);
-            //Debug.Log("About to save this dialogue data: " + dataToJSON);
-            //return dataToJSON;
-            return "";
+            string dataToJSON = dialogueVariables.ConvertVariablesToString();
+
+            return dataToJSON;
         }
 
         else
@@ -399,6 +370,7 @@ public class DialogueManager : MonoBehaviour
         {
             StopCoroutine(dialogueCooldown);
             dialogueCooldown = null;
+            canStartDialogue = true;
         }
 
         canInteractWith = true;

@@ -20,8 +20,7 @@ public class TutorialBear : MonoBehaviour
     private string questId;
     private bool playerIsNear = false;
     private AudioSource audioSource;
-
-    private const string latestCompletedDialogue = "latestTutorialQuestStepDialogueCompleted";
+    private DialogueQuestNPCs character = DialogueQuestNPCs.Bear;
 
     private void Start()
     {
@@ -77,6 +76,8 @@ public class TutorialBear : MonoBehaviour
     {
         if(updatedQuestId == questId)
         {
+            GameEventsManager.instance.dialogueEvents.RegisterPlayerNearNPC(character, playerIsNear);
+
             Invoke(nameof(UpdateDialogueProgressValues), 0.3f);
         }
     }
@@ -101,6 +102,7 @@ public class TutorialBear : MonoBehaviour
         if (other.CompareTag("Trigger"))
         {
             playerIsNear = true;
+            GameEventsManager.instance.dialogueEvents.RegisterPlayerNearNPC(character, playerIsNear);
         }
     }
 
@@ -109,6 +111,7 @@ public class TutorialBear : MonoBehaviour
         if (other.CompareTag("Trigger"))
         {
             playerIsNear = false;
+            GameEventsManager.instance.dialogueEvents.RegisterPlayerNearNPC(character, playerIsNear);
         }
     }
 }

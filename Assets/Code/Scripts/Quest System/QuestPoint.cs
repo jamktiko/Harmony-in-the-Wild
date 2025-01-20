@@ -10,6 +10,8 @@ public class QuestPoint : MonoBehaviour
     [Header("Config")]
     [SerializeField] private bool startPoint = true;
     [SerializeField] private bool finishPoint = true;
+    [Tooltip("You only need to set this for the quests that have dialogue related progress. Otherwise can be left as Default.")]
+    [SerializeField] private DialogueQuestNPCs character;
 
     [Header("Dialogue Config")]
     [SerializeField] private bool playerIsNear = false;
@@ -88,12 +90,21 @@ public class QuestPoint : MonoBehaviour
 
         else if (currentQuestState.Equals(QuestState.IN_PROGRESS) && midQuestDialogueSet)
         {
-            Debug.Log("Interacting with quest point, about to start a mid quest dialogue.");
-            questPointDialogue.MidQuestDialogue(midQuestDialogueIndex);
-            midQuestDialogueSet = false;
+            if (midQuestDialogueSet)
+            {
+                Debug.Log("Interacting with quest point, about to start a mid quest dialogue.");
+                questPointDialogue.MidQuestDialogue(midQuestDialogueIndex);
+                midQuestDialogueSet = false;
+            }
+
+            else
+            {
+                Debug.Log("Interacting with quest point, about to start a quest in progress dialogue.");
+                questPointDialogue.QuestInProgressDialogue();
+            }
         }
 
-         RespawnManager.instance.SetRespawnPosition(respawnPoint.transform.position);
+        RespawnManager.instance.SetRespawnPosition(respawnPoint.transform.position);
     }
 
     private void StartOrCompleteQuest()
@@ -138,6 +149,11 @@ public class QuestPoint : MonoBehaviour
         if (other.CompareTag("Trigger"))
         {
             playerIsNear = true;
+
+            if (character != DialogueQuestNPCs.Default)
+            {
+                GameEventsManager.instance.dialogueEvents.RegisterPlayerNearNPC(character, playerIsNear);
+            }
         }
     }
 
@@ -146,6 +162,11 @@ public class QuestPoint : MonoBehaviour
         if (other.CompareTag("Trigger"))
         {
             playerIsNear = false;
+
+            if (character != DialogueQuestNPCs.Default)
+            {
+                GameEventsManager.instance.dialogueEvents.RegisterPlayerNearNPC(character, playerIsNear);
+            }
         }
     }
 }
