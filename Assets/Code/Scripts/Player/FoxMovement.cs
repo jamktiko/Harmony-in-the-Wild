@@ -71,6 +71,7 @@ public class FoxMovement : MonoBehaviour
     [Header("Animations")]
     public Animator playerAnimator;
     private List<AnimatorControllerParameter> animatorBools = new List<AnimatorControllerParameter>();
+    public Animator cinematicCamAnimator;
 
     [Header("VFX")]
     public VisualEffect telegrabEffect;
@@ -120,6 +121,7 @@ public class FoxMovement : MonoBehaviour
         rb.freezeRotation = true;
         abilityCycle = GetComponent<AbilityCycle>();
         playerAnimator = GetComponentInChildren<Animator>();
+        cinematicCamAnimator = GameObject.Find("IntroCamera").GetComponent<Animator>();
 
         foreach (AnimatorControllerParameter item in playerAnimator.parameters)
         {
@@ -518,7 +520,7 @@ public class FoxMovement : MonoBehaviour
             PlayerInputHandler.instance.MoveInput.Disable();
             PlayerInputHandler.instance.JumpInput.Disable();
         }
-        else if (!PlayerInputHandler.instance.MoveInput.enabled)
+        else if (!PlayerInputHandler.instance.MoveInput.enabled&&!cinematicCamAnimator.enabled)
         {
             PlayerInputHandler.instance.MoveInput.Enable();
             PlayerInputHandler.instance.JumpInput.Enable();

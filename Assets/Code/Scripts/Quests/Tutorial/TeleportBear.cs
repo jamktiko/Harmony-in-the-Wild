@@ -9,9 +9,13 @@ public class TeleportBear : MonoBehaviour
 
     [SerializeField]private Transform bear;
 
+    [SerializeField]private GameObject UICanvas;
+    [SerializeField]private GameObject QuestUICanvas;
     private void Start()
     {
         bear = GameObject.Find("TutorialBear(Clone)").transform;
+        UICanvas = GameObject.Find("Minimap").GetComponent<GameObject>();
+        QuestUICanvas = GameObject.Find("QuestUI_Visuals").GetComponent<GameObject>();
     }
     public void TeleportBearToTree() 
     {
@@ -25,5 +29,21 @@ public class TeleportBear : MonoBehaviour
     public void DisableAnimator()
     {
         GetComponent<Animator>().enabled = false;
+    }
+    public void EnableDisableMovement() 
+    {
+        if (PlayerInputHandler.instance.MoveInput.enabled)
+        {
+            PlayerInputHandler.instance.MoveInput.Disable();
+        }
+        else
+        {
+            PlayerInputHandler.instance.MoveInput.Enable();
+        }
+    }
+    public void HideUI() 
+    {
+            UICanvas.SetActive(!UICanvas.activeInHierarchy);
+            QuestUICanvas.SetActive(!QuestUICanvas.activeInHierarchy);
     }
 }
