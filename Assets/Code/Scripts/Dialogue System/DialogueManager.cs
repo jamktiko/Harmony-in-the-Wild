@@ -138,7 +138,10 @@ public class DialogueManager : MonoBehaviour
             Debug.Log("Start dialogue.");
 
             GameEventsManager.instance.dialogueEvents.StartDialogue();
-
+            FoxMovement.instance.SetDefaultAnimatorValues();
+            FoxMovement.instance.isSprinting=false;
+            FoxMovement.instance.horizontalInput = 0;
+            FoxMovement.instance.verticalInput = 0;
             currentStory = new Story(inkJSON.text);
             isDialoguePlaying = true;
             dialogueCanvas.SetActive(true);

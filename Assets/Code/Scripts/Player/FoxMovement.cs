@@ -23,7 +23,7 @@ public class FoxMovement : MonoBehaviour
     [SerializeField] private Transform orientation;
     [SerializeField] private float groundDrag = 5f;
 
-    private bool isSprinting;
+    public bool isSprinting;
     [HideInInspector] public float horizontalInput;
     [HideInInspector] public float verticalInput;
     private Vector3 moveDirection;
@@ -477,7 +477,7 @@ public class FoxMovement : MonoBehaviour
     }
     #endregion
     #region MISC
-    private void SetDefaultAnimatorValues()
+    public void SetDefaultAnimatorValues()
     {
         playerAnimator.SetFloat("horMove", horizontalInput, 0.1f, Time.deltaTime);
         playerAnimator.SetFloat("vertMove", verticalInput, 0.1f, Time.deltaTime);
