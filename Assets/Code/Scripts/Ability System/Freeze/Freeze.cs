@@ -33,6 +33,7 @@ public class Freeze : MonoBehaviour
 
     private void ActivateFreezeObject()
     {
+        
         Collider[] foundObjects = Physics.OverlapSphere(transform.position, aoeRadius, LayerMask.GetMask("Freezables"));
         Debug.Log(foundObjects.Length + " freezables found.");
 
@@ -40,6 +41,7 @@ public class Freeze : MonoBehaviour
         {
             foreach(Collider newObject in foundObjects)
             {
+                FoxMovement.instance.playerAnimator.SetBool("isFreezing", true);
                 Freezable freezable = newObject.gameObject.GetComponent<Freezable>();
 
                 if (freezable)
@@ -50,6 +52,7 @@ public class Freeze : MonoBehaviour
                     freezeAudio.Play();
                 }
             }
+            
         }
 
         if(SceneManager.GetActiveScene().name == DungeonPenguinSceneName)
@@ -60,6 +63,8 @@ public class Freeze : MonoBehaviour
 
     private IEnumerator FreezeCooldown()
     {
+        yield return new WaitForSeconds(0.01f);
+        FoxMovement.instance.playerAnimator.SetBool("isFreezing", false);
         hasCooldown = true;
 
         float updateFillAmount = 1 / (cooldownDuration * 100);

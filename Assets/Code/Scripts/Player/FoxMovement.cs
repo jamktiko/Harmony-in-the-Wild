@@ -121,7 +121,10 @@ public class FoxMovement : MonoBehaviour
         rb.freezeRotation = true;
         abilityCycle = GetComponent<AbilityCycle>();
         playerAnimator = GetComponentInChildren<Animator>();
-        cinematicCamAnimator = GameObject.Find("IntroCamera").GetComponent<Animator>();
+        if (SceneManager.GetActiveScene().name.Contains("Overworld"))
+        {
+            cinematicCamAnimator = GameObject.Find("IntroCamera").GetComponent<Animator>();
+        }
 
         foreach (AnimatorControllerParameter item in playerAnimator.parameters)
         {
@@ -515,15 +518,32 @@ public class FoxMovement : MonoBehaviour
     }
     private void AnimationConditions() 
     {
-        if (PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Armature|FoxLieDownAni")|| PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("PL_StandUp_ANI") || PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("PL_Sitting_ANI") ||PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("PL_OutOfWater_ANI")|| PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("PL_PickUpFromBush_ANI") || PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("PL_PickUpFromGround_ANI")||PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("PL_EnterWater_ANI")|| PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("PL_Playful2_ANI"))
+        if ((PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Armature|FoxLieDownAni"))|| (PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("PL_StandUp_ANI")) || (PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("PL_Sitting_ANI")) ||(PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("PL_OutOfWater_ANI"))|| (PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("PL_PickUpFromBush_ANI")) || (PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("PL_PickUpFromGround_ANI"))||(PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("PL_EnterWater_ANI"))|| (PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("PL_Playful2_ANI")) || (PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("PL_FreezingAbility_ANI")))
         {
             PlayerInputHandler.instance.MoveInput.Disable();
             PlayerInputHandler.instance.JumpInput.Disable();
         }
-        else if (!PlayerInputHandler.instance.MoveInput.enabled&&!cinematicCamAnimator.enabled)
+        else
         {
-            PlayerInputHandler.instance.MoveInput.Enable();
-            PlayerInputHandler.instance.JumpInput.Enable();
+            if (!PlayerInputHandler.instance.MoveInput.enabled)
+            {
+                if (SceneManager.GetActiveScene().name.Contains("Overworld"))
+                {
+                    if (!cinematicCamAnimator.enabled)
+                    {
+                        PlayerInputHandler.instance.MoveInput.Enable();
+                        PlayerInputHandler.instance.JumpInput.Enable();
+                    }
+                    
+                }
+                else 
+                {
+                    PlayerInputHandler.instance.MoveInput.Enable();
+                    PlayerInputHandler.instance.JumpInput.Enable();
+                }
+                
+            }
+            
         }
     }
 
