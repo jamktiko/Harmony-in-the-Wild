@@ -74,26 +74,6 @@ public class QuestManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        //// loop through all quests
-        //foreach(Quest quest in questMap.Values)
-        //{
-        //    // if meeting the requirements, switch over to CAN_START state
-        //    if(quest.state == QuestState.REQUIREMENTS_NOT_MET && CheckRequirementsMet(quest))
-        //    {
-        //        ChangeQuestState(quest.info.id, QuestState.CAN_START);
-        //    }
-        //}
-        //if (Input.GetKeyDown(KeyCode.Z))
-        //{
-        //    foreach (var quest in questMap.Values)
-        //    {
-        //        Debug.Log(quest.info.name+" "+quest.state);
-        //    }
-        //}
-    }
-
     public void SetQuestMarkers(Image[] mapQuestMarkers)
     {
         if (questMap != null)

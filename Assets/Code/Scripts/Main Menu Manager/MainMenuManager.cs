@@ -86,13 +86,13 @@ public class MainMenuManager : MonoBehaviour
         QuestManager.instance.questMap = QuestManager.instance.CreateQuestMap();
         QuestManager.instance.CheckAllRequirements();
 
-        if (QuestManager.instance.transform.childCount > 0)
+        /*if (QuestManager.instance.transform.childCount > 0)
         {
             for (int i = 0; i < QuestManager.instance.transform.childCount; i++)
             {
                 Destroy(QuestManager.instance.transform.GetChild(i).gameObject);
             }
-        }
+        }*/
 
         GameEventsManager.instance.uiEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Storybook);
     }
