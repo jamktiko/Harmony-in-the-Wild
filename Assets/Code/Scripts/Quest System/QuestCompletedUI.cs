@@ -20,6 +20,7 @@ public class QuestCompletedUI : MonoBehaviour
         }
 
         instance = this;
+
         foreach (Transform t in transform)
         {
             if (t.GetComponent<VisualEffect>()) 
@@ -51,5 +52,11 @@ public class QuestCompletedUI : MonoBehaviour
         yield return new WaitForSeconds(showTime);
 
         HideUI();
+        Invoke(nameof(HideVFX), 7f);
+    }
+
+    private void HideVFX()
+    {
+        completedEffect.gameObject.SetActive(false);
     }
 }
