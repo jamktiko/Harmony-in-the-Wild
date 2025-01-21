@@ -9,6 +9,8 @@ public class PlayerInputHandler : MonoBehaviour
 
     public PlayerInput playerInput;
     public InputActionMap playerInputActionMap;
+
+    //input actions
     public InputAction MoveInput,
         SprintInput,
         LookInput,
@@ -29,7 +31,14 @@ public class PlayerInputHandler : MonoBehaviour
         OpenMapInput,
         PauseInput,
         TogglePlayerModelInput,
-        DebugSaveInput,
+        CinematicCamera,
+        LayInput,
+        SitInput,
+        SwitchTimeScale;
+
+    //debug input actions
+#if DEBUG
+    public InputAction DebugSaveInput,
         DebugDeleteSaveInput,
         DebugDeleteSaveInput2,
         DebugReloadOverworldInput,
@@ -44,11 +53,8 @@ public class PlayerInputHandler : MonoBehaviour
         DebugTrailerCameraToggle,
         DebugHideUI,
         DebugIncreaseTrailerCameraSpeed,
-        DebugDecreaseTrailerCameraSpeed,
-        CinematicCamera,
-        LayInput,
-        SitInput,
-        SwitchTimeScale;
+        DebugDecreaseTrailerCameraSpeed;
+#endif
 
     private void Awake()
     {
@@ -86,13 +92,20 @@ public class PlayerInputHandler : MonoBehaviour
         OpenMapInput = playerInput.actions.FindAction("OpenMap");
         PauseInput = playerInput.actions.FindAction("Pause");
         TogglePlayerModelInput= playerInput.actions.FindAction("TogglePlayerModel");
+        CinematicCamera= playerInput.actions.FindAction("CinematicCamera");
+        SwitchTimeScale= playerInput.actions.FindAction("SwitchTimeScale");
+        LayInput = playerInput.actions.FindAction("Lay");
+        SitInput = playerInput.actions.FindAction("Sit");
+
+        //debug inputs
+#if DEBUG
         DebugSaveInput = playerInput.actions.FindAction("DebugSave");
         DebugDeleteSaveInput = playerInput.actions.FindAction("DebugDeleteSave");
         DebugDeleteSaveInput2 = playerInput.actions.FindAction("DebugDeleteSave2");
         DebugReloadOverworldInput = playerInput.actions.FindAction("DebugReloadOverworld");
         DebugReloadMainMenuInput = playerInput.actions.FindAction("DebugReloadMainMenu");
         DebugReloadCurrentSceneInput = playerInput.actions.FindAction("DebugReloadCurrentScene");
-        DebugDevToolsInput= playerInput.actions.FindAction("DebugDevTools");
+        DebugDevToolsInput = playerInput.actions.FindAction("DebugDevTools");
         DebugAbilitiesCheckOne = playerInput.actions.FindAction("DebugAbilitiesCheckOne");
         DebugAbilitiesCheckAll = playerInput.actions.FindAction("DebugAbilitiesCheckAll");
         DebugAbilitiesUnlockOne = playerInput.actions.FindAction("DebugAbilitiesUnlockOne");
@@ -102,9 +115,6 @@ public class PlayerInputHandler : MonoBehaviour
         DebugHideUI = playerInput.actions.FindAction("DebugHideUI");
         DebugIncreaseTrailerCameraSpeed = playerInput.actions.FindAction("DebugIncreaseTrailerCameraSpeed");
         DebugDecreaseTrailerCameraSpeed = playerInput.actions.FindAction("DebugDecreaseTrailerCameraSpeed");
-        CinematicCamera= playerInput.actions.FindAction("CinematicCamera");
-        SwitchTimeScale= playerInput.actions.FindAction("SwitchTimeScale");
-        LayInput = playerInput.actions.FindAction("Lay");
-        SitInput = playerInput.actions.FindAction("Sit");
+#endif
     }
 }

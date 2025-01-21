@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ToggleTrailerCamera : MonoBehaviour
 {
+#if DEBUG
     [SerializeField] private GameObject trailerCamera;
     [SerializeField] private List<GameObject> playerCameras;
     [SerializeField] private FoxMovement foxmove;
@@ -44,4 +45,5 @@ public class ToggleTrailerCamera : MonoBehaviour
             trailerCamera.SetActive(false);
         }
     }
+#endif
 }

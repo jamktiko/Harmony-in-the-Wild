@@ -5,6 +5,7 @@ using System;
 
 public class AbilityTestingTools : MonoBehaviour
 {
+#if DEBUG
     [Header(" K = check one \n L = check all \n U = unlock one \n I = unlock all")]
     public Abilities abilityToUnlock;
 
@@ -62,4 +63,5 @@ public class AbilityTestingTools : MonoBehaviour
             Debug.Log($"Ability: {ability.Key}, Status: {status}");
         }
     }
+#endif
 }

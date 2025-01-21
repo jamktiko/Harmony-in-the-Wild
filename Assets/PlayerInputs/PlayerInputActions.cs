@@ -207,6 +207,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
+#if DEBUG
                 {
                     ""name"": ""DebugSave"",
                     ""type"": ""Button"",
@@ -351,6 +352,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
+#endif
                 {
                     ""name"": ""CinematicCamera"",
                     ""type"": ""Button"",
@@ -1682,6 +1684,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Close = m_Player.FindAction("Close", throwIfNotFound: true);
         m_Player_DialogueNext = m_Player.FindAction("DialogueNext", throwIfNotFound: true);
         m_Player_TogglePlayerModel = m_Player.FindAction("TogglePlayerModel", throwIfNotFound: true);
+
+#if DEBUG
         m_Player_DebugSave = m_Player.FindAction("DebugSave", throwIfNotFound: true);
         m_Player_DebugAbilitiesCheckOne = m_Player.FindAction("DebugAbilitiesCheckOne", throwIfNotFound: true);
         m_Player_DebugAbilitiesCheckAll = m_Player.FindAction("DebugAbilitiesCheckAll", throwIfNotFound: true);
@@ -1698,6 +1702,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_DebugHideUI = m_Player.FindAction("DebugHideUI", throwIfNotFound: true);
         m_Player_DebugIncreaseTrailerCameraSpeed = m_Player.FindAction("DebugIncreaseTrailerCameraSpeed", throwIfNotFound: true);
         m_Player_DebugDecreaseTrailerCameraSpeed = m_Player.FindAction("DebugDecreaseTrailerCameraSpeed", throwIfNotFound: true);
+#endif
         m_Player_CinematicCamera = m_Player.FindAction("CinematicCamera", throwIfNotFound: true);
         m_Player_SwitchTimeScale = m_Player.FindAction("SwitchTimeScale", throwIfNotFound: true);
         m_Player_Lay = m_Player.FindAction("Lay", throwIfNotFound: true);
@@ -1797,6 +1802,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Close;
     private readonly InputAction m_Player_DialogueNext;
     private readonly InputAction m_Player_TogglePlayerModel;
+#if DEBUG
     private readonly InputAction m_Player_DebugSave;
     private readonly InputAction m_Player_DebugAbilitiesCheckOne;
     private readonly InputAction m_Player_DebugAbilitiesCheckAll;
@@ -1813,6 +1819,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_DebugHideUI;
     private readonly InputAction m_Player_DebugIncreaseTrailerCameraSpeed;
     private readonly InputAction m_Player_DebugDecreaseTrailerCameraSpeed;
+#endif
     private readonly InputAction m_Player_CinematicCamera;
     private readonly InputAction m_Player_SwitchTimeScale;
     private readonly InputAction m_Player_Lay;
@@ -1841,6 +1848,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Close => m_Wrapper.m_Player_Close;
         public InputAction @DialogueNext => m_Wrapper.m_Player_DialogueNext;
         public InputAction @TogglePlayerModel => m_Wrapper.m_Player_TogglePlayerModel;
+
+#if DEBUG
         public InputAction @DebugSave => m_Wrapper.m_Player_DebugSave;
         public InputAction @DebugAbilitiesCheckOne => m_Wrapper.m_Player_DebugAbilitiesCheckOne;
         public InputAction @DebugAbilitiesCheckAll => m_Wrapper.m_Player_DebugAbilitiesCheckAll;
@@ -1857,6 +1866,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @DebugHideUI => m_Wrapper.m_Player_DebugHideUI;
         public InputAction @DebugIncreaseTrailerCameraSpeed => m_Wrapper.m_Player_DebugIncreaseTrailerCameraSpeed;
         public InputAction @DebugDecreaseTrailerCameraSpeed => m_Wrapper.m_Player_DebugDecreaseTrailerCameraSpeed;
+
+#endif
         public InputAction @CinematicCamera => m_Wrapper.m_Player_CinematicCamera;
         public InputAction @SwitchTimeScale => m_Wrapper.m_Player_SwitchTimeScale;
         public InputAction @Lay => m_Wrapper.m_Player_Lay;
@@ -1930,6 +1941,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @TogglePlayerModel.started += instance.OnTogglePlayerModel;
             @TogglePlayerModel.performed += instance.OnTogglePlayerModel;
             @TogglePlayerModel.canceled += instance.OnTogglePlayerModel;
+#if DEBUG
             @DebugSave.started += instance.OnDebugSave;
             @DebugSave.performed += instance.OnDebugSave;
             @DebugSave.canceled += instance.OnDebugSave;
@@ -1978,6 +1990,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @DebugDecreaseTrailerCameraSpeed.started += instance.OnDebugDecreaseTrailerCameraSpeed;
             @DebugDecreaseTrailerCameraSpeed.performed += instance.OnDebugDecreaseTrailerCameraSpeed;
             @DebugDecreaseTrailerCameraSpeed.canceled += instance.OnDebugDecreaseTrailerCameraSpeed;
+#endif
             @CinematicCamera.started += instance.OnCinematicCamera;
             @CinematicCamera.performed += instance.OnCinematicCamera;
             @CinematicCamera.canceled += instance.OnCinematicCamera;
@@ -2054,6 +2067,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @TogglePlayerModel.started -= instance.OnTogglePlayerModel;
             @TogglePlayerModel.performed -= instance.OnTogglePlayerModel;
             @TogglePlayerModel.canceled -= instance.OnTogglePlayerModel;
+#if DEBUG
             @DebugSave.started -= instance.OnDebugSave;
             @DebugSave.performed -= instance.OnDebugSave;
             @DebugSave.canceled -= instance.OnDebugSave;
@@ -2102,6 +2116,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @DebugDecreaseTrailerCameraSpeed.started -= instance.OnDebugDecreaseTrailerCameraSpeed;
             @DebugDecreaseTrailerCameraSpeed.performed -= instance.OnDebugDecreaseTrailerCameraSpeed;
             @DebugDecreaseTrailerCameraSpeed.canceled -= instance.OnDebugDecreaseTrailerCameraSpeed;
+#endif
             @CinematicCamera.started -= instance.OnCinematicCamera;
             @CinematicCamera.performed -= instance.OnCinematicCamera;
             @CinematicCamera.canceled -= instance.OnCinematicCamera;
@@ -2305,6 +2320,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnClose(InputAction.CallbackContext context);
         void OnDialogueNext(InputAction.CallbackContext context);
         void OnTogglePlayerModel(InputAction.CallbackContext context);
+#if DEBUG
         void OnDebugSave(InputAction.CallbackContext context);
         void OnDebugAbilitiesCheckOne(InputAction.CallbackContext context);
         void OnDebugAbilitiesCheckAll(InputAction.CallbackContext context);
@@ -2321,6 +2337,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnDebugHideUI(InputAction.CallbackContext context);
         void OnDebugIncreaseTrailerCameraSpeed(InputAction.CallbackContext context);
         void OnDebugDecreaseTrailerCameraSpeed(InputAction.CallbackContext context);
+#endif
+
         void OnCinematicCamera(InputAction.CallbackContext context);
         void OnSwitchTimeScale(InputAction.CallbackContext context);
         void OnLay(InputAction.CallbackContext context);

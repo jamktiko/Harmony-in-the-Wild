@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class TrailerCameraDevTool : MonoBehaviour
 {
+#if DEBUG
     public float moveSpeed = 5f;
     public float mouseSensitivity = 2f;
 
@@ -45,4 +46,5 @@ public class TrailerCameraDevTool : MonoBehaviour
             moveSpeed -= 2f;
         }
     }
+#endif
 }

@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class GrowthTester : MonoBehaviour
 {
+#if DEBUG
     public GameObject objectToEnable;
     public GrowthController growthController;
     public CinematicCameraRotator cameraRotator;
@@ -40,4 +41,5 @@ public class GrowthTester : MonoBehaviour
             }
         }
     }
+#endif
 }
