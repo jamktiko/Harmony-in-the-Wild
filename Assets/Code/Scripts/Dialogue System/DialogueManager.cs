@@ -376,6 +376,7 @@ public class DialogueManager : MonoBehaviour
             canStartDialogue = true;
         }
 
+        canStartDialogue = true;
         canInteractWith = true;
     }
 }

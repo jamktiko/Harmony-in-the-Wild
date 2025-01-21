@@ -11,8 +11,14 @@ public class PlayerModelToggle : MonoBehaviour
     [SerializeField] private ParticleSystem[] changePSSnow;
     [SerializeField] private ParticleSystem[] changePSAutumn;
 
-    private Vector3 effectPosition;
     private Animator currentAnimator;
+
+    private bool canTriggerChange = false; // this bool is enabled a bit after the scene is loaded; the point is to prevent the change being triggered when entering the scene
+
+    private void Start()
+    {
+        Invoke(nameof(EnableTransition), 2f);
+    }
 
     private void Update()
     {
@@ -58,12 +64,6 @@ public class PlayerModelToggle : MonoBehaviour
     
     private void ChangeVFX(bool snow)
     {
-        //effectPosition = new Vector3(transform.position.x, transform.position.y + 0.4f, transform.position.z);
-        //Instantiate(changeEffect, effectPosition, Quaternion.identity);
-        //effectPosition = new Vector3(transform.position.x, transform.position.y + 0.6f, transform.position.z);
-        //Instantiate(changeEffect, effectPosition, Quaternion.identity);
-        //effectPosition = new Vector3(transform.position.x, transform.position.y + 0.8f, transform.position.z);
-        //Instantiate(changeEffect, effectPosition, Quaternion.identity);
         if (snow)
             for (int i = 0; i < changePSSnow.Length; i++)
             {
@@ -74,17 +74,27 @@ public class PlayerModelToggle : MonoBehaviour
             {
                 changePSAutumn[i].Play();
             }
+
+        StartCoroutine(ChangeModel(snow));
     }
-    /*public void ChangeModelToForest()
+
+    private IEnumerator ChangeModel(bool toArcticFox)
     {
-        if (!redFox.activeInHierarchy)
+        yield return new WaitForSeconds(3.3f);
+
+        if (toArcticFox)
         {
-            GameEventsManager.instance.playerEvents.ChangePlayerModel();
+            redFox.SetActive(false);
+            arcticFox.SetActive(true);
 
-            ChangeVFX();
+            currentAnimator = arcticFox.GetComponent<Animator>();
+            FoxMovement.instance.playerAnimator = currentAnimator;
+            playerCamera.foxObject = arcticFox.transform;
+        }
 
+        else
+        {
             redFox.SetActive(true);
-            redFox.transform.rotation = arcticFox.transform.rotation;
             arcticFox.SetActive(false);
 
             currentAnimator = redFox.GetComponent<Animator>();
@@ -92,56 +102,38 @@ public class PlayerModelToggle : MonoBehaviour
             playerCamera.foxObject = redFox.transform;
         }
     }
-    public void ChangeModelToArctic()
+
+    public void PrepareForModelChange(string modelName)
     {
-        if (redFox.activeInHierarchy)
+        if (canTriggerChange)
         {
             GameEventsManager.instance.playerEvents.ChangePlayerModel();
 
-            ChangeVFX();
+            if (modelName == "Arctic")
+            {
+                if (!arcticFox.activeInHierarchy)
+                {
+                    ChangeVFX(true);
+                }
+            }
 
-            redFox.SetActive(false);
-            arcticFox.transform.rotation = redFox.transform.rotation;
-            arcticFox.SetActive(true);
-
-            currentAnimator = arcticFox.GetComponent<Animator>();
-            FoxMovement.instance.playerAnimator = currentAnimator;
-            playerCamera.foxObject = arcticFox.transform;
+            else if (modelName == "Forest")
+            {
+                if (!redFox.activeInHierarchy)
+                {
+                    ChangeVFX(false);
+                }
+            }
         }
-    }*/
 
-    public void ChangeModelTo(string modelName)
+        else
+        {
+            Debug.Log("Player model changes are not enabled!");
+        }
+    }
+
+    private void EnableTransition()
     {
-        GameEventsManager.instance.playerEvents.ChangePlayerModel();
-
-        if (modelName == "Arctic")
-        {
-            if (!arcticFox.activeInHierarchy)
-            {
-                ChangeVFX(true);
-
-                redFox.SetActive(false);
-                arcticFox.SetActive(true);
-
-                currentAnimator = arcticFox.GetComponent<Animator>();
-                FoxMovement.instance.playerAnimator = currentAnimator;
-                playerCamera.foxObject = arcticFox.transform;
-            }
-        }
-
-        else if(modelName == "Forest")
-        {
-            if (!redFox.activeInHierarchy)
-            {
-                ChangeVFX(false);
-
-                redFox.SetActive(true);
-                arcticFox.SetActive(false);
-
-                currentAnimator = redFox.GetComponent<Animator>();
-                FoxMovement.instance.playerAnimator = currentAnimator;
-                playerCamera.foxObject = redFox.transform;
-            }
-        }
+        canTriggerChange = true;
     }
 }
