@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5367013051879942056}
   - component: {fileID: 7030052485109116955}
+  - component: {fileID: 8112543081653706915}
   m_Layer: 0
   m_Name: PauseMenuManager
   m_TagString: Untagged
@@ -65,6 +66,25 @@ MonoBehaviour:
   SliderValue2: 0
   BerryCounter: {fileID: 0}
   PineconeCounter: {fileID: 0}
+--- !u!114 &8112543081653706915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2849849187286541212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73fcb9140e1ce924796bc8ff3d2afd5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  masterVolumeSlider: {fileID: 0}
+  musicVolumeSlider: {fileID: 0}
+  MasterSliderValue: 0
+  MusicSliderValue: 0
+  mixer: {fileID: 0}
+  masterVolume: {fileID: 0}
+  musicVolume: {fileID: 0}
 --- !u!1001 &999908216911814428
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -157,6 +177,42 @@ PrefabInstance:
       propertyPath: m_Name
       value: PauseMenuCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 4460563031162032400, guid: 72b68dffbbf6e6b45a1d4ede82d3b0a3, type: 3}
+      propertyPath: m_Value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460563031162032400, guid: 72b68dffbbf6e6b45a1d4ede82d3b0a3, type: 3}
+      propertyPath: m_MaxValue
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460563031162032400, guid: 72b68dffbbf6e6b45a1d4ede82d3b0a3, type: 3}
+      propertyPath: m_MinValue
+      value: 0.0001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460563031162032400, guid: 72b68dffbbf6e6b45a1d4ede82d3b0a3, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460563031162032400, guid: 72b68dffbbf6e6b45a1d4ede82d3b0a3, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460563031162032400, guid: 72b68dffbbf6e6b45a1d4ede82d3b0a3, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 8112543081653706915}
+    - target: {fileID: 4460563031162032400, guid: 72b68dffbbf6e6b45a1d4ede82d3b0a3, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangeMasterSlider
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460563031162032400, guid: 72b68dffbbf6e6b45a1d4ede82d3b0a3, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: VolumeController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460563031162032400, guid: 72b68dffbbf6e6b45a1d4ede82d3b0a3, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 7012984826385703286, guid: 72b68dffbbf6e6b45a1d4ede82d3b0a3, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -212,6 +268,42 @@ PrefabInstance:
     - target: {fileID: 8946034697856209343, guid: 72b68dffbbf6e6b45a1d4ede82d3b0a3, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: PauseMenuManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8953080763524633750, guid: 72b68dffbbf6e6b45a1d4ede82d3b0a3, type: 3}
+      propertyPath: m_Value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8953080763524633750, guid: 72b68dffbbf6e6b45a1d4ede82d3b0a3, type: 3}
+      propertyPath: m_MaxValue
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8953080763524633750, guid: 72b68dffbbf6e6b45a1d4ede82d3b0a3, type: 3}
+      propertyPath: m_MinValue
+      value: 0.0001
+      objectReference: {fileID: 0}
+    - target: {fileID: 8953080763524633750, guid: 72b68dffbbf6e6b45a1d4ede82d3b0a3, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8953080763524633750, guid: 72b68dffbbf6e6b45a1d4ede82d3b0a3, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8953080763524633750, guid: 72b68dffbbf6e6b45a1d4ede82d3b0a3, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 8112543081653706915}
+    - target: {fileID: 8953080763524633750, guid: 72b68dffbbf6e6b45a1d4ede82d3b0a3, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangeMusicSlider
+      objectReference: {fileID: 0}
+    - target: {fileID: 8953080763524633750, guid: 72b68dffbbf6e6b45a1d4ede82d3b0a3, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: VolumeController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8953080763524633750, guid: 72b68dffbbf6e6b45a1d4ede82d3b0a3, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 9000190181606889906, guid: 72b68dffbbf6e6b45a1d4ede82d3b0a3, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
