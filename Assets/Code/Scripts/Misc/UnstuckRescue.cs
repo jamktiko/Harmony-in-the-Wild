@@ -8,17 +8,10 @@ public class UnstuckRescue : MonoBehaviour
     private List<Transform> rescuePoints = new List<Transform>();
     private Transform player;
 
-    private void Start()
-    {
-        if (!UnityEngine.SceneManagement.SceneManager.GetActiveScene().name.Contains("Overworld", System.StringComparison.CurrentCultureIgnoreCase))
-        {
-            gameObject.SetActive(false);
-        }
 
-        else
-        {
-            GetNeededData();
-        }
+    private void OnEnable()
+    {
+        CheckButtonVisibilityConditions();
     }
 
     private void GetNeededData()
@@ -66,5 +59,19 @@ public class UnstuckRescue : MonoBehaviour
         FoxMovement.instance.gameObject.SetActive(false);
         player.position = nearestRescuePoint;
         FoxMovement.instance.gameObject.SetActive(true);
+    }
+
+    private void CheckButtonVisibilityConditions()
+    {
+        if (!UnityEngine.SceneManagement.SceneManager.GetActiveScene().name.Contains("Overworld", System.StringComparison.CurrentCultureIgnoreCase))
+        {
+            transform.GetChild(0).gameObject.SetActive(false);
+        }
+
+        else
+        {
+            transform.GetChild(0).gameObject.SetActive(true);
+            GetNeededData();
+        }
     }
 }
