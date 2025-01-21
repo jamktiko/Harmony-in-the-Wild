@@ -45,14 +45,14 @@ public class TimeManager : MonoBehaviour
         UpdateLightSettings();
         UpdateSkyBlend();
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            timeSettingss.timeMultiplier *= 2;
-        }
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            timeSettingss.timeMultiplier /= 2;
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    timeSettingss.timeMultiplier *= 2;
+        //}
+        //if (Input.GetKeyDown(KeyCode.LeftShift))
+        //{
+        //    timeSettingss.timeMultiplier /= 2;
+        //}
     }
 
     void UpdateSkyBlend()
