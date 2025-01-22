@@ -23,8 +23,6 @@ public class DungeonEntrance : MonoBehaviour
     private string questId;
     private QuestState currentQuestState;
     private Quest currentQuest;
-    [SerializeField]private GameObject loadingScreen;
-    [SerializeField]private TMP_Text loadingScreenText;
 
     private void Start()
     {
