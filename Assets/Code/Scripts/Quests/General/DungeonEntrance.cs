@@ -88,7 +88,7 @@ public class DungeonEntrance : MonoBehaviour
                 GameEventsManager.instance.uiEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Storybook);
             }
 
-            else if (currentQuestState == QuestState.FINISHED)
+            else if (currentQuestState == QuestState.FINISHED || currentQuestState == QuestState.CAN_FINISH)
             {
                 RespawnManager.instance.SetRespawnPosition(respawnPoint.position);
 
