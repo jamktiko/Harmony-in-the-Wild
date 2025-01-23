@@ -153,7 +153,7 @@ public class AutoFlip : MonoBehaviour {
 
     private void PlayFlipSound()
     {
-        audioSource.Play();
+        AudioManager.instance.PlaySound(AudioName.Prop_StorybookPage, transform);
     }
 }
 

@@ -102,10 +102,10 @@ public class Gliding : MonoBehaviour, IAbility
                 FoxMovement.instance.rb.useGravity = false;
                 FoxMovement.instance.rb.velocity = new Vector3(0, -1.5f, 0);
 
-                if (!glidingAudio.isPlaying)
-                {
-                    glidingAudio.Play();
-                }
+                //if (!glidingAudio.isPlaying)
+                //{
+                //    glidingAudio.Play();
+                //}
             }
 
             FoxMovement.instance.rb.velocity = new Vector3(FoxMovement.instance.rb.velocity.x, -1.5f, FoxMovement.instance.rb.velocity.z);
@@ -136,6 +136,8 @@ public class Gliding : MonoBehaviour, IAbility
     {
         FoxMovement.instance.playerAnimator.SetBool("isGrounded", false);
         isGliding = false;
+
+        GameEventsManager.instance.audioEvents.DestroyAudio(AudioName.Ability_Gliding);
 
         if (!FoxMovement.instance.rb.useGravity)
         {

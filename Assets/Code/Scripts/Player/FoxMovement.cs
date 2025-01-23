@@ -190,6 +190,7 @@ public class FoxMovement : MonoBehaviour
         if (PlayerInputHandler.instance.JumpInput.WasPressedThisFrame() && !grounded && !IsInWater())
         {
             AbilityManager.instance.ActivateAbilityIfUnlocked(Abilities.Gliding);
+            AudioManager.instance.PlaySound(AudioName.Ability_Gliding, transform);
         }
 
         //swimming

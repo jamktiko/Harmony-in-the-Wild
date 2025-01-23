@@ -24,19 +24,23 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySound(AudioName audioToPlay, Transform parent)
     {
-        AudioObject newAudio;
+        AudioObject newAudioData = new AudioObject();
 
         // locate new audio object
         foreach(AudioObject audioObject in audioList)
         {
             if(audioObject.name == audioToPlay)
             {
-                newAudio = audioObject;
+                newAudioData = audioObject;
                 break;
             }
         }
 
-        // spawn the audio object
+        GameObject spawnedAudioObject = Instantiate(newAudioData.audioPrefab, parent);
 
+        if (!newAudioData.keepUnderParent)
+        {
+            spawnedAudioObject.transform.parent = null;
+        }
     }
 }

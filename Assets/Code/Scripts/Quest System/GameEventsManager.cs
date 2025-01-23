@@ -9,6 +9,7 @@ public class GameEventsManager : MonoBehaviour
     public DialogueEvents dialogueEvents;
     public CinematicsEvents cinematicsEvents;
     public UIEvents uiEvents;
+    public AudioEvents audioEvents;
 
     private void Awake()
     {
@@ -30,5 +31,6 @@ public class GameEventsManager : MonoBehaviour
         dialogueEvents = new DialogueEvents();
         cinematicsEvents = new CinematicsEvents();
         uiEvents = new UIEvents();
+        audioEvents = new AudioEvents();
     }
 }
