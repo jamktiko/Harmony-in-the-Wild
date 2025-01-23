@@ -13,17 +13,17 @@ public class PlayerModelToggle : MonoBehaviour
 
     private Animator currentAnimator;
 
-    private bool canTriggerChange = false; // this bool is enabled a bit after the scene is loaded; the point is to prevent the change being triggered when entering the scene
+    private bool canTriggerVFX = false; // this bool is enabled a bit after the scene is loaded; the point is to prevent VFX being triggered when entering the scene
 
     private void Start()
     {
-        Invoke(nameof(EnableTransition), 2f);
+        Invoke(nameof(EnableVFX), 2f);
     }
 
     private void Update()
     {
-        if (PlayerInputHandler.instance.TogglePlayerModelInput.WasPressedThisFrame())
-            TogglePlayerModelPublic();
+        //if (PlayerInputHandler.instance.TogglePlayerModelInput.WasPressedThisFrame())
+        //    TogglePlayerModelPublic();
     }
 
     public void TogglePlayerModelPublic(int model = 0)
@@ -38,15 +38,7 @@ public class PlayerModelToggle : MonoBehaviour
             snow = true;
         ChangeVFX(snow);
         StartCoroutine(MaintainRotation(5));
-        yield return new WaitForSeconds(3.5f);
-        if (!snow)
-        {
-            //ChangeModelToForest();
-        }
-        else
-        {
-            //ChangeModelToArctic();
-        }
+        yield return null;
     }
 
     IEnumerator MaintainRotation(float duration)
@@ -105,15 +97,16 @@ public class PlayerModelToggle : MonoBehaviour
 
     public void PrepareForModelChange(string modelName)
     {
-        if (canTriggerChange)
-        {
-            GameEventsManager.instance.playerEvents.ChangePlayerModel();
+        GameEventsManager.instance.playerEvents.ChangePlayerModel();
 
+        if (canTriggerVFX)
+        {
             if (modelName == "Arctic")
             {
                 if (!arcticFox.activeInHierarchy)
                 {
                     ChangeVFX(true);
+                    StartCoroutine(MaintainRotation(5));
                 }
             }
 
@@ -122,6 +115,7 @@ public class PlayerModelToggle : MonoBehaviour
                 if (!redFox.activeInHierarchy)
                 {
                     ChangeVFX(false);
+                    StartCoroutine(MaintainRotation(5));
                 }
             }
         }
@@ -132,8 +126,8 @@ public class PlayerModelToggle : MonoBehaviour
         }
     }
 
-    private void EnableTransition()
+    private void EnableVFX()
     {
-        canTriggerChange = true;
+        canTriggerVFX = true;
     }
 }
