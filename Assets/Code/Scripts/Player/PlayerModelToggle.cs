@@ -67,12 +67,12 @@ public class PlayerModelToggle : MonoBehaviour
                 changePSAutumn[i].Play();
             }
 
-        StartCoroutine(ChangeModel(snow));
+        StartCoroutine(ChangeModel(snow, 3.3f));
     }
 
-    private IEnumerator ChangeModel(bool toArcticFox)
+    private IEnumerator ChangeModel(bool toArcticFox, float timeBeforeChange)
     {
-        yield return new WaitForSeconds(3.3f);
+        yield return new WaitForSeconds(timeBeforeChange);
 
         if (toArcticFox)
         {
@@ -97,32 +97,38 @@ public class PlayerModelToggle : MonoBehaviour
 
     public void PrepareForModelChange(string modelName)
     {
-        GameEventsManager.instance.playerEvents.ChangePlayerModel();
-
-        if (canTriggerVFX)
+        if (modelName == "Arctic")
         {
-            if (modelName == "Arctic")
+            if (!arcticFox.activeInHierarchy)
             {
-                if (!arcticFox.activeInHierarchy)
+                if (canTriggerVFX)
                 {
                     ChangeVFX(true);
                     StartCoroutine(MaintainRotation(5));
                 }
-            }
 
-            else if (modelName == "Forest")
-            {
-                if (!redFox.activeInHierarchy)
+                else
                 {
-                    ChangeVFX(false);
-                    StartCoroutine(MaintainRotation(5));
+                    StartCoroutine(ChangeModel(true, 0f));
                 }
             }
         }
 
-        else
+        else if (modelName == "Forest")
         {
-            Debug.Log("Player model changes are not enabled!");
+            if (!redFox.activeInHierarchy)
+            {
+                if (canTriggerVFX)
+                {
+                    ChangeVFX(false);
+                    StartCoroutine(MaintainRotation(5));
+                }
+
+                else
+                {
+                    StartCoroutine(ChangeModel(false, 0f));
+                }
+            }
         }
     }
 
