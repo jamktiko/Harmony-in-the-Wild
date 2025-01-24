@@ -54,9 +54,20 @@ public enum AudioName
     Prop_StorybookPage,
     Prop_Teleport,
     Prop_TotemHum,
-    Prop_Waterfall,
+    Prop_Waterfall
+}
+
+[System.Serializable]
+public enum ThemeName
+{
     Theme_Arctic,
     Theme_Forest,
+    Theme_Dungeon_Frog,
+    Theme_Dungeon_Monkey,
+    Theme_Dungeon_Squirrel,
+    Theme_Dungeon_Penguin,
+    Theme_Menu,
     Theme_Storybook,
-    Theme_ToLCinematics
+    Theme_ToLCinematics,
+    Theme_Tutorial
 }

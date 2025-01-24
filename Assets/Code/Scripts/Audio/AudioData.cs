@@ -24,5 +24,14 @@ public class AudioObject
 {
     public AudioName name;
     public GameObject audioPrefab;
-    public bool keepUnderParent;
+    [Tooltip("Tick this if the audio is a looping/longer abiilty SFX")]
+    public bool forceToBeUnderPlayer;
+}
+
+[System.Serializable]
+public class ThemeData
+{
+    public ThemeName name;
+    public AudioClip clip;
+    public float maxVolume;
 }

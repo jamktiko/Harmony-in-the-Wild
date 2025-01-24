@@ -76,6 +76,8 @@ public class Gliding : MonoBehaviour, IAbility
 
         if (isGliding)
         {
+            AudioManager.instance.PlaySound(AudioName.Ability_Gliding, transform);
+
             for (int i = 0; i < glideParticleEmission.Count; i++)
             {
                 var emission = glideParticleEmission[i].emission;

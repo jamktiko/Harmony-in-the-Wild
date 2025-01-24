@@ -23,6 +23,8 @@ public class AudioPrefabObject : MonoBehaviour
         {
             GameEventsManager.instance.audioEvents.OnDestroyAudio += DestroyOnCall;
         }
+
+        GameEventsManager.instance.playerEvents.OnToggleInputActions += ToggleAudioOnInput;
     }
 
     private void OnDisable()
@@ -31,6 +33,8 @@ public class AudioPrefabObject : MonoBehaviour
         {
             GameEventsManager.instance.audioEvents.OnDestroyAudio -= DestroyOnCall;
         }
+
+        GameEventsManager.instance.playerEvents.OnToggleInputActions -= ToggleAudioOnInput;
     }
 
     private void PlayAudio()
@@ -71,6 +75,19 @@ public class AudioPrefabObject : MonoBehaviour
         if(audioToDestroy == data.name)
         {
             Destroy(gameObject);
+        }
+    }
+
+    private void ToggleAudioOnInput(bool audioOn)
+    {
+        if (audioOn)
+        {
+            audioSource.Play();
+        }
+
+        else
+        {
+            audioSource.Pause();
         }
     }
 }
