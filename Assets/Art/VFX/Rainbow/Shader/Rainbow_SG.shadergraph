@@ -17,6 +17,9 @@
         },
         {
             "m_Id": "eac43b4132b44fab8ae64f70c956da1a"
+        },
+        {
+            "m_Id": "3088ed5da2cb435e848b676ae8dbbb95"
         }
     ],
     "m_Keywords": [],
@@ -24,6 +27,12 @@
     "m_CategoryData": [
         {
             "m_Id": "c6535627b35c40b3ac2c770e3b8dee3c"
+        },
+        {
+            "m_Id": "f91080addb94416da48bb0097bf5ac48"
+        },
+        {
+            "m_Id": "b69738e6715a419aa45edf9b8b9af88a"
         }
     ],
     "m_Nodes": [
@@ -68,15 +77,28 @@
         },
         {
             "m_Id": "109b5d945d1e4de3bf758a080665a324"
+        },
+        {
+            "m_Id": "104e864eab8445e79103d9f90a57ef56"
         }
     ],
     "m_GroupDatas": [],
-    "m_StickyNoteDatas": [
-        {
-            "m_Id": "f2a0683f4d6946809943ca478efc8ea4"
-        }
-    ],
+    "m_StickyNoteDatas": [],
     "m_Edges": [
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "104e864eab8445e79103d9f90a57ef56"
+                },
+                "m_SlotId": 0
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "7fe0145aa85340c1b4e02ad7d7467c53"
+                },
+                "m_SlotId": 0
+            }
+        },
         {
             "m_OutputSlot": {
                 "m_Node": {
@@ -248,6 +270,42 @@
 {
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
+    "m_ObjectId": "104e864eab8445e79103d9f90a57ef56",
+    "m_Group": {
+        "m_Id": ""
+    },
+    "m_Name": "Property",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": -128.00003051757813,
+            "y": 320.0000305175781,
+            "width": 128.00001525878907,
+            "height": 33.999969482421878
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "ab8f9ca928fc4a219f78a901bd468f2b"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_DismissedVersion": 0,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_Property": {
+        "m_Id": "3088ed5da2cb435e848b676ae8dbbb95"
+    }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
     "m_ObjectId": "109b5d945d1e4de3bf758a080665a324",
     "m_Group": {
         "m_Id": ""
@@ -388,6 +446,34 @@
 }
 
 {
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
+    "m_ObjectId": "3088ed5da2cb435e848b676ae8dbbb95",
+    "m_Guid": {
+        "m_GuidSerialized": "f3d1ee3f-ad59-47fb-b0bd-2293771ac826"
+    },
+    "m_Name": "Threshold",
+    "m_DefaultRefNameVersion": 1,
+    "m_RefNameGeneratedByDisplayName": "Threshold",
+    "m_DefaultReferenceName": "_Threshold",
+    "m_OverrideReferenceName": "",
+    "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
+    "m_DismissedVersion": 0,
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "m_Hidden": false,
+    "m_Value": 0.0,
+    "m_FloatType": 0,
+    "m_RangeValues": {
+        "x": 0.0,
+        "y": 1.0
+    }
+}
+
+{
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
     "m_ObjectId": "3557cba7f8464d8bb4a712d7f6e8c02c",
@@ -501,7 +587,7 @@
     "m_ActiveSubTarget": {
         "m_Id": "3b2b710f1af54b0b85116467544e6c2a"
     },
-    "m_AllowMaterialOverride": false,
+    "m_AllowMaterialOverride": true,
     "m_SurfaceType": 1,
     "m_ZTestMode": 4,
     "m_ZWriteControl": 0,
@@ -1126,6 +1212,21 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "ab8f9ca928fc4a219f78a901bd468f2b",
+    "m_Id": 0,
+    "m_DisplayName": "Threshold",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Out",
+    "m_StageCapability": 3,
+    "m_Value": 0.0,
+    "m_DefaultValue": 0.0,
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.DynamicValueMaterialSlot",
     "m_ObjectId": "ad4a3c0135104247964586cf5f1edd10",
     "m_Id": 1,
@@ -1265,6 +1366,21 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.CategoryData",
+    "m_ObjectId": "b69738e6715a419aa45edf9b8b9af88a",
+    "m_Name": "Detail Inputs",
+    "m_ChildObjectList": [
+        {
+            "m_Id": "3ec7bd7533f8472ea521ed2aa8ecc9f9"
+        },
+        {
+            "m_Id": "84b7abdbf5d0482f944b9c08adbfe334"
+        }
+    ]
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.NormalMaterialSlot",
     "m_ObjectId": "b6ac84706b5c4e5097533f71df78ab7f",
     "m_Id": 0,
@@ -1315,19 +1431,10 @@
     "m_Name": "",
     "m_ChildObjectList": [
         {
-            "m_Id": "fa818abddf9849a2a7d5287826c20b78"
-        },
-        {
             "m_Id": "7051a7be244c47b5806dfd87cfc705d2"
         },
         {
-            "m_Id": "3ec7bd7533f8472ea521ed2aa8ecc9f9"
-        },
-        {
-            "m_Id": "84b7abdbf5d0482f944b9c08adbfe334"
-        },
-        {
-            "m_Id": "eac43b4132b44fab8ae64f70c956da1a"
+            "m_Id": "3088ed5da2cb435e848b676ae8dbbb95"
         }
     ]
 }
@@ -1445,10 +1552,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -197.99998474121095,
-            "y": 273.0,
-            "width": 104.9999771118164,
-            "height": 34.00006103515625
+            "x": -105.0000228881836,
+            "y": 279.0,
+            "width": 105.00000762939453,
+            "height": 34.000030517578128
         }
     },
     "m_Slots": [
@@ -1484,22 +1591,17 @@
 
 {
     "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.StickyNoteData",
-    "m_ObjectId": "f2a0683f4d6946809943ca478efc8ea4",
-    "m_Title": "UV Flipping",
-    "m_Content": "UV Node into Split to separate out X and Y, in Split RGBA -> XYYZW. R is X, G is Y.                                      By swapping R to G and G to R, we flip the UV so that it moves in a different direction, displaying the way we want in-game.",
-    "m_TextSize": 0,
-    "m_Theme": 0,
-    "m_Position": {
-        "serializedVersion": "2",
-        "x": -1125.0,
-        "y": -522.0,
-        "width": 200.0,
-        "height": 160.0
-    },
-    "m_Group": {
-        "m_Id": ""
-    }
+    "m_Type": "UnityEditor.ShaderGraph.CategoryData",
+    "m_ObjectId": "f91080addb94416da48bb0097bf5ac48",
+    "m_Name": "Surface Inputs",
+    "m_ChildObjectList": [
+        {
+            "m_Id": "fa818abddf9849a2a7d5287826c20b78"
+        },
+        {
+            "m_Id": "eac43b4132b44fab8ae64f70c956da1a"
+        }
+    ]
 }
 
 {
