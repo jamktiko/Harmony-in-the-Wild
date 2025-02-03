@@ -17,10 +17,6 @@ public class PenguinRaceManager : MonoBehaviour
     [SerializeField] private GameObject lap2_Obstacles;
     [SerializeField] private DungeonQuestDialogue dungeonQuestDialogue;
     [SerializeField] private PenguinTimer timer;
-    [SerializeField] private GameObject tooSlowView;
-
-    [Header("Storybook Config")]
-    [SerializeField] private int storybookSectionIndex;
 
     private int currentLap = 1;
 
@@ -41,14 +37,14 @@ public class PenguinRaceManager : MonoBehaviour
         penguinDungeonEvents.onTimeRanOut += ShowCursor;
     }
 
-    private void OnEnable()
-    {
-        GameEventsManager.instance.dialogueEvents.OnEndDialogue += TransitionToOverworld;
-    }
+    //private void OnEnable()
+    //{
+    //    GameEventsManager.instance.dialogueEvents.OnEndDialogue += TransitionToOverworld;
+    //}
 
     private void OnDisable()
     {
-        GameEventsManager.instance.dialogueEvents.OnEndDialogue -= TransitionToOverworld;
+        //GameEventsManager.instance.dialogueEvents.OnEndDialogue -= TransitionToOverworld;
         penguinDungeonEvents.onTimeRanOut -= ShowCursor;
     }
 
@@ -116,22 +112,22 @@ public class PenguinRaceManager : MonoBehaviour
         }
     }
 
-    private void TransitionToOverworld()
-    {
-        if (dungeonQuestDialogue != null)
-        {
-            if (dungeonQuestDialogue.FinalDialogueCompleted())
-            {
-                StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, SceneManagerHelper.Scene.Overworld_VS, true);
-                GameEventsManager.instance.uiEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Storybook);
-            }
-        }
+    //private void TransitionToOverworld()
+    //{
+    //    if (dungeonQuestDialogue != null)
+    //    {
+    //        if (dungeonQuestDialogue.FinalDialogueCompleted())
+    //        {
+    //            StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, SceneManagerHelper.Scene.Overworld_VS, true);
+    //            GameEventsManager.instance.uiEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Storybook);
+    //        }
+    //    }
 
-        else
-        {
-            Debug.LogWarning("No Dungeon Quest Dialogue component assigned to Penguin Race Manager. Please check inspector!");
-        }
-    }
+    //    else
+    //    {
+    //        Debug.LogWarning("No Dungeon Quest Dialogue component assigned to Penguin Race Manager. Please check inspector!");
+    //    }
+    //}
 
     private void TriggerFinishDungeonDialogue()
     {

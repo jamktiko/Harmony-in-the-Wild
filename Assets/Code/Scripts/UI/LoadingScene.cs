@@ -43,6 +43,11 @@ public class LoadingScene : MonoBehaviour
     {
         AsyncOperation operation;
 
+        AudioManager.instance.EndCurrentTheme();
+
+        // wait a while, so the audio has time to fade
+        yield return new WaitForSeconds(2f);
+
         if(sceneName == SceneManagerHelper.Scene.NoName)
         {
             operation = SceneManagerHelper.LoadSceneAsync(StorybookHandler.instance.GetNextScene());

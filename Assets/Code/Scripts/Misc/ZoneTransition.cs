@@ -24,10 +24,12 @@ public class ZoneTransition : MonoBehaviour
     private float maxArcticVolume;
     private float maxForestVolume;
 
+    private bool enteringScene = true;
+
     private void Start()
     {
-        maxArcticVolume = arcticTheme.volume;
-        maxForestVolume = forestTheme.volume;
+        //maxArcticVolume = arcticTheme.volume;
+        //maxForestVolume = forestTheme.volume;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -40,19 +42,45 @@ public class ZoneTransition : MonoBehaviour
 
     public void ChangeThemeTo(string themeName)
     {
-        if(themeName == "Arctic")
+        AudioManager.instance.EndCurrentTheme();
+
+        if (themeName == "Arctic")
         {
-            currentTheme = forestTheme;
-            targetTheme = arcticTheme;
+            StartCoroutine(StartArcticTheme());
+            //currentTheme = forestTheme;
+            //targetTheme = arcticTheme;
         }
 
         else if(themeName == "Forest")
         {
-            currentTheme = arcticTheme;
-            targetTheme = forestTheme;
+            StartCoroutine(StartForestTheme());
+            //currentTheme = arcticTheme;
+            //targetTheme = forestTheme;
         }
 
-        StartCoroutine(MixThemes(currentTheme, targetTheme));
+        //StartCoroutine(MixThemes(currentTheme, targetTheme));
+    }
+
+    private IEnumerator StartArcticTheme()
+    {
+        Debug.Log("Waiting for arctic theme transition to be triggered...");
+
+        yield return new WaitUntil(() => AudioManager.instance.themeTransitionOn == false);
+
+        Debug.Log("Arctic theme about to be triggered...");
+
+        AudioManager.instance.StartNewTheme(ThemeName.Theme_Arctic);
+    }
+
+    private IEnumerator StartForestTheme()
+    {
+        Debug.Log("Waiting for forest theme transition to be triggered...");
+
+        yield return new WaitUntil(() => AudioManager.instance.themeTransitionOn == false);
+
+        Debug.Log("Forest theme about to be triggered...");
+
+        AudioManager.instance.StartNewTheme(ThemeName.Theme_Forest);
     }
 
     private IEnumerator MixThemes(AudioSource nowPlaying, AudioSource target)
