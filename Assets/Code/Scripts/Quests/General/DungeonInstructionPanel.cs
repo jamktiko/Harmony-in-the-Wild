@@ -7,7 +7,7 @@ public class DungeonInstructionPanel : MonoBehaviour
     [SerializeField] private DungeonQuestDialogue dungeonQuestDialogue;
     [SerializeField] private GameObject closingInstructions;
     private int onDungeonStartID;
-    private float timeToEnableHidingInstructions = 3f;
+    private float timeToEnableHidingInstructions = 4f;
     private bool canHideInstructions = false;
 
     private void Start()
