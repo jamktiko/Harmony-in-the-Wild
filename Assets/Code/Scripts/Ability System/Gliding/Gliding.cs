@@ -139,8 +139,6 @@ public class Gliding : MonoBehaviour, IAbility
         FoxMovement.instance.playerAnimator.SetBool("isGrounded", false);
         isGliding = false;
 
-        GameEventsManager.instance.audioEvents.DestroyAudio(AudioName.Ability_Gliding);
-
         if (!FoxMovement.instance.rb.useGravity)
         {
             FoxMovement.instance.rb.useGravity = true;

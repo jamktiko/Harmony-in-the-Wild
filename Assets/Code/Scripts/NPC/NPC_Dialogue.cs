@@ -6,15 +6,13 @@ public class NPC_Dialogue : MonoBehaviour
 {
     [SerializeField] private List<NPCQuestDialoguePair> questDialoguePairs;
     [SerializeField] private TextAsset defaultDialogue;
+    [SerializeField] private AudioName audioToPlayOnDialogueStarted;
 
-    private AudioSource audioSource;
     private List<TextAsset> possibleDialogues = new List<TextAsset>();
     private bool playerIsNear;
 
     private void Start()
     {
-        audioSource = GetComponent<AudioSource>();
-
         Invoke(nameof(CreateListOfPossibleDialogues), 1f);
     }
 
@@ -33,17 +31,12 @@ public class NPC_Dialogue : MonoBehaviour
 
         Debug.Log("Ready to start a NPC dialogue.");
 
-        if(audioSource != null)
-        {
-            audioSource.Play();
-        }
-
-        else
-        {
-            Debug.LogWarning("No audio source attached to " + gameObject.name + ", cannot play dialogue sound.");
-        }
-
         DialogueManager.instance.StartDialogue(possibleDialogues[dialogueIndex]);
+
+        if (DialogueManager.instance.isDialoguePlaying)
+        {
+            AudioManager.instance.PlaySound(audioToPlayOnDialogueStarted, transform);
+        }
     }
 
     private void CreateListOfPossibleDialogues()

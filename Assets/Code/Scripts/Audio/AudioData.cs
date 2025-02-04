@@ -24,7 +24,7 @@ public class AudioObject
 {
     public AudioName name;
     public GameObject audioPrefab;
-    [Tooltip("Tick this if the audio is a looping/longer abiilty SFX")]
+    [Tooltip("Tick this if the audio needs to spawn at the player's position, but it doesn't have the reference for it (called from Ability Manager etc.).")]
     public bool forceToBeUnderPlayer;
 }
 

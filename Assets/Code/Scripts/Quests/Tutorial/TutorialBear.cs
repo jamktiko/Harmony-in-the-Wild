@@ -9,6 +9,7 @@ public class TutorialBear : MonoBehaviour
     [SerializeField] private QuestScriptableObject questInfoForPoint;
 
     [Header("Dialogue Files")]
+    [SerializeField] private AudioName audioToPlayOnDialogueStarted;
     [SerializeField] private TextAsset dialogueBetweenQuests;
     [SerializeField] private List<TextAsset> dialogueFiles;
 
@@ -54,8 +55,6 @@ public class TutorialBear : MonoBehaviour
 
     private void InteractWithBear()
     {
-        audioSource.Play();
-
         if (QuestManager.instance.CheckQuestState(questId) == QuestState.FINISHED)
         {
             return;
@@ -69,6 +68,11 @@ public class TutorialBear : MonoBehaviour
         else
         {
             DialogueManager.instance.StartDialogue(dialogueBetweenQuests);
+        }
+
+        if (DialogueManager.instance.isDialoguePlaying)
+        {
+            AudioManager.instance.PlaySound(audioToPlayOnDialogueStarted, transform);
         }
     }
 

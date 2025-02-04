@@ -5,20 +5,13 @@ using UnityEngine;
 public class QuestPointDialogue : MonoBehaviour
 {
     [Header("Dialogue Files")]
+    [SerializeField] private AudioName audioToPlayOnDialogueStarted;
     [SerializeField] private TextAsset requirementsNotMetDialogue;
     [SerializeField] private TextAsset startQuestDialogue;
     [SerializeField] private TextAsset finishQuestDialogue;
     [SerializeField] private TextAsset afterQuestFinishedDialogue;
     [SerializeField] private TextAsset questInProgressDialogue;
     [SerializeField] private List<TextAsset> midQuestDialogues;
-
-    private AudioSource audioSource;
-    //private bool canStartDialogue = true;
-
-    private void Start()
-    {
-        audioSource = GetComponent<AudioSource>();
-    }
 
     private void OnEnable()
     {
@@ -84,7 +77,10 @@ public class QuestPointDialogue : MonoBehaviour
 
     private void PlayDialogueSound()
     {
-        audioSource.Play();
+        if (DialogueManager.instance.isDialoguePlaying)
+        {
+            AudioManager.instance.PlaySound(audioToPlayOnDialogueStarted, transform);
+        }
     }
 
     private void PreventNewDialogue()

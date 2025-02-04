@@ -6,7 +6,9 @@ public class Swimming : MonoBehaviour, IAbility
     private bool isActivated = false;
 
     public float swimSpeed = 5f;
-    [SerializeField] private AudioSource swimmingAudio;
+
+    private bool swimmingAudioPlaying = false;
+
     void Awake()
     {
         if (instance != null && instance != this)
@@ -47,15 +49,16 @@ public class Swimming : MonoBehaviour, IAbility
             //FoxMovement.instance.playerAnimator.SetBool("isGrounded", true);
             //FoxMovement.instance.playerAnimator.speed = 0.7f;
 
-            if (!swimmingAudio.isPlaying)
+            if (!swimmingAudioPlaying)
             {
-                swimmingAudio.Play();
+                swimmingAudioPlaying = true;
+                AudioManager.instance.PlaySound(AudioName.Ability_Swimming, transform);
             }
         }
 
-        if (FoxMovement.instance.IsGrounded() && swimmingAudio.isPlaying)
+        if (FoxMovement.instance.IsGrounded() && swimmingAudioPlaying)
         {
-            swimmingAudio.Stop();
+            GameEventsManager.instance.audioEvents.DestroyAudio(AudioName.Ability_Swimming);
         }
     }
 }
