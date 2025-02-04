@@ -108,6 +108,7 @@ public class PenguinRaceManager : MonoBehaviour
         {
             penguinDungeonEvents.RaceFinished();
             GameEventsManager.instance.questEvents.AdvanceDungeonQuest(questSO.id);
+            AudioManager.instance.PlaySound(AudioName.Action_PenguinRaceCompleted, transform);
             TriggerFinishDungeonDialogue();
         }
     }

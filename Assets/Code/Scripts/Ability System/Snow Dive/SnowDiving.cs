@@ -67,6 +67,8 @@ public class SnowDiving : MonoBehaviour, IAbility
             //climbing animation here (later will make more code for this)
             snowDiveVFX.SendEvent(onEnableSnowDiveID);
 
+            AudioManager.instance.PlaySound(AudioName.Ability_SnowDive, transform);
+
             Transform movPointsParent = hit.transform.GetChild(0);
 
             foreach (Transform child in movPointsParent.transform)

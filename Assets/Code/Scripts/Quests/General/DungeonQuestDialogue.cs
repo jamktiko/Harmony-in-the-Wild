@@ -9,16 +9,21 @@ public class DungeonQuestDialogue : MonoBehaviour
     [SerializeField] private List<TextAsset> progressDialogue;
     [SerializeField] private TextAsset endDungeonDialogue;
 
+    [Header("Audio Config")]
+    [SerializeField] private AudioName audioToPlayOnDialogueStarted;
+
     private bool hadFinalDialogue = false;
 
     public void PlayStartDungeonDialogue()
     {
         DialogueManager.instance.StartDialogue(startDungeonDialogue[Random.Range(0, startDungeonDialogue.Count)]);
+        AudioManager.instance.PlaySound(audioToPlayOnDialogueStarted, transform);
     }
 
     public void PlayFinishDungeonDialogue()
     {
         DialogueManager.instance.StartDialogue(endDungeonDialogue);
+        AudioManager.instance.PlaySound(audioToPlayOnDialogueStarted, transform);
 
         hadFinalDialogue = true;
     }
