@@ -36,8 +36,6 @@ public class Destructible : MonoBehaviour
                 {
                     AudioManager.instance.PlaySound(AudioName.Ability_RockSmashing, transform);
                     Instantiate(destroyedVersion, transform.position, transform.rotation);
-                    //Debug.Log("ontriggerstay ran");
-                    //Destroy(gameObject);
                     gameObject.SetActive(false);
                 }
 
