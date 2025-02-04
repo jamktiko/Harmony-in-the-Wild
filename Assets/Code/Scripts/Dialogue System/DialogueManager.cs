@@ -138,7 +138,13 @@ public class DialogueManager : MonoBehaviour
             Debug.Log("Start dialogue.");
 
             GameEventsManager.instance.dialogueEvents.StartDialogue();
-            FoxMovement.instance.SetDefaultAnimatorValues();
+            if (FoxMovement.instance.IsInWater())
+            {
+                FoxMovement.instance.playerAnimator.SetBool("isReadyToSwim", false);
+                FoxMovement.instance.playerAnimator.SetBool("isSwimming", true);
+            }
+            else
+                FoxMovement.instance.SetDefaultAnimatorValues();
             FoxMovement.instance.isSprinting=false;
             FoxMovement.instance.horizontalInput = 0;
             FoxMovement.instance.verticalInput = 0;

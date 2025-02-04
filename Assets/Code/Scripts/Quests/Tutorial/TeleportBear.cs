@@ -14,8 +14,8 @@ public class TeleportBear : MonoBehaviour
     private void Start()
     {
         bear = GameObject.Find("TutorialBear(Clone)").transform;
-        UICanvas = GameObject.Find("Minimap").GetComponent<GameObject>();
-        QuestUICanvas = GameObject.Find("QuestUI_Visuals").GetComponent<GameObject>();
+        UICanvas = GameObject.Find("Minimap");
+        QuestUICanvas = GameObject.Find("QuestUI_Visuals");
     }
     public void TeleportBearToTree() 
     {
