@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1211416307040790727}
+  - component: {fileID: -6744791864344446777}
   - component: {fileID: -2230155038110849094}
-  - component: {fileID: 8348472231806238488}
   m_Layer: 0
   m_Name: QuestCompletedAudio_01
   m_TagString: Untagged
@@ -33,6 +33,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-6744791864344446777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3078485932876712325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b075705f225b3a74fada5a4f34027a07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    name: 12
+    clips:
+    - {fileID: 8300000, guid: 0bfaff262cbda084d848cc29dc28b6c2, type: 3}
+    destroyAfterPlayedOnce: 1
+    useRandomPitch: 0
+    minPitch: 0.5
+    maxPitch: 1
+    useRandomVolume: 0
+    minVolume: 0.5
+    maxVolume: 1
 --- !u!82 &-2230155038110849094
 AudioSource:
   m_ObjectHideFlags: 0
@@ -43,8 +66,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300002, guid: 0836fcbbe03bd634181a25d5e7402191, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 0bfaff262cbda084d848cc29dc28b6c2, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
   m_Volume: 0.06
   m_Pitch: 1
   Loop: 0
@@ -129,17 +152,3 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &8348472231806238488
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3078485932876712325}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c6fd79e1a4cf4148b523d55ddcd7f9a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  destructionTime: 10
-  destroyEffect: {fileID: 0}

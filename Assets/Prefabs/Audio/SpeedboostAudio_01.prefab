@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4921324177445772922
+--- !u!1 &2575624660233176443
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,41 +8,65 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2966886176953253711}
-  - component: {fileID: 2182715644058066029}
+  - component: {fileID: 958021011313977155}
+  - component: {fileID: 7813447432458048412}
+  - component: {fileID: 7059082404625621540}
   m_Layer: 0
-  m_Name: RockSmashAudio
+  m_Name: SpeedboostAudio_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2966886176953253711
+--- !u!4 &958021011313977155
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4921324177445772922}
+  m_GameObject: {fileID: 2575624660233176443}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &2182715644058066029
+--- !u!114 &7813447432458048412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2575624660233176443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b075705f225b3a74fada5a4f34027a07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    name: 27
+    clips:
+    - {fileID: 8300000, guid: 2448b609c215e3f47932091a4b1d2632, type: 3}
+    destroyAfterPlayedOnce: 1
+    useRandomPitch: 0
+    minPitch: 0.5
+    maxPitch: 1
+    useRandomVolume: 0
+    minVolume: 0.5
+    maxVolume: 1
+--- !u!82 &7059082404625621540
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4921324177445772922}
+  m_GameObject: {fileID: 2575624660233176443}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 7a0dd9fa031f0304e8f8ce694e554221, type: 3}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 0836fcbbe03bd634181a25d5e7402191, type: 2}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

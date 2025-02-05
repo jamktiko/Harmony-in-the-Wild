@@ -34,10 +34,8 @@ public class Destructible : MonoBehaviour
             {
                 if (gameObject.GetComponent<Freezable>().isFrozen)
                 {
-                    //audioSource.Play();
+                    AudioManager.instance.PlaySound(AudioName.Ability_RockSmashing, transform);
                     Instantiate(destroyedVersion, transform.position, transform.rotation);
-                    //Debug.Log("ontriggerstay ran");
-                    //Destroy(gameObject);
                     gameObject.SetActive(false);
                 }
 
@@ -54,7 +52,7 @@ public class Destructible : MonoBehaviour
 
             else
             {
-                //audioSource.Play();
+                AudioManager.instance.PlaySound(AudioName.Ability_RockSmashing, transform);
                 Instantiate(destroyedVersion, transform.position, transform.rotation);
                 Destroy(gameObject);
             }

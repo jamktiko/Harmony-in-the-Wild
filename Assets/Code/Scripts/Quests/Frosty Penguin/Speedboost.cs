@@ -8,7 +8,6 @@ public class Speedboost : MonoBehaviour
     [Header("Config")]
     [SerializeField] private float speedIncrease;
     [SerializeField] private float boostVFXDuration = 5f;
-    [SerializeField] AudioSource speedBoostAudio;
 
     [Header("VFX")]
     [SerializeField] private VisualEffect speedBoostVFX;
@@ -26,8 +25,8 @@ public class Speedboost : MonoBehaviour
 
     public void IncreasePlayerSpeed(GameObject player)
     {
-        //speedBoostAudio.Play();
         player.GetComponent<FoxMovement>().moveSpeed += speedIncrease;
+        AudioManager.instance.PlaySound(AudioName.Movement_Speedboost, transform);
         StartCoroutine(SpeedBoostVFXCoroutine(player));
         meshTrail.ActivateTrail();
     }

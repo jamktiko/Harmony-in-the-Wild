@@ -196,6 +196,7 @@ public class QuestManager : MonoBehaviour
         Quest quest = GetQuestById(id);
         ClaimRewards(quest);
         ChangeQuestState(quest.info.id, QuestState.FINISHED);
+        AudioManager.instance.PlaySound(AudioName.Action_QuestCompleted, transform);
         GameEventsManager.instance.questEvents.HideQuestUI();
         QuestCompletedUI.instance.ShowUI(id);
         ResetActiveQuest();
