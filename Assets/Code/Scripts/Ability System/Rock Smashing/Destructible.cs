@@ -14,10 +14,17 @@ public class Destructible : MonoBehaviour
     [SerializeField] private GameObject smashableEffect;
 
     private bool hasOre;
+    private bool destroyCurrentObject;
+    private bool smashingInProgress;
 
     private void Start()
     {
         StartCoroutine(DelayBetweenSmashableEffects());
+    }
+
+    private void OnEnable()
+    {
+        smashingInProgress = false;
     }
 
     private void SpawnSmashableEffect()
@@ -28,15 +35,15 @@ public class Destructible : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.CompareTag("Trigger") && AbilityManager.instance.abilityStatuses.TryGetValue(Abilities.RockDestroying, out bool isUnlocked) && isUnlocked)
+        if (other.gameObject.CompareTag("Trigger") && AbilityManager.instance.abilityStatuses.TryGetValue(Abilities.RockDestroying, out bool isUnlocked) && isUnlocked && !smashingInProgress)
         {
             if (needsToBeFrozen)
             {
                 if (gameObject.GetComponent<Freezable>().isFrozen)
                 {
                     AudioManager.instance.PlaySound(AudioName.Ability_RockSmashing, transform);
-                    Instantiate(destroyedVersion, transform.position, transform.rotation);
-                    gameObject.SetActive(false);
+                    smashingInProgress = true;
+                    Invoke(nameof(CreateDestroyedVersion), 0.5f);
                 }
 
                 else
@@ -47,15 +54,42 @@ public class Destructible : MonoBehaviour
 
             else if (isQuestRock)
             {
+                AudioManager.instance.PlaySound(AudioName.Ability_RockSmashing, transform);
+                smashingInProgress = true;
                 CheckForOre();
             }
 
             else
             {
                 AudioManager.instance.PlaySound(AudioName.Ability_RockSmashing, transform);
+                smashingInProgress = true;
+                destroyCurrentObject = true;
+                Invoke(nameof(CreateDestroyedVersion), 0.5f);
+            }
+        }
+    }
+
+    private void CreateDestroyedVersion()
+    {
+        if (destroyCurrentObject)
+        {
+            if (isQuestRock && hasOre)
+            {
+                Instantiate(oreVersion, transform.position, Quaternion.identity);
+                Destroy(gameObject);
+            }
+
+            else
+            {
                 Instantiate(destroyedVersion, transform.position, transform.rotation);
                 Destroy(gameObject);
             }
+        }
+
+        else
+        {
+            Instantiate(destroyedVersion, transform.position, transform.rotation);
+            gameObject.SetActive(false);
         }
     }
 
@@ -68,16 +102,20 @@ public class Destructible : MonoBehaviour
     {
         if (hasOre)
         {
+            AudioManager.instance.PlaySound(AudioName.Ability_RockSmashing, transform);
+            destroyCurrentObject = true;
+            Invoke(nameof(CreateDestroyedVersion), 0.5f);
+
             SmashingAttemptCounter.instance.UpdateProgress(hasOre);
-            Instantiate(oreVersion, transform.position, Quaternion.identity);
-            Destroy(gameObject);
         }
 
         else
         {
+            AudioManager.instance.PlaySound(AudioName.Ability_RockSmashing, transform);
+            destroyCurrentObject = true;
+            Invoke(nameof(CreateDestroyedVersion), 0.5f);
+
             SmashingAttemptCounter.instance.UpdateProgress(hasOre);
-            Instantiate(destroyedVersion, transform.position, Quaternion.identity);
-            Destroy(gameObject);
         }
     }
 
