@@ -22,8 +22,8 @@ public class PlayerModelToggle : MonoBehaviour
 
     private void Update()
     {
-        //if (PlayerInputHandler.instance.TogglePlayerModelInput.WasPressedThisFrame())
-        //    TogglePlayerModelPublic();
+        if (PlayerInputHandler.instance.TogglePlayerModelInput.WasPressedThisFrame())
+            TogglePlayerModelPublic();
     }
 
     public void TogglePlayerModelPublic(int model = 0)

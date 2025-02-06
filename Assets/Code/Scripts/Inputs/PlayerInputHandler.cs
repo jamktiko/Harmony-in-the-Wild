@@ -37,7 +37,6 @@ public class PlayerInputHandler : MonoBehaviour
         SwitchTimeScale;
 
     //debug input actions
-#if DEBUG
     public InputAction DebugSaveInput,
         DebugDeleteSaveInput,
         DebugDeleteSaveInput2,
@@ -53,8 +52,9 @@ public class PlayerInputHandler : MonoBehaviour
         DebugTrailerCameraToggle,
         DebugHideUI,
         DebugIncreaseTrailerCameraSpeed,
-        DebugDecreaseTrailerCameraSpeed;
-#endif
+        DebugDecreaseTrailerCameraSpeed,
+        DebugIncreaseMouseSensitivity,
+        DebugDecreaseMouseSensitivity;
 
     private void Awake()
     {
@@ -98,7 +98,6 @@ public class PlayerInputHandler : MonoBehaviour
         SitInput = playerInput.actions.FindAction("Sit");
 
         //debug inputs
-#if DEBUG
         DebugSaveInput = playerInput.actions.FindAction("DebugSave");
         DebugDeleteSaveInput = playerInput.actions.FindAction("DebugDeleteSave");
         DebugDeleteSaveInput2 = playerInput.actions.FindAction("DebugDeleteSave2");
@@ -115,6 +114,7 @@ public class PlayerInputHandler : MonoBehaviour
         DebugHideUI = playerInput.actions.FindAction("DebugHideUI");
         DebugIncreaseTrailerCameraSpeed = playerInput.actions.FindAction("DebugIncreaseTrailerCameraSpeed");
         DebugDecreaseTrailerCameraSpeed = playerInput.actions.FindAction("DebugDecreaseTrailerCameraSpeed");
-#endif
+        DebugIncreaseMouseSensitivity = playerInput.actions.FindAction("DebugIncreaseMouseSensitivity");
+        DebugDecreaseMouseSensitivity = playerInput.actions.FindAction("DebugDecreaseMouseSensitivity");
     }
 }

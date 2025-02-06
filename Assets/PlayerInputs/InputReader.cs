@@ -49,6 +49,8 @@ public class InputReader : ScriptableObject, PlayerInputActions.IPlayerActions
     public event UnityAction OnSwitchTimeScaleEvent = delegate { };
     public event UnityAction OnLayEvent = delegate { };
     public event UnityAction OnSitEvent = delegate { };
+    public event UnityAction OnDebugIncreaseMouseSensitivityEvent = delegate { };
+    public event UnityAction OnDebugDecreaseMouseSensitivityEvent = delegate { };
     private PlayerInputActions playerInputActions;
     [Header("Input reader object")]
     [SerializeField] InputReader _inputReader;
@@ -244,5 +246,15 @@ public class InputReader : ScriptableObject, PlayerInputActions.IPlayerActions
     public void OnSit(InputAction.CallbackContext context)
     {
         OnSitEvent.Invoke();
+    }
+
+    public void OnDebugIncreaseMouseSensitivity(InputAction.CallbackContext context)
+    {
+        OnDebugIncreaseMouseSensitivityEvent.Invoke();
+    }
+
+    public void OnDebugDecreaseMouseSensitivity(InputAction.CallbackContext context)
+    {
+        OnDebugDecreaseMouseSensitivityEvent.Invoke();
     }
 }

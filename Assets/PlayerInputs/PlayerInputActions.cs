@@ -207,7 +207,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
-#if DEBUG
                 {
                     ""name"": ""DebugSave"",
                     ""type"": ""Button"",
@@ -352,7 +351,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
-#endif
                 {
                     ""name"": ""CinematicCamera"",
                     ""type"": ""Button"",
@@ -384,6 +382,24 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""name"": ""Sit"",
                     ""type"": ""Button"",
                     ""id"": ""9a0be9a4-b135-4790-a917-98cb042c5d37"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DebugIncreaseMouseSensitivity"",
+                    ""type"": ""Button"",
+                    ""id"": ""e842436f-893d-4574-9fcf-729e57afc78d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DebugDecreaseMouseSensitivity"",
+                    ""type"": ""Button"",
+                    ""id"": ""2880ece6-0030-4a38-b3da-409cf22031af"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -1065,7 +1081,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""d6dca73a-f13c-4dc0-8957-c5e96cdb5741"",
-                    ""path"": ""<Keyboard>/c"",
+                    ""path"": ""<Keyboard>/9"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -1076,7 +1092,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""9b57cae5-fd5e-4f06-8e93-846d579c00d5"",
-                    ""path"": ""<Keyboard>/9"",
+                    ""path"": ""<Keyboard>/8"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -1169,6 +1185,28 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Sit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""967efc2f-88c5-4eea-a6b8-4db00825aa64"",
+                    ""path"": ""<Keyboard>/6"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DebugIncreaseMouseSensitivity"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e236bf49-141c-48e2-ba10-aa3771084204"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DebugDecreaseMouseSensitivity"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1684,8 +1722,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Close = m_Player.FindAction("Close", throwIfNotFound: true);
         m_Player_DialogueNext = m_Player.FindAction("DialogueNext", throwIfNotFound: true);
         m_Player_TogglePlayerModel = m_Player.FindAction("TogglePlayerModel", throwIfNotFound: true);
-
-#if DEBUG
         m_Player_DebugSave = m_Player.FindAction("DebugSave", throwIfNotFound: true);
         m_Player_DebugAbilitiesCheckOne = m_Player.FindAction("DebugAbilitiesCheckOne", throwIfNotFound: true);
         m_Player_DebugAbilitiesCheckAll = m_Player.FindAction("DebugAbilitiesCheckAll", throwIfNotFound: true);
@@ -1702,11 +1738,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_DebugHideUI = m_Player.FindAction("DebugHideUI", throwIfNotFound: true);
         m_Player_DebugIncreaseTrailerCameraSpeed = m_Player.FindAction("DebugIncreaseTrailerCameraSpeed", throwIfNotFound: true);
         m_Player_DebugDecreaseTrailerCameraSpeed = m_Player.FindAction("DebugDecreaseTrailerCameraSpeed", throwIfNotFound: true);
-#endif
         m_Player_CinematicCamera = m_Player.FindAction("CinematicCamera", throwIfNotFound: true);
         m_Player_SwitchTimeScale = m_Player.FindAction("SwitchTimeScale", throwIfNotFound: true);
         m_Player_Lay = m_Player.FindAction("Lay", throwIfNotFound: true);
         m_Player_Sit = m_Player.FindAction("Sit", throwIfNotFound: true);
+        m_Player_DebugIncreaseMouseSensitivity = m_Player.FindAction("DebugIncreaseMouseSensitivity", throwIfNotFound: true);
+        m_Player_DebugDecreaseMouseSensitivity = m_Player.FindAction("DebugDecreaseMouseSensitivity", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1802,7 +1839,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Close;
     private readonly InputAction m_Player_DialogueNext;
     private readonly InputAction m_Player_TogglePlayerModel;
-#if DEBUG
     private readonly InputAction m_Player_DebugSave;
     private readonly InputAction m_Player_DebugAbilitiesCheckOne;
     private readonly InputAction m_Player_DebugAbilitiesCheckAll;
@@ -1819,11 +1855,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_DebugHideUI;
     private readonly InputAction m_Player_DebugIncreaseTrailerCameraSpeed;
     private readonly InputAction m_Player_DebugDecreaseTrailerCameraSpeed;
-#endif
     private readonly InputAction m_Player_CinematicCamera;
     private readonly InputAction m_Player_SwitchTimeScale;
     private readonly InputAction m_Player_Lay;
     private readonly InputAction m_Player_Sit;
+    private readonly InputAction m_Player_DebugIncreaseMouseSensitivity;
+    private readonly InputAction m_Player_DebugDecreaseMouseSensitivity;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1848,8 +1885,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Close => m_Wrapper.m_Player_Close;
         public InputAction @DialogueNext => m_Wrapper.m_Player_DialogueNext;
         public InputAction @TogglePlayerModel => m_Wrapper.m_Player_TogglePlayerModel;
-
-#if DEBUG
         public InputAction @DebugSave => m_Wrapper.m_Player_DebugSave;
         public InputAction @DebugAbilitiesCheckOne => m_Wrapper.m_Player_DebugAbilitiesCheckOne;
         public InputAction @DebugAbilitiesCheckAll => m_Wrapper.m_Player_DebugAbilitiesCheckAll;
@@ -1866,12 +1901,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @DebugHideUI => m_Wrapper.m_Player_DebugHideUI;
         public InputAction @DebugIncreaseTrailerCameraSpeed => m_Wrapper.m_Player_DebugIncreaseTrailerCameraSpeed;
         public InputAction @DebugDecreaseTrailerCameraSpeed => m_Wrapper.m_Player_DebugDecreaseTrailerCameraSpeed;
-
-#endif
         public InputAction @CinematicCamera => m_Wrapper.m_Player_CinematicCamera;
         public InputAction @SwitchTimeScale => m_Wrapper.m_Player_SwitchTimeScale;
         public InputAction @Lay => m_Wrapper.m_Player_Lay;
         public InputAction @Sit => m_Wrapper.m_Player_Sit;
+        public InputAction @DebugIncreaseMouseSensitivity => m_Wrapper.m_Player_DebugIncreaseMouseSensitivity;
+        public InputAction @DebugDecreaseMouseSensitivity => m_Wrapper.m_Player_DebugDecreaseMouseSensitivity;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1941,7 +1976,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @TogglePlayerModel.started += instance.OnTogglePlayerModel;
             @TogglePlayerModel.performed += instance.OnTogglePlayerModel;
             @TogglePlayerModel.canceled += instance.OnTogglePlayerModel;
-#if DEBUG
             @DebugSave.started += instance.OnDebugSave;
             @DebugSave.performed += instance.OnDebugSave;
             @DebugSave.canceled += instance.OnDebugSave;
@@ -1990,7 +2024,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @DebugDecreaseTrailerCameraSpeed.started += instance.OnDebugDecreaseTrailerCameraSpeed;
             @DebugDecreaseTrailerCameraSpeed.performed += instance.OnDebugDecreaseTrailerCameraSpeed;
             @DebugDecreaseTrailerCameraSpeed.canceled += instance.OnDebugDecreaseTrailerCameraSpeed;
-#endif
             @CinematicCamera.started += instance.OnCinematicCamera;
             @CinematicCamera.performed += instance.OnCinematicCamera;
             @CinematicCamera.canceled += instance.OnCinematicCamera;
@@ -2003,6 +2036,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Sit.started += instance.OnSit;
             @Sit.performed += instance.OnSit;
             @Sit.canceled += instance.OnSit;
+            @DebugIncreaseMouseSensitivity.started += instance.OnDebugIncreaseMouseSensitivity;
+            @DebugIncreaseMouseSensitivity.performed += instance.OnDebugIncreaseMouseSensitivity;
+            @DebugIncreaseMouseSensitivity.canceled += instance.OnDebugIncreaseMouseSensitivity;
+            @DebugDecreaseMouseSensitivity.started += instance.OnDebugDecreaseMouseSensitivity;
+            @DebugDecreaseMouseSensitivity.performed += instance.OnDebugDecreaseMouseSensitivity;
+            @DebugDecreaseMouseSensitivity.canceled += instance.OnDebugDecreaseMouseSensitivity;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -2067,7 +2106,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @TogglePlayerModel.started -= instance.OnTogglePlayerModel;
             @TogglePlayerModel.performed -= instance.OnTogglePlayerModel;
             @TogglePlayerModel.canceled -= instance.OnTogglePlayerModel;
-#if DEBUG
             @DebugSave.started -= instance.OnDebugSave;
             @DebugSave.performed -= instance.OnDebugSave;
             @DebugSave.canceled -= instance.OnDebugSave;
@@ -2116,7 +2154,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @DebugDecreaseTrailerCameraSpeed.started -= instance.OnDebugDecreaseTrailerCameraSpeed;
             @DebugDecreaseTrailerCameraSpeed.performed -= instance.OnDebugDecreaseTrailerCameraSpeed;
             @DebugDecreaseTrailerCameraSpeed.canceled -= instance.OnDebugDecreaseTrailerCameraSpeed;
-#endif
             @CinematicCamera.started -= instance.OnCinematicCamera;
             @CinematicCamera.performed -= instance.OnCinematicCamera;
             @CinematicCamera.canceled -= instance.OnCinematicCamera;
@@ -2129,6 +2166,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Sit.started -= instance.OnSit;
             @Sit.performed -= instance.OnSit;
             @Sit.canceled -= instance.OnSit;
+            @DebugIncreaseMouseSensitivity.started -= instance.OnDebugIncreaseMouseSensitivity;
+            @DebugIncreaseMouseSensitivity.performed -= instance.OnDebugIncreaseMouseSensitivity;
+            @DebugIncreaseMouseSensitivity.canceled -= instance.OnDebugIncreaseMouseSensitivity;
+            @DebugDecreaseMouseSensitivity.started -= instance.OnDebugDecreaseMouseSensitivity;
+            @DebugDecreaseMouseSensitivity.performed -= instance.OnDebugDecreaseMouseSensitivity;
+            @DebugDecreaseMouseSensitivity.canceled -= instance.OnDebugDecreaseMouseSensitivity;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -2320,7 +2363,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnClose(InputAction.CallbackContext context);
         void OnDialogueNext(InputAction.CallbackContext context);
         void OnTogglePlayerModel(InputAction.CallbackContext context);
-#if DEBUG
         void OnDebugSave(InputAction.CallbackContext context);
         void OnDebugAbilitiesCheckOne(InputAction.CallbackContext context);
         void OnDebugAbilitiesCheckAll(InputAction.CallbackContext context);
@@ -2337,12 +2379,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnDebugHideUI(InputAction.CallbackContext context);
         void OnDebugIncreaseTrailerCameraSpeed(InputAction.CallbackContext context);
         void OnDebugDecreaseTrailerCameraSpeed(InputAction.CallbackContext context);
-#endif
-
         void OnCinematicCamera(InputAction.CallbackContext context);
         void OnSwitchTimeScale(InputAction.CallbackContext context);
         void OnLay(InputAction.CallbackContext context);
         void OnSit(InputAction.CallbackContext context);
+        void OnDebugIncreaseMouseSensitivity(InputAction.CallbackContext context);
+        void OnDebugDecreaseMouseSensitivity(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

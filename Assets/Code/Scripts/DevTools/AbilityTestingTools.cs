@@ -5,6 +5,14 @@ using System;
 
 public class AbilityTestingTools : MonoBehaviour
 {
+    private void Start()
+    {
+        foreach (Abilities ability in Enum.GetValues(typeof(Abilities)))
+        {
+            AbilityManager.instance.abilityStatuses[ability] = true;
+        }
+    }
+
 #if DEBUG
     [Header(" K = check one \n L = check all \n U = unlock one \n I = unlock all")]
     public Abilities abilityToUnlock;
