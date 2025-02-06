@@ -1,4 +1,4 @@
-using System;
+using System.Collections;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Rendering;
@@ -30,13 +30,21 @@ public class TimeManager : MonoBehaviour
 
     TimeService service;
 
+    [Header("Starry Sky Settings")]
+    [SerializeField] private Material starMaterial;
 
     void Start()
     {
         service = new TimeService(timeSettingss);
         volume.profile.TryGet(out colorAdjustments);
+
+        service.currentHour.ValueChanged += ToggleStarVisibility;
     }
 
+    private void OnDisable()
+    {
+        service.currentHour.ValueChanged -= ToggleStarVisibility;
+    }
 
     void Update()
     {
@@ -86,4 +94,51 @@ public class TimeManager : MonoBehaviour
         }
     }
 
+    private void ToggleStarVisibility(int hour)
+    {
+        if(hour == 18)
+        {
+            Debug.Log("About to show stars");
+            StartCoroutine(ChangeStarAlpha(false));
+        }
+
+        else if(hour == 6)
+        {
+            Debug.Log("About to hide stars");
+            StartCoroutine(ChangeStarAlpha(true));
+        }
+    }
+
+    private IEnumerator ChangeStarAlpha(bool changeAlphaToZero)
+    {
+        Color currentColor = starMaterial.color;
+
+        if (changeAlphaToZero)
+        {
+            float currentValue = 1f;
+            float targetValue = 0f;
+
+            while (currentValue != targetValue)
+            {
+                currentValue -= 0.01f;
+                starMaterial.color = new Color(currentColor.r, currentColor.g, currentColor.b, currentValue);
+
+                yield return null;
+            }
+        }
+
+        else
+        {
+            float currentValue = 0f;
+            float targetValue = 1f;
+
+            while (currentValue != targetValue)
+            {
+                currentValue += 0.01f;
+                starMaterial.color = new Color(currentColor.r, currentColor.g, currentColor.b, currentValue);
+
+                yield return null;
+            }
+        }
+    }
 }

@@ -13,7 +13,7 @@ public class TimeService
     public event Action OnHourChange = delegate { };
 
     readonly Observable<bool> isDayTime;
-    readonly Observable<int> currentHour;
+    public readonly Observable<int> currentHour;
 
     public TimeService(TimeSettings settings) {
         this.settings = settings;
