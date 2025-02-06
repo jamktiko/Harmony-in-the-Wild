@@ -124,11 +124,6 @@ public class DialogueManager : MonoBehaviour
                 EndDialogue();
             }
         }
-
-        //else if (!canInteractWith)
-        //{
-        //    Debug.Log("Dialogue not proceeding, interacting is disabled!");
-        //}
     }
 
     public void StartDialogue(TextAsset inkJSON)
@@ -138,6 +133,7 @@ public class DialogueManager : MonoBehaviour
             Debug.Log("Start dialogue.");
 
             GameEventsManager.instance.dialogueEvents.StartDialogue();
+
             if (FoxMovement.instance.IsInWater())
             {
                 FoxMovement.instance.playerAnimator.SetBool("isReadyToSwim", false);
@@ -148,17 +144,12 @@ public class DialogueManager : MonoBehaviour
             FoxMovement.instance.isSprinting=false;
             FoxMovement.instance.horizontalInput = 0;
             FoxMovement.instance.verticalInput = 0;
+
             currentStory = new Story(inkJSON.text);
             isDialoguePlaying = true;
             dialogueCanvas.SetActive(true);
 
-            //Cursor.lockState = CursorLockMode.None;
-            //Cursor.visible = true;
-
             ContinueDialogue();
-
-            // start listening the variable changes in the current story
-            //dialogueVariables.StartListening(currentStory);
         }
 
         else
@@ -176,16 +167,6 @@ public class DialogueManager : MonoBehaviour
             HandleTags(currentStory.currentTags);
 
             DisplayChoices();
-
-            /*if (!currentStory.canContinue)
-            {
-                exitButton.SetActive(true);
-            }
-
-            else
-            {
-                exitButton.SetActive(false);
-            }*/
         }
     }
 
@@ -306,7 +287,6 @@ public class DialogueManager : MonoBehaviour
     {
         if (!currentStory.canContinue)
         {
-            //exitButton.SetActive(false);
             EndDialogue();
         }
     }
@@ -319,20 +299,17 @@ public class DialogueManager : MonoBehaviour
 
         SaveManager.instance.SaveGame();
 
-        // stop listening the dialogue variable changes in the current story
-        //dialogueVariables.StopListening(currentStory);
-
         isDialoguePlaying = false;
         dialogueText.text = "";
 
         dialogueCanvas.SetActive(false);
 
+        Debug.Log("Ready to check for dialogue coroutine...");
+
         if(dialogueCooldown == null)
         {
             dialogueCooldown = StartCoroutine(DelayBetweenDialogues());
         }
-
-
     }
 
     private void InitializeDialogueVariables()
@@ -343,12 +320,15 @@ public class DialogueManager : MonoBehaviour
     // delay between dialogues to prevent a bug from moving from one dialogue to another with the same character without player pressing any keys
     private IEnumerator DelayBetweenDialogues()
     {
+        Debug.Log("Dialogue delay started.");
         canStartDialogue = false;
 
         yield return new WaitForSeconds(3f);
 
         canStartDialogue = true;
         dialogueCooldown = null;
+
+        Debug.Log("Dialogue delay ended.");
     }
 
     public string CollectDialogueVariableDataForSaving()
@@ -370,6 +350,16 @@ public class DialogueManager : MonoBehaviour
     {
         canInteractWith = enableInteractions;
 
+        if (canInteractWith)
+        {
+            if (!isDialoguePlaying)
+            {
+                canStartDialogue = true;
+            }
+            
+            dialogueCooldown = null;
+        }
+
         Debug.Log("Dialogue interactability: " + enableInteractions);
     }
 
@@ -379,7 +369,6 @@ public class DialogueManager : MonoBehaviour
         {
             StopCoroutine(dialogueCooldown);
             dialogueCooldown = null;
-            canStartDialogue = true;
         }
 
         canStartDialogue = true;
