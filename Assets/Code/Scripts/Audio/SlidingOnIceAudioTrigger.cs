@@ -54,7 +54,7 @@ public class SlidingOnIceAudioTrigger : MonoBehaviour
 
         Debug.Log($"{horizontalInput}, {verticalInput}");
 
-        if (horizontalInput != 0 && verticalInput != 0 && FoxMovement.instance.IsGrounded())
+        if ((horizontalInput != 0 || verticalInput != 0) && FoxMovement.instance.IsGrounded())
         {
             AudioManager.instance.PlaySound(AudioName.Movement_SlidingOnIce, transform);
         }
