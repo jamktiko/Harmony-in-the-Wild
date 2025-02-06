@@ -15,4 +15,11 @@ public class UIEvents
     {
         OnHideInstructionPanel?.Invoke();
     }
+
+    public event Action OnUseUnstuckButton;
+
+    public void UseUnstuckButton()
+    {
+        OnUseUnstuckButton?.Invoke();
+    }
 }

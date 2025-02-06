@@ -30,6 +30,7 @@ public class UnstuckRescue : MonoBehaviour
             return;
         }
 
+        GameEventsManager.instance.uiEvents.UseUnstuckButton();
         nearestRescuePoint = FindNearestRescuePoint();
         MovePlayerToSafeLocation();
     }
