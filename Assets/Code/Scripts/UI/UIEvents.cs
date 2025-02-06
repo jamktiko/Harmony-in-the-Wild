@@ -8,4 +8,11 @@ public class UIEvents
     {
         OnShowLoadingScreen?.Invoke(newSceneName);
     }
+
+    public event Action OnHideInstructionPanel;
+
+    public void HideInstructionPanel()
+    {
+        OnHideInstructionPanel?.Invoke();
+    }
 }
