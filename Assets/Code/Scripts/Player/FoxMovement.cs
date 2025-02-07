@@ -451,7 +451,7 @@ public class FoxMovement : MonoBehaviour
     }
     public bool IsInWater()
     {
-        return Physics.CheckSphere(foxMiddle.position, boxSize.y, waterLayerMask, QueryTriggerInteraction.Ignore);
+        return Physics.CheckSphere(foxMiddle.position, boxSize.y*0.9f, waterLayerMask, QueryTriggerInteraction.Ignore);
     }
     public bool IsInSnow()
     {
