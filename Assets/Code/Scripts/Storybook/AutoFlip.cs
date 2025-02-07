@@ -40,8 +40,6 @@ public class AutoFlip : MonoBehaviour {
             StartFlipping();*/
         ControledBook.OnFlip.AddListener(new UnityEngine.Events.UnityAction(PageFlipped));
 
-        audioSource = GetComponent<AudioSource>();
-
         maxSpreads = ControledBook.SetMaxSpreads();
 
         nextScene = StorybookHandler.instance.GetNextScene();
@@ -141,6 +139,7 @@ public class AutoFlip : MonoBehaviour {
                 while (ControledBook.currentPage < ControledBook.TotalPageCount - 2)
                 {
                     currentSpread++;
+                    PlayFlipSound();
                     StartCoroutine(FlipRTL(xc, xl, h, frameTime, dx));
                     yield return new WaitForSeconds(delayBetweenAutoFlippedPages);
                 }
