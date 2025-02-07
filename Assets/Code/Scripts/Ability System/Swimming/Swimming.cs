@@ -60,6 +60,7 @@ public class Swimming : MonoBehaviour, IAbility
         {
             swimmingAudioPlaying = false;
             GameEventsManager.instance.audioEvents.DestroyAudio(AudioName.Ability_Swimming);
+            swimmingAudioPlaying=false;
         }
     }
 }
