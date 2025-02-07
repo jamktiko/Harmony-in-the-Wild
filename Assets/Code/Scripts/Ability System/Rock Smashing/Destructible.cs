@@ -43,7 +43,7 @@ public class Destructible : MonoBehaviour
                 {
                     AudioManager.instance.PlaySound(AudioName.Ability_RockSmashing, transform);
                     smashingInProgress = true;
-                    Invoke(nameof(CreateDestroyedVersion), 0.5f);
+                    CreateDestroyedVersion();
                 }
 
                 else
@@ -64,7 +64,7 @@ public class Destructible : MonoBehaviour
                 AudioManager.instance.PlaySound(AudioName.Ability_RockSmashing, transform);
                 smashingInProgress = true;
                 destroyCurrentObject = true;
-                Invoke(nameof(CreateDestroyedVersion), 0.5f);
+                CreateDestroyedVersion();
             }
         }
     }
@@ -104,7 +104,7 @@ public class Destructible : MonoBehaviour
         {
             AudioManager.instance.PlaySound(AudioName.Ability_RockSmashing, transform);
             destroyCurrentObject = true;
-            Invoke(nameof(CreateDestroyedVersion), 0.5f);
+            CreateDestroyedVersion();
 
             SmashingAttemptCounter.instance.UpdateProgress(hasOre);
         }
@@ -113,7 +113,7 @@ public class Destructible : MonoBehaviour
         {
             AudioManager.instance.PlaySound(AudioName.Ability_RockSmashing, transform);
             destroyCurrentObject = true;
-            Invoke(nameof(CreateDestroyedVersion), 0.5f);
+            CreateDestroyedVersion();
 
             SmashingAttemptCounter.instance.UpdateProgress(hasOre);
         }
