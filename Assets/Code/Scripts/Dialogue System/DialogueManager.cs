@@ -304,8 +304,6 @@ public class DialogueManager : MonoBehaviour
 
         dialogueCanvas.SetActive(false);
 
-        Debug.Log("Ready to check for dialogue coroutine...");
-
         if(dialogueCooldown == null)
         {
             dialogueCooldown = StartCoroutine(DelayBetweenDialogues());
@@ -323,7 +321,7 @@ public class DialogueManager : MonoBehaviour
         Debug.Log("Dialogue delay started.");
         canStartDialogue = false;
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1.5f);
 
         canStartDialogue = true;
         dialogueCooldown = null;
@@ -352,11 +350,7 @@ public class DialogueManager : MonoBehaviour
 
         if (canInteractWith)
         {
-            if (!isDialoguePlaying)
-            {
-                canStartDialogue = true;
-            }
-            
+            canStartDialogue = true;
             dialogueCooldown = null;
         }
 
