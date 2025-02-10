@@ -70,6 +70,7 @@ public class DungeonInstructionPanel : MonoBehaviour
 
         // enable player movement through dialogue events
         GameEventsManager.instance.dialogueEvents.EndDialogue();
+        GameEventsManager.instance.uiEvents.HideInstructionPanel();
 
         if (dungeonQuestDialogue != null)
         {

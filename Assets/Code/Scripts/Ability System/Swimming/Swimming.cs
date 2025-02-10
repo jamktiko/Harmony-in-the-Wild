@@ -58,7 +58,9 @@ public class Swimming : MonoBehaviour, IAbility
 
         if (FoxMovement.instance.IsGrounded() && swimmingAudioPlaying)
         {
+            swimmingAudioPlaying = false;
             GameEventsManager.instance.audioEvents.DestroyAudio(AudioName.Ability_Swimming);
+            swimmingAudioPlaying=false;
         }
     }
 }

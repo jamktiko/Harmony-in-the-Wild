@@ -45,6 +45,7 @@ public class CinematicsTigger : MonoBehaviour
         if(questsCompleted > currentTreeOfLifeState)
         {
             GameEventsManager.instance.cinematicsEvents.StartCinematics();
+            AudioManager.instance.StartNewTheme(ThemeName.Theme_ToLCinematics);
 
             Debug.Log("Trigger cinematics now!");
         }

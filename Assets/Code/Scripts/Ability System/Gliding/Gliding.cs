@@ -11,6 +11,8 @@ public class Gliding : MonoBehaviour, IAbility
     [SerializeField] private AudioSource glidingAudio;
     private List<ParticleSystem> glideParticleEmission = new List<ParticleSystem>();
 
+    private bool allowActivationBasedOnInput = true;
+
     void Awake()
     {
         if (instance != null && instance != this)
@@ -21,6 +23,17 @@ public class Gliding : MonoBehaviour, IAbility
         }
         instance = this;
     }
+
+    private void OnEnable()
+    {
+        GameEventsManager.instance.playerEvents.OnToggleInputActions += ToggleActivation;
+    }
+
+    private void OnDisable()
+    {
+        GameEventsManager.instance.playerEvents.OnToggleInputActions -= ToggleActivation;
+    }
+
     void Start()
     {
         AbilityManager.instance.RegisterAbility(Abilities.Gliding, this);
@@ -70,26 +83,29 @@ public class Gliding : MonoBehaviour, IAbility
 
     public void Activate()
     {
-        isGliding = !isGliding;
-
-        Debug.Log("Gliding activated");
-
-        if (isGliding)
+        if (allowActivationBasedOnInput)
         {
-            AudioManager.instance.PlaySound(AudioName.Ability_Gliding, transform);
+            isGliding = !isGliding;
 
-            for (int i = 0; i < glideParticleEmission.Count; i++)
+            Debug.Log("Gliding activated");
+
+            if (isGliding)
             {
-                var emission = glideParticleEmission[i].emission;
-                emission.enabled = true;
+                AudioManager.instance.PlaySound(AudioName.Ability_Gliding_Activated, transform);
+
+                for (int i = 0; i < glideParticleEmission.Count; i++)
+                {
+                    var emission = glideParticleEmission[i].emission;
+                    emission.enabled = true;
+                }
             }
-        }
-        else
-        {
-            for (int i = 0; i < glideParticleEmission.Count; i++)
+            else
             {
-                var emission = glideParticleEmission[i].emission;
-                emission.enabled = false;
+                for (int i = 0; i < glideParticleEmission.Count; i++)
+                {
+                    var emission = glideParticleEmission[i].emission;
+                    emission.enabled = false;
+                }
             }
         }
     }
@@ -156,5 +172,10 @@ public class Gliding : MonoBehaviour, IAbility
                 }          
             }
         }
+    }
+
+    private void ToggleActivation(bool enabled)
+    {
+        allowActivationBasedOnInput = enabled;
     }
 }
