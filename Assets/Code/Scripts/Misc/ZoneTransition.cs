@@ -13,11 +13,13 @@ public class ZoneTransition : MonoBehaviour
     private void Awake()
     {
         GameEventsManager.instance.uiEvents.OnUseUnstuckButton += DisableAudioChangeForAWhile;
+        GameEventsManager.instance.cinematicsEvents.OnStartCinematics += DisableAudioChangeForCinematics;
     }
 
     private void OnDisable()
     {
         GameEventsManager.instance.uiEvents.OnUseUnstuckButton -= DisableAudioChangeForAWhile;
+        GameEventsManager.instance.cinematicsEvents.OnStartCinematics -= DisableAudioChangeForCinematics;
     }
 
     private void DisableAudioChangeForAWhile()
@@ -30,6 +32,11 @@ public class ZoneTransition : MonoBehaviour
     private void EnableAudioChange()
     {
         canTriggerAudioChange = true;
+    }
+
+    private void DisableAudioChangeForCinematics()
+    {
+        canTriggerAudioChange = false;
     }
 
     private void OnTriggerEnter(Collider other)
