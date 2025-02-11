@@ -71,7 +71,6 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
-        themeIsPlaying = false;
         themeTransitionOn = true;
 
         Debug.Log($"About to finish theme: {themeAudioSource.clip.name}.");
@@ -81,7 +80,6 @@ public class AudioManager : MonoBehaviour
 
     public void StartNewTheme(ThemeName themeToPlay)
     {
-        themeIsPlaying = true;
         themeTransitionOn = true;
 
         ThemeData newThemeData = new ThemeData();
@@ -117,6 +115,8 @@ public class AudioManager : MonoBehaviour
                 percentage += Time.deltaTime / themeTransitionTimeIn;
                 yield return null;
             }
+
+            themeIsPlaying = true;
         }
 
         else
@@ -129,6 +129,7 @@ public class AudioManager : MonoBehaviour
             }
 
             themeAudioSource.clip = null;
+            themeIsPlaying = false;
         }
 
         themeTransitionOn = false;
