@@ -33,14 +33,6 @@ public class QuestUI : MonoBehaviour
         questTextComponents[0].text = ProcessTextForInputs(questName);
         questTextComponents[1].text = ProcessTextForInputs(description);
         questTextComponents[2].text = ProcessTextForInputs(progress);
-        try
-        {
-            questWaypoint.GetNewQuestWaypointPosition();
-        }
-        catch (System.Exception)
-        {
-            throw;
-        }
         
     }
 
