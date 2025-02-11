@@ -29,8 +29,32 @@ public class QuestWaypoint : MonoBehaviour
     }
     private void Update()
     {
-        
-        img.transform.position = mainCamera.WorldToScreenPoint(target.transform.position);
+        float minX = img.GetPixelAdjustedRect().width / 2;
+        float maxX = Screen.width - minX;
+
+        float minY = img.GetPixelAdjustedRect().height / 2;
+        float maxY = Screen.height - minY;
+
+        Vector2 pos = mainCamera.WorldToScreenPoint(target.transform.position);
+
+        if (Vector3.Dot((target.transform.position-transform.position),transform.forward)<0)
+        {
+            //target is behind player
+            if (pos.x<Screen.width/2)
+            {
+                pos.x = maxX;
+            }
+            else
+            {
+                pos.x = minX;
+            }
+        }
+
+        pos.x = Mathf.Clamp(pos.x,minX,maxX);
+        pos.y = Mathf.Clamp(pos.y,minY,maxY);
+
+        img.transform.position = pos;
+
         text.text = Mathf.Round(Vector3.Distance(target.transform.position, FoxMovement.instance.foxMiddle.position)).ToString() + "m";
     }
 
