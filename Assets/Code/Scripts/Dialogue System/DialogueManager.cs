@@ -362,9 +362,9 @@ public class DialogueManager : MonoBehaviour
         if(dialogueCooldown != null)
         {
             StopCoroutine(dialogueCooldown);
-            dialogueCooldown = null;
         }
 
+        dialogueCooldown = null;
         canStartDialogue = true;
         canInteractWith = true;
     }
