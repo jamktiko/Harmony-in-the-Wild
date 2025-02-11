@@ -120,7 +120,13 @@ public class PlayerModelToggle : MonoBehaviour
 
     public void PrepareForModelChange(string modelName)
     {
-        if (AudioManager.instance.themeIsPlaying && canTriggerAudioChange)
+        if (!initialTransformationPassed)
+        {
+            initialTransformationPassed = true;
+            return;
+        }
+
+        if (canTriggerAudioChange)
         {
             AudioManager.instance.EndCurrentTheme();
         }
@@ -184,7 +190,7 @@ public class PlayerModelToggle : MonoBehaviour
     {
         Debug.Log("Waiting for arctic theme transition to be triggered...");
 
-        yield return new WaitUntil(() => AudioManager.instance.themeTransitionOn == false);
+        yield return new WaitUntil(() => AudioManager.instance.themeTransitionOn == false && !AudioManager.instance.themeIsPlaying);
 
         Debug.Log("Arctic theme about to be triggered...");
 
@@ -195,7 +201,7 @@ public class PlayerModelToggle : MonoBehaviour
     {
         Debug.Log("Waiting for forest theme transition to be triggered...");
 
-        yield return new WaitUntil(() => AudioManager.instance.themeTransitionOn == false);
+        yield return new WaitUntil(() => AudioManager.instance.themeTransitionOn == false && !AudioManager.instance.themeIsPlaying);
 
         Debug.Log("Forest theme about to be triggered...");
 
