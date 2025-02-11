@@ -304,16 +304,16 @@ public class DialogueManager : MonoBehaviour
 
         dialogueCanvas.SetActive(false);
 
-        //if(dialogueCooldown == null)
-        //{
-        //    Debug.Log("Starting a dialogue delay");
-        //    dialogueCooldown = StartCoroutine(DelayBetweenDialogues());
-        //}
+        if (dialogueCooldown == null)
+        {
+            Debug.Log("Starting a dialogue delay");
+            dialogueCooldown = StartCoroutine(DelayBetweenDialogues());
+        }
 
-        //else
-        //{
-        //    Debug.Log("Dialogue already on cooldown");
-        //}
+        else
+        {
+            Debug.Log("Dialogue already on cooldown");
+        }
     }
 
     private void InitializeDialogueVariables()
