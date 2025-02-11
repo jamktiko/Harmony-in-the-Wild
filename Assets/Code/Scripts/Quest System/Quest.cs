@@ -62,7 +62,7 @@ public class Quest
         }
     }
 
-    private GameObject GetCurrentQuestStepPrefab()
+    public GameObject GetCurrentQuestStepPrefab()
     {
         GameObject questStepPrefab = null;
 
