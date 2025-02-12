@@ -22,7 +22,8 @@ public static class SceneManagerHelper
         Naming,
         Dungeon_Monkey_Learning,
         Credits,
-        Tutorial
+        Tutorial,
+        GreenScreenStudio
     }
 
     //Map enum values to scene names
@@ -43,7 +44,8 @@ public static class SceneManagerHelper
         {Scene.Naming, "Naming" },
         {Scene.Dungeon_Monkey_Learning, "Dungeon_Monke_Learning_NEW" },
         {Scene.Credits, "Credits" },
-        {Scene.Tutorial, "Tutorial" }
+        {Scene.Tutorial, "Tutorial" },
+        {Scene.GreenScreenStudio, "PhotoScene" }
     };
 
     //Method to get the scene name from an enum
