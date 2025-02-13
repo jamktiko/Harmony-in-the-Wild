@@ -75,6 +75,11 @@ public class FoxMovement : MonoBehaviour
 
     [Header("VFX")]
     public VisualEffect telegrabEffect;
+
+    [Header("Fox Models")]
+    [SerializeField] private GameObject redFox;
+    [SerializeField] private GameObject arcticFox;
+
     private void Awake()
     {
         if (FoxMovement.instance != null)
@@ -253,15 +258,20 @@ public class FoxMovement : MonoBehaviour
                 landingEffects[1].transform.localScale = new Vector3(scale, scale, scale);
                 landingEffects[1].Play();
             }
-            else if (IsInSnow())
-            {
-                landingEffects[2].transform.localScale = new Vector3(scale, scale, scale);
-                landingEffects[2].Play();
-            }
+
             else
             {
-                landingEffects[3].transform.localScale = new Vector3(scale, scale, scale);
-                landingEffects[3].Play();
+                if (redFox.activeInHierarchy)
+                {
+                    landingEffects[3].transform.localScale = new Vector3(scale, scale, scale);
+                    landingEffects[3].Play();
+                }
+
+                else if (arcticFox.activeInHierarchy)
+                {
+                    landingEffects[2].transform.localScale = new Vector3(scale, scale, scale);
+                    landingEffects[2].Play();
+                }
             }
             jumpApex = 0;
         }
