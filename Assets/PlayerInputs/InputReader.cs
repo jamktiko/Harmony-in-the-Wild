@@ -51,6 +51,7 @@ public class InputReader : ScriptableObject, PlayerInputActions.IPlayerActions
     public event UnityAction OnSitEvent = delegate { };
     public event UnityAction OnDebugIncreaseMouseSensitivityEvent = delegate { };
     public event UnityAction OnDebugDecreaseMouseSensitivityEvent = delegate { };
+    public event UnityAction OnDebugToggleDayNightEvent = delegate { };
     private PlayerInputActions playerInputActions;
     [Header("Input reader object")]
     [SerializeField] InputReader _inputReader;
@@ -256,5 +257,10 @@ public class InputReader : ScriptableObject, PlayerInputActions.IPlayerActions
     public void OnDebugDecreaseMouseSensitivity(InputAction.CallbackContext context)
     {
         OnDebugDecreaseMouseSensitivityEvent.Invoke();
+    }
+
+    public void OnDebugToggleDayNight(InputAction.CallbackContext context)
+    {
+        OnDebugToggleDayNightEvent.Invoke();
     }
 }

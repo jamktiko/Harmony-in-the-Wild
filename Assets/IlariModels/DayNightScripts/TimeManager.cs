@@ -46,12 +46,12 @@ public class TimeManager : MonoBehaviour
         service = new TimeService(timeSettingss);
         volume.profile.TryGet(out colorAdjustments);
 
-        service.currentHour.ValueChanged += ToggleStarVisibility;
+        service.currentHour.ValueChanged += ToggleDayNightCycleElements;
     }
 
     private void OnDisable()
     {
-        service.currentHour.ValueChanged -= ToggleStarVisibility;
+        service.currentHour.ValueChanged -= ToggleDayNightCycleElements;
     }
 
     void Update()
@@ -60,6 +60,12 @@ public class TimeManager : MonoBehaviour
         RotateSun();
         UpdateLightSettings();
         UpdateSkyBlend();
+
+        if (PlayerInputHandler.instance.DebugToggleDayNight.WasPressedThisFrame())
+        {
+            timeSettingss.timeMultiplier *= 100f;
+            Invoke(nameof(ResetTimeMultiplier), 4f);
+        }
 
         //if (Input.GetKeyDown(KeyCode.Space))
         //{
@@ -70,6 +76,11 @@ public class TimeManager : MonoBehaviour
         //    timeSettingss.timeMultiplier /= 2;
         //}
     }
+
+    private void ResetTimeMultiplier()
+    {
+        timeSettings.timeMultiplier = 100f;
+    } 
 
     void UpdateSkyBlend()
     {
@@ -102,7 +113,7 @@ public class TimeManager : MonoBehaviour
         }
     }
 
-    private void ToggleStarVisibility(int hour)
+    private void ToggleDayNightCycleElements(int hour)
     {
         if(hour == 18)
         {

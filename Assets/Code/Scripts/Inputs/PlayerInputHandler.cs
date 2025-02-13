@@ -54,7 +54,8 @@ public class PlayerInputHandler : MonoBehaviour
         DebugIncreaseTrailerCameraSpeed,
         DebugDecreaseTrailerCameraSpeed,
         DebugIncreaseMouseSensitivity,
-        DebugDecreaseMouseSensitivity;
+        DebugDecreaseMouseSensitivity,
+        DebugToggleDayNight;
 
     private void Awake()
     {
@@ -116,5 +117,6 @@ public class PlayerInputHandler : MonoBehaviour
         DebugDecreaseTrailerCameraSpeed = playerInput.actions.FindAction("DebugDecreaseTrailerCameraSpeed");
         DebugIncreaseMouseSensitivity = playerInput.actions.FindAction("DebugIncreaseMouseSensitivity");
         DebugDecreaseMouseSensitivity = playerInput.actions.FindAction("DebugDecreaseMouseSensitivity");
+        DebugToggleDayNight = playerInput.actions.FindAction("DebugToggleDayNight");
     }
 }

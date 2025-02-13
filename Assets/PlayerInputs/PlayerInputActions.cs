@@ -404,6 +404,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DebugToggleDayNight"",
+                    ""type"": ""Button"",
+                    ""id"": ""33d4a31c-0a6f-4c7b-8626-f716d5e14bb7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -1209,6 +1218,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""DebugDecreaseMouseSensitivity"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b39b30d4-f20b-47da-b923-9d2542fa5852"",
+                    ""path"": ""<Keyboard>/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DebugToggleDayNight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -1744,6 +1764,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Sit = m_Player.FindAction("Sit", throwIfNotFound: true);
         m_Player_DebugIncreaseMouseSensitivity = m_Player.FindAction("DebugIncreaseMouseSensitivity", throwIfNotFound: true);
         m_Player_DebugDecreaseMouseSensitivity = m_Player.FindAction("DebugDecreaseMouseSensitivity", throwIfNotFound: true);
+        m_Player_DebugToggleDayNight = m_Player.FindAction("DebugToggleDayNight", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1861,6 +1882,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Sit;
     private readonly InputAction m_Player_DebugIncreaseMouseSensitivity;
     private readonly InputAction m_Player_DebugDecreaseMouseSensitivity;
+    private readonly InputAction m_Player_DebugToggleDayNight;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1907,6 +1929,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Sit => m_Wrapper.m_Player_Sit;
         public InputAction @DebugIncreaseMouseSensitivity => m_Wrapper.m_Player_DebugIncreaseMouseSensitivity;
         public InputAction @DebugDecreaseMouseSensitivity => m_Wrapper.m_Player_DebugDecreaseMouseSensitivity;
+        public InputAction @DebugToggleDayNight => m_Wrapper.m_Player_DebugToggleDayNight;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -2042,6 +2065,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @DebugDecreaseMouseSensitivity.started += instance.OnDebugDecreaseMouseSensitivity;
             @DebugDecreaseMouseSensitivity.performed += instance.OnDebugDecreaseMouseSensitivity;
             @DebugDecreaseMouseSensitivity.canceled += instance.OnDebugDecreaseMouseSensitivity;
+            @DebugToggleDayNight.started += instance.OnDebugToggleDayNight;
+            @DebugToggleDayNight.performed += instance.OnDebugToggleDayNight;
+            @DebugToggleDayNight.canceled += instance.OnDebugToggleDayNight;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -2172,6 +2198,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @DebugDecreaseMouseSensitivity.started -= instance.OnDebugDecreaseMouseSensitivity;
             @DebugDecreaseMouseSensitivity.performed -= instance.OnDebugDecreaseMouseSensitivity;
             @DebugDecreaseMouseSensitivity.canceled -= instance.OnDebugDecreaseMouseSensitivity;
+            @DebugToggleDayNight.started -= instance.OnDebugToggleDayNight;
+            @DebugToggleDayNight.performed -= instance.OnDebugToggleDayNight;
+            @DebugToggleDayNight.canceled -= instance.OnDebugToggleDayNight;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -2385,6 +2414,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnSit(InputAction.CallbackContext context);
         void OnDebugIncreaseMouseSensitivity(InputAction.CallbackContext context);
         void OnDebugDecreaseMouseSensitivity(InputAction.CallbackContext context);
+        void OnDebugToggleDayNight(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
