@@ -3,7 +3,6 @@ using System.IO;
 
 public class DevToolButtons : MonoBehaviour
 {
-#if DEBUG
     [SerializeField] private Transform pageParent;
 
     private void Update()
@@ -51,5 +50,4 @@ public class DevToolButtons : MonoBehaviour
         File.Delete(Application.persistentDataPath + "/GameData.json");
         Debug.LogError("The save file has been deleted. Please restart the game to avoid any errors.");
     }
-#endif
 }
