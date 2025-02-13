@@ -11,7 +11,6 @@ public class SnowDiving : MonoBehaviour, IAbility
     public float climbingSpeed = 20f;
     public float pointDistance = 0.5f;
 
-    [SerializeField] private AudioSource snowDivingAudio;
     [SerializeField] private VisualEffect snowDiveVFX;
 
     private int onEnableSnowDiveID;
@@ -65,6 +64,7 @@ public class SnowDiving : MonoBehaviour, IAbility
             movementPoints.Clear();
 
             //climbing animation here (later will make more code for this)
+            snowDiveVFX.transform.position = FoxMovement.instance.transform.Find("SnowDiveVFXPosition").position;
             snowDiveVFX.SendEvent(onEnableSnowDiveID);
 
             AudioManager.instance.PlaySound(AudioName.Ability_SnowDive, transform);
