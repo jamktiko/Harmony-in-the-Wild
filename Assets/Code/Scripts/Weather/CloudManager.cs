@@ -33,7 +33,9 @@ public class CloudManager : MonoBehaviour
             clouds.Add(AddCloud());
         //else if (clouds.Count > cloudCoverage)
             //TryRemoveCloud();
-        MoveClouds();
+
+        // NOTE! uncommented for the current build; activate back later
+        //MoveClouds();
     }
 
     private Cloud AddCloud()

@@ -33,6 +33,14 @@ public class TimeManager : MonoBehaviour
     [Header("Starry Sky Settings")]
     [SerializeField] private Material starMaterial;
 
+    [Header("Northern Lights")]
+    [SerializeField] private GameObject auroraHolder;
+
+    [Header("Fog Color")]
+    [SerializeField] private float fogTransitionDuration = 2f;
+    [SerializeField] private Color dayFog;
+    [SerializeField] private Color nightFog;
+
     void Start()
     {
         service = new TimeService(timeSettingss);
@@ -98,15 +106,24 @@ public class TimeManager : MonoBehaviour
     {
         if(hour == 18)
         {
-            Debug.Log("About to show stars");
-            StartCoroutine(ChangeStarAlpha(false));
+            Debug.Log("About to show night elements");
+            ToggleAuroraVisibility(true);
+            StartCoroutine(ChangeFogColor(dayFog, nightFog));
+            //StartCoroutine(ChangeStarAlpha(false));
         }
 
         else if(hour == 6)
         {
-            Debug.Log("About to hide stars");
-            StartCoroutine(ChangeStarAlpha(true));
+            Debug.Log("About to hide night elements");
+            ToggleAuroraVisibility(false);
+            StartCoroutine(ChangeFogColor(nightFog, dayFog));
+            //StartCoroutine(ChangeStarAlpha(true));
         }
+    }
+
+    private void ToggleAuroraVisibility(bool auroraVisible)
+    {
+        auroraHolder.SetActive(auroraVisible);
     }
 
     private IEnumerator ChangeStarAlpha(bool changeAlphaToZero)
@@ -139,6 +156,19 @@ public class TimeManager : MonoBehaviour
 
                 yield return null;
             }
+        }
+    }
+
+    private IEnumerator ChangeFogColor(Color currentColor, Color targetColor)
+    {
+        float elapsedTime = 0f;
+
+        while(elapsedTime < fogTransitionDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            Color newColor = Color.Lerp(currentColor, targetColor, elapsedTime / fogTransitionDuration);
+            RenderSettings.fogColor = newColor;
+            yield return null;
         }
     }
 }
