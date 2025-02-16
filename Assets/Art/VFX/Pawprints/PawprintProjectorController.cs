@@ -18,7 +18,7 @@ using System.Collections;
     - Programmers need to refine the logic for terrain detection and correct rotation.
 */
 
-public class PawprintSpawner : MonoBehaviour
+public class PawprintProjectorController : MonoBehaviour
 {
     public GameObject pawprintPrefab; // Prefab for the pawprint decal
     public float decalLifetime = 5f; // Time before the decal is destroyed
