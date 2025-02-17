@@ -97,7 +97,7 @@ public class PenguinResultsView : MonoBehaviour
 
     public void ReturnToOverworld()
     {
-        StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, SceneManagerHelper.Scene.Overworld_VS, true);
+        StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, SceneManagerHelper.Scene.Overworld, true);
         GameEventsManager.instance.uiEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Storybook);
     }
 }
