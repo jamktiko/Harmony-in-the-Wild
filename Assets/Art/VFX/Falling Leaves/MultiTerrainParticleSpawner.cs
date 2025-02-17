@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq; // Required for filtering
 
 public class MultiTerrainParticleSpawner : MonoBehaviour
 {
@@ -11,32 +12,37 @@ public class MultiTerrainParticleSpawner : MonoBehaviour
     public float yOffset = 5f;
     [Range(0f, 100f)] public float spawnChancePercentage = 100f;
 
+    void Awake()
+    {
+        if (terrains == null || terrains.Length == 0)
+        {
+            terrains = FindObjectsOfType<Terrain>()
+                .Where(t => t.name.StartsWith("MainTerrain_"))
+                .ToArray();
+
+            if (terrains.Length == 0)
+            {
+                Debug.LogError("No terrains found with the specified naming pattern.");
+            }
+        }
+    }
+
     void Start()
     {
-        if (terrains.Length == 0 || particleSystemPrefab == null || container == null)
+        if (particleSystemPrefab == null || container == null)
         {
             Debug.LogError("Please assign all references in the Inspector.");
             return;
         }
-
-        if (spawnChancePercentage < 0f || spawnChancePercentage > 100f)
-        {
-            Debug.LogError("Invalid spawnChancePercentage: " + spawnChancePercentage + ". Value must be between 0 and 100.");
-            return;
-        }
-
         SpawnParticlesOnTrees();
     }
 
     void SpawnParticlesOnTrees()
     {
         System.Random random = new System.Random();
-        int totalSpawned = 0;
-
         foreach (Terrain terrain in terrains)
         {
-            if (terrain == null)
-                continue;
+            if (terrain == null) continue;
 
             TreeInstance[] treeInstances = terrain.terrainData.treeInstances;
             List<TreeInstance> matchingTrees = new List<TreeInstance>();
@@ -52,9 +58,6 @@ public class MultiTerrainParticleSpawner : MonoBehaviour
             int totalMatchingTrees = matchingTrees.Count;
             int treesToSpawn = Mathf.RoundToInt((spawnChancePercentage / 100f) * totalMatchingTrees);
 
-            Debug.Log("Terrain \"" + terrain.name + "\": " + spawnChancePercentage + "% selected. "
-                      + totalMatchingTrees + " matching trees found; spawning on " + treesToSpawn + " trees.");
-
             ShuffleList(matchingTrees, random);
 
             for (int i = 0; i < treesToSpawn; i++)
@@ -65,12 +68,8 @@ public class MultiTerrainParticleSpawner : MonoBehaviour
 
                 GameObject particleSystemInstance = Instantiate(particleSystemPrefab, treeWorldPosition, Quaternion.identity);
                 particleSystemInstance.transform.SetParent(container.transform);
-
-                totalSpawned++;
             }
         }
-
-        Debug.Log("Successfully spawned " + totalSpawned + " particle system instance(s).");
     }
 
     void ShuffleList(List<TreeInstance> list, System.Random random)
