@@ -8,5 +8,6 @@ public enum Abilities
     RockDestroying,
     GhostSpeaking,
     TeleGrabbing,
-    Freezing
+    Freezing,
+    Echo
 }
