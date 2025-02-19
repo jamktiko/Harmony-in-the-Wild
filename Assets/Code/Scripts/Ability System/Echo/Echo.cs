@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Echo : MonoBehaviour, IAbility
 {
@@ -13,6 +14,7 @@ public class Echo : MonoBehaviour, IAbility
     [SerializeField] private float echoRadius = 9f;
     [SerializeField] private float shockwaveDuration = 1.1f;
     [SerializeField] private GameObject shockwaveEffect;
+    [SerializeField] private float timeToTriggerEffectForNextFoundObject = 0.8f;
 
     void Awake()
     {
@@ -62,15 +64,31 @@ public class Echo : MonoBehaviour, IAbility
 
         if(hitColliders.Length > 0)
         {
-            foreach(Collider foundObject in hitColliders)
-            {
-                EchoReceiver echoReceiver = foundObject.transform.parent.GetComponent<EchoReceiver>();
+            hitColliders = ListObjectsBasedOnDistanceToPlayer(hitColliders);
 
-                if(echoReceiver != null)
-                {
-                    echoReceiver.ObjectLocated();
-                }
+            StartCoroutine(ActivateFoundObjectEffectsBasedOnDistance(hitColliders));
+        }
+    }
+
+    private Collider[] ListObjectsBasedOnDistanceToPlayer(Collider[] foundObjects)
+    {
+        Array.Sort(foundObjects, (firstObject, secondObject) => Vector3.Distance(transform.position, firstObject.transform.position).CompareTo(Vector3.Distance(transform.position, secondObject.transform.position)));
+
+        return foundObjects;
+    }
+
+    private IEnumerator ActivateFoundObjectEffectsBasedOnDistance(Collider[] foundObjects)
+    {
+        foreach (Collider foundObject in foundObjects)
+        {
+            EchoReceiver echoReceiver = foundObject.transform.parent.GetComponent<EchoReceiver>();
+
+            if (echoReceiver != null)
+            {
+                echoReceiver.ObjectLocated();
             }
+
+            yield return new WaitForSeconds(timeToTriggerEffectForNextFoundObject);
         }
     }
 }
