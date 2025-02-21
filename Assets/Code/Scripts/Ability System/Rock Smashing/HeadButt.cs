@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.iOS;
-using UnityEngine.tvOS;
 using UnityEngine.UI;
 
 public class HeadButt : MonoBehaviour

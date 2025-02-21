@@ -17,12 +17,12 @@ public class PlayerModelToggle : MonoBehaviour
     private bool canTriggerAudioChange = true;
     private bool initialTransformationPassed = false; // this bool is enabled a bit after the scene is loaded; it ensures the audio transformation will work when loading into the scene for the first time
 
-    private void Start()
+    private void Awake()
     {
         GameEventsManager.instance.uiEvents.OnUseUnstuckButton += DisableAudioChangeForAWhile;
         GameEventsManager.instance.cinematicsEvents.OnStartCinematics += DisableAudioChangeForCinematics;
 
-        Invoke(nameof(EnableVFX), 2f);
+        Invoke(nameof(EnableVFX), 3f);
     }
 
     private void OnDisable()
@@ -87,7 +87,6 @@ public class PlayerModelToggle : MonoBehaviour
 
         if (toArcticFox)
         {
-            Debug.Log("Change to arctic");
             if (canTriggerAudioChange)
             {
                 StartCoroutine(StartArcticTheme());
@@ -120,16 +119,16 @@ public class PlayerModelToggle : MonoBehaviour
 
     public void PrepareForModelChange(string modelName)
     {
-        if (!initialTransformationPassed)
-        {
-            initialTransformationPassed = true;
-            return;
-        }
-
         if (canTriggerAudioChange)
         {
             AudioManager.instance.EndCurrentTheme();
         }
+
+        //if (!initialTransformationPassed)
+        //{
+        //    initialTransformationPassed = true;
+        //    return;
+        //}
 
         if (modelName == "Arctic")
         {

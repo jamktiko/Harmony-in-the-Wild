@@ -14,7 +14,7 @@ public class ExitCaveTrigger : MonoBehaviour
         if (other.gameObject.CompareTag("Trigger") && currentQuestStepIndex >= 3)
         {
             ExitCaveQuest.instance.ExitCave();
-            GameEventsManager.instance.uiEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Overworld_VS);            
+            GameEventsManager.instance.uiEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Overworld);            
         }
     }
 }

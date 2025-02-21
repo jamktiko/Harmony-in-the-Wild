@@ -51,14 +51,14 @@ public class MainMenuManager : MonoBehaviour
             // otherwise transfer to Overworld so the quest can be finished there
             else
             {
-                GameEventsManager.instance.uiEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Overworld_VS);
+                GameEventsManager.instance.uiEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Overworld);
             }
         }
 
         // if tutorial has been finished, go to Overworld
         else
         {
-            GameEventsManager.instance.uiEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Overworld_VS);
+            GameEventsManager.instance.uiEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Overworld);
         }      
     }
 
