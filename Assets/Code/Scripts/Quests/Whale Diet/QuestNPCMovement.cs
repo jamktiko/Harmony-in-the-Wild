@@ -3,11 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class WhaleMovement : MonoBehaviour
+public class QuestNPCMovement : MonoBehaviour
 {
+    [Header("Quest Config")]
+    [SerializeField] private QuestScriptableObject questSO;
+    [SerializeField] private DialogueQuestNPCs character;
+
+    [Header("Movement Config")]
     [SerializeField] private float moveSpeed = 2f;
     [SerializeField] private float rotationSpeed = 1.5f;
     [SerializeField] private float maxDistanceToPlayer = 10f;
+
+    [Header("Nav Mesh Movement Config")]
 
     [Header("Needed References")]
     [SerializeField] private List<Transform> destinations;
@@ -22,7 +29,7 @@ public class WhaleMovement : MonoBehaviour
 
     private void Start()
     {
-        if(QuestManager.instance.CheckQuestState("Whale Diet") == QuestState.CAN_FINISH)
+        if(QuestManager.instance.CheckQuestState(questSO.id) == QuestState.CAN_FINISH)
         {
             transform.position = destinations[destinations.Count - 1].position;
         }
@@ -36,12 +43,12 @@ public class WhaleMovement : MonoBehaviour
 
     private void OnEnable()
     {
-        GameEventsManager.instance.questEvents.OnStartMovingWhale += EnableMovement;
+        GameEventsManager.instance.questEvents.OnStartMovingQuestNPC += EnableMovement;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.questEvents.OnStartMovingWhale -= EnableMovement;
+        GameEventsManager.instance.questEvents.OnStartMovingQuestNPC -= EnableMovement;
     }
 
     private void Update()
@@ -49,11 +56,14 @@ public class WhaleMovement : MonoBehaviour
         playerIsNear = Vector3.Distance(transform.position, player.position) <= maxDistanceToPlayer;
     }
 
-    private void EnableMovement()
+    private void EnableMovement(DialogueQuestNPCs characterToMove)
     {
-        Debug.Log("Start whale movement...");
+        if(character == characterToMove)
+        {
+            StartCoroutine(WalkToDestination());
 
-        StartCoroutine(WalkToDestination());
+            Debug.Log("Start quest NPC movement...");
+        }
     }
 
     private void SetNewDestination()
@@ -118,11 +128,7 @@ public class WhaleMovement : MonoBehaviour
 
     private IEnumerator Idle()
     {
-        Debug.Log("Waiting player to get near whale...");
-
         yield return new WaitUntil(() => playerIsNear);
-
-        Debug.Log("Player is near, whale will start moving again!");
 
         StartCoroutine(WalkToDestination());
     }

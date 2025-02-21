@@ -7,7 +7,7 @@ public class WhaleFinalDestination : QuestStep
 {
     private void Start()
     {
-        GameEventsManager.instance.questEvents.StartMovingWhale();
+        GameEventsManager.instance.questEvents.StartMovingQuestNPC(DialogueQuestNPCs.Whale);
 
         GameEventsManager.instance.questEvents.ShowQuestUI(GetQuestId(), objective, progress);
     }
@@ -28,7 +28,7 @@ public class WhaleFinalDestination : QuestStep
     {
         if(scene.name.Contains("Overworld", System.StringComparison.CurrentCultureIgnoreCase))
         {
-            GameEventsManager.instance.questEvents.StartMovingWhale();
+            GameEventsManager.instance.questEvents.StartMovingQuestNPC(DialogueQuestNPCs.Whale);
 
             GameEventsManager.instance.questEvents.ShowQuestUI(GetQuestId(), objective, progress);
         }

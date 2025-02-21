@@ -103,6 +103,10 @@ public class DialogueVariableObserver
             case "WhaleDiet_02":
                 name = DialogueVariables.WhaleDiet_02;
                 break;
+
+            case "BoneToPick_03":
+                name = DialogueVariables.BoneToPick_03;
+                break;
         }
 
         return name;
