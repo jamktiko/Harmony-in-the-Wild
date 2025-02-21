@@ -84,11 +84,11 @@ public class QuestEvents
         OnChangeActiveQuest?.Invoke(id);
     }
 
-    public event Action OnStartMovingWhale;
+    public event Action<DialogueQuestNPCs> OnStartMovingQuestNPC;
 
-    public void StartMovingWhale()
+    public void StartMovingQuestNPC(DialogueQuestNPCs character)
     {
-        OnStartMovingWhale?.Invoke();
+        OnStartMovingQuestNPC?.Invoke(character);
     }
 
     public event Action OnReachWhaleDestination;
@@ -96,5 +96,19 @@ public class QuestEvents
     public void ReachWhaleDestination()
     {
         OnReachWhaleDestination?.Invoke();
+    }
+
+    public event Action<string> OnReachTargetDestinationToCompleteQuestStep;
+
+    public void ReachTargetDestinationToCompleteQuestStep(string id)
+    {
+        OnReachTargetDestinationToCompleteQuestStep?.Invoke(id);
+    }
+
+    public event Action<QuestItem> OnCollectQuestItem;
+
+    public void CollectQuestItem(QuestItem item)
+    {
+        OnCollectQuestItem?.Invoke(item);
     }
 }

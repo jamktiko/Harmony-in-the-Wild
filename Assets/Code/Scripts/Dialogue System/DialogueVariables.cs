@@ -11,7 +11,8 @@ public enum DialogueVariables
     Tutorial_05,
     Tutorial_07,
     Tutorial_08,
-    WhaleDiet_02
+    WhaleDiet_02,
+    BoneToPick_03
 }
 
 public static class DialogueVariableInitializer
@@ -24,6 +25,7 @@ public static class DialogueVariableInitializer
         {DialogueVariables.Tutorial_07, false},
         {DialogueVariables.Tutorial_08, false},
         {DialogueVariables.WhaleDiet_02, false},
+        {DialogueVariables.BoneToPick_03, false}
     };
 }
 
@@ -31,5 +33,6 @@ public enum DialogueQuestNPCs
 {
     Default,
     Bear,
-    Whale
+    Whale,
+    Wolf
 }

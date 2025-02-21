@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class TalkToWhaleQuestStep : QuestStep
+public class TalkToNPCQuestStep : QuestStep
 {
     [SerializeField] DialogueVariables dialogueToPassForProgress;
-    private DialogueQuestNPCs character = DialogueQuestNPCs.Whale;
+    [SerializeField] private int midQuestDialogueIndex = 0;
+    [SerializeField] private DialogueQuestNPCs character = DialogueQuestNPCs.Whale;
     private bool canProgressQuest;
 
     private void Start()
     {
         GameEventsManager.instance.questEvents.ShowQuestUI(GetQuestId(), objective, progress);
-        GameEventsManager.instance.dialogueEvents.SetMidQuestDialogue(0, GetQuestId());
+        GameEventsManager.instance.dialogueEvents.SetMidQuestDialogue(midQuestDialogueIndex, GetQuestId());
     }
 
     private void OnEnable()
@@ -33,7 +34,7 @@ public class TalkToWhaleQuestStep : QuestStep
     {
         if (scene.name.Contains("Overworld", System.StringComparison.CurrentCultureIgnoreCase))
         {
-            GameEventsManager.instance.dialogueEvents.SetMidQuestDialogue(0, GetQuestId());
+            GameEventsManager.instance.dialogueEvents.SetMidQuestDialogue(midQuestDialogueIndex, GetQuestId());
             GameEventsManager.instance.questEvents.ShowQuestUI(GetQuestId(), objective, progress);
         }
     }
@@ -43,6 +44,11 @@ public class TalkToWhaleQuestStep : QuestStep
         if (changedVariable == dialogueToPassForProgress && canProgressQuest)
         {
             FinishQuestStep();
+        }
+
+        else
+        {
+            Debug.Log("Not able to finish the quest step, values not matching.");
         }
     }
 
