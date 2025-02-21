@@ -18,7 +18,10 @@ public class CollectableQuestItem : MonoBehaviour
 
     private void CollectItem()
     {
-        GameEventsManager.instance.questEvents.CollectQuestItem(itemType);
+        if(itemType != QuestItem.Default)
+        {
+            GameEventsManager.instance.questEvents.CollectQuestItem(itemType);
+        }
 
         gameObject.SetActive(false);
     }

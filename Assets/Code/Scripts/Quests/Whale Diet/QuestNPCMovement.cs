@@ -14,6 +14,8 @@ public class QuestNPCMovement : MonoBehaviour
     [SerializeField] private float rotationSpeed = 1.5f;
     [SerializeField] private float maxDistanceToPlayer = 10f;
 
+    [Header("Nav Mesh Movement Config")]
+
     [Header("Needed References")]
     [SerializeField] private List<Transform> destinations;
     [SerializeField] private Transform player;

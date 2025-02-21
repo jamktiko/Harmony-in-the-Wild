@@ -4,17 +4,27 @@ using UnityEngine;
 
 public class EchoReceiver : MonoBehaviour
 {
-    [SerializeField] private GameObject objectFoundEffect;
-    [SerializeField] private float timeToHideEffect = 1.1f;
+    [SerializeField] private GameObject echoReceiverVFX;
+    [SerializeField] private float timeToHideEchoReceiverVFX = 1.1f;
+
+    private void Start()
+    {
+        echoReceiverVFX = transform.Find("EchoVFX").gameObject;
+
+        if(echoReceiverVFX == null)
+        {
+            Debug.Log($"No echo receiver VFX found for { gameObject.name }.");
+        }
+    }
 
     public void ObjectLocated()
     {
-        objectFoundEffect.SetActive(true);
-        Invoke(nameof(HideEffect), timeToHideEffect);
+        echoReceiverVFX.SetActive(true);
+        Invoke(nameof(HideEffect), timeToHideEchoReceiverVFX);
     }
 
     private void HideEffect()
     {
-        objectFoundEffect.SetActive(false);
+        echoReceiverVFX.SetActive(false);
     }
 }

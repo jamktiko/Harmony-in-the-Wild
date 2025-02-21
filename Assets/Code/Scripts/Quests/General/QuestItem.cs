@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum QuestItem
 {
-    Map,
-    Bone
+    Default,
+    Bone,
+    Map
 }
