@@ -4,17 +4,18 @@ using System.Collections.Generic;
 public class FoxGroundTargetSpawner : MonoBehaviour
 {
     [Header("Ground Target Settings")]
-    public GameObject groundTargetPrefab;  // Prefab for ground target
     public int maxGroundTargets = 10;      // Max number of pooled ground targets
     public float groundCheckDistance = 10f; // How far from the fox to place ground targets
     public LayerMask groundLayer;         // LayerMask to detect valid ground placement
+    [SerializeField] private Vector3 groundTargetColliderSize = Vector3.one;
+    [SerializeField] private bool spawnOnUpdate;
 
     [Header("References")]
     public Collider groundTriggerCollider; // Assign the fox’s ground trigger collider in the Inspector
     public Transform groundTargetContainer; // Parent object for hierarchy cleanliness
 
-    private List<GameObject> groundTargetPool = new List<GameObject>(); // Object pool
-    private HashSet<Vector3> activeTargetPositions = new HashSet<Vector3>(); // Track active target positions
+    private Queue<GameObject> groundTargetPool = new Queue<GameObject>(); // Object pool
+    private HashSet<GameObject> activeTargets = new HashSet<GameObject>(); // Track active targets
 
     void Start()
     {
@@ -34,46 +35,53 @@ public class FoxGroundTargetSpawner : MonoBehaviour
         }
 
         InitializeObjectPool();
+        PlaceGroundTargets();
+    }
+
+
+    private void Update()
+    {
+        if (spawnOnUpdate)
+        {
+            PlaceGroundTargets();
+        }
     }
 
     void InitializeObjectPool()
     {
         for (int i = 0; i < maxGroundTargets; i++)
         {
-            GameObject target = Instantiate(groundTargetPrefab);
+            GameObject target = new GameObject("lb_groundTarget");
+            var collider = target.AddComponent<BoxCollider>();
+            collider.isTrigger = true;
+            collider.size = groundTargetColliderSize;
+            target.tag = "lb_groundTarget";
             target.SetActive(false);
             target.transform.SetParent(groundTargetContainer);
-            groundTargetPool.Add(target);
+            groundTargetPool.Enqueue(target);
         }
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (other != groundTriggerCollider) return; // Ensure it's the correct collider
-        if (other.CompareTag("lb_bird")) return; // Ignore birds
-
-        PlaceGroundTargets();
     }
 
     void PlaceGroundTargets()
     {
         Vector3 foxPosition = transform.position;
-        activeTargetPositions.Clear();
+        activeTargets.Clear();
 
-        for (int i = 0; i < maxGroundTargets; i++)
+        int spawnAttempts = 5;
+        while (groundTargetPool.Count > 0 && spawnAttempts > 0)
         {
             Vector3 randomPos = GetRandomGroundPosition(foxPosition);
-
-            if (randomPos != Vector3.zero && !activeTargetPositions.Contains(randomPos))
+            if (randomPos == Vector3.zero)
             {
-                GameObject target = GetPooledGroundTarget();
-                if (target != null)
-                {
-                    target.transform.position = randomPos;
-                    target.SetActive(true);
-                    activeTargetPositions.Add(randomPos);
-                }
+                spawnAttempts--;
+                continue;
             }
+
+            // Actually taking object from pool
+            GameObject target = GetObjectFromPool();
+
+            target.transform.position = randomPos;
+            target.SetActive(true);
         }
     }
 
@@ -88,7 +96,13 @@ public class FoxGroundTargetSpawner : MonoBehaviour
             );
 
             RaycastHit hit;
-            if (Physics.Raycast(randomPos, Vector3.down, out hit, 20f, groundLayer))
+            float rayLength = 20f;
+            
+            // Visualizing raycast
+            Debug.DrawLine(randomPos, randomPos + Vector3.down * rayLength, Color.blue);
+
+            // Do a raycast to check if the position is valid
+            if (Physics.Raycast(randomPos, Vector3.down, out hit, rayLength, groundLayer))
             {
                 return hit.point;
             }
@@ -96,28 +110,34 @@ public class FoxGroundTargetSpawner : MonoBehaviour
         return Vector3.zero; // No valid position found
     }
 
-    GameObject GetPooledGroundTarget()
-    {
-        foreach (GameObject target in groundTargetPool)
-        {
-            if (!target.activeInHierarchy)
-                return target;
-        }
-        return null; // No available targets (all in use)
-    }
-
     void OnTriggerExit(Collider other)
     {
         if (other != groundTriggerCollider) return; // Ensure it's the correct collider
         if (other.CompareTag("lb_bird")) return;
 
-        // Recycle old targets when the fox moves away
-        foreach (GameObject target in groundTargetPool)
+        foreach (var target in activeTargets)
         {
             if (target.activeSelf && Vector3.Distance(target.transform.position, transform.position) > groundCheckDistance * 1.5f)
             {
-                target.SetActive(false);
+                ReturnToPool(target);
             }
         }
+
+        PlaceGroundTargets();
+    }
+
+    private GameObject GetObjectFromPool()
+    {
+        if(groundTargetPool.TryDequeue(out GameObject target))
+        {
+            activeTargets.Add(target);
+            return target;
+        }
+        return null;
+    }
+    private void ReturnToPool(GameObject target)
+    {
+        target.SetActive(false);
+        groundTargetPool.Enqueue(target); // Returning object to pool
     }
 }
