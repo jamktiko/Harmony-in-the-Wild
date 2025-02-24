@@ -4981,6 +4981,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 841724392}
   m_CullTransparentMesh: 1
+--- !u!114 &861887631 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2957517277277814771, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
+  m_PrefabInstance: {fileID: 1244162811}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &862539497
 GameObject:
   m_ObjectHideFlags: 0
@@ -6360,6 +6371,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1071532193}
   m_CullTransparentMesh: 1
+--- !u!114 &1095588994 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8858365189749593350, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
+  m_PrefabInstance: {fileID: 1244162811}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1102032519
 GameObject:
   m_ObjectHideFlags: 0
@@ -7198,10 +7220,30 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 922125872530616492, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
+      propertyPath: mixer
+      value: 
+      objectReference: {fileID: 24100000, guid: 0836fcbbe03bd634181a25d5e7402191, type: 2}
+    - target: {fileID: 922125872530616492, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
+      propertyPath: musicVolume
+      value: 
+      objectReference: {fileID: 4039591810923578567, guid: 0836fcbbe03bd634181a25d5e7402191, type: 2}
+    - target: {fileID: 922125872530616492, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
+      propertyPath: masterVolume
+      value: 
+      objectReference: {fileID: 24300002, guid: 0836fcbbe03bd634181a25d5e7402191, type: 2}
+    - target: {fileID: 922125872530616492, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
+      propertyPath: musicVolumeSlider
+      value: 
+      objectReference: {fileID: 1095588994}
+    - target: {fileID: 922125872530616492, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
+      propertyPath: masterVolumeSlider
+      value: 
+      objectReference: {fileID: 861887631}
     - target: {fileID: 1267958815197208727, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1731928052}
+      objectReference: {fileID: 0}
     - target: {fileID: 1267958815197208727, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: GameplayMenu
@@ -7217,7 +7259,7 @@ PrefabInstance:
     - target: {fileID: 1372774424415335613, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1731928052}
+      objectReference: {fileID: 0}
     - target: {fileID: 1372774424415335613, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ChangeSensitivity
@@ -7317,7 +7359,7 @@ PrefabInstance:
     - target: {fileID: 2388577736655003988, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1731928052}
+      objectReference: {fileID: 0}
     - target: {fileID: 2388577736655003988, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: MovementMenu
@@ -7413,11 +7455,15 @@ PrefabInstance:
     - target: {fileID: 4499113958719802704, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1731928052}
+      objectReference: {fileID: 0}
     - target: {fileID: 4499113958719802704, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ChangeSliderMasterVolume
       objectReference: {fileID: 0}
+    - target: {fileID: 4795156305516040353, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
+      propertyPath: resolutionDropdown
+      value: 
+      objectReference: {fileID: 2048971066}
     - target: {fileID: 5185614908953734472, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -7429,7 +7475,7 @@ PrefabInstance:
     - target: {fileID: 5631923319410647484, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1731928052}
+      objectReference: {fileID: 0}
     - target: {fileID: 5631923319410647484, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ChangeYInversion
@@ -7529,7 +7575,7 @@ PrefabInstance:
     - target: {fileID: 7116860265684368694, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1731928052}
+      objectReference: {fileID: 0}
     - target: {fileID: 7116860265684368694, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: BackButton
@@ -7541,7 +7587,7 @@ PrefabInstance:
     - target: {fileID: 7244008239178801083, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1731928052}
+      objectReference: {fileID: 0}
     - target: {fileID: 7244008239178801083, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SettingsMenu
@@ -7569,7 +7615,7 @@ PrefabInstance:
     - target: {fileID: 7881802556795038843, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1731928052}
+      objectReference: {fileID: 0}
     - target: {fileID: 7881802556795038843, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: BackButton
@@ -7585,7 +7631,7 @@ PrefabInstance:
     - target: {fileID: 8215659131270659888, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1731928052}
+      objectReference: {fileID: 0}
     - target: {fileID: 8215659131270659888, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: returnToMenu
@@ -7633,7 +7679,7 @@ PrefabInstance:
     - target: {fileID: 9182861044286670322, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1731928052}
+      objectReference: {fileID: 0}
     - target: {fileID: 9182861044286670322, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: BackButton
@@ -7649,7 +7695,7 @@ PrefabInstance:
     - target: {fileID: 9198797658315884758, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1731928052}
+      objectReference: {fileID: 0}
     - target: {fileID: 9198797658315884758, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ChangeSliderMusicVolume
@@ -7657,7 +7703,7 @@ PrefabInstance:
     - target: {fileID: 9201339024844787199, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1731928052}
+      objectReference: {fileID: 0}
     - target: {fileID: 9201339024844787199, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: BackButton
@@ -9231,17 +9277,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2566901069153508040, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
   m_PrefabInstance: {fileID: 1244162811}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1731928052 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2149981833815662612, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
-  m_PrefabInstance: {fileID: 1244162811}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1244162814}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f2c3886c7c89b244b52bab917a03151, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1754027040
 GameObject:
   m_ObjectHideFlags: 0
@@ -11230,6 +11265,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2001915277}
   m_CullTransparentMesh: 1
+--- !u!114 &2048971066 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2868432263477594897, guid: d918c8204a4a02445a8906ec5332cce7, type: 3}
+  m_PrefabInstance: {fileID: 1244162811}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b743370ac3e4ec2a1668f5455a8ef8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2054540382
 GameObject:
   m_ObjectHideFlags: 0

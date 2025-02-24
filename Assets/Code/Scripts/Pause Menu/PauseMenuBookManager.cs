@@ -43,6 +43,7 @@ public class PauseMenuBookManager : MonoBehaviour
                                      PineconeCounter;
 
     [SerializeField] GameObject[] UIPanels;
+    [SerializeField] ActiveQuestUI activeQuestUI;
 
     private void Awake()
     {
@@ -76,6 +77,15 @@ public class PauseMenuBookManager : MonoBehaviour
         Time.timeScale = 0f;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        generalMenuPanel.SetActive(true);
+
+        
+
+        if (QuestMenuManager.trackedQuest != null && !activeQuestUI.gameObject.activeSelf)
+        {
+            activeQuestUI.gameObject.SetActive(true);
+            activeQuestUI.UpdateQuestMenuUI();
+        }
         SliderValueMaster = PlayerPrefs.GetFloat("MasterVolume");
         SliderValueMusic = PlayerPrefs.GetFloat("MusicVolume");
         BerryCounter.text = PlayerManager.instance.Berries + " / " + PlayerManager.instance.BerryData.Count;
@@ -216,6 +226,7 @@ public class PauseMenuBookManager : MonoBehaviour
                                     pineConePanel
                                     };
         UIPanels = UIPanelsInit;
+        activeQuestUI = activeQuestPanel.GetComponent<ActiveQuestUI>();
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
