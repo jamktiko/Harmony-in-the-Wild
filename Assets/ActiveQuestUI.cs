@@ -28,6 +28,13 @@ public class ActiveQuestUI : MonoBehaviour
         description.text = activeQuest.info.description;
         nextQuestStepDesc.text = activeQuest.state == QuestState.IN_PROGRESS? activeQuest.GetCurrentQuestStepPrefab().GetComponent<QuestStep>().objective:"";
 
-        GameEventsManager.instance.questEvents.ShowQuestUI(activeQuest.info.displayName, activeQuest.state == QuestState.IN_PROGRESS ? activeQuest.GetCurrentQuestStepPrefab().GetComponent<QuestStep>().objective : activeQuest.info.description,"");
+        //GameEventsManager.instance.questEvents.ShowQuestUI(activeQuest.info.displayName, activeQuest.state == QuestState.IN_PROGRESS ? activeQuest.GetCurrentQuestStepPrefab().GetComponent<QuestStep>().objective : activeQuest.info.description,"");
+    }
+
+    public void TrackQuest() 
+    {
+        var activeQuest = QuestMenuManager.trackedQuest;
+
+        GameEventsManager.instance.questEvents.ShowQuestUI(activeQuest.info.displayName, activeQuest.state == QuestState.IN_PROGRESS ? activeQuest.GetCurrentQuestStepPrefab().GetComponent<QuestStep>().objective : activeQuest.info.description, "");
     }
 }

@@ -5,10 +5,10 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-
+[System.Serializable]
 public struct QuestInfo
 {
-    public string name;
+    public Quest quest;
     public Transform indicator;
 }
 public class QuestWaypoint : MonoBehaviour
@@ -18,9 +18,8 @@ public class QuestWaypoint : MonoBehaviour
     public Camera mainCamera;
     public QuestUI questUI;
     public TMP_Text text;
-    public Quest activeQuest;
-    public QuestData questData;
-    public QuestStep activeQuestStep;
+
+    [SerializeField] List<QuestInfo> QuestInfos;
 
     private void OnEnable()
     {
@@ -63,6 +62,6 @@ public class QuestWaypoint : MonoBehaviour
 
     public void GetNewQuestWaypointPosition() 
     {
-        target = GameObject.FindObjectsOfType<QuestPoint>().Where(x => x.questInfoForPoint.displayName == questUI.getCurrentQuestName()).First().gameObject;
+        target = GameObject.FindObjectsOfType<QuestPoint>().Where(x => x.questInfoForPoint.displayName == QuestMenuManager.trackedQuest.info.displayName).First().gameObject;
     }
 }
