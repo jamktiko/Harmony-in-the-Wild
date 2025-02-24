@@ -75,6 +75,11 @@ public class FoxMovement : MonoBehaviour
 
     [Header("VFX")]
     public VisualEffect telegrabEffect;
+
+    [Header("Fox Models")]
+    [SerializeField] private GameObject redFox;
+    [SerializeField] private GameObject arcticFox;
+
     private void Awake()
     {
         if (FoxMovement.instance != null)
@@ -139,14 +144,14 @@ public class FoxMovement : MonoBehaviour
     {
         GameEventsManager.instance.dialogueEvents.OnStartDialogue += DisableMovementForDialogue;
         GameEventsManager.instance.dialogueEvents.OnEndDialogue += EnableMovementAfterDialogue;
-        //GameEventsManager.instance.playerEvents.OnChangePlayerModel += DisableMovementForSetTime;
+        GameEventsManager.instance.playerEvents.OnToggleInputActions += ToggleMovementBasedOnInputActions;
     }
 
     private void OnDisable()
     {
         GameEventsManager.instance.dialogueEvents.OnStartDialogue -= DisableMovementForDialogue;
         GameEventsManager.instance.dialogueEvents.OnEndDialogue -= EnableMovementAfterDialogue;
-        //GameEventsManager.instance.playerEvents.OnChangePlayerModel -= DisableMovementForSetTime;
+        GameEventsManager.instance.playerEvents.OnToggleInputActions -= ToggleMovementBasedOnInputActions;
     }
 
     void Update()
@@ -253,15 +258,20 @@ public class FoxMovement : MonoBehaviour
                 landingEffects[1].transform.localScale = new Vector3(scale, scale, scale);
                 landingEffects[1].Play();
             }
-            else if (IsInSnow())
-            {
-                landingEffects[2].transform.localScale = new Vector3(scale, scale, scale);
-                landingEffects[2].Play();
-            }
+
             else
             {
-                landingEffects[3].transform.localScale = new Vector3(scale, scale, scale);
-                landingEffects[3].Play();
+                if (redFox.activeInHierarchy)
+                {
+                    landingEffects[3].transform.localScale = new Vector3(scale, scale, scale);
+                    landingEffects[3].Play();
+                }
+
+                else if (arcticFox.activeInHierarchy)
+                {
+                    landingEffects[2].transform.localScale = new Vector3(scale, scale, scale);
+                    landingEffects[2].Play();
+                }
             }
             jumpApex = 0;
         }
@@ -628,16 +638,8 @@ public class FoxMovement : MonoBehaviour
         Invoke(nameof(ResetJump), 0.3f);   
     }
 
-    private void DisableMovementForSetTime()
+    private void ToggleMovementBasedOnInputActions(bool movementEnabled)
     {
-        canMove = false;
-        isReadyToJump = false;
-        Invoke(nameof(EnableMovementAfterSetTime), 1.3f);
-    }
-
-    private void EnableMovementAfterSetTime()
-    {
-        canMove = true;
-        isReadyToJump = true;
+        canMove = movementEnabled;
     }
 }

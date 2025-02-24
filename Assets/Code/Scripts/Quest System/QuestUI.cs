@@ -3,11 +3,13 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using System.Runtime.CompilerServices;
 
 public class QuestUI : MonoBehaviour
 {
     [Header("Needed References")]
-    [SerializeField] private List<TextMeshProUGUI> questTextComponents;
+    [SerializeField] public List<TextMeshProUGUI> questTextComponents;
+    [SerializeField] private QuestWaypoint questWaypoint;
 
     //public UnityEvent AddTextToUI=new UnityEvent();
     private void OnEnable()
@@ -31,6 +33,7 @@ public class QuestUI : MonoBehaviour
         questTextComponents[0].text = ProcessTextForInputs(questName);
         questTextComponents[1].text = ProcessTextForInputs(description);
         questTextComponents[2].text = ProcessTextForInputs(progress);
+        
     }
 
     // Detect inputs from string denoted as |(input)|, and change them to the appropriate input method key.
@@ -70,5 +73,10 @@ public class QuestUI : MonoBehaviour
     private void HideQuestUI()
     {
         transform.GetChild(0).gameObject.SetActive(false);
+    }
+
+    public string getCurrentQuestName() 
+    {
+        return questTextComponents[0].text.ToString();
     }
 }

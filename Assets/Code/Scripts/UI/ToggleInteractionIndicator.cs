@@ -41,10 +41,13 @@ public class ToggleInteractionIndicator : MonoBehaviour
                 Debug.Log("No camera located for the interaction indicator!");
             }
 
-            if (Gamepad.current == null || Keyboard.current.lastUpdateTime > Gamepad.current.lastUpdateTime || Mouse.current.lastUpdateTime > Gamepad.current.lastUpdateTime)
-                actionIndicator.sprite = InputSprites.instance.keyboardIndicators[actionIndex];
-            else
-                actionIndicator.sprite = InputSprites.instance.gamepadIndicators[actionIndex];
+            if(actionIndicator != null)
+            {
+                if (Gamepad.current == null || Keyboard.current.lastUpdateTime > Gamepad.current.lastUpdateTime || Mouse.current.lastUpdateTime > Gamepad.current.lastUpdateTime)
+                    actionIndicator.sprite = InputSprites.instance.keyboardIndicators[actionIndex];
+                else
+                    actionIndicator.sprite = InputSprites.instance.gamepadIndicators[actionIndex];
+            }
         }
     }
 

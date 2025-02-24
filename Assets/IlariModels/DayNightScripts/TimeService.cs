@@ -50,7 +50,7 @@ public class TimeService
     }
 
     public DateTime CurrentTime => currentTime;
-    bool IsDayTime() => currentTime.TimeOfDay > sunriseTime && currentTime.TimeOfDay < sunsetTime;
+    public bool IsDayTime() => currentTime.TimeOfDay > sunriseTime && currentTime.TimeOfDay < sunsetTime;
 
     TimeSpan CalculateDifference(TimeSpan from, TimeSpan to)
     {

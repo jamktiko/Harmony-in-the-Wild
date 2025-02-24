@@ -12,6 +12,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private float themeTransitionTimeIn;
     [SerializeField] private float themeTransitionTimeOut;
     [HideInInspector] public bool themeTransitionOn = false;
+    [HideInInspector] public bool themeIsPlaying;
     [SerializeField] private List<ThemeData> themeList;
 
     [Header("SFX")]
@@ -106,12 +107,16 @@ public class AudioManager : MonoBehaviour
 
         if (increaseVolume)
         {
+            themeAudioSource.volume = 0f;
+
             while (themeAudioSource.volume < maxVolume)
             {
                 themeAudioSource.volume = Mathf.Lerp(0, maxVolume, percentage);
                 percentage += Time.deltaTime / themeTransitionTimeIn;
                 yield return null;
             }
+
+            themeIsPlaying = true;
         }
 
         else
@@ -124,6 +129,7 @@ public class AudioManager : MonoBehaviour
             }
 
             themeAudioSource.clip = null;
+            themeIsPlaying = false;
         }
 
         themeTransitionOn = false;

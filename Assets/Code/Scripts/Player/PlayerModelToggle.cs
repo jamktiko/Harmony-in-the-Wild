@@ -14,10 +14,21 @@ public class PlayerModelToggle : MonoBehaviour
     private Animator currentAnimator;
 
     private bool canTriggerVFX = false; // this bool is enabled a bit after the scene is loaded; the point is to prevent VFX being triggered when entering the scene
+    private bool canTriggerAudioChange = true;
+    private bool initialTransformationPassed = false; // this bool is enabled a bit after the scene is loaded; it ensures the audio transformation will work when loading into the scene for the first time
 
-    private void Start()
+    private void Awake()
     {
-        Invoke(nameof(EnableVFX), 2f);
+        GameEventsManager.instance.uiEvents.OnUseUnstuckButton += DisableAudioChangeForAWhile;
+        GameEventsManager.instance.cinematicsEvents.OnStartCinematics += DisableAudioChangeForCinematics;
+
+        Invoke(nameof(EnableVFX), 3f);
+    }
+
+    private void OnDisable()
+    {
+        GameEventsManager.instance.uiEvents.OnUseUnstuckButton -= DisableAudioChangeForAWhile;
+        GameEventsManager.instance.cinematicsEvents.OnStartCinematics -= DisableAudioChangeForCinematics;
     }
 
     private void Update()
@@ -76,6 +87,11 @@ public class PlayerModelToggle : MonoBehaviour
 
         if (toArcticFox)
         {
+            if (canTriggerAudioChange)
+            {
+                StartCoroutine(StartArcticTheme());
+            }
+
             redFox.SetActive(false);
             arcticFox.SetActive(true);
 
@@ -86,6 +102,12 @@ public class PlayerModelToggle : MonoBehaviour
 
         else
         {
+            Debug.Log("Change to forest");
+            if (canTriggerAudioChange)
+            {
+                StartCoroutine(StartForestTheme());
+            }
+
             redFox.SetActive(true);
             arcticFox.SetActive(false);
 
@@ -97,37 +119,46 @@ public class PlayerModelToggle : MonoBehaviour
 
     public void PrepareForModelChange(string modelName)
     {
+        if (canTriggerAudioChange)
+        {
+            AudioManager.instance.EndCurrentTheme();
+        }
+
+        //if (!initialTransformationPassed)
+        //{
+        //    initialTransformationPassed = true;
+        //    return;
+        //}
+
         if (modelName == "Arctic")
         {
-            if (!arcticFox.activeInHierarchy)
+            if (canTriggerVFX)
             {
-                if (canTriggerVFX)
-                {
-                    ChangeVFX(true);
-                    StartCoroutine(MaintainRotation(5));
-                }
+                Debug.Log("Trigger model change with VFX.");
+                ChangeVFX(true);
+                StartCoroutine(MaintainRotation(5));
+            }
 
-                else
-                {
-                    StartCoroutine(ChangeModel(true, 0f));
-                }
+            else
+            {
+                Debug.Log("Trigger model change without VFX.");
+                StartCoroutine(ChangeModel(true, 0f));
             }
         }
 
         else if (modelName == "Forest")
         {
-            if (!redFox.activeInHierarchy)
+            if (canTriggerVFX)
             {
-                if (canTriggerVFX)
-                {
-                    ChangeVFX(false);
-                    StartCoroutine(MaintainRotation(5));
-                }
+                Debug.Log("Trigger model change with VFX.");
+                ChangeVFX(false);
+                StartCoroutine(MaintainRotation(5));
+            }
 
-                else
-                {
-                    StartCoroutine(ChangeModel(false, 0f));
-                }
+            else
+            {
+                Debug.Log("Trigger model change without VFX.");
+                StartCoroutine(ChangeModel(false, 0f));
             }
         }
     }
@@ -135,5 +166,44 @@ public class PlayerModelToggle : MonoBehaviour
     private void EnableVFX()
     {
         canTriggerVFX = true;
+    }
+
+    private void DisableAudioChangeForAWhile()
+    {
+        canTriggerAudioChange = false;
+
+        Invoke(nameof(EnableAudioChange), 1f);
+    }
+
+    private void EnableAudioChange()
+    {
+        canTriggerAudioChange = true;
+    }
+
+    private void DisableAudioChangeForCinematics()
+    {
+        canTriggerAudioChange = false;
+    }
+
+    private IEnumerator StartArcticTheme()
+    {
+        Debug.Log("Waiting for arctic theme transition to be triggered...");
+
+        yield return new WaitUntil(() => AudioManager.instance.themeTransitionOn == false && !AudioManager.instance.themeIsPlaying);
+
+        Debug.Log("Arctic theme about to be triggered...");
+
+        AudioManager.instance.StartNewTheme(ThemeName.Theme_Arctic);
+    }
+
+    private IEnumerator StartForestTheme()
+    {
+        Debug.Log("Waiting for forest theme transition to be triggered...");
+
+        yield return new WaitUntil(() => AudioManager.instance.themeTransitionOn == false && !AudioManager.instance.themeIsPlaying);
+
+        Debug.Log("Forest theme about to be triggered...");
+
+        AudioManager.instance.StartNewTheme(ThemeName.Theme_Forest);
     }
 }

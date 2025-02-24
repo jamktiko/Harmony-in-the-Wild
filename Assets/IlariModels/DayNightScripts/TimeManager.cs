@@ -46,6 +46,8 @@ public class TimeManager : MonoBehaviour
         service = new TimeService(timeSettingss);
         volume.profile.TryGet(out colorAdjustments);
 
+        InitializeStarColor();
+
         service.currentHour.ValueChanged += ToggleDayNightCycleElements;
     }
 
@@ -120,7 +122,7 @@ public class TimeManager : MonoBehaviour
             Debug.Log("About to show night elements");
             ToggleAuroraVisibility(true);
             StartCoroutine(ChangeFogColor(dayFog, nightFog));
-            //StartCoroutine(ChangeStarAlpha(false));
+            StartCoroutine(ChangeStarAlpha(false));
         }
 
         else if(hour == 6)
@@ -128,7 +130,7 @@ public class TimeManager : MonoBehaviour
             Debug.Log("About to hide night elements");
             ToggleAuroraVisibility(false);
             StartCoroutine(ChangeFogColor(nightFog, dayFog));
-            //StartCoroutine(ChangeStarAlpha(true));
+            StartCoroutine(ChangeStarAlpha(true));
         }
     }
 
@@ -146,7 +148,7 @@ public class TimeManager : MonoBehaviour
             float currentValue = 1f;
             float targetValue = 0f;
 
-            while (currentValue != targetValue)
+            while (currentValue > targetValue)
             {
                 currentValue -= 0.01f;
                 starMaterial.color = new Color(currentColor.r, currentColor.g, currentColor.b, currentValue);
@@ -160,13 +162,26 @@ public class TimeManager : MonoBehaviour
             float currentValue = 0f;
             float targetValue = 1f;
 
-            while (currentValue != targetValue)
+            while (currentValue < targetValue)
             {
                 currentValue += 0.01f;
                 starMaterial.color = new Color(currentColor.r, currentColor.g, currentColor.b, currentValue);
 
                 yield return null;
             }
+        }
+    }
+
+    private void InitializeStarColor()
+    {
+        if (service.IsDayTime())
+        {
+            starMaterial.color = new Color(starMaterial.color.r, starMaterial.color.g, starMaterial.color.b, 0);
+        }
+
+        else
+        {
+            starMaterial.color = new Color(starMaterial.color.r, starMaterial.color.g, starMaterial.color.b, 1);
         }
     }
 
