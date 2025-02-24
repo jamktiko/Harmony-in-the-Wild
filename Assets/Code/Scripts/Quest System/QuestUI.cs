@@ -33,7 +33,6 @@ public class QuestUI : MonoBehaviour
         questTextComponents[0].text = ProcessTextForInputs(questName);
         questTextComponents[1].text = ProcessTextForInputs(description);
         questTextComponents[2].text = ProcessTextForInputs(progress);
-        
     }
 
     // Detect inputs from string denoted as |(input)|, and change them to the appropriate input method key.

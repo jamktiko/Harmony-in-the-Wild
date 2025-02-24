@@ -11,7 +11,15 @@ public class GraphicsSettingsResolutions : MonoBehaviour
     {
         resolutions = Screen.resolutions;
 
-        resolutionDropdown.ClearOptions();
+        try
+        {
+            resolutionDropdown.ClearOptions();
+        }
+        catch (System.Exception)
+        {
+
+            throw;
+        }
         //Point of clearing the options is to not have placeholders mess up the dropdown
 
         List<TMPro.TMP_Dropdown.OptionData> resOptions = new List<TMPro.TMP_Dropdown.OptionData>();

@@ -5,10 +5,10 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-
+[System.Serializable]
 public struct QuestInfo
 {
-    public string name;
+    public Quest quest;
     public Transform indicator;
 }
 public class QuestWaypoint : MonoBehaviour
@@ -16,16 +16,18 @@ public class QuestWaypoint : MonoBehaviour
     public Image img;
     public GameObject target;
     public Camera mainCamera;
-    public QuestUI QuestUI;
+    public QuestUI questUI;
     public TMP_Text text;
+
+    [SerializeField] List<QuestInfo> QuestInfos;
 
     private void OnEnable()
     {
-        target = GameObject.FindObjectsOfType<QuestPoint>().Where(x => x.questInfoForPoint.id == QuestUI.getCurrentQuestName()).First().gameObject;
+        target = GameObject.FindObjectsOfType<QuestPoint>().Where(x => x.questInfoForPoint.id == questUI.getCurrentQuestName()).First().gameObject;
     }
     private void Start()
     {
-         target = GameObject.FindObjectsOfType<QuestPoint>().Where(x => x.questInfoForPoint.displayName == QuestUI.getCurrentQuestName()).First().gameObject;
+         target = GameObject.FindObjectsOfType<QuestPoint>().Where(x => x.questInfoForPoint.displayName == questUI.getCurrentQuestName()).First().gameObject;
     }
     private void Update()
     {
@@ -60,6 +62,6 @@ public class QuestWaypoint : MonoBehaviour
 
     public void GetNewQuestWaypointPosition() 
     {
-        target = GameObject.FindObjectsOfType<QuestPoint>().Where(x => x.questInfoForPoint.displayName == QuestUI.getCurrentQuestName()).First().gameObject;
+        target = GameObject.FindObjectsOfType<QuestPoint>().Where(x => x.questInfoForPoint.displayName == QuestMenuManager.trackedQuest.info.displayName).First().gameObject;
     }
 }
