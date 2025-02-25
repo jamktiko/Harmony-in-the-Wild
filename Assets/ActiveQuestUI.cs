@@ -15,6 +15,8 @@ public class ActiveQuestUI : MonoBehaviour
 
     [SerializeField]List<QuestImage> questImages = new List<QuestImage>();
 
+    [SerializeField] QuestWaypoint questWaypoint;
+
     [SerializeField]TMP_Text title;
     [SerializeField]TMP_Text description;
     [SerializeField]TMP_Text nextQuestStepDesc;
@@ -35,6 +37,8 @@ public class ActiveQuestUI : MonoBehaviour
     {
         var activeQuest = QuestMenuManager.trackedQuest;
 
+        questWaypoint.GetNewQuestWaypointPosition();
+        
         GameEventsManager.instance.questEvents.ShowQuestUI(activeQuest.info.displayName, activeQuest.state == QuestState.IN_PROGRESS ? activeQuest.GetCurrentQuestStepPrefab().GetComponent<QuestStep>().objective : activeQuest.info.description, "");
     }
 }

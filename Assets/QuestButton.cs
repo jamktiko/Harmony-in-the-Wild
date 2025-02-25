@@ -8,19 +8,11 @@ public class QuestButton : MonoBehaviour
     [SerializeField]ActiveQuestUI activeQuestUI;
     private void Awake()
     {
+        //In case there are several activeQuestUI objects in the scene, we need to find the right one
         var activeQuestUIList = FindObjectsOfType<ActiveQuestUI>(true).ToList();
+        activeQuestUI = activeQuestUIList.Count > 1 ? activeQuestUIList[1] : activeQuestUIList[0];
 
-        //Determine whether we have 2 managers in the scene for testing purposes 
-        if (activeQuestUIList.Count>1)
-        {
-            activeQuestUI = activeQuestUIList[1];
-        }
-        else
-        {
-            activeQuestUI = activeQuestUIList[0];
-        }
-
-        if (QuestMenuManager.trackedQuest!=null && !activeQuestUI.gameObject.activeSelf)
+        if (QuestMenuManager.trackedQuest != null && !activeQuestUI.gameObject.activeSelf)
         {
             activeQuestUI.gameObject.SetActive(true);
             activeQuestUI.UpdateQuestMenuUI();
@@ -37,7 +29,5 @@ public class QuestButton : MonoBehaviour
 
         activeQuestUI.gameObject.SetActive(true);
         activeQuestUI.UpdateQuestMenuUI();
-
-        Debug.Log(QuestMenuManager.trackedQuest.info.displayName);
     }
 }
