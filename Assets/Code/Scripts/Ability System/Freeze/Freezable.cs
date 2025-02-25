@@ -49,7 +49,7 @@ public class Freezable : MonoBehaviour
 
     public void FreezeObject()
     {
-        Debug.Log(gameObject.name + " has been frozen.");
+        //Debug.Log(gameObject.name + " has been frozen.");
         isFrozen = true;
 
         if(Freeze != null)
@@ -97,7 +97,7 @@ public class Freezable : MonoBehaviour
         
         SwapMaterials(false);
 
-        Debug.Log(gameObject.name + " has been unfrozen.");
+        //Debug.Log(gameObject.name + " has been unfrozen.");
     }
 
     private void SwapMaterials(bool toFrozen)
@@ -121,12 +121,12 @@ public class Freezable : MonoBehaviour
                     if (!originalMaterials.ContainsKey(childRenderer))
                     {
                         originalMaterials.Add(childRenderer, childRenderer.material);
-                        Debug.Log($"[SwapMaterials] Stored original material for {child.name}.");
+                        //Debug.Log($"[SwapMaterials] Stored original material for {child.name}.");
                     }
 
                     // Apply the new material.
                     childRenderer.material = newFrozenMaterial;
-                    Debug.Log($"[SwapMaterials] Applied new material to {child.name}.");
+                    //Debug.Log($"[SwapMaterials] Applied new material to {child.name}.");
                 }
                 else
                 {
@@ -134,7 +134,7 @@ public class Freezable : MonoBehaviour
                     if (originalMaterials.TryGetValue(childRenderer, out Material originalMat))
                     {
                         childRenderer.material = originalMat;
-                        Debug.Log($"[SwapMaterials] Reverted to original material for {child.name}.");
+                        //Debug.Log($"[SwapMaterials] Reverted to original material for {child.name}.");
                     }
                     else
                     {
