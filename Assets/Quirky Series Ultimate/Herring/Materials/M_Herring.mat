@@ -21,10 +21,11 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Herring
-  m_Shader: {fileID: -6465566751694194690, guid: a44401f8b3d263c4e9c2ed62b3f5adff, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: db25fcef5d5a5634ebd8fe9cd2efc92a, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _RECEIVE_SHADOWS_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -36,8 +37,20 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _ColorRamp:
+        m_Texture: {fileID: 2800000, guid: 50f6c167789b5cd4c9478ee795c55ae2, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 782271ff75a30a5469c6124647c77d1c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTexture:
+        m_Texture: {fileID: 2800000, guid: 782271ff75a30a5469c6124647c77d1c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalTexture:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -55,8 +68,12 @@ Material:
     m_Ints: []
     m_Floats:
     - _Emission: 0.5
+    - _FresnelSize: 0.9
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _RECEIVE_SHADOWS: 1
     m_Colors:
     - _Color: {r: 0.4, g: 0.4, b: 0.4, a: 1}
+    - _LitColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ShadeColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
