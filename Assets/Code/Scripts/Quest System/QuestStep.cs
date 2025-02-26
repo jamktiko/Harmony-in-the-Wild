@@ -10,6 +10,12 @@ public abstract class QuestStep : MonoBehaviour
 
     private int stepIndex;
 
+    [Header("Fill only if quest requires a waypoint")]
+
+    [SerializeField] public Vector3 positionInScene;
+
+    [SerializeField] public bool hasWaypoint;
+
     //public string stepName;
 
     [Header("Fill for Side Quests Only")]
@@ -17,12 +23,14 @@ public abstract class QuestStep : MonoBehaviour
     public string objective;
 
     [Tooltip("Set in the form as 'Apples collected '; rest is autofilled through script")]
+    
     public string progress;
 
     public void InitializeQuestStep(string id, int stepIndex, string questStepState)
     {
         questId = id;
         this.stepIndex = stepIndex;
+
 
         if(questStepState != null && questStepState != "")
         {
@@ -33,7 +41,6 @@ public abstract class QuestStep : MonoBehaviour
         {
             SetQuestStepState("0");
         }
-
         SaveManager.instance.SaveGame();
     }
 

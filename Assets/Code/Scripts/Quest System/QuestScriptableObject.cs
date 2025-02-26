@@ -10,6 +10,8 @@ public class QuestScriptableObject : ScriptableObject
     public string displayName;
     public string description;
     public bool mainQuest;
+    public Vector3 defaultPos;
+
 
     [Header("Requirements")]
     public int levelRequirement;

@@ -9,10 +9,12 @@ public class Quest
     private int currentQuestStepIndex;
     private QuestStepState[] questStepStates;
 
+    public Vector3 defaultPosition;
     public Quest(QuestScriptableObject questInfo)
     {
         info = questInfo;
         state = QuestState.REQUIREMENTS_NOT_MET;
+        defaultPosition = info.defaultPos;
         currentQuestStepIndex = 0;
         questStepStates = new QuestStepState[info.questStepPrefabs.Length];
 
@@ -29,7 +31,7 @@ public class Quest
         state = questState;
         this.currentQuestStepIndex = currentQuestStepIndex;
         this.questStepStates = questStepStates;
-
+        this.defaultPosition = info.defaultPos;
         // if the quest step states and prefabs are different lengths,
         // something has changed during development and the saved data is out of sync
         if(this.questStepStates.Length != this.info.questStepPrefabs.Length)

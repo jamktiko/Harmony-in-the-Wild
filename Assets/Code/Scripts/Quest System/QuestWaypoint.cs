@@ -5,10 +5,10 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-
+[System.Serializable]
 public struct QuestInfo
 {
-    public string name;
+    public Quest quest;
     public Transform indicator;
 }
 public class QuestWaypoint : MonoBehaviour
@@ -16,17 +16,27 @@ public class QuestWaypoint : MonoBehaviour
     public Image img;
     public GameObject target;
     public Camera mainCamera;
-    public QuestUI QuestUI;
+    public QuestUI questUI;
     public TMP_Text text;
+    [SerializeField] GameObject questMarker;
+
+    [SerializeField] QuestScriptableObject questSO;
+    [SerializeField] List<QuestInfo> QuestInfos;
 
     private void OnEnable()
     {
-        target = GameObject.FindObjectsOfType<QuestPoint>().Where(x => x.questInfoForPoint.id == QuestUI.getCurrentQuestName()).First().gameObject;
+        var activeQuest = QuestMenuManager.trackedQuest;
+        if (activeQuest==null)
+        {
+            questMarker.SetActive(false);
+            return;
+        }
+        GetNewQuestWaypointPosition();
     }
-    private void Start()
-    {
-         target = GameObject.FindObjectsOfType<QuestPoint>().Where(x => x.questInfoForPoint.displayName == QuestUI.getCurrentQuestName()).First().gameObject;
-    }
+    //private void Start()
+    //{
+    //     GetNewQuestWaypointPosition();
+    //}
     private void Update()
     {
         float minX = img.GetPixelAdjustedRect().width / 2;
@@ -60,6 +70,22 @@ public class QuestWaypoint : MonoBehaviour
 
     public void GetNewQuestWaypointPosition() 
     {
-        target = GameObject.FindObjectsOfType<QuestPoint>().Where(x => x.questInfoForPoint.displayName == QuestUI.getCurrentQuestName()).First().gameObject;
+        questMarker.SetActive(true);
+        var activeQuest = QuestMenuManager.trackedQuest;
+        if(activeQuest.state == QuestState.IN_PROGRESS) 
+        {
+            target = activeQuest.GetCurrentQuestStepPrefab();
+
+            var questStep = target.GetComponent<QuestStep>();
+            if (questStep.positionInScene!=Vector3.zero&&questStep.hasWaypoint)
+            {
+                target.transform.position = questStep.positionInScene;
+                return;
+            }
+            questMarker.SetActive(false);
+            return;
+        }
+        target = Instantiate(new GameObject("WaypointTarget"), activeQuest.defaultPosition,Quaternion.identity);
+        
     }
 }
