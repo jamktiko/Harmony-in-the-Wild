@@ -21,6 +21,10 @@ public class ActiveQuestUI : MonoBehaviour
     [SerializeField]TMP_Text description;
     [SerializeField]TMP_Text nextQuestStepDesc;
 
+    private void Awake()
+    {
+        questWaypoint = FindObjectOfType<QuestWaypoint>();
+    }
     public void UpdateQuestMenuUI()
     {
         var activeQuest = QuestMenuManager.trackedQuest;
@@ -39,6 +43,6 @@ public class ActiveQuestUI : MonoBehaviour
 
         questWaypoint.GetNewQuestWaypointPosition();
         
-        GameEventsManager.instance.questEvents.ShowQuestUI(activeQuest.info.displayName, activeQuest.state == QuestState.IN_PROGRESS ? activeQuest.GetCurrentQuestStepPrefab().GetComponent<QuestStep>().objective : activeQuest.info.description, "");
+        GameEventsManager.instance.questEvents.ShowQuestUI(activeQuest.info.displayName, activeQuest.state == QuestState.IN_PROGRESS ? activeQuest.GetCurrentQuestStepPrefab().GetComponent<QuestStep>().objective : activeQuest.info.description,activeQuest.info.displayName);
     }
 }
