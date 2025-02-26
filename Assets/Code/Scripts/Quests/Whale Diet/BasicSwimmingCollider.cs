@@ -1,16 +1,17 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class BasicSwimmingCollider : MonoBehaviour
 {
-    [SerializeField] private QuestScriptableObject quest;
+    [FormerlySerializedAs("quest")] [SerializeField] private QuestScriptableObject _quest;
 
-    private QuestState currentState;
+    private QuestState _currentState;
 
     private void Start()
     {
         CheckQuestProgressStatus();
 
-        if (currentState != QuestState.FINISHED)
+        if (_currentState != QuestState.Finished)
         {
             return;
         }
@@ -23,17 +24,17 @@ public class BasicSwimmingCollider : MonoBehaviour
 
     private void OnEnable()
     {
-        GameEventsManager.instance.questEvents.OnFinishQuest += UpdateQuestProgressStatus;
+        GameEventsManager.instance.QuestEvents.OnFinishQuest += UpdateQuestProgressStatus;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.questEvents.OnFinishQuest -= UpdateQuestProgressStatus;
+        GameEventsManager.instance.QuestEvents.OnFinishQuest -= UpdateQuestProgressStatus;
     }
 
     private void CheckQuestProgressStatus()
     {
-        currentState = QuestManager.instance.CheckQuestState(quest.id);
+        _currentState = QuestManager.Instance.CheckQuestState(_quest.id);
     }
 
     private void DisableQuestColliders()
@@ -43,11 +44,11 @@ public class BasicSwimmingCollider : MonoBehaviour
 
     private void UpdateQuestProgressStatus(string id)
     {
-        if (id == quest.id)
+        if (id == _quest.id)
         {
             CheckQuestProgressStatus();
 
-            if (currentState == QuestState.FINISHED)
+            if (_currentState == QuestState.Finished)
             {
                 DisableQuestColliders();
             }

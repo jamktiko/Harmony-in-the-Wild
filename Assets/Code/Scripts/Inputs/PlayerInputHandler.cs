@@ -1,12 +1,13 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class PlayerInputHandler : MonoBehaviour
 {
-    public static PlayerInputHandler instance;
+    public static PlayerInputHandler Instance;
 
-    public PlayerInput playerInput;
-    public InputActionMap playerInputActionMap;
+    [FormerlySerializedAs("playerInput")] public PlayerInput PlayerInput;
+    [FormerlySerializedAs("playerInputActionMap")] public InputActionMap PlayerInputActionMap;
 
     //input actions
     public InputAction MoveInput,
@@ -56,9 +57,9 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
         }
         else
         {
@@ -68,51 +69,51 @@ public class PlayerInputHandler : MonoBehaviour
     }
     private void AssignInputs()
     {
-        playerInput = GetComponent<PlayerInput>();
-        playerInputActionMap = playerInput.actions.FindActionMap("Player");
-        MoveInput = playerInput.actions.FindAction("Move");
-        SprintInput = playerInput.actions.FindAction("Sprint");
-        LookInput = playerInput.actions.FindAction("Look");
-        JumpInput = playerInput.actions.FindAction("Jump");
-        SnowDiveInput = playerInput.actions.FindAction("SnowDive");
-        GlideInput = playerInput.actions.FindAction("Glide");
-        InteractInput = playerInput.actions.FindAction("Interact");
-        UseAbilityInput = playerInput.actions.FindAction("UseAbility");
-        AbilityToggleInput = playerInput.actions.FindAction("AbilityToggle");
-        ChargeJumpInput = playerInput.actions.FindAction("ChargeJump");
-        TelegrabGrabInput = playerInput.actions.FindAction("TelegrabGrab");
-        ChangeCameraInput = playerInput.actions.FindAction("ChangeCamera");
-        DialogueInput = playerInput.actions.FindAction("DialogueNext");
-        CloseUIInput = playerInput.actions.FindAction("Close");
-        SelectInput = playerInput.actions.FindAction("Select");
-        DialogueUpInput = playerInput.actions.FindAction("DialogueUp");
-        DialogueDownInput = playerInput.actions.FindAction("DialogueDown");
-        OpenMapInput = playerInput.actions.FindAction("OpenMap");
-        PauseInput = playerInput.actions.FindAction("Pause");
-        TogglePlayerModelInput = playerInput.actions.FindAction("TogglePlayerModel");
-        CinematicCamera = playerInput.actions.FindAction("CinematicCamera");
-        SwitchTimeScale = playerInput.actions.FindAction("SwitchTimeScale");
-        LayInput = playerInput.actions.FindAction("Lay");
-        SitInput = playerInput.actions.FindAction("Sit");
+        PlayerInput = GetComponent<PlayerInput>();
+        PlayerInputActionMap = PlayerInput.actions.FindActionMap("Player");
+        MoveInput = PlayerInput.actions.FindAction("Move");
+        SprintInput = PlayerInput.actions.FindAction("Sprint");
+        LookInput = PlayerInput.actions.FindAction("Look");
+        JumpInput = PlayerInput.actions.FindAction("Jump");
+        SnowDiveInput = PlayerInput.actions.FindAction("SnowDive");
+        GlideInput = PlayerInput.actions.FindAction("Glide");
+        InteractInput = PlayerInput.actions.FindAction("Interact");
+        UseAbilityInput = PlayerInput.actions.FindAction("UseAbility");
+        AbilityToggleInput = PlayerInput.actions.FindAction("AbilityToggle");
+        ChargeJumpInput = PlayerInput.actions.FindAction("ChargeJump");
+        TelegrabGrabInput = PlayerInput.actions.FindAction("TelegrabGrab");
+        ChangeCameraInput = PlayerInput.actions.FindAction("ChangeCamera");
+        DialogueInput = PlayerInput.actions.FindAction("DialogueNext");
+        CloseUIInput = PlayerInput.actions.FindAction("Close");
+        SelectInput = PlayerInput.actions.FindAction("Select");
+        DialogueUpInput = PlayerInput.actions.FindAction("DialogueUp");
+        DialogueDownInput = PlayerInput.actions.FindAction("DialogueDown");
+        OpenMapInput = PlayerInput.actions.FindAction("OpenMap");
+        PauseInput = PlayerInput.actions.FindAction("Pause");
+        TogglePlayerModelInput = PlayerInput.actions.FindAction("TogglePlayerModel");
+        CinematicCamera = PlayerInput.actions.FindAction("CinematicCamera");
+        SwitchTimeScale = PlayerInput.actions.FindAction("SwitchTimeScale");
+        LayInput = PlayerInput.actions.FindAction("Lay");
+        SitInput = PlayerInput.actions.FindAction("Sit");
 
         //debug inputs
 #if DEBUG
-        DebugSaveInput = playerInput.actions.FindAction("DebugSave");
-        DebugDeleteSaveInput = playerInput.actions.FindAction("DebugDeleteSave");
-        DebugDeleteSaveInput2 = playerInput.actions.FindAction("DebugDeleteSave2");
-        DebugReloadOverworldInput = playerInput.actions.FindAction("DebugReloadOverworld");
-        DebugReloadMainMenuInput = playerInput.actions.FindAction("DebugReloadMainMenu");
-        DebugReloadCurrentSceneInput = playerInput.actions.FindAction("DebugReloadCurrentScene");
-        DebugDevToolsInput = playerInput.actions.FindAction("DebugDevTools");
-        DebugAbilitiesCheckOne = playerInput.actions.FindAction("DebugAbilitiesCheckOne");
-        DebugAbilitiesCheckAll = playerInput.actions.FindAction("DebugAbilitiesCheckAll");
-        DebugAbilitiesUnlockOne = playerInput.actions.FindAction("DebugAbilitiesUnlockOne");
-        DebugAbilitiesUnlockAll = playerInput.actions.FindAction("DebugAbilitiesUnlockAll");
-        DebugVegetationColorChanger = playerInput.actions.FindAction("DebugVegetationColorChanger");
-        DebugTrailerCameraToggle = playerInput.actions.FindAction("DebugTrailerCameraToggle");
-        DebugHideUI = playerInput.actions.FindAction("DebugHideUI");
-        DebugIncreaseTrailerCameraSpeed = playerInput.actions.FindAction("DebugIncreaseTrailerCameraSpeed");
-        DebugDecreaseTrailerCameraSpeed = playerInput.actions.FindAction("DebugDecreaseTrailerCameraSpeed");
+        DebugSaveInput = PlayerInput.actions.FindAction("DebugSave");
+        DebugDeleteSaveInput = PlayerInput.actions.FindAction("DebugDeleteSave");
+        DebugDeleteSaveInput2 = PlayerInput.actions.FindAction("DebugDeleteSave2");
+        DebugReloadOverworldInput = PlayerInput.actions.FindAction("DebugReloadOverworld");
+        DebugReloadMainMenuInput = PlayerInput.actions.FindAction("DebugReloadMainMenu");
+        DebugReloadCurrentSceneInput = PlayerInput.actions.FindAction("DebugReloadCurrentScene");
+        DebugDevToolsInput = PlayerInput.actions.FindAction("DebugDevTools");
+        DebugAbilitiesCheckOne = PlayerInput.actions.FindAction("DebugAbilitiesCheckOne");
+        DebugAbilitiesCheckAll = PlayerInput.actions.FindAction("DebugAbilitiesCheckAll");
+        DebugAbilitiesUnlockOne = PlayerInput.actions.FindAction("DebugAbilitiesUnlockOne");
+        DebugAbilitiesUnlockAll = PlayerInput.actions.FindAction("DebugAbilitiesUnlockAll");
+        DebugVegetationColorChanger = PlayerInput.actions.FindAction("DebugVegetationColorChanger");
+        DebugTrailerCameraToggle = PlayerInput.actions.FindAction("DebugTrailerCameraToggle");
+        DebugHideUI = PlayerInput.actions.FindAction("DebugHideUI");
+        DebugIncreaseTrailerCameraSpeed = PlayerInput.actions.FindAction("DebugIncreaseTrailerCameraSpeed");
+        DebugDecreaseTrailerCameraSpeed = PlayerInput.actions.FindAction("DebugDecreaseTrailerCameraSpeed");
 #endif
     }
 }

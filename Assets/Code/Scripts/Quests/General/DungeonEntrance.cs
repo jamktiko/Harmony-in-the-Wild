@@ -1,46 +1,51 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(BoxCollider))]
 public class DungeonEntrance : MonoBehaviour
 {
+    [FormerlySerializedAs("dungeonQuest")]
     [Header("Quest & Ability")]
-    [SerializeField] private QuestScriptableObject dungeonQuest;
-    [SerializeField] private Abilities abilityGrantedForDungeon;
+    [SerializeField] private QuestScriptableObject _dungeonQuest;
+    [FormerlySerializedAs("abilityGrantedForDungeon")] [SerializeField] private Abilities _abilityGrantedForDungeon;
 
+    [FormerlySerializedAs("dungeonEnteringPreventedUI")]
     [Header("Needed References")]
-    [SerializeField] private GameObject dungeonEnteringPreventedUI;
+    [SerializeField] private GameObject _dungeonEnteringPreventedUI;
 
+    [FormerlySerializedAs("learningStage")]
     [Header("Config")]
-    [SerializeField] private SceneManagerHelper.Scene learningStage;
-    [SerializeField] private SceneManagerHelper.Scene bossStage;
-    [SerializeField] private int storybookSectionIndex;
+    [SerializeField] private SceneManagerHelper.Scene _learningStage;
+    [FormerlySerializedAs("bossStage")] [SerializeField] private SceneManagerHelper.Scene _bossStage;
+    [FormerlySerializedAs("storybookSectionIndex")] [SerializeField] private int _storybookSectionIndex;
+    [FormerlySerializedAs("respawnPoint")]
     [Tooltip("Tick if a quest is started when entering this dungeon")]
-    [SerializeField] private Transform respawnPoint;
+    [SerializeField] private Transform _respawnPoint;
 
-    private string questId;
-    private QuestState currentQuestState;
-    private Quest currentQuest;
+    private string _questId;
+    private QuestState _currentQuestState;
+    private Quest _currentQuest;
 
     private void Start()
     {
-        if (dungeonQuest != null)
+        if (_dungeonQuest != null)
         {
-            questId = dungeonQuest.id;
+            _questId = _dungeonQuest.id;
 
-            currentQuest = QuestManager.instance.GetQuestById(questId);
+            _currentQuest = QuestManager.Instance.GetQuestById(_questId);
 
-            currentQuestState = currentQuest.state;
+            _currentQuestState = _currentQuest.State;
         }
     }
 
     private void OnEnable()
     {
-        GameEventsManager.instance.questEvents.OnQuestStateChange += QuestStateChange;
+        GameEventsManager.instance.QuestEvents.OnQuestStateChange += QuestStateChange;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.questEvents.OnQuestStateChange -= QuestStateChange;
+        GameEventsManager.instance.QuestEvents.OnQuestStateChange -= QuestStateChange;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -51,54 +56,54 @@ public class DungeonEntrance : MonoBehaviour
 
         if (other.gameObject.CompareTag("Trigger"))
         {
-            if (currentQuestState == QuestState.CAN_START)
+            if (_currentQuestState == QuestState.CanStart)
             {
-                AbilityManager.Instance.UnlockAbility(abilityGrantedForDungeon);
-                Debug.Log("Ability " + abilityGrantedForDungeon + " granted for dungeon entrance.");
-                GameEventsManager.instance.questEvents.StartQuest(questId);
+                AbilityManager.Instance.UnlockAbility(_abilityGrantedForDungeon);
+                Debug.Log("Ability " + _abilityGrantedForDungeon + " granted for dungeon entrance.");
+                GameEventsManager.instance.QuestEvents.StartQuest(_questId);
 
-                RespawnManager.instance.SetRespawnPosition(respawnPoint.position);
+                RespawnManager.Instance.SetRespawnPosition(_respawnPoint.position);
 
-                StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, learningStage, false);
+                StorybookHandler.Instance.SetNewStorybookData(_storybookSectionIndex, _learningStage, false);
 
-                GameEventsManager.instance.uiEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Storybook);
+                GameEventsManager.instance.UIEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Storybook);
             }
 
-            else if (currentQuestState == QuestState.IN_PROGRESS)
+            else if (_currentQuestState == QuestState.InProgress)
             {
-                int currentQuestStepIndex = QuestManager.instance.GetQuestById(dungeonQuest.id).GetCurrentQuestStepIndex();
-                AbilityManager.Instance.UnlockAbility(abilityGrantedForDungeon);
-                RespawnManager.instance.SetRespawnPosition(respawnPoint.position);
+                int currentQuestStepIndex = QuestManager.Instance.GetQuestById(_dungeonQuest.id).GetCurrentQuestStepIndex();
+                AbilityManager.Instance.UnlockAbility(_abilityGrantedForDungeon);
+                RespawnManager.Instance.SetRespawnPosition(_respawnPoint.position);
 
                 if (currentQuestStepIndex == 0)
                 {
-                    StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, learningStage, false);
+                    StorybookHandler.Instance.SetNewStorybookData(_storybookSectionIndex, _learningStage, false);
                 }
 
                 else
                 {
-                    StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, bossStage, false);
+                    StorybookHandler.Instance.SetNewStorybookData(_storybookSectionIndex, _bossStage, false);
                 }
 
-                GameEventsManager.instance.uiEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Storybook);
+                GameEventsManager.instance.UIEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Storybook);
             }
 
-            else if (currentQuestState == QuestState.FINISHED || currentQuestState == QuestState.CAN_FINISH)
+            else if (_currentQuestState == QuestState.Finished || _currentQuestState == QuestState.CanFinish)
             {
-                RespawnManager.instance.SetRespawnPosition(respawnPoint.position);
+                RespawnManager.Instance.SetRespawnPosition(_respawnPoint.position);
 
                 // add possible storybook config here & change goToScene to Storybook scene
-                StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, learningStage, false);
+                StorybookHandler.Instance.SetNewStorybookData(_storybookSectionIndex, _learningStage, false);
 
-                GameEventsManager.instance.uiEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Storybook);
+                GameEventsManager.instance.UIEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Storybook);
             }
 
             else
             {
-                if (currentQuest != null)
+                if (_currentQuest != null)
                 {
-                    dungeonEnteringPreventedUI.SetActive(true);
-                    dungeonEnteringPreventedUI.GetComponent<DungeonEnteringPreventedUI>().SetUIContent(currentQuest);
+                    _dungeonEnteringPreventedUI.SetActive(true);
+                    _dungeonEnteringPreventedUI.GetComponent<DungeonEnteringPreventedUI>().SetUIContent(_currentQuest);
                 }
             }
         }
@@ -107,9 +112,9 @@ public class DungeonEntrance : MonoBehaviour
     private void QuestStateChange(Quest quest)
     {
         // only update the quest state if this point has the corresponding quest
-        if (quest.info.id.Equals(questId))
+        if (quest.Info.id.Equals(_questId))
         {
-            currentQuestState = quest.state;
+            _currentQuestState = quest.State;
             //Debug.Log("Quest with id: " + questId + " updated to state: " + currentQuestState);
         }
     }

@@ -20,9 +20,9 @@ public class Freeze : MonoBehaviour
 
     private void Update()
     {
-        if (PlayerInputHandler.instance.UseAbilityInput.WasPressedThisFrame())
+        if (PlayerInputHandler.Instance.UseAbilityInput.WasPressedThisFrame())
         {
-            AbilityManager.Instance._abilityStatuses.TryGetValue(Abilities.Freezing, out bool isUnlocked);
+            AbilityManager.Instance.AbilityStatuses.TryGetValue(Abilities.Freezing, out bool isUnlocked);
 
             if (isUnlocked && !_hasCooldown)
             {
@@ -41,14 +41,14 @@ public class Freeze : MonoBehaviour
         {
             foreach (Collider newObject in foundObjects)
             {
-                FoxMovement.instance.playerAnimator.SetBool("isFreezing", true);
+                FoxMovement.Instance.PlayerAnimator.SetBool("isFreezing", true);
                 Freezable freezable = newObject.gameObject.GetComponent<Freezable>();
 
                 if (freezable)
                 {
                     freezable.FreezeObject();
 
-                    AudioManager.Instance.PlaySound(AudioName.Ability_Freezing, transform);
+                    AudioManager.Instance.PlaySound(AudioName.AbilityFreezing, transform);
                 }
             }
 
@@ -63,7 +63,7 @@ public class Freeze : MonoBehaviour
     private IEnumerator FreezeCooldown()
     {
         yield return new WaitForSeconds(0.01f);
-        FoxMovement.instance.playerAnimator.SetBool("isFreezing", false);
+        FoxMovement.Instance.PlayerAnimator.SetBool("isFreezing", false);
         _hasCooldown = true;
 
         float updateFillAmount = 1 / (_cooldownDuration * 100);

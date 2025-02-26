@@ -1,30 +1,31 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class EnableBearDialogueAfterTutorial : MonoBehaviour
 {
-    [SerializeField] private QuestScriptableObject tutorialQuest;
-    [SerializeField] private NPC_Dialogue npcDialogue;
+    [FormerlySerializedAs("tutorialQuest")] [SerializeField] private QuestScriptableObject _tutorialQuest;
+    [FormerlySerializedAs("npcDialogue")] [SerializeField] private NpcDialogue _npcDialogue;
 
     private void Start()
     {
-        EnableDialogue(tutorialQuest.id);
+        EnableDialogue(_tutorialQuest.id);
 
-        GameEventsManager.instance.questEvents.OnFinishQuest += EnableDialogue;
+        GameEventsManager.instance.QuestEvents.OnFinishQuest += EnableDialogue;
     }
 
     private void OnDisable()
     {
 
-        GameEventsManager.instance.questEvents.OnFinishQuest -= EnableDialogue;
+        GameEventsManager.instance.QuestEvents.OnFinishQuest -= EnableDialogue;
     }
 
     private void EnableDialogue(string id)
     {
-        QuestState state = QuestManager.instance.CheckQuestState(id);
+        QuestState state = QuestManager.Instance.CheckQuestState(id);
 
-        if (state == QuestState.FINISHED)
+        if (state == QuestState.Finished)
         {
-            npcDialogue.enabled = true;
+            _npcDialogue.enabled = true;
         }
     }
 }

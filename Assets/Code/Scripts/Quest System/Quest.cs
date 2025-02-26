@@ -2,55 +2,55 @@ using UnityEngine;
 
 public class Quest
 {
-    public QuestScriptableObject info;
+    public QuestScriptableObject Info;
 
-    public QuestState state;
+    public QuestState State;
 
-    private int currentQuestStepIndex;
-    private QuestStepState[] questStepStates;
+    private int _currentQuestStepIndex;
+    private QuestStepState[] _questStepStates;
 
-    public Vector3 defaultPosition;
+    public Vector3 DefaultPosition;
     public Quest(QuestScriptableObject questInfo)
     {
-        info = questInfo;
-        state = QuestState.REQUIREMENTS_NOT_MET;
-        defaultPosition = info.defaultPos;
-        currentQuestStepIndex = 0;
-        questStepStates = new QuestStepState[info.questStepPrefabs.Length];
+        Info = questInfo;
+        State = QuestState.RequirementsNotMet;
+        DefaultPosition = Info.DefaultPos;
+        _currentQuestStepIndex = 0;
+        _questStepStates = new QuestStepState[Info.QuestStepPrefabs.Length];
 
         // initialize all the quest step states so they won't be null in the beginning
-        for (int i = 0; i < questStepStates.Length; i++)
+        for (int i = 0; i < _questStepStates.Length; i++)
         {
-            questStepStates[i] = new QuestStepState();
+            _questStepStates[i] = new QuestStepState();
         }
     }
 
     public Quest(QuestScriptableObject questInfo, QuestState questState, int currentQuestStepIndex, QuestStepState[] questStepStates)
     {
-        info = questInfo;
-        state = questState;
-        this.currentQuestStepIndex = currentQuestStepIndex;
-        this.questStepStates = questStepStates;
-        this.defaultPosition = info.defaultPos;
+        Info = questInfo;
+        State = questState;
+        this._currentQuestStepIndex = currentQuestStepIndex;
+        this._questStepStates = questStepStates;
+        this.DefaultPosition = Info.DefaultPos;
         // if the quest step states and prefabs are different lengths,
         // something has changed during development and the saved data is out of sync
-        if (this.questStepStates.Length != this.info.questStepPrefabs.Length)
+        if (this._questStepStates.Length != this.Info.QuestStepPrefabs.Length)
         {
             Debug.LogWarning("Quest Step Prefabs and Quest Step States are " +
                 "of different lengths. This indicates something changed with the " +
                 "QuestInfo and the saved data is now out of sync. Reset your data," +
-                "as this might cause issues. Quest Id: " + this.info.id);
+                "as this might cause issues. Quest Id: " + this.Info.id);
         }
     }
 
     public void MoveToNextStep()
     {
-        currentQuestStepIndex++;
+        _currentQuestStepIndex++;
     }
 
     public bool CurrentStepExists()
     {
-        return currentQuestStepIndex < info.questStepPrefabs.Length;
+        return _currentQuestStepIndex < Info.QuestStepPrefabs.Length;
     }
 
     public void InstantiateCurrentQuestStep(Transform parentTransform)
@@ -60,7 +60,7 @@ public class Quest
         if (questStepPrefab != null)
         {
             QuestStep questStep = Object.Instantiate(questStepPrefab, parentTransform).GetComponent<QuestStep>();
-            questStep.InitializeQuestStep(info.id, currentQuestStepIndex, questStepStates[currentQuestStepIndex].state);
+            questStep.InitializeQuestStep(Info.id, _currentQuestStepIndex, _questStepStates[_currentQuestStepIndex].State);
         }
     }
 
@@ -70,7 +70,7 @@ public class Quest
 
         if (CurrentStepExists())
         {
-            questStepPrefab = info.questStepPrefabs[currentQuestStepIndex];
+            questStepPrefab = Info.QuestStepPrefabs[_currentQuestStepIndex];
         }
 
         else
@@ -83,24 +83,24 @@ public class Quest
 
     public void StoreQuestStepState(QuestStepState questStepState, int stepIndex)
     {
-        if (stepIndex < questStepStates.Length)
+        if (stepIndex < _questStepStates.Length)
         {
-            questStepStates[stepIndex].state = questStepState.state;
+            _questStepStates[stepIndex].State = questStepState.State;
         }
 
         else
         {
-            Debug.LogWarning("Tried to access quest step data, but stepIndex was out of range: Quest Id = " + info.id + ", Step Index = " + stepIndex);
+            Debug.LogWarning("Tried to access quest step data, but stepIndex was out of range: Quest Id = " + Info.id + ", Step Index = " + stepIndex);
         }
     }
 
     public QuestData GetQuestData()
     {
-        return new QuestData(state, currentQuestStepIndex, questStepStates);
+        return new QuestData(State, _currentQuestStepIndex, _questStepStates);
     }
 
     public int GetCurrentQuestStepIndex()
     {
-        return currentQuestStepIndex;
+        return _currentQuestStepIndex;
     }
 }

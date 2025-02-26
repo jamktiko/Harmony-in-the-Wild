@@ -1,14 +1,15 @@
 using System.IO;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class DevToolButtons : MonoBehaviour
 {
 #if DEBUG
-    [SerializeField] private Transform pageParent;
+    [FormerlySerializedAs("pageParent")] [SerializeField] private Transform _pageParent;
 
     private void Update()
     {
-        if (PlayerInputHandler.instance.DebugDevToolsInput.WasPressedThisFrame())
+        if (PlayerInputHandler.Instance.DebugDevToolsInput.WasPressedThisFrame())
         {
             transform.GetChild(0).gameObject.SetActive(!transform.GetChild(0).gameObject.activeInHierarchy);
         }
@@ -16,34 +17,34 @@ public class DevToolButtons : MonoBehaviour
 
     public void ToggleVisiblePage(int pageIndex)
     {
-        for (int i = 0; i < pageParent.childCount; i++)
+        for (int i = 0; i < _pageParent.childCount; i++)
         {
             if (i == pageIndex)
             {
-                pageParent.GetChild(i).gameObject.SetActive(true);
+                _pageParent.GetChild(i).gameObject.SetActive(true);
             }
 
             else
             {
-                pageParent.GetChild(i).gameObject.SetActive(false);
+                _pageParent.GetChild(i).gameObject.SetActive(false);
             }
         }
     }
 
     public void SaveAbilityChanges()
     {
-        SaveManager.instance.SaveGame();
+        SaveManager.Instance.SaveGame();
     }
 
     public void ResetAbilities()
     {
 
-        foreach (Abilities abilities in AbilityManager.Instance._abilityStatuses.Keys)
+        foreach (Abilities abilities in AbilityManager.Instance.AbilityStatuses.Keys)
         {
-            AbilityManager.Instance._abilityStatuses[abilities] = false;
+            AbilityManager.Instance.AbilityStatuses[abilities] = false;
         }
 
-        SaveManager.instance.SaveGame();
+        SaveManager.Instance.SaveGame();
     }
 
     public void DeleteSaveFile()

@@ -1,34 +1,35 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerModelToggle : MonoBehaviour
 {
-    public GameObject redFox;
-    [SerializeField] private GameObject arcticFox;
-    [SerializeField] private GameObject changeEffect;
-    [SerializeField] private CameraMovement playerCamera;
-    [SerializeField] private GameObject changeControl;
-    [SerializeField] private ParticleSystem[] changePSSnow;
-    [SerializeField] private ParticleSystem[] changePSAutumn;
+    [FormerlySerializedAs("redFox")] public GameObject RedFox;
+    [FormerlySerializedAs("arcticFox")] [SerializeField] private GameObject _arcticFox;
+    [FormerlySerializedAs("changeEffect")] [SerializeField] private GameObject _changeEffect;
+    [FormerlySerializedAs("playerCamera")] [SerializeField] private CameraMovement _playerCamera;
+    [FormerlySerializedAs("changeControl")] [SerializeField] private GameObject _changeControl;
+    [FormerlySerializedAs("changePSSnow")] [SerializeField] private ParticleSystem[] _changePSSnow;
+    [FormerlySerializedAs("changePSAutumn")] [SerializeField] private ParticleSystem[] _changePSAutumn;
 
-    private Animator currentAnimator;
+    private Animator _currentAnimator;
 
-    private bool canTriggerVFX = false; // this bool is enabled a bit after the scene is loaded; the point is to prevent VFX being triggered when entering the scene
-    private bool canTriggerAudioChange = true;
-    private bool initialTransformationPassed = false; // this bool is enabled a bit after the scene is loaded; it ensures the audio transformation will work when loading into the scene for the first time
+    private bool _canTriggerVFX = false; // this bool is enabled a bit after the scene is loaded; the point is to prevent VFX being triggered when entering the scene
+    private bool _canTriggerAudioChange = true;
+    private bool _initialTransformationPassed = false; // this bool is enabled a bit after the scene is loaded; it ensures the audio transformation will work when loading into the scene for the first time
 
     private void Awake()
     {
-        GameEventsManager.instance.uiEvents.OnUseUnstuckButton += DisableAudioChangeForAWhile;
-        GameEventsManager.instance.cinematicsEvents.OnStartCinematics += DisableAudioChangeForCinematics;
+        GameEventsManager.instance.UIEvents.OnUseUnstuckButton += DisableAudioChangeForAWhile;
+        GameEventsManager.instance.CinematicsEvents.OnStartCinematics += DisableAudioChangeForCinematics;
 
         Invoke(nameof(EnableVFX), 3f);
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.uiEvents.OnUseUnstuckButton -= DisableAudioChangeForAWhile;
-        GameEventsManager.instance.cinematicsEvents.OnStartCinematics -= DisableAudioChangeForCinematics;
+        GameEventsManager.instance.UIEvents.OnUseUnstuckButton -= DisableAudioChangeForAWhile;
+        GameEventsManager.instance.CinematicsEvents.OnStartCinematics -= DisableAudioChangeForCinematics;
     }
 
     private void Update()
@@ -45,7 +46,7 @@ public class PlayerModelToggle : MonoBehaviour
     IEnumerator TogglePlayerModel(int model)
     {
         bool snow = false;
-        if (model == 0 && !redFox.activeInHierarchy || model == 2)
+        if (model == 0 && !RedFox.activeInHierarchy || model == 2)
             snow = true;
         ChangeVFX(snow);
         StartCoroutine(MaintainRotation(5));
@@ -57,10 +58,10 @@ public class PlayerModelToggle : MonoBehaviour
         while (duration > 0)
         {
             duration -= Time.deltaTime;
-            if (redFox.activeInHierarchy)
-                changeControl.transform.rotation = redFox.transform.rotation;
+            if (RedFox.activeInHierarchy)
+                _changeControl.transform.rotation = RedFox.transform.rotation;
             else
-                changeControl.transform.rotation = arcticFox.transform.rotation;
+                _changeControl.transform.rotation = _arcticFox.transform.rotation;
             yield return null;
         }
     }
@@ -68,14 +69,14 @@ public class PlayerModelToggle : MonoBehaviour
     private void ChangeVFX(bool snow)
     {
         if (snow)
-            for (int i = 0; i < changePSSnow.Length; i++)
+            for (int i = 0; i < _changePSSnow.Length; i++)
             {
-                changePSSnow[i].Play();
+                _changePSSnow[i].Play();
             }
         else
-            for (int i = 0; i < changePSAutumn.Length; i++)
+            for (int i = 0; i < _changePSAutumn.Length; i++)
             {
-                changePSAutumn[i].Play();
+                _changePSAutumn[i].Play();
             }
 
         StartCoroutine(ChangeModel(snow, 3.3f));
@@ -87,39 +88,39 @@ public class PlayerModelToggle : MonoBehaviour
 
         if (toArcticFox)
         {
-            if (canTriggerAudioChange)
+            if (_canTriggerAudioChange)
             {
                 StartCoroutine(StartArcticTheme());
             }
 
-            redFox.SetActive(false);
-            arcticFox.SetActive(true);
+            RedFox.SetActive(false);
+            _arcticFox.SetActive(true);
 
-            currentAnimator = arcticFox.GetComponent<Animator>();
-            FoxMovement.instance.playerAnimator = currentAnimator;
-            playerCamera.foxObject = arcticFox.transform;
+            _currentAnimator = _arcticFox.GetComponent<Animator>();
+            FoxMovement.Instance.PlayerAnimator = _currentAnimator;
+            _playerCamera.FoxObject = _arcticFox.transform;
         }
 
         else
         {
             Debug.Log("Change to forest");
-            if (canTriggerAudioChange)
+            if (_canTriggerAudioChange)
             {
                 StartCoroutine(StartForestTheme());
             }
 
-            redFox.SetActive(true);
-            arcticFox.SetActive(false);
+            RedFox.SetActive(true);
+            _arcticFox.SetActive(false);
 
-            currentAnimator = redFox.GetComponent<Animator>();
-            FoxMovement.instance.playerAnimator = currentAnimator;
-            playerCamera.foxObject = redFox.transform;
+            _currentAnimator = RedFox.GetComponent<Animator>();
+            FoxMovement.Instance.PlayerAnimator = _currentAnimator;
+            _playerCamera.FoxObject = RedFox.transform;
         }
     }
 
     public void PrepareForModelChange(string modelName)
     {
-        if (canTriggerAudioChange)
+        if (_canTriggerAudioChange)
         {
             AudioManager.Instance.EndCurrentTheme();
         }
@@ -132,7 +133,7 @@ public class PlayerModelToggle : MonoBehaviour
 
         if (modelName == "Arctic")
         {
-            if (canTriggerVFX)
+            if (_canTriggerVFX)
             {
                 Debug.Log("Trigger model change with VFX.");
                 ChangeVFX(true);
@@ -148,7 +149,7 @@ public class PlayerModelToggle : MonoBehaviour
 
         else if (modelName == "Forest")
         {
-            if (canTriggerVFX)
+            if (_canTriggerVFX)
             {
                 Debug.Log("Trigger model change with VFX.");
                 ChangeVFX(false);
@@ -165,45 +166,45 @@ public class PlayerModelToggle : MonoBehaviour
 
     private void EnableVFX()
     {
-        canTriggerVFX = true;
+        _canTriggerVFX = true;
     }
 
     private void DisableAudioChangeForAWhile()
     {
-        canTriggerAudioChange = false;
+        _canTriggerAudioChange = false;
 
         Invoke(nameof(EnableAudioChange), 1f);
     }
 
     private void EnableAudioChange()
     {
-        canTriggerAudioChange = true;
+        _canTriggerAudioChange = true;
     }
 
     private void DisableAudioChangeForCinematics()
     {
-        canTriggerAudioChange = false;
+        _canTriggerAudioChange = false;
     }
 
     private IEnumerator StartArcticTheme()
     {
         Debug.Log("Waiting for arctic theme transition to be triggered...");
 
-        yield return new WaitUntil(() => AudioManager.Instance.themeTransitionOn == false && !AudioManager.Instance.themeIsPlaying);
+        yield return new WaitUntil(() => AudioManager.Instance.ThemeTransitionOn == false && !AudioManager.Instance.ThemeIsPlaying);
 
         Debug.Log("Arctic theme about to be triggered...");
 
-        AudioManager.Instance.StartNewTheme(ThemeName.Theme_Arctic);
+        AudioManager.Instance.StartNewTheme(ThemeName.ThemeArctic);
     }
 
     private IEnumerator StartForestTheme()
     {
         Debug.Log("Waiting for forest theme transition to be triggered...");
 
-        yield return new WaitUntil(() => AudioManager.Instance.themeTransitionOn == false && !AudioManager.Instance.themeIsPlaying);
+        yield return new WaitUntil(() => AudioManager.Instance.ThemeTransitionOn == false && !AudioManager.Instance.ThemeIsPlaying);
 
         Debug.Log("Forest theme about to be triggered...");
 
-        AudioManager.Instance.StartNewTheme(ThemeName.Theme_Forest);
+        AudioManager.Instance.StartNewTheme(ThemeName.ThemeForest);
     }
 }

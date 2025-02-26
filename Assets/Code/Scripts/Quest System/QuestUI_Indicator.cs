@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class QuestUI_Indicator : MonoBehaviour
+public class QuestUIIndicator : MonoBehaviour
 {
 
 }

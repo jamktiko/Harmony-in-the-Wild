@@ -1,21 +1,24 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class QuestGhost : MonoBehaviour
 {
+    [FormerlySerializedAs("relativeIndex")]
     [Header("Config")]
-    [SerializeField] private int relativeIndex;
+    [SerializeField] private int _relativeIndex;
 
+    [FormerlySerializedAs("initialDialogue")]
     [Header("Ghost Dialogue")]
-    [SerializeField] private TextAsset initialDialogue;
-    [SerializeField] private List<TextAsset> secondaryDialogueOptions;
+    [SerializeField] private TextAsset _initialDialogue;
+    [FormerlySerializedAs("secondaryDialogueOptions")] [SerializeField] private List<TextAsset> _secondaryDialogueOptions;
 
-    private bool playerIsNear;
-    private bool beenSpokenTo;
+    private bool _playerIsNear;
+    private bool _beenSpokenTo;
 
     private void Update()
     {
-        if (PlayerInputHandler.instance.InteractInput.WasPressedThisFrame())
+        if (PlayerInputHandler.Instance.InteractInput.WasPressedThisFrame())
         {
             InteractWithGhost();
         }
@@ -23,20 +26,20 @@ public class QuestGhost : MonoBehaviour
 
     public void InteractWithGhost()
     {
-        if (playerIsNear && !DialogueManager.instance.isDialoguePlaying)
+        if (_playerIsNear && !DialogueManager.Instance.IsDialoguePlaying)
         {
-            switch (beenSpokenTo)
+            switch (_beenSpokenTo)
             {
                 // first dialogue with the ghost
                 case false:
-                    beenSpokenTo = true;
-                    DialogueManager.instance.StartDialogue(initialDialogue);
-                    GhostlySlumbersManager.instance.TalkedToRelative(relativeIndex);
+                    _beenSpokenTo = true;
+                    DialogueManager.Instance.StartDialogue(_initialDialogue);
+                    GhostlySlumbersManager.Instance.TalkedToRelative(_relativeIndex);
                     break;
 
                 // interacting with the ghost again after the initial dialogue
                 case true:
-                    DialogueManager.instance.StartDialogue(secondaryDialogueOptions[Random.Range(0, secondaryDialogueOptions.Count)]);
+                    DialogueManager.Instance.StartDialogue(_secondaryDialogueOptions[Random.Range(0, _secondaryDialogueOptions.Count)]);
                     break;
             }
         }
@@ -46,7 +49,7 @@ public class QuestGhost : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            playerIsNear = true;
+            _playerIsNear = true;
         }
     }
 
@@ -54,7 +57,7 @@ public class QuestGhost : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            playerIsNear = false;
+            _playerIsNear = false;
         }
     }
 }

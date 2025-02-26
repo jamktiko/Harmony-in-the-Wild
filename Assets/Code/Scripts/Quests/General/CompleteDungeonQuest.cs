@@ -1,45 +1,47 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 
 public class CompleteDungeonQuest : QuestStep
 {
+    [FormerlySerializedAs("amountOfDungeonStages")]
     [Header("Config")]
     [Tooltip("Set as 2 if the dungeon has both learning and boss area; set as 1 if there is only one stage")]
-    [SerializeField] private int amountOfDungeonStages;
-    [SerializeField] private int currentStageIndex;
+    [SerializeField] private int _amountOfDungeonStages;
+    [FormerlySerializedAs("currentStageIndex")] [SerializeField] private int _currentStageIndex;
 
-    private int stagesCompleted;
-    private string dungeonQuestId;
+    private int _stagesCompleted;
+    private string _dungeonQuestId;
 
     private void Start()
     {
-        dungeonQuestId = GetQuestId();
+        _dungeonQuestId = GetQuestId();
         Debug.Log(gameObject);
     }
 
     private void OnEnable()
     {
-        GameEventsManager.instance.questEvents.OnAdvanceDungeonQuest += CompleteDungeon;
+        GameEventsManager.instance.QuestEvents.OnAdvanceDungeonQuest += CompleteDungeon;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.questEvents.OnAdvanceDungeonQuest -= CompleteDungeon;
+        GameEventsManager.instance.QuestEvents.OnAdvanceDungeonQuest -= CompleteDungeon;
     }
 
     public void CompleteDungeon(string id)
     {
         Debug.Log("CompleteDungeon has been called.");
-        if (id == dungeonQuestId)
+        if (id == _dungeonQuestId)
         {
-            stagesCompleted++;
+            _stagesCompleted++;
 
-            if (stagesCompleted < amountOfDungeonStages)
+            if (_stagesCompleted < _amountOfDungeonStages)
             {
                 UpdateState();
             }
 
-            else if (stagesCompleted >= amountOfDungeonStages)
+            else if (_stagesCompleted >= _amountOfDungeonStages)
             {
                 Debug.Log("Sent request to finish quest step.");
                 FinishQuestStep();
@@ -51,13 +53,13 @@ public class CompleteDungeonQuest : QuestStep
 
     private void UpdateState()
     {
-        string state = amountOfDungeonStages.ToString();
+        string state = _amountOfDungeonStages.ToString();
         ChangeState(state);
     }
 
     protected override void SetQuestStepState(string state)
     {
-        stagesCompleted = System.Int32.Parse(state);
+        _stagesCompleted = System.Int32.Parse(state);
         UpdateState();
     }
 }

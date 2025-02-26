@@ -1,13 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class CollectableQuestStep : QuestStep
 {
-    public int itemsCollected = 0;
-    private int itemToComplete = 5;
-    private List<bool> itemStates = new List<bool>();
-    private List<GameObject> apples = new List<GameObject>();
+    [FormerlySerializedAs("itemsCollected")] public int ItemsCollected = 0;
+    private int _itemToComplete = 5;
+    private List<bool> _itemStates = new List<bool>();
+    private List<GameObject> _apples = new List<GameObject>();
 
     private void Start()
     {
@@ -16,7 +17,7 @@ public class CollectableQuestStep : QuestStep
             InitializeQuestUI();
             SetAppleObjects();
 
-            if (itemStates.Count <= 0)
+            if (_itemStates.Count <= 0)
             {
                 InitializeItemStates();
             }
@@ -40,7 +41,7 @@ public class CollectableQuestStep : QuestStep
             InitializeQuestUI();
             SetAppleObjects();
 
-            if (itemStates.Count <= 0)
+            if (_itemStates.Count <= 0)
             {
                 InitializeItemStates();
             }
@@ -49,25 +50,25 @@ public class CollectableQuestStep : QuestStep
 
     private void InitializeQuestUI()
     {
-        GameEventsManager.instance.questEvents.ShowQuestUI(GetQuestId(), objective, progress + " " + itemsCollected + "/" + itemToComplete);
+        GameEventsManager.instance.QuestEvents.ShowQuestUI(GetQuestId(), Objective, Progress + " " + ItemsCollected + "/" + _itemToComplete);
     }
 
     public void CollectableProgress(int itemIndex)
     {
         // don't proceed if the index is falsely set or the corresponding item has already been collected
-        if (itemIndex < 0 || itemStates[itemIndex])
+        if (itemIndex < 0 || _itemStates[itemIndex])
         {
             Debug.Log("Invalid item index or corresponding apple has already been collected. Index: " + itemIndex);
             return;
         }
 
-        itemStates[itemIndex] = true;
-        itemsCollected++;
+        _itemStates[itemIndex] = true;
+        ItemsCollected++;
 
         UpdateState();
-        GameEventsManager.instance.questEvents.UpdateQuestProgressInUI(progress + " " + itemsCollected + "/" + itemToComplete);
+        GameEventsManager.instance.QuestEvents.UpdateQuestProgressInUI(Progress + " " + ItemsCollected + "/" + _itemToComplete);
 
-        if (itemsCollected >= itemToComplete)
+        if (ItemsCollected >= _itemToComplete)
         {
             // hide remaining apples
             //foreach(GameObject apple in apples)
@@ -81,13 +82,13 @@ public class CollectableQuestStep : QuestStep
 
     private void SetAppleObjects()
     {
-        apples = AppleDataHolder.instance.GetApples();
+        _apples = AppleDataHolder.Instance.GetApples();
 
-        if (apples != null)
+        if (_apples != null)
         {
-            for (int i = 0; i < apples.Count; i++)
+            for (int i = 0; i < _apples.Count; i++)
             {
-                apples[i].SetActive(!itemStates[i]);
+                _apples[i].SetActive(!_itemStates[i]);
             }
         }
 
@@ -101,7 +102,7 @@ public class CollectableQuestStep : QuestStep
     {
         for (int i = 0; i <= 10; i++)
         {
-            itemStates.Add(false);
+            _itemStates.Add(false);
         }
     }
 
@@ -120,7 +121,7 @@ public class CollectableQuestStep : QuestStep
 
     private void UpdateState()
     {
-        string state = itemsCollected + ";" + string.Join(",", itemStates);
+        string state = ItemsCollected + ";" + string.Join(",", _itemStates);
         ChangeState(state);
     }
 
@@ -139,9 +140,9 @@ public class CollectableQuestStep : QuestStep
         // if there was previously only one saved value (itemsCollected in older version of the game), initialize the apple values to prevent errors
         if (stateParts.Length == 1)
         {
-            itemsCollected = int.Parse(stateParts[0]);
+            ItemsCollected = int.Parse(stateParts[0]);
 
-            if (itemStates.Count <= 0 || itemStates == null)
+            if (_itemStates.Count <= 0 || _itemStates == null)
             {
                 Debug.Log("Initializing after outdated data format");
                 InitializeItemStates();
@@ -151,8 +152,8 @@ public class CollectableQuestStep : QuestStep
         else
         {
             Debug.Log("Setting saved values");
-            itemsCollected = itemsCollected = int.Parse(stateParts[0]);
-            itemStates = ParseItemStates(stateParts[1]);
+            ItemsCollected = ItemsCollected = int.Parse(stateParts[0]);
+            _itemStates = ParseItemStates(stateParts[1]);
         }
 
         UpdateState();

@@ -5,12 +5,12 @@ public class CollectibleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (SaveManager.instance.gameData.berryData != "{}" && SaveManager.instance.gameData.PineconeData != "{}")
+        if (SaveManager.Instance.GameData.BerryData != "{}" && SaveManager.Instance.GameData.PineconeData != "{}")
         {
             int i = 0;
             int x = 0;
-            PlayerManager.instance.GenerateCollectibleData();
-            foreach (var berry in PlayerManager.instance.BerryData)
+            PlayerManager.Instance.GenerateCollectibleData();
+            foreach (var berry in PlayerManager.Instance.BerryData)
             {
                 GameObject.Find(berry.Key).transform.GetChild(0).gameObject.SetActive(berry.Value);
 
@@ -22,7 +22,7 @@ public class CollectibleManager : MonoBehaviour
 
                 x++;
             }
-            foreach (var cone in PlayerManager.instance.PineConeData)
+            foreach (var cone in PlayerManager.Instance.PineConeData)
             {
                 GameObject.Find(cone.Key).SetActive(cone.Value);
                 i++;
@@ -35,14 +35,14 @@ public class CollectibleManager : MonoBehaviour
         {
             foreach (Berries berry in FindObjectsOfType<Berries>())
             {
-                PlayerManager.instance.BerryData.Add(berry.transform.parent.name, berry.gameObject.activeInHierarchy);
+                PlayerManager.Instance.BerryData.Add(berry.transform.parent.name, berry.gameObject.activeInHierarchy);
             }
-            PlayerManager.instance.Berries = 0;
+            PlayerManager.Instance.Berries = 0;
             foreach (PineconesCollectable cone in FindObjectsOfType<PineconesCollectable>())
             {
-                PlayerManager.instance.PineConeData.Add(cone.gameObject.name, cone.gameObject.activeInHierarchy);
+                PlayerManager.Instance.PineConeData.Add(cone.gameObject.name, cone.gameObject.activeInHierarchy);
             }
-            PlayerManager.instance.PineCones = 0;
+            PlayerManager.Instance.PineCones = 0;
         }
     }
 }

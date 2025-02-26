@@ -1,24 +1,25 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayQuestCompletedSound : MonoBehaviour
 {
-    [SerializeField] private GameObject audioPrefab;
+    [FormerlySerializedAs("audioPrefab")] [SerializeField] private GameObject _audioPrefab;
 
     private void OnEnable()
     {
-        GameEventsManager.instance.questEvents.OnFinishQuest += PlayQuestCompletedAudio;
+        GameEventsManager.instance.QuestEvents.OnFinishQuest += PlayQuestCompletedAudio;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.questEvents.OnFinishQuest -= PlayQuestCompletedAudio;
+        GameEventsManager.instance.QuestEvents.OnFinishQuest -= PlayQuestCompletedAudio;
     }
 
     private void PlayQuestCompletedAudio(string id)
     {
-        if (audioPrefab != null)
+        if (_audioPrefab != null)
         {
-            Instantiate(audioPrefab, transform);
+            Instantiate(_audioPrefab, transform);
         }
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public enum MinimapMode
 {
@@ -9,58 +10,58 @@ public class MinimapController : MonoBehaviour
 {
     public static MinimapController Instance;
 
-    [SerializeField]
-    Vector2 worldSize;
+    [FormerlySerializedAs("worldSize")] [SerializeField]
+    Vector2 _worldSize;
 
-    [SerializeField]
-    Vector2 fullScreenDimensions = new Vector2(1000, 1000);
+    [FormerlySerializedAs("fullScreenDimensions")] [SerializeField]
+    Vector2 _fullScreenDimensions = new Vector2(1000, 1000);
 
-    [SerializeField]
-    float zoomSpeed = 0.1f;
+    [FormerlySerializedAs("zoomSpeed")] [SerializeField]
+    float _zoomSpeed = 0.1f;
 
-    [SerializeField]
-    float maxZoom = 10f;
+    [FormerlySerializedAs("maxZoom")] [SerializeField]
+    float _maxZoom = 10f;
 
-    [SerializeField]
-    float minZoom = 1f;
+    [FormerlySerializedAs("minZoom")] [SerializeField]
+    float _minZoom = 1f;
 
-    [SerializeField]
-    RectTransform scrollViewRectTransform;
+    [FormerlySerializedAs("scrollViewRectTransform")] [SerializeField]
+    RectTransform _scrollViewRectTransform;
 
-    [SerializeField]
-    RectTransform contentRectTransform;
+    [FormerlySerializedAs("contentRectTransform")] [SerializeField]
+    RectTransform _contentRectTransform;
 
-    [SerializeField]
-    MinimapIcon minimapIconPrefab;
+    [FormerlySerializedAs("minimapIconPrefab")] [SerializeField]
+    MinimapIcon _minimapIconPrefab;
 
-    [SerializeField]
-    Vector2 Offset;
+    [FormerlySerializedAs("Offset")] [SerializeField]
+    Vector2 _offset;
 
-    Matrix4x4 transformationMatrix;
+    Matrix4x4 _transformationMatrix;
 
-    private MinimapMode currentMiniMapMode = MinimapMode.Mini;
-    private MinimapIcon followIcon;
-    private Vector2 scrollViewDefaultSize;
-    private Vector2 scrollViewDefaultPosition;
-    Dictionary<MinimapWorldObject, MinimapIcon> miniMapWorldObjectsLookup = new Dictionary<MinimapWorldObject, MinimapIcon>();
+    private MinimapMode _currentMiniMapMode = MinimapMode.Mini;
+    private MinimapIcon _followIcon;
+    private Vector2 _scrollViewDefaultSize;
+    private Vector2 _scrollViewDefaultPosition;
+    Dictionary<MinimapWorldObject, MinimapIcon> _miniMapWorldObjectsLookup = new Dictionary<MinimapWorldObject, MinimapIcon>();
     private void Awake()
     {
         Instance = this;
-        scrollViewDefaultSize = scrollViewRectTransform.sizeDelta;
-        scrollViewDefaultPosition = scrollViewRectTransform.anchoredPosition;
+        _scrollViewDefaultSize = _scrollViewRectTransform.sizeDelta;
+        _scrollViewDefaultPosition = _scrollViewRectTransform.anchoredPosition;
     }
 
     private void Start()
     {
         CalculateTransformationMatrix();
-        ZoomMap(minZoom);
+        ZoomMap(_minZoom);
     }
 
     private void Update()
     {
-        if (PlayerInputHandler.instance.OpenMapInput.WasPressedThisFrame())
+        if (PlayerInputHandler.Instance.OpenMapInput.WasPressedThisFrame())
         {
-            SetMinimapMode(currentMiniMapMode == MinimapMode.Mini ? MinimapMode.Fullscreen : MinimapMode.Mini);
+            SetMinimapMode(_currentMiniMapMode == MinimapMode.Mini ? MinimapMode.Fullscreen : MinimapMode.Mini);
         }
         UpdateMiniMapIcons();
         CenterMapOnIcon();
@@ -68,21 +69,21 @@ public class MinimapController : MonoBehaviour
 
     public void RegisterMinimapWorldObject(MinimapWorldObject miniMapWorldObject, bool followObject = false)
     {
-        var minimapIcon = Instantiate(minimapIconPrefab);
-        minimapIcon.transform.SetParent(contentRectTransform);
-        minimapIcon.transform.SetParent(contentRectTransform);
-        minimapIcon.Image.sprite = miniMapWorldObject.MinimapIcon;
-        miniMapWorldObjectsLookup[miniMapWorldObject] = minimapIcon;
+        var minimapIcon = Instantiate(_minimapIconPrefab);
+        minimapIcon.transform.SetParent(_contentRectTransform);
+        minimapIcon.transform.SetParent(_contentRectTransform);
+        minimapIcon.Image.sprite = miniMapWorldObject.minimapIcon;
+        _miniMapWorldObjectsLookup[miniMapWorldObject] = minimapIcon;
 
         if (followObject)
-            followIcon = minimapIcon;
+            _followIcon = minimapIcon;
     }
 
     public void RemoveMinimapWorldObject(MinimapWorldObject minimapWorldObject)
     {
-        if (miniMapWorldObjectsLookup.TryGetValue(minimapWorldObject, out MinimapIcon icon))
+        if (_miniMapWorldObjectsLookup.TryGetValue(minimapWorldObject, out MinimapIcon icon))
         {
-            miniMapWorldObjectsLookup.Remove(minimapWorldObject);
+            _miniMapWorldObjectsLookup.Remove(minimapWorldObject);
             if (icon != null)
             {
                 Destroy(icon.gameObject);
@@ -91,32 +92,32 @@ public class MinimapController : MonoBehaviour
     }
 
 
-    private Vector2 halfVector2 = new Vector2(0.5f, 0.5f);
+    private Vector2 _halfVector2 = new Vector2(0.5f, 0.5f);
     public void SetMinimapMode(MinimapMode mode)
     {
         const float defaultScaleWhenFullScreen = 1.3f; // 1.3f looks good here but it could be anything
 
-        if (mode == currentMiniMapMode)
+        if (mode == _currentMiniMapMode)
             return;
 
         switch (mode)
         {
             case MinimapMode.Mini:
-                scrollViewRectTransform.sizeDelta = scrollViewDefaultSize;
-                scrollViewRectTransform.anchorMin = Vector2.one;
-                scrollViewRectTransform.anchorMax = Vector2.one;
-                scrollViewRectTransform.pivot = Vector2.one;
-                scrollViewRectTransform.anchoredPosition = scrollViewDefaultPosition;
-                currentMiniMapMode = MinimapMode.Mini;
+                _scrollViewRectTransform.sizeDelta = _scrollViewDefaultSize;
+                _scrollViewRectTransform.anchorMin = Vector2.one;
+                _scrollViewRectTransform.anchorMax = Vector2.one;
+                _scrollViewRectTransform.pivot = Vector2.one;
+                _scrollViewRectTransform.anchoredPosition = _scrollViewDefaultPosition;
+                _currentMiniMapMode = MinimapMode.Mini;
                 break;
             case MinimapMode.Fullscreen:
-                scrollViewRectTransform.sizeDelta = fullScreenDimensions;
-                scrollViewRectTransform.anchorMin = halfVector2;
-                scrollViewRectTransform.anchorMax = halfVector2;
-                scrollViewRectTransform.pivot = halfVector2;
-                scrollViewRectTransform.anchoredPosition = Vector2.zero;
-                currentMiniMapMode = MinimapMode.Fullscreen;
-                contentRectTransform.transform.localScale = Vector3.one * defaultScaleWhenFullScreen;
+                _scrollViewRectTransform.sizeDelta = _fullScreenDimensions;
+                _scrollViewRectTransform.anchorMin = _halfVector2;
+                _scrollViewRectTransform.anchorMax = _halfVector2;
+                _scrollViewRectTransform.pivot = _halfVector2;
+                _scrollViewRectTransform.anchoredPosition = Vector2.zero;
+                _currentMiniMapMode = MinimapMode.Fullscreen;
+                _contentRectTransform.transform.localScale = Vector3.one * defaultScaleWhenFullScreen;
                 break;
         }
     }
@@ -126,29 +127,29 @@ public class MinimapController : MonoBehaviour
         if (zoom == 0)
             return;
 
-        float currentMapScale = contentRectTransform.localScale.x;
+        float currentMapScale = _contentRectTransform.localScale.x;
         // we need to scale the zoom speed by the current map scale to keep the zooming linear
-        float zoomAmount = (zoom > 0 ? zoomSpeed : -zoomSpeed) * currentMapScale;
+        float zoomAmount = (zoom > 0 ? _zoomSpeed : -_zoomSpeed) * currentMapScale;
         float newScale = currentMapScale + zoomAmount;
-        float clampedScale = Mathf.Clamp(newScale, minZoom, maxZoom);
-        contentRectTransform.localScale = Vector3.one * clampedScale;
+        float clampedScale = Mathf.Clamp(newScale, _minZoom, _maxZoom);
+        _contentRectTransform.localScale = Vector3.one * clampedScale;
     }
 
     private void CenterMapOnIcon()
     {
-        if (followIcon != null)
+        if (_followIcon != null)
         {
-            float mapScale = contentRectTransform.transform.localScale.x;
+            float mapScale = _contentRectTransform.transform.localScale.x;
             // we simply move the map in the opposite direction the player moved, scaled by the mapscale
-            contentRectTransform.anchoredPosition = (-followIcon.RectTransform.anchoredPosition * mapScale);
+            _contentRectTransform.anchoredPosition = (-_followIcon.RectTransform.anchoredPosition * mapScale);
         }
     }
 
     private void UpdateMiniMapIcons()
     {
         // scale icons by the inverse of the mapscale to keep them a consitent size
-        float iconScale = 1 / contentRectTransform.transform.localScale.x;
-        foreach (var kvp in miniMapWorldObjectsLookup)
+        float iconScale = 1 / _contentRectTransform.transform.localScale.x;
+        foreach (var kvp in _miniMapWorldObjectsLookup)
         {
             var miniMapWorldObject = kvp.Key;
             var miniMapIcon = kvp.Value;
@@ -163,20 +164,20 @@ public class MinimapController : MonoBehaviour
 
     private Vector2 WorldPositionToMapPosition(Vector3 worldPos)
     {
-        var pos = new Vector2(worldPos.x, worldPos.z) + Offset;
-        return transformationMatrix.MultiplyPoint3x4(pos);
+        var pos = new Vector2(worldPos.x, worldPos.z) + _offset;
+        return _transformationMatrix.MultiplyPoint3x4(pos);
     }
 
 
     private void CalculateTransformationMatrix()
     {
-        var minimapSize = contentRectTransform.rect.size;
-        var worldSize = new Vector2(this.worldSize.x, this.worldSize.y);
+        var minimapSize = _contentRectTransform.rect.size;
+        var worldSize = new Vector2(this._worldSize.x, this._worldSize.y);
 
         var translation = -minimapSize / 2;
         var scaleRatio = minimapSize / worldSize;
 
-        transformationMatrix = Matrix4x4.TRS(translation, Quaternion.identity, scaleRatio);
+        _transformationMatrix = Matrix4x4.TRS(translation, Quaternion.identity, scaleRatio);
 
         //  {scaleRatio.x,   0,           0,   translation.x},
         //  {  0,        scaleRatio.y,    0,   translation.y},

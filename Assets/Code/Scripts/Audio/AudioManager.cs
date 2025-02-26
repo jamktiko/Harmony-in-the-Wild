@@ -1,21 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
 
+    [FormerlySerializedAs("themeAudioSource")]
     [Header("Themes")]
-    [SerializeField] private AudioSource themeAudioSource;
-    [SerializeField] private float themeTransitionTimeIn;
-    [SerializeField] private float themeTransitionTimeOut;
-    [HideInInspector] public bool themeTransitionOn = false;
-    [HideInInspector] public bool themeIsPlaying;
-    [SerializeField] private List<ThemeData> themeList;
+    [SerializeField] private AudioSource _themeAudioSource;
+    [FormerlySerializedAs("themeTransitionTimeIn")] [SerializeField] private float _themeTransitionTimeIn;
+    [FormerlySerializedAs("themeTransitionTimeOut")] [SerializeField] private float _themeTransitionTimeOut;
+    [FormerlySerializedAs("themeTransitionOn")] [HideInInspector] public bool ThemeTransitionOn = false;
+    [FormerlySerializedAs("themeIsPlaying")] [HideInInspector] public bool ThemeIsPlaying;
+    [FormerlySerializedAs("themeList")] [SerializeField] private List<ThemeData> _themeList;
 
+    [FormerlySerializedAs("audioList")]
     [Header("SFX")]
-    [SerializeField] private List<AudioObject> audioList;
+    [SerializeField] private List<AudioObject> _audioList;
 
     private void Awake()
     {
@@ -36,19 +39,19 @@ public class AudioManager : MonoBehaviour
         AudioObject newAudioData = new AudioObject();
 
         // locate new audio object
-        foreach (AudioObject audioObject in audioList)
+        foreach (AudioObject audioObject in _audioList)
         {
-            if (audioObject.name == audioToPlay)
+            if (audioObject.Name == audioToPlay)
             {
                 newAudioData = audioObject;
                 break;
             }
         }
 
-        GameObject spawnedAudioObject = Instantiate(newAudioData.audioPrefab, parent);
+        GameObject spawnedAudioObject = Instantiate(newAudioData.AudioPrefab, parent);
 
         // detach the object from the parent; if the parent is destroyed, the audio should still continue playing
-        if (!newAudioData.forceToBeUnderPlayer)
+        if (!newAudioData.ForceToBeUnderPlayer)
         {
             spawnedAudioObject.transform.parent = null;
         }
@@ -57,47 +60,47 @@ public class AudioManager : MonoBehaviour
         // however, the call for the audio to start currently needs to be in ability manager, so it doesn't have the reference
         else
         {
-            spawnedAudioObject.transform.parent = FoxMovement.instance.transform;
+            spawnedAudioObject.transform.parent = FoxMovement.Instance.transform;
             spawnedAudioObject.transform.position = spawnedAudioObject.transform.parent.position;
         }
     }
 
     public void EndCurrentTheme()
     {
-        if (themeAudioSource.clip == null)
+        if (_themeAudioSource.clip == null)
         {
             Debug.Log("No theme clip playing, cannot stop it.");
             return;
         }
 
-        themeTransitionOn = true;
+        ThemeTransitionOn = true;
 
-        Debug.Log($"About to finish theme: {themeAudioSource.clip.name}.");
+        Debug.Log($"About to finish theme: {_themeAudioSource.clip.name}.");
 
-        StartCoroutine(ChangeThemeVolume(false, themeAudioSource.volume));
+        StartCoroutine(ChangeThemeVolume(false, _themeAudioSource.volume));
     }
 
     public void StartNewTheme(ThemeName themeToPlay)
     {
-        themeTransitionOn = true;
+        ThemeTransitionOn = true;
 
         ThemeData newThemeData = new ThemeData();
 
-        foreach (ThemeData theme in themeList)
+        foreach (ThemeData theme in _themeList)
         {
-            if (theme.name == themeToPlay)
+            if (theme.Name == themeToPlay)
             {
                 newThemeData = theme;
                 break;
             }
         }
 
-        themeAudioSource.clip = newThemeData.clip;
-        themeAudioSource.Play();
+        _themeAudioSource.clip = newThemeData.Clip;
+        _themeAudioSource.Play();
 
         Debug.Log($"About to start theme: {themeToPlay}.");
 
-        StartCoroutine(ChangeThemeVolume(true, newThemeData.maxVolume));
+        StartCoroutine(ChangeThemeVolume(true, newThemeData.MaxVolume));
     }
 
     private IEnumerator ChangeThemeVolume(bool increaseVolume, float maxVolume)
@@ -106,31 +109,31 @@ public class AudioManager : MonoBehaviour
 
         if (increaseVolume)
         {
-            themeAudioSource.volume = 0f;
+            _themeAudioSource.volume = 0f;
 
-            while (themeAudioSource.volume < maxVolume)
+            while (_themeAudioSource.volume < maxVolume)
             {
-                themeAudioSource.volume = Mathf.Lerp(0, maxVolume, percentage);
-                percentage += Time.deltaTime / themeTransitionTimeIn;
+                _themeAudioSource.volume = Mathf.Lerp(0, maxVolume, percentage);
+                percentage += Time.deltaTime / _themeTransitionTimeIn;
                 yield return null;
             }
 
-            themeIsPlaying = true;
+            ThemeIsPlaying = true;
         }
 
         else
         {
-            while (themeAudioSource.volume > 0)
+            while (_themeAudioSource.volume > 0)
             {
-                themeAudioSource.volume = Mathf.Lerp(maxVolume, 0, percentage);
-                percentage += Time.deltaTime / themeTransitionTimeOut;
+                _themeAudioSource.volume = Mathf.Lerp(maxVolume, 0, percentage);
+                percentage += Time.deltaTime / _themeTransitionTimeOut;
                 yield return null;
             }
 
-            themeAudioSource.clip = null;
-            themeIsPlaying = false;
+            _themeAudioSource.clip = null;
+            ThemeIsPlaying = false;
         }
 
-        themeTransitionOn = false;
+        ThemeTransitionOn = false;
     }
 }

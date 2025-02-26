@@ -1,13 +1,14 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class SlidingOnIceAudioTrigger : MonoBehaviour
 {
-    [SerializeField] private float maxDelayTime = 5f;
-    [SerializeField] private float minDelayTime = 3f;
+    [FormerlySerializedAs("maxDelayTime")] [SerializeField] private float _maxDelayTime = 5f;
+    [FormerlySerializedAs("minDelayTime")] [SerializeField] private float _minDelayTime = 3f;
 
-    private float currentTime = 0f;
-    private float targetTime;
-    private bool canPlayAudio = false;
+    private float _currentTime = 0f;
+    private float _targetTime;
+    private bool _canPlayAudio = false;
 
     private void Start()
     {
@@ -17,25 +18,25 @@ public class SlidingOnIceAudioTrigger : MonoBehaviour
 
     private void OnEnable()
     {
-        PenguinRaceManager.instance.penguinDungeonEvents.onRaceFinished += DisableAudio;
-        GameEventsManager.instance.uiEvents.OnHideInstructionPanel += EnableAudio;
-        GameEventsManager.instance.playerEvents.OnToggleInputActions += ToggleAudioOnPause;
+        PenguinRaceManager.instance.PenguinDungeonEvents.OnRaceFinished += DisableAudio;
+        GameEventsManager.instance.UIEvents.OnHideInstructionPanel += EnableAudio;
+        GameEventsManager.instance.PlayerEvents.OnToggleInputActions += ToggleAudioOnPause;
     }
 
     private void OnDisable()
     {
-        PenguinRaceManager.instance.penguinDungeonEvents.onRaceFinished -= DisableAudio;
-        GameEventsManager.instance.uiEvents.OnHideInstructionPanel -= EnableAudio;
-        GameEventsManager.instance.playerEvents.OnToggleInputActions -= ToggleAudioOnPause;
+        PenguinRaceManager.instance.PenguinDungeonEvents.OnRaceFinished -= DisableAudio;
+        GameEventsManager.instance.UIEvents.OnHideInstructionPanel -= EnableAudio;
+        GameEventsManager.instance.PlayerEvents.OnToggleInputActions -= ToggleAudioOnPause;
     }
 
     private void Update()
     {
-        if (canPlayAudio)
+        if (_canPlayAudio)
         {
-            if (currentTime < targetTime)
+            if (_currentTime < _targetTime)
             {
-                currentTime += Time.deltaTime;
+                _currentTime += Time.deltaTime;
             }
 
             else
@@ -47,33 +48,33 @@ public class SlidingOnIceAudioTrigger : MonoBehaviour
 
     private void CheckForSlipperyAudio()
     {
-        float horizontalInput = PlayerInputHandler.instance.MoveInput.ReadValue<Vector2>().x;
-        float verticalInput = PlayerInputHandler.instance.MoveInput.ReadValue<Vector2>().y;
+        float horizontalInput = PlayerInputHandler.Instance.MoveInput.ReadValue<Vector2>().x;
+        float verticalInput = PlayerInputHandler.Instance.MoveInput.ReadValue<Vector2>().y;
 
         Debug.Log($"{horizontalInput}, {verticalInput}");
 
-        if ((horizontalInput != 0 || verticalInput != 0) && FoxMovement.instance.IsGrounded())
+        if ((horizontalInput != 0 || verticalInput != 0) && FoxMovement.Instance.IsGrounded())
         {
-            AudioManager.Instance.PlaySound(AudioName.Movement_SlidingOnIce, transform);
+            AudioManager.Instance.PlaySound(AudioName.MovementSlidingOnIce, transform);
         }
 
-        currentTime = 0f;
+        _currentTime = 0f;
         SetTargetTimeForNewCheck();
     }
 
     private void SetTargetTimeForNewCheck()
     {
-        targetTime = Random.Range(minDelayTime, maxDelayTime);
+        _targetTime = Random.Range(_minDelayTime, _maxDelayTime);
     }
 
     private void EnableAudio()
     {
-        canPlayAudio = true;
+        _canPlayAudio = true;
     }
 
     private void DisableAudio()
     {
-        canPlayAudio = false;
+        _canPlayAudio = false;
     }
 
     private void ToggleAudioOnPause(bool audioOn)

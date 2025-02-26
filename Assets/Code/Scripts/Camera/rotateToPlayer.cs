@@ -1,11 +1,12 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class rotateToPlayer : MonoBehaviour
+public class RotateToPlayer : MonoBehaviour
 {
-    [SerializeField] Transform fox;
+    [FormerlySerializedAs("fox")] [SerializeField] Transform _fox;
     // Update is called once per frame
     void FixedUpdate()
     {
-        transform.eulerAngles = new Vector3(-90, 0, fox.eulerAngles.y);
+        transform.eulerAngles = new Vector3(-90, 0, _fox.eulerAngles.y);
     }
 }

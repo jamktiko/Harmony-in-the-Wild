@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class PreventPlayerFromSinking : MonoBehaviour
 {
-    private Collider ownCollider;
+    private Collider _ownCollider;
 
     private void Start()
     {
-        ownCollider = GetComponent<Collider>();
+        _ownCollider = GetComponent<Collider>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -15,7 +15,7 @@ public class PreventPlayerFromSinking : MonoBehaviour
         {
             if (other.transform.position.y < transform.position.y)
             {
-                Physics.IgnoreCollision(other.GetComponent<Collider>(), ownCollider, true);
+                Physics.IgnoreCollision(other.GetComponent<Collider>(), _ownCollider, true);
             }
         }
     }
@@ -24,7 +24,7 @@ public class PreventPlayerFromSinking : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Trigger"))
         {
-            Physics.IgnoreCollision(other.GetComponent<Collider>(), ownCollider, false);
+            Physics.IgnoreCollision(other.GetComponent<Collider>(), _ownCollider, false);
         }
     }
 }

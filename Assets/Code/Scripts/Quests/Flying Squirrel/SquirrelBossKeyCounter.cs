@@ -1,23 +1,24 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class SquirrelBossKeyCounter : MonoBehaviour
 {
-    [SerializeField] private GameObject finalDoor;
-    [SerializeField] private FinishDungeonQuestStepWithTrigger finishDungeonScript;
-    private int collectedKeys = 0;
-    private int keysTotal = 5;
+    [FormerlySerializedAs("finalDoor")] [SerializeField] private GameObject _finalDoor;
+    [FormerlySerializedAs("finishDungeonScript")] [SerializeField] private FinishDungeonQuestStepWithTrigger _finishDungeonScript;
+    private int _collectedKeys = 0;
+    private int _keysTotal = 5;
 
     public void CollectKey()
     {
-        collectedKeys++;
+        _collectedKeys++;
 
-        GameEventsManager.instance.questEvents.UpdateQuestProgressInUI("Keys gathered " + collectedKeys + "/" + keysTotal);
+        GameEventsManager.instance.QuestEvents.UpdateQuestProgressInUI("Keys gathered " + _collectedKeys + "/" + _keysTotal);
 
-        if (collectedKeys >= keysTotal)
+        if (_collectedKeys >= _keysTotal)
         {
-            GameEventsManager.instance.questEvents.ShowQuestUI("The Flying Squirrel", "Find the final door and complete the quest", "");
-            finishDungeonScript.EnableInteraction();
-            finalDoor.SetActive(true);
+            GameEventsManager.instance.QuestEvents.ShowQuestUI("The Flying Squirrel", "Find the final door and complete the quest", "");
+            _finishDungeonScript.EnableInteraction();
+            _finalDoor.SetActive(true);
         }
     }
 }

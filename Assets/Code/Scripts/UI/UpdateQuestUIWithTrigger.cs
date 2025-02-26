@@ -1,14 +1,15 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class UpdateQuestUIWithTrigger : MonoBehaviour
 {
-    [SerializeField] private string updatedQuestProgressUI;
+    [FormerlySerializedAs("updatedQuestProgressUI")] [SerializeField] private string _updatedQuestProgressUI;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Trigger"))
         {
-            GameEventsManager.instance.questEvents.UpdateQuestProgressInUI(updatedQuestProgressUI);
+            GameEventsManager.instance.QuestEvents.UpdateQuestProgressInUI(_updatedQuestProgressUI);
             Destroy(this);
         }
     }

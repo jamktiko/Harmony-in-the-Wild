@@ -1,27 +1,30 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class RotateInteractionIndicator : MonoBehaviour
 {
+    [FormerlySerializedAs("pivotPoint")]
     [Header("Needed References")]
-    [SerializeField] private Transform pivotPoint;
-    [SerializeField] private RectTransform canvas;
-    [SerializeField] private RectTransform boxContent;
+    [SerializeField] private Transform _pivotPoint;
+    [FormerlySerializedAs("canvas")] [SerializeField] private RectTransform _canvas;
+    [FormerlySerializedAs("boxContent")] [SerializeField] private RectTransform _boxContent;
 
+    [FormerlySerializedAs("flipAngle")]
     [Header("Flip Config")]
-    [SerializeField] private float flipAngle;
-    private bool isFlipped = false;
+    [SerializeField] private float _flipAngle;
+    private bool _isFlipped = false;
 
-    private bool playerIsNear;
-    private Transform cameraOrientation;
+    private bool _playerIsNear;
+    private Transform _cameraOrientation;
 
-    private GameObject interactionIndicatorUI;
-    private bool isFlipping = true;
+    private GameObject _interactionIndicatorUI;
+    private bool _isFlipping = true;
 
     private void Start()
     {
-        interactionIndicatorUI = transform.GetChild(0).gameObject;
+        _interactionIndicatorUI = transform.GetChild(0).gameObject;
 
-        if (interactionIndicatorUI == null)
+        if (_interactionIndicatorUI == null)
         {
             Debug.Log(gameObject.name + " should have an interaction indicator, but it is missing a necessary component! Interaction indicator shall be disabled.");
             enabled = false;
@@ -29,13 +32,13 @@ public class RotateInteractionIndicator : MonoBehaviour
 
         else
         {
-            interactionIndicatorUI.SetActive(false);
+            _interactionIndicatorUI.SetActive(false);
         }
     }
 
     private void OnEnable()
     {
-        if (playerIsNear)
+        if (_playerIsNear)
         {
             DisableInteractionIndicator();
         }
@@ -43,7 +46,7 @@ public class RotateInteractionIndicator : MonoBehaviour
 
     private void Update()
     {
-        if (playerIsNear)
+        if (_playerIsNear)
         {
             TargetInteractionIndicatorTowardsPlayer();
         }
@@ -51,83 +54,83 @@ public class RotateInteractionIndicator : MonoBehaviour
 
     private void TargetInteractionIndicatorTowardsPlayer()
     {
-        Vector3 directionToPlayer = new Vector3(cameraOrientation.transform.position.x - interactionIndicatorUI.transform.position.x, 0, cameraOrientation.transform.position.z - interactionIndicatorUI.transform.position.z);
+        Vector3 directionToPlayer = new Vector3(_cameraOrientation.transform.position.x - _interactionIndicatorUI.transform.position.x, 0, _cameraOrientation.transform.position.z - _interactionIndicatorUI.transform.position.z);
 
         Quaternion rotation = Quaternion.LookRotation(directionToPlayer);
-        interactionIndicatorUI.transform.rotation = Quaternion.Euler(0, rotation.eulerAngles.y, 0);
+        _interactionIndicatorUI.transform.rotation = Quaternion.Euler(0, rotation.eulerAngles.y, 0);
 
         // if rotation is over set value, flip to the other pivot point
-        if (interactionIndicatorUI.transform.eulerAngles.y > flipAngle && interactionIndicatorUI.transform.eulerAngles.y < 180f && !isFlipped)
+        if (_interactionIndicatorUI.transform.eulerAngles.y > _flipAngle && _interactionIndicatorUI.transform.eulerAngles.y < 180f && !_isFlipped)
         {
-            isFlipped = true;
+            _isFlipped = true;
             FlipToOtherPivotPoint();
         }
 
-        else if ((interactionIndicatorUI.transform.eulerAngles.y <= flipAngle || interactionIndicatorUI.transform.eulerAngles.y >= 180f) && isFlipped)
+        else if ((_interactionIndicatorUI.transform.eulerAngles.y <= _flipAngle || _interactionIndicatorUI.transform.eulerAngles.y >= 180f) && _isFlipped)
         {
-            isFlipped = false;
+            _isFlipped = false;
             FlipToOtherPivotPoint();
         }
     }
 
     public void EnableInteractionIndicator(Transform orientation)
     {
-        playerIsNear = true;
-        cameraOrientation = orientation;
+        _playerIsNear = true;
+        _cameraOrientation = orientation;
 
-        interactionIndicatorUI.SetActive(true);
+        _interactionIndicatorUI.SetActive(true);
     }
 
     public void DisableInteractionIndicator()
     {
-        playerIsNear = false;
-        interactionIndicatorUI.SetActive(false);
+        _playerIsNear = false;
+        _interactionIndicatorUI.SetActive(false);
     }
 
     private void FlipToOtherPivotPoint()
     {
-        if (isFlipping)
+        if (_isFlipping)
         {
             return;
         }
 
-        isFlipping = true;
+        _isFlipping = true;
         Invoke(nameof(EnableFlipping), 0.5f);
 
         // change pivot point location
-        Vector3 newPivotPosition = pivotPoint.localPosition;
+        Vector3 newPivotPosition = _pivotPoint.localPosition;
         newPivotPosition.x *= -1f;
-        pivotPoint.localPosition = newPivotPosition;
+        _pivotPoint.localPosition = newPivotPosition;
 
         // change canvas transform settings
-        Vector3 newCanvasPosition = canvas.localPosition;
+        Vector3 newCanvasPosition = _canvas.localPosition;
         newCanvasPosition.x *= -1f;
-        canvas.localPosition = newCanvasPosition;
+        _canvas.localPosition = newCanvasPosition;
 
-        if (canvas.localRotation.y != 0)
+        if (_canvas.localRotation.y != 0)
         {
-            canvas.localRotation = Quaternion.Euler(0, 0, 0);
+            _canvas.localRotation = Quaternion.Euler(0, 0, 0);
         }
 
         else
         {
-            canvas.localRotation = Quaternion.Euler(0, 180, 0);
+            _canvas.localRotation = Quaternion.Euler(0, 180, 0);
         }
 
         // flip the content in the UI box
-        if (boxContent.localRotation.y != 0)
+        if (_boxContent.localRotation.y != 0)
         {
-            boxContent.localRotation = Quaternion.Euler(0, 0, 0);
+            _boxContent.localRotation = Quaternion.Euler(0, 0, 0);
         }
 
         else
         {
-            boxContent.localRotation = Quaternion.Euler(0, 180, 0);
+            _boxContent.localRotation = Quaternion.Euler(0, 180, 0);
         }
     }
 
     private void EnableFlipping()
     {
-        isFlipping = false;
+        _isFlipping = false;
     }
 }

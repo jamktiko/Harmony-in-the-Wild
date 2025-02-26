@@ -30,17 +30,17 @@ public class AbilityCycle : MonoBehaviour
     void Start()
     {
         InitializeAbilities();
-        _abilityKeys = new List<Abilities>(_activeAbilities.Keys);
+        _abilityKeys = new List<Abilities>(ActiveAbilities.Keys);
     }
 
     private void OnEnable()
     {
-        GameEventsManager.instance.playerEvents.OnToggleInputActions += ToggleInteractability;
+        GameEventsManager.instance.PlayerEvents.OnToggleInputActions += ToggleInteractability;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.playerEvents.OnToggleInputActions -= ToggleInteractability;
+        GameEventsManager.instance.PlayerEvents.OnToggleInputActions -= ToggleInteractability;
     }
 
     void Update()
@@ -49,18 +49,18 @@ public class AbilityCycle : MonoBehaviour
     }
     public void InitializeAbilities()
     {
-        _activeAbilities.Add(Abilities.None, true);
-        _activeAbilities.Add(Abilities.ChargeJumping, false);
-        _activeAbilities.Add(Abilities.TeleGrabbing, false);
-        _activeAbilities.Add(Abilities.Freezing, false);
+        ActiveAbilities.Add(Abilities.None, true);
+        ActiveAbilities.Add(Abilities.ChargeJumping, false);
+        ActiveAbilities.Add(Abilities.TeleGrabbing, false);
+        ActiveAbilities.Add(Abilities.Freezing, false);
     }
     private void SwitchAbility()
     {
-        if (PlayerInputHandler.instance.AbilityToggleInput.WasPressedThisFrame() && _canInteractWith)
+        if (PlayerInputHandler.Instance.AbilityToggleInput.WasPressedThisFrame() && _canInteractWith)
         {
-            _activeAbilities.TryGetValue(SelectedAbility, out bool isSelected);
+            ActiveAbilities.TryGetValue(SelectedAbility, out bool isSelected);
             //Debug.Log("1. Selected ability is: " + selectedAbility + " and it is: " + isSelected);
-            _activeAbilities[SelectedAbility] = false;
+            ActiveAbilities[SelectedAbility] = false;
 
             int currentIndex = _abilityKeys.IndexOf(SelectedAbility);
 
@@ -70,10 +70,10 @@ public class AbilityCycle : MonoBehaviour
                 currentIndex = (currentIndex + 1) % _abilityKeys.Count;
                 SelectedAbility = _abilityKeys[currentIndex];
 
-                bool isSelectedUnlocked = AbilityManager.Instance._abilityStatuses[SelectedAbility];
+                bool isSelectedUnlocked = AbilityManager.Instance.AbilityStatuses[SelectedAbility];
                 if (isSelectedUnlocked)
                 {
-                    _activeAbilities[SelectedAbility] = true;
+                    ActiveAbilities[SelectedAbility] = true;
 
                     _abilityUIText.text = "Selected Ability: " + SelectedAbility;
                     _abilityUIText.color = Color.black;

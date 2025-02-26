@@ -1,20 +1,21 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Minimap : MonoBehaviour
 {
-    public RenderTexture minimapTexture;
-    public float verticalInput;
+    [FormerlySerializedAs("minimapTexture")] public RenderTexture MinimapTexture;
+    [FormerlySerializedAs("verticalInput")] public float VerticalInput;
 
-    public Transform orientation;
+    [FormerlySerializedAs("orientation")] public Transform Orientation;
 
     // Update is called once per frame
     private void Update()
     {
-        verticalInput = Input.GetAxisRaw("Mouse X");
+        VerticalInput = Input.GetAxisRaw("Mouse X");
     }
     void LateUpdate()
     {
-        Graphics.Blit(null, minimapTexture);
+        Graphics.Blit(null, MinimapTexture);
     }
     private void FixedUpdate()
     {

@@ -1,39 +1,40 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class LoadingScene : MonoBehaviour
 {
     //public GameObject loadingScreen;
     //public Image loadBarFill;
-    public TMP_Text loadingScreenText;
-    public StorybookHandler storybookHandler;
+    [FormerlySerializedAs("loadingScreenText")] public TMP_Text LoadingScreenText;
+    [FormerlySerializedAs("storybookHandler")] public StorybookHandler StorybookHandler;
     //public int sceneIndex;
 
-    private GameObject loadingScreen;
+    private GameObject _loadingScreen;
 
     private void Start()
     {
         try
         {
-            storybookHandler = FindObjectOfType<StorybookHandler>();
+            StorybookHandler = FindObjectOfType<StorybookHandler>();
         }
         catch { }
         ;
 
-        loadingScreen = transform.GetChild(0).gameObject;
+        _loadingScreen = transform.GetChild(0).gameObject;
 
-        GameEventsManager.instance.uiEvents.OnShowLoadingScreen += ToggleLoadingScene;
+        GameEventsManager.instance.UIEvents.OnShowLoadingScreen += ToggleLoadingScene;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.uiEvents.OnShowLoadingScreen -= ToggleLoadingScene;
+        GameEventsManager.instance.UIEvents.OnShowLoadingScreen -= ToggleLoadingScene;
     }
 
     private void ToggleLoadingScene(SceneManagerHelper.Scene newScene)
     {
-        loadingScreen.SetActive(true);
+        _loadingScreen.SetActive(true);
 
         StartCoroutine(PlayLoadingScreen(newScene));
     }
@@ -49,7 +50,7 @@ public class LoadingScene : MonoBehaviour
 
         if (sceneName == SceneManagerHelper.Scene.NoName)
         {
-            operation = SceneManagerHelper.LoadSceneAsync(StorybookHandler.instance.GetNextScene());
+            operation = SceneManagerHelper.LoadSceneAsync(StorybookHandler.Instance.GetNextScene());
         }
 
         else
@@ -59,22 +60,22 @@ public class LoadingScene : MonoBehaviour
 
         while (!operation.isDone)
         {
-            loadingScreenText.text = "Loading.";
+            LoadingScreenText.text = "Loading.";
 
             yield return new WaitForSeconds(0.5f);
 
-            loadingScreenText.text = "Loading..";
+            LoadingScreenText.text = "Loading..";
 
             yield return new WaitForSeconds(0.5f);
 
-            loadingScreenText.text = "Loading...";
+            LoadingScreenText.text = "Loading...";
 
             yield return new WaitForSeconds(0.5f);
         }
 
         yield return new WaitForSeconds(1.2f);
 
-        loadingScreen.SetActive(false);
+        _loadingScreen.SetActive(false);
     }
 
     //public void LoadSceneWithBar(int sceneId) 

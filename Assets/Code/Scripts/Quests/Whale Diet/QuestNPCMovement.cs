@@ -1,63 +1,67 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class QuestNPCMovement : MonoBehaviour
+public class QuestNpcMovement : MonoBehaviour
 {
+    [FormerlySerializedAs("questSO")]
     [Header("Quest Config")]
-    [SerializeField] private QuestScriptableObject questSO;
-    [SerializeField] private DialogueQuestNPCs character;
+    [SerializeField] private QuestScriptableObject _questSo;
+    [FormerlySerializedAs("character")] [SerializeField] private DialogueQuestNpCs _character;
 
+    [FormerlySerializedAs("moveSpeed")]
     [Header("Movement Config")]
-    [SerializeField] private float moveSpeed = 2f;
-    [SerializeField] private float rotationSpeed = 1.5f;
-    [SerializeField] private float maxDistanceToPlayer = 10f;
+    [SerializeField] private float _moveSpeed = 2f;
+    [FormerlySerializedAs("rotationSpeed")] [SerializeField] private float _rotationSpeed = 1.5f;
+    [FormerlySerializedAs("maxDistanceToPlayer")] [SerializeField] private float _maxDistanceToPlayer = 10f;
 
+    [FormerlySerializedAs("destinations")]
     [Header("Nav Mesh Movement Config")]
 
     [Header("Needed References")]
-    [SerializeField] private List<Transform> destinations;
-    [SerializeField] private Transform player;
+    [SerializeField] private List<Transform> _destinations;
+    [FormerlySerializedAs("player")] [SerializeField] private Transform _player;
     //[SerializeField] private Animator animator;
 
-    private float defaultSpeed;
-    private Vector3 currentDestination;
-    private int currentDestinationIndex;
-    private bool playerIsNear;
-    private Coroutine idleCoroutine;
+    private float _defaultSpeed;
+    private Vector3 _currentDestination;
+    private int _currentDestinationIndex;
+    private bool _playerIsNear;
+    private Coroutine _idleCoroutine;
 
     private void Start()
     {
-        if (QuestManager.instance.CheckQuestState(questSO.id) == QuestState.CAN_FINISH)
+        if (QuestManager.Instance.CheckQuestState(_questSo.id) == QuestState.CanFinish)
         {
-            transform.position = destinations[destinations.Count - 1].position;
+            transform.position = _destinations[_destinations.Count - 1].position;
         }
 
         else
         {
-            defaultSpeed = moveSpeed;
-            currentDestination = destinations[0].position;
+            _defaultSpeed = _moveSpeed;
+            _currentDestination = _destinations[0].position;
         }
     }
 
     private void OnEnable()
     {
-        GameEventsManager.instance.questEvents.OnStartMovingQuestNPC += EnableMovement;
+        GameEventsManager.instance.QuestEvents.OnStartMovingQuestNpc += EnableMovement;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.questEvents.OnStartMovingQuestNPC -= EnableMovement;
+        GameEventsManager.instance.QuestEvents.OnStartMovingQuestNpc -= EnableMovement;
     }
 
     private void Update()
     {
-        playerIsNear = Vector3.Distance(transform.position, player.position) <= maxDistanceToPlayer;
+        _playerIsNear = Vector3.Distance(transform.position, _player.position) <= _maxDistanceToPlayer;
     }
 
-    private void EnableMovement(DialogueQuestNPCs characterToMove)
+    private void EnableMovement(DialogueQuestNpCs characterToMove)
     {
-        if (character == characterToMove)
+        if (_character == characterToMove)
         {
             StartCoroutine(WalkToDestination());
 
@@ -69,44 +73,44 @@ public class QuestNPCMovement : MonoBehaviour
     {
         // if the list contains a new destination, set it is current destination
         // otherwise use the first destination as a target to start a new loop
-        if (currentDestinationIndex < destinations.Count - 1)
+        if (_currentDestinationIndex < _destinations.Count - 1)
         {
-            currentDestinationIndex++;
+            _currentDestinationIndex++;
 
-            currentDestination = destinations[currentDestinationIndex].position;
+            _currentDestination = _destinations[_currentDestinationIndex].position;
 
             StartCoroutine(WalkToDestination());
         }
 
         else
         {
-            GameEventsManager.instance.questEvents.ReachWhaleDestination();
+            GameEventsManager.instance.QuestEvents.ReachWhaleDestination();
         }
     }
 
     private IEnumerator WalkToDestination()
     {
         // make sure there is no overlapping idle coroutines going
-        if (idleCoroutine != null)
+        if (_idleCoroutine != null)
         {
-            idleCoroutine = null;
+            _idleCoroutine = null;
         }
 
-        yield return new WaitUntil(() => playerIsNear);
+        yield return new WaitUntil(() => _playerIsNear);
 
         bool nearDestination = false;
 
-        while (!nearDestination && playerIsNear)
+        while (!nearDestination && _playerIsNear)
         {
             // move towards the target location
-            transform.position = Vector3.MoveTowards(transform.position, currentDestination, moveSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, _currentDestination, _moveSpeed * Time.deltaTime);
 
             // rotate towards the target location
-            Vector3 direction = (currentDestination - transform.position).normalized;
+            Vector3 direction = (_currentDestination - transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * _rotationSpeed);
 
-            if (Vector3.Distance(transform.position, currentDestination) < 1.5f)
+            if (Vector3.Distance(transform.position, _currentDestination) < 1.5f)
             {
                 nearDestination = true;
             }
@@ -114,20 +118,20 @@ public class QuestNPCMovement : MonoBehaviour
             yield return null;
         }
 
-        if (playerIsNear)
+        if (_playerIsNear)
         {
             SetNewDestination();
         }
 
         else
         {
-            idleCoroutine = StartCoroutine(Idle());
+            _idleCoroutine = StartCoroutine(Idle());
         }
     }
 
     private IEnumerator Idle()
     {
-        yield return new WaitUntil(() => playerIsNear);
+        yield return new WaitUntil(() => _playerIsNear);
 
         StartCoroutine(WalkToDestination());
     }

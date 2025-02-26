@@ -1,18 +1,19 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class MidQuestCollider : MonoBehaviour
 {
-    [SerializeField] private QuestScriptableObject quest;
+    [FormerlySerializedAs("quest")] [SerializeField] private QuestScriptableObject _quest;
 
-    private QuestState currentState;
-    private List<Transform> childColliders = new List<Transform>();
+    private QuestState _currentState;
+    private List<Transform> _childColliders = new List<Transform>();
 
     private void Start()
     {
         CheckQuestProgressStatus();
 
-        if (currentState != QuestState.FINISHED)
+        if (_currentState != QuestState.Finished)
         {
             return;
         }
@@ -25,17 +26,17 @@ public class MidQuestCollider : MonoBehaviour
 
     private void OnEnable()
     {
-        GameEventsManager.instance.questEvents.OnFinishQuest += UpdateQuestProgressStatus;
+        GameEventsManager.instance.QuestEvents.OnFinishQuest += UpdateQuestProgressStatus;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.questEvents.OnFinishQuest -= UpdateQuestProgressStatus;
+        GameEventsManager.instance.QuestEvents.OnFinishQuest -= UpdateQuestProgressStatus;
     }
 
     private void CheckQuestProgressStatus()
     {
-        currentState = QuestManager.instance.CheckQuestState(quest.id);
+        _currentState = QuestManager.Instance.CheckQuestState(_quest.id);
     }
 
     private void DisableQuestColliders()
@@ -48,11 +49,11 @@ public class MidQuestCollider : MonoBehaviour
 
     private void UpdateQuestProgressStatus(string id)
     {
-        if (id == quest.id)
+        if (id == _quest.id)
         {
             CheckQuestProgressStatus();
 
-            if (currentState == QuestState.FINISHED && transform.childCount > 0)
+            if (_currentState == QuestState.Finished && transform.childCount > 0)
             {
                 DisableQuestColliders();
             }
@@ -61,6 +62,6 @@ public class MidQuestCollider : MonoBehaviour
 
     public void AddChildTransformToList(Transform child)
     {
-        childColliders.Add(child);
+        _childColliders.Add(child);
     }
 }

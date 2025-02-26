@@ -4,20 +4,20 @@ public class WhaleFinalDestination : QuestStep
 {
     private void Start()
     {
-        GameEventsManager.instance.questEvents.StartMovingQuestNPC(DialogueQuestNPCs.Whale);
+        GameEventsManager.instance.QuestEvents.StartMovingQuestNpc(DialogueQuestNpCs.Whale);
 
-        GameEventsManager.instance.questEvents.ShowQuestUI(GetQuestId(), objective, progress);
+        GameEventsManager.instance.QuestEvents.ShowQuestUI(GetQuestId(), Objective, Progress);
     }
 
     private void OnEnable()
     {
-        GameEventsManager.instance.questEvents.OnReachWhaleDestination += CompleteQuestStep;
+        GameEventsManager.instance.QuestEvents.OnReachWhaleDestination += CompleteQuestStep;
         SceneManager.sceneLoaded += TriggerMovement;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.questEvents.OnReachWhaleDestination -= CompleteQuestStep;
+        GameEventsManager.instance.QuestEvents.OnReachWhaleDestination -= CompleteQuestStep;
         SceneManager.sceneLoaded -= TriggerMovement;
     }
 
@@ -25,9 +25,9 @@ public class WhaleFinalDestination : QuestStep
     {
         if (scene.name.Contains("Overworld", System.StringComparison.CurrentCultureIgnoreCase))
         {
-            GameEventsManager.instance.questEvents.StartMovingQuestNPC(DialogueQuestNPCs.Whale);
+            GameEventsManager.instance.QuestEvents.StartMovingQuestNpc(DialogueQuestNpCs.Whale);
 
-            GameEventsManager.instance.questEvents.ShowQuestUI(GetQuestId(), objective, progress);
+            GameEventsManager.instance.QuestEvents.ShowQuestUI(GetQuestId(), Objective, Progress);
         }
     }
 

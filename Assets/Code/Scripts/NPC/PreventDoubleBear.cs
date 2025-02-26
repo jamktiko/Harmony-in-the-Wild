@@ -1,9 +1,10 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class PreventDoubleBear : MonoBehaviour
 {
-    [SerializeField] private QuestScriptableObject tutorialQuest;
+    [FormerlySerializedAs("tutorialQuest")] [SerializeField] private QuestScriptableObject _tutorialQuest;
 
     private void Awake()
     {
@@ -19,9 +20,9 @@ public class PreventDoubleBear : MonoBehaviour
     {
         if (!scene.name.Contains("Overworld", System.StringComparison.CurrentCultureIgnoreCase))
         {
-            QuestState currentState = QuestManager.instance.CheckQuestState(tutorialQuest.id);
+            QuestState currentState = QuestManager.Instance.CheckQuestState(_tutorialQuest.id);
 
-            if (currentState == QuestState.FINISHED)
+            if (currentState == QuestState.Finished)
             {
                 Destroy(gameObject);
             }

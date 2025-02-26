@@ -1,13 +1,15 @@
-public class CollectableQuestStep_BoneToPick : QuestStep
+using UnityEngine.Serialization;
+
+public class CollectableQuestStepBoneToPick : QuestStep
 {
-    public int itemsCollected = 0;
-    private int itemToComplete = 1;
+    [FormerlySerializedAs("itemsCollected")] public int ItemsCollected = 0;
+    private int _itemToComplete = 1;
 
     public void CollectableProgress()
     {
-        itemsCollected++;
+        ItemsCollected++;
         UpdateState();
-        if (itemsCollected >= itemToComplete)
+        if (ItemsCollected >= _itemToComplete)
         {
             FinishQuestStep();
         }
@@ -18,13 +20,13 @@ public class CollectableQuestStep_BoneToPick : QuestStep
 
     private void UpdateState()
     {
-        string state = itemsCollected.ToString();
+        string state = ItemsCollected.ToString();
         ChangeState(state);
     }
 
     protected override void SetQuestStepState(string state)
     {
-        itemsCollected = System.Int32.Parse(state);
+        ItemsCollected = System.Int32.Parse(state);
         UpdateState();
     }
 }

@@ -1,30 +1,31 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
-public class TalkToNPCQuestStep : QuestStep
+public class TalkToNpcQuestStep : QuestStep
 {
-    [SerializeField] DialogueVariables dialogueToPassForProgress;
-    [SerializeField] private int midQuestDialogueIndex = 0;
-    [SerializeField] private DialogueQuestNPCs character = DialogueQuestNPCs.Whale;
-    private bool canProgressQuest;
+    [FormerlySerializedAs("dialogueToPassForProgress")] [SerializeField] DialogueVariables _dialogueToPassForProgress;
+    [FormerlySerializedAs("midQuestDialogueIndex")] [SerializeField] private int _midQuestDialogueIndex = 0;
+    [FormerlySerializedAs("character")] [SerializeField] private DialogueQuestNpCs _character = DialogueQuestNpCs.Whale;
+    private bool _canProgressQuest;
 
     private void Start()
     {
-        GameEventsManager.instance.questEvents.ShowQuestUI(GetQuestId(), objective, progress);
-        GameEventsManager.instance.dialogueEvents.SetMidQuestDialogue(midQuestDialogueIndex, GetQuestId());
+        GameEventsManager.instance.QuestEvents.ShowQuestUI(GetQuestId(), Objective, Progress);
+        GameEventsManager.instance.DialogueEvents.SetMidQuestDialogue(_midQuestDialogueIndex, GetQuestId());
     }
 
     private void OnEnable()
     {
-        GameEventsManager.instance.dialogueEvents.OnChangeDialogueVariable += CheckProgressInDialogue;
-        GameEventsManager.instance.dialogueEvents.OnRegisterPlayerNearNPC += PlayerIsClose;
+        GameEventsManager.instance.DialogueEvents.OnChangeDialogueVariable += CheckProgressInDialogue;
+        GameEventsManager.instance.DialogueEvents.OnRegisterPlayerNearNpc += PlayerIsClose;
         SceneManager.sceneLoaded += SetInfoInOverworld;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.dialogueEvents.OnChangeDialogueVariable -= CheckProgressInDialogue;
-        GameEventsManager.instance.dialogueEvents.OnRegisterPlayerNearNPC -= PlayerIsClose;
+        GameEventsManager.instance.DialogueEvents.OnChangeDialogueVariable -= CheckProgressInDialogue;
+        GameEventsManager.instance.DialogueEvents.OnRegisterPlayerNearNpc -= PlayerIsClose;
         SceneManager.sceneLoaded -= SetInfoInOverworld;
     }
 
@@ -32,14 +33,14 @@ public class TalkToNPCQuestStep : QuestStep
     {
         if (scene.name.Contains("Overworld", System.StringComparison.CurrentCultureIgnoreCase))
         {
-            GameEventsManager.instance.dialogueEvents.SetMidQuestDialogue(midQuestDialogueIndex, GetQuestId());
-            GameEventsManager.instance.questEvents.ShowQuestUI(GetQuestId(), objective, progress);
+            GameEventsManager.instance.DialogueEvents.SetMidQuestDialogue(_midQuestDialogueIndex, GetQuestId());
+            GameEventsManager.instance.QuestEvents.ShowQuestUI(GetQuestId(), Objective, Progress);
         }
     }
 
     private void CheckProgressInDialogue(DialogueVariables changedVariable)
     {
-        if (changedVariable == dialogueToPassForProgress && canProgressQuest)
+        if (changedVariable == _dialogueToPassForProgress && _canProgressQuest)
         {
             FinishQuestStep();
         }
@@ -50,11 +51,11 @@ public class TalkToNPCQuestStep : QuestStep
         }
     }
 
-    private void PlayerIsClose(DialogueQuestNPCs npc, bool isClose)
+    private void PlayerIsClose(DialogueQuestNpCs npc, bool isClose)
     {
-        if (npc == character)
+        if (npc == _character)
         {
-            canProgressQuest = isClose;
+            _canProgressQuest = isClose;
         }
     }
 

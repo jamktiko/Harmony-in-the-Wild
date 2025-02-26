@@ -1,25 +1,27 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class DungeonEnding : MonoBehaviour
 {
     public const string StorybookSceneName = "Storybook";
 
+    [FormerlySerializedAs("questSO")]
     [Header("Config")]
-    [SerializeField] private QuestScriptableObject questSO;
-    [SerializeField] private int storybookSectionIndex;
-    [SerializeField] private SceneManagerHelper.Scene goToScene = SceneManagerHelper.Scene.Overworld;
+    [SerializeField] private QuestScriptableObject _questSo;
+    [FormerlySerializedAs("storybookSectionIndex")] [SerializeField] private int _storybookSectionIndex;
+    [FormerlySerializedAs("goToScene")] [SerializeField] private SceneManagerHelper.Scene _goToScene = SceneManagerHelper.Scene.Overworld;
 
-    private AudioSource audioSource; //NOTE: USe descriptive name
-    private string questId;
+    private AudioSource _audioSource; //NOTE: USe descriptive name
+    private string _questId;
 
     private void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        _audioSource = GetComponent<AudioSource>();
 
-        if (questSO != null)
+        if (_questSo != null)
         {
-            questId = questSO.id;
+            _questId = _questSo.id;
         }
 
         else
@@ -31,18 +33,18 @@ public class DungeonEnding : MonoBehaviour
     private void OnEnable()
     {
         //GameEventsManager.instance.questEvents.OnFinishQuest += TriggerSceneTransition;
-        GameEventsManager.instance.questEvents.OnQuestStateChange += TriggerSceneTransition;
+        GameEventsManager.instance.QuestEvents.OnQuestStateChange += TriggerSceneTransition;
     }
 
     private void OnDisable()
     {
         //GameEventsManager.instance.questEvents.OnFinishQuest -= TriggerSceneTransition;
-        GameEventsManager.instance.questEvents.OnQuestStateChange -= TriggerSceneTransition;
+        GameEventsManager.instance.QuestEvents.OnQuestStateChange -= TriggerSceneTransition;
     }
 
     private void TriggerSceneTransition(Quest quest)
     {
-        if (quest.info.id == questId && quest.state == QuestState.CAN_FINISH)
+        if (quest.Info.id == _questId && quest.State == QuestState.CanFinish)
         {
             Debug.Log("Corresponding dungeon quest finished...");
             StartCoroutine(ShowDungeonCompletedStorybook());
@@ -50,18 +52,18 @@ public class DungeonEnding : MonoBehaviour
 
         else
         {
-            Debug.LogError("ID not matching for the current quest: " + quest.info.id);
+            Debug.LogError("ID not matching for the current quest: " + quest.Info.id);
         }
     }
 
     private IEnumerator ShowDungeonCompletedStorybook()
     {
         Debug.Log("Playing audio for dungeon completion and preparing to change scene...");
-        audioSource.Play();
+        _audioSource.Play();
 
-        yield return new WaitForSeconds(audioSource.clip.length + 0.5f);
+        yield return new WaitForSeconds(_audioSource.clip.length + 0.5f);
 
-        StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, goToScene, false);
+        StorybookHandler.Instance.SetNewStorybookData(_storybookSectionIndex, _goToScene, false);
         SceneManagerHelper.LoadScene(SceneManagerHelper.Scene.Storybook);
     }
 

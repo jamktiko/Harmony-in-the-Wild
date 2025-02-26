@@ -1,13 +1,14 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class TrailerCameraDevTool : MonoBehaviour
 {
 #if DEBUG
-    public float moveSpeed = 5f;
-    public float mouseSensitivity = 2f;
+    [FormerlySerializedAs("moveSpeed")] public float MoveSpeed = 5f;
+    [FormerlySerializedAs("mouseSensitivity")] public float MouseSensitivity = 2f;
 
-    private float pitch = 0f;  // Vertical rotation (up and down)
-    private float yaw = 0f;    // Horizontal rotation (left and right)
+    private float _pitch = 0f;  // Vertical rotation (up and down)
+    private float _yaw = 0f;    // Horizontal rotation (left and right)
 
     void Start()
     {
@@ -18,32 +19,32 @@ public class TrailerCameraDevTool : MonoBehaviour
 
     void Update()
     {
-        float horizontalInput = PlayerInputHandler.instance.MoveInput.ReadValue<Vector2>().x;
-        float verticalInput = PlayerInputHandler.instance.MoveInput.ReadValue<Vector2>().y;
+        float horizontalInput = PlayerInputHandler.Instance.MoveInput.ReadValue<Vector2>().x;
+        float verticalInput = PlayerInputHandler.Instance.MoveInput.ReadValue<Vector2>().y;
 
         Vector3 movement = transform.forward * verticalInput + transform.right * horizontalInput;
-        transform.position += movement * moveSpeed * Time.deltaTime;
+        transform.position += movement * MoveSpeed * Time.deltaTime;
 
         // Mouse Input
-        float mouseX = PlayerInputHandler.instance.LookInput.ReadValue<Vector2>().x * mouseSensitivity;
-        float mouseY = PlayerInputHandler.instance.LookInput.ReadValue<Vector2>().y * mouseSensitivity;
+        float mouseX = PlayerInputHandler.Instance.LookInput.ReadValue<Vector2>().x * MouseSensitivity;
+        float mouseY = PlayerInputHandler.Instance.LookInput.ReadValue<Vector2>().y * MouseSensitivity;
 
         // Adjust the rotation based on the mouse movement
-        yaw += mouseX;
-        pitch -= mouseY;
-        pitch = Mathf.Clamp(pitch, -90f, 90f); // Limiting the pitch to avoid flipping
+        _yaw += mouseX;
+        _pitch -= mouseY;
+        _pitch = Mathf.Clamp(_pitch, -90f, 90f); // Limiting the pitch to avoid flipping
 
         // Apply rotation to the player
-        transform.eulerAngles = new Vector3(pitch, yaw, 0.0f);
+        transform.eulerAngles = new Vector3(_pitch, _yaw, 0.0f);
 
-        if (PlayerInputHandler.instance.DebugIncreaseTrailerCameraSpeed.WasPressedThisFrame())
+        if (PlayerInputHandler.Instance.DebugIncreaseTrailerCameraSpeed.WasPressedThisFrame())
         {
-            moveSpeed += 2f;
+            MoveSpeed += 2f;
         }
 
-        else if (PlayerInputHandler.instance.DebugDecreaseTrailerCameraSpeed.WasPressedThisFrame())
+        else if (PlayerInputHandler.Instance.DebugDecreaseTrailerCameraSpeed.WasPressedThisFrame())
         {
-            moveSpeed -= 2f;
+            MoveSpeed -= 2f;
         }
     }
 #endif

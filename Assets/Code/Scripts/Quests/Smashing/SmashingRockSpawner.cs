@@ -1,25 +1,28 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class SmashingRockSpawner : MonoBehaviour
 {
+    [FormerlySerializedAs("respawnTime")]
     [Header("Config")]
-    [SerializeField] private float respawnTime;
+    [SerializeField] private float _respawnTime;
 
+    [FormerlySerializedAs("rockPrefab")]
     [Header("Needed References")]
-    [SerializeField] private GameObject rockPrefab;
-    [SerializeField] private GameObject spawnEffect;
+    [SerializeField] private GameObject _rockPrefab;
+    [FormerlySerializedAs("spawnEffect")] [SerializeField] private GameObject _spawnEffect;
 
-    public static SmashingRockSpawner instance;
+    public static SmashingRockSpawner Instance;
 
     private void Awake()
     {
-        if (instance != null)
+        if (Instance != null)
         {
             Debug.LogWarning("There is more than one Smashing Rock Spawner.");
         }
 
-        instance = this;
+        Instance = this;
     }
 
     public void SpawnStartingRocks()
@@ -28,8 +31,8 @@ public class SmashingRockSpawner : MonoBehaviour
         Debug.Log("Ore rock index: " + oreRockIndex);
         for (int i = 0; i < transform.childCount; i++)
         {
-            Instantiate(spawnEffect, transform.GetChild(i).position, Quaternion.identity);
-            GameObject newRock = Instantiate(rockPrefab, transform.GetChild(i));
+            Instantiate(_spawnEffect, transform.GetChild(i).position, Quaternion.identity);
+            GameObject newRock = Instantiate(_rockPrefab, transform.GetChild(i));
 
             if (i == oreRockIndex)
             {
@@ -54,7 +57,7 @@ public class SmashingRockSpawner : MonoBehaviour
 
     private IEnumerator RespawnDelay()
     {
-        yield return new WaitForSeconds(respawnTime);
+        yield return new WaitForSeconds(_respawnTime);
 
         SpawnStartingRocks();
     }
@@ -65,7 +68,7 @@ public class SmashingRockSpawner : MonoBehaviour
         {
             if (child.childCount > 0)
             {
-                Instantiate(spawnEffect, child.position, Quaternion.identity);
+                Instantiate(_spawnEffect, child.position, Quaternion.identity);
                 Destroy(child.transform.GetChild(0).gameObject);
             }
         }

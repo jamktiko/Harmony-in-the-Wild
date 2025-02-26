@@ -17,13 +17,13 @@ public class Freezable : MonoBehaviour
     [SerializeField] private AudioSource _freeze;
     [SerializeField] private AudioClip _freezeClip;
 
-    private Rigidbody rb;
-    private Vector3 targetPosition;
-    private Dictionary<Renderer, Material> originalMaterials = new Dictionary<Renderer, Material>();
+    private Rigidbody _rb;
+    private Vector3 _targetPosition;
+    private Dictionary<Renderer, Material> _originalMaterials = new Dictionary<Renderer, Material>();
 
     private void Start()
     {
-        TryGetComponent<Rigidbody>(out rb);
+        TryGetComponent<Rigidbody>(out _rb);
 
         if (_canBeFrozen == null)
         {
@@ -38,7 +38,7 @@ public class Freezable : MonoBehaviour
 
     private void OnEnable()
     {
-        if (originalMaterials.Count > 0)
+        if (_originalMaterials.Count > 0)
         {
             SwapMaterials(false);
         }
@@ -62,10 +62,10 @@ public class Freezable : MonoBehaviour
             Debug.LogWarning("No Audio Source assigned for " + gameObject.name + "; no freezing audio played.");
         }
 
-        if (rb != null)
+        if (_rb != null)
         {
-            rb.useGravity = false;
-            rb.constraints = RigidbodyConstraints.FreezeAll;
+            _rb.useGravity = false;
+            _rb.constraints = RigidbodyConstraints.FreezeAll;
 
         }
 
@@ -86,10 +86,10 @@ public class Freezable : MonoBehaviour
 
         IsFrozen = false;
 
-        if (rb != null)
+        if (_rb != null)
         {
-            rb.useGravity = true;
-            rb.constraints = RigidbodyConstraints.None;
+            _rb.useGravity = true;
+            _rb.constraints = RigidbodyConstraints.None;
         }
 
         if (_canBeFrozen != null)
@@ -100,7 +100,7 @@ public class Freezable : MonoBehaviour
         Debug.Log(gameObject.name + " has been unfrozen.");
     }
 
-    private void SwapMaterials(bool toFrozen)
+    private void SwapMaterials(bool _toFrozen)
     {
         // Assuming "Rocks" is a direct child of the game object this script is attached to.
         Transform rocksParent = transform.Find("Rocks");
@@ -115,12 +115,12 @@ public class Freezable : MonoBehaviour
             Renderer childRenderer = child.GetComponent<Renderer>();
             if (childRenderer != null)
             {
-                if (toFrozen)
+                if (_toFrozen)
                 {
                     // Store the original material if not already stored.
-                    if (!originalMaterials.ContainsKey(childRenderer))
+                    if (!_originalMaterials.ContainsKey(childRenderer))
                     {
-                        originalMaterials.Add(childRenderer, childRenderer.material);
+                        _originalMaterials.Add(childRenderer, childRenderer.material);
                         Debug.Log($"[SwapMaterials] Stored original material for {child.name}.");
                     }
 
@@ -131,7 +131,7 @@ public class Freezable : MonoBehaviour
                 else
                 {
                     // Revert to the original material if stored.
-                    if (originalMaterials.TryGetValue(childRenderer, out Material originalMat))
+                    if (_originalMaterials.TryGetValue(childRenderer, out Material originalMat))
                     {
                         childRenderer.material = originalMat;
                         Debug.Log($"[SwapMaterials] Reverted to original material for {child.name}.");

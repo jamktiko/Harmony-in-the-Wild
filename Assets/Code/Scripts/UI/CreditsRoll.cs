@@ -1,26 +1,27 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class CreditsRoll : MonoBehaviour
 {
-    [SerializeField] GameObject credits;
+    [FormerlySerializedAs("credits")] [SerializeField] GameObject _credits;
 
-    [SerializeField] Vector3 move = new Vector3(0, 5, 0);
+    [FormerlySerializedAs("move")] [SerializeField] Vector3 _move = new Vector3(0, 5, 0);
 
-    private RectTransform rectTransform;
+    private RectTransform _rectTransform;
 
     private void Start()
     {
         Debug.Log("IN CREDITS");
-        rectTransform = GetComponent<RectTransform>();
+        _rectTransform = GetComponent<RectTransform>();
     }
 
     private void FixedUpdate()
     {
-        transform.Translate(move);
+        transform.Translate(_move);
 
         if (transform.position.y > 9000)
         {
-            rectTransform.anchoredPosition = new Vector2(0f, -1200f);
+            _rectTransform.anchoredPosition = new Vector2(0f, -1200f);
         }
 
         //else

@@ -3,16 +3,16 @@ using UnityEngine;
 
 public class GhostRelatives : MonoBehaviour
 {
-    public static GhostRelatives instance;
+    public static GhostRelatives Instance;
 
     private void Awake()
     {
-        if (instance != null)
+        if (Instance != null)
         {
             Debug.LogWarning("There is more than one Ghost Relatives.");
         }
 
-        instance = this;
+        Instance = this;
     }
 
     public List<GameObject> GetGhostRelatives()

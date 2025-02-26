@@ -1,30 +1,31 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ToggleCinematicCamera : MonoBehaviour
 {
-    [SerializeField] private GameObject playerCamera;
+    [FormerlySerializedAs("playerCamera")] [SerializeField] private GameObject _playerCamera;
 
     private void OnEnable()
     {
-        GameEventsManager.instance.cinematicsEvents.OnStartCinematics += EnableCamera;
-        GameEventsManager.instance.cinematicsEvents.OnEndCinematics += DisableCamera;
+        GameEventsManager.instance.CinematicsEvents.OnStartCinematics += EnableCamera;
+        GameEventsManager.instance.CinematicsEvents.OnEndCinematics += DisableCamera;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.cinematicsEvents.OnStartCinematics -= EnableCamera;
-        GameEventsManager.instance.cinematicsEvents.OnEndCinematics -= DisableCamera;
+        GameEventsManager.instance.CinematicsEvents.OnStartCinematics -= EnableCamera;
+        GameEventsManager.instance.CinematicsEvents.OnEndCinematics -= DisableCamera;
     }
 
     private void DisableCamera()
     {
         transform.GetChild(0).gameObject.SetActive(false);
-        playerCamera.SetActive(true);
+        _playerCamera.SetActive(true);
     }
 
     private void EnableCamera()
     {
         transform.GetChild(0).gameObject.SetActive(true);
-        playerCamera.SetActive(false);
+        _playerCamera.SetActive(false);
     }
 }

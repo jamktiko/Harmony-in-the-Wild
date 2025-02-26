@@ -1,21 +1,22 @@
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.Serialization;
 
 public class StartUI : MonoBehaviour
 {
-    public bool alwaysDisplayMouse;
-    public GameObject pauseCanvas;
-    public GameObject optionsCanvas;
-    public GameObject controlsCanvas;
-    public GameObject audioCanvas;
+    [FormerlySerializedAs("alwaysDisplayMouse")] public bool AlwaysDisplayMouse;
+    [FormerlySerializedAs("pauseCanvas")] public GameObject PauseCanvas;
+    [FormerlySerializedAs("optionsCanvas")] public GameObject OptionsCanvas;
+    [FormerlySerializedAs("controlsCanvas")] public GameObject ControlsCanvas;
+    [FormerlySerializedAs("audioCanvas")] public GameObject AudioCanvas;
 
-    protected bool m_InPause;
-    protected PlayableDirector[] m_Directors;
+    protected bool _mInPause;
+    protected PlayableDirector[] _mDirectors;
 
     void Start()
     {
-        if (!alwaysDisplayMouse)
+        if (!AlwaysDisplayMouse)
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
@@ -26,7 +27,7 @@ public class StartUI : MonoBehaviour
             Cursor.visible = true;
         }
 
-        m_Directors = FindObjectsOfType<PlayableDirector>();
+        _mDirectors = FindObjectsOfType<PlayableDirector>();
     }
 
     public void Quit()
@@ -40,19 +41,19 @@ public class StartUI : MonoBehaviour
 
     public void ExitPause()
     {
-        m_InPause = true;
+        _mInPause = true;
         SwitchPauseState();
     }
 
     public void RestartLevel()
     {
-        m_InPause = true;
+        _mInPause = true;
         SwitchPauseState();
     }
 
     void Update()
     {
-        if (PlayerInputHandler.instance.PauseInput != null && PlayerInputHandler.instance.PauseInput.WasPressedThisFrame())
+        if (PlayerInputHandler.Instance.PauseInput != null && PlayerInputHandler.Instance.PauseInput.WasPressedThisFrame())
         {
             SwitchPauseState();
         }
@@ -60,46 +61,46 @@ public class StartUI : MonoBehaviour
 
     protected void SwitchPauseState()
     {
-        if (m_InPause && Time.timeScale > 0 || !m_InPause)
+        if (_mInPause && Time.timeScale > 0 || !_mInPause)
             return;
 
-        if (!alwaysDisplayMouse)
+        if (!AlwaysDisplayMouse)
         {
-            Cursor.lockState = m_InPause ? CursorLockMode.Locked : CursorLockMode.None;
-            Cursor.visible = !m_InPause;
+            Cursor.lockState = _mInPause ? CursorLockMode.Locked : CursorLockMode.None;
+            Cursor.visible = !_mInPause;
         }
 
-        for (int i = 0; i < m_Directors.Length; i++)
+        for (int i = 0; i < _mDirectors.Length; i++)
         {
-            if (m_Directors[i].state == PlayState.Playing && !m_InPause)
+            if (_mDirectors[i].state == PlayState.Playing && !_mInPause)
             {
-                m_Directors[i].Pause();
+                _mDirectors[i].Pause();
             }
-            else if (m_Directors[i].state == PlayState.Paused && m_InPause)
+            else if (_mDirectors[i].state == PlayState.Paused && _mInPause)
             {
-                m_Directors[i].Resume();
+                _mDirectors[i].Resume();
             }
         }
 
-        if (m_InPause)
-            PlayerInputHandler.instance.playerInputActionMap.Disable();
+        if (_mInPause)
+            PlayerInputHandler.Instance.PlayerInputActionMap.Disable();
         else
-            PlayerInputHandler.instance.playerInputActionMap.Enable();
+            PlayerInputHandler.Instance.PlayerInputActionMap.Enable();
 
-        Time.timeScale = m_InPause ? 1 : 0;
+        Time.timeScale = _mInPause ? 1 : 0;
 
-        if (pauseCanvas)
-            pauseCanvas.SetActive(!m_InPause);
+        if (PauseCanvas)
+            PauseCanvas.SetActive(!_mInPause);
 
-        if (optionsCanvas)
-            optionsCanvas.SetActive(false);
+        if (OptionsCanvas)
+            OptionsCanvas.SetActive(false);
 
-        if (controlsCanvas)
-            controlsCanvas.SetActive(false);
+        if (ControlsCanvas)
+            ControlsCanvas.SetActive(false);
 
-        if (audioCanvas)
-            audioCanvas.SetActive(false);
+        if (AudioCanvas)
+            AudioCanvas.SetActive(false);
 
-        m_InPause = !m_InPause;
+        _mInPause = !_mInPause;
     }
 }

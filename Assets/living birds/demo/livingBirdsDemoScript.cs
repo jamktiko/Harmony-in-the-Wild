@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class livingBirdsDemoScript : MonoBehaviour
 {
-    public lb_BirdController birdControl;
+    public LBBirdController birdControl;
     public Camera camera1;
     public Camera camera2;
 
@@ -15,7 +15,7 @@ public class livingBirdsDemoScript : MonoBehaviour
     void Start()
     {
         currentCamera = Camera.main;
-        birdControl = GameObject.Find("_livingBirdsController").GetComponent<lb_BirdController>();
+        birdControl = GameObject.Find("_livingBirdsController").GetComponent<LBBirdController>();
         SpawnSomeBirds();
     }
 

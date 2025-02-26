@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Book))]
 public class AutoFlip : MonoBehaviour
@@ -10,21 +11,22 @@ public class AutoFlip : MonoBehaviour
     public bool AutoStartFlip = true;
     public Book ControledBook;
     public int AnimationFramesCount = 40;
-    bool isFlipping = false;
+    bool _isFlipping = false;
     // Use this for initialization
 
-    private AudioSource audioSource;
-    private int maxSpreads;
-    private int currentSpread;
-    private SceneManagerHelper.Scene nextScene;
-    private bool isAutoFlipping = false;
-    private float pageFlipTime = 1;
+    private AudioSource _audioSource;
+    private int _maxSpreads;
+    private int _currentSpread;
+    private SceneManagerHelper.Scene _nextScene;
+    private bool _isAutoFlipping = false;
+    private float _pageFlipTime = 1;
 
+    [FormerlySerializedAs("delayBeforeAutoFlipStart")]
     [Header("Config")]
-    [SerializeField] private float delayBeforeAutoFlipStart;
-    [SerializeField] private float delayBetweenAutoFlippedPages;
-    [SerializeField] private float autoFlipTime = 0.2f;
-    [SerializeField] private float regularFlipTime = 1.7f;
+    [SerializeField] private float _delayBeforeAutoFlipStart;
+    [FormerlySerializedAs("delayBetweenAutoFlippedPages")] [SerializeField] private float _delayBetweenAutoFlippedPages;
+    [FormerlySerializedAs("autoFlipTime")] [SerializeField] private float _autoFlipTime = 0.2f;
+    [FormerlySerializedAs("regularFlipTime")] [SerializeField] private float _regularFlipTime = 1.7f;
 
     void Start()
     {
@@ -41,21 +43,21 @@ public class AutoFlip : MonoBehaviour
             StartFlipping();*/
         ControledBook.OnFlip.AddListener(new UnityEngine.Events.UnityAction(PageFlipped));
 
-        maxSpreads = ControledBook.SetMaxSpreads();
+        _maxSpreads = ControledBook.SetMaxSpreads();
 
-        nextScene = StorybookHandler.instance.GetNextScene();
+        _nextScene = StorybookHandler.Instance.GetNextScene();
 
-        if (StorybookHandler.instance.CheckForDungeonEnding())
+        if (StorybookHandler.Instance.CheckForDungeonEnding())
         {
-            pageFlipTime = autoFlipTime;
-            isAutoFlipping = true;
+            _pageFlipTime = _autoFlipTime;
+            _isAutoFlipping = true;
             StartCoroutine(AutoFlipToDungeonEnding());
         }
     }
 
     private void Update()
     {
-        if (PlayerInputHandler.instance.JumpInput.WasPressedThisFrame() && !isAutoFlipping)
+        if (PlayerInputHandler.Instance.JumpInput.WasPressedThisFrame() && !_isAutoFlipping)
         {
             FlipRightPage();
         }
@@ -63,36 +65,36 @@ public class AutoFlip : MonoBehaviour
 
     void PageFlipped()
     {
-        isFlipping = false;
+        _isFlipping = false;
     }
 
     public void FlipRightPage()
     {
-        if (isFlipping) return;
-        currentSpread++;
+        if (_isFlipping) return;
+        _currentSpread++;
 
-        if (currentSpread > maxSpreads)
+        if (_currentSpread > _maxSpreads)
         {
-            GameEventsManager.instance.uiEvents.ShowLoadingScreen(nextScene);
+            GameEventsManager.instance.UIEvents.ShowLoadingScreen(_nextScene);
             return;
         }
 
 
-        if (ControledBook.currentPage >= ControledBook.TotalPageCount) return;
-        isFlipping = true;
-        float frameTime = pageFlipTime / AnimationFramesCount;
-        float xc = (ControledBook.EndBottomRight.x + ControledBook.EndBottomLeft.x) / 2;
-        float xl = ((ControledBook.EndBottomRight.x - ControledBook.EndBottomLeft.x) / 2) * 0.9f;
+        if (ControledBook.CurrentPage >= ControledBook.totalPageCount) return;
+        _isFlipping = true;
+        float frameTime = _pageFlipTime / AnimationFramesCount;
+        float xc = (ControledBook.endBottomRight.x + ControledBook.endBottomLeft.x) / 2;
+        float xl = ((ControledBook.endBottomRight.x - ControledBook.endBottomLeft.x) / 2) * 0.9f;
         //float h =  ControledBook.Height * 0.5f;
-        float h = Mathf.Abs(ControledBook.EndBottomRight.y) * 0.9f;
+        float h = Mathf.Abs(ControledBook.endBottomRight.y) * 0.9f;
         float dx = (xl) * 2 / AnimationFramesCount;
 
         PlayFlipSound();
 
-        StartCoroutine(FlipRTL(xc, xl, h, frameTime, dx));
+        StartCoroutine(FlipRtl(xc, xl, h, frameTime, dx));
     }
 
-    IEnumerator FlipRTL(float xc, float xl, float h, float frameTime, float dx)
+    IEnumerator FlipRtl(float xc, float xl, float h, float frameTime, float dx)
     {
         float x = xc + xl;
         float y = (-h / (xl * xl)) * (x - xc) * (x - xc);
@@ -102,7 +104,7 @@ public class AutoFlip : MonoBehaviour
         for (int i = 0; i < AnimationFramesCount; i++)
         {
             y = (-h / (xl * xl)) * (x - xc) * (x - xc);
-            ControledBook.UpdateBookRTLToPoint(new Vector3(x, y, 0));
+            ControledBook.UpdateBookRtlToPoint(new Vector3(x, y, 0));
             yield return new WaitForSeconds(frameTime);
             x -= dx;
         }
@@ -112,13 +114,13 @@ public class AutoFlip : MonoBehaviour
 
     IEnumerator AutoFlipToDungeonEnding()
     {
-        yield return new WaitForSeconds(delayBeforeAutoFlipStart);
+        yield return new WaitForSeconds(_delayBeforeAutoFlipStart);
 
-        float frameTime = autoFlipTime / AnimationFramesCount;
-        float xc = (ControledBook.EndBottomRight.x + ControledBook.EndBottomLeft.x) / 2;
-        float xl = ((ControledBook.EndBottomRight.x - ControledBook.EndBottomLeft.x) / 2) * 0.9f;
+        float frameTime = _autoFlipTime / AnimationFramesCount;
+        float xc = (ControledBook.endBottomRight.x + ControledBook.endBottomLeft.x) / 2;
+        float xl = ((ControledBook.endBottomRight.x - ControledBook.endBottomLeft.x) / 2) * 0.9f;
         //float h =  ControledBook.Height * 0.5f;
-        float h = Mathf.Abs(ControledBook.EndBottomRight.y) * 0.9f;
+        float h = Mathf.Abs(ControledBook.endBottomRight.y) * 0.9f;
         //y=-(h/(xl)^2)*(x-xc)^2          
         //               y         
         //               |          
@@ -137,23 +139,23 @@ public class AutoFlip : MonoBehaviour
         switch (Mode)
         {
             case FlipMode.RightToLeft:
-                while (ControledBook.currentPage < ControledBook.TotalPageCount - 2)
+                while (ControledBook.CurrentPage < ControledBook.totalPageCount - 2)
                 {
-                    currentSpread++;
+                    _currentSpread++;
                     PlayFlipSound();
-                    StartCoroutine(FlipRTL(xc, xl, h, frameTime, dx));
-                    yield return new WaitForSeconds(delayBetweenAutoFlippedPages);
+                    StartCoroutine(FlipRtl(xc, xl, h, frameTime, dx));
+                    yield return new WaitForSeconds(_delayBetweenAutoFlippedPages);
                 }
 
-                pageFlipTime = regularFlipTime;
-                isAutoFlipping = false;
+                _pageFlipTime = _regularFlipTime;
+                _isAutoFlipping = false;
                 break;
         }
     }
 
     private void PlayFlipSound()
     {
-        AudioManager.Instance.PlaySound(AudioName.Prop_StorybookPage, transform);
+        AudioManager.Instance.PlaySound(AudioName.PropStorybookPage, transform);
     }
 }
 

@@ -1,10 +1,12 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 public class ZoneTransition : MonoBehaviour
 {
+    [FormerlySerializedAs("onTriggerEnterEvent")]
     [Header("Result")]
-    [SerializeField] private UnityEvent onTriggerEnterEvent;
+    [SerializeField] private UnityEvent _onTriggerEnterEvent;
 
     //private bool canTriggerAudioChange = true;
 
@@ -39,9 +41,9 @@ public class ZoneTransition : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (onTriggerEnterEvent != null)
+        if (_onTriggerEnterEvent != null)
         {
-            onTriggerEnterEvent.Invoke();
+            _onTriggerEnterEvent.Invoke();
         }
     }
 

@@ -1,13 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class CinematicsTigger : MonoBehaviour
 {
+    [FormerlySerializedAs("questsToCheck")]
     [Tooltip("The main quests; to check if any progress has been made to the previous enter in Overworld")]
-    [SerializeField] private List<QuestScriptableObject> questsToCheck;
+    [SerializeField] private List<QuestScriptableObject> _questsToCheck;
 
-    private int questsCompleted = 0;
-    private int currentTreeOfLifeState;
+    private int _questsCompleted = 0;
+    private int _currentTreeOfLifeState;
 
     private void Start()
     {
@@ -39,12 +41,12 @@ public class CinematicsTigger : MonoBehaviour
     {
         FetchQuestProgress();
 
-        currentTreeOfLifeState = TreeOfLifeState.instance.GetTreeOfLifeState();
+        _currentTreeOfLifeState = TreeOfLifeState.Instance.GetTreeOfLifeState();
 
-        if (questsCompleted > currentTreeOfLifeState)
+        if (_questsCompleted > _currentTreeOfLifeState)
         {
-            GameEventsManager.instance.cinematicsEvents.StartCinematics();
-            AudioManager.Instance.StartNewTheme(ThemeName.Theme_ToLCinematics);
+            GameEventsManager.instance.CinematicsEvents.StartCinematics();
+            AudioManager.Instance.StartNewTheme(ThemeName.ThemeToLCinematics);
 
             Debug.Log("Trigger cinematics now!");
         }
@@ -57,13 +59,13 @@ public class CinematicsTigger : MonoBehaviour
 
     private void FetchQuestProgress()
     {
-        foreach (QuestScriptableObject quest in questsToCheck)
+        foreach (QuestScriptableObject quest in _questsToCheck)
         {
-            QuestState questState = QuestManager.instance.CheckQuestState(quest.id);
+            QuestState questState = QuestManager.Instance.CheckQuestState(quest.id);
 
-            if (questState == QuestState.FINISHED || questState == QuestState.CAN_FINISH)
+            if (questState == QuestState.Finished || questState == QuestState.CanFinish)
             {
-                questsCompleted++;
+                _questsCompleted++;
             }
         }
     }

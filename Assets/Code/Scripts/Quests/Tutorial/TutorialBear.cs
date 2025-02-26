@@ -1,52 +1,55 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(SphereCollider))]
 public class TutorialBear : MonoBehaviour
 {
+    [FormerlySerializedAs("questInfoForPoint")]
     [Header("Quest")]
-    [SerializeField] private QuestScriptableObject questInfoForPoint;
+    [SerializeField] private QuestScriptableObject _questInfoForPoint;
 
+    [FormerlySerializedAs("audioToPlayOnDialogueStarted")]
     [Header("Dialogue Files")]
-    [SerializeField] private AudioName audioToPlayOnDialogueStarted;
-    [SerializeField] private TextAsset dialogueBetweenQuests;
-    [SerializeField] private List<TextAsset> dialogueFiles;
+    [SerializeField] private AudioName _audioToPlayOnDialogueStarted;
+    [FormerlySerializedAs("dialogueBetweenQuests")] [SerializeField] private TextAsset _dialogueBetweenQuests;
+    [FormerlySerializedAs("dialogueFiles")] [SerializeField] private List<TextAsset> _dialogueFiles;
 
-    private bool isInteractable = true;
+    private bool _isInteractable = true;
     //private int latestCompletedDialogueIndex = 0; // the index of the latest completed dialogue; will help in triggering the next dialogue after the previous one has been completed
-    private int currentDialogueIndex = -2;
-    private bool inkValueUpToDate; // bool to help updating the ink values as they are not currently saved anywhere else; ducktape solution for now
+    private int _currentDialogueIndex = -2;
+    private bool _inkValueUpToDate; // bool to help updating the ink values as they are not currently saved anywhere else; ducktape solution for now
 
-    private string questId;
-    private bool playerIsNear = false;
-    private AudioSource audioSource;
-    private DialogueQuestNPCs character = DialogueQuestNPCs.Bear;
+    private string _questId;
+    private bool _playerIsNear = false;
+    private AudioSource _audioSource;
+    private DialogueQuestNpCs _character = DialogueQuestNpCs.Bear;
 
     private void Start()
     {
-        questId = questInfoForPoint.id;
-        CheckDialogueProgressChanges(questId);
+        _questId = _questInfoForPoint.id;
+        CheckDialogueProgressChanges(_questId);
         InitializeDialogueTracker();
-        audioSource = GetComponent<AudioSource>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     private void OnEnable()
     {
-        GameEventsManager.instance.questEvents.OnAdvanceQuest += CheckDialogueProgressChanges;
-        GameEventsManager.instance.dialogueEvents.OnStartDialogue += ToggleInteraction;
-        GameEventsManager.instance.dialogueEvents.OnEndDialogue += ToggleInteraction;
+        GameEventsManager.instance.QuestEvents.OnAdvanceQuest += CheckDialogueProgressChanges;
+        GameEventsManager.instance.DialogueEvents.OnStartDialogue += ToggleInteraction;
+        GameEventsManager.instance.DialogueEvents.OnEndDialogue += ToggleInteraction;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.questEvents.OnAdvanceQuest -= CheckDialogueProgressChanges;
-        GameEventsManager.instance.dialogueEvents.OnStartDialogue -= ToggleInteraction;
-        GameEventsManager.instance.dialogueEvents.OnEndDialogue -= ToggleInteraction;
+        GameEventsManager.instance.QuestEvents.OnAdvanceQuest -= CheckDialogueProgressChanges;
+        GameEventsManager.instance.DialogueEvents.OnStartDialogue -= ToggleInteraction;
+        GameEventsManager.instance.DialogueEvents.OnEndDialogue -= ToggleInteraction;
     }
 
     private void Update()
     {
-        if (PlayerInputHandler.instance.InteractInput.WasPressedThisFrame() && playerIsNear && isInteractable)
+        if (PlayerInputHandler.Instance.InteractInput.WasPressedThisFrame() && _playerIsNear && _isInteractable)
         {
             InteractWithBear();
         }
@@ -54,32 +57,32 @@ public class TutorialBear : MonoBehaviour
 
     private void InteractWithBear()
     {
-        if (QuestManager.instance.CheckQuestState(questId) == QuestState.FINISHED)
+        if (QuestManager.Instance.CheckQuestState(_questId) == QuestState.Finished)
         {
             return;
         }
 
-        if (dialogueFiles[currentDialogueIndex] != null)
+        if (_dialogueFiles[_currentDialogueIndex] != null)
         {
-            DialogueManager.instance.StartDialogue(dialogueFiles[currentDialogueIndex]);
+            DialogueManager.Instance.StartDialogue(_dialogueFiles[_currentDialogueIndex]);
         }
 
         else
         {
-            DialogueManager.instance.StartDialogue(dialogueBetweenQuests);
+            DialogueManager.Instance.StartDialogue(_dialogueBetweenQuests);
         }
 
-        if (DialogueManager.instance.isDialoguePlaying)
+        if (DialogueManager.Instance.IsDialoguePlaying)
         {
-            AudioManager.Instance.PlaySound(audioToPlayOnDialogueStarted, transform);
+            AudioManager.Instance.PlaySound(_audioToPlayOnDialogueStarted, transform);
         }
     }
 
     private void CheckDialogueProgressChanges(string updatedQuestId)
     {
-        if (updatedQuestId == questId)
+        if (updatedQuestId == _questId)
         {
-            GameEventsManager.instance.dialogueEvents.RegisterPlayerNearNPC(character, playerIsNear);
+            GameEventsManager.instance.DialogueEvents.RegisterPlayerNearNpc(_character, _playerIsNear);
 
             Invoke(nameof(UpdateDialogueProgressValues), 0.3f);
         }
@@ -87,25 +90,25 @@ public class TutorialBear : MonoBehaviour
 
     private void UpdateDialogueProgressValues()
     {
-        currentDialogueIndex++;
+        _currentDialogueIndex++;
     }
 
     private void InitializeDialogueTracker()
     {
-        currentDialogueIndex = QuestManager.instance.GetQuestById(questInfoForPoint.id).GetCurrentQuestStepIndex() - 1;
+        _currentDialogueIndex = QuestManager.Instance.GetQuestById(_questInfoForPoint.id).GetCurrentQuestStepIndex() - 1;
     }
 
     private void ToggleInteraction()
     {
-        isInteractable = !isInteractable;
+        _isInteractable = !_isInteractable;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Trigger"))
         {
-            playerIsNear = true;
-            GameEventsManager.instance.dialogueEvents.RegisterPlayerNearNPC(character, playerIsNear);
+            _playerIsNear = true;
+            GameEventsManager.instance.DialogueEvents.RegisterPlayerNearNpc(_character, _playerIsNear);
         }
     }
 
@@ -113,8 +116,8 @@ public class TutorialBear : MonoBehaviour
     {
         if (other.CompareTag("Trigger"))
         {
-            playerIsNear = false;
-            GameEventsManager.instance.dialogueEvents.RegisterPlayerNearNPC(character, playerIsNear);
+            _playerIsNear = false;
+            GameEventsManager.instance.DialogueEvents.RegisterPlayerNearNpc(_character, _playerIsNear);
         }
     }
 }

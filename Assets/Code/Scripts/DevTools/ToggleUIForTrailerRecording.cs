@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class ToggleUIForTrailerRecording : MonoBehaviour
 {
-    private bool isVisible = true;
-    private bool previousObjectsListed = false;
+    private bool _isVisible = true;
+    private bool _previousObjectsListed = false;
 
-    private List<GameObject> previousObjects = new List<GameObject>();
+    private List<GameObject> _previousObjects = new List<GameObject>();
 
     void Update()
     {
@@ -18,32 +18,32 @@ public class ToggleUIForTrailerRecording : MonoBehaviour
 
     private void ToggleVisibility()
     {
-        if (isVisible)
+        if (_isVisible)
         {
             // hide UI
             foreach (Transform child in transform)
             {
-                if (!previousObjectsListed && child.gameObject.activeInHierarchy)
+                if (!_previousObjectsListed && child.gameObject.activeInHierarchy)
                 {
-                    previousObjects.Add(child.gameObject);
+                    _previousObjects.Add(child.gameObject);
                 }
 
                 child.gameObject.SetActive(false);
             }
 
-            previousObjectsListed = true;
-            isVisible = false;
+            _previousObjectsListed = true;
+            _isVisible = false;
         }
 
         else
         {
             // show UI
-            foreach (GameObject child in previousObjects)
+            foreach (GameObject child in _previousObjects)
             {
                 child.gameObject.SetActive(true);
             }
 
-            isVisible = true;
+            _isVisible = true;
         }
     }
 }

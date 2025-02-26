@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class QuestMarkers : MonoBehaviour
 {
@@ -7,12 +8,12 @@ public class QuestMarkers : MonoBehaviour
     //index of button matches index of quest
     //when quest finished, disable the corresponding indicator and enable button based on given index
 
-    [SerializeField] private List<GameObject> mapButtons = new List<GameObject>();
-    [SerializeField] private List<GameObject> mapIndicators = new List<GameObject>();
+    [FormerlySerializedAs("mapButtons")] [SerializeField] private List<GameObject> _mapButtons = new List<GameObject>();
+    [FormerlySerializedAs("mapIndicators")] [SerializeField] private List<GameObject> _mapIndicators = new List<GameObject>();
 
-    private Dictionary<string, int> idToIndex = new Dictionary<string, int>();
-    private Quest quest;
-    private int questIndex;
+    private Dictionary<string, int> _idToIndex = new Dictionary<string, int>();
+    private Quest _quest;
+    private int _questIndex;
 
     private void Start()
     {
@@ -21,28 +22,28 @@ public class QuestMarkers : MonoBehaviour
     void GrabQuestIds()
     {
         int index = 0;
-        foreach (string questId in QuestManager.instance.questMap.Keys)
+        foreach (string questId in QuestManager.Instance.QuestMap.Keys)
         {
-            idToIndex.Add(questId, index);
+            _idToIndex.Add(questId, index);
 
             index++;
         }
     }
     private void OnEnable()
     {
-        GameEventsManager.instance.questEvents.OnFinishQuest += UnlockMapTeleport;
+        GameEventsManager.instance.QuestEvents.OnFinishQuest += UnlockMapTeleport;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.questEvents.OnFinishQuest -= UnlockMapTeleport;
+        GameEventsManager.instance.QuestEvents.OnFinishQuest -= UnlockMapTeleport;
     }
     void UnlockMapTeleport(string id)
     {
         //Debug.Log("string id is: " + id);
 
-        quest = QuestManager.instance.GetQuestById(id);
-        questIndex = GetIndexFromId(quest.info.id);
+        _quest = QuestManager.Instance.GetQuestById(id);
+        _questIndex = GetIndexFromId(_quest.Info.id);
 
         //Debug.Log(mapButtons[questIndex]);
         //Debug.Log(mapIndicators[questIndex]);
@@ -51,7 +52,7 @@ public class QuestMarkers : MonoBehaviour
 
         //Debug.Log("QuestMarker says: questIndex - " + questIndex);
 
-        foreach (var pair in idToIndex)
+        foreach (var pair in _idToIndex)
         {
             //Debug.Log("Key: " + pair.Key + ", Value: " + pair.Value);
         }
@@ -75,9 +76,9 @@ public class QuestMarkers : MonoBehaviour
 
     int GetIndexFromId(string id)
     {
-        if (idToIndex.ContainsKey(id))
+        if (_idToIndex.ContainsKey(id))
         {
-            return idToIndex[id];
+            return _idToIndex[id];
         }
         else
         {

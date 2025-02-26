@@ -1,12 +1,13 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerTeleportation : MonoBehaviour
 {
-    [SerializeField] private Transform player;
-    [SerializeField] private Transform teleportationTarget;
+    [FormerlySerializedAs("player")] [SerializeField] private Transform _player;
+    [FormerlySerializedAs("teleportationTarget")] [SerializeField] private Transform _teleportationTarget;
 
-    private AudioSource audioSource;
+    private AudioSource _audioSource;
 
     private void Start()
     {
@@ -27,9 +28,9 @@ public class PlayerTeleportation : MonoBehaviour
 
         //yield return new WaitForSeconds(audioSource.clip.length * 0.75f);
         yield return new WaitForSeconds(0.2f);
-        FoxMovement.instance.gameObject.SetActive(false);
-        player.position = teleportationTarget.position;
-        FoxMovement.instance.gameObject.SetActive(true);
+        FoxMovement.Instance.gameObject.SetActive(false);
+        _player.position = _teleportationTarget.position;
+        FoxMovement.Instance.gameObject.SetActive(true);
         Debug.Log("teleporting player");
     }
 }

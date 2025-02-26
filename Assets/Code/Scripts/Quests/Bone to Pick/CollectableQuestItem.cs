@@ -1,14 +1,15 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class CollectableQuestItem : MonoBehaviour
 {
-    [SerializeField] private QuestItem itemType;
+    [FormerlySerializedAs("itemType")] [SerializeField] private QuestItem _itemType;
 
-    private bool playerIsNear;
+    private bool _playerIsNear;
 
     private void Update()
     {
-        if (PlayerInputHandler.instance.InteractInput.WasPressedThisFrame() && playerIsNear)
+        if (PlayerInputHandler.Instance.InteractInput.WasPressedThisFrame() && _playerIsNear)
         {
             CollectItem();
         }
@@ -16,9 +17,9 @@ public class CollectableQuestItem : MonoBehaviour
 
     private void CollectItem()
     {
-        if (itemType != QuestItem.Default)
+        if (_itemType != QuestItem.Default)
         {
-            GameEventsManager.instance.questEvents.CollectQuestItem(itemType);
+            GameEventsManager.instance.QuestEvents.CollectQuestItem(_itemType);
         }
 
         gameObject.SetActive(false);
@@ -28,7 +29,7 @@ public class CollectableQuestItem : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Trigger"))
         {
-            playerIsNear = true;
+            _playerIsNear = true;
         }
     }
 
@@ -36,7 +37,7 @@ public class CollectableQuestItem : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Trigger"))
         {
-            playerIsNear = false;
+            _playerIsNear = false;
         }
     }
 }

@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class Ore : MonoBehaviour
 {
-    private bool playerIsNear;
+    private bool _playerIsNear;
 
     private void Update()
     {
-        if (PlayerInputHandler.instance.InteractInput.WasPressedThisFrame() && playerIsNear)
+        if (PlayerInputHandler.Instance.InteractInput.WasPressedThisFrame() && _playerIsNear)
         {
 
             Invoke("DestroyObject", 0.5f);
-            SmashingReturnOre.instance.PickUpOre();
+            SmashingReturnOre.Instance.PickUpOre();
         }
     }
 
@@ -18,7 +18,7 @@ public class Ore : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            playerIsNear = true;
+            _playerIsNear = true;
         }
     }
 
@@ -26,7 +26,7 @@ public class Ore : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            playerIsNear = false;
+            _playerIsNear = false;
         }
     }
 

@@ -1,32 +1,36 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 public class RaceProgressCollider : MonoBehaviour
 {
+    [FormerlySerializedAs("isStartLine")]
     [Header("Tracker Type")]
-    [SerializeField] private bool isStartLine;
-    [SerializeField] private bool isFinishLine;
+    [SerializeField] private bool _isStartLine;
+    [FormerlySerializedAs("isFinishLine")] [SerializeField] private bool _isFinishLine;
 
+    [FormerlySerializedAs("triggeredRaceEvent")]
     [Header("Possible Event")]
-    [SerializeField] private UnityEvent triggeredRaceEvent;
+    [SerializeField] private UnityEvent _triggeredRaceEvent;
 
+    [FormerlySerializedAs("SoundTrackStart")]
     [Header("Audio")]
-    [SerializeField] private AudioSource SoundTrackStart;
+    [SerializeField] private AudioSource _soundTrackStart;
 
     // private variables
-    private bool canTriggerEvents = true;
+    private bool _canTriggerEvents = true;
 
     private void Start()
     {
-        PenguinRaceManager.instance.penguinDungeonEvents.onLapInterrupted += LapInterruptionReset;
-        PenguinRaceManager.instance.penguinDungeonEvents.onLapFinished += LapFinishReset;
+        PenguinRaceManager.instance.PenguinDungeonEvents.OnLapInterrupted += LapInterruptionReset;
+        PenguinRaceManager.instance.PenguinDungeonEvents.OnLapFinished += LapFinishReset;
     }
 
     private void OnDisable()
     {
-        PenguinRaceManager.instance.penguinDungeonEvents.onLapInterrupted -= LapInterruptionReset;
-        PenguinRaceManager.instance.penguinDungeonEvents.onLapFinished -= LapFinishReset;
+        PenguinRaceManager.instance.PenguinDungeonEvents.OnLapInterrupted -= LapInterruptionReset;
+        PenguinRaceManager.instance.PenguinDungeonEvents.OnLapFinished -= LapFinishReset;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -34,11 +38,11 @@ public class RaceProgressCollider : MonoBehaviour
         if (other.gameObject.CompareTag("Trigger"))
         {
             // trigger the event, if this is either start or finish line
-            if (isFinishLine || isStartLine)
+            if (_isFinishLine || _isStartLine)
             {
-                if (triggeredRaceEvent != null && canTriggerEvents)
+                if (_triggeredRaceEvent != null && _canTriggerEvents)
                 {
-                    triggeredRaceEvent.Invoke();
+                    _triggeredRaceEvent.Invoke();
                     StartCoroutine(DelayBeforeNextTrigger());
                 }
             }
@@ -56,19 +60,19 @@ public class RaceProgressCollider : MonoBehaviour
         if (other.gameObject.CompareTag("Trigger"))
         {
             // if this is a start line, disable trigger
-            if (isStartLine)
+            if (_isStartLine)
             {
                 GetComponent<Collider>().isTrigger = false;
             }
 
             // if this is a waypoint for progress tracking, enable invisible wall after player has passed the trigger
-            else if (!isFinishLine)
+            else if (!_isFinishLine)
             {
                 transform.GetChild(0).gameObject.SetActive(true);
 
-                if (triggeredRaceEvent != null)
+                if (_triggeredRaceEvent != null)
                 {
-                    triggeredRaceEvent.Invoke();
+                    _triggeredRaceEvent.Invoke();
                     StartCoroutine(DelayBeforeNextTrigger());
                 }
             }
@@ -77,12 +81,12 @@ public class RaceProgressCollider : MonoBehaviour
 
     private void LapFinishReset()
     {
-        if (isStartLine)
+        if (_isStartLine)
         {
             return;
         }
 
-        else if (!isFinishLine)
+        else if (!_isFinishLine)
         {
             transform.GetChild(0).gameObject.SetActive(false);
         }
@@ -90,27 +94,27 @@ public class RaceProgressCollider : MonoBehaviour
 
     private void LapInterruptionReset()
     {
-        if (isStartLine)
+        if (_isStartLine)
         {
             GetComponent<Collider>().isTrigger = true;
         }
 
-        else if (!isFinishLine)
+        else if (!_isFinishLine)
         {
             transform.GetChild(0).gameObject.SetActive(false);
         }
     }
     public void StartAudio()
     {
-        if (!SoundTrackStart.isPlaying && isStartLine) { SoundTrackStart.Play(); }
+        if (!_soundTrackStart.isPlaying && _isStartLine) { _soundTrackStart.Play(); }
     }
 
     private IEnumerator DelayBeforeNextTrigger()
     {
-        canTriggerEvents = false;
+        _canTriggerEvents = false;
 
         yield return new WaitForSeconds(1);
 
-        canTriggerEvents = true;
+        _canTriggerEvents = true;
     }
 }

@@ -1,39 +1,40 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class LeverScript : MonoBehaviour
 {
-    [SerializeField] bool isActive = false;
-    [SerializeField] public bool wasUsed = false; //TODO: Check usecase and fix this being public.
-    [SerializeField] Material usedMat;
-    [SerializeField] string questName;
-    private BossDoorScript bossDoorScript;
+    [FormerlySerializedAs("isActive")] [SerializeField] bool _isActive = false;
+    [FormerlySerializedAs("wasUsed")] [SerializeField] public bool WasUsed = false; //TODO: Check usecase and fix this being public.
+    [FormerlySerializedAs("usedMat")] [SerializeField] Material _usedMat;
+    [FormerlySerializedAs("questName")] [SerializeField] string _questName;
+    private BossDoorScript _bossDoorScript;
 
-    public Animator anim; //NOTE: Why is this public?
+    [FormerlySerializedAs("anim")] public Animator Anim; //NOTE: Why is this public?
 
     private void Start()
     {
-        bossDoorScript = FindObjectOfType<BossDoorScript>();
+        _bossDoorScript = FindObjectOfType<BossDoorScript>();
     }
 
     void Update()
     {
-        if (PlayerInputHandler.instance.InteractInput.WasPressedThisFrame() && isActive && !wasUsed)
+        if (PlayerInputHandler.Instance.InteractInput.WasPressedThisFrame() && _isActive && !WasUsed)
         {
-            wasUsed = true;
+            WasUsed = true;
             Debug.Log("Lever pulled!");
-            bossDoorScript.usedlevers++;
-            bossDoorScript.UpdateQuestUI();
+            _bossDoorScript.Usedlevers++;
+            _bossDoorScript.UpdateQuestUI();
             //gameObject.GetComponent<MeshRenderer>().material= usedMat;
             gameObject.GetComponent<AudioSource>().Play();
-            anim.Play("Leaver_Turn_ANI");
+            Anim.Play("Leaver_Turn_ANI");
         }
     }
     private void OnTriggerEnter(Collider other)
     {
-        isActive = true;
+        _isActive = true;
     }
     private void OnTriggerExit(Collider other)
     {
-        isActive = false;
+        _isActive = false;
     }
 }

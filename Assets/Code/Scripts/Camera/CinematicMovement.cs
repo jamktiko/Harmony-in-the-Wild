@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class CinematicMovement : MonoBehaviour
 {
@@ -51,7 +52,7 @@ public class CinematicMovement : MonoBehaviour
     private float _rotationVelocity;
     private float _verticalVelocity;
     private float _terminalVelocity = 53.0f;
-    [SerializeField] private float deltaTimeMultiplier;
+    [FormerlySerializedAs("deltaTimeMultiplier")] [SerializeField] private float _deltaTimeMultiplier;
 
     // timeout deltatime
     private float _jumpTimeoutDelta;
@@ -105,12 +106,12 @@ public class CinematicMovement : MonoBehaviour
     private void CameraRotation()
     {
         // if there is an input
-        if (PlayerInputHandler.instance.LookInput.ReadValue<Vector2>().sqrMagnitude >= _threshold)
+        if (PlayerInputHandler.Instance.LookInput.ReadValue<Vector2>().sqrMagnitude >= _threshold)
         {
             //Don't multiply mouse input by Time.deltaTime
 
-            _cinemachineTargetPitch += PlayerInputHandler.instance.LookInput.ReadValue<Vector2>().y * RotationSpeed * deltaTimeMultiplier;
-            _rotationVelocity = PlayerInputHandler.instance.LookInput.ReadValue<Vector2>().x * RotationSpeed * deltaTimeMultiplier;
+            _cinemachineTargetPitch += PlayerInputHandler.Instance.LookInput.ReadValue<Vector2>().y * RotationSpeed * _deltaTimeMultiplier;
+            _rotationVelocity = PlayerInputHandler.Instance.LookInput.ReadValue<Vector2>().x * RotationSpeed * _deltaTimeMultiplier;
 
             // clamp our pitch rotation
             _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
@@ -126,13 +127,13 @@ public class CinematicMovement : MonoBehaviour
     private void Move()
     {
         // set target speed based on move speed, sprint speed and if sprint is pressed
-        float targetSpeed = PlayerInputHandler.instance.SprintInput.WasPerformedThisFrame() ? SprintSpeed : MoveSpeed;
+        float targetSpeed = PlayerInputHandler.Instance.SprintInput.WasPerformedThisFrame() ? SprintSpeed : MoveSpeed;
 
         // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
         // note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
         // if there is no input, set the target speed to 0
-        if (PlayerInputHandler.instance.MoveInput.ReadValue<Vector2>() == Vector2.zero) targetSpeed = 0.0f;
+        if (PlayerInputHandler.Instance.MoveInput.ReadValue<Vector2>() == Vector2.zero) targetSpeed = 0.0f;
 
         // a reference to the players current horizontal velocity
         float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
@@ -156,16 +157,16 @@ public class CinematicMovement : MonoBehaviour
         }
 
         // normalise input direction
-        Vector3 inputDirection = new Vector3(PlayerInputHandler.instance.MoveInput.ReadValue<Vector2>().x, 0.0f, PlayerInputHandler.instance.MoveInput.ReadValue<Vector2>().y).normalized;
+        Vector3 inputDirection = new Vector3(PlayerInputHandler.Instance.MoveInput.ReadValue<Vector2>().x, 0.0f, PlayerInputHandler.Instance.MoveInput.ReadValue<Vector2>().y).normalized;
 
 
 
         // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
         // if there is a move input rotate player when the player is moving
-        if (PlayerInputHandler.instance.MoveInput.ReadValue<Vector2>() != Vector2.zero)
+        if (PlayerInputHandler.Instance.MoveInput.ReadValue<Vector2>() != Vector2.zero)
         {
             // move
-            inputDirection = transform.right * PlayerInputHandler.instance.LookInput.ReadValue<Vector2>().x + transform.forward * PlayerInputHandler.instance.MoveInput.ReadValue<Vector2>().y;
+            inputDirection = transform.right * PlayerInputHandler.Instance.LookInput.ReadValue<Vector2>().x + transform.forward * PlayerInputHandler.Instance.MoveInput.ReadValue<Vector2>().y;
             Debug.Log(inputDirection.normalized);
         }
 
@@ -177,23 +178,23 @@ public class CinematicMovement : MonoBehaviour
     {
 
         // Jump
-        if (PlayerInputHandler.instance.JumpInput.WasPerformedThisFrame() && PlayerInputHandler.instance.JumpInput.enabled)
+        if (PlayerInputHandler.Instance.JumpInput.WasPerformedThisFrame() && PlayerInputHandler.Instance.JumpInput.enabled)
         {
             // the square root of H * -2 * G = how much velocity needed to reach desired height
             _verticalVelocity += 1.0f;
         }
-        if (PlayerInputHandler.instance.JumpInput.WasReleasedThisFrame())
+        if (PlayerInputHandler.Instance.JumpInput.WasReleasedThisFrame())
         {
             // the square root of H * -2 * G = how much velocity needed to reach desired height
             _verticalVelocity = 0f;
         }
         // Go down brother
-        if (PlayerInputHandler.instance.SprintInput.WasPerformedThisFrame())
+        if (PlayerInputHandler.Instance.SprintInput.WasPerformedThisFrame())
         {
             // the square root of H * -2 * G = how much velocity needed to reach desired height
             _verticalVelocity -= 1.0f;
         }
-        if (PlayerInputHandler.instance.SprintInput.WasReleasedThisFrame())
+        if (PlayerInputHandler.Instance.SprintInput.WasReleasedThisFrame())
         {
             // the square root of H * -2 * G = how much velocity needed to reach desired height
             _verticalVelocity = 0f;

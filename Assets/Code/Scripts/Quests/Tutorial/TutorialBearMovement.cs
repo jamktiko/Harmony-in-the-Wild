@@ -1,53 +1,56 @@
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 
 public class TutorialBearMovement : MonoBehaviour
 {
+    [FormerlySerializedAs("targetTransform")]
     [Header("Movement Config")]
-    [SerializeField] private Transform targetTransform;
+    [SerializeField] private Transform _targetTransform;
 
+    [FormerlySerializedAs("tutorialQuestSO")]
     [Header("Other Needed References")]
-    [SerializeField] private QuestScriptableObject tutorialQuestSO;
-    [SerializeField] private Animator animator;
-    [SerializeField] private GameObject interactionIndicator;
+    [SerializeField] private QuestScriptableObject _tutorialQuestSo;
+    [FormerlySerializedAs("animator")] [SerializeField] private Animator _animator;
+    [FormerlySerializedAs("interactionIndicator")] [SerializeField] private GameObject _interactionIndicator;
 
-    private bool canMove;
-    private NavMeshAgent agent;
+    private bool _canMove;
+    private NavMeshAgent _agent;
 
     private void Awake()
     {
-        agent = GetComponent<NavMeshAgent>();
+        _agent = GetComponent<NavMeshAgent>();
 
         Invoke(nameof(EnableMovement), 0.5f);
     }
 
     private void OnEnable()
     {
-        GameEventsManager.instance.questEvents.OnAdvanceQuest += CheckMovementActivation;
+        GameEventsManager.instance.QuestEvents.OnAdvanceQuest += CheckMovementActivation;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.questEvents.OnAdvanceQuest -= CheckMovementActivation;
+        GameEventsManager.instance.QuestEvents.OnAdvanceQuest -= CheckMovementActivation;
     }
 
     private void Update()
     {
-        if (canMove && targetTransform != null)
+        if (_canMove && _targetTransform != null)
         {
-            agent.SetDestination(targetTransform.position);
+            _agent.SetDestination(_targetTransform.position);
 
-            if (Vector3.Distance(transform.position, targetTransform.position) < 1.5f)
+            if (Vector3.Distance(transform.position, _targetTransform.position) < 1.5f)
             {
                 gameObject.SetActive(false);
-                canMove = false;
+                _canMove = false;
             }
         }
     }
 
     private void CheckMovementActivation(string questId)
     {
-        if (questId == tutorialQuestSO.id)
+        if (questId == _tutorialQuestSo.id)
         {
             Invoke(nameof(EnableMovement), 0.5f);
         }
@@ -55,14 +58,14 @@ public class TutorialBearMovement : MonoBehaviour
 
     private void EnableMovement()
     {
-        if (QuestManager.instance.GetQuestById(tutorialQuestSO.id).GetCurrentQuestStepIndex() == 3)
+        if (QuestManager.Instance.GetQuestById(_tutorialQuestSo.id).GetCurrentQuestStepIndex() == 3)
         {
-            canMove = true;
-            animator.SetTrigger("walk");
+            _canMove = true;
+            _animator.SetTrigger("walk");
 
-            if (interactionIndicator != null)
+            if (_interactionIndicator != null)
             {
-                interactionIndicator.SetActive(false);
+                _interactionIndicator.SetActive(false);
             }
 
             else

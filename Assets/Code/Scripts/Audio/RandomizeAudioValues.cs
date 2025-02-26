@@ -1,21 +1,23 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class RandomizeAudioValues : MonoBehaviour
 {
+    [FormerlySerializedAs("minPitchValue")]
     [Header("Config")]
-    [SerializeField] private float minPitchValue = 0.5f;
-    [SerializeField] private float maxPitchValue = 1f;
+    [SerializeField] private float _minPitchValue = 0.5f;
+    [FormerlySerializedAs("maxPitchValue")] [SerializeField] private float _maxPitchValue = 1f;
 
-    private AudioSource audioSource;
+    private AudioSource _audioSource;
 
     private void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     public void PlaySound()
     {
-        audioSource.pitch = Random.Range(minPitchValue, maxPitchValue);
-        audioSource.Play();
+        _audioSource.pitch = Random.Range(_minPitchValue, _maxPitchValue);
+        _audioSource.Play();
     }
 }

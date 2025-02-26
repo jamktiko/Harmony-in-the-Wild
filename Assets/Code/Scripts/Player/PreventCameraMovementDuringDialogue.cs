@@ -1,31 +1,32 @@
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PreventCameraMovementDuringDialogue : MonoBehaviour
 {
-    [SerializeField] private GameObject cameraMovement;
-    [SerializeField] private CinemachineFreeLook freeLookCamera;
+    [FormerlySerializedAs("cameraMovement")] [SerializeField] private GameObject _cameraMovement;
+    [FormerlySerializedAs("freeLookCamera")] [SerializeField] private CinemachineFreeLook _freeLookCamera;
 
     private void Start()
     {
-        GameEventsManager.instance.dialogueEvents.OnStartDialogue += DisableMovement;
-        GameEventsManager.instance.dialogueEvents.OnEndDialogue += EnableMovement;
+        GameEventsManager.instance.DialogueEvents.OnStartDialogue += DisableMovement;
+        GameEventsManager.instance.DialogueEvents.OnEndDialogue += EnableMovement;
     }
 
     private void DisableMovement()
     {
         Debug.Log("Camera movement disabled!");
 
-        if (cameraMovement == null)
+        if (_cameraMovement == null)
         {
             Debug.Log("No camera movement attached to PreventCameraMovementDuringDialogue!");
         }
 
         else
         {
-            cameraMovement.GetComponent<CameraMovement>().enabled = false;
-            freeLookCamera.m_YAxis.m_MaxSpeed = 0;
-            freeLookCamera.m_XAxis.m_MaxSpeed = 0;
+            _cameraMovement.GetComponent<CameraMovement>().enabled = false;
+            _freeLookCamera.m_YAxis.m_MaxSpeed = 0;
+            _freeLookCamera.m_XAxis.m_MaxSpeed = 0;
         }
     }
 
@@ -33,16 +34,16 @@ public class PreventCameraMovementDuringDialogue : MonoBehaviour
     {
         Debug.Log("Camera movement enabled!");
 
-        if (cameraMovement == null)
+        if (_cameraMovement == null)
         {
             Debug.Log("No camera movement attached to PreventCameraMovementDuringDialogue!");
         }
 
         else
         {
-            cameraMovement.GetComponent<CameraMovement>().enabled = true;
-            freeLookCamera.m_YAxis.m_MaxSpeed = 0.001f;
-            freeLookCamera.m_XAxis.m_MaxSpeed = 0.1f;
+            _cameraMovement.GetComponent<CameraMovement>().enabled = true;
+            _freeLookCamera.m_YAxis.m_MaxSpeed = 0.001f;
+            _freeLookCamera.m_XAxis.m_MaxSpeed = 0.1f;
         }
     }
 }

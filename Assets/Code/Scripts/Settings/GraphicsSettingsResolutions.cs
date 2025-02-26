@@ -1,19 +1,20 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class GraphicsSettingsResolutions : MonoBehaviour
 {
-    private Resolution[] resolutions;
-    public TMPro.TMP_Dropdown resolutionDropdown; //Note: Work with [SerializeField] private and GetResolutionDropdown() if it needs to be accessed
-    public Sprite dropDownSprite; //Note: Work with [SerializeField] private and GetDropDownSprite() if it needs to be accessed
+    private Resolution[] _resolutions;
+    [FormerlySerializedAs("resolutionDropdown")] public TMPro.TMP_Dropdown ResolutionDropdown; //Note: Work with [SerializeField] private and GetResolutionDropdown() if it needs to be accessed
+    [FormerlySerializedAs("dropDownSprite")] public Sprite DropDownSprite; //Note: Work with [SerializeField] private and GetDropDownSprite() if it needs to be accessed
 
     private void Start()
     {
-        resolutions = Screen.resolutions;
+        _resolutions = Screen.resolutions;
 
         try
         {
-            resolutionDropdown.ClearOptions();
+            ResolutionDropdown.ClearOptions();
         }
         catch (System.Exception)
         {
@@ -27,27 +28,27 @@ public class GraphicsSettingsResolutions : MonoBehaviour
         int currentResolutionIndex = 0;
 
         //Code to gather possible resolutions into the dropdown
-        for (int i = 0; i < resolutions.Length; i++)
+        for (int i = 0; i < _resolutions.Length; i++)
         {
-            string resOption = resolutions[i].width + " x " + resolutions[i].height;
-            resOptions.Add(new TMPro.TMP_Dropdown.OptionData(resOption, dropDownSprite));
+            string resOption = _resolutions[i].width + " x " + _resolutions[i].height;
+            resOptions.Add(new TMPro.TMP_Dropdown.OptionData(resOption, DropDownSprite));
 
             //Setting default res
-            if (resolutions[i].width == Screen.currentResolution.width &&
-                resolutions[i].height == Screen.currentResolution.height)
+            if (_resolutions[i].width == Screen.currentResolution.width &&
+                _resolutions[i].height == Screen.currentResolution.height)
             {
                 currentResolutionIndex = i;
             }
         }
 
-        resolutionDropdown.AddOptions(resOptions);
-        resolutionDropdown.value = currentResolutionIndex;
-        resolutionDropdown.RefreshShownValue();
+        ResolutionDropdown.AddOptions(resOptions);
+        ResolutionDropdown.value = currentResolutionIndex;
+        ResolutionDropdown.RefreshShownValue();
     }
 
     public void SetResolution(int resolutionIndex)
     {
-        Resolution resolution = resolutions[resolutionIndex];
+        Resolution resolution = _resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
     }
 

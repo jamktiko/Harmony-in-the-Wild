@@ -2,17 +2,17 @@ public class DestinationQuestStep : QuestStep
 {
     private void Start()
     {
-        GameEventsManager.instance.questEvents.ShowQuestUI(GetQuestId(), objective, progress);
+        GameEventsManager.instance.QuestEvents.ShowQuestUI(GetQuestId(), Objective, Progress);
     }
 
     private void OnEnable()
     {
-        GameEventsManager.instance.questEvents.OnReachTargetDestinationToCompleteQuestStep += MarkQuestAsCompleted;
+        GameEventsManager.instance.QuestEvents.OnReachTargetDestinationToCompleteQuestStep += MarkQuestAsCompleted;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.questEvents.OnReachTargetDestinationToCompleteQuestStep -= MarkQuestAsCompleted;
+        GameEventsManager.instance.QuestEvents.OnReachTargetDestinationToCompleteQuestStep -= MarkQuestAsCompleted;
     }
 
     private void MarkQuestAsCompleted(string id)

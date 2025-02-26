@@ -1,12 +1,14 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class DungeonAbilityActivator : MonoBehaviour
 {
+    [FormerlySerializedAs("enabledAbility")]
     [Header("Config")]
     [Tooltip("Index of the major ability gained in this dungeon. If set to -1, no major abilities are activated.")]
     //[SerializeField] private int enabledAbility;
-    [SerializeField] private Abilities enabledAbility = Abilities.None;
+    [SerializeField] private Abilities _enabledAbility = Abilities.None;
 
     private void Start()
     {
@@ -17,9 +19,9 @@ public class DungeonAbilityActivator : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
 
-        if (enabledAbility != Abilities.None)
+        if (_enabledAbility != Abilities.None)
         {
-            AbilityManager.Instance.UnlockAbility(enabledAbility);
+            AbilityManager.Instance.UnlockAbility(_enabledAbility);
         }
 
 

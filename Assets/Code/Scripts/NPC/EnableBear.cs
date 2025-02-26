@@ -1,15 +1,16 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class EnableBear : MonoBehaviour
 {
-    [SerializeField] private QuestScriptableObject tutorialQuest;
+    [FormerlySerializedAs("tutorialQuest")] [SerializeField] private QuestScriptableObject _tutorialQuest;
 
     private void Start()
     {
-        QuestState currentState = QuestManager.instance.CheckQuestState(tutorialQuest.id);
+        QuestState currentState = QuestManager.Instance.CheckQuestState(_tutorialQuest.id);
 
         // if quest is finished, keep the bear enabled
-        if (currentState == QuestState.FINISHED)
+        if (currentState == QuestState.Finished)
         {
             return;
         }
@@ -17,7 +18,7 @@ public class EnableBear : MonoBehaviour
         // otherwise disable this bear, since there is another one controlled by Quest Manager
         else
         {
-            Transform questManager = QuestManager.instance.transform;
+            Transform questManager = QuestManager.Instance.transform;
 
             foreach (Transform child in questManager)
             {

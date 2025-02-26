@@ -38,7 +38,7 @@ public class CinematicCameraRotator : MonoBehaviour
                     }
                 }
 
-                GameEventsManager.instance.cinematicsEvents.EndCinematics();
+                GameEventsManager.instance.CinematicsEvents.EndCinematics();
             }
         }
     }

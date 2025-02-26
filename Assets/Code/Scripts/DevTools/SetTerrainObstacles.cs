@@ -29,23 +29,23 @@ public class SetTerrainObstacles : MonoBehaviour
                 //Un-normalize positions so they're in world-space
                 instances[j].position = Vector3.Scale(instances[j].position, terrain.terrainData.size);
                 instances[j].position += terrain.GetPosition();
-                NavMeshObstacle nav_mesh_obstacle = tree.prefab.GetComponent<NavMeshObstacle>();
-                if (!nav_mesh_obstacle)
+                NavMeshObstacle navMeshObstacle = tree.prefab.GetComponent<NavMeshObstacle>();
+                if (!navMeshObstacle)
                 {
                     Debug.LogWarning("Tree with prototype[" + i + "] instance[" + j + "] did not have a NavMeshObstacle component, skipping!");
                     continue;
                 }
 
-                Vector3 primitive_scale = nav_mesh_obstacle.size;
-                if (nav_mesh_obstacle.shape == NavMeshObstacleShape.Capsule)
+                Vector3 primitiveScale = navMeshObstacle.size;
+                if (navMeshObstacle.shape == NavMeshObstacleShape.Capsule)
                 {
-                    primitive_scale = nav_mesh_obstacle.radius * Vector3.one;
+                    primitiveScale = navMeshObstacle.radius * Vector3.one;
                 }
                 GameObject obj = GameObject.CreatePrimitive(PrimitiveType.Capsule);
                 obj.name = tree.prefab.name + j;
                 if (terrain.preserveTreePrototypeLayers) obj.layer = tree.prefab.layer;
                 else obj.layer = terrain.gameObject.layer;
-                obj.transform.localScale = primitive_scale;
+                obj.transform.localScale = primitiveScale;
                 obj.transform.position = instances[j].position;
                 obj.transform.parent = terrain.transform;
                 obj.isStatic = true;

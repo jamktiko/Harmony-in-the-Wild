@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class InputSprites : MonoBehaviour
 {
-    public static InputSprites instance;
+    public static InputSprites Instance;
 
     // CONTROLS //
     // E / B: Interact
@@ -12,32 +13,32 @@ public class InputSprites : MonoBehaviour
     // Left Shift / Right Trigger: Sprint
     // Left Ctrl / Left Trigger: Snowdive
     // M / Touchpad / View: Map
-    public Sprite[] keyboardIndicators;
-    public Sprite[] gamepadIndicators;
+    [FormerlySerializedAs("keyboardIndicators")] public Sprite[] KeyboardIndicators;
+    [FormerlySerializedAs("gamepadIndicators")] public Sprite[] GamepadIndicators;
 
-    public Dictionary<string, KeyDeviceSetup> keySetups = new Dictionary<string, KeyDeviceSetup>();
+    public Dictionary<string, KeyDeviceSetup> KeySetups = new Dictionary<string, KeyDeviceSetup>();
 
     private void Awake()
     {
-        instance = this;
-        keySetups.Add("E", new KeyDeviceSetup("E", "B"));
-        keySetups.Add("F", new KeyDeviceSetup("F", "X"));
-        keySetups.Add("SPACE", new KeyDeviceSetup("SPACE", "A"));
-        keySetups.Add("LEFT SHIFT", new KeyDeviceSetup("LEFT SHIFT", "RIGHT TRIGGER"));
-        keySetups.Add("LEFT CTRL", new KeyDeviceSetup("LEFT CTRL", "LEFT TRIGGER"));
-        keySetups.Add("M", new KeyDeviceSetup("M", "VIEW/TOUCHPAD"));
+        Instance = this;
+        KeySetups.Add("E", new KeyDeviceSetup("E", "B"));
+        KeySetups.Add("F", new KeyDeviceSetup("F", "X"));
+        KeySetups.Add("SPACE", new KeyDeviceSetup("SPACE", "A"));
+        KeySetups.Add("LEFT SHIFT", new KeyDeviceSetup("LEFT SHIFT", "RIGHT TRIGGER"));
+        KeySetups.Add("LEFT CTRL", new KeyDeviceSetup("LEFT CTRL", "LEFT TRIGGER"));
+        KeySetups.Add("M", new KeyDeviceSetup("M", "VIEW/TOUCHPAD"));
     }
 
 }
 
 public class KeyDeviceSetup
 {
-    public string keyboard;
-    public string gamepad;
+    public string Keyboard;
+    public string Gamepad;
 
     public KeyDeviceSetup(string keyboard, string gamepad)
     {
-        this.keyboard = keyboard;
-        this.gamepad = gamepad;
+        this.Keyboard = keyboard;
+        this.Gamepad = gamepad;
     }
 }

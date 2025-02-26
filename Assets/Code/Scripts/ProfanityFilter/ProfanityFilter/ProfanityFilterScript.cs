@@ -43,7 +43,7 @@ namespace ProfanityFilter
         /// </summary>
         public ProfanityFilterScript()
         {
-            AllowList = new AllowList();
+            allowList = new AllowList();
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace ProfanityFilter
         /// <param name="profanityList">Array of words to add into the filter.</param>
         public ProfanityFilterScript(string[] profanityList) : base(profanityList)
         {
-            AllowList = new AllowList();
+            allowList = new AllowList();
         }
 
         /// <summary>
@@ -63,13 +63,13 @@ namespace ProfanityFilter
         /// <param name="profanityList">List of words to add into the filter.</param>
         public ProfanityFilterScript(List<string> profanityList) : base(profanityList)
         {
-            AllowList = new AllowList();
+            allowList = new AllowList();
         }
 
         /// <summary>
         /// Return the allow list;
         /// </summary>
-        public IAllowList AllowList { get; }
+        public IAllowList allowList { get; }
 
         /// <summary>
         /// Check whether a specific word is in the profanity list. IsProfanity will first
@@ -86,7 +86,7 @@ namespace ProfanityFilter
             }
 
             // Check if the word is in the allow list.
-            if (AllowList.Contains(word.ToLower(CultureInfo.InvariantCulture)))
+            if (allowList.Contains(word.ToLower(CultureInfo.InvariantCulture)))
             {
                 return false;
             }
@@ -277,7 +277,7 @@ namespace ProfanityFilter
             foreach (Match profanity in regex.Matches(term))
             {
                 // if any matches are found and aren't in the allowed list, we can return true here without checking further
-                if (!AllowList.Contains(profanity.Value.ToLower(CultureInfo.InvariantCulture)))
+                if (!allowList.Contains(profanity.Value.ToLower(CultureInfo.InvariantCulture)))
                 {
                     return true;
                 }
@@ -390,7 +390,7 @@ namespace ProfanityFilter
             {
                 if (!string.IsNullOrEmpty(word))
                 {
-                    if (!AllowList.Contains(word.ToLower(CultureInfo.InvariantCulture)))
+                    if (!allowList.Contains(word.ToLower(CultureInfo.InvariantCulture)))
                     {
                         postAllowList.Add(word);
                     }

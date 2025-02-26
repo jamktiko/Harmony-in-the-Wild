@@ -1,13 +1,14 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class MenuOnLevelLoaded : MonoBehaviour
 {
-    [SerializeField] private GameObject pauseMenuPanel;
+    [FormerlySerializedAs("pauseMenuPanel")] [SerializeField] private GameObject _pauseMenuPanel;
     private void OnLevelWasLoaded(int level)
     {
         if (level == 1)
         {
-            pauseMenuPanel.SetActive(false);
+            _pauseMenuPanel.SetActive(false);
         }
     }
 }

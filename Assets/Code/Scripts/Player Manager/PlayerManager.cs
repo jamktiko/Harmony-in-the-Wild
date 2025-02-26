@@ -2,21 +2,22 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [System.Serializable]
 public class PlayerManager : MonoBehaviour
 {
-    public static PlayerManager instance;
+    public static PlayerManager Instance;
 
-    [SerializeField] private int experience;
-    [SerializeField] private int level;
+    [FormerlySerializedAs("experience")] [SerializeField] private int _experience;
+    [FormerlySerializedAs("level")] [SerializeField] private int _level;
     [SerializeField] public int Berries;
     [SerializeField] public int PineCones;
     [SerializeField] public Dictionary<string, bool> BerryData = new Dictionary<string, bool>();
     [SerializeField] public Dictionary<string, bool> PineConeData = new Dictionary<string, bool>();
     private void Awake()
     {
-        if (PlayerManager.instance != null)
+        if (PlayerManager.Instance != null)
         {
             Debug.LogWarning("There is more than one Player Manager in the scene");
             Destroy(gameObject);
@@ -24,22 +25,22 @@ public class PlayerManager : MonoBehaviour
 
         else
         {
-            instance = this;
+            Instance = this;
 
         }
     }
     public void GenerateCollectibleData()
     {
-        BerryData = SaveManager.instance.GetLoadedBerryDictionary();
+        BerryData = SaveManager.Instance.GetLoadedBerryDictionary();
         Berries = BerryData.Where(x => !x.Value).Count();
-        PineConeData = SaveManager.instance.GetLoadedPineConeDictionary();
+        PineConeData = SaveManager.Instance.GetLoadedPineConeDictionary();
         PineCones = PineConeData.Where(x => !x.Value).Count();
     }
     public int LevelCheck()
     {
-        level = experience / 100;
-        Debug.Log("Player leveled up to level " + level);
-        return level;
+        _level = _experience / 100;
+        Debug.Log("Player leveled up to level " + _level);
+        return _level;
     }
 
     public string CollectBerryDataForSaving()

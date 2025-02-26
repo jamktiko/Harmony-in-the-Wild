@@ -1,19 +1,20 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class TeleportManager : MonoBehaviour
 {
-    [SerializeField] private List<TeleportButtonData> teleportLocations;
-    [SerializeField] private GameObject teleportTriggerButton;
+    [FormerlySerializedAs("teleportLocations")] [SerializeField] private List<TeleportButtonData> _teleportLocations;
+    [FormerlySerializedAs("teleportTriggerButton")] [SerializeField] private GameObject _teleportTriggerButton;
 
     private void Awake()
     {
         if (transform.childCount <= 0)
         {
-            foreach (TeleportButtonData location in teleportLocations)
+            foreach (TeleportButtonData location in _teleportLocations)
             {
-                GameObject newButton = Instantiate(teleportTriggerButton, transform);
-                newButton.GetComponent<TeleportButton>().InitializeLocation(location.position.position, location.name);
+                GameObject newButton = Instantiate(_teleportTriggerButton, transform);
+                newButton.GetComponent<TeleportButton>().InitializeLocation(location.Position.position, location.Name);
             }
         }
     }
@@ -21,7 +22,7 @@ public class TeleportManager : MonoBehaviour
     [System.Serializable]
     public class TeleportButtonData
     {
-        public string name;
-        public Transform position;
+        [FormerlySerializedAs("name")] public string Name;
+        [FormerlySerializedAs("position")] public Transform Position;
     }
 }

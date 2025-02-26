@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class TeleportButton : MonoBehaviour
 {
-    private Vector3 teleportTarget;
-    private Transform player;
+    private Vector3 _teleportTarget;
+    private Transform _player;
 
     private void Awake()
     {
@@ -12,7 +12,7 @@ public class TeleportButton : MonoBehaviour
 
     public void InitializeLocation(Vector3 newTarget, string name)
     {
-        teleportTarget = newTarget;
+        _teleportTarget = newTarget;
         transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = name;
 
         GameObject[] playerTags = GameObject.FindGameObjectsWithTag("Player");
@@ -21,15 +21,15 @@ public class TeleportButton : MonoBehaviour
         {
             if (playerOption.gameObject.name == "Player_Spawn")
             {
-                player = playerOption.transform;
+                _player = playerOption.transform;
             }
         }
     }
 
     public void Teleport()
     {
-        player.gameObject.SetActive(false);
-        player.position = teleportTarget;
-        player.gameObject.SetActive(true);
+        _player.gameObject.SetActive(false);
+        _player.position = _teleportTarget;
+        _player.gameObject.SetActive(true);
     }
 }

@@ -1,13 +1,14 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class SelectButtonDefault : MonoBehaviour
 {
-    [SerializeField] Button primaryButton;
+    [FormerlySerializedAs("primaryButton")] [SerializeField] Button _primaryButton;
     // Start is called before the first frame update
     void Start()
     {
-        primaryButton.Select();
+        _primaryButton.Select();
     }
 
     // Update is called once per frame

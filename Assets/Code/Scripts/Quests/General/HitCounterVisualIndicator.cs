@@ -1,42 +1,44 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class HitCounterVisualIndicator : MonoBehaviour
 {
+    [FormerlySerializedAs("playerHitCounter")]
     [Header("Needed References")]
-    [SerializeField] private HitCounter playerHitCounter;
-    [SerializeField] private GameObject singleHitIndicator;
+    [SerializeField] private HitCounter _playerHitCounter;
+    [FormerlySerializedAs("singleHitIndicator")] [SerializeField] private GameObject _singleHitIndicator;
 
-    private int maxHits;
-    private string currentScene;
+    private int _maxHits;
+    private string _currentScene;
 
     private void Start()
     {
-        currentScene = SceneManager.GetActiveScene().name;
+        _currentScene = SceneManager.GetActiveScene().name;
 
-        maxHits = playerHitCounter.GetMaxHits();
+        _maxHits = _playerHitCounter.GetMaxHits();
 
-        for (int i = 0; i < maxHits; i++)
+        for (int i = 0; i < _maxHits; i++)
         {
-            Instantiate(singleHitIndicator, transform);
+            Instantiate(_singleHitIndicator, transform);
         }
     }
 
     private void OnEnable()
     {
-        if (currentScene == "Dungeon_Penguin")
+        if (_currentScene == "Dungeon_Penguin")
         {
-            PenguinRaceManager.instance.penguinDungeonEvents.onLapFinished += ResetHealth;
-            PenguinRaceManager.instance.penguinDungeonEvents.onLapInterrupted += ResetHealth;
+            PenguinRaceManager.instance.PenguinDungeonEvents.OnLapFinished += ResetHealth;
+            PenguinRaceManager.instance.PenguinDungeonEvents.OnLapInterrupted += ResetHealth;
         }
     }
 
     private void OnDisable()
     {
-        if (currentScene == "Dungeon_Penguin")
+        if (_currentScene == "Dungeon_Penguin")
         {
-            PenguinRaceManager.instance.penguinDungeonEvents.onLapFinished -= ResetHealth;
-            PenguinRaceManager.instance.penguinDungeonEvents.onLapInterrupted -= ResetHealth;
+            PenguinRaceManager.instance.PenguinDungeonEvents.OnLapFinished -= ResetHealth;
+            PenguinRaceManager.instance.PenguinDungeonEvents.OnLapInterrupted -= ResetHealth;
         }
     }
 
@@ -55,7 +57,7 @@ public class HitCounterVisualIndicator : MonoBehaviour
     {
         if (currentHits != 0)
         {
-            transform.GetChild(maxHits - currentHits).gameObject.SetActive(false);
+            transform.GetChild(_maxHits - currentHits).gameObject.SetActive(false);
         }
 
         else

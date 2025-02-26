@@ -1,20 +1,21 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class StartTutorialQuest : MonoBehaviour
 {
-    [SerializeField] private QuestScriptableObject questSO;
+    [FormerlySerializedAs("questSO")] [SerializeField] private QuestScriptableObject _questSo;
 
     private void Start()
     {
-        if (QuestManager.instance.CheckQuestState(questSO.id) == QuestState.CAN_START)
+        if (QuestManager.Instance.CheckQuestState(_questSo.id) == QuestState.CanStart)
         {
-            GameEventsManager.instance.questEvents.StartQuest(questSO.id);
+            GameEventsManager.instance.QuestEvents.StartQuest(_questSo.id);
             Destroy(this);
         }
 
         else
         {
-            Debug.Log("Not starting tutorial quest, current state: " + QuestManager.instance.CheckQuestState(questSO.id));
+            Debug.Log("Not starting tutorial quest, current state: " + QuestManager.Instance.CheckQuestState(_questSo.id));
             Destroy(this);
         }
     }

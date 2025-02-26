@@ -3,26 +3,26 @@ using UnityEngine.SceneManagement;
 
 public class ExitCaveQuest : QuestStep
 {
-    public static ExitCaveQuest instance;
+    public static ExitCaveQuest Instance;
 
-    private bool hasExited;
+    private bool _hasExited;
 
     private void Awake()
     {
-        if (instance != null)
+        if (Instance != null)
         {
             Debug.Log("More than one Exit Cave Quests in the scene!");
         }
 
         else
         {
-            instance = this;
+            Instance = this;
         }
     }
 
     private void Start()
     {
-        GameEventsManager.instance.questEvents.ShowQuestUI(GetQuestId(), objective, progress);
+        GameEventsManager.instance.QuestEvents.ShowQuestUI(GetQuestId(), Objective, Progress);
     }
 
     private void OnEnable()
@@ -39,7 +39,7 @@ public class ExitCaveQuest : QuestStep
     {
         if (scene.name.Contains("Tutorial", System.StringComparison.CurrentCultureIgnoreCase))
         {
-            GameEventsManager.instance.questEvents.ShowQuestUI(GetQuestId(), objective, progress);
+            GameEventsManager.instance.QuestEvents.ShowQuestUI(GetQuestId(), Objective, Progress);
         }
     }
 
@@ -50,13 +50,13 @@ public class ExitCaveQuest : QuestStep
 
     private void UpdateState()
     {
-        string state = hasExited.ToString();
+        string state = _hasExited.ToString();
         ChangeState(state);
     }
 
     protected override void SetQuestStepState(string state)
     {
-        hasExited = System.Convert.ToBoolean(state);
+        _hasExited = System.Convert.ToBoolean(state);
 
         UpdateState();
     }

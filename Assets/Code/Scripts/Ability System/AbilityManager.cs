@@ -41,7 +41,7 @@ public class AbilityManager : MonoBehaviour
         //Debug.Log($"Tried activating ability: {abilityType}");
         if (_abilities.ContainsKey(abilityType))
         {
-            if (_abilityStatuses.TryGetValue(abilityType, out bool isUnlocked) && isUnlocked)
+            if (AbilityStatuses.TryGetValue(abilityType, out bool isUnlocked) && isUnlocked)
             {
                 _abilities[abilityType].Activate();
             }
@@ -68,9 +68,9 @@ public class AbilityManager : MonoBehaviour
     //Method to enable an ability
     public void UnlockAbility(Abilities abilityType)
     {
-        if (_abilityStatuses.ContainsKey(abilityType))
+        if (AbilityStatuses.ContainsKey(abilityType))
         {
-            _abilityStatuses[abilityType] = true;
+            AbilityStatuses[abilityType] = true;
 
             Debug.Log($"Ability {abilityType} has been unlocked.");
         }
@@ -83,9 +83,9 @@ public class AbilityManager : MonoBehaviour
     // Method to lock an ability again if needed (most likely since you haven't yet completed the corresponding quest)
     public void LockAbility(Abilities abilityType)
     {
-        if (_abilityStatuses.ContainsKey(abilityType))
+        if (AbilityStatuses.ContainsKey(abilityType))
         {
-            _abilityStatuses[abilityType] = false;
+            AbilityStatuses[abilityType] = false;
 
             Debug.Log($"Ability {abilityType} has been locked again. Corresponding dungeon was not yet completed.");
         }
@@ -93,7 +93,7 @@ public class AbilityManager : MonoBehaviour
 
     public string CollectAbilityDataForSaving()
     {
-        string data = JsonConvert.SerializeObject(_abilityStatuses);
+        string data = JsonConvert.SerializeObject(AbilityStatuses);
 
         //Debug.Log("data: " + data);
         return data;
@@ -101,14 +101,14 @@ public class AbilityManager : MonoBehaviour
 
     public void LoadAbilityData()
     {
-        _abilityStatuses = SaveManager.instance.GetLoadedAbilityDictionary();
+        AbilityStatuses = SaveManager.Instance.GetLoadedAbilityDictionary();
     }
 
     void KeepAbilityPartsAtPlayer()
     {
-        if (FoxMovement.instance != null && FoxMovement.instance.gameObject.transform.position != null)
+        if (FoxMovement.Instance != null && FoxMovement.Instance.gameObject.transform.position != null)
         {
-            _abilityPartsChild.transform.position = FoxMovement.instance.gameObject.transform.position;
+            _abilityPartsChild.transform.position = FoxMovement.Instance.gameObject.transform.position;
         }
     }
 }

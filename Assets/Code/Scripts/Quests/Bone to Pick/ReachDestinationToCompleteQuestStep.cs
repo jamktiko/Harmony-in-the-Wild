@@ -1,9 +1,10 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ReachDestinationToCompleteQuestStep : MonoBehaviour
 {
-    [SerializeField] private QuestScriptableObject questSO;
-    [SerializeField] private int targetQuestStepIndex;
+    [FormerlySerializedAs("questSO")] [SerializeField] private QuestScriptableObject _questSo;
+    [FormerlySerializedAs("targetQuestStepIndex")] [SerializeField] private int _targetQuestStepIndex;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -15,16 +16,16 @@ public class ReachDestinationToCompleteQuestStep : MonoBehaviour
 
     private void CheckQuestProgress()
     {
-        int currentQuestStepIndex = QuestManager.instance.GetQuestById(questSO.id).GetCurrentQuestStepIndex();
+        int currentQuestStepIndex = QuestManager.Instance.GetQuestById(_questSo.id).GetCurrentQuestStepIndex();
 
-        if (currentQuestStepIndex == targetQuestStepIndex)
+        if (currentQuestStepIndex == _targetQuestStepIndex)
         {
-            GameEventsManager.instance.questEvents.ReachTargetDestinationToCompleteQuestStep(questSO.id);
+            GameEventsManager.instance.QuestEvents.ReachTargetDestinationToCompleteQuestStep(_questSo.id);
         }
 
         else
         {
-            Debug.Log($"Trying to progress {questSO.id} by entering a trigger collider; current quest step index not matching.");
+            Debug.Log($"Trying to progress {_questSo.id} by entering a trigger collider; current quest step index not matching.");
         }
     }
 }

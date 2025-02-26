@@ -1,43 +1,44 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Geyser : MonoBehaviour
 {
-    [SerializeField] private float cooldown;
-    [SerializeField] private float timePassed;
-    [SerializeField] private int strength = 1700;
-    [SerializeField] private bool isErupting;
+    [FormerlySerializedAs("cooldown")] [SerializeField] private float _cooldown;
+    [FormerlySerializedAs("timePassed")] [SerializeField] private float _timePassed;
+    [FormerlySerializedAs("strength")] [SerializeField] private int _strength = 1700;
+    [FormerlySerializedAs("isErupting")] [SerializeField] private bool _isErupting;
 
-    private Rigidbody rb;
+    private Rigidbody _rb;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        _rb = GetComponent<Rigidbody>();
 
-        if (cooldown == 0)
+        if (_cooldown == 0)
         {
-            cooldown = 400;
+            _cooldown = 400;
         }
     }
 
     void FixedUpdate()
     {
-        timePassed += Time.deltaTime; //NOTE: Changed 1f with Time.deltaTime to make it non-framerate dependant.
+        _timePassed += Time.deltaTime; //NOTE: Changed 1f with Time.deltaTime to make it non-framerate dependant.
 
-        if (timePassed >= cooldown && !isErupting)
+        if (_timePassed >= _cooldown && !_isErupting)
         {
             /*timePassed = 0;*/
             Debug.Log("ERUPTION");
-            rb.AddForce(new Vector3(0, strength, 0), ForceMode.Force);
-            isErupting = true;
+            _rb.AddForce(new Vector3(0, _strength, 0), ForceMode.Force);
+            _isErupting = true;
         }
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (isErupting)
+        if (_isErupting)
         {
-            timePassed = 0;
+            _timePassed = 0;
         }
-        isErupting = false;
+        _isErupting = false;
     }
     private void OnTriggerEnter(Collider other)
     {

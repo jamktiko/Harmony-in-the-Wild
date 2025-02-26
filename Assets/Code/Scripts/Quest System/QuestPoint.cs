@@ -1,54 +1,60 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(SphereCollider))]
 public class QuestPoint : MonoBehaviour
 {
+    [FormerlySerializedAs("questInfoForPoint")]
     [Header("Quest")]
-    [SerializeField] public QuestScriptableObject questInfoForPoint;
+    [SerializeField] public QuestScriptableObject QuestInfoForPoint;
 
+    [FormerlySerializedAs("startPoint")]
     [Header("Config")]
-    [SerializeField] private bool startPoint = true;
-    [SerializeField] private bool finishPoint = true;
+    [SerializeField] private bool _startPoint = true;
+    [FormerlySerializedAs("finishPoint")] [SerializeField] private bool _finishPoint = true;
+    [FormerlySerializedAs("character")]
     [Tooltip("You only need to set this for the quests that have dialogue related progress. Otherwise can be left as Default.")]
-    [SerializeField] private DialogueQuestNPCs character;
+    [SerializeField] private DialogueQuestNpCs _character;
 
+    [FormerlySerializedAs("playerIsNear")]
     [Header("Dialogue Config")]
-    [SerializeField] private bool playerIsNear = false;
+    [SerializeField] private bool _playerIsNear = false;
 
-    private string questId;
-    private QuestState currentQuestState;
-    private QuestPointDialogue questPointDialogue;
-    private bool readyToStartQuest;
-    private bool readyToCompleteQuest;
-    private bool midQuestDialogueSet = false;
-    private int midQuestDialogueIndex = 0;
+    private string _questId;
+    private QuestState _currentQuestState;
+    private QuestPointDialogue _questPointDialogue;
+    private bool _readyToStartQuest;
+    private bool _readyToCompleteQuest;
+    private bool _midQuestDialogueSet = false;
+    private int _midQuestDialogueIndex = 0;
 
+    [FormerlySerializedAs("respawnPoint")]
     [Header("RespawnPoint")]
-    [SerializeField] private Transform respawnPoint;
+    [SerializeField] private Transform _respawnPoint;
 
     private void Awake()
     {
-        questId = questInfoForPoint.id;
-        questPointDialogue = GetComponent<QuestPointDialogue>();
+        _questId = QuestInfoForPoint.id;
+        _questPointDialogue = GetComponent<QuestPointDialogue>();
     }
 
     private void OnEnable()
     {
-        GameEventsManager.instance.questEvents.OnQuestStateChange += QuestStateChange;
-        GameEventsManager.instance.dialogueEvents.OnEndDialogue += StartOrCompleteQuest;
-        GameEventsManager.instance.dialogueEvents.OnSetMidQuestDialogue += SetMidQuestDialogue;
+        GameEventsManager.instance.QuestEvents.OnQuestStateChange += QuestStateChange;
+        GameEventsManager.instance.DialogueEvents.OnEndDialogue += StartOrCompleteQuest;
+        GameEventsManager.instance.DialogueEvents.OnSetMidQuestDialogue += SetMidQuestDialogue;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.questEvents.OnQuestStateChange -= QuestStateChange;
-        GameEventsManager.instance.dialogueEvents.OnEndDialogue -= StartOrCompleteQuest;
-        GameEventsManager.instance.dialogueEvents.OnSetMidQuestDialogue -= SetMidQuestDialogue;
+        GameEventsManager.instance.QuestEvents.OnQuestStateChange -= QuestStateChange;
+        GameEventsManager.instance.DialogueEvents.OnEndDialogue -= StartOrCompleteQuest;
+        GameEventsManager.instance.DialogueEvents.OnSetMidQuestDialogue -= SetMidQuestDialogue;
     }
 
     private void Update()
     {
-        if (PlayerInputHandler.instance.InteractInput.WasPressedThisFrame() && playerIsNear)
+        if (PlayerInputHandler.Instance.InteractInput.WasPressedThisFrame() && _playerIsNear)
         {
             InteractedWithQuestPoint();
         }
@@ -56,90 +62,90 @@ public class QuestPoint : MonoBehaviour
 
     private void InteractedWithQuestPoint()
     {
-        currentQuestState = QuestManager.instance.questMap[questId].state;
+        _currentQuestState = QuestManager.Instance.QuestMap[_questId].State;
 
         // play dialogue if you are not able to start the quest yet
-        if (currentQuestState.Equals(QuestState.REQUIREMENTS_NOT_MET) && startPoint)
+        if (_currentQuestState.Equals(QuestState.RequirementsNotMet) && _startPoint)
         {
             Debug.Log("Interacting with quest point, not ready for this quest yet!");
-            questPointDialogue.RequirementsNotMetDialogue();
+            _questPointDialogue.RequirementsNotMetDialogue();
         }
 
         // start or finish a quest
-        else if (currentQuestState.Equals(QuestState.CAN_START) && startPoint)
+        else if (_currentQuestState.Equals(QuestState.CanStart) && _startPoint)
         {
             Debug.Log("Interacting with quest point, about to start a quest.");
-            readyToStartQuest = true;
-            questPointDialogue.StartQuestDialogue();
+            _readyToStartQuest = true;
+            _questPointDialogue.StartQuestDialogue();
         }
 
-        else if (currentQuestState.Equals(QuestState.CAN_FINISH) && finishPoint)
+        else if (_currentQuestState.Equals(QuestState.CanFinish) && _finishPoint)
         {
             Debug.Log("Interacting with quest point, about to finish a quest.");
-            readyToCompleteQuest = true;
-            questPointDialogue.FinishQuestDialogue();
+            _readyToCompleteQuest = true;
+            _questPointDialogue.FinishQuestDialogue();
         }
 
         // if the quest has already been finished, trigger the default dialogue
-        else if (currentQuestState.Equals(QuestState.FINISHED))
+        else if (_currentQuestState.Equals(QuestState.Finished))
         {
             Debug.Log("Interacting with quest point, quest has been completed previously.");
-            questPointDialogue.AfterQuestFinishedDialogue();
+            _questPointDialogue.AfterQuestFinishedDialogue();
         }
 
-        else if (currentQuestState.Equals(QuestState.IN_PROGRESS) && midQuestDialogueSet)
+        else if (_currentQuestState.Equals(QuestState.InProgress) && _midQuestDialogueSet)
         {
-            if (midQuestDialogueSet)
+            if (_midQuestDialogueSet)
             {
                 Debug.Log("Interacting with quest point, about to start a mid quest dialogue.");
-                questPointDialogue.MidQuestDialogue(midQuestDialogueIndex);
-                midQuestDialogueSet = false;
+                _questPointDialogue.MidQuestDialogue(_midQuestDialogueIndex);
+                _midQuestDialogueSet = false;
             }
 
             else
             {
                 Debug.Log("Interacting with quest point, about to start a quest in progress dialogue.");
-                questPointDialogue.QuestInProgressDialogue();
+                _questPointDialogue.QuestInProgressDialogue();
             }
         }
 
-        RespawnManager.instance.SetRespawnPosition(respawnPoint.transform.position);
+        RespawnManager.Instance.SetRespawnPosition(_respawnPoint.transform.position);
     }
 
     private void StartOrCompleteQuest()
     {
-        if (playerIsNear && readyToStartQuest && !readyToCompleteQuest && currentQuestState.Equals(QuestState.CAN_START))
+        if (_playerIsNear && _readyToStartQuest && !_readyToCompleteQuest && _currentQuestState.Equals(QuestState.CanStart))
         {
-            GameEventsManager.instance.questEvents.StartQuest(questId);
+            GameEventsManager.instance.QuestEvents.StartQuest(_questId);
         }
 
-        else if (playerIsNear && readyToCompleteQuest && currentQuestState.Equals(QuestState.CAN_FINISH))
+        else if (_playerIsNear && _readyToCompleteQuest && _currentQuestState.Equals(QuestState.CanFinish))
         {
-            GameEventsManager.instance.questEvents.FinishQuest(questId);
+            GameEventsManager.instance.QuestEvents.FinishQuest(_questId);
         }
     }
 
     private void QuestStateChange(Quest quest)
     {
         // only update the quest state if this point has the corresponding quest
-        if (quest.info.id.Equals(questId))
+        if (quest.Info.id.Equals(_questId))
         {
-            currentQuestState = quest.state;
+            _currentQuestState = quest.State;
             //Debug.Log("Quest with id: " + questId + " updated to state: " + currentQuestState);
         }
     }
 
     public string ReturnQuestId()
     {
-        return questId;
+        return _questId;
     }
 
     private void SetMidQuestDialogue(int dialogueIndex, string id)
     {
-        if (id == questId)
+        if (id == _questId)
         {
-            midQuestDialogueSet = true;
-            midQuestDialogueIndex = dialogueIndex;
+            _midQuestDialogueSet = true;
+            _midQuestDialogueIndex = dialogueIndex;
         }
     }
 
@@ -147,11 +153,11 @@ public class QuestPoint : MonoBehaviour
     {
         if (other.CompareTag("Trigger"))
         {
-            playerIsNear = true;
+            _playerIsNear = true;
 
-            if (character != DialogueQuestNPCs.Default)
+            if (_character != DialogueQuestNpCs.Default)
             {
-                GameEventsManager.instance.dialogueEvents.RegisterPlayerNearNPC(character, playerIsNear);
+                GameEventsManager.instance.DialogueEvents.RegisterPlayerNearNpc(_character, _playerIsNear);
             }
         }
     }
@@ -160,11 +166,11 @@ public class QuestPoint : MonoBehaviour
     {
         if (other.CompareTag("Trigger"))
         {
-            playerIsNear = false;
+            _playerIsNear = false;
 
-            if (character != DialogueQuestNPCs.Default)
+            if (_character != DialogueQuestNpCs.Default)
             {
-                GameEventsManager.instance.dialogueEvents.RegisterPlayerNearNPC(character, playerIsNear);
+                GameEventsManager.instance.DialogueEvents.RegisterPlayerNearNpc(_character, _playerIsNear);
             }
         }
     }

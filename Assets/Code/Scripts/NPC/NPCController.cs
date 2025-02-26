@@ -2,29 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 
-public class NPCController : MonoBehaviour
+public class NpcController : MonoBehaviour
 {
+    [FormerlySerializedAs("minDuration")]
     [Header("Idle Duration Config")]
-    [SerializeField] private float minDuration = 2f;
-    [SerializeField] private float maxDuration = 10f;
+    [SerializeField] private float _minDuration = 2f;
+    [FormerlySerializedAs("maxDuration")] [SerializeField] private float _maxDuration = 10f;
 
+    [FormerlySerializedAs("destinations")]
     [Header("Needed References")]
-    [SerializeField] private List<Transform> destinations;
-    [SerializeField] private Animator animator;
+    [SerializeField] private List<Transform> _destinations;
+    [FormerlySerializedAs("animator")] [SerializeField] private Animator _animator;
 
-    private NavMeshAgent agent;
-    private Vector3 currentDestination;
-    private int currentDestinationIndex;
-    private float defaultSpeed;
-    private bool playerIsNear;
-    private Coroutine idleCoroutine;
+    private NavMeshAgent _agent;
+    private Vector3 _currentDestination;
+    private int _currentDestinationIndex;
+    private float _defaultSpeed;
+    private bool _playerIsNear;
+    private Coroutine _idleCoroutine;
 
     private void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
-        currentDestination = destinations[0].position;
-        defaultSpeed = agent.speed;
+        _agent = GetComponent<NavMeshAgent>();
+        _currentDestination = _destinations[0].position;
+        _defaultSpeed = _agent.speed;
 
         StartCoroutine(WalkToDestination());
     }
@@ -33,25 +36,25 @@ public class NPCController : MonoBehaviour
     {
         // if the list contains a new destination, set it is current destination
         // otherwise use the first destination as a target to start a new loop
-        if (currentDestinationIndex < destinations.Count - 1)
+        if (_currentDestinationIndex < _destinations.Count - 1)
         {
-            currentDestinationIndex++;
+            _currentDestinationIndex++;
         }
 
         else
         {
-            currentDestinationIndex = 0;
+            _currentDestinationIndex = 0;
         }
 
-        currentDestination = destinations[currentDestinationIndex].position;
+        _currentDestination = _destinations[_currentDestinationIndex].position;
     }
 
     private IEnumerator WalkToDestination()
     {
         // make sure there is no overlapping idle coroutines going
-        if (idleCoroutine != null)
+        if (_idleCoroutine != null)
         {
-            idleCoroutine = null;
+            _idleCoroutine = null;
         }
 
         bool nearDestination = false;
@@ -60,11 +63,11 @@ public class NPCController : MonoBehaviour
 
         SetTurnAnimation();
 
-        while (!nearDestination && !playerIsNear)
+        while (!nearDestination && !_playerIsNear)
         {
-            agent.SetDestination(currentDestination);
+            _agent.SetDestination(_currentDestination);
 
-            if (Vector3.Distance(transform.position, currentDestination) < 1.5f)
+            if (Vector3.Distance(transform.position, _currentDestination) < 1.5f)
             {
                 nearDestination = true;
             }
@@ -72,38 +75,38 @@ public class NPCController : MonoBehaviour
             yield return null;
         }
 
-        idleCoroutine = StartCoroutine(Idle());
+        _idleCoroutine = StartCoroutine(Idle());
     }
 
     private IEnumerator Idle()
     {
-        agent.speed = 0;
-        animator.SetTrigger("idle");
+        _agent.speed = 0;
+        _animator.SetTrigger("idle");
 
-        yield return new WaitForSeconds(Random.Range(minDuration, maxDuration));
+        yield return new WaitForSeconds(Random.Range(_minDuration, _maxDuration));
 
         //yield return new WaitUntil(playerIsNear == false);
 
-        if (!playerIsNear)
+        if (!_playerIsNear)
         {
-            agent.speed = defaultSpeed;
+            _agent.speed = _defaultSpeed;
             StartCoroutine(WalkToDestination());
         }
     }
 
     private void SetTurnAnimation()
     {
-        float direction = transform.position.x - currentDestination.x;
+        float direction = transform.position.x - _currentDestination.x;
 
-        animator.SetTrigger("walk");
-        animator.SetFloat("turn", direction);
+        _animator.SetTrigger("walk");
+        _animator.SetFloat("turn", direction);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            playerIsNear = true;
+            _playerIsNear = true;
         }
     }
 
@@ -111,9 +114,9 @@ public class NPCController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            playerIsNear = false;
+            _playerIsNear = false;
 
-            if (idleCoroutine == null)
+            if (_idleCoroutine == null)
             {
                 StartCoroutine(Idle());
             }

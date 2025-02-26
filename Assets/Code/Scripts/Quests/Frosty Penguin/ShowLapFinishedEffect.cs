@@ -3,28 +3,28 @@ using UnityEngine;
 
 public class ShowLapFinishedEffect : MonoBehaviour
 {
-    private GameObject effect;
+    private GameObject _effect;
 
     private void Start()
     {
-        effect = transform.GetChild(0).gameObject;
-        PenguinRaceManager.instance.penguinDungeonEvents.onLapFinished += ShowEffect;
+        _effect = transform.GetChild(0).gameObject;
+        PenguinRaceManager.instance.PenguinDungeonEvents.OnLapFinished += ShowEffect;
     }
 
     private void OnDisable()
     {
-        PenguinRaceManager.instance.penguinDungeonEvents.onLapFinished -= ShowEffect;
+        PenguinRaceManager.instance.PenguinDungeonEvents.OnLapFinished -= ShowEffect;
     }
 
     private void ShowEffect()
     {
-        effect.SetActive(true);
-        effect.GetComponent<ParticleSystem>().Play();
+        _effect.SetActive(true);
+        _effect.GetComponent<ParticleSystem>().Play();
     }
 
     private IEnumerator HideEffect()
     {
-        yield return new WaitForSeconds(effect.GetComponent<ParticleSystem>().main.duration);
-        effect.SetActive(false);
+        yield return new WaitForSeconds(_effect.GetComponent<ParticleSystem>().main.duration);
+        _effect.SetActive(false);
     }
 }

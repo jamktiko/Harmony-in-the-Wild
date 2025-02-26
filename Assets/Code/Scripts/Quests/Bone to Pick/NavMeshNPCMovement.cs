@@ -2,84 +2,88 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 
-public class NavMeshNPCMovement : MonoBehaviour
+public class NavMeshNpcMovement : MonoBehaviour
 {
+    [FormerlySerializedAs("character")]
     [Header("Quest Config")]
-    [SerializeField] private DialogueQuestNPCs character;
-    [SerializeField] private QuestScriptableObject questSO;
-    [SerializeField] private int questStepIndexToAllowMovement;
+    [SerializeField] private DialogueQuestNpCs _character;
+    [FormerlySerializedAs("questSO")] [SerializeField] private QuestScriptableObject _questSo;
+    [FormerlySerializedAs("questStepIndexToAllowMovement")] [SerializeField] private int _questStepIndexToAllowMovement;
 
+    [FormerlySerializedAs("maxDistanceToPlayer")]
     [Header("Movement Config")]
-    [SerializeField] private float maxDistanceToPlayer = 10f;
-    [SerializeField] private List<Transform> destinations;
+    [SerializeField] private float _maxDistanceToPlayer = 10f;
+    [FormerlySerializedAs("destinations")] [SerializeField] private List<Transform> _destinations;
 
+    [FormerlySerializedAs("animator")]
     [Header("Other Needed References")]
-    [SerializeField] private Animator animator;
-    [SerializeField] private GameObject interactionIndicator;
-    [SerializeField] private Transform player;
+    [SerializeField] private Animator _animator;
+    [FormerlySerializedAs("interactionIndicator")] [SerializeField] private GameObject _interactionIndicator;
+    [FormerlySerializedAs("player")] [SerializeField] private Transform _player;
 
-    private Vector3 currentTargetDestination;
-    private int currentTargetDestinationIndex;
-    private bool canMove;
-    private bool playerIsNear;
-    private NavMeshAgent agent;
-    private Coroutine idleCoroutine;
+    private Vector3 _currentTargetDestination;
+    private int _currentTargetDestinationIndex;
+    private bool _canMove;
+    private bool _playerIsNear;
+    private NavMeshAgent _agent;
+    private Coroutine _idleCoroutine;
 
     private void Awake()
     {
-        agent = GetComponent<NavMeshAgent>();
+        _agent = GetComponent<NavMeshAgent>();
 
         CheckInitialSpawnPoint();
     }
 
     private void OnEnable()
     {
-        GameEventsManager.instance.questEvents.OnStartMovingQuestNPC += EnableMovement;
+        GameEventsManager.instance.QuestEvents.OnStartMovingQuestNpc += EnableMovement;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.questEvents.OnStartMovingQuestNPC -= EnableMovement;
+        GameEventsManager.instance.QuestEvents.OnStartMovingQuestNpc -= EnableMovement;
     }
 
     private void Update()
     {
-        if (canMove && playerIsNear)
+        if (_canMove && _playerIsNear)
         {
-            idleCoroutine = null;
-            MoveNPC();
+            _idleCoroutine = null;
+            MoveNpc();
         }
 
-        else if(canMove && !playerIsNear && idleCoroutine == null)
+        else if(_canMove && !_playerIsNear && _idleCoroutine == null)
         {
-            idleCoroutine = StartCoroutine(Idle());
+            _idleCoroutine = StartCoroutine(Idle());
         }
 
         CheckDistanceToPlayer();
     }
 
-    private void MoveNPC()
+    private void MoveNpc()
     {
-        agent.SetDestination(currentTargetDestination);
+        _agent.SetDestination(_currentTargetDestination);
 
-        if (Vector3.Distance(transform.position, currentTargetDestination) < 1.5f)
+        if (Vector3.Distance(transform.position, _currentTargetDestination) < 1.5f)
         {
             SetNewDestination();
         }
     }
 
-    private void EnableMovement(DialogueQuestNPCs questCharacterToMove)
+    private void EnableMovement(DialogueQuestNpCs questCharacterToMove)
     {
-        if(character == questCharacterToMove)
+        if(_character == questCharacterToMove)
         {
-            if (QuestManager.instance.GetQuestById(questSO.id).GetCurrentQuestStepIndex() == questStepIndexToAllowMovement)
+            if (QuestManager.Instance.GetQuestById(_questSo.id).GetCurrentQuestStepIndex() == _questStepIndexToAllowMovement)
             {
-                canMove = true;
+                _canMove = true;
 
-                if (animator != null)
+                if (_animator != null)
                 {
-                    animator.SetTrigger("walk");
+                    _animator.SetTrigger("walk");
                 }
 
                 else
@@ -87,9 +91,9 @@ public class NavMeshNPCMovement : MonoBehaviour
                     Debug.LogError($"No animator attached to { gameObject.name }!");
                 }
 
-                if (interactionIndicator != null)
+                if (_interactionIndicator != null)
                 {
-                    interactionIndicator.SetActive(false);
+                    _interactionIndicator.SetActive(false);
                 }
 
                 else
@@ -104,21 +108,21 @@ public class NavMeshNPCMovement : MonoBehaviour
     {
         // if the list contains a new destination, set it is current destination
         // otherwise use the first destination as a target to start a new loop
-        if (currentTargetDestinationIndex < destinations.Count - 1)
+        if (_currentTargetDestinationIndex < _destinations.Count - 1)
         {
-            currentTargetDestinationIndex++;
+            _currentTargetDestinationIndex++;
 
-            currentTargetDestination = destinations[currentTargetDestinationIndex].position;
+            _currentTargetDestination = _destinations[_currentTargetDestinationIndex].position;
         }
 
         else
         {
-            GameEventsManager.instance.questEvents.ReachTargetDestinationToCompleteQuestStep(questSO.id);
-            canMove = false;
+            GameEventsManager.instance.QuestEvents.ReachTargetDestinationToCompleteQuestStep(_questSo.id);
+            _canMove = false;
 
-            if (interactionIndicator != null)
+            if (_interactionIndicator != null)
             {
-                interactionIndicator.SetActive(true);
+                _interactionIndicator.SetActive(true);
             }
 
             else
@@ -130,27 +134,27 @@ public class NavMeshNPCMovement : MonoBehaviour
 
     private void CheckInitialSpawnPoint()
     {
-        if (QuestManager.instance.CheckQuestState(questSO.id) == QuestState.CAN_FINISH)
+        if (QuestManager.Instance.CheckQuestState(_questSo.id) == QuestState.CanFinish)
         {
-            transform.position = destinations[destinations.Count - 1].position;
+            transform.position = _destinations[_destinations.Count - 1].position;
         }
 
         else
         {
-            currentTargetDestination = destinations[0].position;
+            _currentTargetDestination = _destinations[0].position;
         }
     }
 
     private void CheckDistanceToPlayer()
     {
-        playerIsNear = Vector3.Distance(transform.position, player.position) <= maxDistanceToPlayer;
+        _playerIsNear = Vector3.Distance(transform.position, _player.position) <= _maxDistanceToPlayer;
     }
 
     private IEnumerator Idle()
     {
         // set animation to idle
 
-        yield return new WaitUntil(() => playerIsNear);
+        yield return new WaitUntil(() => _playerIsNear);
 
         // set animation to move
     }

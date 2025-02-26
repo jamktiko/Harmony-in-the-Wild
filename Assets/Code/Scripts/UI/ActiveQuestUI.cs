@@ -1,47 +1,48 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 [System.Serializable]
 public struct QuestImage
 {
-    public QuestScriptableObject quest;
-    public Image displayImage;
+    [FormerlySerializedAs("quest")] public QuestScriptableObject Quest;
+    [FormerlySerializedAs("displayImage")] public Image DisplayImage;
 }
 public class ActiveQuestUI : MonoBehaviour
 {
 
-    [SerializeField] List<QuestImage> questImages = new List<QuestImage>();
+    [FormerlySerializedAs("questImages")] [SerializeField] List<QuestImage> _questImages = new List<QuestImage>();
 
-    [SerializeField] QuestWaypoint questWaypoint;
+    [FormerlySerializedAs("questWaypoint")] [SerializeField] QuestWaypoint _questWaypoint;
 
-    [SerializeField] TMP_Text title;
-    [SerializeField] TMP_Text description;
-    [SerializeField] TMP_Text nextQuestStepDesc;
+    [FormerlySerializedAs("title")] [SerializeField] TMP_Text _title;
+    [FormerlySerializedAs("description")] [SerializeField] TMP_Text _description;
+    [FormerlySerializedAs("nextQuestStepDesc")] [SerializeField] TMP_Text _nextQuestStepDesc;
 
     private void Awake()
     {
-        questWaypoint = FindObjectOfType<QuestWaypoint>();
+        _questWaypoint = FindObjectOfType<QuestWaypoint>();
     }
     public void UpdateQuestMenuUI()
     {
-        var activeQuest = QuestMenuManager.trackedQuest;
+        var activeQuest = QuestMenuManager.TrackedQuest;
 
-        title.text = activeQuest.info.displayName.ToUpper();
+        _title.text = activeQuest.Info.DisplayName.ToUpper();
 
-        description.text = activeQuest.info.description;
-        nextQuestStepDesc.text = activeQuest.state == QuestState.IN_PROGRESS ? activeQuest.GetCurrentQuestStepPrefab().GetComponent<QuestStep>().objective : "";
+        _description.text = activeQuest.Info.Description;
+        _nextQuestStepDesc.text = activeQuest.State == QuestState.InProgress ? activeQuest.GetCurrentQuestStepPrefab().GetComponent<QuestStep>().Objective : "";
 
         //GameEventsManager.instance.questEvents.ShowQuestUI(activeQuest.info.displayName, activeQuest.state == QuestState.IN_PROGRESS ? activeQuest.GetCurrentQuestStepPrefab().GetComponent<QuestStep>().objective : activeQuest.info.description,"");
     }
 
     public void TrackQuest()
     {
-        var activeQuest = QuestMenuManager.trackedQuest;
+        var activeQuest = QuestMenuManager.TrackedQuest;
 
-        questWaypoint.GetNewQuestWaypointPosition();
+        _questWaypoint.GetNewQuestWaypointPosition();
 
-        GameEventsManager.instance.questEvents.ShowQuestUI(activeQuest.info.displayName, activeQuest.state == QuestState.IN_PROGRESS ? activeQuest.GetCurrentQuestStepPrefab().GetComponent<QuestStep>().objective : activeQuest.info.description, activeQuest.info.displayName);
+        GameEventsManager.instance.QuestEvents.ShowQuestUI(activeQuest.Info.DisplayName, activeQuest.State == QuestState.InProgress ? activeQuest.GetCurrentQuestStepPrefab().GetComponent<QuestStep>().Objective : activeQuest.Info.Description, activeQuest.Info.DisplayName);
     }
 }

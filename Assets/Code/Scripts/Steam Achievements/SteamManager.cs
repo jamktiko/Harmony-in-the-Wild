@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class SteamManager : MonoBehaviour
 {
-    public static SteamManager instance;
+    public static SteamManager Instance;
 
     public void Awake()
     {
-        if (instance != null && instance != this)
+        if (Instance != null && Instance != this)
         {
             Debug.LogWarning("There is more than one Ability Manager.");
             Destroy(gameObject);
@@ -14,7 +14,7 @@ public class SteamManager : MonoBehaviour
         }
         else
         {
-            instance = this;
+            Instance = this;
         }
     }
     void Start()

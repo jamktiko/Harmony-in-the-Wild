@@ -9,7 +9,7 @@ public class Gliding : MonoBehaviour, IAbility
     public float AirMultiplier = 0.7f;
     public bool IsGliding;
     [SerializeField] private AudioSource _glidingAudio;
-    private List<ParticleSystem> _glideParticleEmission = new List<ParticleSystem>();
+    private readonly List<ParticleSystem> _glideParticleEmission = new List<ParticleSystem>();
 
     private bool _allowActivationBasedOnInput = true;
 
@@ -26,12 +26,12 @@ public class Gliding : MonoBehaviour, IAbility
 
     private void OnEnable()
     {
-        GameEventsManager.instance.playerEvents.OnToggleInputActions += ToggleActivation;
+        GameEventsManager.instance.PlayerEvents.OnToggleInputActions += ToggleActivation;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.playerEvents.OnToggleInputActions -= ToggleActivation;
+        GameEventsManager.instance.PlayerEvents.OnToggleInputActions -= ToggleActivation;
     }
 
     void Start()
@@ -43,7 +43,7 @@ public class Gliding : MonoBehaviour, IAbility
         Glide();
         CalculateGlidingMultiplier();
 
-        if (IsGlidingOver() && FoxMovement.instance != null)
+        if (IsGlidingOver() && FoxMovement.Instance != null)
         {
             DisableGliding();
         }
@@ -91,7 +91,7 @@ public class Gliding : MonoBehaviour, IAbility
 
             if (IsGliding)
             {
-                AudioManager.Instance.PlaySound(AudioName.Ability_Gliding_Activated, transform);
+                AudioManager.Instance.PlaySound(AudioName.AbilityGlidingActivated, transform);
 
                 for (int i = 0; i < _glideParticleEmission.Count; i++)
                 {
@@ -113,12 +113,12 @@ public class Gliding : MonoBehaviour, IAbility
     {
         if (IsGliding)
         {
-            if (FoxMovement.instance.rb.useGravity)
+            if (FoxMovement.Instance.Rb.useGravity)
             {
                 GlidingMultiplier = 0.1f;
-                FoxMovement.instance.rb.velocity = new Vector3(FoxMovement.instance.rb.velocity.x, 0, FoxMovement.instance.rb.velocity.z);
-                FoxMovement.instance.rb.useGravity = false;
-                FoxMovement.instance.rb.velocity = new Vector3(0, -1.5f, 0);
+                FoxMovement.Instance.Rb.velocity = new Vector3(FoxMovement.Instance.Rb.velocity.x, 0, FoxMovement.Instance.Rb.velocity.z);
+                FoxMovement.Instance.Rb.useGravity = false;
+                FoxMovement.Instance.Rb.velocity = new Vector3(0, -1.5f, 0);
 
                 //if (!glidingAudio.isPlaying)
                 //{
@@ -126,18 +126,18 @@ public class Gliding : MonoBehaviour, IAbility
                 //}
             }
 
-            FoxMovement.instance.rb.velocity = new Vector3(FoxMovement.instance.rb.velocity.x, -1.5f, FoxMovement.instance.rb.velocity.z);
+            FoxMovement.Instance.Rb.velocity = new Vector3(FoxMovement.Instance.Rb.velocity.x, -1.5f, FoxMovement.Instance.Rb.velocity.z);
 
-            FoxMovement.instance.playerAnimator.SetBool("isGrounded", false);
-            FoxMovement.instance.playerAnimator.SetBool("isGliding", true);
+            FoxMovement.Instance.PlayerAnimator.SetBool("isGrounded", false);
+            FoxMovement.Instance.PlayerAnimator.SetBool("isGliding", true);
         }
     }
 
     private bool IsGlidingOver()
     {
-        if (FoxMovement.instance != null)
+        if (FoxMovement.Instance != null)
         {
-            return FoxMovement.instance.IsGrounded() || FoxMovement.instance.IsInWater() || !IsGliding;
+            return FoxMovement.Instance.IsGrounded() || FoxMovement.Instance.IsInWater() || !IsGliding;
         }
         return true;
     }
@@ -152,14 +152,14 @@ public class Gliding : MonoBehaviour, IAbility
 
     private void DisableGliding()
     {
-        FoxMovement.instance.playerAnimator.SetBool("isGrounded", false);
+        FoxMovement.Instance.PlayerAnimator.SetBool("isGrounded", false);
         IsGliding = false;
 
-        if (!FoxMovement.instance.rb.useGravity)
+        if (!FoxMovement.Instance.Rb.useGravity)
         {
-            FoxMovement.instance.rb.useGravity = true;
+            FoxMovement.Instance.Rb.useGravity = true;
         }
-        FoxMovement.instance.playerAnimator.SetBool("isGliding", false);
+        FoxMovement.Instance.PlayerAnimator.SetBool("isGliding", false);
 
         if (_glideParticleEmission != null)
         {

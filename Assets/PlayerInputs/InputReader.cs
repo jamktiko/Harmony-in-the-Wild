@@ -47,21 +47,21 @@ public class InputReader : ScriptableObject, PlayerInputActions.IPlayerActions
     public event UnityAction OnSwitchTimeScaleEvent = delegate { };
     public event UnityAction OnLayEvent = delegate { };
     public event UnityAction OnSitEvent = delegate { };
-    private PlayerInputActions playerInputActions;
+    private PlayerInputActions _playerInputActions;
     [Header("Input reader object")]
     [SerializeField] InputReader _inputReader;
     private void OnEnable()
     {
-        if (playerInputActions == null)
+        if (_playerInputActions == null)
         {
-            playerInputActions = new PlayerInputActions();
-            playerInputActions.Player.SetCallbacks(this);
-            playerInputActions.Enable();
+            _playerInputActions = new PlayerInputActions();
+            _playerInputActions.Player.SetCallbacks(this);
+            _playerInputActions.Enable();
         }
     }
     private void OnDisable()
     {
-        playerInputActions.Disable();
+        _playerInputActions.Disable();
     }
     public void OnAbilityToggle(InputAction.CallbackContext context)
     {

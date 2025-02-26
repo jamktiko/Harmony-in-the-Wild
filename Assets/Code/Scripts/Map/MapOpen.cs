@@ -1,19 +1,21 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class MapOpen : MonoBehaviour
 {
-    [SerializeField] GameObject mapPanel;
-    [SerializeField] GameObject mapCam;
-    [SerializeField] GameObject PlayerDisplayCanvas;
-    [SerializeField] internal Volume globalVolume;
+    [FormerlySerializedAs("mapPanel")] [SerializeField] GameObject _mapPanel;
+    [FormerlySerializedAs("mapCam")] [SerializeField] GameObject _mapCam;
+    [FormerlySerializedAs("PlayerDisplayCanvas")] [SerializeField] GameObject _playerDisplayCanvas;
+    [FormerlySerializedAs("globalVolume")] [SerializeField] internal Volume _globalVolume;
 
+    [FormerlySerializedAs("mapQuestMarkers")]
     [Header("Indicators")]
-    [SerializeField] private Image[] mapQuestMarkers;
+    [SerializeField] private Image[] _mapQuestMarkers;
 
-    private UnityEngine.Rendering.Universal.DepthOfField depthOfField;
+    private UnityEngine.Rendering.Universal.DepthOfField _depthOfField;
 
     void Start()
     {
@@ -23,7 +25,7 @@ public class MapOpen : MonoBehaviour
 
     private void CheckDepthOfField()
     {
-        if (globalVolume.profile.TryGet(out depthOfField))
+        if (_globalVolume.profile.TryGet(out _depthOfField))
 
         {
             //Debug.Log("Depth of Field found in the Global Volume.");
@@ -42,9 +44,9 @@ public class MapOpen : MonoBehaviour
 
     private void HandleMapToggle()
     {
-        if (PlayerInputHandler.instance.OpenMapInput.WasPressedThisFrame())
+        if (PlayerInputHandler.Instance.OpenMapInput.WasPressedThisFrame())
         {
-            DialogueManager.instance.canStartDialogue = !DialogueManager.instance.canStartDialogue;
+            DialogueManager.Instance.CanStartDialogue = !DialogueManager.Instance.CanStartDialogue;
 
             ToggleMapVisibility();
             UpdateCursorState();
@@ -55,24 +57,24 @@ public class MapOpen : MonoBehaviour
     private void ToggleMapVisibility()
     {
         //mapCam.SetActive(!mapCam.activeInHierarchy);
-        mapPanel.SetActive(!mapPanel.activeInHierarchy);
+        _mapPanel.SetActive(!_mapPanel.activeInHierarchy);
         //PlayerDisplayCanvas.SetActive(!PlayerDisplayCanvas.activeInHierarchy);
-        if (mapPanel.activeSelf)
-            QuestManager.instance.SetQuestMarkers(mapQuestMarkers);
+        if (_mapPanel.activeSelf)
+            QuestManager.Instance.SetQuestMarkers(_mapQuestMarkers);
     }
 
     private void UpdateCursorState()
     {
-        bool mapIsActive = mapCam.activeInHierarchy;
+        bool mapIsActive = _mapCam.activeInHierarchy;
         Cursor.lockState = mapIsActive ? CursorLockMode.None : CursorLockMode.Locked;
         Cursor.visible = mapIsActive;
     }
 
     private void ToggleDepthOfField()
     {
-        if (depthOfField != null)
+        if (_depthOfField != null)
         {
-            depthOfField.active = !mapCam.activeInHierarchy;
+            _depthOfField.active = !_mapCam.activeInHierarchy;
         }
     }
 
@@ -86,7 +88,7 @@ public class MapOpen : MonoBehaviour
 
     private void ToggleDebugFeatures()
     {
-        foreach (Transform child in mapPanel.transform)
+        foreach (Transform child in _mapPanel.transform)
         {
             if (child.name != "Map")
             {

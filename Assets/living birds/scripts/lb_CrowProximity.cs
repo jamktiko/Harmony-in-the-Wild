@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class lb_CrowProximity : MonoBehaviour
+public class LBCrowProximity : MonoBehaviour
 {
 
     void OnTriggerEnter(Collider col)

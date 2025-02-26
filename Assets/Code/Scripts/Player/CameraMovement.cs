@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class CameraMovement : MonoBehaviour
 {
@@ -9,101 +10,101 @@ public class CameraMovement : MonoBehaviour
         Topdown
     }
 
-    [Header("References")]
-    public Transform orientation;
-    public Transform fox;
-    public Transform foxObject;
-    public Transform foxMiddle;
-    public Transform foxBottom;
-    public Transform foxFront;
-    public Rigidbody rb;
-    public FoxMovement foxMove;
+    [FormerlySerializedAs("orientation")] [Header("References")]
+    public Transform Orientation;
+    [FormerlySerializedAs("fox")] public Transform Fox;
+    [FormerlySerializedAs("foxObject")] public Transform FoxObject;
+    [FormerlySerializedAs("foxMiddle")] public Transform FoxMiddle;
+    [FormerlySerializedAs("foxBottom")] public Transform FoxBottom;
+    [FormerlySerializedAs("foxFront")] public Transform FoxFront;
+    [FormerlySerializedAs("rb")] public Rigidbody Rb;
+    [FormerlySerializedAs("foxMove")] public FoxMovement FoxMove;
 
-    public float rotationSpeed;
+    [FormerlySerializedAs("rotationSpeed")] public float RotationSpeed;
 
     [Header("CameraStyles")]
     public Transform TelegrabLookAt;
 
-    public CameraStyle currentStyle;
+    [FormerlySerializedAs("currentStyle")] public CameraStyle CurrentStyle;
 
-    [SerializeField] public GameObject freeLookCam;
-    [SerializeField] public GameObject telegrabCam;
+    [FormerlySerializedAs("freeLookCam")] [SerializeField] public GameObject FreeLookCam;
+    [FormerlySerializedAs("telegrabCam")] [SerializeField] public GameObject TelegrabCam;
 
-    [SerializeField] float horizontalInput;
-    [SerializeField] float verticalInput;
-    [SerializeField] Vector2 mouseInput;
+    [FormerlySerializedAs("horizontalInput")] [SerializeField] float _horizontalInput;
+    [FormerlySerializedAs("verticalInput")] [SerializeField] float _verticalInput;
+    [FormerlySerializedAs("mouseInput")] [SerializeField] Vector2 _mouseInput;
 
 
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        foxMove = FindObjectOfType<FoxMovement>();
-        foxObject = transform.parent.GetComponentInChildren<Animator>().transform;
+        FoxMove = FindObjectOfType<FoxMovement>();
+        FoxObject = transform.parent.GetComponentInChildren<Animator>().transform;
     }
 
     void Update()
     {
         //rotate orientation
-        Vector3 viewDir = fox.position - new Vector3(transform.position.x, fox.position.y, transform.position.z);
-        orientation.forward = viewDir.normalized;
+        Vector3 viewDir = Fox.position - new Vector3(transform.position.x, Fox.position.y, transform.position.z);
+        Orientation.forward = viewDir.normalized;
     }
 
     private void FixedUpdate()
     {
         //rotate player object
-        if (currentStyle == CameraStyle.Basic)
+        if (CurrentStyle == CameraStyle.Basic)
         {
 
             //foxObject.rotation = Quaternion.Euler(Mathf.Clamp(foxObject.rotation.eulerAngles.x, -20, 20), foxObject.rotation.eulerAngles.y, foxObject.rotation.eulerAngles.z);
-            float horizontalInput = PlayerInputHandler.instance.MoveInput.ReadValue<Vector2>().x;
-            float verticalInput = PlayerInputHandler.instance.MoveInput.ReadValue<Vector2>().y;
-            Vector3 inputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
-            Vector3 slopeForward = Vector3.ProjectOnPlane(foxObject.forward, foxMove.SlopeHit.normal).normalized;
+            float horizontalInput = PlayerInputHandler.Instance.MoveInput.ReadValue<Vector2>().x;
+            float verticalInput = PlayerInputHandler.Instance.MoveInput.ReadValue<Vector2>().y;
+            Vector3 inputDir = Orientation.forward * verticalInput + Orientation.right * horizontalInput;
+            Vector3 slopeForward = Vector3.ProjectOnPlane(FoxObject.forward, FoxMove.SlopeHit.normal).normalized;
 
-            if (inputDir != Vector3.zero && !foxMove.IsOnSlope())
+            if (inputDir != Vector3.zero && !FoxMove.IsOnSlope())
             {
-                foxObject.forward = Vector3.Slerp(foxObject.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
-                foxObject.eulerAngles = new Vector3(0, foxObject.rotation.eulerAngles.y, foxObject.rotation.eulerAngles.z);
+                FoxObject.forward = Vector3.Slerp(FoxObject.forward, inputDir.normalized, Time.deltaTime * RotationSpeed);
+                FoxObject.eulerAngles = new Vector3(0, FoxObject.rotation.eulerAngles.y, FoxObject.rotation.eulerAngles.z);
             }
-            else if (inputDir != Vector3.zero && foxMove.IsOnSlope() && slopeForward != Vector3.zero)
+            else if (inputDir != Vector3.zero && FoxMove.IsOnSlope() && slopeForward != Vector3.zero)
             {
-                foxObject.forward = Vector3.Slerp(foxObject.forward, inputDir.normalized + slopeForward, Time.deltaTime * rotationSpeed);
+                FoxObject.forward = Vector3.Slerp(FoxObject.forward, inputDir.normalized + slopeForward, Time.deltaTime * RotationSpeed);
                 slopeForward = Vector3.zero;
 
             }
-            else if (!foxMove.IsOnSlope())
+            else if (!FoxMove.IsOnSlope())
             {
-                if (foxObject.rotation.eulerAngles.x < 305)
+                if (FoxObject.rotation.eulerAngles.x < 305)
                 {
-                    foxObject.rotation = Quaternion.Euler(360, foxObject.rotation.eulerAngles.y, foxObject.rotation.eulerAngles.z);
+                    FoxObject.rotation = Quaternion.Euler(360, FoxObject.rotation.eulerAngles.y, FoxObject.rotation.eulerAngles.z);
                 }
             }
 
 
         }
-        else if (currentStyle == CameraStyle.Telegrab)
+        else if (CurrentStyle == CameraStyle.Telegrab)
         {
             Vector3 dirtoTelegraphLookAt = TelegrabLookAt.position - new Vector3(transform.position.x, TelegrabLookAt.position.y, transform.position.z);
-            Vector3 slopeForward = Vector3.ProjectOnPlane(foxObject.forward, foxMove.SlopeHit.normal).normalized;
-            if (foxMove.IsOnSlope())
+            Vector3 slopeForward = Vector3.ProjectOnPlane(FoxObject.forward, FoxMove.SlopeHit.normal).normalized;
+            if (FoxMove.IsOnSlope())
             {
-                orientation.forward = Vector3.Slerp(orientation.forward, dirtoTelegraphLookAt.normalized + slopeForward, Time.deltaTime * rotationSpeed);
-                foxObject.forward = Vector3.Slerp(foxObject.forward, dirtoTelegraphLookAt.normalized + slopeForward, Time.deltaTime * rotationSpeed);
+                Orientation.forward = Vector3.Slerp(Orientation.forward, dirtoTelegraphLookAt.normalized + slopeForward, Time.deltaTime * RotationSpeed);
+                FoxObject.forward = Vector3.Slerp(FoxObject.forward, dirtoTelegraphLookAt.normalized + slopeForward, Time.deltaTime * RotationSpeed);
             }
             else
             {
-                orientation.forward = dirtoTelegraphLookAt.normalized;
-                foxObject.forward = dirtoTelegraphLookAt.normalized;
+                Orientation.forward = dirtoTelegraphLookAt.normalized;
+                FoxObject.forward = dirtoTelegraphLookAt.normalized;
             }
         }
     }
     void UpdateCharacterBones()
     {
-        RaycastHit clavicle_hit;
-        RaycastHit ButtHit;
+        RaycastHit clavicleHit;
+        RaycastHit buttHit;
 
-        if (Physics.Raycast(foxFront.position, Vector3.down, out clavicle_hit, 10) && Physics.Raycast(foxBottom.position, Vector3.down, out ButtHit, 10))
+        if (Physics.Raycast(FoxFront.position, Vector3.down, out clavicleHit, 10) && Physics.Raycast(FoxBottom.position, Vector3.down, out buttHit, 10))
         {
 
         }

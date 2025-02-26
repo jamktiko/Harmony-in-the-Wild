@@ -1,23 +1,24 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class CinematicCameraSummon : MonoBehaviour
 {
-    [SerializeField] GameObject cinCam;
-    [SerializeField] GameObject instance;
+    [FormerlySerializedAs("cinCam")] [SerializeField] GameObject _cinCam;
+    [FormerlySerializedAs("instance")] [SerializeField] GameObject _instance;
     private void Update()
     {
         //StartCinematicCamera();
     }
     void StartCinematicCamera()
     {
-        if (PlayerInputHandler.instance.CinematicCamera.WasPressedThisFrame() && instance == null)
+        if (PlayerInputHandler.Instance.CinematicCamera.WasPressedThisFrame() && _instance == null)
         {
-            instance = Instantiate(cinCam, transform.position, transform.rotation);
+            _instance = Instantiate(_cinCam, transform.position, transform.rotation);
         }
-        else if (PlayerInputHandler.instance.CinematicCamera.WasPressedThisFrame() && instance != null)
+        else if (PlayerInputHandler.Instance.CinematicCamera.WasPressedThisFrame() && _instance != null)
         {
-            DestroyImmediate(instance);
-            instance = null;
+            DestroyImmediate(_instance);
+            _instance = null;
         }
     }
 }

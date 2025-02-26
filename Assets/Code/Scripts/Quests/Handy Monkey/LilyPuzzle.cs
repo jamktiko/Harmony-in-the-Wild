@@ -1,69 +1,70 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class LilyPuzzle : MonoBehaviour
 {
-    public static LilyPuzzle instance;
+    public static LilyPuzzle Instance;
 
-    [HideInInspector] public int socketsFilled = Mathf.Clamp(0, 0, 3);
+    [FormerlySerializedAs("socketsFilled")] [HideInInspector] public int SocketsFilled = Mathf.Clamp(0, 0, 3);
 
-    private Transform[] lilyTransforms;
-    private Vector3[] lilyInitialPositions;
-    private int correctLilies = Mathf.Clamp(0, 0, 3);
+    private Transform[] _lilyTransforms;
+    private Vector3[] _lilyInitialPositions;
+    private int _correctLilies = Mathf.Clamp(0, 0, 3);
     private void Awake()
     {
-        if (instance != null)
+        if (Instance != null)
         {
             Debug.LogWarning("There is more than one LilyPuzzle object.");
             Destroy(gameObject);
         }
-        instance = this;
+        Instance = this;
     }
     void Start()
     {
         //collect The Children.
         int childCount = transform.childCount;
-        lilyTransforms = new Transform[childCount];
+        _lilyTransforms = new Transform[childCount];
 
         for (int i = 0; i < childCount; i++)
         {
-            lilyTransforms[i] = transform.GetChild(i).gameObject.transform;
+            _lilyTransforms[i] = transform.GetChild(i).gameObject.transform;
         }
 
         //store lily positions
-        lilyInitialPositions = new Vector3[lilyTransforms.Length];
-        for (int i = 0; i < lilyTransforms.Length; i++)
+        _lilyInitialPositions = new Vector3[_lilyTransforms.Length];
+        for (int i = 0; i < _lilyTransforms.Length; i++)
         {
-            lilyInitialPositions[i] = lilyTransforms[i].position;
+            _lilyInitialPositions[i] = _lilyTransforms[i].position;
         }
     }
     public void CheckPuzzleProgress(int change)
     {
-        correctLilies += change;
-        GameEventsManager.instance.questEvents.UpdateQuestProgressInUI("Lilies placed " + correctLilies + "/3");
+        _correctLilies += change;
+        GameEventsManager.instance.QuestEvents.UpdateQuestProgressInUI("Lilies placed " + _correctLilies + "/3");
 
-        if (socketsFilled >= 3)
+        if (SocketsFilled >= 3)
         {
-            if (correctLilies < 3)
+            if (_correctLilies < 3)
             {
                 //puzzle failed, reset it
                 Invoke("ResetPuzzle", 1f);
-                GameEventsManager.instance.questEvents.UpdateQuestProgressInUI("Lilies placed 0/3");
+                GameEventsManager.instance.QuestEvents.UpdateQuestProgressInUI("Lilies placed 0/3");
             }
             else
             {
                 //complete puzzle, open door
-                BossDoorMonkey.instance.CompletePuzzle();
-                GameEventsManager.instance.questEvents.ShowQuestUI("The Handy Monkey", "Find the door and complete the quest", "");
+                BossDoorMonkey.Instance.CompletePuzzle();
+                GameEventsManager.instance.QuestEvents.ShowQuestUI("The Handy Monkey", "Find the door and complete the quest", "");
             }
         }
 
-        Debug.Log("Progress is: " + correctLilies);
+        Debug.Log("Progress is: " + _correctLilies);
     }
     void ResetPuzzle()
     {
-        for (int i = 0; i < lilyTransforms.Length; i++)
+        for (int i = 0; i < _lilyTransforms.Length; i++)
         {
-            lilyTransforms[i].position = lilyInitialPositions[i];
+            _lilyTransforms[i].position = _lilyInitialPositions[i];
         }
 
         //whatever else. particles or audio idk

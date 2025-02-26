@@ -1,31 +1,32 @@
 using ProfanityFilter;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class ProfanityNameDetector : MonoBehaviour
 {
     //NOTE: Consider implementing something like https://github.com/stephenhaunts/ProfanityDetector instead of creating our own library?
 
-    [SerializeField] GameObject sureMessage;
-    [SerializeField] GameObject inappropriateMessage;
+    [FormerlySerializedAs("sureMessage")] [SerializeField] GameObject _sureMessage;
+    [FormerlySerializedAs("inappropriateMessage")] [SerializeField] GameObject _inappropriateMessage;
 
-    private string foxNameInput;
+    private string _foxNameInput;
 
     public void SaveName(string s)
     {
         var filter = new ProfanityFilterScript();
         if (!filter.IsProfanity(s))
         {
-            inappropriateMessage.SetActive(false);
-            foxNameInput = s;
-            PlayerPrefs.SetString("foxName", foxNameInput);
+            _inappropriateMessage.SetActive(false);
+            _foxNameInput = s;
+            PlayerPrefs.SetString("foxName", _foxNameInput);
             //Debug.Log(PlayerPrefs.GetString("foxName"));
-            sureMessage.SetActive(true);
+            _sureMessage.SetActive(true);
         }
         else
         {
-            sureMessage.SetActive(false);
-            inappropriateMessage.SetActive(true);
+            _sureMessage.SetActive(false);
+            _inappropriateMessage.SetActive(true);
         }
     }
     public void NoButton()

@@ -1,65 +1,66 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class AudioPrefabObject : MonoBehaviour
 {
-    [SerializeField] private AudioData data;
+    [FormerlySerializedAs("data")] [SerializeField] private AudioData _data;
 
-    private AudioSource audioSource;
+    private AudioSource _audioSource;
 
     private void Awake()
     {
-        audioSource = GetComponent<AudioSource>();
+        _audioSource = GetComponent<AudioSource>();
 
-        if (audioSource == null)
+        if (_audioSource == null)
         {
             Debug.Log($"No audio source found for {gameObject.name}!");
         }
 
         PlayAudio();
 
-        if (!data.DestroyAfterPlayedOnce)
+        if (!_data.DestroyAfterPlayedOnce)
         {
-            GameEventsManager.instance.audioEvents.OnDestroyAudio += DestroyOnCall;
+            GameEventsManager.instance.AudioEvents.OnDestroyAudio += DestroyOnCall;
         }
 
-        GameEventsManager.instance.playerEvents.OnToggleInputActions += ToggleAudioOnInput;
+        GameEventsManager.instance.PlayerEvents.OnToggleInputActions += ToggleAudioOnInput;
     }
 
     private void OnDisable()
     {
-        if (!data.DestroyAfterPlayedOnce)
+        if (!_data.DestroyAfterPlayedOnce)
         {
-            GameEventsManager.instance.audioEvents.OnDestroyAudio -= DestroyOnCall;
+            GameEventsManager.instance.AudioEvents.OnDestroyAudio -= DestroyOnCall;
         }
 
-        GameEventsManager.instance.playerEvents.OnToggleInputActions -= ToggleAudioOnInput;
+        GameEventsManager.instance.PlayerEvents.OnToggleInputActions -= ToggleAudioOnInput;
     }
 
     private void PlayAudio()
     {
-        if (data.ClipsList.Length <= 0)
+        if (_data.ClipsList.Length <= 0)
         {
             Debug.Log($"No audio clips assigned for {gameObject.name}.");
             return;
         }
 
-        audioSource.clip = data.ClipsList[Random.Range(0, data.ClipsList.Length)];
+        _audioSource.clip = _data.ClipsList[Random.Range(0, _data.ClipsList.Length)];
 
-        if (data.UseRandomPitch)
+        if (_data.UseRandomPitch)
         {
-            audioSource.pitch = Random.Range(data.MinPitch, data.MaxPitch);
+            _audioSource.pitch = Random.Range(_data.MinPitch, _data.MaxPitch);
         }
 
-        if (data._useRandomVolume)
+        if (_data.UseRandomVolume)
         {
-            audioSource.volume = Random.Range(data.MinVolume, data.MaxVolume);
+            _audioSource.volume = Random.Range(_data.MinVolume, _data.MaxVolume);
         }
 
-        audioSource.Play();
+        _audioSource.Play();
 
-        if (data.DestroyAfterPlayedOnce)
+        if (_data.DestroyAfterPlayedOnce)
         {
-            Invoke(nameof(DestroyAfterClipPlayedOnce), audioSource.clip.length);
+            Invoke(nameof(DestroyAfterClipPlayedOnce), _audioSource.clip.length);
         }
     }
 
@@ -70,7 +71,7 @@ public class AudioPrefabObject : MonoBehaviour
 
     private void DestroyOnCall(AudioName audioToDestroy)
     {
-        if (audioToDestroy == data.Name)
+        if (audioToDestroy == _data.Name)
         {
             Destroy(gameObject);
         }
@@ -80,12 +81,12 @@ public class AudioPrefabObject : MonoBehaviour
     {
         if (audioOn)
         {
-            audioSource.Play();
+            _audioSource.Play();
         }
 
         else
         {
-            audioSource.Pause();
+            _audioSource.Pause();
         }
     }
 }

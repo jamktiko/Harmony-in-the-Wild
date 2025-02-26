@@ -1,32 +1,33 @@
 using System;
 using System.IO;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class MainMenuManager : MonoBehaviour
 {
     public const string CreditsSceneName = "Credits";
 
-    [SerializeField] private GameObject options;
-    [SerializeField] private GameObject mainMenu;
-    [SerializeField] private GameObject settings;
-    [SerializeField] private GameObject gameplayControls;
-    [SerializeField] private GameObject movementControls;
-    [SerializeField] private Toggle invertYAxis;
+    [FormerlySerializedAs("options")] [SerializeField] private GameObject _options;
+    [FormerlySerializedAs("mainMenu")] [SerializeField] private GameObject _mainMenu;
+    [FormerlySerializedAs("settings")] [SerializeField] private GameObject _settings;
+    [FormerlySerializedAs("gameplayControls")] [SerializeField] private GameObject _gameplayControls;
+    [FormerlySerializedAs("movementControls")] [SerializeField] private GameObject _movementControls;
+    [FormerlySerializedAs("invertYAxis")] [SerializeField] private Toggle _invertYAxis;
 
-    [SerializeField] private string playButtonSceneName; //TODO: don't rely on strings in inspector
-    [SerializeField] private Button continueButton;
-    [SerializeField] private GameObject controlsMenu;
+    [FormerlySerializedAs("playButtonSceneName")] [SerializeField] private string _playButtonSceneName; //TODO: don't rely on strings in inspector
+    [FormerlySerializedAs("continueButton")] [SerializeField] private Button _continueButton;
+    [FormerlySerializedAs("controlsMenu")] [SerializeField] private GameObject _controlsMenu;
 
     private void Start()
     {
         if (PlayerPrefs.GetInt("InvertY") == 1)
         {
-            invertYAxis.isOn = true;
+            _invertYAxis.isOn = true;
         }
         else
         {
-            invertYAxis.isOn = false;
+            _invertYAxis.isOn = false;
         }
         CheckSavedGame();
     }
@@ -39,51 +40,51 @@ public class MainMenuManager : MonoBehaviour
     private void LoadSavedGame()
     {
         // check if tutorial is still in progress
-        if (QuestManager.instance.CheckQuestState("Tutorial") != QuestState.FINISHED)
+        if (QuestManager.Instance.CheckQuestState("Tutorial") != QuestState.Finished)
         {
             // check the current quest step state to see if there's still something to be done in Bear Cave
-            if (QuestManager.instance.GetQuestById("Tutorial").GetCurrentQuestStepIndex() < 4)
+            if (QuestManager.Instance.GetQuestById("Tutorial").GetCurrentQuestStepIndex() < 4)
             {
-                GameEventsManager.instance.uiEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Tutorial);
+                GameEventsManager.instance.UIEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Tutorial);
             }
 
             // otherwise transfer to Overworld so the quest can be finished there
             else
             {
-                GameEventsManager.instance.uiEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Overworld);
+                GameEventsManager.instance.UIEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Overworld);
             }
         }
 
         // if tutorial has been finished, go to Overworld
         else
         {
-            GameEventsManager.instance.uiEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Overworld);
+            GameEventsManager.instance.UIEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Overworld);
         }
     }
 
     private void CheckSavedGame()
     {
-        if (!continueButton.IsInteractable() && File.Exists(Application.persistentDataPath + "/GameData.json"))
+        if (!_continueButton.IsInteractable() && File.Exists(Application.persistentDataPath + "/GameData.json"))
         {
-            continueButton.interactable = true;
+            _continueButton.interactable = true;
         }
 
     }
 
     public void StartNewGame()
     {
-        SaveManager.instance.DeleteSave();
+        SaveManager.Instance.DeleteSave();
 
         //reset the abilities again
         foreach (Abilities ability in Enum.GetValues(typeof(Abilities)))
         {
-            AbilityManager.Instance._abilityStatuses[ability] = false;
+            AbilityManager.Instance.AbilityStatuses[ability] = false;
         }
 
         //reset the quests again
         //yes this is stupid. blame Awake()
-        QuestManager.instance.questMap = QuestManager.instance.CreateQuestMap();
-        QuestManager.instance.CheckAllRequirements();
+        QuestManager.Instance.QuestMap = QuestManager.Instance.CreateQuestMap();
+        QuestManager.Instance.CheckAllRequirements();
 
         /*if (QuestManager.instance.transform.childCount > 0)
         {
@@ -93,7 +94,7 @@ public class MainMenuManager : MonoBehaviour
             }
         }*/
 
-        GameEventsManager.instance.uiEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Storybook);
+        GameEventsManager.instance.UIEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Storybook);
     }
 
     public void ExitGame()
@@ -103,41 +104,41 @@ public class MainMenuManager : MonoBehaviour
 
     public void Options()
     {
-        options.SetActive(true);
-        mainMenu.SetActive(false);
+        _options.SetActive(true);
+        _mainMenu.SetActive(false);
     }
 
     public void BackButton()
     {
-        mainMenu.SetActive(true);
-        options.SetActive(false);
-        settings.SetActive(false);
-        movementControls.SetActive(false);
-        gameplayControls.SetActive(false);
+        _mainMenu.SetActive(true);
+        _options.SetActive(false);
+        _settings.SetActive(false);
+        _movementControls.SetActive(false);
+        _gameplayControls.SetActive(false);
     }
 
     public void SettingsButton()
     {
-        options.SetActive(false);
-        settings.SetActive(true);
+        _options.SetActive(false);
+        _settings.SetActive(true);
     }
 
     public void MovementControlsButton()
     {
-        settings.SetActive(false);
-        movementControls.SetActive(true);
+        _settings.SetActive(false);
+        _movementControls.SetActive(true);
     }
 
     public void ControlsButton()
     {
-        controlsMenu.SetActive(true);
-        options.SetActive(false);
+        _controlsMenu.SetActive(true);
+        _options.SetActive(false);
     }
 
     public void GameplayControlsButton()
     {
-        settings.SetActive(false);
-        gameplayControls.SetActive(true);
+        _settings.SetActive(false);
+        _gameplayControls.SetActive(true);
     }
 
     public void ChangeYInversion(bool isOn)

@@ -1,23 +1,24 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class BossDoorMonkey : MonoBehaviour
 {
-    public static BossDoorMonkey instance;
+    public static BossDoorMonkey Instance;
 
-    [SerializeField] private Animator anim;
+    [FormerlySerializedAs("anim")] [SerializeField] private Animator _anim;
     private void Awake()
     {
-        if (instance != null)
+        if (Instance != null)
         {
             Debug.LogWarning("There is more than one BossDoorMonkey object.");
             Destroy(gameObject);
         }
-        instance = this;
+        Instance = this;
     }
 
     public void CompletePuzzle()
     {
         gameObject.GetComponent<AudioSource>().Play();
-        anim.Play("Door_Open_ANI");
+        _anim.Play("Door_Open_ANI");
     }
 }

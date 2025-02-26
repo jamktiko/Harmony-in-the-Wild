@@ -3,26 +3,26 @@ using UnityEngine.SceneManagement;
 
 public class CollectFlowerQuestStep : QuestStep
 {
-    public static CollectFlowerQuestStep instance;
+    public static CollectFlowerQuestStep Instance;
 
-    private bool collectedFlower;
+    private bool _collectedFlower;
 
     private void Awake()
     {
-        if (instance != null)
+        if (Instance != null)
         {
             Debug.Log("More than one Collect Flower Quest Steps in the scene!");
         }
 
         else
         {
-            instance = this;
+            Instance = this;
         }
     }
 
     private void Start()
     {
-        GameEventsManager.instance.questEvents.ShowQuestUI(GetQuestId(), objective, progress);
+        GameEventsManager.instance.QuestEvents.ShowQuestUI(GetQuestId(), Objective, Progress);
     }
 
     private void OnEnable()
@@ -39,7 +39,7 @@ public class CollectFlowerQuestStep : QuestStep
     {
         if (scene.name.Contains("Tutorial", System.StringComparison.CurrentCultureIgnoreCase))
         {
-            GameEventsManager.instance.questEvents.ShowQuestUI(GetQuestId(), objective, progress);
+            GameEventsManager.instance.QuestEvents.ShowQuestUI(GetQuestId(), Objective, Progress);
         }
     }
 
@@ -50,13 +50,13 @@ public class CollectFlowerQuestStep : QuestStep
 
     private void UpdateState()
     {
-        string state = collectedFlower.ToString();
+        string state = _collectedFlower.ToString();
         ChangeState(state);
     }
 
     protected override void SetQuestStepState(string state)
     {
-        collectedFlower = System.Convert.ToBoolean(state);
+        _collectedFlower = System.Convert.ToBoolean(state);
 
         UpdateState();
     }

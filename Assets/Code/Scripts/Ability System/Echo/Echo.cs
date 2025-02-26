@@ -1,12 +1,13 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Echo : MonoBehaviour, IAbility
 {
     public static Echo Instance;
 
-    [HideInInspector] public bool _isEchoing = false;
+    [FormerlySerializedAs("_isEchoing")] [HideInInspector] public bool IsEchoing = false;
 
     [Header("Echo Config")]
     [SerializeField] private LayerMask _searchableLayers;
@@ -36,7 +37,7 @@ public class Echo : MonoBehaviour, IAbility
 
     private void Update()
     {
-        if (PlayerInputHandler.instance.UseAbilityInput.WasPressedThisFrame())
+        if (PlayerInputHandler.Instance.UseAbilityInput.WasPressedThisFrame())
         {
             TriggerShockwave();
         }
@@ -44,7 +45,7 @@ public class Echo : MonoBehaviour, IAbility
 
     public void Activate()
     {
-        if (!_isEchoing)
+        if (!IsEchoing)
         {
             Debug.Log("Echo activated");
         }
@@ -59,7 +60,7 @@ public class Echo : MonoBehaviour, IAbility
 
     private void ShowLocatedObjects()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(FoxMovement.instance.transform.position, _echoRadius, _searchableLayers);
+        Collider[] hitColliders = Physics.OverlapSphere(FoxMovement.Instance.transform.position, _echoRadius, _searchableLayers);
 
         if (hitColliders.Length > 0)
         {
@@ -69,16 +70,16 @@ public class Echo : MonoBehaviour, IAbility
         }
     }
 
-    private Collider[] ListObjectsBasedOnDistanceToPlayer(Collider[] foundObjects)
+    private Collider[] ListObjectsBasedOnDistanceToPlayer(Collider[] _foundObjects)
     {
-        Array.Sort(foundObjects, (firstObject, secondObject) => Vector3.Distance(transform.position, firstObject.transform.position).CompareTo(Vector3.Distance(transform.position, secondObject.transform.position)));
+        Array.Sort(_foundObjects, (_firstObject, _secondObject) => Vector3.Distance(transform.position, _firstObject.transform.position).CompareTo(Vector3.Distance(transform.position, _secondObject.transform.position)));
 
-        return foundObjects;
+        return _foundObjects;
     }
 
-    private IEnumerator ActivateFoundObjectEffectsBasedOnDistance(Collider[] foundObjects)
+    private IEnumerator ActivateFoundObjectEffectsBasedOnDistance(Collider[] _foundObjects)
     {
-        foreach (Collider foundObject in foundObjects)
+        foreach (Collider foundObject in _foundObjects)
         {
             EchoReceiver echoReceiver = foundObject.transform.parent.GetComponent<EchoReceiver>();
 

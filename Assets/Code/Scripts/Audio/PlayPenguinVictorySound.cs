@@ -2,28 +2,28 @@ using UnityEngine;
 
 public class PlayPenguinVictorySound : MonoBehaviour
 {
-    private AudioSource audioSource;
+    private AudioSource _audioSource;
 
     private void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     private void OnEnable()
     {
-        PenguinRaceManager.instance.penguinDungeonEvents.onRaceFinished += PlaySoundEffect;
+        PenguinRaceManager.instance.PenguinDungeonEvents.OnRaceFinished += PlaySoundEffect;
     }
 
     private void OnDisable()
     {
-        PenguinRaceManager.instance.penguinDungeonEvents.onRaceFinished -= PlaySoundEffect;
+        PenguinRaceManager.instance.PenguinDungeonEvents.OnRaceFinished -= PlaySoundEffect;
     }
 
     public void PlaySoundEffect()
     {
-        if (audioSource != null)
+        if (_audioSource != null)
         {
-            audioSource.Play();
+            _audioSource.Play();
         }
 
         else

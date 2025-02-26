@@ -1,14 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class QuestSearchArea : MonoBehaviour
 {
-    [SerializeField] private GameObject whaleSearchArea;
-    [SerializeField] private GameObject ghostSearchArea;
-    [SerializeField] private GameObject boneSearchArea;
+    [FormerlySerializedAs("whaleSearchArea")] [SerializeField] private GameObject _whaleSearchArea;
+    [FormerlySerializedAs("ghostSearchArea")] [SerializeField] private GameObject _ghostSearchArea;
+    [FormerlySerializedAs("boneSearchArea")] [SerializeField] private GameObject _boneSearchArea;
 
-    private Dictionary<string, int> idToIndex = new Dictionary<string, int>();
-    private Quest quest;
+    private Dictionary<string, int> _idToIndex = new Dictionary<string, int>();
+    private Quest _quest;
 
     private void Start()
     {
@@ -18,9 +19,9 @@ public class QuestSearchArea : MonoBehaviour
     void GrabQuestIds()
     {
         int index = 0;
-        foreach (string questId in QuestManager.instance.questMap.Keys)
+        foreach (string questId in QuestManager.Instance.QuestMap.Keys)
         {
-            idToIndex.Add(questId, index);
+            _idToIndex.Add(questId, index);
 
             index++;
         }
@@ -28,20 +29,20 @@ public class QuestSearchArea : MonoBehaviour
 
     private void OnEnable()
     {
-        GameEventsManager.instance.questEvents.OnStartQuest += ToggleSearchAreaOnMinimap;
-        GameEventsManager.instance.questEvents.OnFinishQuest += ToggleSearchAreaOnMinimap;
+        GameEventsManager.instance.QuestEvents.OnStartQuest += ToggleSearchAreaOnMinimap;
+        GameEventsManager.instance.QuestEvents.OnFinishQuest += ToggleSearchAreaOnMinimap;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.questEvents.OnStartQuest -= ToggleSearchAreaOnMinimap;
-        GameEventsManager.instance.questEvents.OnFinishQuest -= ToggleSearchAreaOnMinimap;
+        GameEventsManager.instance.QuestEvents.OnStartQuest -= ToggleSearchAreaOnMinimap;
+        GameEventsManager.instance.QuestEvents.OnFinishQuest -= ToggleSearchAreaOnMinimap;
     }
 
     public void ToggleSearchAreaOnMinimap(string id)
     {
-        quest = QuestManager.instance.GetQuestById(id);
-        int questIndex = GetIndexFromId(quest.info.id);
+        _quest = QuestManager.Instance.GetQuestById(id);
+        int questIndex = GetIndexFromId(_quest.Info.id);
 
         ToggleSearchArea(questIndex);
     }
@@ -54,23 +55,23 @@ public class QuestSearchArea : MonoBehaviour
 
         if (questIndex == 16)
         {
-            whaleSearchArea.SetActive(!whaleSearchArea.activeInHierarchy);
+            _whaleSearchArea.SetActive(!_whaleSearchArea.activeInHierarchy);
         }
         else if (questIndex == 4)
         {
-            ghostSearchArea.SetActive(!ghostSearchArea.activeInHierarchy);
+            _ghostSearchArea.SetActive(!_ghostSearchArea.activeInHierarchy);
         }
         else if (questIndex == 1)
         {
-            boneSearchArea.SetActive(!boneSearchArea.activeInHierarchy);
+            _boneSearchArea.SetActive(!_boneSearchArea.activeInHierarchy);
         }
     }
 
     int GetIndexFromId(string id)
     {
-        if (idToIndex.ContainsKey(id))
+        if (_idToIndex.ContainsKey(id))
         {
-            return idToIndex[id];
+            return _idToIndex[id];
         }
         else
         {

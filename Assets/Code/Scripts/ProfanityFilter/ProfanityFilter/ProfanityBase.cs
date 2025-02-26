@@ -182,7 +182,7 @@ namespace ProfanityFilter
         /// <summary>
         /// Return the number of profanities in the system.
         /// </summary>
-        public int Count
+        public int count
         {
             get
             {

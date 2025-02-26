@@ -1,20 +1,21 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class DestroyObject : MonoBehaviour
 {
-    [SerializeField] private float destructionTime;
-    [SerializeField] private GameObject destroyEffect;
+    [FormerlySerializedAs("destructionTime")] [SerializeField] private float _destructionTime;
+    [FormerlySerializedAs("destroyEffect")] [SerializeField] private GameObject _destroyEffect;
 
     private void OnEnable()
     {
-        Destroy(gameObject, destructionTime);
+        Destroy(gameObject, _destructionTime);
     }
 
     private void OnDestroy()
     {
-        if (destroyEffect != null)
+        if (_destroyEffect != null)
         {
-            Instantiate(destroyEffect, transform.position, Quaternion.identity);
+            Instantiate(_destroyEffect, transform.position, Quaternion.identity);
         }
     }
 }

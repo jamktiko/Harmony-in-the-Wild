@@ -1,35 +1,36 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class InteractableFireFlies : MonoBehaviour
 {
-    [SerializeField] bool interactable;
-    [SerializeField] static int PineCollectableCount;
-    [SerializeField] private GameObject interactionIndicator;
-    [SerializeField] private Animator PlayerAnimator;
+    [FormerlySerializedAs("interactable")] [SerializeField] bool _interactable;
+    [SerializeField] static int _pineCollectableCount;
+    [FormerlySerializedAs("interactionIndicator")] [SerializeField] private GameObject _interactionIndicator;
+    [FormerlySerializedAs("PlayerAnimator")] [SerializeField] private Animator _playerAnimator;
 
-    private bool hasBeenCollected = false;
+    private bool _hasBeenCollected = false;
 
     private void Start()
     {
-        PlayerAnimator = FoxMovement.instance.gameObject.GetComponentInChildren<Animator>();
+        _playerAnimator = FoxMovement.Instance.gameObject.GetComponentInChildren<Animator>();
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Trigger")
         {
-            interactable = true;
+            _interactable = true;
         }
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == "Trigger")
         {
-            interactable = false;
+            _interactable = false;
         }
     }
     private void Update()
     {
-        if (PlayerInputHandler.instance.InteractInput.WasPerformedThisFrame() && interactable)
+        if (PlayerInputHandler.Instance.InteractInput.WasPerformedThisFrame() && _interactable)
         {
 
             PlayAnimation();
@@ -37,7 +38,7 @@ public class InteractableFireFlies : MonoBehaviour
     }
     private void PlayAnimation()
     {
-        PlayerAnimator.Play("PL_Playful2_ANI");
+        _playerAnimator.Play("PL_Playful2_ANI");
 
     }
 }

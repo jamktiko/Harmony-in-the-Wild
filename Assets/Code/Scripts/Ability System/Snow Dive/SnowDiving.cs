@@ -38,20 +38,20 @@ public class SnowDiving : MonoBehaviour, IAbility
         SnowDive();
         Debug.Log("Activate called");
 
-        if (Physics.Raycast(FoxMovement.instance.cameraPosition.position, FoxMovement.instance.cameraPosition.forward, out RaycastHit hit, 50f, FoxMovement.instance.climbWallLayerMask))
+        if (Physics.Raycast(FoxMovement.Instance.CameraPosition.position, FoxMovement.Instance.CameraPosition.forward, out RaycastHit hit, 50f, FoxMovement.Instance.ClimbWallLayerMask))
         {
-            Debug.DrawLine(FoxMovement.instance.cameraPosition.position, hit.point);
+            Debug.DrawLine(FoxMovement.Instance.CameraPosition.position, hit.point);
             ClimbSnowWall(hit);
             //Debug.Log("if in Activate called and it hit: " + hit);
         }
     }
     private void SnowDive()
     {
-        if (FoxMovement.instance.IsGrounded())
+        if (FoxMovement.Instance.IsGrounded())
         {
             //snowDiveVFX.SendEvent(onEnableSnowDiveID);
 
-            FoxMovement.instance.playerAnimator.SetBool("isGliding", false);
+            FoxMovement.Instance.PlayerAnimator.SetBool("isGliding", false);
         }
     }
 
@@ -64,10 +64,10 @@ public class SnowDiving : MonoBehaviour, IAbility
             _movementPoints.Clear();
 
             //climbing animation here (later will make more code for this)
-            _snowDiveVFX.transform.position = FoxMovement.instance.transform.Find("SnowDiveVFXPosition").position;
+            _snowDiveVFX.transform.position = FoxMovement.Instance.transform.Find("SnowDiveVFXPosition").position;
             _snowDiveVFX.SendEvent(_onEnableSnowDiveID);
 
-            AudioManager.Instance.PlaySound(AudioName.Ability_SnowDive, transform);
+            AudioManager.Instance.PlaySound(AudioName.AbilitySnowDive, transform);
 
             Transform movPointsParent = hit.transform.GetChild(0);
 
@@ -85,7 +85,7 @@ public class SnowDiving : MonoBehaviour, IAbility
     {
         Transform closestChild = null;
         float closestDistance = float.MaxValue;
-        Vector3 playerPosition = FoxMovement.instance.gameObject.transform.position;
+        Vector3 playerPosition = FoxMovement.Instance.gameObject.transform.position;
 
         foreach (Transform child in _movementPoints)
         {
@@ -109,20 +109,20 @@ public class SnowDiving : MonoBehaviour, IAbility
 
     IEnumerator MoveObject()
     {
-        FoxMovement.instance.playerAnimator.SetBool("isSnowDiving", true);
+        FoxMovement.Instance.PlayerAnimator.SetBool("isSnowDiving", true);
         //turn off object to move it
-        FoxMovement.instance.rb.isKinematic = true;
-        FoxMovement.instance.rb.useGravity = false;
+        FoxMovement.Instance.Rb.isKinematic = true;
+        FoxMovement.Instance.Rb.useGravity = false;
 
         //move towards point by list index, stop when gone through all items in the list
         for (int i = 0; i < _movementPoints.Count; i++)
         {
             //keep moving object towards the point while it's far from it
-            while (Vector3.Distance(_movementPoints[i].position, FoxMovement.instance.gameObject.transform.position) > PointDistance)
+            while (Vector3.Distance(_movementPoints[i].position, FoxMovement.Instance.gameObject.transform.position) > PointDistance)
             {
                 //Vector3 direction = (movementPoints[i].position - FoxMovement.instance.gameObject.transform.position).normalized;
                 //FoxMovement.instance.gameObject.transform.Translate(direction * climbingSpeed * Time.deltaTime, Space.World);
-                FoxMovement.instance.gameObject.transform.position = Vector3.MoveTowards(FoxMovement.instance.gameObject.transform.position, _movementPoints[i].position, ClimbingSpeed * Time.deltaTime);
+                FoxMovement.Instance.gameObject.transform.position = Vector3.MoveTowards(FoxMovement.Instance.gameObject.transform.position, _movementPoints[i].position, ClimbingSpeed * Time.deltaTime);
 
                 yield return new WaitForFixedUpdate();
             }
@@ -130,9 +130,9 @@ public class SnowDiving : MonoBehaviour, IAbility
 
         //turn the object back on after moving it through all points in the list
         _movementPoints.Clear();
-        FoxMovement.instance.rb.isKinematic = false;
-        FoxMovement.instance.rb.useGravity = true;
+        FoxMovement.Instance.Rb.isKinematic = false;
+        FoxMovement.Instance.Rb.useGravity = true;
         _isClimbing = false;
-        FoxMovement.instance.playerAnimator.SetBool("isSnowDiving", false);
+        FoxMovement.Instance.PlayerAnimator.SetBool("isSnowDiving", false);
     }
 }

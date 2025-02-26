@@ -1,28 +1,29 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/QuestInfo", order = 1)]
 public class QuestScriptableObject : ScriptableObject
 {
     [field: SerializeField] public string id { get; private set; }
-    public int numericID;
+    [FormerlySerializedAs("numericID")] public int NumericID;
 
-    [Header("General")]
-    public string displayName;
-    public string description;
-    public bool mainQuest;
-    public Vector3 defaultPos;
+    [FormerlySerializedAs("displayName")] [Header("General")]
+    public string DisplayName;
+    [FormerlySerializedAs("description")] public string Description;
+    [FormerlySerializedAs("mainQuest")] public bool MainQuest;
+    [FormerlySerializedAs("defaultPos")] public Vector3 DefaultPos;
 
 
-    [Header("Requirements")]
-    public int levelRequirement;
-    public QuestScriptableObject[] questPrerequisites;
+    [FormerlySerializedAs("levelRequirement")] [Header("Requirements")]
+    public int LevelRequirement;
+    [FormerlySerializedAs("questPrerequisites")] public QuestScriptableObject[] QuestPrerequisites;
 
-    [Header("Steps")]
-    public GameObject[] questStepPrefabs;
+    [FormerlySerializedAs("questStepPrefabs")] [Header("Steps")]
+    public GameObject[] QuestStepPrefabs;
 
-    [Header("Rewards")]
-    public int experienceReward;
-    public Abilities abilityReward;
+    [FormerlySerializedAs("experienceReward")] [Header("Rewards")]
+    public int ExperienceReward;
+    [FormerlySerializedAs("abilityReward")] public Abilities AbilityReward;
 
     private void OnValidate()
     {

@@ -30,10 +30,10 @@ public class DialogueEvents
         OnChangeDialogueVariable?.Invoke(changedVariable);
     }
 
-    public event Action<DialogueQuestNPCs, bool> OnRegisterPlayerNearNPC;
+    public event Action<DialogueQuestNpCs, bool> OnRegisterPlayerNearNpc;
 
-    public void RegisterPlayerNearNPC(DialogueQuestNPCs npc, bool isClose)
+    public void RegisterPlayerNearNpc(DialogueQuestNpCs npc, bool isClose)
     {
-        OnRegisterPlayerNearNPC?.Invoke(npc, isClose);
+        OnRegisterPlayerNearNpc?.Invoke(npc, isClose);
     }
 }

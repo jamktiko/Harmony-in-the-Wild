@@ -1,12 +1,13 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(SphereCollider))]
 public class ToggleInteractionIndicator : MonoBehaviour
 {
     public Image ActionIndicator;
-    public int actionIndex = 0;
+    [FormerlySerializedAs("actionIndex")] public int ActionIndex = 0;
 
     private RotateInteractionIndicator _rotationComponent;
 
@@ -42,9 +43,9 @@ public class ToggleInteractionIndicator : MonoBehaviour
             if (ActionIndicator != null)
             {
                 if (Gamepad.current == null || Keyboard.current.lastUpdateTime > Gamepad.current.lastUpdateTime || Mouse.current.lastUpdateTime > Gamepad.current.lastUpdateTime)
-                    ActionIndicator.sprite = InputSprites.instance.keyboardIndicators[actionIndex];
+                    ActionIndicator.sprite = InputSprites.Instance.KeyboardIndicators[ActionIndex];
                 else
-                    ActionIndicator.sprite = InputSprites.instance.gamepadIndicators[actionIndex];
+                    ActionIndicator.sprite = InputSprites.Instance.GamepadIndicators[ActionIndex];
             }
         }
     }

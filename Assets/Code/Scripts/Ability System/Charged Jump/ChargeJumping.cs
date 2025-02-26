@@ -51,7 +51,7 @@ public class ChargeJumping : MonoBehaviour, IAbility
                 ChargeJump();
             }
 
-            if (_chargeJumpTimer != 14 && PlayerInputHandler.instance.ChargeJumpInput.WasReleasedThisFrame())
+            if (_chargeJumpTimer != 14 && PlayerInputHandler.Instance.ChargeJumpInput.WasReleasedThisFrame())
             {
                 ReleaseChargedJump();
             }
@@ -59,7 +59,7 @@ public class ChargeJumping : MonoBehaviour, IAbility
     }
     private void ChargeJump()
     {
-        if (FoxMovement.instance != null)
+        if (FoxMovement.Instance != null)
         {
             if (!_vfxPlaying)
             {
@@ -68,7 +68,7 @@ public class ChargeJumping : MonoBehaviour, IAbility
             }
 
 
-            FoxMovement.instance.rb.velocity = new Vector3(0f, 0f, 0f);
+            FoxMovement.Instance.Rb.velocity = new Vector3(0f, 0f, 0f);
 
             if (_chargeJumpTimer < _chargeJumpHeight)
             {
@@ -79,25 +79,25 @@ public class ChargeJumping : MonoBehaviour, IAbility
 
                 _chargeJumpTimer = _chargeJumpTimer + 0.3f;
 
-                FoxMovement.instance.playerAnimator.SetBool("isChargingJump", true);
-                FoxMovement.instance.playerAnimator.SetFloat("horMove", FoxMovement.instance.horizontalInput);
-                FoxMovement.instance.playerAnimator.SetFloat("vertMove", FoxMovement.instance.verticalInput);
+                FoxMovement.Instance.PlayerAnimator.SetBool("isChargingJump", true);
+                FoxMovement.Instance.PlayerAnimator.SetFloat("horMove", FoxMovement.Instance.HorizontalInput);
+                FoxMovement.Instance.PlayerAnimator.SetFloat("vertMove", FoxMovement.Instance.VerticalInput);
             }
         }
     }
     private void ReleaseChargedJump()
     {
-        if (FoxMovement.instance != null)
+        if (FoxMovement.Instance != null)
         {
             IsChargingJump = false;
             _chargeJumpVFX.SendEvent(_onDisableChargeJumpID);
             _vfxPlaying = false;
             _chargeJumpAudio.Stop();
 
-            FoxMovement.instance.rb.AddForce(transform.up * _chargeJumpTimer, ForceMode.Impulse);
+            FoxMovement.Instance.Rb.AddForce(transform.up * _chargeJumpTimer, ForceMode.Impulse);
 
-            FoxMovement.instance.playerAnimator.SetBool("isChargingJump", false);
-            FoxMovement.instance.playerAnimator.SetBool("isJumping", false);
+            FoxMovement.Instance.PlayerAnimator.SetBool("isChargingJump", false);
+            FoxMovement.Instance.PlayerAnimator.SetBool("isJumping", false);
             Invoke(nameof(ResetChargeJump), 0);
         }
     }

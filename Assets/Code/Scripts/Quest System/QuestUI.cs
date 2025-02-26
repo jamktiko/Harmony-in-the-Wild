@@ -2,35 +2,37 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class QuestUI : MonoBehaviour
 {
+    [FormerlySerializedAs("questTextComponents")]
     [Header("Needed References")]
-    [SerializeField] public List<TextMeshProUGUI> questTextComponents;
-    [SerializeField] private QuestWaypoint questWaypoint;
+    [SerializeField] public List<TextMeshProUGUI> QuestTextComponents;
+    [FormerlySerializedAs("questWaypoint")] [SerializeField] private QuestWaypoint _questWaypoint;
 
     //public UnityEvent AddTextToUI=new UnityEvent();
     private void OnEnable()
     {
-        GameEventsManager.instance.questEvents.OnShowQuestUI += InitializeQuestUI;
-        GameEventsManager.instance.questEvents.OnUpdateQuestProgressInUI += ShowQuestProgressInUI;
-        GameEventsManager.instance.questEvents.OnHideQuestUI += HideQuestUI;
+        GameEventsManager.instance.QuestEvents.OnShowQuestUI += InitializeQuestUI;
+        GameEventsManager.instance.QuestEvents.OnUpdateQuestProgressInUI += ShowQuestProgressInUI;
+        GameEventsManager.instance.QuestEvents.OnHideQuestUI += HideQuestUI;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.questEvents.OnShowQuestUI -= InitializeQuestUI;
-        GameEventsManager.instance.questEvents.OnUpdateQuestProgressInUI -= ShowQuestProgressInUI;
-        GameEventsManager.instance.questEvents.OnHideQuestUI -= HideQuestUI;
+        GameEventsManager.instance.QuestEvents.OnShowQuestUI -= InitializeQuestUI;
+        GameEventsManager.instance.QuestEvents.OnUpdateQuestProgressInUI -= ShowQuestProgressInUI;
+        GameEventsManager.instance.QuestEvents.OnHideQuestUI -= HideQuestUI;
     }
 
     private void InitializeQuestUI(string questName, string description, string progress)
     {
         transform.GetChild(0).gameObject.SetActive(true);
 
-        questTextComponents[0].text = ProcessTextForInputs(questName);
-        questTextComponents[1].text = ProcessTextForInputs(description);
-        questTextComponents[2].text = ProcessTextForInputs(progress);
+        QuestTextComponents[0].text = ProcessTextForInputs(questName);
+        QuestTextComponents[1].text = ProcessTextForInputs(description);
+        QuestTextComponents[2].text = ProcessTextForInputs(progress);
     }
 
     // Detect inputs from string denoted as |(input)|, and change them to the appropriate input method key.
@@ -46,12 +48,12 @@ public class QuestUI : MonoBehaviour
                 index = i + 1;
                 while (text[index] != '|')
                     index++;
-                if (index - 1 > i && InputSprites.instance.keySetups.ContainsKey(text.Substring(i + 1, index - i - 1)))
+                if (index - 1 > i && InputSprites.Instance.KeySetups.ContainsKey(text.Substring(i + 1, index - i - 1)))
                 {
                     if (Gamepad.current == null || Keyboard.current.lastUpdateTime > Gamepad.current.lastUpdateTime || Mouse.current.lastUpdateTime > Gamepad.current.lastUpdateTime)
-                        ret += InputSprites.instance.keySetups[text.Substring(i + 1, index - i - 1)].keyboard;
+                        ret += InputSprites.Instance.KeySetups[text.Substring(i + 1, index - i - 1)].Keyboard;
                     else
-                        ret += InputSprites.instance.keySetups[text.Substring(i + 1, index - i - 1)].gamepad;
+                        ret += InputSprites.Instance.KeySetups[text.Substring(i + 1, index - i - 1)].Gamepad;
                 }
                 index++; i = index;
             }
@@ -63,7 +65,7 @@ public class QuestUI : MonoBehaviour
 
     private void ShowQuestProgressInUI(string currentState)
     {
-        questTextComponents[2].text = currentState;
+        QuestTextComponents[2].text = currentState;
     }
 
     private void HideQuestUI()
@@ -71,8 +73,8 @@ public class QuestUI : MonoBehaviour
         transform.GetChild(0).gameObject.SetActive(false);
     }
 
-    public string getCurrentQuestName()
+    public string GetCurrentQuestName()
     {
-        return questTextComponents[0].text.ToString();
+        return QuestTextComponents[0].text.ToString();
     }
 }

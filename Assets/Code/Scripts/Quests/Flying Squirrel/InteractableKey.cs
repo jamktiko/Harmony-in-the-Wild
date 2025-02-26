@@ -1,17 +1,18 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class InteractableKey : MonoBehaviour
 {
-    [SerializeField] bool isActive = false;
-    [SerializeField] public bool wasUsed = false; //TODO: check what usecase is and fix accordingly
-    [SerializeField] private GameObject doorToOpen;
+    [FormerlySerializedAs("isActive")] [SerializeField] bool _isActive = false;
+    [FormerlySerializedAs("wasUsed")] [SerializeField] public bool WasUsed = false; //TODO: check what usecase is and fix accordingly
+    [FormerlySerializedAs("doorToOpen")] [SerializeField] private GameObject _doorToOpen;
     //[SerializeField] int keyNumber;
-    [SerializeField] AudioSource keySoundAudioSource;
-    [SerializeField] private SquirrelBossKeyCounter keyCounter;
+    [FormerlySerializedAs("keySoundAudioSource")] [SerializeField] AudioSource _keySoundAudioSource;
+    [FormerlySerializedAs("keyCounter")] [SerializeField] private SquirrelBossKeyCounter _keyCounter;
 
     void Update()
     {
-        if (PlayerInputHandler.instance.InteractInput.WasPressedThisFrame() && isActive && !wasUsed)
+        if (PlayerInputHandler.Instance.InteractInput.WasPressedThisFrame() && _isActive && !WasUsed)
         {
             UseKey();
         }
@@ -32,20 +33,20 @@ public class InteractableKey : MonoBehaviour
 
     private void UseKey()
     {
-        wasUsed = true;
-        keySoundAudioSource.Play();
+        WasUsed = true;
+        _keySoundAudioSource.Play();
         gameObject.GetComponentInChildren<MeshRenderer>().enabled = false;
-        doorToOpen.SetActive(false);
-        keyCounter.CollectKey();
+        _doorToOpen.SetActive(false);
+        _keyCounter.CollectKey();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        isActive = true;
+        _isActive = true;
     }
 
     private void OnTriggerExit(Collider other)
     {
-        isActive = false;
+        _isActive = false;
     }
 }

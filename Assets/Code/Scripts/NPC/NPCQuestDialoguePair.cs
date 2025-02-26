@@ -1,9 +1,10 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [Serializable]
-public class NPCQuestDialoguePair
+public class NpcQuestDialoguePair
 {
-    public QuestScriptableObject mainQuest;
-    public TextAsset dialogueOption;
+    [FormerlySerializedAs("mainQuest")] public QuestScriptableObject MainQuest;
+    [FormerlySerializedAs("dialogueOption")] public TextAsset DialogueOption;
 }

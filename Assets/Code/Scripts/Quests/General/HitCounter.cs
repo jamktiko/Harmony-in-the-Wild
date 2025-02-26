@@ -1,21 +1,26 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 public class HitCounter : MonoBehaviour
 {
+    [FormerlySerializedAs("maxHits")]
     [Header("Config")]
     [Tooltip("Maximum amount of non-instakill hits before the player is transformed to the starting spot")]
-    [SerializeField] private int maxHits = 5;
+    [SerializeField] private int _maxHits = 5;
+    [FormerlySerializedAs("hitEvent")]
     [Tooltip("Possible hit event to take place every time player gets hit IF no death event is triggered")]
-    [SerializeField] private UnityEvent hitEvent;
+    [SerializeField] private UnityEvent _hitEvent;
+    [FormerlySerializedAs("deathEvent")]
     [Tooltip("Possible event to take place when the player has got max hits or faces instakill")]
-    [SerializeField] private UnityEvent deathEvent;
+    [SerializeField] private UnityEvent _deathEvent;
 
+    [FormerlySerializedAs("startingSpot")]
     [Header("Needed References")]
-    [SerializeField] private Transform startingSpot;
-    [SerializeField] private HitCounterVisualIndicator visualIndicator;
+    [SerializeField] private Transform _startingSpot;
+    [FormerlySerializedAs("visualIndicator")] [SerializeField] private HitCounterVisualIndicator _visualIndicator;
 
-    private int currentHits;
+    private int _currentHits;
 
     // missing hit pop up !!
     // need to figure out how to implement it
@@ -26,48 +31,48 @@ public class HitCounter : MonoBehaviour
         {
             ReturnPlayerToStart();
 
-            if (deathEvent != null)
+            if (_deathEvent != null)
             {
-                deathEvent.Invoke();
+                _deathEvent.Invoke();
             }
         }
 
         else
         {
-            currentHits++;
+            _currentHits++;
 
-            if (currentHits >= maxHits)
+            if (_currentHits >= _maxHits)
             {
                 ReturnPlayerToStart();
 
-                if (deathEvent != null)
+                if (_deathEvent != null)
                 {
-                    deathEvent.Invoke();
+                    _deathEvent.Invoke();
                 }
             }
 
-            else if (hitEvent != null)
+            else if (_hitEvent != null)
             {
-                hitEvent.Invoke();
+                _hitEvent.Invoke();
             }
         }
 
-        visualIndicator.UpdateHealth(currentHits);
+        _visualIndicator.UpdateHealth(_currentHits);
     }
 
     private void ReturnPlayerToStart()
     {
         // move player back to starting spot
-        transform.position = startingSpot.position;
+        transform.position = _startingSpot.position;
 
         // reset current hits
-        currentHits = 0;
+        _currentHits = 0;
 
-        visualIndicator.UpdateHealth(currentHits);
+        _visualIndicator.UpdateHealth(_currentHits);
     }
 
     public int GetMaxHits()
     {
-        return maxHits;
+        return _maxHits;
     }
 }

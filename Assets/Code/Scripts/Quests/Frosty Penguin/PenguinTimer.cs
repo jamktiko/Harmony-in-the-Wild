@@ -1,34 +1,35 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PenguinTimer : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI timerText;
-    [SerializeField] private float maxTime = 180f;
+    [FormerlySerializedAs("timerText")] [SerializeField] private TextMeshProUGUI _timerText;
+    [FormerlySerializedAs("maxTime")] [SerializeField] private float _maxTime = 180f;
 
-    private bool raceInProgress;
-    private float currentTime;
+    private bool _raceInProgress;
+    private float _currentTime;
 
     private void OnEnable()
     {
-        PenguinRaceManager.instance.penguinDungeonEvents.onRaceFinished += StopTimer;
+        PenguinRaceManager.instance.PenguinDungeonEvents.OnRaceFinished += StopTimer;
     }
 
     private void OnDisable()
     {
-        PenguinRaceManager.instance.penguinDungeonEvents.onRaceFinished -= StopTimer;
+        PenguinRaceManager.instance.PenguinDungeonEvents.OnRaceFinished -= StopTimer;
     }
 
     private void Update()
     {
-        if (raceInProgress)
+        if (_raceInProgress)
         {
-            currentTime += Time.deltaTime;
+            _currentTime += Time.deltaTime;
 
-            if (currentTime >= maxTime)
+            if (_currentTime >= _maxTime)
             {
-                raceInProgress = false;
-                PenguinRaceManager.instance.penguinDungeonEvents.TimeRanOut();
+                _raceInProgress = false;
+                PenguinRaceManager.instance.PenguinDungeonEvents.TimeRanOut();
             }
 
             UpdateTimer();
@@ -38,7 +39,7 @@ public class PenguinTimer : MonoBehaviour
     public void ToggleTimer(bool timerOn)
     {
         transform.GetChild(0).gameObject.SetActive(timerOn);
-        raceInProgress = timerOn;
+        _raceInProgress = timerOn;
     }
 
     private void StopTimer()
@@ -48,25 +49,25 @@ public class PenguinTimer : MonoBehaviour
 
     private void UpdateTimer()
     {
-        int minutes = Mathf.FloorToInt(currentTime / 60);
-        int seconds = Mathf.FloorToInt(currentTime % 60);
-        int milliseconds = Mathf.FloorToInt(currentTime * 100 % 100);
+        int minutes = Mathf.FloorToInt(_currentTime / 60);
+        int seconds = Mathf.FloorToInt(_currentTime % 60);
+        int milliseconds = Mathf.FloorToInt(_currentTime * 100 % 100);
 
-        timerText.text = string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, milliseconds);
+        _timerText.text = string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, milliseconds);
     }
 
     public string GetFinalTimeAsString()
     {
-        int minutes = Mathf.FloorToInt(currentTime / 60);
-        int seconds = Mathf.FloorToInt(currentTime % 60);
-        int milliseconds = Mathf.FloorToInt(currentTime * 100 % 100);
+        int minutes = Mathf.FloorToInt(_currentTime / 60);
+        int seconds = Mathf.FloorToInt(_currentTime % 60);
+        int milliseconds = Mathf.FloorToInt(_currentTime * 100 % 100);
 
         return string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, milliseconds);
     }
 
     public float GetFinalTimeAsFloat()
     {
-        return currentTime;
+        return _currentTime;
     }
 
     private void UpdateLapCounter()

@@ -1,38 +1,39 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class AbilityTestingTools : MonoBehaviour
 {
 #if DEBUG
-    [Header(" K = check one \n L = check all \n U = unlock one \n I = unlock all")]
-    public Abilities abilityToUnlock;
+    [FormerlySerializedAs("abilityToUnlock")] [Header(" K = check one \n L = check all \n U = unlock one \n I = unlock all")]
+    public Abilities AbilityToUnlock;
 
     private void Update()
     {
         //check one
-        if (PlayerInputHandler.instance.DebugAbilitiesCheckOne.WasPressedThisFrame())
+        if (PlayerInputHandler.Instance.DebugAbilitiesCheckOne.WasPressedThisFrame())
         {
             LogAbilityStatus();
         }
 
         //check all
-        if (PlayerInputHandler.instance.DebugAbilitiesCheckAll.WasPressedThisFrame())
+        if (PlayerInputHandler.Instance.DebugAbilitiesCheckAll.WasPressedThisFrame())
         {
             LogAllAbilityStatuses();
         }
 
         //unlock one
-        if (PlayerInputHandler.instance.DebugAbilitiesUnlockOne.WasPressedThisFrame())
+        if (PlayerInputHandler.Instance.DebugAbilitiesUnlockOne.WasPressedThisFrame())
         {
-            AbilityManager.Instance.UnlockAbility(abilityToUnlock);
+            AbilityManager.Instance.UnlockAbility(AbilityToUnlock);
         }
 
         //unlock all
-        if (PlayerInputHandler.instance.DebugAbilitiesUnlockAll.WasPressedThisFrame())
+        if (PlayerInputHandler.Instance.DebugAbilitiesUnlockAll.WasPressedThisFrame())
         {
             foreach (Abilities ability in Enum.GetValues(typeof(Abilities)))
             {
-                AbilityManager.Instance._abilityStatuses[ability] = true;
+                AbilityManager.Instance.AbilityStatuses[ability] = true;
             }
 
             Debug.Log("All abilities unlocked");
@@ -41,12 +42,12 @@ public class AbilityTestingTools : MonoBehaviour
 
     private void LogAbilityStatus()
     {
-        if (AbilityManager.Instance._abilityStatuses.TryGetValue(abilityToUnlock, out bool isUnlocked))
+        if (AbilityManager.Instance.AbilityStatuses.TryGetValue(AbilityToUnlock, out bool isUnlocked))
         {
             string status = isUnlocked ? "Unlocked" : "Locked";
-            Debug.Log($"Ability: {abilityToUnlock}, Status: {status}");
+            Debug.Log($"Ability: {AbilityToUnlock}, Status: {status}");
         }
-        if (AbilityCycle.Instance._activeAbilities.TryGetValue(AbilityCycle.Instance.SelectedAbility, out bool isActive))
+        if (AbilityCycle.Instance.ActiveAbilities.TryGetValue(AbilityCycle.Instance.SelectedAbility, out bool isActive))
         {
             string status = isActive ? "Active" : "Inactive";
             Debug.Log("1. Selected ability is: " + AbilityCycle.Instance.SelectedAbility + " and it is: " + status);
@@ -55,7 +56,7 @@ public class AbilityTestingTools : MonoBehaviour
 
     public void LogAllAbilityStatuses()
     {
-        foreach (var ability in AbilityManager.Instance._abilityStatuses)
+        foreach (var ability in AbilityManager.Instance.AbilityStatuses)
         {
             string status = ability.Value ? "Unlocked" : "Locked";
             Debug.Log($"Ability: {ability.Key}, Status: {status}");

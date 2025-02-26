@@ -1,11 +1,12 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class InstantiateBear : MonoBehaviour
 {
-    [SerializeField] private GameObject tutorialBearPrefab;
-    [SerializeField] private Vector3 spawnPosition;
-    [SerializeField] private Vector3 spawnRotation = new Vector3(0, 186, 0);
+    [FormerlySerializedAs("tutorialBearPrefab")] [SerializeField] private GameObject _tutorialBearPrefab;
+    [FormerlySerializedAs("spawnPosition")] [SerializeField] private Vector3 _spawnPosition;
+    [FormerlySerializedAs("spawnRotation")] [SerializeField] private Vector3 _spawnRotation = new Vector3(0, 186, 0);
 
     private void OnEnable()
     {
@@ -22,10 +23,10 @@ public class InstantiateBear : MonoBehaviour
         // NOTE MATCH THIS TO NEW SCENE MANAGEMENT SYSTEM LATER
         if (newScene.name.Contains("Overworld", System.StringComparison.OrdinalIgnoreCase) && !transform.parent.Find("TutorialBear(Clone)"))
         {
-            GameObject bear = Instantiate(tutorialBearPrefab, spawnPosition, Quaternion.identity);
+            GameObject bear = Instantiate(_tutorialBearPrefab, _spawnPosition, Quaternion.identity);
 
             bear.transform.parent = transform.parent;
-            bear.transform.Rotate(spawnRotation);
+            bear.transform.Rotate(_spawnRotation);
             bear.gameObject.SetActive(true);
         }
     }

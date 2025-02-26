@@ -1,26 +1,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class QuestManager : MonoBehaviour
 {
-    public Dictionary<string, Quest> questMap;
-    private int curID = 0;
+    public Dictionary<string, Quest> QuestMap;
+    private int _curID = 0;
 
-    public static QuestManager instance;
+    public static QuestManager Instance;
 
-    [SerializeField] private PlayerManager playerManager;
-    [SerializeField] private AbilityCycle AbilityCycle;
-    [SerializeField] private Sprite[] mapQuestMarkersBW;
-    [SerializeField] private Sprite[] mapQuestMarkersColour;
+    [FormerlySerializedAs("playerManager")] [SerializeField] private PlayerManager _playerManager;
+    [FormerlySerializedAs("AbilityCycle")] [SerializeField] private AbilityCycle _abilityCycle;
+    [FormerlySerializedAs("mapQuestMarkersBW")] [SerializeField] private Sprite[] _mapQuestMarkersBw;
+    [FormerlySerializedAs("mapQuestMarkersColour")] [SerializeField] private Sprite[] _mapQuestMarkersColour;
 
-    private int currentPlayerLevel;
-    private string currentActiveQuest;
+    private int _currentPlayerLevel;
+    private string _currentActiveQuest;
 
     private void Awake()
     {
-        if (instance != null)
+        if (Instance != null)
         {
             Debug.LogWarning("There is more than one Game Events Manager in the scene");
             Destroy(gameObject);
@@ -28,13 +29,13 @@ public class QuestManager : MonoBehaviour
 
         else
         {
-            instance = this;
+            Instance = this;
 
         }
 
         // initialize quest map
         //questMap = CreateQuestMap();
-        playerManager = FindObjectOfType<PlayerManager>();
+        _playerManager = FindObjectOfType<PlayerManager>();
     }
 
     private void OnEnable()
@@ -48,62 +49,62 @@ public class QuestManager : MonoBehaviour
     }
     private void Start()
     {
-        questMap = CreateQuestMap();
+        QuestMap = CreateQuestMap();
         CheckAllRequirements();
 
-        playerManager = FindObjectOfType<PlayerManager>();
+        _playerManager = FindObjectOfType<PlayerManager>();
         // broadcast the initial state of all quests on startup
-        foreach (Quest quest in questMap.Values)
+        foreach (Quest quest in QuestMap.Values)
         {
             // initialize any loaded quest steps
-            if (quest.state == QuestState.IN_PROGRESS)
+            if (quest.State == QuestState.InProgress)
             {
                 quest.InstantiateCurrentQuestStep(transform);
             }
 
             // broadcast the initial state of all quests
-            GameEventsManager.instance.questEvents.QuestStateChange(quest);
+            GameEventsManager.instance.QuestEvents.QuestStateChange(quest);
 
-            Debug.Log(quest.info.id + ": state is set to " + quest.state);
+            Debug.Log(quest.Info.id + ": state is set to " + quest.State);
         }
 
-        if (SceneManager.GetActiveScene().name == "Overworld" && AbilityCycle == null)
+        if (SceneManager.GetActiveScene().name == "Overworld" && _abilityCycle == null)
         {
-            AbilityCycle = FindObjectOfType<AbilityCycle>(); // In case Overworld is loaded in editor, find AbilityCycle
+            _abilityCycle = FindObjectOfType<AbilityCycle>(); // In case Overworld is loaded in editor, find AbilityCycle
         }
     }
 
     public void SetQuestMarkers(Image[] mapQuestMarkers)
     {
-        if (questMap != null)
+        if (QuestMap != null)
         {
-            foreach (KeyValuePair<string, Quest> quest in questMap)
+            foreach (KeyValuePair<string, Quest> quest in QuestMap)
             {
-                if (quest.Value.info.numericID < mapQuestMarkers.Length)
+                if (quest.Value.Info.NumericID < mapQuestMarkers.Length)
                 {
-                    if (quest.Value.state == QuestState.REQUIREMENTS_NOT_MET)
-                        mapQuestMarkers[quest.Value.info.numericID].sprite = mapQuestMarkersBW[quest.Value.info.numericID];
+                    if (quest.Value.State == QuestState.RequirementsNotMet)
+                        mapQuestMarkers[quest.Value.Info.NumericID].sprite = _mapQuestMarkersBw[quest.Value.Info.NumericID];
                     else
-                        mapQuestMarkers[quest.Value.info.numericID].sprite = mapQuestMarkersColour[quest.Value.info.numericID];
+                        mapQuestMarkers[quest.Value.Info.NumericID].sprite = _mapQuestMarkersColour[quest.Value.Info.NumericID];
                 }
             }
         }
     }
 
-    private void PlayerLevelChange(int Level)
+    private void PlayerLevelChange(int level)
     {
-        currentPlayerLevel = Level;
+        _currentPlayerLevel = level;
     }
 
     public void CheckAllRequirements()
     {
         // loop through all quests
-        foreach (Quest quest in questMap.Values)
+        foreach (Quest quest in QuestMap.Values)
         {
             // if meeting the requirements, switch over to CAN_START state
-            if (quest.state == QuestState.REQUIREMENTS_NOT_MET && CheckRequirementsMet(quest))
+            if (quest.State == QuestState.RequirementsNotMet && CheckRequirementsMet(quest))
             {
-                ChangeQuestState(quest.info.id, QuestState.CAN_START);
+                ChangeQuestState(quest.Info.id, QuestState.CanStart);
             }
         }
     }
@@ -116,9 +117,9 @@ public class QuestManager : MonoBehaviour
         {
             meetsRequirements = false;
         }*/
-        foreach (QuestScriptableObject prerequisiteQuestInfo in quest.info.questPrerequisites)
+        foreach (QuestScriptableObject prerequisiteQuestInfo in quest.Info.QuestPrerequisites)
         {
-            if (GetQuestById(prerequisiteQuestInfo.id).state != QuestState.FINISHED)
+            if (GetQuestById(prerequisiteQuestInfo.id).State != QuestState.Finished)
             {
                 meetsRequirements = false;
             }
@@ -131,24 +132,24 @@ public class QuestManager : MonoBehaviour
     {
         Debug.Log("Changed quest state with ID: " + id + " to: " + state.ToString());
         Quest quest = GetQuestById(id);
-        quest.state = state;
+        quest.State = state;
         //Debug.Log(quest.state.ToString());
-        SaveManager.instance.SaveGame(); // Force save game when quest state changes
-        GameEventsManager.instance.questEvents.QuestStateChange(quest);
+        SaveManager.Instance.SaveGame(); // Force save game when quest state changes
+        GameEventsManager.instance.QuestEvents.QuestStateChange(quest);
     }
 
     private void StartQuest(string id)
     {
         Quest quest = GetQuestById(id);
-        if (quest.state == QuestState.CAN_START)
+        if (quest.State == QuestState.CanStart)
         {
             //Debug.Log("Start Quest: " + id);
             quest.InstantiateCurrentQuestStep(transform);
-            ChangeQuestState(quest.info.id, QuestState.IN_PROGRESS);
+            ChangeQuestState(quest.Info.id, QuestState.InProgress);
 
             if (id != "Tutorial")
             {
-                AbilityAcquired(quest.info.abilityReward);
+                AbilityAcquired(quest.Info.AbilityReward);
                 //Debug.Log("Ability unlocked: " + quest.info.abilityReward);
             }
         }
@@ -173,17 +174,17 @@ public class QuestManager : MonoBehaviour
         else
         {
             // if you are finishing a side quest, call the event that will enable showing the final quest UI for that side quest
-            if (!quest.info.mainQuest)
+            if (!quest.Info.MainQuest)
             {
-                ChangeQuestState(quest.info.id, QuestState.CAN_FINISH);
-                GameEventsManager.instance.questEvents.ReturnToSideQuestPoint(id);
+                ChangeQuestState(quest.Info.id, QuestState.CanFinish);
+                GameEventsManager.instance.QuestEvents.ReturnToSideQuestPoint(id);
             }
 
             // if you are finishing a main quest, instantly finish it since you won't need to return to any quest point for the actual finish
             else
             {
                 Debug.Log("About to finish dungeon quest: " + id);
-                ChangeQuestState(quest.info.id, QuestState.CAN_FINISH);
+                ChangeQuestState(quest.Info.id, QuestState.CanFinish);
                 //GameEventsManager.instance.questEvents.FinishQuest(id);
             }
         }
@@ -194,10 +195,10 @@ public class QuestManager : MonoBehaviour
         //Debug.Log("Finished quest with ID: "+ id);
         Quest quest = GetQuestById(id);
         ClaimRewards(quest);
-        ChangeQuestState(quest.info.id, QuestState.FINISHED);
-        AudioManager.Instance.PlaySound(AudioName.Action_QuestCompleted, transform);
-        GameEventsManager.instance.questEvents.HideQuestUI();
-        QuestCompletedUI.instance.ShowUI(id);
+        ChangeQuestState(quest.Info.id, QuestState.Finished);
+        AudioManager.Instance.PlaySound(AudioName.ActionQuestCompleted, transform);
+        GameEventsManager.instance.QuestEvents.HideQuestUI();
+        QuestCompletedUI.Instance.ShowUI(id);
         ResetActiveQuest();
         CheckAllRequirements();
     }
@@ -206,11 +207,11 @@ public class QuestManager : MonoBehaviour
     {
         //Debug.Log("Quest " + quest.info.id + " has been completed.");
 
-        GameEventsManager.instance.playerEvents.ExperienceGained(quest.info.experienceReward);
+        GameEventsManager.instance.PlayerEvents.ExperienceGained(quest.Info.ExperienceReward);
 
-        if (quest.info.abilityReward != 0)
+        if (quest.Info.AbilityReward != 0)
         {
-            AbilityAcquired(quest.info.abilityReward);
+            AbilityAcquired(quest.Info.AbilityReward);
             //StartCoroutine(AbilityCycle.MakeList());
         }
     }
@@ -219,30 +220,30 @@ public class QuestManager : MonoBehaviour
     {
         Quest quest = GetQuestById(id);
         quest.StoreQuestStepState(questStepState, stepIndex);
-        ChangeQuestState(id, quest.state);
+        ChangeQuestState(id, quest.State);
     }
 
     private void SetActiveQuest(string id)
     {
-        currentActiveQuest = id;
+        _currentActiveQuest = id;
     }
 
     private void ResetActiveQuest()
     {
-        currentActiveQuest = "";
+        _currentActiveQuest = "";
     }
 
     public string GetActiveQuest()
     {
-        return currentActiveQuest;
+        return _currentActiveQuest;
     }
 
     public Dictionary<string, Quest> CreateQuestMap()
     {
-        if (questMap != null)
+        if (QuestMap != null)
         {
             Debug.Log("Reset quest map");
-            questMap = null;
+            QuestMap = null;
 
             foreach (Transform questStep in transform)
             {
@@ -257,9 +258,9 @@ public class QuestManager : MonoBehaviour
         Dictionary<string, Quest> idToQuestMap = new Dictionary<string, Quest>();
 
         // load loaded data from Save Manager
-        List<string> loadedQuestData = SaveManager.instance.GetLoadedQuestData("quest");
+        List<string> loadedQuestData = SaveManager.Instance.GetLoadedQuestData("quest");
 
-        int currentQuestSOIndex = 0;
+        int currentQuestSoIndex = 0;
 
         foreach (QuestScriptableObject questInfo in allQuests)
         {
@@ -270,7 +271,7 @@ public class QuestManager : MonoBehaviour
 
             if (loadedQuestData.Count > 0)
             {
-                idToQuestMap.Add(questInfo.id, LoadQuest(questInfo, loadedQuestData[currentQuestSOIndex]));
+                idToQuestMap.Add(questInfo.id, LoadQuest(questInfo, loadedQuestData[currentQuestSoIndex]));
             }
 
             else
@@ -278,7 +279,7 @@ public class QuestManager : MonoBehaviour
                 idToQuestMap.Add(questInfo.id, LoadQuest(questInfo, null));
             }
 
-            currentQuestSOIndex++;
+            currentQuestSoIndex++;
         }
 
         return idToQuestMap;
@@ -286,7 +287,7 @@ public class QuestManager : MonoBehaviour
 
     public Quest GetQuestById(string id)
     {
-        Quest quest = questMap[id];
+        Quest quest = QuestMap[id];
 
         if (quest == null)
         {
@@ -300,7 +301,7 @@ public class QuestManager : MonoBehaviour
     {
         Quest quest = GetQuestById(id);
 
-        return quest.state;
+        return quest.State;
     }
 
     private void AbilityAcquired(Abilities ability)
@@ -314,14 +315,14 @@ public class QuestManager : MonoBehaviour
     }
     public void ActivateGhostSpeak()
     {
-        GameEventsManager.instance.playerEvents.GhostSpeakActivated();
+        GameEventsManager.instance.PlayerEvents.GhostSpeakActivated();
     }
     public List<string> CollectQuestDataForSaving()
     {
         List<string> allQuestData = new List<string>();
         int i = 0;
 
-        foreach (Quest quest in questMap.Values)
+        foreach (Quest quest in QuestMap.Values)
         {
             string savedQuestData = GetSerializedQuestData(quest);
             allQuestData.Add(savedQuestData);
@@ -343,7 +344,7 @@ public class QuestManager : MonoBehaviour
 
         catch (System.Exception e)
         {
-            Debug.LogError("Failed to save quest with id " + quest.info.id + ": " + e);
+            Debug.LogError("Failed to save quest with id " + quest.Info.id + ": " + e);
         }
 
         return serializedData;
@@ -356,7 +357,7 @@ public class QuestManager : MonoBehaviour
         try
         {
             QuestData questData = JsonUtility.FromJson<QuestData>(serializedData);
-            quest = new Quest(questInfo, questData.state, questData.questStepIndex, questData.questStepStates);
+            quest = new Quest(questInfo, questData.State, questData.QuestStepIndex, questData.QuestStepStates);
         }
 
         catch
@@ -369,30 +370,30 @@ public class QuestManager : MonoBehaviour
 
     private void SubscribeToEvents()
     {
-        GameEventsManager.instance.questEvents.OnStartQuest += StartQuest;
-        GameEventsManager.instance.questEvents.OnAdvanceQuest += AdvanceQuest;
-        GameEventsManager.instance.questEvents.OnFinishQuest += FinishQuest;
+        GameEventsManager.instance.QuestEvents.OnStartQuest += StartQuest;
+        GameEventsManager.instance.QuestEvents.OnAdvanceQuest += AdvanceQuest;
+        GameEventsManager.instance.QuestEvents.OnFinishQuest += FinishQuest;
 
-        GameEventsManager.instance.questEvents.OnQuestStepStateChange += QuestStepStateChange;
+        GameEventsManager.instance.QuestEvents.OnQuestStepStateChange += QuestStepStateChange;
 
-        GameEventsManager.instance.playerEvents.OnExperienceGained += PlayerLevelChange;
-        GameEventsManager.instance.playerEvents.OnAbilityAcquired += AbilityAcquired;
+        GameEventsManager.instance.PlayerEvents.OnExperienceGained += PlayerLevelChange;
+        GameEventsManager.instance.PlayerEvents.OnAbilityAcquired += AbilityAcquired;
 
-        GameEventsManager.instance.questEvents.OnChangeActiveQuest += SetActiveQuest;
+        GameEventsManager.instance.QuestEvents.OnChangeActiveQuest += SetActiveQuest;
     }
 
     private void UnsubscribeFromEvents()
     {
-        GameEventsManager.instance.questEvents.OnStartQuest -= StartQuest;
-        GameEventsManager.instance.questEvents.OnAdvanceQuest -= AdvanceQuest;
-        GameEventsManager.instance.questEvents.OnFinishQuest -= FinishQuest;
+        GameEventsManager.instance.QuestEvents.OnStartQuest -= StartQuest;
+        GameEventsManager.instance.QuestEvents.OnAdvanceQuest -= AdvanceQuest;
+        GameEventsManager.instance.QuestEvents.OnFinishQuest -= FinishQuest;
 
-        GameEventsManager.instance.questEvents.OnQuestStepStateChange -= QuestStepStateChange;
+        GameEventsManager.instance.QuestEvents.OnQuestStepStateChange -= QuestStepStateChange;
 
-        GameEventsManager.instance.playerEvents.OnExperienceGained -= PlayerLevelChange;
-        GameEventsManager.instance.playerEvents.OnAbilityAcquired -= AbilityAcquired;
+        GameEventsManager.instance.PlayerEvents.OnExperienceGained -= PlayerLevelChange;
+        GameEventsManager.instance.PlayerEvents.OnAbilityAcquired -= AbilityAcquired;
 
-        GameEventsManager.instance.questEvents.OnChangeActiveQuest -= SetActiveQuest;
+        GameEventsManager.instance.QuestEvents.OnChangeActiveQuest -= SetActiveQuest;
     }
     public void RequestFinishQuest(string id) // For some reason the event doesn't trigger reliably so as a workaround to ensure dungeons finish, this is called.
     {

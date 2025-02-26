@@ -5,14 +5,14 @@ using UnityEngine;
 //TODO: Integrate into saving to act as savepoints
 public class RespawnManager : MonoBehaviour
 {
-    public static RespawnManager instance;
+    public static RespawnManager Instance;
 
-    private Vector3 defaultStartingPosition = new Vector3(219f, 103f, 757f);
-    private Vector3 checkpointPosition;
+    private Vector3 _defaultStartingPosition = new Vector3(219f, 103f, 757f);
+    private Vector3 _checkpointPosition;
 
     private void Awake()
     {
-        if (instance != null && instance != this)
+        if (Instance != null && Instance != this)
         {
             Debug.LogWarning("There is more than one Respawn Manager.");
             Destroy(gameObject);
@@ -20,25 +20,25 @@ public class RespawnManager : MonoBehaviour
         }
         else
         {
-            instance = this;
+            Instance = this;
         }
     }
 
     public void SetRespawnPosition(Vector3 respawnPointPosition)
     {
-        checkpointPosition = respawnPointPosition;
-        SaveManager.instance.SaveGame();
+        _checkpointPosition = respawnPointPosition;
+        SaveManager.Instance.SaveGame();
     }
 
     public PositionData GetLatestRespawnPoint()
     {
         PositionData respawnPoint = new PositionData();
 
-        if (checkpointPosition == Vector3.zero)
+        if (_checkpointPosition == Vector3.zero)
         {
-            respawnPoint.x = defaultStartingPosition.x;
-            respawnPoint.y = defaultStartingPosition.y;
-            respawnPoint.z = defaultStartingPosition.z;
+            respawnPoint.X = _defaultStartingPosition.x;
+            respawnPoint.Y = _defaultStartingPosition.y;
+            respawnPoint.Z = _defaultStartingPosition.z;
 
             Debug.Log("Using default values for position saving.");
         }
@@ -46,9 +46,9 @@ public class RespawnManager : MonoBehaviour
         else
         {
             // set new position
-            respawnPoint.x = checkpointPosition.x;
-            respawnPoint.y = checkpointPosition.y;
-            respawnPoint.z = checkpointPosition.z;
+            respawnPoint.X = _checkpointPosition.x;
+            respawnPoint.Y = _checkpointPosition.y;
+            respawnPoint.Z = _checkpointPosition.z;
 
             Debug.Log("Using custom values for position saving.");
         }

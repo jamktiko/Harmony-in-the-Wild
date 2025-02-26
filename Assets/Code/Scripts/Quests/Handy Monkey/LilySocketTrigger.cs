@@ -1,34 +1,35 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class LilySocketTrigger : MonoBehaviour
 {
-    [SerializeField] private string correctColor;
+    [FormerlySerializedAs("correctColor")] [SerializeField] private string _correctColor;
 
-    private bool isFilled;
-    private string lilyKeyword = "Lily";
-    private GameObject fillingObject;
-    private Rigidbody fillingRigidbody;
+    private bool _isFilled;
+    private string _lilyKeyword = "Lily";
+    private GameObject _fillingObject;
+    private Rigidbody _fillingRigidbody;
     private void OnTriggerEnter(Collider other)
     {
         Rigidbody rb = other.GetComponent<Rigidbody>();
 
-        if (other.name.Contains(lilyKeyword) && !isFilled && !rb.isKinematic)
+        if (other.name.Contains(_lilyKeyword) && !_isFilled && !rb.isKinematic)
         {
-            isFilled = true;
-            LilyPuzzle.instance.socketsFilled++;
-            fillingObject = other.gameObject;
-            fillingRigidbody = rb;
+            _isFilled = true;
+            LilyPuzzle.Instance.SocketsFilled++;
+            _fillingObject = other.gameObject;
+            _fillingRigidbody = rb;
 
             other.transform.SetParent(null);
             other.transform.position = transform.position;
 
-            if (other.name.Contains(correctColor))
+            if (other.name.Contains(_correctColor))
             {
-                LilyPuzzle.instance.CheckPuzzleProgress(1);
+                LilyPuzzle.Instance.CheckPuzzleProgress(1);
             }
             else
             {
-                LilyPuzzle.instance.CheckPuzzleProgress(0);
+                LilyPuzzle.Instance.CheckPuzzleProgress(0);
             }
         }
     }
@@ -36,26 +37,26 @@ public class LilySocketTrigger : MonoBehaviour
     {
         Rigidbody rb = other.GetComponent<Rigidbody>();
 
-        if (other.name.Contains(lilyKeyword) && isFilled)
+        if (other.name.Contains(_lilyKeyword) && _isFilled)
         {
-            isFilled = false;
-            LilyPuzzle.instance.socketsFilled--;
-            fillingObject = null;
-            fillingRigidbody = null;
+            _isFilled = false;
+            LilyPuzzle.Instance.SocketsFilled--;
+            _fillingObject = null;
+            _fillingRigidbody = null;
 
-            if (other.name.Contains(correctColor))
+            if (other.name.Contains(_correctColor))
             {
-                LilyPuzzle.instance.CheckPuzzleProgress(-1);
+                LilyPuzzle.Instance.CheckPuzzleProgress(-1);
             }
         }
     }
     private void Update()
     {
-        if (fillingObject != null && !fillingRigidbody.isKinematic)
+        if (_fillingObject != null && !_fillingRigidbody.isKinematic)
         {
-            fillingObject.transform.position = transform.position;
-            fillingRigidbody.velocity = Vector3.zero;
-            fillingObject.transform.rotation = transform.rotation;
+            _fillingObject.transform.position = transform.position;
+            _fillingRigidbody.velocity = Vector3.zero;
+            _fillingObject.transform.rotation = transform.rotation;
         }
     }
 }

@@ -1,33 +1,34 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 [System.Serializable]
-public class Discord_Controller : MonoBehaviour
+public class DiscordController : MonoBehaviour
 {
-    public long applicationID;
-    [Space]
-    public string details = "Exploring the world";
-    public string state = "Being cool";
-    [Space]
-    public string largeImage = "game_logo";
-    public string largeText = "Harmony in The Wild";
+    [FormerlySerializedAs("applicationID")] public long ApplicationID;
+    [FormerlySerializedAs("details")] [Space]
+    public string Details = "Exploring the world";
+    [FormerlySerializedAs("state")] public string State = "Being cool";
+    [FormerlySerializedAs("largeImage")] [Space]
+    public string LargeImage = "game_logo";
+    [FormerlySerializedAs("largeText")] public string LargeText = "Harmony in The Wild";
 
 
-    [SerializeField]
-    string[] detailsValues;
+    [FormerlySerializedAs("detailsValues")] [SerializeField]
+    string[] _detailsValues;
 
-    Rigidbody rb;
-    private long time;
+    Rigidbody _rb;
+    private long _time;
 
-    private static bool instanceExists;
-    public Discord.Discord discord;
+    private static bool _instanceExists;
+    public Discord.Discord Discord;
 
 
     private void Awake()
     {
-        if (!instanceExists)
+        if (!_instanceExists)
         {
-            instanceExists = true;
+            _instanceExists = true;
             DontDestroyOnLoad(gameObject);
         }
         else if (FindObjectsOfType(GetType()).Length > 1)
@@ -38,9 +39,9 @@ public class Discord_Controller : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        discord = new Discord.Discord(applicationID, (System.UInt64)Discord.CreateFlags.NoRequireDiscord);
+        Discord = new Discord.Discord(ApplicationID, (System.UInt64)global::Discord.CreateFlags.NoRequireDiscord);
 
-        time = System.DateTimeOffset.Now.ToUnixTimeMilliseconds();
+        _time = System.DateTimeOffset.Now.ToUnixTimeMilliseconds();
 
         UpdateStatus();
     }
@@ -52,7 +53,7 @@ public class Discord_Controller : MonoBehaviour
     {
         try
         {
-            discord.RunCallbacks();
+            Discord.RunCallbacks();
         }
         catch
         {
@@ -70,42 +71,42 @@ public class Discord_Controller : MonoBehaviour
         {
             if (SceneManager.GetActiveScene().name.Contains("Dungeon"))
             {
-                details = detailsValues[2];
+                Details = _detailsValues[2];
             }
             else if (SceneManager.GetActiveScene().name.Contains("OverWorld"))
             {
-                details = detailsValues[0];
+                Details = _detailsValues[0];
             }
             else if (SceneManager.GetActiveScene().name.Contains("Tutorial"))
             {
-                details = detailsValues[3];
+                Details = _detailsValues[3];
             }
             else if (SceneManager.GetActiveScene().name.Contains("StoryBook"))
             {
-                details = detailsValues[4];
+                Details = _detailsValues[4];
             }
             else
             {
-                details = detailsValues[1];
+                Details = _detailsValues[1];
             }
-            var activityManager = discord.GetActivityManager();
+            var activityManager = Discord.GetActivityManager();
             var activity = new Discord.Activity
             {
-                Details = details,
+                Details = Details,
                 //State = state + SceneManager.GetActiveScene().name,
                 Assets =
                 {
-                    LargeImage = largeImage,
-                    LargeText = largeText,
+                    LargeImage = LargeImage,
+                    LargeText = LargeText,
                 },
                 Timestamps =
                 {
-                    Start=time
+                    Start=_time
                 }
             };
             activityManager.UpdateActivity(activity, (res) =>
             {
-                if (res != Discord.Result.Ok)
+                if (res != global::Discord.Result.Ok)
                 {
                     Debug.LogWarning("Failed to connect to Discord!");
                 }
@@ -119,6 +120,6 @@ public class Discord_Controller : MonoBehaviour
     }
     private void OnDisable()
     {
-        discord.Dispose();
+        Discord.Dispose();
     }
 }

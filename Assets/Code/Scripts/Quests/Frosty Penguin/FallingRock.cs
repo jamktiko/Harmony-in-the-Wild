@@ -1,18 +1,19 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class FallingRock : MonoBehaviour
 {
-    [SerializeField] private GameObject destroyEffect;
-    [SerializeField] private float selfDestructionTime;
+    [FormerlySerializedAs("destroyEffect")] [SerializeField] private GameObject _destroyEffect;
+    [FormerlySerializedAs("selfDestructionTime")] [SerializeField] private float _selfDestructionTime;
 
     private void OnTriggerEnter(Collider other)
     {
-        AudioManager.Instance.PlaySound(AudioName.Prop_RockFalling, transform);
+        AudioManager.Instance.PlaySound(AudioName.PropRockFalling, transform);
 
         if (other.gameObject.CompareTag("Trigger"))
         {
-            Instantiate(destroyEffect, transform.position, Quaternion.identity);
+            Instantiate(_destroyEffect, transform.position, Quaternion.identity);
 
             other.GetComponentInParent<HitCounter>().TakeHit(false);
         }
@@ -25,9 +26,9 @@ public class FallingRock : MonoBehaviour
 
     private IEnumerator SelfDestruction()
     {
-        yield return new WaitForSeconds(selfDestructionTime);
+        yield return new WaitForSeconds(_selfDestructionTime);
 
-        Instantiate(destroyEffect, transform.position, Quaternion.identity);
+        Instantiate(_destroyEffect, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 }

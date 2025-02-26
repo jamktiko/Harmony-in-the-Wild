@@ -26,7 +26,7 @@ public static class SceneManagerHelper
     }
 
     //Map enum values to scene names
-    private static readonly Dictionary<Scene, string> sceneNames = new Dictionary<Scene, string>
+    private static readonly Dictionary<Scene, string> SceneNames = new Dictionary<Scene, string>
     {
         {Scene.NoName, "" },
         {Scene.Disclaimer, "Disclaimer" },
@@ -49,14 +49,14 @@ public static class SceneManagerHelper
     //Method to get the scene name from an enum
     public static string GetSceneName(Scene scene)
     {
-        return sceneNames[scene];
+        return SceneNames[scene];
     }
 
     public static Scene GetSceneEnum(string sceneName)
     {
         Scene currentScene = new Scene();
 
-        foreach (var keyValuePair in sceneNames)
+        foreach (var keyValuePair in SceneNames)
         {
             if (keyValuePair.Value == sceneName)
             {
@@ -70,13 +70,13 @@ public static class SceneManagerHelper
     //Method to load a scene by enum
     public static void LoadScene(Scene scene)
     {
-        SceneManager.LoadScene(sceneNames[scene]);
+        SceneManager.LoadScene(SceneNames[scene]);
     }
 
     //Method to load a scene asynchronously if needed
     public static AsyncOperation LoadSceneAsync(Scene scene)
     {
-        return SceneManager.LoadSceneAsync(sceneNames[scene]);
+        return SceneManager.LoadSceneAsync(SceneNames[scene]);
     }
 }
 

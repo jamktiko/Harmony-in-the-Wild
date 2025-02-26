@@ -1,18 +1,19 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class MinimapWorldObject : MonoBehaviour
 {
-    [SerializeField]
-    private bool followObject = false;
-    [SerializeField]
-    private Sprite minimapIcon;
-    public Sprite MinimapIcon => minimapIcon;
+    [FormerlySerializedAs("followObject")] [SerializeField]
+    private bool _followObject = false;
+    [FormerlySerializedAs("minimapIcon")] [SerializeField]
+    private Sprite _minimapIcon;
+    public Sprite minimapIcon => _minimapIcon;
 
     private void Start()
     {
         try
         {
-            MinimapController.Instance.RegisterMinimapWorldObject(this, followObject);
+            MinimapController.Instance.RegisterMinimapWorldObject(this, _followObject);
 
         }
         catch (System.Exception)

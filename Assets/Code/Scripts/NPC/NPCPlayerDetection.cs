@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class NPCPlayerDetection : MonoBehaviour
+public class NpcPlayerDetection : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {

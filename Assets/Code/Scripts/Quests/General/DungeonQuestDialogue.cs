@@ -1,34 +1,37 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class DungeonQuestDialogue : MonoBehaviour
 {
+    [FormerlySerializedAs("startDungeonDialogue")]
     [Header("Dialogues")]
-    [SerializeField] private List<TextAsset> startDungeonDialogue;
-    [SerializeField] private List<TextAsset> progressDialogue;
-    [SerializeField] private TextAsset endDungeonDialogue;
+    [SerializeField] private List<TextAsset> _startDungeonDialogue;
+    [FormerlySerializedAs("progressDialogue")] [SerializeField] private List<TextAsset> _progressDialogue;
+    [FormerlySerializedAs("endDungeonDialogue")] [SerializeField] private TextAsset _endDungeonDialogue;
 
+    [FormerlySerializedAs("audioToPlayOnDialogueStarted")]
     [Header("Audio Config")]
-    [SerializeField] private AudioName audioToPlayOnDialogueStarted;
+    [SerializeField] private AudioName _audioToPlayOnDialogueStarted;
 
-    private bool hadFinalDialogue = false;
+    private bool _hadFinalDialogue = false;
 
     public void PlayStartDungeonDialogue()
     {
-        DialogueManager.instance.StartDialogue(startDungeonDialogue[Random.Range(0, startDungeonDialogue.Count)]);
-        AudioManager.Instance.PlaySound(audioToPlayOnDialogueStarted, transform);
+        DialogueManager.Instance.StartDialogue(_startDungeonDialogue[Random.Range(0, _startDungeonDialogue.Count)]);
+        AudioManager.Instance.PlaySound(_audioToPlayOnDialogueStarted, transform);
     }
 
     public void PlayFinishDungeonDialogue()
     {
-        DialogueManager.instance.StartDialogue(endDungeonDialogue);
-        AudioManager.Instance.PlaySound(audioToPlayOnDialogueStarted, transform);
+        DialogueManager.Instance.StartDialogue(_endDungeonDialogue);
+        AudioManager.Instance.PlaySound(_audioToPlayOnDialogueStarted, transform);
 
-        hadFinalDialogue = true;
+        _hadFinalDialogue = true;
     }
 
     public bool FinalDialogueCompleted()
     {
-        return hadFinalDialogue;
+        return _hadFinalDialogue;
     }
 }

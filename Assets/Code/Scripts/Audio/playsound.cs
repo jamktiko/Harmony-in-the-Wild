@@ -1,15 +1,16 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlaySound : MonoBehaviour
 {
-    [SerializeField] AudioSource audioSource;
+    [FormerlySerializedAs("audioSource")] [SerializeField] AudioSource _audioSource;
 
     private void OnTriggerEnter(Collider other)
     {
-        audioSource.Play();
+        _audioSource.Play();
     }
     private void OnTriggerExit(Collider other)
     {
-        audioSource.Stop();
+        _audioSource.Stop();
     }
 }

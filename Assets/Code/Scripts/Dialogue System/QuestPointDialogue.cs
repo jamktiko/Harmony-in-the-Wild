@@ -1,84 +1,86 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class QuestPointDialogue : MonoBehaviour
 {
+    [FormerlySerializedAs("audioToPlayOnDialogueStarted")]
     [Header("Dialogue Files")]
-    [SerializeField] private AudioName audioToPlayOnDialogueStarted;
-    [SerializeField] private TextAsset requirementsNotMetDialogue;
-    [SerializeField] private TextAsset startQuestDialogue;
-    [SerializeField] private TextAsset finishQuestDialogue;
-    [SerializeField] private TextAsset afterQuestFinishedDialogue;
-    [SerializeField] private TextAsset questInProgressDialogue;
-    [SerializeField] private List<TextAsset> midQuestDialogues;
+    [SerializeField] private AudioName _audioToPlayOnDialogueStarted;
+    [FormerlySerializedAs("requirementsNotMetDialogue")] [SerializeField] private TextAsset _requirementsNotMetDialogue;
+    [FormerlySerializedAs("startQuestDialogue")] [SerializeField] private TextAsset _startQuestDialogue;
+    [FormerlySerializedAs("finishQuestDialogue")] [SerializeField] private TextAsset _finishQuestDialogue;
+    [FormerlySerializedAs("afterQuestFinishedDialogue")] [SerializeField] private TextAsset _afterQuestFinishedDialogue;
+    [FormerlySerializedAs("questInProgressDialogue")] [SerializeField] private TextAsset _questInProgressDialogue;
+    [FormerlySerializedAs("midQuestDialogues")] [SerializeField] private List<TextAsset> _midQuestDialogues;
 
     private void OnEnable()
     {
-        GameEventsManager.instance.dialogueEvents.OnEndDialogue += PreventNewDialogue;
+        GameEventsManager.instance.DialogueEvents.OnEndDialogue += PreventNewDialogue;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.dialogueEvents.OnEndDialogue -= PreventNewDialogue;
+        GameEventsManager.instance.DialogueEvents.OnEndDialogue -= PreventNewDialogue;
     }
 
     public void RequirementsNotMetDialogue()
     {
-        if (requirementsNotMetDialogue != null)
+        if (_requirementsNotMetDialogue != null)
         {
-            DialogueManager.instance.StartDialogue(requirementsNotMetDialogue);
+            DialogueManager.Instance.StartDialogue(_requirementsNotMetDialogue);
         }
     }
 
     public void StartQuestDialogue()
     {
-        if (startQuestDialogue != null)
+        if (_startQuestDialogue != null)
         {
-            DialogueManager.instance.StartDialogue(startQuestDialogue);
+            DialogueManager.Instance.StartDialogue(_startQuestDialogue);
             PlayDialogueSound();
         }
     }
 
     public void FinishQuestDialogue()
     {
-        if (finishQuestDialogue != null)
+        if (_finishQuestDialogue != null)
         {
-            DialogueManager.instance.StartDialogue(finishQuestDialogue);
+            DialogueManager.Instance.StartDialogue(_finishQuestDialogue);
             PlayDialogueSound();
         }
     }
 
     public void AfterQuestFinishedDialogue()
     {
-        if (afterQuestFinishedDialogue != null)
+        if (_afterQuestFinishedDialogue != null)
         {
-            DialogueManager.instance.StartDialogue(afterQuestFinishedDialogue);
+            DialogueManager.Instance.StartDialogue(_afterQuestFinishedDialogue);
             PlayDialogueSound();
         }
     }
 
     public void MidQuestDialogue(int index)
     {
-        if (midQuestDialogues[index] != null)
+        if (_midQuestDialogues[index] != null)
         {
-            DialogueManager.instance.StartDialogue(midQuestDialogues[index]);
+            DialogueManager.Instance.StartDialogue(_midQuestDialogues[index]);
             PlayDialogueSound();
         }
     }
 
     public void QuestInProgressDialogue()
     {
-        if (questInProgressDialogue != null)
+        if (_questInProgressDialogue != null)
         {
-            DialogueManager.instance.StartDialogue(questInProgressDialogue);
+            DialogueManager.Instance.StartDialogue(_questInProgressDialogue);
         }
     }
 
     private void PlayDialogueSound()
     {
-        if (DialogueManager.instance.isDialoguePlaying)
+        if (DialogueManager.Instance.IsDialoguePlaying)
         {
-            AudioManager.Instance.PlaySound(audioToPlayOnDialogueStarted, transform);
+            AudioManager.Instance.PlaySound(_audioToPlayOnDialogueStarted, transform);
         }
     }
 

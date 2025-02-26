@@ -4,24 +4,25 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 //This script handles both saving and loading of gameData.
 
 public class SaveManager : MonoBehaviour
 {
-    public static SaveManager instance;
+    public static SaveManager Instance;
 
-    public string saveFilePath;
+    [FormerlySerializedAs("saveFilePath")] public string SaveFilePath;
 
-    public GameData gameData = new GameData();
+    [FormerlySerializedAs("gameData")] public GameData GameData = new GameData();
 
-    public static bool isSaving;
+    public static bool IsSaving;
 
     private void Awake()
     {
-        saveFilePath = Application.persistentDataPath + "/GameData.json";
+        SaveFilePath = Application.persistentDataPath + "/GameData.json";
 
-        if (SaveManager.instance != null)
+        if (SaveManager.Instance != null)
         {
             Debug.LogWarning("There is more than one Save Manager in the scene");
             Destroy(gameObject);
@@ -29,7 +30,7 @@ public class SaveManager : MonoBehaviour
 
         else
         {
-            instance = this;
+            Instance = this;
 
         }
 
@@ -39,12 +40,12 @@ public class SaveManager : MonoBehaviour
     private void Update()
     {
 #if DEBUG
-        if (PlayerInputHandler.instance.DebugSaveInput.WasPressedThisFrame())
+        if (PlayerInputHandler.Instance.DebugSaveInput.WasPressedThisFrame())
         {
             SaveGame();
         }
 
-        if (PlayerInputHandler.instance.DebugDeleteSaveInput.WasPerformedThisFrame() && PlayerInputHandler.instance.DebugDeleteSaveInput2.WasPressedThisFrame())
+        if (PlayerInputHandler.Instance.DebugDeleteSaveInput.WasPerformedThisFrame() && PlayerInputHandler.Instance.DebugDeleteSaveInput2.WasPressedThisFrame())
         {
             DeleteSave();
         }
@@ -58,54 +59,54 @@ public class SaveManager : MonoBehaviour
             CollectDataForSaving();
             GameData dataToSave = new GameData();
 
-            dataToSave.questData = gameData.questData;
-            dataToSave.abilityData = gameData.abilityData;
+            dataToSave.QuestData = GameData.QuestData;
+            dataToSave.AbilityData = GameData.AbilityData;
 
             if (SceneManager.GetActiveScene().name == "Overworld" || SceneManager.GetActiveScene().name == "OverWorld - VS")
             {
-                dataToSave.playerPositionData = gameData.playerPositionData;
+                dataToSave.PlayerPositionData = GameData.PlayerPositionData;
                 Debug.Log("Saving player position in Overworld...");
             }
 
-            dataToSave.treeOfLifeState = gameData.treeOfLifeState;
-            dataToSave.dialogueVariableData = gameData.dialogueVariableData;
-            dataToSave.activeQuest = QuestManager.instance.GetActiveQuest();
+            dataToSave.TreeOfLifeState = GameData.TreeOfLifeState;
+            dataToSave.DialogueVariableData = GameData.DialogueVariableData;
+            dataToSave.ActiveQuest = QuestManager.Instance.GetActiveQuest();
 
-            dataToSave.BerryCollectibles = gameData.BerryCollectibles;
-            dataToSave.PineconeCollectibles = gameData.PineconeCollectibles;
+            dataToSave.BerryCollectibles = GameData.BerryCollectibles;
+            dataToSave.PineconeCollectibles = GameData.PineconeCollectibles;
 
-            dataToSave.berryData = gameData.berryData;
-            dataToSave.PineconeData = gameData.PineconeData;
+            dataToSave.BerryData = GameData.BerryData;
+            dataToSave.PineconeData = GameData.PineconeData;
 
             string jsonData = JsonUtility.ToJson(dataToSave);
-            File.WriteAllText(saveFilePath, jsonData);
+            File.WriteAllText(SaveFilePath, jsonData);
 
             Debug.Log("Game saved.");
         }
     }
     private void LoadGame()
     {
-        if (File.Exists(saveFilePath))
+        if (File.Exists(SaveFilePath))
         {
-            string jsonData = File.ReadAllText(saveFilePath);
+            string jsonData = File.ReadAllText(SaveFilePath);
             GameData loadedData = JsonUtility.FromJson<GameData>(jsonData);
 
-            gameData.questData = loadedData.questData;
-            gameData.abilityData = loadedData.abilityData;
+            GameData.QuestData = loadedData.QuestData;
+            GameData.AbilityData = loadedData.AbilityData;
 
-            gameData.playerPositionData = loadedData.playerPositionData;
+            GameData.PlayerPositionData = loadedData.PlayerPositionData;
 
-            gameData.treeOfLifeState = loadedData.treeOfLifeState;
-            gameData.dialogueVariableData = loadedData.dialogueVariableData;
+            GameData.TreeOfLifeState = loadedData.TreeOfLifeState;
+            GameData.DialogueVariableData = loadedData.DialogueVariableData;
 
-            gameData.BerryCollectibles = loadedData.BerryCollectibles;
-            gameData.PineconeCollectibles = loadedData.PineconeCollectibles;
+            GameData.BerryCollectibles = loadedData.BerryCollectibles;
+            GameData.PineconeCollectibles = loadedData.PineconeCollectibles;
 
-            gameData.berryData = loadedData.berryData;
-            gameData.PineconeData = loadedData.PineconeData;
+            GameData.BerryData = loadedData.BerryData;
+            GameData.PineconeData = loadedData.PineconeData;
 
-            gameData.activeQuest = loadedData.activeQuest;
-            GameEventsManager.instance.questEvents.ChangeActiveQuest(gameData.activeQuest);
+            GameData.ActiveQuest = loadedData.ActiveQuest;
+            GameEventsManager.instance.QuestEvents.ChangeActiveQuest(GameData.ActiveQuest);
 
             Debug.Log("Game loaded.");
         }
@@ -113,7 +114,7 @@ public class SaveManager : MonoBehaviour
     #region CollectDataForSaving
     private void CollectDataForSaving()
     {
-        isSaving = true;
+        IsSaving = true;
         CollectQuestData();
         CollectAbilityData();
         CollectPlayerPositionData();
@@ -121,24 +122,24 @@ public class SaveManager : MonoBehaviour
         CollectDialogueVariableData();
         CollectBerryCollectibleData();
         CollectPineConeCollectibleData();
-        isSaving = false;
+        IsSaving = false;
     }
 
     private void CollectQuestData()
     {
-        gameData.questData = QuestManager.instance.CollectQuestDataForSaving();
+        GameData.QuestData = QuestManager.Instance.CollectQuestDataForSaving();
     }
 
     private void CollectAbilityData()
     {
-        gameData.abilityData = AbilityManager.Instance.CollectAbilityDataForSaving();
+        GameData.AbilityData = AbilityManager.Instance.CollectAbilityDataForSaving();
     }
 
     private void CollectTreeOfLifeState()
     {
         if (SceneManager.GetActiveScene().name == SceneManagerHelper.GetSceneName(SceneManagerHelper.Scene.Overworld) || SceneManager.GetActiveScene().name == "OverWorld - VS")
         {
-            gameData.treeOfLifeState = TreeOfLifeState.instance.GetTreeOfLifeState();
+            GameData.TreeOfLifeState = TreeOfLifeState.Instance.GetTreeOfLifeState();
         }
 
         else
@@ -149,34 +150,34 @@ public class SaveManager : MonoBehaviour
 
     private void CollectDialogueVariableData()
     {
-        gameData.dialogueVariableData = DialogueManager.instance.CollectDialogueVariableDataForSaving();
+        GameData.DialogueVariableData = DialogueManager.Instance.CollectDialogueVariableDataForSaving();
     }
 
     public int GetTreeOfLifeState()
     {
-        return gameData.treeOfLifeState;
+        return GameData.TreeOfLifeState;
     }
 
     // this is probably causing the issues that teleports the player inside the dungeon entrances, making a loop between scene transitions
     // uncommenting this for now, if we want to use exact position for saving the data, we might need to think of other options /Jutta
     public void CollectPlayerPositionData()
     {
-        if (FoxMovement.instance != null && (SceneManager.GetActiveScene().name.Contains("Overworld") || SceneManager.GetActiveScene().name.Contains("OverWorld")))
+        if (FoxMovement.Instance != null && (SceneManager.GetActiveScene().name.Contains("Overworld") || SceneManager.GetActiveScene().name.Contains("OverWorld")))
         {
             //gameData.playerPositionData = FoxMovement.instance.CollectPlayerPositionForSaving();
-            gameData.playerPositionData = RespawnManager.instance.GetLatestRespawnPoint();
-            Debug.Log("Saving player position: " + gameData.playerPositionData.x + ", " + gameData.playerPositionData.y + ", " + gameData.playerPositionData.z);
+            GameData.PlayerPositionData = RespawnManager.Instance.GetLatestRespawnPoint();
+            Debug.Log("Saving player position: " + GameData.PlayerPositionData.X + ", " + GameData.PlayerPositionData.Y + ", " + GameData.PlayerPositionData.Z);
         }
     }
 
     public void CollectBerryCollectibleData()
     {
-        gameData.berryData = PlayerManager.instance.CollectBerryDataForSaving();
+        GameData.BerryData = PlayerManager.Instance.CollectBerryDataForSaving();
     }
 
     public void CollectPineConeCollectibleData()
     {
-        gameData.PineconeData = PlayerManager.instance.CollectPineconeDataForSaving();
+        GameData.PineconeData = PlayerManager.Instance.CollectPineconeDataForSaving();
     }
 
     #endregion
@@ -186,12 +187,12 @@ public class SaveManager : MonoBehaviour
     {
         List<string> data = new List<string>();
 
-        if (File.Exists(saveFilePath))
+        if (File.Exists(SaveFilePath))
         {
             switch (dataType)
             {
                 case "quest":
-                    data = gameData.questData;
+                    data = GameData.QuestData;
                     break;
 
                 default:
@@ -207,7 +208,7 @@ public class SaveManager : MonoBehaviour
     {
         Dictionary<string, bool> loadedDictionary = new Dictionary<string, bool>();
 
-        loadedDictionary = JsonConvert.DeserializeObject<Dictionary<string, bool>>(gameData.berryData);
+        loadedDictionary = JsonConvert.DeserializeObject<Dictionary<string, bool>>(GameData.BerryData);
 
         return loadedDictionary;
     }
@@ -216,7 +217,7 @@ public class SaveManager : MonoBehaviour
     {
         Dictionary<string, bool> loadedDictionary = new Dictionary<string, bool>();
 
-        loadedDictionary = JsonConvert.DeserializeObject<Dictionary<string, bool>>(gameData.PineconeData);
+        loadedDictionary = JsonConvert.DeserializeObject<Dictionary<string, bool>>(GameData.PineconeData);
 
         return loadedDictionary;
     }
@@ -225,9 +226,9 @@ public class SaveManager : MonoBehaviour
     {
         Dictionary<Abilities, bool> loadedDictionary = new Dictionary<Abilities, bool>();
 
-        if (File.Exists(saveFilePath))
+        if (File.Exists(SaveFilePath))
         {
-            loadedDictionary = JsonConvert.DeserializeObject<Dictionary<Abilities, bool>>(gameData.abilityData);
+            loadedDictionary = JsonConvert.DeserializeObject<Dictionary<Abilities, bool>>(GameData.AbilityData);
         }
         else
         {
@@ -242,14 +243,14 @@ public class SaveManager : MonoBehaviour
 
     public string GetLoadedDialogueVariables()
     {
-        return gameData.dialogueVariableData;
+        return GameData.DialogueVariableData;
     }
 
     public PositionData GetLoadedPlayerPosition()
     {
         //fetch the saved data from the file if there is a previous save, else it uses default starting position from the GameData/PositionData class
 
-        PositionData data = gameData.playerPositionData;
+        PositionData data = GameData.PlayerPositionData;
         Debug.Log("SM loadplayerpos data: " + data);
 
         return data;
@@ -259,9 +260,9 @@ public class SaveManager : MonoBehaviour
 
     public void DeleteSave()
     {
-        File.Delete(saveFilePath);
-        gameData = new GameData();
-        gameData.playerPositionData = new PositionData();
+        File.Delete(SaveFilePath);
+        GameData = new GameData();
+        GameData.PlayerPositionData = new PositionData();
 
         Debug.Log("Save file deleted.");
     }

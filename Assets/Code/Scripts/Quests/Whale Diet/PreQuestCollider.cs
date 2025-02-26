@@ -1,16 +1,17 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PreQuestCollider : MonoBehaviour
 {
-    [SerializeField] private QuestScriptableObject quest;
+    [FormerlySerializedAs("quest")] [SerializeField] private QuestScriptableObject _quest;
 
-    private QuestState currentState;
+    private QuestState _currentState;
 
     private void Start()
     {
         CheckQuestProgressStatus();
 
-        if (currentState == QuestState.REQUIREMENTS_NOT_MET || currentState == QuestState.CAN_START)
+        if (_currentState == QuestState.RequirementsNotMet || _currentState == QuestState.CanStart)
         {
             return;
         }
@@ -23,17 +24,17 @@ public class PreQuestCollider : MonoBehaviour
 
     private void OnEnable()
     {
-        GameEventsManager.instance.questEvents.OnStartQuest += UpdateQuestProgressStatus;
+        GameEventsManager.instance.QuestEvents.OnStartQuest += UpdateQuestProgressStatus;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.questEvents.OnStartQuest -= UpdateQuestProgressStatus;
+        GameEventsManager.instance.QuestEvents.OnStartQuest -= UpdateQuestProgressStatus;
     }
 
     private void CheckQuestProgressStatus()
     {
-        currentState = QuestManager.instance.CheckQuestState(quest.id);
+        _currentState = QuestManager.Instance.CheckQuestState(_quest.id);
     }
 
     private void DisableQuestColliders()
@@ -46,11 +47,11 @@ public class PreQuestCollider : MonoBehaviour
 
     private void UpdateQuestProgressStatus(string id)
     {
-        if (id == quest.id)
+        if (id == _quest.id)
         {
             CheckQuestProgressStatus();
 
-            if ((currentState != QuestState.REQUIREMENTS_NOT_MET || currentState != QuestState.CAN_START) && transform.childCount > 0)
+            if ((_currentState != QuestState.RequirementsNotMet || _currentState != QuestState.CanStart) && transform.childCount > 0)
             {
                 DisableQuestColliders();
             }

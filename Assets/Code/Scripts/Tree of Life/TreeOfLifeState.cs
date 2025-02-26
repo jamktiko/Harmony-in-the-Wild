@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class TreeOfLifeState : MonoBehaviour
 {
-    public static TreeOfLifeState instance;
+    public static TreeOfLifeState Instance;
 
-    private int state = 0;
+    private int _state = 0;
 
     private void Awake()
     {
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
         }
 
         else
@@ -20,28 +20,28 @@ public class TreeOfLifeState : MonoBehaviour
 
         // fetch the latest saved ToL value
 
-        state = SaveManager.instance.GetTreeOfLifeState();
+        _state = SaveManager.Instance.GetTreeOfLifeState();
     }
 
     private void OnEnable()
     {
-        GameEventsManager.instance.cinematicsEvents.OnStartCinematics += UpdateTreeOfLifeState;
+        GameEventsManager.instance.CinematicsEvents.OnStartCinematics += UpdateTreeOfLifeState;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.cinematicsEvents.OnStartCinematics -= UpdateTreeOfLifeState;
+        GameEventsManager.instance.CinematicsEvents.OnStartCinematics -= UpdateTreeOfLifeState;
     }
 
     public int GetTreeOfLifeState()
     {
-        return state;
+        return _state;
     }
 
     private void UpdateTreeOfLifeState()
     {
-        state++;
+        _state++;
 
-        SaveManager.instance.SaveGame();
+        SaveManager.Instance.SaveGame();
     }
 }

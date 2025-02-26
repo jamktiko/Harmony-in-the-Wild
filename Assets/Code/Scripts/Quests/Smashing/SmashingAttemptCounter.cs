@@ -1,41 +1,44 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class SmashingAttemptCounter : QuestStep
 {
+    [FormerlySerializedAs("questScriptableObject")]
     [Header("Quest Config")]
-    [SerializeField] private QuestScriptableObject questScriptableObject;
+    [SerializeField] private QuestScriptableObject _questScriptableObject;
 
+    [FormerlySerializedAs("maxAttempts")]
     [Header("Debug")]
-    [SerializeField] private int maxAttempts = 5;
-    [SerializeField] private int attemptsLeft;
+    [SerializeField] private int _maxAttempts = 5;
+    [FormerlySerializedAs("attemptsLeft")] [SerializeField] private int _attemptsLeft;
 
-    public static SmashingAttemptCounter instance;
+    public static SmashingAttemptCounter Instance;
 
-    private string currentQuestId;
+    private string _currentQuestId;
 
     private void Awake()
     {
-        if (instance != null)
+        if (Instance != null)
         {
             Debug.LogWarning("There is more than one Smashing Attempt Counter.");
         }
 
-        instance = this;
+        Instance = this;
     }
 
     private void Start()
     {
-        currentQuestId = questScriptableObject.id;
+        _currentQuestId = _questScriptableObject.id;
 
         StartCoroutine(QuestProgressCheckDelay());
 
-        attemptsLeft = maxAttempts;
+        _attemptsLeft = _maxAttempts;
 
         if (SceneManager.GetActiveScene().name == "Overworld")
         {
-            SmashingManager.instance.UpdateAttemptCounter(attemptsLeft, maxAttempts);
+            SmashingManager.Instance.UpdateAttemptCounter(_attemptsLeft, _maxAttempts);
         }
     }
 
@@ -49,31 +52,31 @@ public class SmashingAttemptCounter : QuestStep
 
         else
         {
-            attemptsLeft--;
+            _attemptsLeft--;
 
             //Debug.Log("Attempts for locating the ore left: " + attemptsLeft);
 
-            if (attemptsLeft <= 0)
+            if (_attemptsLeft <= 0)
             {
                 Debug.Log("Restarting Smashing!...");
-                SmashingManager.instance.RestartSmashing();
-                attemptsLeft = maxAttempts;
+                SmashingManager.Instance.RestartSmashing();
+                _attemptsLeft = _maxAttempts;
             }
 
             UpdateState();
-            SmashingManager.instance.UpdateAttemptCounter(attemptsLeft, maxAttempts);
+            SmashingManager.Instance.UpdateAttemptCounter(_attemptsLeft, _maxAttempts);
         }
     }
 
     private void UpdateState()
     {
-        string state = attemptsLeft.ToString();
+        string state = _attemptsLeft.ToString();
         ChangeState(state);
     }
 
     protected override void SetQuestStepState(string state)
     {
-        attemptsLeft = System.Int32.Parse(state);
+        _attemptsLeft = System.Int32.Parse(state);
 
         UpdateState();
     }
@@ -86,9 +89,9 @@ public class SmashingAttemptCounter : QuestStep
 
         if (SceneManager.GetActiveScene().name == "Overworld")
         {
-            if (QuestManager.instance.CheckQuestState(currentQuestId) == QuestState.IN_PROGRESS)
+            if (QuestManager.Instance.CheckQuestState(_currentQuestId) == QuestState.InProgress)
             {
-                SmashingManager.instance.ToggleQuestCanvasVisibility(true);
+                SmashingManager.Instance.ToggleQuestCanvasVisibility(true);
             }
         }
     }

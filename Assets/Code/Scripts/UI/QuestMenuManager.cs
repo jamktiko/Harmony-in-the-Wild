@@ -2,32 +2,33 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class QuestMenuManager : MonoBehaviour
 {
-    [SerializeField] Button button;
-    [SerializeField] Transform questMenuLayout;
-    [SerializeField] List<Quest> activeQuests;
-    public static Quest trackedQuest = null;
+    [FormerlySerializedAs("button")] [SerializeField] Button _button;
+    [FormerlySerializedAs("questMenuLayout")] [SerializeField] Transform _questMenuLayout;
+    [SerializeField] List<Quest> _activeQuests;
+    public static Quest TrackedQuest = null;
     private void OnEnable()
     {
-        questMenuLayout = GetComponent<Transform>();
+        _questMenuLayout = GetComponent<Transform>();
 
-        activeQuests = new List<Quest>();
-        activeQuests = QuestManager.instance.questMap.Where(x => x.Value.state == QuestState.CAN_START || x.Value.state == QuestState.IN_PROGRESS).Select(x => x.Value).OrderByDescending(x => x.state).ToList();
-        foreach (Quest x in activeQuests)
+        _activeQuests = new List<Quest>();
+        _activeQuests = QuestManager.Instance.QuestMap.Where(x => x.Value.State == QuestState.CanStart || x.Value.State == QuestState.InProgress).Select(x => x.Value).OrderByDescending(x => x.State).ToList();
+        foreach (Quest x in _activeQuests)
         {
-            Button spawnableButton = button;
-            spawnableButton.name = x.info.id;
+            Button spawnableButton = _button;
+            spawnableButton.name = x.Info.id;
             TMP_Text text = spawnableButton.transform.GetChild(0).GetComponent<TMP_Text>();
-            text.text = x.info.displayName;
-            Instantiate(spawnableButton, questMenuLayout);
+            text.text = x.Info.DisplayName;
+            Instantiate(spawnableButton, _questMenuLayout);
         }
     }
     private void OnDisable()
     {
-        foreach (Transform t in questMenuLayout)
+        foreach (Transform t in _questMenuLayout)
         {
             Destroy(t.gameObject);
         }

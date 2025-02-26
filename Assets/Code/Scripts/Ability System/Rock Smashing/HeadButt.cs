@@ -18,7 +18,7 @@ public class HeadButt : MonoBehaviour
         {
             _force += 0.05f;
             _slider.value = _force;
-            Vector3 direction = _currentRock.position - FoxMovement.instance.foxFront.position;
+            Vector3 direction = _currentRock.position - FoxMovement.Instance.FoxFront.position;
             Debug.DrawLine(_currentRock.position, direction * 100, Color.green);
         }
         else
@@ -30,10 +30,10 @@ public class HeadButt : MonoBehaviour
     private void TriggerHeadButt()
     {
         _finalForce = _force;
-        FoxMovement.instance.playerAnimator.Play("PL_Smashing_ANI");
+        FoxMovement.Instance.PlayerAnimator.Play("PL_Smashing_ANI");
         if (_currentRock != null)
         {
-            Vector3 direction = _currentRock.position - FoxMovement.instance.foxFront.position;
+            Vector3 direction = _currentRock.position - FoxMovement.Instance.FoxFront.position;
             _currentRock.AddForce(direction * _finalForce * 10, ForceMode.Force);
         }
     }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class TeleportUsingMap : MonoBehaviour
 {
-    private Transform player;
+    private Transform _player;
     private void Start()
     {
         GameObject[] playerTags = GameObject.FindGameObjectsWithTag("Player");
@@ -11,7 +11,7 @@ public class TeleportUsingMap : MonoBehaviour
         {
             if (playerOption.gameObject.name == "Player_Spawn")
             {
-                player = playerOption.transform;
+                _player = playerOption.transform;
             }
         }
     }
@@ -19,8 +19,8 @@ public class TeleportUsingMap : MonoBehaviour
     {
         //Debug.Log("Hello yes I been clicked");
 
-        player.gameObject.SetActive(false);
-        player.transform.position = transform.position;
-        player.gameObject.SetActive(true);
+        _player.gameObject.SetActive(false);
+        _player.transform.position = transform.position;
+        _player.gameObject.SetActive(true);
     }
 }

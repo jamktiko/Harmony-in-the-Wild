@@ -1,17 +1,18 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ExitCaveTrigger : MonoBehaviour
 {
-    [SerializeField] private QuestScriptableObject questSO;
+    [FormerlySerializedAs("questSO")] [SerializeField] private QuestScriptableObject _questSo;
 
     private void OnTriggerEnter(Collider other)
     {
-        int currentQuestStepIndex = QuestManager.instance.GetQuestById(questSO.id).GetCurrentQuestStepIndex();
+        int currentQuestStepIndex = QuestManager.Instance.GetQuestById(_questSo.id).GetCurrentQuestStepIndex();
 
         if (other.gameObject.CompareTag("Trigger") && currentQuestStepIndex >= 3)
         {
-            ExitCaveQuest.instance.ExitCave();
-            GameEventsManager.instance.uiEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Overworld);
+            ExitCaveQuest.Instance.ExitCave();
+            GameEventsManager.instance.UIEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Overworld);
         }
     }
 }

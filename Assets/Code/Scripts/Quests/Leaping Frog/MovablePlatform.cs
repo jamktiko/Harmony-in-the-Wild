@@ -1,17 +1,19 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class MovablePlatform : MonoBehaviour
 {
+    [FormerlySerializedAs("waypointPath")]
     [Header("Movement Config")]
-    [SerializeField] private PlatformWaypointPath waypointPath;
-    [SerializeField] private float moveSpeed;
+    [SerializeField] private PlatformWaypointPath _waypointPath;
+    [FormerlySerializedAs("moveSpeed")] [SerializeField] private float _moveSpeed;
 
-    private int targetWaypointIndex;
-    private Transform previousWaypoint;
-    private Transform targetWaypoint;
+    private int _targetWaypointIndex;
+    private Transform _previousWaypoint;
+    private Transform _targetWaypoint;
 
-    private float timeToWaypoint;
-    private float elapsedTime;
+    private float _timeToWaypoint;
+    private float _elapsedTime;
 
     private void Start()
     {
@@ -20,11 +22,11 @@ public class MovablePlatform : MonoBehaviour
 
     private void FixedUpdate()
     {
-        elapsedTime += Time.deltaTime;
+        _elapsedTime += Time.deltaTime;
 
-        float elapsedPercentage = elapsedTime / timeToWaypoint;
+        float elapsedPercentage = _elapsedTime / _timeToWaypoint;
         //elapsedPercentage = Mathf.SmoothStep(0, 1, elapsetPercentage);
-        transform.position = Vector3.Lerp(previousWaypoint.position, targetWaypoint.position, elapsedPercentage);
+        transform.position = Vector3.Lerp(_previousWaypoint.position, _targetWaypoint.position, elapsedPercentage);
 
         if (elapsedPercentage >= 1)
         {
@@ -34,14 +36,14 @@ public class MovablePlatform : MonoBehaviour
 
     private void TargetNextWaypoint()
     {
-        previousWaypoint = waypointPath.GetWaypoint(targetWaypointIndex);
-        targetWaypointIndex = waypointPath.GetNextWaypointIndex(targetWaypointIndex);
-        targetWaypoint = waypointPath.GetWaypoint(targetWaypointIndex);
+        _previousWaypoint = _waypointPath.GetWaypoint(_targetWaypointIndex);
+        _targetWaypointIndex = _waypointPath.GetNextWaypointIndex(_targetWaypointIndex);
+        _targetWaypoint = _waypointPath.GetWaypoint(_targetWaypointIndex);
 
-        elapsedTime = 0;
+        _elapsedTime = 0;
 
-        float distanceToWayPoint = Vector3.Distance(previousWaypoint.position, targetWaypoint.position);
-        timeToWaypoint = distanceToWayPoint / moveSpeed;
+        float distanceToWayPoint = Vector3.Distance(_previousWaypoint.position, _targetWaypoint.position);
+        _timeToWaypoint = distanceToWayPoint / _moveSpeed;
     }
 
     private void OnTriggerEnter(Collider other)

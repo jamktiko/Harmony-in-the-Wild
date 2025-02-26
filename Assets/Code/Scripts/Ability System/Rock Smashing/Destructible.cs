@@ -35,13 +35,13 @@ public class Destructible : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.CompareTag("Trigger") && AbilityManager.Instance._abilityStatuses.TryGetValue(Abilities.RockDestroying, out bool isUnlocked) && isUnlocked && !_smashingInProgress)
+        if (other.gameObject.CompareTag("Trigger") && AbilityManager.Instance.AbilityStatuses.TryGetValue(Abilities.RockDestroying, out bool isUnlocked) && isUnlocked && !_smashingInProgress)
         {
             if (_needsToBeFrozen)
             {
                 if (gameObject.GetComponent<Freezable>().IsFrozen)
                 {
-                    AudioManager.Instance.PlaySound(AudioName.Ability_RockSmashing, transform);
+                    AudioManager.Instance.PlaySound(AudioName.AbilityRockSmashing, transform);
                     _smashingInProgress = true;
                     CreateDestroyedVersion();
                 }
@@ -54,14 +54,14 @@ public class Destructible : MonoBehaviour
 
             else if (_isQuestRock)
             {
-                AudioManager.Instance.PlaySound(AudioName.Ability_RockSmashing, transform);
+                AudioManager.Instance.PlaySound(AudioName.AbilityRockSmashing, transform);
                 _smashingInProgress = true;
                 CheckForOre();
             }
 
             else
             {
-                AudioManager.Instance.PlaySound(AudioName.Ability_RockSmashing, transform);
+                AudioManager.Instance.PlaySound(AudioName.AbilityRockSmashing, transform);
                 _smashingInProgress = true;
                 _destroyCurrentObject = true;
                 CreateDestroyedVersion();
@@ -102,20 +102,20 @@ public class Destructible : MonoBehaviour
     {
         if (_hasOre)
         {
-            AudioManager.Instance.PlaySound(AudioName.Ability_RockSmashing, transform);
+            AudioManager.Instance.PlaySound(AudioName.AbilityRockSmashing, transform);
             _destroyCurrentObject = true;
             CreateDestroyedVersion();
 
-            SmashingAttemptCounter.instance.UpdateProgress(_hasOre);
+            SmashingAttemptCounter.Instance.UpdateProgress(_hasOre);
         }
 
         else
         {
-            AudioManager.Instance.PlaySound(AudioName.Ability_RockSmashing, transform);
+            AudioManager.Instance.PlaySound(AudioName.AbilityRockSmashing, transform);
             _destroyCurrentObject = true;
             CreateDestroyedVersion();
 
-            SmashingAttemptCounter.instance.UpdateProgress(_hasOre);
+            SmashingAttemptCounter.Instance.UpdateProgress(_hasOre);
         }
     }
 

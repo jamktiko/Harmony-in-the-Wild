@@ -1,48 +1,52 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ShootingRotatingBoss : MonoBehaviour
 {
+    [FormerlySerializedAs("rotationSpeed")]
     [Header("Config")]
-    [SerializeField] private float rotationSpeed;
+    [SerializeField] private float _rotationSpeed;
+    [FormerlySerializedAs("shootingChargeTime")]
     [Tooltip("Charging time between triggering shooting and creating projectile")]
-    [SerializeField] private float shootingChargeTime;
-    [SerializeField] private float shootingCooldown;
+    [SerializeField] private float _shootingChargeTime;
+    [FormerlySerializedAs("shootingCooldown")] [SerializeField] private float _shootingCooldown;
 
+    [FormerlySerializedAs("projectilePrefab")]
     [Header("Needed References")]
-    [SerializeField] private GameObject projectilePrefab;
-    [SerializeField] private Transform shootingSpot;
-    [SerializeField] private GameObject instructionPanel;
-    [SerializeField] private Transform player;
+    [SerializeField] private GameObject _projectilePrefab;
+    [FormerlySerializedAs("shootingSpot")] [SerializeField] private Transform _shootingSpot;
+    [FormerlySerializedAs("instructionPanel")] [SerializeField] private GameObject _instructionPanel;
+    [FormerlySerializedAs("player")] [SerializeField] private Transform _player;
 
-    private bool canShoot = true;
-    private AudioSource audioSource;
-    private Coroutine cooldownCoroutine;
-    private Coroutine initializationCoroutine;
+    private bool _canShoot = true;
+    private AudioSource _audioSource;
+    private Coroutine _cooldownCoroutine;
+    private Coroutine _initializationCoroutine;
 
     private void Start()
     {
         //StartCoroutine(ShootingCooldown());
-        audioSource = GetComponent<AudioSource>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
     {
-        transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime);
+        transform.Rotate(Vector3.up, _rotationSpeed * Time.deltaTime);
 
-        if (canShoot && CanSeePlayer() && !instructionPanel.gameObject.activeInHierarchy)
+        if (_canShoot && CanSeePlayer() && !_instructionPanel.gameObject.activeInHierarchy)
         {
-            canShoot = false;
-            initializationCoroutine = StartCoroutine(InitializeShooting());
+            _canShoot = false;
+            _initializationCoroutine = StartCoroutine(InitializeShooting());
         }
     }
 
     private bool CanSeePlayer()
     {
-        Vector3 currentDirection = player.position - shootingSpot.position;
+        Vector3 currentDirection = _player.position - _shootingSpot.position;
         RaycastHit hit;
 
-        if (Physics.Raycast(shootingSpot.position, currentDirection, out hit))
+        if (Physics.Raycast(_shootingSpot.position, currentDirection, out hit))
         {
             if (hit.collider.CompareTag("Trigger"))
             {
@@ -55,33 +59,33 @@ public class ShootingRotatingBoss : MonoBehaviour
 
     private IEnumerator InitializeShooting()
     {
-        audioSource.Play();
+        _audioSource.Play();
 
-        yield return new WaitForSeconds(shootingChargeTime);
+        yield return new WaitForSeconds(_shootingChargeTime);
 
         ShootProjectile();
     }
 
     private void ShootProjectile()
     {
-        cooldownCoroutine = StartCoroutine(ShootingCooldown());
+        _cooldownCoroutine = StartCoroutine(ShootingCooldown());
 
-        GameObject newProjectile = Instantiate(projectilePrefab, shootingSpot);
+        GameObject newProjectile = Instantiate(_projectilePrefab, _shootingSpot);
 
-        newProjectile.GetComponent<Projectile>().InitializeProjectile(player.position, transform);
+        newProjectile.GetComponent<Projectile>().InitializeProjectile(_player.position, transform);
     }
 
     private IEnumerator ShootingCooldown()
     {
-        yield return new WaitForSeconds(shootingCooldown);
+        yield return new WaitForSeconds(_shootingCooldown);
 
-        canShoot = true;
+        _canShoot = true;
     }
 
     public void DisableShooting()
     {
         StopAllCoroutines();
 
-        canShoot = false;
+        _canShoot = false;
     }
 }

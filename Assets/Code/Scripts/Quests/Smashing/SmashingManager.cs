@@ -1,71 +1,74 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class SmashingManager : MonoBehaviour
 {
+    [FormerlySerializedAs("questScriptableObject")]
     [Header("Quest Config")]
-    [SerializeField] private QuestScriptableObject questScriptableObject;
+    [SerializeField] private QuestScriptableObject _questScriptableObject;
 
+    [FormerlySerializedAs("restartDialogue")]
     [Header("Needed References")]
-    [SerializeField] private TextAsset restartDialogue;
-    [SerializeField] private GameObject questCanvas;
-    [SerializeField] private TextMeshProUGUI attemptCounterText;
-    [SerializeField] private Transform player;
-    [SerializeField] private Transform startPosition;
+    [SerializeField] private TextAsset _restartDialogue;
+    [FormerlySerializedAs("questCanvas")] [SerializeField] private GameObject _questCanvas;
+    [FormerlySerializedAs("attemptCounterText")] [SerializeField] private TextMeshProUGUI _attemptCounterText;
+    [FormerlySerializedAs("player")] [SerializeField] private Transform _player;
+    [FormerlySerializedAs("startPosition")] [SerializeField] private Transform _startPosition;
 
-    public static SmashingManager instance;
+    public static SmashingManager Instance;
 
-    private string currentQuestId;
+    private string _currentQuestId;
 
     private void Awake()
     {
-        if (instance != null)
+        if (Instance != null)
         {
             Debug.LogWarning("There is more than one Smashing Manager.");
         }
 
-        instance = this;
+        Instance = this;
     }
 
     private void Start()
     {
-        currentQuestId = questScriptableObject.id;
+        _currentQuestId = _questScriptableObject.id;
 
-        GameEventsManager.instance.questEvents.OnStartQuest += StartRockSmash;
-        GameEventsManager.instance.questEvents.OnFinishQuest += FinishRockSmash;
+        GameEventsManager.instance.QuestEvents.OnStartQuest += StartRockSmash;
+        GameEventsManager.instance.QuestEvents.OnFinishQuest += FinishRockSmash;
 
         StartCoroutine(QuestProgressCheckDelay());
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.questEvents.OnStartQuest -= StartRockSmash;
-        GameEventsManager.instance.questEvents.OnFinishQuest -= FinishRockSmash;
+        GameEventsManager.instance.QuestEvents.OnStartQuest -= StartRockSmash;
+        GameEventsManager.instance.QuestEvents.OnFinishQuest -= FinishRockSmash;
     }
 
     private void StartRockSmash(string id)
     {
-        if (currentQuestId == id)
+        if (_currentQuestId == id)
         {
-            SmashingRockSpawner.instance.SpawnStartingRocks();
+            SmashingRockSpawner.Instance.SpawnStartingRocks();
             AbilityManager.Instance.UnlockAbility(Abilities.RockDestroying);
         }
     }
 
     public void RestartSmashing()
     {
-        SmashingRockSpawner.instance.ResetRocks();
-        DialogueManager.instance.StartDialogue(restartDialogue);
+        SmashingRockSpawner.Instance.ResetRocks();
+        DialogueManager.Instance.StartDialogue(_restartDialogue);
 
-        FoxMovement.instance.gameObject.transform.position = startPosition.position;
+        FoxMovement.Instance.gameObject.transform.position = _startPosition.position;
     }
 
     private void FinishRockSmash(string id)
     {
-        if (currentQuestId == id)
+        if (_currentQuestId == id)
         {
-            SmashingRockSpawner.instance.DestroyRocks();
+            SmashingRockSpawner.Instance.DestroyRocks();
         }
     }
 
@@ -75,19 +78,19 @@ public class SmashingManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
 
-        if (QuestManager.instance.CheckQuestState(currentQuestId) == QuestState.IN_PROGRESS)
+        if (QuestManager.Instance.CheckQuestState(_currentQuestId) == QuestState.InProgress)
         {
-            StartRockSmash(currentQuestId);
+            StartRockSmash(_currentQuestId);
         }
     }
 
     public void ToggleQuestCanvasVisibility(bool visibility)
     {
-        questCanvas.SetActive(visibility);
+        _questCanvas.SetActive(visibility);
     }
 
     public void UpdateAttemptCounter(int attemptsLeft, int maxAttempts)
     {
-        GameEventsManager.instance.questEvents.ShowQuestUI("Smashing!", "Use the smashing ability to break rocks and retrieve the ore", "Attempts left " + attemptsLeft + "/" + maxAttempts);
+        GameEventsManager.instance.QuestEvents.ShowQuestUI("Smashing!", "Use the smashing ability to break rocks and retrieve the ore", "Attempts left " + attemptsLeft + "/" + maxAttempts);
     }
 }

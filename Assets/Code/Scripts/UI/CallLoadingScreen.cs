@@ -1,11 +1,12 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class CallLoadingScreen : MonoBehaviour
 {
-    [SerializeField] private SceneManagerHelper.Scene newSceneName;
+    [FormerlySerializedAs("newSceneName")] [SerializeField] private SceneManagerHelper.Scene _newSceneName;
 
     public void ChangeScene()
     {
-        GameEventsManager.instance.uiEvents.ShowLoadingScreen(newSceneName);
+        GameEventsManager.instance.UIEvents.ShowLoadingScreen(_newSceneName);
     }
 }

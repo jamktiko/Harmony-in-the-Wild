@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 // enables transition to the ending storybook
 
@@ -8,9 +9,9 @@ public class EndingTransition : MonoBehaviour
 {
     public const string StorybookSceneName = "Storybook";
 
-    [SerializeField] private QuestScriptableObject questSO;
-    [SerializeField] private int storybookSectionIndex;
-    [SerializeField] private SceneManagerHelper.Scene goToScene;
+    [FormerlySerializedAs("questSO")] [SerializeField] private QuestScriptableObject _questSo;
+    [FormerlySerializedAs("storybookSectionIndex")] [SerializeField] private int _storybookSectionIndex;
+    [FormerlySerializedAs("goToScene")] [SerializeField] private SceneManagerHelper.Scene _goToScene;
 
     private void Start()
     {
@@ -19,9 +20,9 @@ public class EndingTransition : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Trigger") && QuestManager.instance.CheckQuestState(questSO.id) == QuestState.CAN_START)
+        if (other.gameObject.CompareTag("Trigger") && QuestManager.Instance.CheckQuestState(_questSo.id) == QuestState.CanStart)
         {
-            StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, goToScene, false);
+            StorybookHandler.Instance.SetNewStorybookData(_storybookSectionIndex, _goToScene, false);
             SceneManager.LoadScene(StorybookSceneName);
         }
     }
@@ -33,7 +34,7 @@ public class EndingTransition : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
 
-        if (QuestManager.instance.CheckQuestState(questSO.id) != QuestState.CAN_START)
+        if (QuestManager.Instance.CheckQuestState(_questSo.id) != QuestState.CanStart)
         {
             gameObject.SetActive(false);
         }

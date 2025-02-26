@@ -1,19 +1,20 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class SyncAdjustedMapPos : MonoBehaviour
 {
-    public Image playerImage;
-    public Image mapImage;
-    public Vector2 mapSize;
-    public Vector2 worldSize;
-    public Vector2 offset;
-    public RectTransform mapAnchor;
-    public Transform playerRed;
-    public Transform playerArctic;
+    [FormerlySerializedAs("playerImage")] public Image PlayerImage;
+    [FormerlySerializedAs("mapImage")] public Image MapImage;
+    [FormerlySerializedAs("mapSize")] public Vector2 MapSize;
+    [FormerlySerializedAs("worldSize")] public Vector2 WorldSize;
+    [FormerlySerializedAs("offset")] public Vector2 Offset;
+    [FormerlySerializedAs("mapAnchor")] public RectTransform MapAnchor;
+    [FormerlySerializedAs("playerRed")] public Transform PlayerRed;
+    [FormerlySerializedAs("playerArctic")] public Transform PlayerArctic;
 
-    Matrix4x4 transformationMatrix;
-    private Transform activeTransform;
+    Matrix4x4 _transformationMatrix;
+    private Transform _activeTransform;
 
     private void Start()
     {
@@ -22,22 +23,22 @@ public class SyncAdjustedMapPos : MonoBehaviour
     }
     private void Update()
     {
-        if (playerRed.gameObject.activeSelf)
+        if (PlayerRed.gameObject.activeSelf)
         {
-            playerImage.rectTransform.rotation = Quaternion.Euler(new Vector3(0, 0, 180 - playerRed.eulerAngles.y));
-            activeTransform = playerRed;
+            PlayerImage.rectTransform.rotation = Quaternion.Euler(new Vector3(0, 0, 180 - PlayerRed.eulerAngles.y));
+            _activeTransform = PlayerRed;
         }
         else
         {
-            playerImage.rectTransform.rotation = Quaternion.Euler(new Vector3(0, 0, 180 - playerArctic.eulerAngles.y));
-            activeTransform = playerArctic;
+            PlayerImage.rectTransform.rotation = Quaternion.Euler(new Vector3(0, 0, 180 - PlayerArctic.eulerAngles.y));
+            _activeTransform = PlayerArctic;
         }
 
         // Convert player's world position to map position
-        Vector2 worldPos = new Vector2(activeTransform.position.x, activeTransform.position.z) + offset;
-        Vector3 mapPos = transformationMatrix.MultiplyPoint3x4(worldPos);
+        Vector2 worldPos = new Vector2(_activeTransform.position.x, _activeTransform.position.z) + Offset;
+        Vector3 mapPos = _transformationMatrix.MultiplyPoint3x4(worldPos);
 
-        playerImage.rectTransform.localPosition = mapPos;
+        PlayerImage.rectTransform.localPosition = mapPos;
 
         //playerImage.rectTransform.localPosition = WorldPositionToMapPosition(activeTransform.position);
 
@@ -71,9 +72,9 @@ public class SyncAdjustedMapPos : MonoBehaviour
 
     private void CalculateTransformationMatrix()
     {
-        var translation = -mapSize / 2; // Center the map
-        var scaleRatio = mapSize / worldSize; // Scale world coordinates to map size
+        var translation = -MapSize / 2; // Center the map
+        var scaleRatio = MapSize / WorldSize; // Scale world coordinates to map size
 
-        transformationMatrix = Matrix4x4.TRS(translation, Quaternion.identity, scaleRatio);
+        _transformationMatrix = Matrix4x4.TRS(translation, Quaternion.identity, scaleRatio);
     }
 }

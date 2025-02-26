@@ -1,15 +1,17 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class DungeonEnteringPreventedUI : MonoBehaviour
 {
+    [FormerlySerializedAs("requirementText")]
     [Header("Needed References")]
-    [SerializeField] private TextMeshProUGUI requirementText;
+    [SerializeField] private TextMeshProUGUI _requirementText;
 
     private void Update()
     {
-        if (PlayerInputHandler.instance.CloseUIInput.WasPressedThisFrame())
+        if (PlayerInputHandler.Instance.CloseUIInput.WasPressedThisFrame())
         {
             CloseView();
         }
@@ -18,15 +20,15 @@ public class DungeonEnteringPreventedUI : MonoBehaviour
     public void SetUIContent(Quest dungeon)
     {
         List<string> prerequisites = new List<string>();
-        requirementText.text = "";
+        _requirementText.text = "";
 
-        Debug.Log(dungeon.info.id + "has " + dungeon.info.questPrerequisites.Length + " quest requirements.");
+        Debug.Log(dungeon.Info.id + "has " + dungeon.Info.QuestPrerequisites.Length + " quest requirements.");
 
-        foreach (QuestScriptableObject requirement in dungeon.info.questPrerequisites)
+        foreach (QuestScriptableObject requirement in dungeon.Info.QuestPrerequisites)
         {
-            QuestState requirementState = QuestManager.instance.CheckQuestState(requirement.id);
+            QuestState requirementState = QuestManager.Instance.CheckQuestState(requirement.id);
 
-            if (requirementState != QuestState.FINISHED)
+            if (requirementState != QuestState.Finished)
             {
                 prerequisites.Add(requirement.id);
             }
@@ -34,7 +36,7 @@ public class DungeonEnteringPreventedUI : MonoBehaviour
 
         foreach (string requirement in prerequisites)
         {
-            requirementText.text = requirementText.text + requirement + "\n \n";
+            _requirementText.text = _requirementText.text + requirement + "\n \n";
         }
     }
 

@@ -1,17 +1,18 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [System.Serializable]
 public class GameData
 {
-    public List<string> questData;
-    public string activeQuest;
-    public string abilityData;
-    public PositionData playerPositionData;
-    public int treeOfLifeState;
-    public string dialogueVariableData;
+    [FormerlySerializedAs("questData")] public List<string> QuestData;
+    [FormerlySerializedAs("activeQuest")] public string ActiveQuest;
+    [FormerlySerializedAs("abilityData")] public string AbilityData;
+    [FormerlySerializedAs("playerPositionData")] public PositionData PlayerPositionData;
+    [FormerlySerializedAs("treeOfLifeState")] public int TreeOfLifeState;
+    [FormerlySerializedAs("dialogueVariableData")] public string DialogueVariableData;
     public int BerryCollectibles;
-    public string berryData;
+    [FormerlySerializedAs("berryData")] public string BerryData;
     public int PineconeCollectibles;
     public string PineconeData;
 }
@@ -19,37 +20,37 @@ public class GameData
 [System.Serializable]
 public class PositionData
 {
-    public float x;
-    public float y;
-    public float z;
+    [FormerlySerializedAs("x")] public float X;
+    [FormerlySerializedAs("y")] public float Y;
+    [FormerlySerializedAs("z")] public float Z;
 
-    public float rotX;
-    public float rotY;
-    public float rotZ;
-    public float rotW; // quaternion identity
+    [FormerlySerializedAs("rotX")] public float RotX;
+    [FormerlySerializedAs("rotY")] public float RotY;
+    [FormerlySerializedAs("rotZ")] public float RotZ;
+    [FormerlySerializedAs("rotW")] public float RotW; // quaternion identity
 
     //default starting position
     public PositionData()
     {
-        x = 219f;
-        y = 103f;
-        z = 757f;
+        X = 219f;
+        Y = 103f;
+        Z = 757f;
 
-        rotX = 0;
-        rotY = 0;
-        rotZ = 0;
-        rotW = 1;
+        RotX = 0;
+        RotY = 0;
+        RotZ = 0;
+        RotW = 1;
     }
 
     public PositionData(Vector3 position, Quaternion rotation)
     {
-        x = position.x;
-        y = position.y;
-        z = position.z;
+        X = position.x;
+        Y = position.y;
+        Z = position.z;
 
-        rotX = rotation.x;
-        rotY = rotation.y;
-        rotZ = rotation.z;
-        rotW = rotation.w;
+        RotX = rotation.x;
+        RotY = rotation.y;
+        RotZ = rotation.z;
+        RotW = rotation.w;
     }
 }

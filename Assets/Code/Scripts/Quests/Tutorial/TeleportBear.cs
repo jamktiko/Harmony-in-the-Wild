@@ -1,27 +1,28 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class TeleportBear : MonoBehaviour
 {
-    [SerializeField] private Vector3 spawnPosition;
-    private Vector3 rotation = new Vector3(0, -66, 0);
+    [FormerlySerializedAs("spawnPosition")] [SerializeField] private Vector3 _spawnPosition;
+    private Vector3 _rotation = new Vector3(0, -66, 0);
 
-    [SerializeField] private Transform bear;
+    [FormerlySerializedAs("bear")] [SerializeField] private Transform _bear;
 
-    [SerializeField] private GameObject UICanvas;
-    [SerializeField] private GameObject QuestUICanvas;
+    [FormerlySerializedAs("UICanvas")] [SerializeField] private GameObject _uiCanvas;
+    [FormerlySerializedAs("QuestUICanvas")] [SerializeField] private GameObject _questUICanvas;
     private void Start()
     {
-        bear = GameObject.Find("TutorialBear(Clone)").transform;
-        UICanvas = GameObject.Find("Minimap");
-        QuestUICanvas = GameObject.Find("QuestUI_Visuals");
+        _bear = GameObject.Find("TutorialBear(Clone)").transform;
+        _uiCanvas = GameObject.Find("Minimap");
+        _questUICanvas = GameObject.Find("QuestUI_Visuals");
     }
     public void TeleportBearToTree()
     {
-        bear = GameObject.Find("TutorialBear(Clone)").transform;
-        if (bear != null)
+        _bear = GameObject.Find("TutorialBear(Clone)").transform;
+        if (_bear != null)
         {
-            bear.position = spawnPosition;
-            bear.localRotation = Quaternion.Euler(rotation);
+            _bear.position = _spawnPosition;
+            _bear.localRotation = Quaternion.Euler(_rotation);
         }
     }
     public void DisableAnimator()
@@ -30,18 +31,18 @@ public class TeleportBear : MonoBehaviour
     }
     public void EnableDisableMovement()
     {
-        if (PlayerInputHandler.instance.MoveInput.enabled)
+        if (PlayerInputHandler.Instance.MoveInput.enabled)
         {
-            PlayerInputHandler.instance.MoveInput.Disable();
+            PlayerInputHandler.Instance.MoveInput.Disable();
         }
         else
         {
-            PlayerInputHandler.instance.MoveInput.Enable();
+            PlayerInputHandler.Instance.MoveInput.Enable();
         }
     }
     public void HideUI()
     {
-        UICanvas.SetActive(!UICanvas.activeInHierarchy);
-        QuestUICanvas.SetActive(!QuestUICanvas.activeInHierarchy);
+        _uiCanvas.SetActive(!_uiCanvas.activeInHierarchy);
+        _questUICanvas.SetActive(!_questUICanvas.activeInHierarchy);
     }
 }

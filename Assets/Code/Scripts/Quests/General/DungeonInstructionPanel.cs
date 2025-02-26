@@ -1,32 +1,33 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.VFX;
 
 public class DungeonInstructionPanel : MonoBehaviour
 {
-    [SerializeField] private VisualEffect dungeonEntranceVFX;
-    [SerializeField] private DungeonQuestDialogue dungeonQuestDialogue;
-    [SerializeField] private GameObject closingInstructions;
-    private int onDungeonStartID;
-    private float timeToEnableHidingInstructions = 4f;
-    private bool canHideInstructions = false;
+    [FormerlySerializedAs("dungeonEntranceVFX")] [SerializeField] private VisualEffect _dungeonEntranceVFX;
+    [FormerlySerializedAs("dungeonQuestDialogue")] [SerializeField] private DungeonQuestDialogue _dungeonQuestDialogue;
+    [FormerlySerializedAs("closingInstructions")] [SerializeField] private GameObject _closingInstructions;
+    private int _onDungeonStartID;
+    private float _timeToEnableHidingInstructions = 4f;
+    private bool _canHideInstructions = false;
 
     private void Start()
     {
         // make the player stop moving through dialogue events
         Invoke(nameof(CallDialogueEvent), 0.1f);
 
-        onDungeonStartID = Shader.PropertyToID("OnDungeonStart");
+        _onDungeonStartID = Shader.PropertyToID("OnDungeonStart");
 
         // Check if the dungeonEntranceVFX is not assigned in the inspector
-        if (dungeonEntranceVFX == null)
+        if (_dungeonEntranceVFX == null)
         {
             // Find the DungeonEntrance VFX by its name in the hierarchy
             var dungeonEntranceObject = GameObject.Find("DungeonEntrance");
             if (dungeonEntranceObject != null)
             {
-                dungeonEntranceVFX = dungeonEntranceObject.GetComponent<VisualEffect>();
+                _dungeonEntranceVFX = dungeonEntranceObject.GetComponent<VisualEffect>();
 
-                if (dungeonEntranceVFX == null)
+                if (_dungeonEntranceVFX == null)
                 {
                     Debug.LogWarning("VisualEffect component not found on DungeonEntrance object!");
                 }
@@ -38,18 +39,18 @@ public class DungeonInstructionPanel : MonoBehaviour
         }
         //Debug.Log(PlayerInputHandler.instance.playerInput.currentActionMap);
 
-        Invoke(nameof(EnableHidingInstructions), timeToEnableHidingInstructions);
+        Invoke(nameof(EnableHidingInstructions), _timeToEnableHidingInstructions);
     }
 
     void Update()
     {
-        if (PlayerInputHandler.instance.CloseUIInput.WasPerformedThisFrame() && canHideInstructions)
+        if (PlayerInputHandler.Instance.CloseUIInput.WasPerformedThisFrame() && _canHideInstructions)
         {
             Invoke(nameof(HideInstructionPanel), 0.1f);
 
-            if (dungeonEntranceVFX != null)
+            if (_dungeonEntranceVFX != null)
             {
-                dungeonEntranceVFX.SendEvent("OnDungeonStart");
+                _dungeonEntranceVFX.SendEvent("OnDungeonStart");
             }
 
             else
@@ -61,7 +62,7 @@ public class DungeonInstructionPanel : MonoBehaviour
 
     private void CallDialogueEvent()
     {
-        GameEventsManager.instance.dialogueEvents.StartDialogue();
+        GameEventsManager.instance.DialogueEvents.StartDialogue();
     }
 
     private void HideInstructionPanel()
@@ -69,12 +70,12 @@ public class DungeonInstructionPanel : MonoBehaviour
         gameObject.SetActive(false);
 
         // enable player movement through dialogue events
-        GameEventsManager.instance.dialogueEvents.EndDialogue();
-        GameEventsManager.instance.uiEvents.HideInstructionPanel();
+        GameEventsManager.instance.DialogueEvents.EndDialogue();
+        GameEventsManager.instance.UIEvents.HideInstructionPanel();
 
-        if (dungeonQuestDialogue != null)
+        if (_dungeonQuestDialogue != null)
         {
-            dungeonQuestDialogue.PlayStartDungeonDialogue();
+            _dungeonQuestDialogue.PlayStartDungeonDialogue();
         }
 
         else
@@ -85,7 +86,7 @@ public class DungeonInstructionPanel : MonoBehaviour
 
     private void EnableHidingInstructions()
     {
-        canHideInstructions = true;
-        closingInstructions.SetActive(true);
+        _canHideInstructions = true;
+        _closingInstructions.SetActive(true);
     }
 }

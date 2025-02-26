@@ -1,14 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class NPC_Dialogue : MonoBehaviour
+public class NpcDialogue : MonoBehaviour
 {
-    [SerializeField] private List<NPCQuestDialoguePair> questDialoguePairs;
-    [SerializeField] private TextAsset defaultDialogue;
-    [SerializeField] private AudioName audioToPlayOnDialogueStarted;
+    [FormerlySerializedAs("questDialoguePairs")] [SerializeField] private List<NpcQuestDialoguePair> _questDialoguePairs;
+    [FormerlySerializedAs("defaultDialogue")] [SerializeField] private TextAsset _defaultDialogue;
+    [FormerlySerializedAs("audioToPlayOnDialogueStarted")] [SerializeField] private AudioName _audioToPlayOnDialogueStarted;
 
-    private List<TextAsset> possibleDialogues = new List<TextAsset>();
-    private bool playerIsNear;
+    private List<TextAsset> _possibleDialogues = new List<TextAsset>();
+    private bool _playerIsNear;
 
     private void Start()
     {
@@ -17,7 +18,7 @@ public class NPC_Dialogue : MonoBehaviour
 
     private void Update()
     {
-        if (PlayerInputHandler.instance.InteractInput.WasPressedThisFrame() && playerIsNear)
+        if (PlayerInputHandler.Instance.InteractInput.WasPressedThisFrame() && _playerIsNear)
         {
             SetDialogueToPlay();
         }
@@ -26,35 +27,35 @@ public class NPC_Dialogue : MonoBehaviour
     private void SetDialogueToPlay()
     {
         // fetch a random dialogue from the list of possible dialogues
-        int dialogueIndex = Random.Range(0, possibleDialogues.Count);
+        int dialogueIndex = Random.Range(0, _possibleDialogues.Count);
 
         Debug.Log("Ready to start a NPC dialogue.");
 
-        DialogueManager.instance.StartDialogue(possibleDialogues[dialogueIndex]);
+        DialogueManager.Instance.StartDialogue(_possibleDialogues[dialogueIndex]);
 
-        if (DialogueManager.instance.isDialoguePlaying)
+        if (DialogueManager.Instance.IsDialoguePlaying)
         {
-            AudioManager.Instance.PlaySound(audioToPlayOnDialogueStarted, transform);
+            AudioManager.Instance.PlaySound(_audioToPlayOnDialogueStarted, transform);
         }
     }
 
     private void CreateListOfPossibleDialogues()
     {
         // go through the main quests and add the possible dialogues to the list
-        foreach (NPCQuestDialoguePair questDialoguePair in questDialoguePairs)
+        foreach (NpcQuestDialoguePair questDialoguePair in _questDialoguePairs)
         {
-            QuestState state = QuestManager.instance.CheckQuestState(questDialoguePair.mainQuest.id);
+            QuestState state = QuestManager.Instance.CheckQuestState(questDialoguePair.MainQuest.id);
 
-            if (state == QuestState.FINISHED)
+            if (state == QuestState.Finished)
             {
-                possibleDialogues.Add(questDialoguePair.dialogueOption);
+                _possibleDialogues.Add(questDialoguePair.DialogueOption);
             }
         }
 
         // if none of the main quests have been completed yet, add the default dialogue as an option
-        if (possibleDialogues.Count == 0)
+        if (_possibleDialogues.Count == 0)
         {
-            possibleDialogues.Add(defaultDialogue);
+            _possibleDialogues.Add(_defaultDialogue);
         }
     }
 
@@ -62,7 +63,7 @@ public class NPC_Dialogue : MonoBehaviour
     {
         if (other.CompareTag("Trigger"))
         {
-            playerIsNear = true;
+            _playerIsNear = true;
         }
     }
 
@@ -70,7 +71,7 @@ public class NPC_Dialogue : MonoBehaviour
     {
         if (other.CompareTag("Trigger"))
         {
-            playerIsNear = false;
+            _playerIsNear = false;
         }
     }
 }

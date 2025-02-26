@@ -1,11 +1,12 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class TutorialFlower : MonoBehaviour
 {
-    [SerializeField] private QuestScriptableObject tutorialQuestSO;
+    [FormerlySerializedAs("tutorialQuestSO")] [SerializeField] private QuestScriptableObject _tutorialQuestSo;
 
-    [SerializeField] private bool playerIsNear;
-    [SerializeField] private bool canBeCollected;
+    [FormerlySerializedAs("playerIsNear")] [SerializeField] private bool _playerIsNear;
+    [FormerlySerializedAs("canBeCollected")] [SerializeField] private bool _canBeCollected;
 
     private void Awake()
     {
@@ -14,28 +15,28 @@ public class TutorialFlower : MonoBehaviour
 
     private void OnEnable()
     {
-        GameEventsManager.instance.questEvents.OnAdvanceQuest += EnableCollection;
+        GameEventsManager.instance.QuestEvents.OnAdvanceQuest += EnableCollection;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.questEvents.OnAdvanceQuest += EnableCollection;
+        GameEventsManager.instance.QuestEvents.OnAdvanceQuest += EnableCollection;
     }
 
     private void Update()
     {
-        if (PlayerInputHandler.instance.InteractInput.WasPressedThisFrame() && playerIsNear && canBeCollected)
+        if (PlayerInputHandler.Instance.InteractInput.WasPressedThisFrame() && _playerIsNear && _canBeCollected)
         {
-            CollectFlowerQuestStep.instance.CollectFlower();
+            CollectFlowerQuestStep.Instance.CollectFlower();
             Destroy(gameObject);
         }
     }
 
     private void EnableCollection(string questId)
     {
-        if (!canBeCollected)
+        if (!_canBeCollected)
         {
-            canBeCollected = true;
+            _canBeCollected = true;
         }
     }
 
@@ -43,7 +44,7 @@ public class TutorialFlower : MonoBehaviour
     {
         if (other.CompareTag("Trigger"))
         {
-            playerIsNear = true;
+            _playerIsNear = true;
         }
 
         else
@@ -56,18 +57,18 @@ public class TutorialFlower : MonoBehaviour
     {
         if (other.CompareTag("Trigger"))
         {
-            playerIsNear = false;
+            _playerIsNear = false;
         }
     }
 
     private void CheckCurrentQuestStep()
     {
         // check the initial status of the flower
-        int currentTutorialQuestStepIndex = QuestManager.instance.GetQuestById(tutorialQuestSO.id).GetCurrentQuestStepIndex();
+        int currentTutorialQuestStepIndex = QuestManager.Instance.GetQuestById(_tutorialQuestSo.id).GetCurrentQuestStepIndex();
 
         if (currentTutorialQuestStepIndex == 1)
         {
-            canBeCollected = true;
+            _canBeCollected = true;
         }
 
         else if (currentTutorialQuestStepIndex > 1)

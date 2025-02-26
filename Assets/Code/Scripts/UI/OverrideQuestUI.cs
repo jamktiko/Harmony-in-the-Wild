@@ -1,13 +1,14 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class OverrideQuestUI : MonoBehaviour
 {
-    public string questName;
-    public string description;
-    public string progress;
+    [FormerlySerializedAs("questName")] public string QuestName;
+    [FormerlySerializedAs("description")] public string Description;
+    [FormerlySerializedAs("progress")] public string Progress;
 
     private void Start()
     {
-        GameEventsManager.instance.questEvents.ShowQuestUI(questName, description, progress);
+        GameEventsManager.instance.QuestEvents.ShowQuestUI(QuestName, Description, Progress);
     }
 }

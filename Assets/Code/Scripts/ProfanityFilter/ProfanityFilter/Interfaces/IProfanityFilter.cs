@@ -29,7 +29,7 @@ namespace ProfanityFilter.Interfaces
         ReadOnlyCollection<string> DetectAllProfanities(string sentence, bool removePartialMatches);
         bool ContainsProfanity(string term);
 
-        IAllowList AllowList { get; }
+        IAllowList allowList { get; }
         string CensorString(string sentence);
         string CensorString(string sentence, char censorCharacter);
         string CensorString(string sentence, char censorCharacter, bool ignoreNumbers);
@@ -45,6 +45,6 @@ namespace ProfanityFilter.Interfaces
 
         void Clear();
 
-        int Count { get; }
+        int count { get; }
     }
 }

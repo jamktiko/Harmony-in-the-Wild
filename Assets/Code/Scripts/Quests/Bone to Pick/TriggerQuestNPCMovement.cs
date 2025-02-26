@@ -1,13 +1,14 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
-public class TriggerQuestNPCMovement : MonoBehaviour
+public class TriggerQuestNpcMovement : MonoBehaviour
 {
-    [SerializeField] private DialogueQuestNPCs characterToMove;
+    [FormerlySerializedAs("characterToMove")] [SerializeField] private DialogueQuestNpCs _characterToMove;
 
     private void Start()
     {
-        GameEventsManager.instance.questEvents.StartMovingQuestNPC(characterToMove);
+        GameEventsManager.instance.QuestEvents.StartMovingQuestNpc(_characterToMove);
     }
 
     private void OnEnable()
@@ -24,7 +25,7 @@ public class TriggerQuestNPCMovement : MonoBehaviour
     {
         if (scene.name.Contains("Overworld", System.StringComparison.CurrentCultureIgnoreCase))
         {
-            GameEventsManager.instance.questEvents.StartMovingQuestNPC(characterToMove);
+            GameEventsManager.instance.QuestEvents.StartMovingQuestNpc(_characterToMove);
         }
     }
 }

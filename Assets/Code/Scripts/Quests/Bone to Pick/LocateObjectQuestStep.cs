@@ -1,35 +1,37 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class LocateObjectQuestStep : QuestStep
 {
+    [FormerlySerializedAs("itemToFind")]
     [Header("Object to Find")]
-    [SerializeField] private QuestItem itemToFind;
-    [SerializeField] private int amountOfItemsToFind = 1;
+    [SerializeField] private QuestItem _itemToFind;
+    [FormerlySerializedAs("amountOfItemsToFind")] [SerializeField] private int _amountOfItemsToFind = 1;
 
-    private int currentAmountOfFoundItems = 0;
+    private int _currentAmountOfFoundItems = 0;
 
     private void Start()
     {
-        GameEventsManager.instance.questEvents.ShowQuestUI(GetQuestId(), objective, progress);
+        GameEventsManager.instance.QuestEvents.ShowQuestUI(GetQuestId(), Objective, Progress);
     }
 
     private void OnEnable()
     {
-        GameEventsManager.instance.questEvents.OnCollectQuestItem += CheckItemMatch;
+        GameEventsManager.instance.QuestEvents.OnCollectQuestItem += CheckItemMatch;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.questEvents.OnCollectQuestItem -= CheckItemMatch;
+        GameEventsManager.instance.QuestEvents.OnCollectQuestItem -= CheckItemMatch;
     }
 
     private void CheckItemMatch(QuestItem foundItem)
     {
-        if (foundItem == itemToFind)
+        if (foundItem == _itemToFind)
         {
-            currentAmountOfFoundItems++;
+            _currentAmountOfFoundItems++;
 
-            if (currentAmountOfFoundItems >= amountOfItemsToFind)
+            if (_currentAmountOfFoundItems >= _amountOfItemsToFind)
             {
                 FinishQuestStep();
             }
@@ -43,13 +45,13 @@ public class LocateObjectQuestStep : QuestStep
 
     private void UpdateState()
     {
-        string state = currentAmountOfFoundItems.ToString();
+        string state = _currentAmountOfFoundItems.ToString();
         ChangeState(state);
     }
 
     protected override void SetQuestStepState(string state)
     {
-        currentAmountOfFoundItems = int.Parse(state);
+        _currentAmountOfFoundItems = int.Parse(state);
 
         UpdateState();
     }

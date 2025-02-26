@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class FlowerZoneEnabler : MonoBehaviour
 {
+    [FormerlySerializedAs("enablingState")]
     [Tooltip("State of ToL progress which enables this flower zone")]
-    [SerializeField] private int enablingState;
+    [SerializeField] private int _enablingState;
 
     private void Start()
     {
@@ -12,19 +14,19 @@ public class FlowerZoneEnabler : MonoBehaviour
 
     private void OnEnable()
     {
-        GameEventsManager.instance.cinematicsEvents.OnStartCinematics += SetVisibility;
+        GameEventsManager.instance.CinematicsEvents.OnStartCinematics += SetVisibility;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.cinematicsEvents.OnStartCinematics -= SetVisibility;
+        GameEventsManager.instance.CinematicsEvents.OnStartCinematics -= SetVisibility;
     }
 
     private void SetVisibility()
     {
-        int currentState = TreeOfLifeState.instance.GetTreeOfLifeState();
+        int currentState = TreeOfLifeState.Instance.GetTreeOfLifeState();
 
-        if (currentState >= enablingState)
+        if (currentState >= _enablingState)
         {
             //Debug.Log("Show zone: " + gameObject.name);
 

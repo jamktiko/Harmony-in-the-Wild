@@ -1,31 +1,34 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class FinishDungeonQuestStepWithTrigger : MonoBehaviour
 {
-    [SerializeField] private QuestScriptableObject dungeonQuest;
+    [FormerlySerializedAs("dungeonQuest")] [SerializeField] private QuestScriptableObject _dungeonQuest;
+    [FormerlySerializedAs("enableInteractionFromStart")]
     [Tooltip("If this box is ticked, you can immediately interact with the object without any other conditions as prerequisities.")]
-    [SerializeField] private bool enableInteractionFromStart;
+    [SerializeField] private bool _enableInteractionFromStart;
 
+    [FormerlySerializedAs("isLearningStage")]
     [Header("For Learning Stages Only")]
-    [SerializeField] private bool isLearningStage;
-    [SerializeField] private SceneManagerHelper.Scene nextScene;
+    [SerializeField] private bool _isLearningStage;
+    [FormerlySerializedAs("nextScene")] [SerializeField] private SceneManagerHelper.Scene _nextScene;
 
-    private bool canFinishQuest;
-    private string questId;
+    private bool _canFinishQuest;
+    private string _questId;
 
     private void Start()
     {
-        questId = dungeonQuest.id;
+        _questId = _dungeonQuest.id;
 
-        if (enableInteractionFromStart)
+        if (_enableInteractionFromStart)
         {
-            canFinishQuest = true;
+            _canFinishQuest = true;
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!canFinishQuest)
+        if (!_canFinishQuest)
         {
             Debug.LogWarning("Interaction with the transition object has not been enabled yet. Check if enabling it" +
                 "has been called from other scripts handling the enabling conditions (for example, collecting items) " +
@@ -33,11 +36,11 @@ public class FinishDungeonQuestStepWithTrigger : MonoBehaviour
             return;
         }
 
-        if (canFinishQuest && other.CompareTag("Trigger"))
+        if (_canFinishQuest && other.CompareTag("Trigger"))
         {
-            GameEventsManager.instance.questEvents.AdvanceDungeonQuest(questId);
+            GameEventsManager.instance.QuestEvents.AdvanceDungeonQuest(_questId);
 
-            if (isLearningStage)
+            if (_isLearningStage)
             {
                 Invoke(nameof(ChangeScene), 0.15f);
             }
@@ -46,11 +49,11 @@ public class FinishDungeonQuestStepWithTrigger : MonoBehaviour
 
     private void ChangeScene()
     {
-        SceneManagerHelper.LoadScene(nextScene);
+        SceneManagerHelper.LoadScene(_nextScene);
     }
 
     public void EnableInteraction()
     {
-        canFinishQuest = true;
+        _canFinishQuest = true;
     }
 }

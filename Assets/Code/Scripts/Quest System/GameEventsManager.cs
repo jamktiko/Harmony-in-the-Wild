@@ -4,12 +4,12 @@ public class GameEventsManager : MonoBehaviour
 {
     public static GameEventsManager instance { get; private set; }
 
-    public QuestEvents questEvents;
-    public PlayerEvents playerEvents;
-    public DialogueEvents dialogueEvents;
-    public CinematicsEvents cinematicsEvents;
-    public UIEvents uiEvents;
-    public AudioEvents audioEvents;
+    public QuestEvents QuestEvents;
+    public PlayerEvents PlayerEvents;
+    public DialogueEvents DialogueEvents;
+    public CinematicsEvents CinematicsEvents;
+    public UIEvents UIEvents;
+    public AudioEvents AudioEvents;
 
     private void Awake()
     {
@@ -26,11 +26,11 @@ public class GameEventsManager : MonoBehaviour
         }
 
         // initialize the events
-        questEvents = new QuestEvents();
-        playerEvents = new PlayerEvents();
-        dialogueEvents = new DialogueEvents();
-        cinematicsEvents = new CinematicsEvents();
-        uiEvents = new UIEvents();
-        audioEvents = new AudioEvents();
+        QuestEvents = new QuestEvents();
+        PlayerEvents = new PlayerEvents();
+        DialogueEvents = new DialogueEvents();
+        CinematicsEvents = new CinematicsEvents();
+        UIEvents = new UIEvents();
+        AudioEvents = new AudioEvents();
     }
 }

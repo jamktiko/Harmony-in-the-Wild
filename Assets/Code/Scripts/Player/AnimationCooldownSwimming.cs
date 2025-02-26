@@ -1,8 +1,9 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class AnimationCooldownSwimming : StateMachineBehaviour
 {
-    public string boolName;
+    [FormerlySerializedAs("boolName")] public string BoolName;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     //{
@@ -10,7 +11,7 @@ public class AnimationCooldownSwimming : StateMachineBehaviour
     //}
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        FoxMovement.instance.CooldownTrigger(boolName);
+        FoxMovement.Instance.CooldownTrigger(BoolName);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

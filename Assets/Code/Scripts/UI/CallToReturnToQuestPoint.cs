@@ -1,32 +1,33 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class CallToReturnToQuestPoint : MonoBehaviour
 {
-    [SerializeField] private QuestScriptableObject questInfoForPoint;
-    [SerializeField] private string finalCallToAction;
-    private string questId;
+    [FormerlySerializedAs("questInfoForPoint")] [SerializeField] private QuestScriptableObject _questInfoForPoint;
+    [FormerlySerializedAs("finalCallToAction")] [SerializeField] private string _finalCallToAction;
+    private string _questId;
 
     private void Start()
     {
-        questId = questInfoForPoint.id;
+        _questId = _questInfoForPoint.id;
     }
 
     private void OnEnable()
     {
-        GameEventsManager.instance.questEvents.OnReturnToSideQuestPoint += UpdateQuestUI;
+        GameEventsManager.instance.QuestEvents.OnReturnToSideQuestPoint += UpdateQuestUI;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.questEvents.OnReturnToSideQuestPoint -= UpdateQuestUI;
+        GameEventsManager.instance.QuestEvents.OnReturnToSideQuestPoint -= UpdateQuestUI;
     }
 
     private void UpdateQuestUI(string id)
     {
         // if the corresponding quest is being updated to CAN_FINISH state, use this UI
-        if (questId == id)
+        if (_questId == id)
         {
-            GameEventsManager.instance.questEvents.ShowQuestUI(questId, finalCallToAction, "");
+            GameEventsManager.instance.QuestEvents.ShowQuestUI(_questId, _finalCallToAction, "");
         }
     }
 }

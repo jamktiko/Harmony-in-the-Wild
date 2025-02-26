@@ -1,14 +1,15 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class DisableBossActivity : MonoBehaviour
 {
-    [SerializeField] private ShootingRotatingBoss boss;
+    [FormerlySerializedAs("boss")] [SerializeField] private ShootingRotatingBoss _boss;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Trigger"))
         {
-            boss.DisableShooting();
+            _boss.DisableShooting();
         }
     }
 }

@@ -1,24 +1,28 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class DevShortCuts : MonoBehaviour
 {
+    [FormerlySerializedAs("player")]
     [Header("Needed References")]
-    [SerializeField] private Transform player;
+    [SerializeField] private Transform _player;
 
+    [FormerlySerializedAs("bossScene")]
     [Header("Shortcut Config")]
     [Tooltip("Press B & S to go to this boss scene")]
-    [SerializeField] private string bossScene;
-    [SerializeField] private QuestScriptableObject questSO;
+    [SerializeField] private string _bossScene;
+    [FormerlySerializedAs("questSO")] [SerializeField] private QuestScriptableObject _questSo;
 
+    [FormerlySerializedAs("newPosition")]
     [Tooltip("Press N & P to go to this position")]
-    [SerializeField] private Transform newPosition;
+    [SerializeField] private Transform _newPosition;
 
-    private string questId;
+    private string _questId;
     private void Start()
     {
-        if (questSO != null)
+        if (_questSo != null)
         {
-            questId = questSO.id;
+            _questId = _questSo.id;
         }
     }
 
@@ -28,7 +32,7 @@ public class DevShortCuts : MonoBehaviour
         {
             //SceneManager.LoadScene("Overworld");
         }
-        if (Input.GetKey(KeyCode.B) && Input.GetKeyDown(KeyCode.S) && questSO != null)
+        if (Input.GetKey(KeyCode.B) && Input.GetKeyDown(KeyCode.S) && _questSo != null)
         {
             //GameEventsManager.instance.questEvents.AdvanceDungeonQuest(questId);
             //SceneManager.LoadScene(bossScene);
@@ -39,7 +43,7 @@ public class DevShortCuts : MonoBehaviour
             //player.GetComponent<FoxMove>().enabled = false;
             //player.GetComponent<CharacterController>().enabled = false;
 
-            player.position = newPosition.position;
+            _player.position = _newPosition.position;
 
             //player.GetComponent<FoxMove>().enabled = true;
             //player.GetComponent<CharacterController>().enabled = true;

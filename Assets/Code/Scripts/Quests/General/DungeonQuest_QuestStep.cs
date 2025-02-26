@@ -1,25 +1,25 @@
-public class DungeonQuest_QuestStep : QuestStep
+public class DungeonQuestQuestStep : QuestStep
 {
-    private string dungeonQuestId;
+    private string _dungeonQuestId;
 
     private void Start()
     {
-        dungeonQuestId = GetQuestId();
+        _dungeonQuestId = GetQuestId();
     }
 
     private void OnEnable()
     {
-        GameEventsManager.instance.questEvents.OnAdvanceDungeonQuest += CompleteDungeonQuestStep;
+        GameEventsManager.instance.QuestEvents.OnAdvanceDungeonQuest += CompleteDungeonQuestStep;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.questEvents.OnAdvanceDungeonQuest -= CompleteDungeonQuestStep;
+        GameEventsManager.instance.QuestEvents.OnAdvanceDungeonQuest -= CompleteDungeonQuestStep;
     }
 
     private void CompleteDungeonQuestStep(string id)
     {
-        if (id == dungeonQuestId)
+        if (id == _dungeonQuestId)
         {
             FinishQuestStep();
         }

@@ -1,48 +1,50 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class GhostlySlumbersManager : QuestStep
 {
+    [FormerlySerializedAs("relativeInteractionStatus")]
     [Header("Debug")]
-    [SerializeField] private List<bool> relativeInteractionStatus;
+    [SerializeField] private List<bool> _relativeInteractionStatus;
 
-    public static GhostlySlumbersManager instance;
+    public static GhostlySlumbersManager Instance;
 
-    private int relativesSpokenTo = 0;
+    private int _relativesSpokenTo = 0;
 
     private void Start()
     {
-        if (instance != null)
+        if (Instance != null)
         {
             Debug.LogWarning("There is more than one Ghostly Slumbers Manager.");
         }
 
-        instance = this;
+        Instance = this;
 
-        List<GameObject> relatives = GhostRelatives.instance.GetGhostRelatives();
+        List<GameObject> relatives = GhostRelatives.Instance.GetGhostRelatives();
 
         foreach (GameObject relative in relatives)
         {
             relative.SetActive(true);
         }
 
-        GameEventsManager.instance.questEvents.ShowQuestUI(GetQuestId(), objective, progress + " " + relativesSpokenTo + "/" + relativeInteractionStatus.Count);
+        GameEventsManager.instance.QuestEvents.ShowQuestUI(GetQuestId(), Objective, Progress + " " + _relativesSpokenTo + "/" + _relativeInteractionStatus.Count);
 
     }
 
     public void TalkedToRelative(int relativeIndex)
     {
-        relativeInteractionStatus[relativeIndex] = true;
-        relativesSpokenTo++;
+        _relativeInteractionStatus[relativeIndex] = true;
+        _relativesSpokenTo++;
 
-        GameEventsManager.instance.questEvents.UpdateQuestProgressInUI(progress + " " + relativesSpokenTo + "/" + relativeInteractionStatus.Count);
+        GameEventsManager.instance.QuestEvents.UpdateQuestProgressInUI(Progress + " " + _relativesSpokenTo + "/" + _relativeInteractionStatus.Count);
 
-        if (relativesSpokenTo < relativeInteractionStatus.Count)
+        if (_relativesSpokenTo < _relativeInteractionStatus.Count)
         {
             UpdateState();
         }
 
-        else if (relativesSpokenTo >= relativeInteractionStatus.Count)
+        else if (_relativesSpokenTo >= _relativeInteractionStatus.Count)
         {
             FinishQuestStep();
         }
@@ -50,7 +52,7 @@ public class GhostlySlumbersManager : QuestStep
 
     private void UpdateState()
     {
-        string state = relativeInteractionStatus.ToString();
+        string state = _relativeInteractionStatus.ToString();
         ChangeState(state);
     }
 
@@ -60,7 +62,7 @@ public class GhostlySlumbersManager : QuestStep
 
         for (int i = 0; i < splitState.Length; i++)
         {
-            relativeInteractionStatus[i] = System.Convert.ToBoolean(splitState[i]);
+            _relativeInteractionStatus[i] = System.Convert.ToBoolean(splitState[i]);
         }
 
         UpdateState();

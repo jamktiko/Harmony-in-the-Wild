@@ -1,36 +1,37 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class SmashingReturnOre : QuestStep
 {
-    [SerializeField] private bool hasOre;
+    [FormerlySerializedAs("hasOre")] [SerializeField] private bool _hasOre;
 
-    public static SmashingReturnOre instance;
+    public static SmashingReturnOre Instance;
 
     private void Start()
     {
-        if (instance != null)
+        if (Instance != null)
         {
             Debug.LogWarning("There is more than one Smashing Return Ore.");
         }
 
-        instance = this;
+        Instance = this;
     }
 
     public void PickUpOre()
     {
-        hasOre = true;
+        _hasOre = true;
         FinishQuestStep();
     }
 
     private void UpdateState()
     {
-        string state = hasOre.ToString();
+        string state = _hasOre.ToString();
         ChangeState(state);
     }
 
     protected override void SetQuestStepState(string state)
     {
-        hasOre = System.Convert.ToBoolean(state);
+        _hasOre = System.Convert.ToBoolean(state);
 
         UpdateState();
     }

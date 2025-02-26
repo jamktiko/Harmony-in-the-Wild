@@ -5,7 +5,7 @@ public class SteamAchievementTrigger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SteamManager.instance.UnlockAchievement("FINISH_ACH");
+        SteamManager.Instance.UnlockAchievement("FINISH_ACH");
     }
 
     // Update is called once per frame

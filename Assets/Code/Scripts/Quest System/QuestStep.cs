@@ -1,33 +1,35 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public abstract class QuestStep : MonoBehaviour
 {
-    private bool isFinished = false;
+    private bool _isFinished = false;
 
-    private string questId;
+    private string _questId;
 
-    private int stepIndex;
+    private int _stepIndex;
 
+    [FormerlySerializedAs("positionInScene")]
     [Header("Fill only if quest requires a waypoint")]
 
-    [SerializeField] public Vector3 positionInScene;
+    [SerializeField] public Vector3 PositionInScene;
 
-    [SerializeField] public bool hasWaypoint;
+    [FormerlySerializedAs("hasWaypoint")] [SerializeField] public bool HasWaypoint;
 
     //public string stepName;
 
-    [Header("Fill for Side Quests Only")]
+    [FormerlySerializedAs("objective")] [Header("Fill for Side Quests Only")]
 
-    public string objective;
+    public string Objective;
 
-    [Tooltip("Set in the form as 'Apples collected '; rest is autofilled through script")]
+    [FormerlySerializedAs("progress")] [Tooltip("Set in the form as 'Apples collected '; rest is autofilled through script")]
 
-    public string progress;
+    public string Progress;
 
     public void InitializeQuestStep(string id, int stepIndex, string questStepState)
     {
-        questId = id;
-        this.stepIndex = stepIndex;
+        _questId = id;
+        this._stepIndex = stepIndex;
 
 
         if (questStepState != null && questStepState != "")
@@ -39,30 +41,30 @@ public abstract class QuestStep : MonoBehaviour
         {
             SetQuestStepState("0");
         }
-        SaveManager.instance.SaveGame();
+        SaveManager.Instance.SaveGame();
     }
 
     protected string GetQuestId()
     {
-        return questId;
+        return _questId;
     }
 
     protected void FinishQuestStep()
     {
-        if (!isFinished)
+        if (!_isFinished)
         {
-            isFinished = true;
+            _isFinished = true;
 
-            GameEventsManager.instance.questEvents.AdvanceQuest(questId);
-            Debug.Log("Finished quest step: " + questId);
+            GameEventsManager.instance.QuestEvents.AdvanceQuest(_questId);
+            Debug.Log("Finished quest step: " + _questId);
             Invoke("DestroyObject", 0);
         }
     }
 
     protected void ChangeState(string newState)
     {
-        GameEventsManager.instance.questEvents.QuestStepStateChange(questId, stepIndex, new QuestStepState(newState));
-        SaveManager.instance.SaveGame();
+        GameEventsManager.instance.QuestEvents.QuestStepStateChange(_questId, _stepIndex, new QuestStepState(newState));
+        SaveManager.Instance.SaveGame();
     }
 
     protected void DestroyObject()

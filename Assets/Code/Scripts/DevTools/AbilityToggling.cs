@@ -1,8 +1,9 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class AbilityToggling : MonoBehaviour
 {
-    [SerializeField] Abilities abilities;
+    [FormerlySerializedAs("abilities")] [SerializeField] Abilities _abilities;
 
     //note: REDUNDANT replaced with AbilityManager
     private void Start()

@@ -1,54 +1,55 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class DevToolQuestStateChanger : MonoBehaviour
 {
-    [SerializeField] private QuestScriptableObject quest;
-    [SerializeField] private TMP_Dropdown dropdown;
-    private string questId;
-    private QuestState currentQuestState;
+    [FormerlySerializedAs("quest")] [SerializeField] private QuestScriptableObject _quest;
+    [FormerlySerializedAs("dropdown")] [SerializeField] private TMP_Dropdown _dropdown;
+    private string _questId;
+    private QuestState _currentQuestState;
 
     private void OnEnable()
     {
-        questId = quest.id;
+        _questId = _quest.id;
 
-        currentQuestState = QuestManager.instance.GetQuestById(questId).state;
+        _currentQuestState = QuestManager.Instance.GetQuestById(_questId).State;
 
         // set the current state of the quest to be shown
-        switch (currentQuestState)
+        switch (_currentQuestState)
         {
-            case QuestState.REQUIREMENTS_NOT_MET:
-                dropdown.value = 0;
+            case QuestState.RequirementsNotMet:
+                _dropdown.value = 0;
                 break;
 
-            case QuestState.CAN_START:
-                dropdown.value = 1;
+            case QuestState.CanStart:
+                _dropdown.value = 1;
                 break;
 
-            case QuestState.IN_PROGRESS:
-                dropdown.value = 2;
+            case QuestState.InProgress:
+                _dropdown.value = 2;
                 break;
 
-            case QuestState.CAN_FINISH:
-                dropdown.value = 3;
+            case QuestState.CanFinish:
+                _dropdown.value = 3;
                 break;
 
-            case QuestState.FINISHED:
-                dropdown.value = 4;
+            case QuestState.Finished:
+                _dropdown.value = 4;
                 break;
         }
     }
 
     public void ChangeQuestState()
     {
-        switch (dropdown.value)
+        switch (_dropdown.value)
         {
             case 2:
-                GameEventsManager.instance.questEvents.StartQuest(questId);
+                GameEventsManager.instance.QuestEvents.StartQuest(_questId);
                 break;
 
             case 4:
-                GameEventsManager.instance.questEvents.FinishQuest(questId);
+                GameEventsManager.instance.QuestEvents.FinishQuest(_questId);
                 break;
 
             default:

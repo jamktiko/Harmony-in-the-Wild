@@ -1,14 +1,15 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class PenguinResultsView : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI timerText;
+    [FormerlySerializedAs("timerText")] [SerializeField] private TextMeshProUGUI _timerText;
     //[SerializeField] private TextMeshProUGUI trophyText;
     //[SerializeField] private Image trophyImage;
-    [SerializeField] private PenguinTimer timer;
-    [SerializeField] private DungeonQuestDialogue dungeonQuestDialogue;
+    [FormerlySerializedAs("timer")] [SerializeField] private PenguinTimer _timer;
+    [FormerlySerializedAs("dungeonQuestDialogue")] [SerializeField] private DungeonQuestDialogue _dungeonQuestDialogue;
 
     //[Header("Trophy Config")]
     //[SerializeField] private float highestTrophy = 120f;
@@ -16,24 +17,25 @@ public class PenguinResultsView : MonoBehaviour
     //[SerializeField] private float lowestTrophy = 240f;
     //[SerializeField] private List<Sprite> trophyImages;
 
+    [FormerlySerializedAs("storybookSectionIndex")]
     [Header("Storybook Config")]
-    [SerializeField] private int storybookSectionIndex;
+    [SerializeField] private int _storybookSectionIndex;
 
     private void OnEnable()
     {
-        GameEventsManager.instance.dialogueEvents.OnEndDialogue += ShowView;
+        GameEventsManager.instance.DialogueEvents.OnEndDialogue += ShowView;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.dialogueEvents.OnEndDialogue -= ShowView;
+        GameEventsManager.instance.DialogueEvents.OnEndDialogue -= ShowView;
     }
 
     private void ShowView()
     {
-        if (dungeonQuestDialogue != null)
+        if (_dungeonQuestDialogue != null)
         {
-            if (dungeonQuestDialogue.FinalDialogueCompleted())
+            if (_dungeonQuestDialogue.FinalDialogueCompleted())
             {
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
@@ -41,7 +43,7 @@ public class PenguinResultsView : MonoBehaviour
                 transform.GetChild(0).gameObject.SetActive(true);
 
                 // set timer text
-                timerText.text = timer.GetFinalTimeAsString();
+                _timerText.text = _timer.GetFinalTimeAsString();
             }
         }
 
@@ -94,7 +96,7 @@ public class PenguinResultsView : MonoBehaviour
 
     public void ReturnToOverworld()
     {
-        StorybookHandler.instance.SetNewStorybookData(storybookSectionIndex, SceneManagerHelper.Scene.Overworld, true);
-        GameEventsManager.instance.uiEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Storybook);
+        StorybookHandler.Instance.SetNewStorybookData(_storybookSectionIndex, SceneManagerHelper.Scene.Overworld, true);
+        GameEventsManager.instance.UIEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Storybook);
     }
 }

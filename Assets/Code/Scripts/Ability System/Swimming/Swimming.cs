@@ -5,7 +5,7 @@ public class Swimming : MonoBehaviour, IAbility
     public static Swimming Instance;
     private bool _isActivated = false;
 
-    public float _swimSpeed = 5f;
+    public float SwimSpeed = 5f;
 
     private bool _swimmingAudioPlaying = false;
 
@@ -36,31 +36,31 @@ public class Swimming : MonoBehaviour, IAbility
 
     private void Swim()
     {
-        if (FoxMovement.instance.IsInWater())
+        if (FoxMovement.Instance.IsInWater())
         {
-            if (!FoxMovement.instance.rb.useGravity)
+            if (!FoxMovement.Instance.Rb.useGravity)
             {
-                FoxMovement.instance.rb.useGravity = true;
+                FoxMovement.Instance.Rb.useGravity = true;
             }
 
-            FoxMovement.instance.playerAnimator.SetFloat("horMove", FoxMovement.instance.horizontalInput, 0.1f, Time.deltaTime);
-            FoxMovement.instance.playerAnimator.SetFloat("vertMove", FoxMovement.instance.verticalInput, 0.1f, Time.deltaTime);
+            FoxMovement.Instance.PlayerAnimator.SetFloat("horMove", FoxMovement.Instance.HorizontalInput, 0.1f, Time.deltaTime);
+            FoxMovement.Instance.PlayerAnimator.SetFloat("vertMove", FoxMovement.Instance.VerticalInput, 0.1f, Time.deltaTime);
             //FoxMovement.instance.playerAnimator.SetBool("isJumping", false);
             //FoxMovement.instance.playerAnimator.SetBool("isGrounded", true);
             //FoxMovement.instance.playerAnimator.speed = 0.7f;
 
-            if (!swimmingAudioPlaying)
+            if (!_swimmingAudioPlaying)
             {
-                swimmingAudioPlaying = true;
-                AudioManager.Instance.PlaySound(AudioName.Ability_Swimming, transform);
+                _swimmingAudioPlaying = true;
+                AudioManager.Instance.PlaySound(AudioName.AbilitySwimming, transform);
             }
         }
 
-        if (FoxMovement.instance.IsGrounded() && swimmingAudioPlaying)
+        if (FoxMovement.Instance.IsGrounded() && _swimmingAudioPlaying)
         {
-            swimmingAudioPlaying = false;
-            GameEventsManager.instance.audioEvents.DestroyAudio(AudioName.Ability_Swimming);
-            swimmingAudioPlaying = false;
+            _swimmingAudioPlaying = false;
+            GameEventsManager.instance.AudioEvents.DestroyAudio(AudioName.AbilitySwimming);
+            _swimmingAudioPlaying = false;
         }
     }
 }

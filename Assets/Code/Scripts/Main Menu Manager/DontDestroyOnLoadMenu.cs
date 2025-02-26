@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class DontDestroyOnLoadMenu : MonoBehaviour
 {
-    public static DontDestroyOnLoadMenu instance;
+    public static DontDestroyOnLoadMenu Instance;
     private void Awake()
     {
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
             DontDestroyOnLoad(gameObject);
 
         }

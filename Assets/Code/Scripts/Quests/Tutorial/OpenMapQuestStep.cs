@@ -2,11 +2,11 @@ using UnityEngine.SceneManagement;
 
 public class OpenMapQuestStep : QuestStep
 {
-    private int mapActionsDone;
+    private int _mapActionsDone;
 
     private void Start()
     {
-        GameEventsManager.instance.questEvents.ShowQuestUI(GetQuestId(), objective, progress);
+        GameEventsManager.instance.QuestEvents.ShowQuestUI(GetQuestId(), Objective, Progress);
     }
 
     private void OnEnable()
@@ -23,13 +23,13 @@ public class OpenMapQuestStep : QuestStep
     {
         if (scene.name.Contains("Overworld", System.StringComparison.CurrentCultureIgnoreCase))
         {
-            GameEventsManager.instance.questEvents.ShowQuestUI(GetQuestId(), objective, progress);
+            GameEventsManager.instance.QuestEvents.ShowQuestUI(GetQuestId(), Objective, Progress);
         }
     }
 
     private void Update()
     {
-        if (PlayerInputHandler.instance.OpenMapInput.WasPressedThisFrame())
+        if (PlayerInputHandler.Instance.OpenMapInput.WasPressedThisFrame())
         {
             ToggleMap();
         }
@@ -37,10 +37,10 @@ public class OpenMapQuestStep : QuestStep
 
     private void ToggleMap()
     {
-        mapActionsDone++;
+        _mapActionsDone++;
 
         // if map has been both opened and closed, progress in the quest
-        if (mapActionsDone >= 2)
+        if (_mapActionsDone >= 2)
         {
             FinishQuestStep();
         }
@@ -54,13 +54,13 @@ public class OpenMapQuestStep : QuestStep
 
     private void UpdateState()
     {
-        string state = mapActionsDone.ToString();
+        string state = _mapActionsDone.ToString();
         ChangeState(state);
     }
 
     protected override void SetQuestStepState(string state)
     {
-        mapActionsDone = System.Int32.Parse(state);
+        _mapActionsDone = System.Int32.Parse(state);
 
         UpdateState();
     }

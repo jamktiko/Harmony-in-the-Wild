@@ -1,40 +1,44 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class RockSpawner : MonoBehaviour
 {
+    [FormerlySerializedAs("rockPrefabs")]
     [Header("Needed References")]
-    [SerializeField] private List<GameObject> rockPrefabs;
+    [SerializeField] private List<GameObject> _rockPrefabs;
 
+    [FormerlySerializedAs("minX")]
     [Header("Spawn Area Config")]
-    [SerializeField] private float minX;
-    [SerializeField] private float maxX;
-    [SerializeField] private float minZ;
-    [SerializeField] private float maxZ;
-    [SerializeField] private float height;
+    [SerializeField] private float _minX;
+    [FormerlySerializedAs("maxX")] [SerializeField] private float _maxX;
+    [FormerlySerializedAs("minZ")] [SerializeField] private float _minZ;
+    [FormerlySerializedAs("maxZ")] [SerializeField] private float _maxZ;
+    [FormerlySerializedAs("height")] [SerializeField] private float _height;
 
+    [FormerlySerializedAs("spawnPauseTime")]
     [Header("Spawn Config")]
-    [SerializeField] private float spawnPauseTime;
-    [SerializeField] private bool canSpawnRocks;
+    [SerializeField] private float _spawnPauseTime;
+    [FormerlySerializedAs("canSpawnRocks")] [SerializeField] private bool _canSpawnRocks;
 
     private void OnEnable()
     {
-        PenguinRaceManager.instance.penguinDungeonEvents.onLapInterrupted += DisableRockSpawning;
-        PenguinRaceManager.instance.penguinDungeonEvents.onLapFinished += IncreaseRockSpawning;
+        PenguinRaceManager.instance.PenguinDungeonEvents.OnLapInterrupted += DisableRockSpawning;
+        PenguinRaceManager.instance.PenguinDungeonEvents.OnLapFinished += IncreaseRockSpawning;
     }
 
     private void OnDisable()
     {
-        PenguinRaceManager.instance.penguinDungeonEvents.onLapInterrupted -= DisableRockSpawning;
-        PenguinRaceManager.instance.penguinDungeonEvents.onLapFinished -= IncreaseRockSpawning;
+        PenguinRaceManager.instance.PenguinDungeonEvents.OnLapInterrupted -= DisableRockSpawning;
+        PenguinRaceManager.instance.PenguinDungeonEvents.OnLapFinished -= IncreaseRockSpawning;
     }
 
     private void SpawnRock()
     {
-        Vector3 spawnPosition = new Vector3(Random.Range(minX, maxX), height, Random.Range(minZ, maxZ));
+        Vector3 spawnPosition = new Vector3(Random.Range(_minX, _maxX), _height, Random.Range(_minZ, _maxZ));
 
-        GameObject newRock = Instantiate(rockPrefabs[Random.Range(0, rockPrefabs.Count)], transform);
+        GameObject newRock = Instantiate(_rockPrefabs[Random.Range(0, _rockPrefabs.Count)], transform);
         newRock.transform.localPosition = spawnPosition;
 
         StartCoroutine(SpawnPause());
@@ -42,16 +46,16 @@ public class RockSpawner : MonoBehaviour
 
     private IEnumerator SpawnPause()
     {
-        yield return new WaitForSeconds(spawnPauseTime);
+        yield return new WaitForSeconds(_spawnPauseTime);
 
-        if (canSpawnRocks)
+        if (_canSpawnRocks)
         {
             SpawnRock();
         }
     }
     public void IncreaseRockSpawning()
     {
-        spawnPauseTime = spawnPauseTime / 2;
+        _spawnPauseTime = _spawnPauseTime / 2;
     }
 
     // ----------------------------------------------------------
@@ -60,12 +64,12 @@ public class RockSpawner : MonoBehaviour
 
     public void EnableRockSpawning()
     {
-        canSpawnRocks = true;
+        _canSpawnRocks = true;
         SpawnRock();
     }
 
     public void DisableRockSpawning()
     {
-        canSpawnRocks = false;
+        _canSpawnRocks = false;
     }
 }

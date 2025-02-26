@@ -38,7 +38,7 @@ public class TeleGrabbing : MonoBehaviour, IAbility
     }
     private void Update()
     {
-        if (FoxMovement.instance != null)
+        if (FoxMovement.Instance != null)
         {
             _grabbedObjectPosition = GameObject.FindGameObjectWithTag("Grabbed").transform;
         }
@@ -56,7 +56,7 @@ public class TeleGrabbing : MonoBehaviour, IAbility
     {
         if (!IsObjectGrabbed)
         {
-            if (Physics.Raycast(FoxMovement.instance.cameraPosition.position, FoxMovement.instance.cameraPosition.forward, out RaycastHit hit, _viewDistance, FoxMovement.instance.moveableLayerMask) && !IsObjectGrabbed)
+            if (Physics.Raycast(FoxMovement.Instance.CameraPosition.position, FoxMovement.Instance.CameraPosition.forward, out RaycastHit hit, _viewDistance, FoxMovement.Instance.MoveableLayerMask) && !IsObjectGrabbed)
             {
                 GrabObject(hit);
             }
@@ -103,7 +103,7 @@ public class TeleGrabbing : MonoBehaviour, IAbility
         //    telegrabObject.gameObject.GetComponent<MeshRenderer>().material = telegrabObject.telegrabMaterial;
         //}
 
-        FoxMovement.instance.telegrabEffect.SendEvent("Sparks");
+        FoxMovement.Instance.TelegrabEffect.SendEvent("Sparks");
         _grabbedGameObject.transform.parent = null;
         _grabbedGameObject.transform.GetComponent<Rigidbody>().isKinematic = false;
         IsObjectGrabbed = false;
@@ -115,16 +115,16 @@ public class TeleGrabbing : MonoBehaviour, IAbility
 
         if (!IsTelegrabActivated)
         {
-            FoxMovement.instance.cameraMovement.freeLookCam.SetActive(false);
-            FoxMovement.instance.cameraMovement.telegrabCam.SetActive(true);
-            FoxMovement.instance.cameraMovement.currentStyle = CameraMovement.CameraStyle.Telegrab;
+            FoxMovement.Instance.CameraMovement.FreeLookCam.SetActive(false);
+            FoxMovement.Instance.CameraMovement.TelegrabCam.SetActive(true);
+            FoxMovement.Instance.CameraMovement.CurrentStyle = CameraMovement.CameraStyle.Telegrab;
             StartCoroutine(CrosshairEnable());
         }
         else
         {
-            FoxMovement.instance.cameraMovement.freeLookCam.SetActive(true);
-            FoxMovement.instance.cameraMovement.telegrabCam.SetActive(false);
-            FoxMovement.instance.cameraMovement.currentStyle = CameraMovement.CameraStyle.Basic;
+            FoxMovement.Instance.CameraMovement.FreeLookCam.SetActive(true);
+            FoxMovement.Instance.CameraMovement.TelegrabCam.SetActive(false);
+            FoxMovement.Instance.CameraMovement.CurrentStyle = CameraMovement.CameraStyle.Basic;
             StartCoroutine(CrosshairDisable());
         }
 
@@ -146,9 +146,9 @@ public class TeleGrabbing : MonoBehaviour, IAbility
         _telegrabGlow.gameObject.SetActive(true);
         _telegrabGlow.transform.SetParent(_grabbedGameObject.transform);
         _telegrabGlow.transform.localPosition = Vector3.zero;
-        FoxMovement.instance.telegrabEffect.SetInt("SpawnMultiplier", 1);
+        FoxMovement.Instance.TelegrabEffect.SetInt("SpawnMultiplier", 1);
         Vector3 boundsSize = _grabbedGameObject.GetComponent<MeshFilter>().sharedMesh.bounds.size;
-        FoxMovement.instance.telegrabEffect.SetVector3("TargetBounds", boundsSize);
+        FoxMovement.Instance.TelegrabEffect.SetVector3("TargetBounds", boundsSize);
         float noiseX = UnityEngine.Random.Range(0, 100f);
         float noiseY = UnityEngine.Random.Range(0, 100f);
         float targetIntensity = (boundsSize.x + boundsSize.y + boundsSize.z) / 10;
@@ -157,7 +157,7 @@ public class TeleGrabbing : MonoBehaviour, IAbility
         {
             if (!IsObjectGrabbed)
                 break;
-            FoxMovement.instance.telegrabEffect.SetVector3("TargetPos", _grabbedGameObject.transform.position);
+            FoxMovement.Instance.TelegrabEffect.SetVector3("TargetPos", _grabbedGameObject.transform.position);
             _telegrabGlow.intensity += Time.deltaTime;
             yield return null;
         }
@@ -165,17 +165,17 @@ public class TeleGrabbing : MonoBehaviour, IAbility
         {
             if (!IsObjectGrabbed)
                 break;
-            FoxMovement.instance.telegrabEffect.SetVector3("TargetPos", _grabbedGameObject.transform.position);
+            FoxMovement.Instance.TelegrabEffect.SetVector3("TargetPos", _grabbedGameObject.transform.position);
             noiseX += Time.deltaTime * .01f;
             _telegrabGlow.intensity = targetIntensity + targetIntensity * Mathf.PerlinNoise(noiseX, noiseY);
             yield return null;
         }
-        FoxMovement.instance.telegrabEffect.SetInt("SpawnMultiplier", 0);
+        FoxMovement.Instance.TelegrabEffect.SetInt("SpawnMultiplier", 0);
         while (_telegrabGlow.intensity > 0)
         {
             if (IsObjectGrabbed)
                 break;
-            FoxMovement.instance.telegrabEffect.SetVector3("TargetPos", _grabbedGameObject.transform.position);
+            FoxMovement.Instance.TelegrabEffect.SetVector3("TargetPos", _grabbedGameObject.transform.position);
             _telegrabGlow.intensity -= Time.deltaTime;
             yield return null;
         }

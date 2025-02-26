@@ -1,18 +1,19 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ToggleTrailerCamera : MonoBehaviour
 {
 #if DEBUG
-    [SerializeField] private GameObject trailerCamera;
-    [SerializeField] private List<GameObject> playerCameras;
-    [SerializeField] private FoxMovement foxmove;
+    [FormerlySerializedAs("trailerCamera")] [SerializeField] private GameObject _trailerCamera;
+    [FormerlySerializedAs("playerCameras")] [SerializeField] private List<GameObject> _playerCameras;
+    [FormerlySerializedAs("foxmove")] [SerializeField] private FoxMovement _foxmove;
 
-    private bool trailerCameraOn;
+    private bool _trailerCameraOn;
 
     private void Update()
     {
-        if (PlayerInputHandler.instance.DebugTrailerCameraToggle.WasPressedThisFrame())
+        if (PlayerInputHandler.Instance.DebugTrailerCameraToggle.WasPressedThisFrame())
         {
             ToggleCameras();
         }
@@ -20,28 +21,28 @@ public class ToggleTrailerCamera : MonoBehaviour
 
     private void ToggleCameras()
     {
-        trailerCameraOn = !trailerCameraOn;
+        _trailerCameraOn = !_trailerCameraOn;
 
-        if (trailerCameraOn)
+        if (_trailerCameraOn)
         {
-            foreach (GameObject camera in playerCameras)
+            foreach (GameObject camera in _playerCameras)
             {
                 camera.SetActive(false);
             }
 
-            foxmove.enabled = false;
-            trailerCamera.SetActive(true);
+            _foxmove.enabled = false;
+            _trailerCamera.SetActive(true);
         }
 
         else
         {
-            foreach (GameObject camera in playerCameras)
+            foreach (GameObject camera in _playerCameras)
             {
                 camera.SetActive(true);
             }
 
-            foxmove.enabled = true;
-            trailerCamera.SetActive(false);
+            _foxmove.enabled = true;
+            _trailerCamera.SetActive(false);
         }
     }
 #endif

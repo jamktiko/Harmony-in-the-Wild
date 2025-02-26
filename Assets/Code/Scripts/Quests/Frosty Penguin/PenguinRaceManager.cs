@@ -2,25 +2,28 @@ using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PenguinRaceManager : MonoBehaviour
 {
     public static PenguinRaceManager instance { get; private set; }
 
+    [FormerlySerializedAs("questSO")]
     [Header("Quest SO")]
-    [SerializeField] private QuestScriptableObject questSO;
+    [SerializeField] private QuestScriptableObject _questSo;
 
+    [FormerlySerializedAs("lapCounterText")]
     [Header("Needed References")]
-    [SerializeField] private TextMeshProUGUI lapCounterText;
-    [SerializeField] private GameObject alertView;
-    [SerializeField] private GameObject lap1_Obstacles;
-    [SerializeField] private GameObject lap2_Obstacles;
-    [SerializeField] private DungeonQuestDialogue dungeonQuestDialogue;
-    [SerializeField] private PenguinTimer timer;
+    [SerializeField] private TextMeshProUGUI _lapCounterText;
+    [FormerlySerializedAs("alertView")] [SerializeField] private GameObject _alertView;
+    [FormerlySerializedAs("lap1_Obstacles")] [SerializeField] private GameObject _lap1Obstacles;
+    [FormerlySerializedAs("lap2_Obstacles")] [SerializeField] private GameObject _lap2Obstacles;
+    [FormerlySerializedAs("dungeonQuestDialogue")] [SerializeField] private DungeonQuestDialogue _dungeonQuestDialogue;
+    [FormerlySerializedAs("timer")] [SerializeField] private PenguinTimer _timer;
 
-    private int currentLap = 1;
+    private int _currentLap = 1;
 
-    public PenguinDungeonEvents penguinDungeonEvents;
+    public PenguinDungeonEvents PenguinDungeonEvents;
 
     private void Awake()
     {
@@ -32,9 +35,9 @@ public class PenguinRaceManager : MonoBehaviour
 
         instance = this;
 
-        penguinDungeonEvents = new PenguinDungeonEvents();
+        PenguinDungeonEvents = new PenguinDungeonEvents();
 
-        penguinDungeonEvents.onTimeRanOut += ShowCursor;
+        PenguinDungeonEvents.OnTimeRanOut += ShowCursor;
     }
 
     //private void OnEnable()
@@ -45,7 +48,7 @@ public class PenguinRaceManager : MonoBehaviour
     private void OnDisable()
     {
         //GameEventsManager.instance.dialogueEvents.OnEndDialogue -= TransitionToOverworld;
-        penguinDungeonEvents.onTimeRanOut -= ShowCursor;
+        PenguinDungeonEvents.OnTimeRanOut -= ShowCursor;
     }
 
     // ---------------------
@@ -54,17 +57,17 @@ public class PenguinRaceManager : MonoBehaviour
 
     public void LapInterrupted()
     {
-        penguinDungeonEvents.LapInterrupted();
+        PenguinDungeonEvents.LapInterrupted();
     }
 
     public void LapFinished()
     {
-        currentLap++;
+        _currentLap++;
 
-        if (currentLap <= 2)
+        if (_currentLap <= 2)
         {
-            penguinDungeonEvents.LapFinished();
-            lapCounterText.text = "Lap " + currentLap + "/2";
+            PenguinDungeonEvents.LapFinished();
+            _lapCounterText.text = "Lap " + _currentLap + "/2";
             AddLapObstacles();
         }
 
@@ -81,14 +84,14 @@ public class PenguinRaceManager : MonoBehaviour
 
     public void AddLapObstacles()
     {
-        lap2_Obstacles.SetActive(true);
+        _lap2Obstacles.SetActive(true);
     }
 
     public void WrongWay()
     {
-        if (!alertView.activeInHierarchy)
+        if (!_alertView.activeInHierarchy)
         {
-            alertView.SetActive(true);
+            _alertView.SetActive(true);
             StartCoroutine(HideAlertView());
         }
     }
@@ -97,18 +100,18 @@ public class PenguinRaceManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1.5f);
 
-        alertView.SetActive(false);
+        _alertView.SetActive(false);
     }
 
     private void CheckQuestCompletionRequirements()
     {
-        float time = timer.GetFinalTimeAsFloat();
+        float time = _timer.GetFinalTimeAsFloat();
 
         if (time < 180f)
         {
-            penguinDungeonEvents.RaceFinished();
-            GameEventsManager.instance.questEvents.AdvanceDungeonQuest(questSO.id);
-            AudioManager.Instance.PlaySound(AudioName.Action_PenguinRaceCompleted, transform);
+            PenguinDungeonEvents.RaceFinished();
+            GameEventsManager.instance.QuestEvents.AdvanceDungeonQuest(_questSo.id);
+            AudioManager.Instance.PlaySound(AudioName.ActionPenguinRaceCompleted, transform);
             TriggerFinishDungeonDialogue();
         }
     }
@@ -132,9 +135,9 @@ public class PenguinRaceManager : MonoBehaviour
 
     private void TriggerFinishDungeonDialogue()
     {
-        if (dungeonQuestDialogue != null)
+        if (_dungeonQuestDialogue != null)
         {
-            dungeonQuestDialogue.PlayFinishDungeonDialogue();
+            _dungeonQuestDialogue.PlayFinishDungeonDialogue();
         }
 
         else
@@ -152,43 +155,43 @@ public class PenguinRaceManager : MonoBehaviour
 
 public class PenguinDungeonEvents
 {
-    public event Action onLapInterrupted;
+    public event Action OnLapInterrupted;
 
     public void LapInterrupted()
     {
-        if (onLapInterrupted != null)
+        if (OnLapInterrupted != null)
         {
-            onLapInterrupted();
+            OnLapInterrupted();
         }
     }
 
-    public event Action onLapFinished;
+    public event Action OnLapFinished;
 
     public void LapFinished()
     {
-        if (onLapFinished != null)
+        if (OnLapFinished != null)
         {
-            onLapFinished();
+            OnLapFinished();
         }
     }
 
-    public event Action onRaceFinished;
+    public event Action OnRaceFinished;
 
     public void RaceFinished()
     {
-        if (onRaceFinished != null)
+        if (OnRaceFinished != null)
         {
-            onRaceFinished();
+            OnRaceFinished();
         }
     }
 
-    public event Action onTimeRanOut;
+    public event Action OnTimeRanOut;
 
     public void TimeRanOut()
     {
-        if (onTimeRanOut != null)
+        if (OnTimeRanOut != null)
         {
-            onTimeRanOut();
+            OnTimeRanOut();
         }
     }
 }

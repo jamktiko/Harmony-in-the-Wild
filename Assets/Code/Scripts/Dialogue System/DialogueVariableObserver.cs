@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class DialogueVariableObserver
 {
-    public Dictionary<DialogueVariables, bool> variables { get; private set; }
+    public Dictionary<DialogueVariables, bool> _variables { get; private set; }
 
-    private DialogueVariables latestChangedVariable;
+    private DialogueVariables _latestChangedVariable;
 
     public DialogueVariableObserver()
     {
-        variables = DialogueVariableInitializer.initialVariables;
+        _variables = DialogueVariableInitializer.InitialVariables;
 
         // fetch loaded data
-        string loadedData = SaveManager.instance.GetLoadedDialogueVariables();
+        string loadedData = SaveManager.Instance.GetLoadedDialogueVariables();
 
         if (loadedData != "")
         {
@@ -39,18 +39,18 @@ public class DialogueVariableObserver
         string[] loadedValues = loadedData.Split(",");
 
         int index = 0;
-        foreach (var key in variables.Keys.ToArray())
+        foreach (var key in _variables.Keys.ToArray())
         {
             if (index < loadedValues.Length)
             {
                 bool newValue = System.Convert.ToBoolean(loadedValues[index]);
-                variables[key] = newValue;
+                _variables[key] = newValue;
                 index++;
             }
         }
 
         Debug.Log("Dialogue variables loaded!");
-        foreach (var kvp in variables)
+        foreach (var kvp in _variables)
         {
             Debug.Log($"{kvp.Key}: {kvp.Value}");
         }
@@ -58,7 +58,7 @@ public class DialogueVariableObserver
 
     public void CallVariableChangeEvent()
     {
-        GameEventsManager.instance.dialogueEvents.ChangeDialogueVariable(latestChangedVariable);
+        GameEventsManager.instance.DialogueEvents.ChangeDialogueVariable(_latestChangedVariable);
     }
 
     public void ChangeVariable(string variable)
@@ -67,45 +67,45 @@ public class DialogueVariableObserver
         DialogueVariables correctEnum = GetVariableEnum(variable);
 
         // set the value to be true, since the corresponding dialogue has been pass
-        variables[correctEnum] = true;
+        _variables[correctEnum] = true;
 
-        latestChangedVariable = correctEnum;
+        _latestChangedVariable = correctEnum;
 
-        SaveManager.instance.SaveGame();
+        SaveManager.Instance.SaveGame();
     }
 
     private DialogueVariables GetVariableEnum(string variableName)
     {
-        DialogueVariables name = DialogueVariables.Tutorial_01;
+        DialogueVariables name = DialogueVariables.Tutorial01;
 
         switch (variableName)
         {
             case "Tutorial_01":
-                name = DialogueVariables.Tutorial_01;
+                name = DialogueVariables.Tutorial01;
                 break;
 
             case "Tutorial_03":
-                name = DialogueVariables.Tutorial_03;
+                name = DialogueVariables.Tutorial03;
                 break;
 
             case "Tutorial_05":
-                name = DialogueVariables.Tutorial_05;
+                name = DialogueVariables.Tutorial05;
                 break;
 
             case "Tutorial_07":
-                name = DialogueVariables.Tutorial_07;
+                name = DialogueVariables.Tutorial07;
                 break;
 
             case "Tutorial_08":
-                name = DialogueVariables.Tutorial_08;
+                name = DialogueVariables.Tutorial08;
                 break;
 
             case "WhaleDiet_02":
-                name = DialogueVariables.WhaleDiet_02;
+                name = DialogueVariables.WhaleDiet02;
                 break;
 
             case "BoneToPick_03":
-                name = DialogueVariables.BoneToPick_03;
+                name = DialogueVariables.BoneToPick03;
                 break;
         }
 
@@ -114,22 +114,22 @@ public class DialogueVariableObserver
 
     public string ConvertVariablesToString()
     {
-        string variablesToJSON = "";
+        string variablesToJson = "";
 
-        foreach (KeyValuePair<DialogueVariables, bool> value in variables)
+        foreach (KeyValuePair<DialogueVariables, bool> value in _variables)
         {
-            if (variablesToJSON == "")
+            if (variablesToJson == "")
             {
-                variablesToJSON += value.Value;
+                variablesToJson += value.Value;
             }
 
             else
             {
-                variablesToJSON += "," + value.Value;
+                variablesToJson += "," + value.Value;
             }
         }
 
-        return variablesToJSON;
+        return variablesToJson;
     }
 
     /*public Dictionary<string, Ink.Runtime.Object> variables { get; private set; }

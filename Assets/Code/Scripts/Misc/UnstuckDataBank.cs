@@ -1,20 +1,21 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class UnstuckDataBank : MonoBehaviour
 {
-    public static UnstuckDataBank instance;
+    public static UnstuckDataBank Instance;
 
-    [SerializeField] private Transform unstuckRescuePointParent;
-    [SerializeField] private Transform player;
+    [FormerlySerializedAs("unstuckRescuePointParent")] [SerializeField] private Transform _unstuckRescuePointParent;
+    [FormerlySerializedAs("player")] [SerializeField] private Transform _player;
 
-    private List<Transform> rescuePoints = new List<Transform>();
+    private List<Transform> _rescuePoints = new List<Transform>();
 
     private void Awake()
     {
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
         }
 
         else
@@ -27,19 +28,19 @@ public class UnstuckDataBank : MonoBehaviour
 
     private void CreateRescuePointList()
     {
-        foreach (Transform child in unstuckRescuePointParent)
+        foreach (Transform child in _unstuckRescuePointParent)
         {
-            rescuePoints.Add(child);
+            _rescuePoints.Add(child);
         }
     }
 
     public List<Transform> GetRescuePoints()
     {
-        return rescuePoints;
+        return _rescuePoints;
     }
 
     public Transform GetPlayer()
     {
-        return player;
+        return _player;
     }
 }

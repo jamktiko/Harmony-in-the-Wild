@@ -1,32 +1,33 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 [System.Serializable]
 public struct QuestInfo
 {
-    public Quest quest;
-    public Transform indicator;
+    public Quest Quest;
+    [FormerlySerializedAs("indicator")] public Transform Indicator;
 }
 public class QuestWaypoint : MonoBehaviour
 {
-    public Image img;
-    public GameObject target;
-    public Camera mainCamera;
-    public QuestUI questUI;
-    public TMP_Text text;
-    [SerializeField] GameObject questMarker;
+    [FormerlySerializedAs("img")] public Image Img;
+    [FormerlySerializedAs("target")] public GameObject Target;
+    [FormerlySerializedAs("mainCamera")] public Camera MainCamera;
+    [FormerlySerializedAs("questUI")] public QuestUI QuestUI;
+    [FormerlySerializedAs("text")] public TMP_Text Text;
+    [FormerlySerializedAs("questMarker")] [SerializeField] GameObject _questMarker;
 
-    [SerializeField] QuestScriptableObject questSO;
-    [SerializeField] List<QuestInfo> QuestInfos;
+    [FormerlySerializedAs("questSO")] [SerializeField] QuestScriptableObject _questSo;
+    [FormerlySerializedAs("QuestInfos")] [SerializeField] List<QuestInfo> _questInfos;
 
     private void OnEnable()
     {
-        var activeQuest = QuestMenuManager.trackedQuest;
+        var activeQuest = QuestMenuManager.TrackedQuest;
         if (activeQuest == null)
         {
-            questMarker.SetActive(false);
+            _questMarker.SetActive(false);
             return;
         }
         GetNewQuestWaypointPosition();
@@ -37,15 +38,15 @@ public class QuestWaypoint : MonoBehaviour
     //}
     private void Update()
     {
-        float minX = img.GetPixelAdjustedRect().width / 2;
+        float minX = Img.GetPixelAdjustedRect().width / 2;
         float maxX = Screen.width - minX;
 
-        float minY = img.GetPixelAdjustedRect().height / 2;
+        float minY = Img.GetPixelAdjustedRect().height / 2;
         float maxY = Screen.height - minY;
 
-        Vector2 pos = mainCamera.WorldToScreenPoint(target.transform.position);
+        Vector2 pos = MainCamera.WorldToScreenPoint(Target.transform.position);
 
-        if (Vector3.Dot((target.transform.position - transform.position), transform.forward) < 0)
+        if (Vector3.Dot((Target.transform.position - transform.position), transform.forward) < 0)
         {
             //target is behind player
             if (pos.x < Screen.width / 2)
@@ -61,29 +62,29 @@ public class QuestWaypoint : MonoBehaviour
         pos.x = Mathf.Clamp(pos.x, minX, maxX);
         pos.y = Mathf.Clamp(pos.y, minY, maxY);
 
-        img.transform.position = pos;
+        Img.transform.position = pos;
 
-        text.text = Mathf.Round(Vector3.Distance(target.transform.position, FoxMovement.instance.foxMiddle.position)).ToString() + "m";
+        Text.text = Mathf.Round(Vector3.Distance(Target.transform.position, FoxMovement.Instance.FoxMiddle.position)).ToString() + "m";
     }
 
     public void GetNewQuestWaypointPosition()
     {
-        questMarker.SetActive(true);
-        var activeQuest = QuestMenuManager.trackedQuest;
-        if (activeQuest.state == QuestState.IN_PROGRESS)
+        _questMarker.SetActive(true);
+        var activeQuest = QuestMenuManager.TrackedQuest;
+        if (activeQuest.State == QuestState.InProgress)
         {
-            target = activeQuest.GetCurrentQuestStepPrefab();
+            Target = activeQuest.GetCurrentQuestStepPrefab();
 
-            var questStep = target.GetComponent<QuestStep>();
-            if (questStep.positionInScene != Vector3.zero && questStep.hasWaypoint)
+            var questStep = Target.GetComponent<QuestStep>();
+            if (questStep.PositionInScene != Vector3.zero && questStep.HasWaypoint)
             {
-                target.transform.position = questStep.positionInScene;
+                Target.transform.position = questStep.PositionInScene;
                 return;
             }
-            questMarker.SetActive(false);
+            _questMarker.SetActive(false);
             return;
         }
-        target = Instantiate(new GameObject("WaypointTarget"), activeQuest.defaultPosition, Quaternion.identity);
+        Target = Instantiate(new GameObject("WaypointTarget"), activeQuest.DefaultPosition, Quaternion.identity);
 
     }
 }

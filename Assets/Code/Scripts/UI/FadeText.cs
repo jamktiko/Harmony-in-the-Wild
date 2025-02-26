@@ -1,16 +1,17 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class FadeText : MonoBehaviour
 {
-    [SerializeField] bool isDisclaimer;
-    [SerializeField] bool isText;
+    [FormerlySerializedAs("isDisclaimer")] [SerializeField] bool _isDisclaimer;
+    [FormerlySerializedAs("isText")] [SerializeField] bool _isText;
     void Start()
     {
-        if (isDisclaimer)
+        if (_isDisclaimer)
             StartCoroutine(FadeTextToFullAlpha(1f, GetComponent<TMP_Text>()));
-        else if (isText)
+        else if (_isText)
             StartCoroutine(DelayFadeTextToFullAlpha(1f, GetComponent<TMP_Text>()));
         else
             StartCoroutine(DelayMoreFadeTextToFullAlpha(1f, GetComponent<TMP_Text>()));

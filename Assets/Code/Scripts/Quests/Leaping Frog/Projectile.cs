@@ -1,12 +1,14 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Projectile : MonoBehaviour
 {
+    [FormerlySerializedAs("projectileSpeed")]
     [Header("Config")]
-    [SerializeField] private float projectileSpeed;
+    [SerializeField] private float _projectileSpeed;
 
-    private Transform bossTransform;
-    private Vector3 targetPosition;
+    private Transform _bossTransform;
+    private Vector3 _targetPosition;
 
     private void Start()
     {
@@ -15,15 +17,15 @@ public class Projectile : MonoBehaviour
 
     private void Update()
     {
-        if (targetPosition != null)
+        if (_targetPosition != null)
         {
             if (transform != null)
             {
 
-                transform.position = Vector3.MoveTowards(transform.position, targetPosition, projectileSpeed * Time.deltaTime);
-                transform.rotation = Quaternion.Euler(0.0f, 0.0f, bossTransform.rotation.z * -1.0f);
+                transform.position = Vector3.MoveTowards(transform.position, _targetPosition, _projectileSpeed * Time.deltaTime);
+                transform.rotation = Quaternion.Euler(0.0f, 0.0f, _bossTransform.rotation.z * -1.0f);
 
-                if (transform.position == targetPosition)
+                if (transform.position == _targetPosition)
                 {
                     Destroy(gameObject);
                 }
@@ -34,8 +36,8 @@ public class Projectile : MonoBehaviour
 
     public void InitializeProjectile(Vector3 playerLocation, Transform parentTransform)
     {
-        targetPosition = playerLocation;
-        bossTransform = parentTransform;
+        _targetPosition = playerLocation;
+        _bossTransform = parentTransform;
     }
 
     private void OnTriggerEnter(Collider other)

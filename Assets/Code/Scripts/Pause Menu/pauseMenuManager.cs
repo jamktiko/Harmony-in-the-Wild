@@ -3,28 +3,33 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class PauseMenuManager : MonoBehaviour
 {
-    [SerializeField] public GameObject pauseMenuPanel;
-    [SerializeField] GameObject OptionsMenuPanel;
-    [SerializeField] GameObject options;
-    [SerializeField] GameObject MovementControlsMenuPanel;
-    [SerializeField] GameObject GamePlayControlsMenuPanel;
-    [SerializeField] GameObject SettingsMenuPanel;
-    [SerializeField] GameObject restartQuestPanel;
-    [SerializeField] GameObject exitQuestPanel;
-    [SerializeField] CinemachineFreeLook cinemachineFreeLook;
-    [SerializeField] Toggle InvertYAxis;
-    [SerializeField] Toggle fullscreen;
-    [SerializeField] Slider Mastervolume, MusicVolume, sensitivity;
-    [SerializeField] AudioMixer mixer;
-    [SerializeField] private float SliderValueMaster, SliderValueMusic, SliderValue2;
+    [FormerlySerializedAs("pauseMenuPanel")] [SerializeField] public GameObject PauseMenuPanel;
+    [FormerlySerializedAs("OptionsMenuPanel")] [SerializeField] GameObject _optionsMenuPanel;
+    [FormerlySerializedAs("options")] [SerializeField] GameObject _options;
+    [FormerlySerializedAs("MovementControlsMenuPanel")] [SerializeField] GameObject _movementControlsMenuPanel;
+    [FormerlySerializedAs("GamePlayControlsMenuPanel")] [SerializeField] GameObject _gamePlayControlsMenuPanel;
+    [FormerlySerializedAs("SettingsMenuPanel")] [SerializeField] GameObject _settingsMenuPanel;
+    [FormerlySerializedAs("restartQuestPanel")] [SerializeField] GameObject _restartQuestPanel;
+    [FormerlySerializedAs("exitQuestPanel")] [SerializeField] GameObject _exitQuestPanel;
+    [FormerlySerializedAs("cinemachineFreeLook")] [SerializeField] CinemachineFreeLook _cinemachineFreeLook;
+    [FormerlySerializedAs("InvertYAxis")] [SerializeField] Toggle _invertYAxis;
+    [FormerlySerializedAs("fullscreen")] [SerializeField] Toggle _fullscreen;
+    [FormerlySerializedAs("Mastervolume")] [SerializeField] Slider _mastervolume;
+    [FormerlySerializedAs("MusicVolume")] [SerializeField] Slider _musicVolume;
+    [FormerlySerializedAs("sensitivity")] [SerializeField] Slider _sensitivity;
+    [FormerlySerializedAs("mixer")] [SerializeField] AudioMixer _mixer;
+    [FormerlySerializedAs("SliderValueMaster")] [SerializeField] private float _sliderValueMaster;
+    [FormerlySerializedAs("SliderValueMusic")] [SerializeField] private float _sliderValueMusic;
+    [FormerlySerializedAs("SliderValue2")] [SerializeField] private float _sliderValue2;
     [SerializeField] public TMP_Text BerryCounter, PineconeCounter;
 
 
-    private bool isInvertErrorLogged = false; // Makes sure the warning that runs in the null check of the InvertYAxis runs once
+    private bool _isInvertErrorLogged = false; // Makes sure the warning that runs in the null check of the InvertYAxis runs once
 
 
     private void OnEnable()
@@ -48,15 +53,15 @@ public class PauseMenuManager : MonoBehaviour
 
     private void Update()
     {
-        if (PlayerInputHandler.instance.PauseInput.WasPressedThisFrame() && FoxMovement.instance != null)
+        if (PlayerInputHandler.Instance.PauseInput.WasPressedThisFrame() && FoxMovement.Instance != null)
         {
 
             //disable
-            if (pauseMenuPanel.activeInHierarchy
-                || OptionsMenuPanel.activeInHierarchy
-                || MovementControlsMenuPanel.activeInHierarchy
-                || GamePlayControlsMenuPanel.activeInHierarchy
-                || SettingsMenuPanel.activeInHierarchy)
+            if (PauseMenuPanel.activeInHierarchy
+                || _optionsMenuPanel.activeInHierarchy
+                || _movementControlsMenuPanel.activeInHierarchy
+                || _gamePlayControlsMenuPanel.activeInHierarchy
+                || _settingsMenuPanel.activeInHierarchy)
             {
                 Debug.Log("Disable pause menu.");
                 DisablePauseMenu();
@@ -84,40 +89,40 @@ public class PauseMenuManager : MonoBehaviour
 
     private void EnablePauseMenu()
     {
-        GameEventsManager.instance.playerEvents.ToggleInputActions(false);
-        PlayerInputHandler.instance.PauseInput.Enable();
-        SaveManager.instance.SaveGame();
-        pauseMenuPanel.SetActive(true);
-        FoxMovement.instance.gameObject.GetComponentInChildren<CinemachineBrain>().m_UpdateMethod = CinemachineBrain.UpdateMethod.FixedUpdate;
+        GameEventsManager.instance.PlayerEvents.ToggleInputActions(false);
+        PlayerInputHandler.Instance.PauseInput.Enable();
+        SaveManager.Instance.SaveGame();
+        PauseMenuPanel.SetActive(true);
+        FoxMovement.Instance.gameObject.GetComponentInChildren<CinemachineBrain>().m_UpdateMethod = CinemachineBrain.UpdateMethod.FixedUpdate;
         Time.timeScale = 0f;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        SliderValueMaster = PlayerPrefs.GetFloat("MasterVolume");
-        SliderValueMusic = PlayerPrefs.GetFloat("MusicVolume");
-        BerryCounter.text = PlayerManager.instance.Berries + " / " + PlayerManager.instance.BerryData.Count;
-        PineconeCounter.text = PlayerManager.instance.PineCones + " / " + PlayerManager.instance.PineConeData.Count;
+        _sliderValueMaster = PlayerPrefs.GetFloat("MasterVolume");
+        _sliderValueMusic = PlayerPrefs.GetFloat("MusicVolume");
+        BerryCounter.text = PlayerManager.Instance.Berries + " / " + PlayerManager.Instance.BerryData.Count;
+        PineconeCounter.text = PlayerManager.Instance.PineCones + " / " + PlayerManager.Instance.PineConeData.Count;
     }
 
     private void DisablePauseMenu()
     {
-        GameEventsManager.instance.playerEvents.ToggleInputActions(true);
+        GameEventsManager.instance.PlayerEvents.ToggleInputActions(true);
 
         Time.timeScale = 1f;
-        FoxMovement.instance.gameObject.GetComponentInChildren<CinemachineBrain>().m_UpdateMethod = CinemachineBrain.UpdateMethod.SmartUpdate;
+        FoxMovement.Instance.gameObject.GetComponentInChildren<CinemachineBrain>().m_UpdateMethod = CinemachineBrain.UpdateMethod.SmartUpdate;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        pauseMenuPanel.SetActive(false);
-        OptionsMenuPanel.SetActive(false);
-        MovementControlsMenuPanel.SetActive(false);
-        GamePlayControlsMenuPanel.SetActive(false);
-        SettingsMenuPanel.SetActive(false);
+        PauseMenuPanel.SetActive(false);
+        _optionsMenuPanel.SetActive(false);
+        _movementControlsMenuPanel.SetActive(false);
+        _gamePlayControlsMenuPanel.SetActive(false);
+        _settingsMenuPanel.SetActive(false);
     }
 
     public void ChangeYInversion(bool isOn)
     {
-        if (cinemachineFreeLook != null)
+        if (_cinemachineFreeLook != null)
         {
-            cinemachineFreeLook.m_YAxis.m_InvertInput = InvertYAxis.isOn;
+            _cinemachineFreeLook.m_YAxis.m_InvertInput = _invertYAxis.isOn;
         }
 
         if (isOn)
@@ -135,75 +140,75 @@ public class PauseMenuManager : MonoBehaviour
     }
     public void Resume()
     {
-        GameEventsManager.instance.playerEvents.ToggleInputActions(true);
+        GameEventsManager.instance.PlayerEvents.ToggleInputActions(true);
 
         Time.timeScale = 1f;
-        FoxMovement.instance.gameObject.GetComponentInChildren<CinemachineBrain>().m_UpdateMethod = CinemachineBrain.UpdateMethod.SmartUpdate;
+        FoxMovement.Instance.gameObject.GetComponentInChildren<CinemachineBrain>().m_UpdateMethod = CinemachineBrain.UpdateMethod.SmartUpdate;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        pauseMenuPanel.SetActive(false);
+        PauseMenuPanel.SetActive(false);
 
     }
     public void Options()
     {
-        OptionsMenuPanel.SetActive(true);
-        pauseMenuPanel.SetActive(false);
+        _optionsMenuPanel.SetActive(true);
+        PauseMenuPanel.SetActive(false);
     }
-    public void returnToMenu()
+    public void ReturnToMenu()
     {
         Time.timeScale = 1f;
 
-        GameEventsManager.instance.uiEvents.ShowLoadingScreen(SceneManagerHelper.Scene.MainMenu);
+        GameEventsManager.instance.UIEvents.ShowLoadingScreen(SceneManagerHelper.Scene.MainMenu);
     }
     public void GameplayMenu()
     {
-        GamePlayControlsMenuPanel.SetActive(true);
-        pauseMenuPanel.SetActive(false);
-        OptionsMenuPanel.SetActive(false);
+        _gamePlayControlsMenuPanel.SetActive(true);
+        PauseMenuPanel.SetActive(false);
+        _optionsMenuPanel.SetActive(false);
     }
     public void MovementMenu()
     {
-        MovementControlsMenuPanel.SetActive(true);
-        pauseMenuPanel.SetActive(false);
-        OptionsMenuPanel.SetActive(false);
+        _movementControlsMenuPanel.SetActive(true);
+        PauseMenuPanel.SetActive(false);
+        _optionsMenuPanel.SetActive(false);
     }
     public void SettingsMenu()
     {
-        SettingsMenuPanel.SetActive(true);
-        Mastervolume.value = SliderValueMaster;
-        MusicVolume.value = SliderValueMusic;
-        pauseMenuPanel.SetActive(false);
-        OptionsMenuPanel.SetActive(false);
+        _settingsMenuPanel.SetActive(true);
+        _mastervolume.value = _sliderValueMaster;
+        _musicVolume.value = _sliderValueMusic;
+        PauseMenuPanel.SetActive(false);
+        _optionsMenuPanel.SetActive(false);
     }
     public void BackButton()
     {
-        pauseMenuPanel.SetActive(true);
-        OptionsMenuPanel.SetActive(false);
-        SettingsMenuPanel.SetActive(false);
-        MovementControlsMenuPanel.SetActive(false);
-        GamePlayControlsMenuPanel.SetActive(false);
+        PauseMenuPanel.SetActive(true);
+        _optionsMenuPanel.SetActive(false);
+        _settingsMenuPanel.SetActive(false);
+        _movementControlsMenuPanel.SetActive(false);
+        _gamePlayControlsMenuPanel.SetActive(false);
     }
     public void ChangeSliderMasterVolume(float value)
     {
-        SliderValueMaster = value;
-        PlayerPrefs.SetFloat("MasterVolume", SliderValueMaster);
-        mixer.SetFloat("MasterVolumeMixer", SliderValueMaster);
+        _sliderValueMaster = value;
+        PlayerPrefs.SetFloat("MasterVolume", _sliderValueMaster);
+        _mixer.SetFloat("MasterVolumeMixer", _sliderValueMaster);
         //Debug.Log("value changed");
     }
     public void ChangeSliderMusicVolume(float value)
     {
-        SliderValueMusic = value;
-        PlayerPrefs.SetFloat("MusicVolume", SliderValueMusic);
-        mixer.SetFloat("MusicVolumeMixer", SliderValueMusic);
+        _sliderValueMusic = value;
+        PlayerPrefs.SetFloat("MusicVolume", _sliderValueMusic);
+        _mixer.SetFloat("MusicVolumeMixer", _sliderValueMusic);
         //Debug.Log("value changed");
     }
     public void ChangeSensitivity(float value)
     {
-        SliderValue2 = value;
-        PlayerPrefs.SetFloat("sens", SliderValue2);
-        if (cinemachineFreeLook != null)
+        _sliderValue2 = value;
+        PlayerPrefs.SetFloat("sens", _sliderValue2);
+        if (_cinemachineFreeLook != null)
         {
-            cinemachineFreeLook.m_XAxis.m_MaxSpeed = PlayerPrefs.GetFloat("sens");
+            _cinemachineFreeLook.m_XAxis.m_MaxSpeed = PlayerPrefs.GetFloat("sens");
         }
         //Debug.Log("value changed");
     }
@@ -215,7 +220,7 @@ public class PauseMenuManager : MonoBehaviour
         {
             //Debug.Log("Quest has been exited. Loading Overworld.");
 
-            GameEventsManager.instance.uiEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Overworld);
+            GameEventsManager.instance.UIEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Overworld);
 
             Resume();
         }
@@ -228,7 +233,7 @@ public class PauseMenuManager : MonoBehaviour
         {
             //Debug.Log("Quest has been restarted. Reloading scene.");
 
-            GameEventsManager.instance.uiEvents.ShowLoadingScreen(SceneManagerHelper.GetSceneEnum(currentSceneName));
+            GameEventsManager.instance.UIEvents.ShowLoadingScreen(SceneManagerHelper.GetSceneEnum(currentSceneName));
 
             Resume();
         }
@@ -239,39 +244,39 @@ public class PauseMenuManager : MonoBehaviour
         PopulateFields();
         try
         {
-            cinemachineFreeLook = FoxMovement.instance.gameObject.GetComponentInChildren<CinemachineFreeLook>();
+            _cinemachineFreeLook = FoxMovement.Instance.gameObject.GetComponentInChildren<CinemachineFreeLook>();
         }
         catch
         {
-            cinemachineFreeLook = null;
+            _cinemachineFreeLook = null;
         }
         //Debug.Log("Scene loaded: " + scene.name); 
-        if ((scene.name == "Overworld" || scene.name == "MainMenu" || scene.name == "Tutorial") && restartQuestPanel != null && exitQuestPanel != null)
+        if ((scene.name == "Overworld" || scene.name == "MainMenu" || scene.name == "Tutorial") && _restartQuestPanel != null && _exitQuestPanel != null)
         {
             //Debug.Log("Scene loaded is Overworld or the main menu. Disabling quest buttons in pause menu.");
-            restartQuestPanel.SetActive(false);
-            exitQuestPanel.SetActive(false);
+            _restartQuestPanel.SetActive(false);
+            _exitQuestPanel.SetActive(false);
         }
-        else if (restartQuestPanel != null && exitQuestPanel != null)
+        else if (_restartQuestPanel != null && _exitQuestPanel != null)
         {
             //Debug.Log("Scene loaded is not overworld. Enabling quest buttons in pause menu.");
-            restartQuestPanel.SetActive(true);
-            exitQuestPanel.SetActive(true);
+            _restartQuestPanel.SetActive(true);
+            _exitQuestPanel.SetActive(true);
         }
-        if (FoxMovement.instance != null)
+        if (FoxMovement.Instance != null)
         {
 
             if (PlayerPrefs.GetFloat("sens") == 0)
             {
                 PlayerPrefs.SetFloat("sens", 200);
-                SliderValue2 = PlayerPrefs.GetFloat("sens");
-                sensitivity.value = SliderValue2;
+                _sliderValue2 = PlayerPrefs.GetFloat("sens");
+                _sensitivity.value = _sliderValue2;
             }
             else
             {
-                SliderValue2 = PlayerPrefs.GetFloat("sens");
-                sensitivity.value = PlayerPrefs.GetFloat("sens");
-                cinemachineFreeLook.m_XAxis.m_MaxSpeed = PlayerPrefs.GetFloat("sens", SliderValue2);
+                _sliderValue2 = PlayerPrefs.GetFloat("sens");
+                _sensitivity.value = PlayerPrefs.GetFloat("sens");
+                _cinemachineFreeLook.m_XAxis.m_MaxSpeed = PlayerPrefs.GetFloat("sens", _sliderValue2);
             }
         }
 
@@ -279,61 +284,61 @@ public class PauseMenuManager : MonoBehaviour
 
     private void DisableQuestButtonsInit()
     {
-        if (restartQuestPanel != null && exitQuestPanel != null)
+        if (_restartQuestPanel != null && _exitQuestPanel != null)
         {
             //Debug.Log("Quest buttons have been disabled.");
-            restartQuestPanel.SetActive(false);
-            exitQuestPanel.SetActive(false);
+            _restartQuestPanel.SetActive(false);
+            _exitQuestPanel.SetActive(false);
         }
     }
 
     private void PopulateFields()
     {
-        pauseMenuPanel = GameObject.Find("PauseMenuEmpty").transform.Find("PauseMenu").gameObject;
-        options = GameObject.Find("PauseMenuEmpty").transform.Find("Options").gameObject;
-        OptionsMenuPanel = options.transform.Find("OptionsMenu").gameObject;
-        MovementControlsMenuPanel = options.transform.Find("MovementControlsMenu").gameObject;
-        GamePlayControlsMenuPanel = options.transform.Find("GameplayControlsMenu").gameObject;
-        SettingsMenuPanel = options.transform.Find("SettingsMenu").gameObject;
-        restartQuestPanel = pauseMenuPanel.transform.Find("RestartQuestButton").gameObject;
-        exitQuestPanel = pauseMenuPanel.transform.Find("ExitQuestButton").gameObject;
-        InvertYAxis = SettingsMenuPanel.transform.Find("InvertCameraTickBox").GetComponent<Toggle>();
-        fullscreen = SettingsMenuPanel.transform.Find("FullScreenTickBox").GetComponent<Toggle>();
-        Mastervolume = SettingsMenuPanel.transform.Find("MasterVolume").GetComponent<Slider>();
-        MusicVolume = SettingsMenuPanel.transform.Find("MusicVolume").GetComponent<Slider>();
-        sensitivity = SettingsMenuPanel.transform.Find("Sensitivity").GetComponent<Slider>();
-        SliderValueMaster = PlayerPrefs.GetFloat("MasterVolume");
-        SliderValueMusic = PlayerPrefs.GetFloat("MusicVolume");
-        Mastervolume.value = SliderValueMaster;
-        MusicVolume.value = SliderValueMusic;
-        BerryCounter = pauseMenuPanel.transform.Find("BerryCounter").GetChild(1).GetComponent<TMP_Text>();
-        PineconeCounter = pauseMenuPanel.transform.Find("PineconeCounter").GetChild(1).GetComponent<TMP_Text>();
+        PauseMenuPanel = GameObject.Find("PauseMenuEmpty").transform.Find("PauseMenu").gameObject;
+        _options = GameObject.Find("PauseMenuEmpty").transform.Find("Options").gameObject;
+        _optionsMenuPanel = _options.transform.Find("OptionsMenu").gameObject;
+        _movementControlsMenuPanel = _options.transform.Find("MovementControlsMenu").gameObject;
+        _gamePlayControlsMenuPanel = _options.transform.Find("GameplayControlsMenu").gameObject;
+        _settingsMenuPanel = _options.transform.Find("SettingsMenu").gameObject;
+        _restartQuestPanel = PauseMenuPanel.transform.Find("RestartQuestButton").gameObject;
+        _exitQuestPanel = PauseMenuPanel.transform.Find("ExitQuestButton").gameObject;
+        _invertYAxis = _settingsMenuPanel.transform.Find("InvertCameraTickBox").GetComponent<Toggle>();
+        _fullscreen = _settingsMenuPanel.transform.Find("FullScreenTickBox").GetComponent<Toggle>();
+        _mastervolume = _settingsMenuPanel.transform.Find("MasterVolume").GetComponent<Slider>();
+        _musicVolume = _settingsMenuPanel.transform.Find("MusicVolume").GetComponent<Slider>();
+        _sensitivity = _settingsMenuPanel.transform.Find("Sensitivity").GetComponent<Slider>();
+        _sliderValueMaster = PlayerPrefs.GetFloat("MasterVolume");
+        _sliderValueMusic = PlayerPrefs.GetFloat("MusicVolume");
+        _mastervolume.value = _sliderValueMaster;
+        _musicVolume.value = _sliderValueMusic;
+        BerryCounter = PauseMenuPanel.transform.Find("BerryCounter").GetChild(1).GetComponent<TMP_Text>();
+        PineconeCounter = PauseMenuPanel.transform.Find("PineconeCounter").GetChild(1).GetComponent<TMP_Text>();
         try
         {
-            cinemachineFreeLook = FoxMovement.instance.gameObject.GetComponentInChildren<CinemachineFreeLook>();
+            _cinemachineFreeLook = FoxMovement.Instance.gameObject.GetComponentInChildren<CinemachineFreeLook>();
         }
         catch
         {
-            cinemachineFreeLook = null;
+            _cinemachineFreeLook = null;
         }
 
-        if (PlayerPrefs.GetInt("InvertY") == 1 && cinemachineFreeLook != null)
+        if (PlayerPrefs.GetInt("InvertY") == 1 && _cinemachineFreeLook != null)
         {
-            cinemachineFreeLook.m_YAxis.m_InvertInput = true;
+            _cinemachineFreeLook.m_YAxis.m_InvertInput = true;
         }
-        else if (cinemachineFreeLook != null)
+        else if (_cinemachineFreeLook != null)
         {
-            cinemachineFreeLook.m_YAxis.m_InvertInput = false;
+            _cinemachineFreeLook.m_YAxis.m_InvertInput = false;
         }
-        InvertYAxis.isOn = PlayerPrefs.GetInt("InvertY") == 1 ? true : false;
+        _invertYAxis.isOn = PlayerPrefs.GetInt("InvertY") == 1 ? true : false;
         if (PlayerPrefs.GetFloat("sens") == 0)
         {
             PlayerPrefs.SetFloat("sens", 250);
         }
         else
         {
-            SliderValue2 = PlayerPrefs.GetFloat("sens");
-            sensitivity.value = PlayerPrefs.GetFloat("sens");
+            _sliderValue2 = PlayerPrefs.GetFloat("sens");
+            _sensitivity.value = PlayerPrefs.GetFloat("sens");
         }
     }
 }

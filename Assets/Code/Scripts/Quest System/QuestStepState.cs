@@ -1,15 +1,17 @@
+using UnityEngine.Serialization;
+
 [System.Serializable]
 public class QuestStepState
 {
-    public string state;
+    [FormerlySerializedAs("state")] public string State;
 
     public QuestStepState(string state)
     {
-        this.state = state;
+        this.State = state;
     }
 
     public QuestStepState()
     {
-        state = "";
+        State = "";
     }
 }

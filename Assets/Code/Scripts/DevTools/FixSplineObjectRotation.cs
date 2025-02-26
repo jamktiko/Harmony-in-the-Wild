@@ -1,17 +1,18 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.Splines;
 
 public class FixSplineObjectRotation : MonoBehaviour
 {
-    [SerializeField] private SplineContainer splineContainer;
-    [SerializeField] private int splineIndex = 0;
+    [FormerlySerializedAs("splineContainer")] [SerializeField] private SplineContainer _splineContainer;
+    [FormerlySerializedAs("splineIndex")] [SerializeField] private int _splineIndex = 0;
 
     [ContextMenu("Fix Rotation")]
     public void FixRotation()
     {
         Debug.Log("Starting to fix rotation...");
 
-        Spline spline = splineContainer.Splines[splineIndex];
+        Spline spline = _splineContainer.Splines[_splineIndex];
         int knotCount = spline.Count;
 
         Debug.Log("Spline count is " + knotCount);

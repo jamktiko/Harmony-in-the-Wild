@@ -83,11 +83,11 @@ public class QuestEvents
         OnChangeActiveQuest?.Invoke(id);
     }
 
-    public event Action<DialogueQuestNPCs> OnStartMovingQuestNPC;
+    public event Action<DialogueQuestNpCs> OnStartMovingQuestNpc;
 
-    public void StartMovingQuestNPC(DialogueQuestNPCs character)
+    public void StartMovingQuestNpc(DialogueQuestNpCs character)
     {
-        OnStartMovingQuestNPC?.Invoke(character);
+        OnStartMovingQuestNpc?.Invoke(character);
     }
 
     public event Action OnReachWhaleDestination;

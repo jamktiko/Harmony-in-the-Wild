@@ -2,19 +2,20 @@ using DG.Tweening;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Berries : MonoBehaviour
 {
-    [SerializeField] bool interactable;
-    [SerializeField] static int BerryCollectableCount;
-    [SerializeField] private GameObject interactionIndicator;
-    [SerializeField] private TMP_Text notifText;
+    [FormerlySerializedAs("interactable")] [SerializeField] bool _interactable;
+    [SerializeField] static int _berryCollectableCount;
+    [FormerlySerializedAs("interactionIndicator")] [SerializeField] private GameObject _interactionIndicator;
+    [FormerlySerializedAs("notifText")] [SerializeField] private TMP_Text _notifText;
 
-    private bool hasBeenCollected = false;
+    private bool _hasBeenCollected = false;
 
     private void Start()
     {
-        notifText = GameObject.Find("CollectibleNotification").GetComponent<TMP_Text>();
+        _notifText = GameObject.Find("CollectibleNotification").GetComponent<TMP_Text>();
     }
 
 
@@ -22,53 +23,53 @@ public class Berries : MonoBehaviour
     {
         if (other.gameObject.tag == "Trigger")
         {
-            interactable = true;
+            _interactable = true;
         }
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == "Trigger")
         {
-            interactable = false;
+            _interactable = false;
         }
     }
     private void CollectBerry()
     {
-        if (interactable)
+        if (_interactable)
         {
-            FoxMovement.instance.playerAnimator.SetBool("isCollectingBerry", true);
+            FoxMovement.Instance.PlayerAnimator.SetBool("isCollectingBerry", true);
             Sequence mySequence = DOTween.Sequence();
             mySequence.Append(transform.DOScale(95f, 0.5f)).Append(transform.DOScale(50f, 0.5f)).OnComplete(() =>
             {
-                interactionIndicator.SetActive(false);
+                _interactionIndicator.SetActive(false);
 
-                FoxMovement.instance.playerAnimator.SetBool("isCollectingBerry", false);
+                FoxMovement.Instance.PlayerAnimator.SetBool("isCollectingBerry", false);
 
-                PlayerManager.instance.Berries++;
+                PlayerManager.Instance.Berries++;
                 if (Steamworks.SteamClient.IsValid)
                 {
-                    SteamManager.instance.AchievementProgressBerry("stat_2");
+                    SteamManager.Instance.AchievementProgressBerry("stat_2");
                 }
-                PlayerManager.instance.BerryData[transform.parent.name] = false;
-                CollectibleNotification(notifText, "Berries");
+                PlayerManager.Instance.BerryData[transform.parent.name] = false;
+                CollectibleNotification(_notifText, "Berries");
                 Invoke("CollectibleNotificationDisappear", 7f);
                 gameObject.SetActive(false);
             });
         }
     }
-    private void CollectibleNotification(TMP_Text notifText, string CollectibleType)
+    private void CollectibleNotification(TMP_Text notifText, string collectibleType)
     {
-        notifText.text = CollectibleType + " collected: " + (CollectibleType.Contains("Berries") ? PlayerManager.instance.Berries : PlayerManager.instance.PineCones);
+        notifText.text = collectibleType + " collected: " + (collectibleType.Contains("Berries") ? PlayerManager.Instance.Berries : PlayerManager.Instance.PineCones);
     }
     private void CollectibleNotificationDisappear()
     {
-        notifText.text = "";
+        _notifText.text = "";
     }
     private void Update()
     {
-        if (PlayerInputHandler.instance.InteractInput.WasPerformedThisFrame() && interactable && !hasBeenCollected)
+        if (PlayerInputHandler.Instance.InteractInput.WasPerformedThisFrame() && _interactable && !_hasBeenCollected)
         {
-            hasBeenCollected = true;
+            _hasBeenCollected = true;
             CollectBerry();
         }
     }

@@ -1,14 +1,15 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class AppleCheck : MonoBehaviour
 {
-    [SerializeField] private QuestScriptableObject questSO;
+    [FormerlySerializedAs("questSO")] [SerializeField] private QuestScriptableObject _questSo;
 
     private void Start()
     {
-        QuestState questState = QuestManager.instance.CheckQuestState(questSO.id);
+        QuestState questState = QuestManager.Instance.CheckQuestState(_questSo.id);
 
-        if (questState == QuestState.FINISHED || QuestManager.instance.GetQuestById(questSO.id).GetCurrentQuestStepIndex() > 0)
+        if (questState == QuestState.Finished || QuestManager.Instance.GetQuestById(_questSo.id).GetCurrentQuestStepIndex() > 0)
         {
             gameObject.SetActive(false);
         }

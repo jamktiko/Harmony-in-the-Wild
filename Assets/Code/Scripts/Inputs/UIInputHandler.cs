@@ -1,13 +1,14 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class UIInputHandler : MonoBehaviour
 {
-    public static UIInputHandler instance;
+    public static UIInputHandler Instance;
 
-    public PlayerInput playerInput;
-    public InputActionMap playerInputActionMap;
-    public InputActionMap playerUIINputActionMap;
+    [FormerlySerializedAs("playerInput")] public PlayerInput PlayerInput;
+    [FormerlySerializedAs("playerInputActionMap")] public InputActionMap PlayerInputActionMap;
+    [FormerlySerializedAs("playerUIINputActionMap")] public InputActionMap PlayerUiiNputActionMap;
     public InputActionMap UIInputActionMap;
 
     public InputAction MoveInput,
@@ -30,29 +31,29 @@ public class UIInputHandler : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        Instance = this;
 
         AssignInputs();
     }
     private void AssignInputs()
     {
-        playerInput = GetComponent<PlayerInput>();
-        MoveInput = playerInput.actions.FindAction("Move");
-        SprintInput = playerInput.actions.FindAction("Sprint");
-        LookInput = playerInput.actions.FindAction("Look");
-        JumpInput = playerInput.actions.FindAction("Jump");
-        SnowDiveInput = playerInput.actions.FindAction("SnowDive");
-        GlideInput = playerInput.actions.FindAction("Glide");
-        InteractInput = playerInput.actions.FindAction("Interact");
-        UseAbilityInput = playerInput.actions.FindAction("UseAbility");
-        AbilityToggleInput = playerInput.actions.FindAction("AbilityToggle");
-        ChargeJumpInput = playerInput.actions.FindAction("ChargeJump");
-        TelegrabGrabInput = playerInput.actions.FindAction("TelegrabGrab");
-        ChangeCameraInput = playerInput.actions.FindAction("ChangeCamera");
-        DialogueInput = playerInput.actions.FindAction("DialogueNext");
-        CloseUIInput = playerInput.actions.FindAction("Close");
-        SelectInput = playerInput.actions.FindAction("Select");
-        DialogueUpInput = playerInput.actions.FindAction("DialogueUp");
-        DialogueDownInput = playerInput.actions.FindAction("DialogueDown");
+        PlayerInput = GetComponent<PlayerInput>();
+        MoveInput = PlayerInput.actions.FindAction("Move");
+        SprintInput = PlayerInput.actions.FindAction("Sprint");
+        LookInput = PlayerInput.actions.FindAction("Look");
+        JumpInput = PlayerInput.actions.FindAction("Jump");
+        SnowDiveInput = PlayerInput.actions.FindAction("SnowDive");
+        GlideInput = PlayerInput.actions.FindAction("Glide");
+        InteractInput = PlayerInput.actions.FindAction("Interact");
+        UseAbilityInput = PlayerInput.actions.FindAction("UseAbility");
+        AbilityToggleInput = PlayerInput.actions.FindAction("AbilityToggle");
+        ChargeJumpInput = PlayerInput.actions.FindAction("ChargeJump");
+        TelegrabGrabInput = PlayerInput.actions.FindAction("TelegrabGrab");
+        ChangeCameraInput = PlayerInput.actions.FindAction("ChangeCamera");
+        DialogueInput = PlayerInput.actions.FindAction("DialogueNext");
+        CloseUIInput = PlayerInput.actions.FindAction("Close");
+        SelectInput = PlayerInput.actions.FindAction("Select");
+        DialogueUpInput = PlayerInput.actions.FindAction("DialogueUp");
+        DialogueDownInput = PlayerInput.actions.FindAction("DialogueDown");
     }
 }

@@ -1,22 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.VFX;
 
 public class CloudManager : MonoBehaviour
 {
-    public Camera cam;
-    public GameObject cloudPrefab;
-    public GameObject lightningEmitter;
-    public float windScale = 1;
-    public float fadeOutStartDist;
-    public float fadeOutEndDist;
-    public float cloudBaseScale = 20;
-    public float weatherSeverity = 1;
+    [FormerlySerializedAs("cam")] public Camera Cam;
+    [FormerlySerializedAs("cloudPrefab")] public GameObject CloudPrefab;
+    [FormerlySerializedAs("lightningEmitter")] public GameObject LightningEmitter;
+    [FormerlySerializedAs("windScale")] public float WindScale = 1;
+    [FormerlySerializedAs("fadeOutStartDist")] public float FadeOutStartDist;
+    [FormerlySerializedAs("fadeOutEndDist")] public float FadeOutEndDist;
+    [FormerlySerializedAs("cloudBaseScale")] public float CloudBaseScale = 20;
+    [FormerlySerializedAs("weatherSeverity")] public float WeatherSeverity = 1;
 
-    private List<Cloud> clouds = new List<Cloud>();
-    private Vector2 wind;
-    private float cloudDespawnDist;
+    private List<Cloud> _clouds = new List<Cloud>();
+    private Vector2 _wind;
+    private float _cloudDespawnDist;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,8 +29,8 @@ public class CloudManager : MonoBehaviour
     {
         //wind = new Vector2(Mathf.PerlinNoise(.25f, Time.time * windChangeTimeScale) - .5f, Mathf.PerlinNoise(.75f, Time.time * windChangeTimeScale) - .5f);
         //cloudCoverage = (int)(Mathf.PerlinNoise(.5f, Time.time * cloudinessChangeTimeScale) * 15);
-        if (clouds.Count < 1)
-            clouds.Add(AddCloud());
+        if (_clouds.Count < 1)
+            _clouds.Add(AddCloud());
         //else if (clouds.Count > cloudCoverage)
         //TryRemoveCloud();
 
@@ -40,41 +41,41 @@ public class CloudManager : MonoBehaviour
     private Cloud AddCloud()
     {
         int size = UnityEngine.Random.Range(10, 21);
-        Vector3 cloudScale = new Vector3(UnityEngine.Random.Range(cloudBaseScale * size * .4f, cloudBaseScale * size * 1.5f), 0, UnityEngine.Random.Range(cloudBaseScale * size * .4f, cloudBaseScale * size * 1.5f));
+        Vector3 cloudScale = new Vector3(UnityEngine.Random.Range(CloudBaseScale * size * .4f, CloudBaseScale * size * 1.5f), 0, UnityEngine.Random.Range(CloudBaseScale * size * .4f, CloudBaseScale * size * 1.5f));
         if (cloudScale.x < cloudScale.z)
             cloudScale += new Vector3(0, cloudScale.x / 2);
         else
             cloudScale += new Vector3(0, cloudScale.z / 2);
         float cloudRot = UnityEngine.Random.Range(0, 360);
-        cloudPrefab.transform.rotation = Quaternion.Euler(0, cloudRot, 0);
+        CloudPrefab.transform.rotation = Quaternion.Euler(0, cloudRot, 0);
         Vector3 wind3D = Quaternion.Euler(0, UnityEngine.Random.Range(0, 360), 0) * Vector3.forward;
-        wind = new Vector2(wind3D.x, wind3D.z);
-        float windAngle = Vector3.Angle(wind, cloudPrefab.transform.rotation * Vector3.forward);
-        float spawnDist = fadeOutEndDist + 100;
+        _wind = new Vector2(wind3D.x, wind3D.z);
+        float windAngle = Vector3.Angle(_wind, CloudPrefab.transform.rotation * Vector3.forward);
+        float spawnDist = FadeOutEndDist + 100;
         if (windAngle < 90)
             spawnDist += ((cloudScale.x * windAngle) + (cloudScale.z * (90 - windAngle))) / 90;
         else
             spawnDist += ((cloudScale.z * (windAngle - 90)) + (cloudScale.x * (180 - windAngle))) / 90;
-        cloudPrefab.transform.position = new Vector3(cam.transform.position.x - wind.x * spawnDist, 450 + cloudScale.y / 2, cam.transform.position.z - wind.y * spawnDist);
-        cloudDespawnDist = (spawnDist + 100) * (spawnDist + 100);
-        Cloud cloud = new Cloud(cloudPrefab.transform, cloudPrefab.GetComponent<VisualEffect>(), UnityEngine.Random.Range(2, 5), UnityEngine.Random.Range(.1f, 1) * weatherSeverity, size, cloudScale, cloudBaseScale);
-        cloud.lightning = lightningEmitter.GetComponent<VisualEffect>();
-        cloud.lightning.Stop();
+        CloudPrefab.transform.position = new Vector3(Cam.transform.position.x - _wind.x * spawnDist, 450 + cloudScale.y / 2, Cam.transform.position.z - _wind.y * spawnDist);
+        _cloudDespawnDist = (spawnDist + 100) * (spawnDist + 100);
+        Cloud cloud = new Cloud(CloudPrefab.transform, CloudPrefab.GetComponent<VisualEffect>(), UnityEngine.Random.Range(2, 5), UnityEngine.Random.Range(.1f, 1) * WeatherSeverity, size, cloudScale, CloudBaseScale);
+        cloud.Lightning = LightningEmitter.GetComponent<VisualEffect>();
+        cloud.Lightning.Stop();
 
-        cloud.vfx.Stop();
-        cloud.vfx.Play();
+        cloud.VFX.Stop();
+        cloud.VFX.Play();
 
         return cloud;
     }
 
     private void TryRemoveCloud()
     {
-        for (int i = 0; i < clouds.Count; i++)
+        for (int i = 0; i < _clouds.Count; i++)
         {
-            if ((clouds[i].t.position - Camera.main.transform.position).sqrMagnitude > fadeOutEndDist * fadeOutEndDist)
+            if ((_clouds[i].T.position - Camera.main.transform.position).sqrMagnitude > FadeOutEndDist * FadeOutEndDist)
             {
-                Destroy(clouds[i].t.gameObject);
-                clouds.RemoveAt(i);
+                Destroy(_clouds[i].T.gameObject);
+                _clouds.RemoveAt(i);
                 break;
             }
         }
@@ -83,25 +84,25 @@ public class CloudManager : MonoBehaviour
     private void MoveClouds()
     {
         float oldZ;
-        for (int i = 0; i < clouds.Count; i++)
+        for (int i = 0; i < _clouds.Count; i++)
         {
-            oldZ = clouds[i].t.position.z;
-            clouds[i].t.position += new Vector3(wind.x * Time.deltaTime * windScale, 0, wind.y * Time.deltaTime * windScale);
-            if (clouds[i].type == 4)
+            oldZ = _clouds[i].T.position.z;
+            _clouds[i].T.position += new Vector3(_wind.x * Time.deltaTime * WindScale, 0, _wind.y * Time.deltaTime * WindScale);
+            if (_clouds[i].Type == 4)
             {
-                clouds[i].lightningCountdown -= Time.deltaTime;
-                if (clouds[i].lightningCountdown < 0)
+                _clouds[i].LightningCountdown -= Time.deltaTime;
+                if (_clouds[i].LightningCountdown < 0)
                 {
-                    StartCoroutine(LightningFlash(clouds[i].lightning));
-                    clouds[i].lightning.transform.localPosition = new Vector3(UnityEngine.Random.Range(-clouds[i].vfx.GetVector3("CloudScale").x / 2, clouds[i].vfx.GetVector3("CloudScale").x / 2), 0, UnityEngine.Random.Range(-clouds[i].vfx.GetVector3("CloudScale").z / 2, clouds[i].vfx.GetVector3("CloudScale").z / 2));
-                    clouds[i].lightning.Play();
-                    clouds[i].lightning.SetFloat("RenderAlpha", 0);
-                    clouds[i].lightningCountdown = 7 / clouds[i].severity / clouds[i].severity;
+                    StartCoroutine(LightningFlash(_clouds[i].Lightning));
+                    _clouds[i].Lightning.transform.localPosition = new Vector3(UnityEngine.Random.Range(-_clouds[i].VFX.GetVector3("CloudScale").x / 2, _clouds[i].VFX.GetVector3("CloudScale").x / 2), 0, UnityEngine.Random.Range(-_clouds[i].VFX.GetVector3("CloudScale").z / 2, _clouds[i].VFX.GetVector3("CloudScale").z / 2));
+                    _clouds[i].Lightning.Play();
+                    _clouds[i].Lightning.SetFloat("RenderAlpha", 0);
+                    _clouds[i].LightningCountdown = 7 / _clouds[i].Severity / _clouds[i].Severity;
                 }
             }
-            if ((clouds[i].t.position.x - cam.transform.position.x) * (clouds[i].t.position.x - cam.transform.position.x) + (clouds[i].t.position.z - cam.transform.position.z) * (clouds[i].t.position.z - cam.transform.position.z) > cloudDespawnDist)
+            if ((_clouds[i].T.position.x - Cam.transform.position.x) * (_clouds[i].T.position.x - Cam.transform.position.x) + (_clouds[i].T.position.z - Cam.transform.position.z) * (_clouds[i].T.position.z - Cam.transform.position.z) > _cloudDespawnDist)
             {
-                clouds.RemoveAt(i);
+                _clouds.RemoveAt(i);
                 i--;
             }
         }
@@ -120,23 +121,23 @@ public class CloudManager : MonoBehaviour
 
 public class Cloud
 {
-    public Transform t;
-    public VisualEffect vfx;
-    public VisualEffect lightning;
-    public int type;
-    public float severity;
-    public float size;
-    public float lightningCountdown;
+    public Transform T;
+    public VisualEffect VFX;
+    public VisualEffect Lightning;
+    public int Type;
+    public float Severity;
+    public float Size;
+    public float LightningCountdown;
 
     public Cloud(Transform t, VisualEffect vfx, int type, float severity, float size, Vector3 cloudScale, float baseScale)
     {
-        this.t = t;
-        this.vfx = vfx;
-        this.type = type;
-        this.severity = severity;
-        this.size = size;
+        this.T = t;
+        this.VFX = vfx;
+        this.Type = type;
+        this.Severity = severity;
+        this.Size = size;
 
-        lightningCountdown = 7 / severity / severity;
+        LightningCountdown = 7 / severity / severity;
         switch (type)
         {
             case 0: // high regular

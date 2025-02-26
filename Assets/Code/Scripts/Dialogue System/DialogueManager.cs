@@ -4,53 +4,58 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
-    public static DialogueManager instance;
+    public static DialogueManager Instance;
 
-    private const string speaker = "speaker";
+    private const string _speaker = "speaker";
 
+    [FormerlySerializedAs("dialogueCanvas")]
     [Header("Dialogue Canvas")]
-    [SerializeField] private GameObject dialogueCanvas;
+    [SerializeField] private GameObject _dialogueCanvas;
 
+    [FormerlySerializedAs("dialogueText")]
     [Header("Dialogue UI")]
-    [SerializeField] private TextMeshProUGUI dialogueText;
-    [SerializeField] private TextMeshProUGUI speakerText;
+    [SerializeField] private TextMeshProUGUI _dialogueText;
+    [FormerlySerializedAs("speakerText")] [SerializeField] private TextMeshProUGUI _speakerText;
     //[SerializeField] private GameObject exitButton;
 
+    [FormerlySerializedAs("isChoiceAvailable")]
     [Header("Choices")]
-    [SerializeField] private bool isChoiceAvailable;
-    [SerializeField] private int currentChoiceIndex = 0;
-    [SerializeField] private GameObject[] choiceButtons;
+    [SerializeField] private bool _isChoiceAvailable;
+    [FormerlySerializedAs("currentChoiceIndex")] [SerializeField] private int _currentChoiceIndex = 0;
+    [FormerlySerializedAs("choiceButtons")] [SerializeField] private GameObject[] _choiceButtons;
 
-    [Header("Public Values for References")]
-    public bool isDialoguePlaying = false;
-    public bool canStartDialogue = true;
+    [FormerlySerializedAs("isDialoguePlaying")] [Header("Public Values for References")]
+    public bool IsDialoguePlaying = false;
+    [FormerlySerializedAs("canStartDialogue")] public bool CanStartDialogue = true;
 
+    [FormerlySerializedAs("loadGlobalsJSON")]
     [Header("Ink Globals")]
-    [SerializeField] private TextAsset loadGlobalsJSON;
+    [SerializeField] private TextAsset _loadGlobalsJson;
 
     // private variables, no need to show in the inspector
-    private DialogueVariableObserver dialogueVariables;
-    private Story currentStory;
-    private TextMeshProUGUI[] choicesText;
-    private bool canInteractWith = true;   // boolean to detect whether you can use the input; not interactable if for example pause menu is opened
-    private Coroutine dialogueCooldown = null;
+    private DialogueVariableObserver _dialogueVariables;
+    private Story _currentStory;
+    private TextMeshProUGUI[] _choicesText;
+    private bool _canInteractWith = true;   // boolean to detect whether you can use the input; not interactable if for example pause menu is opened
+    private Coroutine _dialogueCooldown = null;
 
     private void Awake()
     {
         // creating the instance for Dialogue Manager
 
-        if (DialogueManager.instance != null)
+        if (DialogueManager.Instance != null)
         {
             Debug.LogWarning("There is more than one Dialogue Manager in the scene!");
             Destroy(gameObject);
         }
         else
         {
-            instance = this;
+            Instance = this;
 
         }
     }
@@ -59,95 +64,95 @@ public class DialogueManager : MonoBehaviour
     {
         Invoke(nameof(InitializeDialogueVariables), 0.3f);
 
-        dialogueCanvas.SetActive(false);
-        isDialoguePlaying = false;
+        _dialogueCanvas.SetActive(false);
+        IsDialoguePlaying = false;
 
         // initializing choice button texts
-        choicesText = new TextMeshProUGUI[choiceButtons.Length];
+        _choicesText = new TextMeshProUGUI[_choiceButtons.Length];
 
-        for (int i = 0; i < choiceButtons.Length; i++)
+        for (int i = 0; i < _choiceButtons.Length; i++)
         {
-            choicesText[i] = choiceButtons[i].GetComponentInChildren<TextMeshProUGUI>();
-            choiceButtons[i].SetActive(false);
+            _choicesText[i] = _choiceButtons[i].GetComponentInChildren<TextMeshProUGUI>();
+            _choiceButtons[i].SetActive(false);
         }
     }
 
     private void OnEnable()
     {
-        GameEventsManager.instance.playerEvents.OnToggleInputActions += ToggleInteractability;
+        GameEventsManager.instance.PlayerEvents.OnToggleInputActions += ToggleInteractability;
         SceneManager.sceneLoaded += ResetInteractibilityOnSceneChange;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.playerEvents.OnToggleInputActions -= ToggleInteractability;
+        GameEventsManager.instance.PlayerEvents.OnToggleInputActions -= ToggleInteractability;
         SceneManager.sceneLoaded -= ResetInteractibilityOnSceneChange;
     }
 
     private void Update()
     {
-        if (isDialoguePlaying && canInteractWith)
+        if (IsDialoguePlaying && _canInteractWith)
         {
             // make the selected choice
-            if (PlayerInputHandler.instance.SelectInput.WasPressedThisFrame() && isChoiceAvailable)
+            if (PlayerInputHandler.Instance.SelectInput.WasPressedThisFrame() && _isChoiceAvailable)
             {
-                MakeChoice(currentChoiceIndex);
+                MakeChoice(_currentChoiceIndex);
             }
 
-            else if (PlayerInputHandler.instance.DialogueUpInput.WasPressedThisFrame() && isChoiceAvailable)
+            else if (PlayerInputHandler.Instance.DialogueUpInput.WasPressedThisFrame() && _isChoiceAvailable)
             {
                 // if there is a choice available upper on the list, mark it as selected
-                if (currentChoiceIndex > 0)
+                if (_currentChoiceIndex > 0)
                 {
-                    ChangeCurrentChoice(currentChoiceIndex - 1);
+                    ChangeCurrentChoice(_currentChoiceIndex - 1);
                 }
             }
 
-            else if (PlayerInputHandler.instance.DialogueDownInput.WasPressedThisFrame() && isChoiceAvailable)
+            else if (PlayerInputHandler.Instance.DialogueDownInput.WasPressedThisFrame() && _isChoiceAvailable)
             {
                 // if there is a choice available down on the list, mark it as selected
-                if (currentChoiceIndex < currentStory.currentChoices.Count - 1)
+                if (_currentChoiceIndex < _currentStory.currentChoices.Count - 1)
                 {
-                    ChangeCurrentChoice(currentChoiceIndex + 1);
+                    ChangeCurrentChoice(_currentChoiceIndex + 1);
                 }
             }
 
             // if there is still more dialogue to show, continue to the next section
-            else if (PlayerInputHandler.instance.DialogueInput.WasPressedThisFrame() && currentStory.canContinue && !isChoiceAvailable)
+            else if (PlayerInputHandler.Instance.DialogueInput.WasPressedThisFrame() && _currentStory.canContinue && !_isChoiceAvailable)
             {
                 ContinueDialogue();
             }
 
             // if there is no more dialogue to show, end the dialogue
-            else if (PlayerInputHandler.instance.DialogueInput.WasPressedThisFrame() && !currentStory.canContinue && !isChoiceAvailable)
+            else if (PlayerInputHandler.Instance.DialogueInput.WasPressedThisFrame() && !_currentStory.canContinue && !_isChoiceAvailable)
             {
                 EndDialogue();
             }
         }
     }
 
-    public void StartDialogue(TextAsset inkJSON)
+    public void StartDialogue(TextAsset inkJson)
     {
-        if (!isDialoguePlaying && canStartDialogue)
+        if (!IsDialoguePlaying && CanStartDialogue)
         {
             Debug.Log("Start dialogue.");
 
-            GameEventsManager.instance.dialogueEvents.StartDialogue();
+            GameEventsManager.instance.DialogueEvents.StartDialogue();
 
-            if (FoxMovement.instance.IsInWater())
+            if (FoxMovement.Instance.IsInWater())
             {
-                FoxMovement.instance.playerAnimator.SetBool("isReadyToSwim", false);
-                FoxMovement.instance.playerAnimator.SetBool("isSwimming", true);
+                FoxMovement.Instance.PlayerAnimator.SetBool("isReadyToSwim", false);
+                FoxMovement.Instance.PlayerAnimator.SetBool("isSwimming", true);
             }
             else
-                FoxMovement.instance.SetDefaultAnimatorValues();
-            FoxMovement.instance.isSprinting = false;
-            FoxMovement.instance.horizontalInput = 0;
-            FoxMovement.instance.verticalInput = 0;
+                FoxMovement.Instance.SetDefaultAnimatorValues();
+            FoxMovement.Instance.IsSprinting = false;
+            FoxMovement.Instance.HorizontalInput = 0;
+            FoxMovement.Instance.VerticalInput = 0;
 
-            currentStory = new Story(inkJSON.text);
-            isDialoguePlaying = true;
-            dialogueCanvas.SetActive(true);
+            _currentStory = new Story(inkJson.text);
+            IsDialoguePlaying = true;
+            _dialogueCanvas.SetActive(true);
 
             ContinueDialogue();
         }
@@ -160,11 +165,11 @@ public class DialogueManager : MonoBehaviour
 
     public void ContinueDialogue()
     {
-        if (currentStory.canContinue)
+        if (_currentStory.canContinue)
         {
-            dialogueText.text = currentStory.Continue();
+            _dialogueText.text = _currentStory.Continue();
 
-            HandleTags(currentStory.currentTags);
+            HandleTags(_currentStory.currentTags);
 
             DisplayChoices();
         }
@@ -173,27 +178,27 @@ public class DialogueManager : MonoBehaviour
     private void DisplayChoices()
     {
         // change bool for input tracking and hide the choice buttons
-        if (currentStory.currentChoices.Count <= 0)
+        if (_currentStory.currentChoices.Count <= 0)
         {
-            for (int i = 0; i < choiceButtons.Length; i++)
+            for (int i = 0; i < _choiceButtons.Length; i++)
             {
-                choiceButtons[i].SetActive(false);
+                _choiceButtons[i].SetActive(false);
             }
 
-            isChoiceAvailable = false;
+            _isChoiceAvailable = false;
             return;
         }
 
         else
         {
-            isChoiceAvailable = true;
+            _isChoiceAvailable = true;
         }
 
-        List<Choice> currentChoices = currentStory.currentChoices;
+        List<Choice> currentChoices = _currentStory.currentChoices;
 
         // check if the UI can hold all the written choice options
 
-        if (currentChoices.Count > choiceButtons.Length)
+        if (currentChoices.Count > _choiceButtons.Length)
         {
             Debug.LogWarning("There are more choices written than the UI can hold!");
         }
@@ -204,14 +209,14 @@ public class DialogueManager : MonoBehaviour
 
         foreach (Choice choice in currentChoices)
         {
-            choiceButtons[index].SetActive(true);
-            choicesText[index].text = choice.text;
+            _choiceButtons[index].SetActive(true);
+            _choicesText[index].text = choice.text;
             index++;
         }
 
-        for (int i = index; i < choiceButtons.Length; i++)
+        for (int i = index; i < _choiceButtons.Length; i++)
         {
-            choiceButtons[i].SetActive(false);
+            _choiceButtons[i].SetActive(false);
         }
 
         // set the first choice option as selected
@@ -221,18 +226,18 @@ public class DialogueManager : MonoBehaviour
     private void ChangeCurrentChoice(int index)
     {
         // make last current choice button normal
-        choiceButtons[currentChoiceIndex].GetComponent<Image>().color = Color.white;
+        _choiceButtons[_currentChoiceIndex].GetComponent<Image>().color = Color.white;
 
         // make new current choice button with contrast color
-        currentChoiceIndex = index;
-        choiceButtons[currentChoiceIndex].GetComponent<Image>().color = new Color32(255, 218, 142, 255);
+        _currentChoiceIndex = index;
+        _choiceButtons[_currentChoiceIndex].GetComponent<Image>().color = new Color32(255, 218, 142, 255);
 
         Debug.Log("Choice color changed.");
     }
 
     public void MakeChoice(int choiceIndex)
     {
-        currentStory.ChooseChoiceIndex(choiceIndex);
+        _currentStory.ChooseChoiceIndex(choiceIndex);
 
         ContinueDialogue();
     }
@@ -253,27 +258,27 @@ public class DialogueManager : MonoBehaviour
 
             switch (tagKey)
             {
-                case speaker:
+                case _speaker:
                     if (tagValue == "Fox")
                     {
                         if (PlayerPrefs.GetString("foxName") != "" || PlayerPrefs.GetString("foxName") != null)
                         {
-                            speakerText.text = PlayerPrefs.GetString("foxName");
+                            _speakerText.text = PlayerPrefs.GetString("foxName");
                         }
 
                         else
                         {
-                            speakerText.text = tagValue;
+                            _speakerText.text = tagValue;
                         }
                     }
                     else
                     {
-                        speakerText.text = tagValue;
+                        _speakerText.text = tagValue;
                     }
                     break;
 
                 case "variableChange":
-                    dialogueVariables.ChangeVariable(tagValue);
+                    _dialogueVariables.ChangeVariable(tagValue);
                     break;
 
                 default:
@@ -285,7 +290,7 @@ public class DialogueManager : MonoBehaviour
 
     public void CloseDialogueView()
     {
-        if (!currentStory.canContinue)
+        if (!_currentStory.canContinue)
         {
             EndDialogue();
         }
@@ -293,21 +298,21 @@ public class DialogueManager : MonoBehaviour
 
     private void EndDialogue()
     {
-        dialogueVariables.CallVariableChangeEvent();
+        _dialogueVariables.CallVariableChangeEvent();
 
-        GameEventsManager.instance.dialogueEvents.EndDialogue();
+        GameEventsManager.instance.DialogueEvents.EndDialogue();
 
-        SaveManager.instance.SaveGame();
+        SaveManager.Instance.SaveGame();
 
-        isDialoguePlaying = false;
-        dialogueText.text = "";
+        IsDialoguePlaying = false;
+        _dialogueText.text = "";
 
-        dialogueCanvas.SetActive(false);
+        _dialogueCanvas.SetActive(false);
 
-        if (dialogueCooldown == null)
+        if (_dialogueCooldown == null)
         {
             Debug.Log("Starting a dialogue delay");
-            dialogueCooldown = StartCoroutine(DelayBetweenDialogues());
+            _dialogueCooldown = StartCoroutine(DelayBetweenDialogues());
         }
 
         else
@@ -318,30 +323,30 @@ public class DialogueManager : MonoBehaviour
 
     private void InitializeDialogueVariables()
     {
-        dialogueVariables = new DialogueVariableObserver();
+        _dialogueVariables = new DialogueVariableObserver();
     }
 
     // delay between dialogues to prevent a bug from moving from one dialogue to another with the same character without player pressing any keys
     private IEnumerator DelayBetweenDialogues()
     {
         Debug.Log("Dialogue delay started.");
-        canStartDialogue = false;
+        CanStartDialogue = false;
 
         yield return new WaitForSeconds(1.5f);
 
-        canStartDialogue = true;
-        dialogueCooldown = null;
+        CanStartDialogue = true;
+        _dialogueCooldown = null;
 
         Debug.Log("Dialogue delay ended.");
     }
 
     public string CollectDialogueVariableDataForSaving()
     {
-        if (dialogueVariables != null)
+        if (_dialogueVariables != null)
         {
-            string dataToJSON = dialogueVariables.ConvertVariablesToString();
+            string dataToJson = _dialogueVariables.ConvertVariablesToString();
 
-            return dataToJSON;
+            return dataToJson;
         }
 
         else
@@ -352,12 +357,12 @@ public class DialogueManager : MonoBehaviour
 
     private void ToggleInteractability(bool enableInteractions)
     {
-        canInteractWith = enableInteractions;
+        _canInteractWith = enableInteractions;
 
-        if (canInteractWith)
+        if (_canInteractWith)
         {
-            canStartDialogue = true;
-            dialogueCooldown = null;
+            CanStartDialogue = true;
+            _dialogueCooldown = null;
         }
 
         Debug.Log("Dialogue interactability: " + enableInteractions);
@@ -365,13 +370,13 @@ public class DialogueManager : MonoBehaviour
 
     private void ResetInteractibilityOnSceneChange(Scene scene, LoadSceneMode mode)
     {
-        if (dialogueCooldown != null)
+        if (_dialogueCooldown != null)
         {
-            StopCoroutine(dialogueCooldown);
+            StopCoroutine(_dialogueCooldown);
         }
 
-        dialogueCooldown = null;
-        canStartDialogue = true;
-        canInteractWith = true;
+        _dialogueCooldown = null;
+        CanStartDialogue = true;
+        _canInteractWith = true;
     }
 }

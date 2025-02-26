@@ -24,12 +24,12 @@ public class GrowthController : MonoBehaviour
 
     private void OnEnable()
     {
-        GameEventsManager.instance.cinematicsEvents.OnStartCinematics += TriggerGrowth;
+        GameEventsManager.instance.CinematicsEvents.OnStartCinematics += TriggerGrowth;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.instance.cinematicsEvents.OnStartCinematics -= TriggerGrowth;
+        GameEventsManager.instance.CinematicsEvents.OnStartCinematics -= TriggerGrowth;
     }
 
     private void Update()
@@ -83,7 +83,7 @@ public class GrowthController : MonoBehaviour
         // if in the vertical slice, show demo end after the first ToL cinematics
         if (isVerticalSliceScene)
         {
-            GameEventsManager.instance.uiEvents.ShowLoadingScreen(SceneManagerHelper.Scene.DemoEnd);
+            GameEventsManager.instance.UIEvents.ShowLoadingScreen(SceneManagerHelper.Scene.DemoEnd);
             AudioManager.Instance.EndCurrentTheme();
         }
     }
@@ -105,7 +105,7 @@ public class GrowthController : MonoBehaviour
             return;
         }
 
-        int currentState = TreeOfLifeState.instance.GetTreeOfLifeState();
+        int currentState = TreeOfLifeState.Instance.GetTreeOfLifeState();
 
         float leafGrow = 0;
         float flowerGrow = 0;

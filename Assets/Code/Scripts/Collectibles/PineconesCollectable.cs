@@ -1,54 +1,55 @@
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PineconesCollectable : MonoBehaviour
 {
-    [SerializeField] bool interactable;
-    [SerializeField] static int PineCollectableCount;
-    [SerializeField] private GameObject interactionIndicator;
-    [SerializeField] private TMP_Text notifText;
+    [FormerlySerializedAs("interactable")] [SerializeField] bool _interactable;
+    [SerializeField] static int _pineCollectableCount;
+    [FormerlySerializedAs("interactionIndicator")] [SerializeField] private GameObject _interactionIndicator;
+    [FormerlySerializedAs("notifText")] [SerializeField] private TMP_Text _notifText;
 
-    private bool hasBeenCollected = false;
+    private bool _hasBeenCollected = false;
 
     private void Start()
     {
-        notifText = GameObject.Find("CollectibleNotification").GetComponent<TMP_Text>();
+        _notifText = GameObject.Find("CollectibleNotification").GetComponent<TMP_Text>();
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Trigger")
         {
-            interactable = true;
+            _interactable = true;
         }
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == "Trigger")
         {
-            interactable = false;
+            _interactable = false;
         }
     }
     private void CollectCone()
     {
-        if (interactable)
+        if (_interactable)
         {
-            FoxMovement.instance.playerAnimator.SetBool("isCollectingPinecone", true);
+            FoxMovement.Instance.PlayerAnimator.SetBool("isCollectingPinecone", true);
 
             Sequence mySequence = DOTween.Sequence();
             mySequence.Append(transform.DOScale(1.3f, 1.3f)).Append(transform.DOScale(0f, 1.3f)).OnComplete(() =>
             {
-                interactionIndicator.SetActive(false);
+                _interactionIndicator.SetActive(false);
 
-                FoxMovement.instance.playerAnimator.SetBool("isCollectingPinecone", false);
+                FoxMovement.Instance.PlayerAnimator.SetBool("isCollectingPinecone", false);
 
-                PlayerManager.instance.PineCones++;
+                PlayerManager.Instance.PineCones++;
                 if (Steamworks.SteamClient.IsValid)
                 {
-                    SteamManager.instance.AchievementProgressPinecone("stat_3");
+                    SteamManager.Instance.AchievementProgressPinecone("stat_3");
                 }
-                PlayerManager.instance.PineConeData[transform.name] = false;
-                CollectibleNotification(notifText, "Pinecones");
+                PlayerManager.Instance.PineConeData[transform.name] = false;
+                CollectibleNotification(_notifText, "Pinecones");
                 Invoke("CollectibleNotificationDisappear", 7f);
                 gameObject.SetActive(false);
             });
@@ -59,19 +60,19 @@ public class PineconesCollectable : MonoBehaviour
             //});
         }
     }
-    private void CollectibleNotification(TMP_Text notifText, string CollectibleType)
+    private void CollectibleNotification(TMP_Text notifText, string collectibleType)
     {
-        notifText.text = CollectibleType + " collected: " + (CollectibleType.Contains("Berries") ? PlayerManager.instance.Berries : PlayerManager.instance.PineCones);
+        notifText.text = collectibleType + " collected: " + (collectibleType.Contains("Berries") ? PlayerManager.Instance.Berries : PlayerManager.Instance.PineCones);
     }
     private void CollectibleNotificationDisappear()
     {
-        notifText.text = "";
+        _notifText.text = "";
     }
     private void Update()
     {
-        if (PlayerInputHandler.instance.InteractInput.WasPerformedThisFrame() && interactable && !hasBeenCollected)
+        if (PlayerInputHandler.Instance.InteractInput.WasPerformedThisFrame() && _interactable && !_hasBeenCollected)
         {
-            hasBeenCollected = true;
+            _hasBeenCollected = true;
 
             CollectCone();
         }

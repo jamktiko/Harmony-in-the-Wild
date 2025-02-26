@@ -1,23 +1,24 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Interactable : MonoBehaviour
 {
-    [SerializeField] bool isActive = false;
-    [SerializeField] public bool wasUsed = false; //Note: does this need to be public? private and method to pass value instead
+    [FormerlySerializedAs("isActive")] [SerializeField] bool _isActive = false;
+    [FormerlySerializedAs("wasUsed")] [SerializeField] public bool WasUsed = false; //Note: does this need to be public? private and method to pass value instead
 
-    private int index;
+    private int _index;
 
     private void Start()
     {
-        index = transform.GetSiblingIndex();
+        _index = transform.GetSiblingIndex();
     }
 
     void Update()
     {
-        if (PlayerInputHandler.instance.InteractInput.WasPressedThisFrame() && isActive && QuestManager.instance.CheckQuestState("Whale Diet").Equals(QuestState.IN_PROGRESS))
+        if (PlayerInputHandler.Instance.InteractInput.WasPressedThisFrame() && _isActive && QuestManager.Instance.CheckQuestState("Whale Diet").Equals(QuestState.InProgress))
         {
-            wasUsed = true;
-            FindObjectOfType<CollectableQuestStep>().CollectableProgress(index);
+            WasUsed = true;
+            FindObjectOfType<CollectableQuestStep>().CollectableProgress(_index);
             //Debug.Log("object found!");
             Destroy(gameObject);
         }
@@ -31,7 +32,7 @@ public class Interactable : MonoBehaviour
     {
         if (other.CompareTag("Trigger"))
         {
-            isActive = true;
+            _isActive = true;
         }
     }
 
@@ -39,7 +40,7 @@ public class Interactable : MonoBehaviour
     {
         if (other.CompareTag("Trigger"))
         {
-            isActive = false;
+            _isActive = false;
         }
     }
 }

@@ -1,25 +1,26 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class FinishTutorial : MonoBehaviour
 {
-    [SerializeField] private QuestScriptableObject tutorialQuest;
+    [FormerlySerializedAs("tutorialQuest")] [SerializeField] private QuestScriptableObject _tutorialQuest;
 
     private void Start()
     {
-        GameEventsManager.instance.questEvents.OnQuestStateChange += FinishTutorialQuest;
+        GameEventsManager.instance.QuestEvents.OnQuestStateChange += FinishTutorialQuest;
     }
 
     private void FinishTutorialQuest(Quest quest)
     {
-        if (quest.info.id.Equals(tutorialQuest.id))
+        if (quest.Info.id.Equals(_tutorialQuest.id))
         {
             //Debug.Log("Checking whether tutorial can be finished...");
 
-            if (quest.state == QuestState.CAN_FINISH)
+            if (quest.State == QuestState.CanFinish)
             {
                 //Debug.Log("Tutorial can be finished.");
-                GameEventsManager.instance.questEvents.FinishQuest(tutorialQuest.id);
-                SteamManager.instance.UnlockAchievement("TUTORIAL_ACH");
+                GameEventsManager.instance.QuestEvents.FinishQuest(_tutorialQuest.id);
+                SteamManager.Instance.UnlockAchievement("TUTORIAL_ACH");
             }
 
             else

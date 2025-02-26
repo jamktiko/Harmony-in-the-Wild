@@ -1,14 +1,15 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class MouseLookNoClip : MonoBehaviour
 {
-    [SerializeField] Vector2 rotation = Vector2.zero;
-    public float speed = 3;
-    [SerializeField] Transform player;
+    [FormerlySerializedAs("rotation")] [SerializeField] Vector2 _rotation = Vector2.zero;
+    [FormerlySerializedAs("speed")] public float Speed = 3;
+    [FormerlySerializedAs("player")] [SerializeField] Transform _player;
 
     void Update()
     {
-        rotation.y += PlayerInputHandler.instance.LookInput.ReadValue<Vector2>().x;
-        rotation.x += -PlayerInputHandler.instance.LookInput.ReadValue<Vector2>().y;
+        _rotation.y += PlayerInputHandler.Instance.LookInput.ReadValue<Vector2>().x;
+        _rotation.x += -PlayerInputHandler.Instance.LookInput.ReadValue<Vector2>().y;
     }
 }

@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class UnstuckRescue : MonoBehaviour
 {
-    private Vector3 nearestRescuePoint;
-    private List<Transform> rescuePoints = new List<Transform>();
-    private Transform player;
+    private Vector3 _nearestRescuePoint;
+    private List<Transform> _rescuePoints = new List<Transform>();
+    private Transform _player;
 
 
     private void OnEnable()
@@ -15,22 +15,22 @@ public class UnstuckRescue : MonoBehaviour
 
     private void GetNeededData()
     {
-        rescuePoints = UnstuckDataBank.instance.GetRescuePoints();
-        player = FoxMovement.instance.transform;
+        _rescuePoints = UnstuckDataBank.Instance.GetRescuePoints();
+        _player = FoxMovement.Instance.transform;
     }
 
     public void Unstuck()
     {
-        player = FoxMovement.instance.transform;
+        _player = FoxMovement.Instance.transform;
 
-        if (player == null)
+        if (_player == null)
         {
             Debug.LogWarning("No player reference for Unstuck button!");
             return;
         }
 
-        GameEventsManager.instance.uiEvents.UseUnstuckButton();
-        nearestRescuePoint = FindNearestRescuePoint();
+        GameEventsManager.instance.UIEvents.UseUnstuckButton();
+        _nearestRescuePoint = FindNearestRescuePoint();
         MovePlayerToSafeLocation();
     }
 
@@ -39,9 +39,9 @@ public class UnstuckRescue : MonoBehaviour
         Vector3 newPosition = new Vector3();
         float smallestDistance = -1f;
 
-        foreach (Transform rescuePoint in rescuePoints)
+        foreach (Transform rescuePoint in _rescuePoints)
         {
-            float distanceToPlayer = Vector3.Distance(player.position, rescuePoint.position);
+            float distanceToPlayer = Vector3.Distance(_player.position, rescuePoint.position);
             Debug.Log("Distance to player: " + distanceToPlayer);
 
             if (distanceToPlayer < smallestDistance || smallestDistance == -1f)
@@ -56,9 +56,9 @@ public class UnstuckRescue : MonoBehaviour
 
     private void MovePlayerToSafeLocation()
     {
-        FoxMovement.instance.gameObject.SetActive(false);
-        player.position = nearestRescuePoint;
-        FoxMovement.instance.gameObject.SetActive(true);
+        FoxMovement.Instance.gameObject.SetActive(false);
+        _player.position = _nearestRescuePoint;
+        FoxMovement.Instance.gameObject.SetActive(true);
     }
 
     private void CheckButtonVisibilityConditions()

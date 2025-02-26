@@ -37,7 +37,7 @@ namespace ProfanityFilter
         /// <summary>
         /// Return an instance of a read only collection containing allow list
         /// </summary>
-        public ReadOnlyCollection<string> ToList
+        public ReadOnlyCollection<string> toList
         {
             get
             {
@@ -82,7 +82,7 @@ namespace ProfanityFilter
         /// Return the number of items in the allow list.
         /// </summary>
         /// <returns>The number of items in the allow list.</returns>
-        public int Count
+        public int count
         {
             get
             {

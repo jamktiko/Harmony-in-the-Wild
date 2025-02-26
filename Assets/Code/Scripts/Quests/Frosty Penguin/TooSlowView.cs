@@ -5,12 +5,12 @@ public class TooSlowView : MonoBehaviour
 {
     private void Start()
     {
-        PenguinRaceManager.instance.penguinDungeonEvents.onTimeRanOut += ShowTheView;
+        PenguinRaceManager.instance.PenguinDungeonEvents.OnTimeRanOut += ShowTheView;
     }
 
     private void OnDisable()
     {
-        PenguinRaceManager.instance.penguinDungeonEvents.onTimeRanOut -= ShowTheView;
+        PenguinRaceManager.instance.PenguinDungeonEvents.OnTimeRanOut -= ShowTheView;
     }
 
     private void ShowTheView()

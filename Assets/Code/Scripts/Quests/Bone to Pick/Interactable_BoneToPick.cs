@@ -1,32 +1,33 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class Interactable_BoneToPick : MonoBehaviour
+public class InteractableBoneToPick : MonoBehaviour
 {
-    [SerializeField] bool isActive = false;
-    [SerializeField] public bool wasUsed = false; //Note: does this need to be public? private and method to pass value instead
+    [FormerlySerializedAs("isActive")] [SerializeField] bool _isActive = false;
+    [FormerlySerializedAs("wasUsed")] [SerializeField] public bool WasUsed = false; //Note: does this need to be public? private and method to pass value instead
 
     void Update()
     {
-        if (PlayerInputHandler.instance.InteractInput.WasPressedThisFrame() && isActive && QuestManager.instance.CheckQuestState("BoneToPick").Equals(QuestState.IN_PROGRESS))
+        if (PlayerInputHandler.Instance.InteractInput.WasPressedThisFrame() && _isActive && QuestManager.Instance.CheckQuestState("BoneToPick").Equals(QuestState.InProgress))
         {
-            wasUsed = true;
-            FindObjectOfType<CollectableQuestStep_BoneToPick>().CollectableProgress();
+            WasUsed = true;
+            FindObjectOfType<CollectableQuestStepBoneToPick>().CollectableProgress();
             Debug.Log("object found!");
             Destroy(gameObject);
         }
-        else if (PlayerInputHandler.instance.InteractInput.WasPressedThisFrame() && isActive && QuestManager.instance.CheckQuestState("BoneToPick").Equals(QuestState.FINISHED))
+        else if (PlayerInputHandler.Instance.InteractInput.WasPressedThisFrame() && _isActive && QuestManager.Instance.CheckQuestState("BoneToPick").Equals(QuestState.Finished))
         {
-            wasUsed = true;
+            WasUsed = true;
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        isActive = true;
+        _isActive = true;
     }
 
     private void OnTriggerExit(Collider other)
     {
-        isActive = false;
+        _isActive = false;
     }
 }
