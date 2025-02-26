@@ -1,5 +1,5 @@
-using UnityEngine;
 using System.IO;
+using UnityEngine;
 
 public class DevToolButtons : MonoBehaviour
 {
@@ -16,9 +16,9 @@ public class DevToolButtons : MonoBehaviour
 
     public void ToggleVisiblePage(int pageIndex)
     {
-        for(int i = 0; i < pageParent.childCount; i++)
+        for (int i = 0; i < pageParent.childCount; i++)
         {
-            if(i == pageIndex)
+            if (i == pageIndex)
             {
                 pageParent.GetChild(i).gameObject.SetActive(true);
             }
@@ -38,9 +38,9 @@ public class DevToolButtons : MonoBehaviour
     public void ResetAbilities()
     {
 
-        foreach (Abilities abilities in AbilityManager.instance.abilityStatuses.Keys)
+        foreach (Abilities abilities in AbilityManager.Instance._abilityStatuses.Keys)
         {
-            AbilityManager.instance.abilityStatuses[abilities] = false;
+            AbilityManager.Instance._abilityStatuses[abilities] = false;
         }
 
         SaveManager.instance.SaveGame();

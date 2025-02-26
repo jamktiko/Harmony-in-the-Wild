@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FlowerZoneEnabler : MonoBehaviour
@@ -26,11 +24,11 @@ public class FlowerZoneEnabler : MonoBehaviour
     {
         int currentState = TreeOfLifeState.instance.GetTreeOfLifeState();
 
-        if(currentState >= enablingState)
+        if (currentState >= enablingState)
         {
             //Debug.Log("Show zone: " + gameObject.name);
 
-            foreach(Transform child in transform)
+            foreach (Transform child in transform)
             {
                 child.gameObject.SetActive(true);
             }

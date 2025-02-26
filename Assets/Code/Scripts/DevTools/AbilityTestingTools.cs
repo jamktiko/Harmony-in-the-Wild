@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using System;
+using UnityEngine;
 
 public class AbilityTestingTools : MonoBehaviour
 {
@@ -26,7 +24,7 @@ public class AbilityTestingTools : MonoBehaviour
         //unlock one
         if (PlayerInputHandler.instance.DebugAbilitiesUnlockOne.WasPressedThisFrame())
         {
-            AbilityManager.instance.UnlockAbility(abilityToUnlock);
+            AbilityManager.Instance.UnlockAbility(abilityToUnlock);
         }
 
         //unlock all
@@ -34,7 +32,7 @@ public class AbilityTestingTools : MonoBehaviour
         {
             foreach (Abilities ability in Enum.GetValues(typeof(Abilities)))
             {
-                AbilityManager.instance.abilityStatuses[ability] = true;
+                AbilityManager.Instance._abilityStatuses[ability] = true;
             }
 
             Debug.Log("All abilities unlocked");
@@ -43,21 +41,21 @@ public class AbilityTestingTools : MonoBehaviour
 
     private void LogAbilityStatus()
     {
-        if (AbilityManager.instance.abilityStatuses.TryGetValue(abilityToUnlock, out bool isUnlocked))
+        if (AbilityManager.Instance._abilityStatuses.TryGetValue(abilityToUnlock, out bool isUnlocked))
         {
             string status = isUnlocked ? "Unlocked" : "Locked";
             Debug.Log($"Ability: {abilityToUnlock}, Status: {status}");
         }
-        if (AbilityCycle.instance.activeAbilities.TryGetValue(AbilityCycle.instance.selectedAbility, out bool isActive))
+        if (AbilityCycle.Instance._activeAbilities.TryGetValue(AbilityCycle.Instance.SelectedAbility, out bool isActive))
         {
             string status = isActive ? "Active" : "Inactive";
-            Debug.Log("1. Selected ability is: " + AbilityCycle.instance.selectedAbility + " and it is: " + status);
+            Debug.Log("1. Selected ability is: " + AbilityCycle.Instance.SelectedAbility + " and it is: " + status);
         }
     }
 
     public void LogAllAbilityStatuses()
     {
-        foreach (var ability in AbilityManager.instance.abilityStatuses)
+        foreach (var ability in AbilityManager.Instance._abilityStatuses)
         {
             string status = ability.Value ? "Unlocked" : "Locked";
             Debug.Log($"Ability: {ability.Key}, Status: {status}");

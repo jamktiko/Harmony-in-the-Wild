@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.VFX;
@@ -26,7 +25,7 @@ public class Speedboost : MonoBehaviour
     public void IncreasePlayerSpeed(GameObject player)
     {
         player.GetComponent<FoxMovement>().moveSpeed += speedIncrease;
-        AudioManager.instance.PlaySound(AudioName.Movement_Speedboost, transform);
+        AudioManager.Instance.PlaySound(AudioName.Movement_Speedboost, transform);
         StartCoroutine(SpeedBoostVFXCoroutine(player));
         meshTrail.ActivateTrail();
     }

@@ -11,7 +11,7 @@ public class PlatformWaypointPath : MonoBehaviour
     {
         int nextWaypointIndex = currentWaypointIndex + 1;
 
-        if(nextWaypointIndex >= transform.childCount)
+        if (nextWaypointIndex >= transform.childCount)
         {
             nextWaypointIndex = 0;
         }

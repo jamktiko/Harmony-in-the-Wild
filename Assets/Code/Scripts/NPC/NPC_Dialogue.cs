@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,7 +17,7 @@ public class NPC_Dialogue : MonoBehaviour
 
     private void Update()
     {
-        if(PlayerInputHandler.instance.InteractInput.WasPressedThisFrame() && playerIsNear)
+        if (PlayerInputHandler.instance.InteractInput.WasPressedThisFrame() && playerIsNear)
         {
             SetDialogueToPlay();
         }
@@ -35,25 +34,25 @@ public class NPC_Dialogue : MonoBehaviour
 
         if (DialogueManager.instance.isDialoguePlaying)
         {
-            AudioManager.instance.PlaySound(audioToPlayOnDialogueStarted, transform);
+            AudioManager.Instance.PlaySound(audioToPlayOnDialogueStarted, transform);
         }
     }
 
     private void CreateListOfPossibleDialogues()
     {
         // go through the main quests and add the possible dialogues to the list
-        foreach(NPCQuestDialoguePair questDialoguePair in questDialoguePairs)
+        foreach (NPCQuestDialoguePair questDialoguePair in questDialoguePairs)
         {
             QuestState state = QuestManager.instance.CheckQuestState(questDialoguePair.mainQuest.id);
 
-            if(state == QuestState.FINISHED)
+            if (state == QuestState.FINISHED)
             {
                 possibleDialogues.Add(questDialoguePair.dialogueOption);
             }
         }
 
         // if none of the main quests have been completed yet, add the default dialogue as an option
-        if(possibleDialogues.Count == 0)
+        if (possibleDialogues.Count == 0)
         {
             possibleDialogues.Add(defaultDialogue);
         }

@@ -1,4 +1,3 @@
-using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
@@ -49,7 +48,7 @@ public class QuestPoint : MonoBehaviour
 
     private void Update()
     {
-        if(PlayerInputHandler.instance.InteractInput.WasPressedThisFrame()&&playerIsNear)
+        if (PlayerInputHandler.instance.InteractInput.WasPressedThisFrame() && playerIsNear)
         {
             InteractedWithQuestPoint();
         }
@@ -81,12 +80,12 @@ public class QuestPoint : MonoBehaviour
             questPointDialogue.FinishQuestDialogue();
         }
 
-         // if the quest has already been finished, trigger the default dialogue
-         else if (currentQuestState.Equals(QuestState.FINISHED))
-         {
+        // if the quest has already been finished, trigger the default dialogue
+        else if (currentQuestState.Equals(QuestState.FINISHED))
+        {
             Debug.Log("Interacting with quest point, quest has been completed previously.");
             questPointDialogue.AfterQuestFinishedDialogue();
-         }
+        }
 
         else if (currentQuestState.Equals(QuestState.IN_PROGRESS) && midQuestDialogueSet)
         {
@@ -109,7 +108,7 @@ public class QuestPoint : MonoBehaviour
 
     private void StartOrCompleteQuest()
     {
-        if(playerIsNear && readyToStartQuest && !readyToCompleteQuest && currentQuestState.Equals(QuestState.CAN_START))
+        if (playerIsNear && readyToStartQuest && !readyToCompleteQuest && currentQuestState.Equals(QuestState.CAN_START))
         {
             GameEventsManager.instance.questEvents.StartQuest(questId);
         }
@@ -137,7 +136,7 @@ public class QuestPoint : MonoBehaviour
 
     private void SetMidQuestDialogue(int dialogueIndex, string id)
     {
-        if(id == questId)
+        if (id == questId)
         {
             midQuestDialogueSet = true;
             midQuestDialogueIndex = dialogueIndex;

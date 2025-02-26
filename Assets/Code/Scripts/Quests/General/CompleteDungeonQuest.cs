@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -32,7 +30,7 @@ public class CompleteDungeonQuest : QuestStep
     public void CompleteDungeon(string id)
     {
         Debug.Log("CompleteDungeon has been called.");
-        if(id == dungeonQuestId)
+        if (id == dungeonQuestId)
         {
             stagesCompleted++;
 

@@ -1,17 +1,17 @@
+using ProfanityFilter;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using ProfanityFilter;
 
 public class ProfanityNameDetector : MonoBehaviour
 {
     //NOTE: Consider implementing something like https://github.com/stephenhaunts/ProfanityDetector instead of creating our own library?
-    
+
     [SerializeField] GameObject sureMessage;
     [SerializeField] GameObject inappropriateMessage;
 
     private string foxNameInput;
 
-    public void SaveName(string s) 
+    public void SaveName(string s)
     {
         var filter = new ProfanityFilterScript();
         if (!filter.IsProfanity(s))
@@ -28,7 +28,7 @@ public class ProfanityNameDetector : MonoBehaviour
             inappropriateMessage.SetActive(true);
         }
     }
-    public void NoButton() 
+    public void NoButton()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -7,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class TalkToBearQuestStep : QuestStep
 {
     [SerializeField] DialogueVariables dialogueToPassForProgress;
-    [SerializeField]Animator cinematicAnimator;
+    [SerializeField] Animator cinematicAnimator;
     public UnityEvent animationEvent;
     private DialogueQuestNPCs character = DialogueQuestNPCs.Bear;
     private bool talkedToBear; // this might not be needed here, but to avoid any errors in the other quest code (state of the quest etc.), there's some value to be saved
@@ -29,7 +27,7 @@ public class TalkToBearQuestStep : QuestStep
         {
             cinematicAnimator = null;
         }
-        
+
     }
 
     private void OnDisable()
@@ -60,12 +58,12 @@ public class TalkToBearQuestStep : QuestStep
             {
                 cinematicAnimator = null;
             }
-        }     
+        }
     }
 
     private void CheckProgressInDialogue(DialogueVariables changedVariable)
     {
-        if(changedVariable == dialogueToPassForProgress && canProgressQuest)
+        if (changedVariable == dialogueToPassForProgress && canProgressQuest)
         {
             FinishQuestStep();
         }
@@ -73,7 +71,7 @@ public class TalkToBearQuestStep : QuestStep
 
     private void PlayerIsClose(DialogueQuestNPCs npc, bool isClose)
     {
-        if(npc == character)
+        if (npc == character)
         {
             Debug.Log("Toggling quest progress for tutorial: " + isClose);
             canProgressQuest = isClose;
@@ -87,7 +85,7 @@ public class TalkToBearQuestStep : QuestStep
 
     private void PlayIntroCinematic(string name)
     {
-        if(name == "Tutorial")
+        if (name == "Tutorial")
         {
             try
             {

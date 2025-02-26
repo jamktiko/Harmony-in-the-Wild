@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BF_LightSwitch : MonoBehaviour
 {
@@ -9,11 +7,11 @@ public class BF_LightSwitch : MonoBehaviour
 
     void OnEnable()
     {
-        if(lightScene != null)
+        if (lightScene != null)
         {
             lightScene.SetActive(true);
         }
-        if(skyboxScene != null)
+        if (skyboxScene != null)
         {
             RenderSettings.skybox = skyboxScene;
         }

@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class BF_SnowSubShowcase : MonoBehaviour
 {
@@ -17,7 +16,7 @@ public class BF_SnowSubShowcase : MonoBehaviour
     // Start is called before the first frame update
     private void OnEnable()
     {
-        aM.maxSubIndex = subShowcases.Count-1;
+        aM.maxSubIndex = subShowcases.Count - 1;
         aM.m_ShowcaseChange.AddListener(ChangeIndex);
     }
     private void OnDisable()

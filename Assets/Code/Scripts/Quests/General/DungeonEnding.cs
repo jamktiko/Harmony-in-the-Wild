@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class DungeonEnding : MonoBehaviour
 {
@@ -43,7 +42,7 @@ public class DungeonEnding : MonoBehaviour
 
     private void TriggerSceneTransition(Quest quest)
     {
-        if(quest.info.id == questId && quest.state == QuestState.CAN_FINISH)
+        if (quest.info.id == questId && quest.state == QuestState.CAN_FINISH)
         {
             Debug.Log("Corresponding dungeon quest finished...");
             StartCoroutine(ShowDungeonCompletedStorybook());

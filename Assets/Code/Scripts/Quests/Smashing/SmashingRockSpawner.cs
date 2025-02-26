@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SmashingRockSpawner : MonoBehaviour
@@ -27,12 +26,12 @@ public class SmashingRockSpawner : MonoBehaviour
     {
         int oreRockIndex = Random.Range(0, transform.childCount);
         Debug.Log("Ore rock index: " + oreRockIndex);
-        for(int i = 0; i < transform.childCount; i++)
+        for (int i = 0; i < transform.childCount; i++)
         {
             Instantiate(spawnEffect, transform.GetChild(i).position, Quaternion.identity);
             GameObject newRock = Instantiate(rockPrefab, transform.GetChild(i));
 
-            if(i == oreRockIndex)
+            if (i == oreRockIndex)
             {
                 newRock.GetComponent<Destructible>().IncludeOre();
                 Debug.Log("Name of rock with ore: " + newRock.transform.parent);
@@ -42,9 +41,9 @@ public class SmashingRockSpawner : MonoBehaviour
 
     public void ResetRocks()
     {
-        foreach(Transform child in transform)
+        foreach (Transform child in transform)
         {
-            if(child.childCount > 0)
+            if (child.childCount > 0)
             {
                 Destroy(child.transform.GetChild(0).gameObject);
             }

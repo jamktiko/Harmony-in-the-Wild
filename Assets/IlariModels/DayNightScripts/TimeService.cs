@@ -15,7 +15,8 @@ public class TimeService
     readonly Observable<bool> isDayTime;
     public readonly Observable<int> currentHour;
 
-    public TimeService(TimeSettings settings) {
+    public TimeService(TimeSettings settings)
+    {
         this.settings = settings;
         currentTime = DateTime.Now.Date + TimeSpan.FromHours(settings.startHour);
         sunriseTime = TimeSpan.FromHours(settings.sunriseHour);

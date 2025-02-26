@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BossDoorScript : MonoBehaviour
 {
-    [SerializeField] private List<LeverScript> scripts=new List<LeverScript>();
+    [SerializeField] private List<LeverScript> scripts = new List<LeverScript>();
     public bool isOpen;
     public int usedlevers, levers;
     [SerializeField] Material usedMat;
@@ -14,16 +14,16 @@ public class BossDoorScript : MonoBehaviour
 
     void Start()
     {
-        scripts=FindObjectsOfType<LeverScript>().ToList();
-        usedlevers=scripts.Where(x=>x.wasUsed).Count();
-        levers= scripts.Where(x => !x.wasUsed).Count();
+        scripts = FindObjectsOfType<LeverScript>().ToList();
+        usedlevers = scripts.Where(x => x.wasUsed).Count();
+        levers = scripts.Where(x => !x.wasUsed).Count();
 
         finishDungeonQuestStep = GetComponent<FinishDungeonQuestStepWithTrigger>();
     }
 
     void Update()
     {
-        if (usedlevers == levers&&isOpen==false) 
+        if (usedlevers == levers && isOpen == false)
         {
             isOpen = true;
             gameObject.GetComponent<AudioSource>().Play();

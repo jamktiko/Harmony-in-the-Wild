@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -72,13 +71,13 @@ public class TutorialBear : MonoBehaviour
 
         if (DialogueManager.instance.isDialoguePlaying)
         {
-            AudioManager.instance.PlaySound(audioToPlayOnDialogueStarted, transform);
+            AudioManager.Instance.PlaySound(audioToPlayOnDialogueStarted, transform);
         }
     }
 
     private void CheckDialogueProgressChanges(string updatedQuestId)
     {
-        if(updatedQuestId == questId)
+        if (updatedQuestId == questId)
         {
             GameEventsManager.instance.dialogueEvents.RegisterPlayerNearNPC(character, playerIsNear);
 

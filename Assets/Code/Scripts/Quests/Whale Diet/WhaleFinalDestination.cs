@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class WhaleFinalDestination : QuestStep
@@ -26,7 +23,7 @@ public class WhaleFinalDestination : QuestStep
 
     private void TriggerMovement(Scene scene, LoadSceneMode mode)
     {
-        if(scene.name.Contains("Overworld", System.StringComparison.CurrentCultureIgnoreCase))
+        if (scene.name.Contains("Overworld", System.StringComparison.CurrentCultureIgnoreCase))
         {
             GameEventsManager.instance.questEvents.StartMovingQuestNPC(DialogueQuestNPCs.Whale);
 

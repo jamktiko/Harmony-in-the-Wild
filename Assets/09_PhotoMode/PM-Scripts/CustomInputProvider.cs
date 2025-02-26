@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static Cinemachine.AxisState;
-using PhotoMode;
 
 namespace PhotoMode
 {

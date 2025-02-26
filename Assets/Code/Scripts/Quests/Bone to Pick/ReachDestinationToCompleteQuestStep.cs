@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ReachDestinationToCompleteQuestStep : MonoBehaviour
@@ -19,14 +17,14 @@ public class ReachDestinationToCompleteQuestStep : MonoBehaviour
     {
         int currentQuestStepIndex = QuestManager.instance.GetQuestById(questSO.id).GetCurrentQuestStepIndex();
 
-        if(currentQuestStepIndex == targetQuestStepIndex)
+        if (currentQuestStepIndex == targetQuestStepIndex)
         {
             GameEventsManager.instance.questEvents.ReachTargetDestinationToCompleteQuestStep(questSO.id);
         }
 
         else
         {
-            Debug.Log($"Trying to progress { questSO.id } by entering a trigger collider; current quest step index not matching.");
+            Debug.Log($"Trying to progress {questSO.id} by entering a trigger collider; current quest step index not matching.");
         }
     }
 }

@@ -97,8 +97,8 @@ namespace CartoonFX
                 bool startsWithTag = (line.Length > 4 && line[0] == '/' && line[1] == '*' && line[2] == '*' && line[3] == '*');
                 if (startsWithTag) return true;
 
-                int l = line.Length-1;
-                bool endsWithTag = (line.Length > 4 && line[l] == '/' && line[l-1] == '*' && line[l-2] == '*' && line[l-3] == '*');
+                int l = line.Length - 1;
+                bool endsWithTag = (line.Length > 4 && line[l] == '/' && line[l - 1] == '*' && line[l - 2] == '*' && line[l - 3] == '*');
                 return endsWithTag;
             }
 
@@ -172,14 +172,14 @@ namespace CartoonFX
 
                 if (ShaderUtil.ShaderHasError(shader))
                 {
-                    string[] shaderSourceLines = shaderSourceCode.Split(new [] {'\n'}, StringSplitOptions.None);
+                    string[] shaderSourceLines = shaderSourceCode.Split(new[] { '\n' }, StringSplitOptions.None);
                     var errors = ShaderUtil.GetShaderMessages(shader);
                     shaderErrors = Array.ConvertAll(errors, err => $"{err.message} (line {err.line})");
                     foreach (ShaderMessage error in errors)
                     {
                         string message = error.line <= 0 ?
                             string.Format("Shader Error in '{0}' (in file '{2}')\nError: {1}\n", shaderName, error.message, error.file) :
-                            string.Format("Shader Error in '{0}' (line {2} in file '{3}')\nError: {1}\nLine: {4}\n", shaderName, error.message, error.line, error.file, shaderSourceLines[error.line-1]);
+                            string.Format("Shader Error in '{0}' (line {2} in file '{3}')\nError: {1}\nLine: {4}\n", shaderName, error.message, error.line, error.file, shaderSourceLines[error.line - 1]);
                         if (error.severity == ShaderCompilerMessageSeverity.Warning)
                         {
                             Debug.LogWarning(message);
@@ -207,9 +207,9 @@ namespace CartoonFX
                 {
                     try
                     {
-                        object result = getVariantCountReflection.Invoke(null, new object[] {shader, false});
+                        object result = getVariantCountReflection.Invoke(null, new object[] { shader, false });
                         variantCount = (ulong)result;
-                        result = getVariantCountReflection.Invoke(null, new object[] {shader, true});
+                        result = getVariantCountReflection.Invoke(null, new object[] { shader, true });
                         variantCountUsed = (ulong)result;
                     }
                     catch
@@ -225,7 +225,7 @@ namespace CartoonFX
             [CustomEditor(typeof(CFXR_ShaderImporter)), CanEditMultipleObjects]
             public class TCP2ShaderImporter_Editor : Editor
             {
-                CFXR_ShaderImporter Importer => (CFXR_ShaderImporter) this.target;
+                CFXR_ShaderImporter Importer => (CFXR_ShaderImporter)this.target;
 
                 // From: UnityEditor.ShaderInspectorPlatformsPopup
                 static string FormatCount(ulong count)

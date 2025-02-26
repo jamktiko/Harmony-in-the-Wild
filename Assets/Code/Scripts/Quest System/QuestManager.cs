@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -91,7 +90,7 @@ public class QuestManager : MonoBehaviour
         }
     }
 
-    private void PlayerLevelChange(int Level) 
+    private void PlayerLevelChange(int Level)
     {
         currentPlayerLevel = Level;
     }
@@ -117,9 +116,9 @@ public class QuestManager : MonoBehaviour
         {
             meetsRequirements = false;
         }*/
-        foreach(QuestScriptableObject prerequisiteQuestInfo in quest.info.questPrerequisites)
+        foreach (QuestScriptableObject prerequisiteQuestInfo in quest.info.questPrerequisites)
         {
-            if(GetQuestById(prerequisiteQuestInfo.id).state != QuestState.FINISHED)
+            if (GetQuestById(prerequisiteQuestInfo.id).state != QuestState.FINISHED)
             {
                 meetsRequirements = false;
             }
@@ -147,7 +146,7 @@ public class QuestManager : MonoBehaviour
             quest.InstantiateCurrentQuestStep(transform);
             ChangeQuestState(quest.info.id, QuestState.IN_PROGRESS);
 
-            if(id != "Tutorial")
+            if (id != "Tutorial")
             {
                 AbilityAcquired(quest.info.abilityReward);
                 //Debug.Log("Ability unlocked: " + quest.info.abilityReward);
@@ -165,7 +164,7 @@ public class QuestManager : MonoBehaviour
 
         // if there are more steps, instantiate the next one
         if (quest.CurrentStepExists())
-        {   
+        {
             //Debug.Log("Quest " + id + " state advanced.");
             quest.InstantiateCurrentQuestStep(transform);
         }
@@ -196,7 +195,7 @@ public class QuestManager : MonoBehaviour
         Quest quest = GetQuestById(id);
         ClaimRewards(quest);
         ChangeQuestState(quest.info.id, QuestState.FINISHED);
-        AudioManager.instance.PlaySound(AudioName.Action_QuestCompleted, transform);
+        AudioManager.Instance.PlaySound(AudioName.Action_QuestCompleted, transform);
         GameEventsManager.instance.questEvents.HideQuestUI();
         QuestCompletedUI.instance.ShowUI(id);
         ResetActiveQuest();
@@ -240,12 +239,12 @@ public class QuestManager : MonoBehaviour
 
     public Dictionary<string, Quest> CreateQuestMap()
     {
-        if(questMap != null)
+        if (questMap != null)
         {
             Debug.Log("Reset quest map");
             questMap = null;
 
-            foreach(Transform questStep in transform)
+            foreach (Transform questStep in transform)
             {
                 Destroy(questStep.gameObject);
             }
@@ -269,7 +268,7 @@ public class QuestManager : MonoBehaviour
                 Debug.LogWarning("Duplicate ID found when creating quest map: " + questInfo.id);
             }
 
-            if(loadedQuestData.Count > 0)
+            if (loadedQuestData.Count > 0)
             {
                 idToQuestMap.Add(questInfo.id, LoadQuest(questInfo, loadedQuestData[currentQuestSOIndex]));
             }
@@ -304,9 +303,9 @@ public class QuestManager : MonoBehaviour
         return quest.state;
     }
 
-    private void AbilityAcquired(Abilities ability) 
+    private void AbilityAcquired(Abilities ability)
     {
-        AbilityManager.instance.UnlockAbility(ability);
+        AbilityManager.Instance.UnlockAbility(ability);
 
         if (ability == Abilities.GhostSpeaking)
         {
@@ -322,7 +321,7 @@ public class QuestManager : MonoBehaviour
         List<string> allQuestData = new List<string>();
         int i = 0;
 
-        foreach(Quest quest in questMap.Values)
+        foreach (Quest quest in questMap.Values)
         {
             string savedQuestData = GetSerializedQuestData(quest);
             allQuestData.Add(savedQuestData);

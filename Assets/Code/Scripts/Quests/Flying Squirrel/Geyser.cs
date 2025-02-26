@@ -13,10 +13,10 @@ public class Geyser : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
 
-        if (cooldown==0) 
-            {
-                cooldown = 400;
-            }
+        if (cooldown == 0)
+        {
+            cooldown = 400;
+        }
     }
 
     void FixedUpdate()
@@ -37,11 +37,11 @@ public class Geyser : MonoBehaviour
         {
             timePassed = 0;
         }
-        isErupting =false;
+        isErupting = false;
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player")) 
+        if (other.CompareTag("Player"))
         {
             Debug.Log("deadge");
         }

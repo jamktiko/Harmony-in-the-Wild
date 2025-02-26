@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class TelegrabObject : MonoBehaviour
 {
-    public Material telegrabMaterial;
+    public Material TelegrabMaterial;
 
     void Start()
     {
-        telegrabMaterial = gameObject.GetComponent<MeshRenderer>().material;
+        TelegrabMaterial = gameObject.GetComponent<MeshRenderer>().material;
     }
 }

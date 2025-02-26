@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class AbilityToggling : MonoBehaviour
 {
@@ -8,7 +7,7 @@ public class AbilityToggling : MonoBehaviour
     //note: REDUNDANT replaced with AbilityManager
     private void Start()
     {
-        AbilityManager.instance.UnlockAbility(Abilities.ChargeJumping);
+        AbilityManager.Instance.UnlockAbility(Abilities.ChargeJumping);
     }
 
     //public void ToggleAbility()

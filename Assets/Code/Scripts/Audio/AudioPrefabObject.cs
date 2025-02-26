@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AudioPrefabObject : MonoBehaviour
@@ -12,14 +10,14 @@ public class AudioPrefabObject : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
 
-        if(audioSource == null)
+        if (audioSource == null)
         {
             Debug.Log($"No audio source found for {gameObject.name}!");
         }
 
         PlayAudio();
 
-        if (!data.destroyAfterPlayedOnce)
+        if (!data.DestroyAfterPlayedOnce)
         {
             GameEventsManager.instance.audioEvents.OnDestroyAudio += DestroyOnCall;
         }
@@ -29,7 +27,7 @@ public class AudioPrefabObject : MonoBehaviour
 
     private void OnDisable()
     {
-        if (!data.destroyAfterPlayedOnce)
+        if (!data.DestroyAfterPlayedOnce)
         {
             GameEventsManager.instance.audioEvents.OnDestroyAudio -= DestroyOnCall;
         }
@@ -39,27 +37,27 @@ public class AudioPrefabObject : MonoBehaviour
 
     private void PlayAudio()
     {
-        if(data.clips.Length <= 0)
+        if (data.ClipsList.Length <= 0)
         {
             Debug.Log($"No audio clips assigned for {gameObject.name}.");
             return;
         }
 
-        audioSource.clip = data.clips[Random.Range(0, data.clips.Length)];
+        audioSource.clip = data.ClipsList[Random.Range(0, data.ClipsList.Length)];
 
-        if (data.useRandomPitch)
+        if (data.UseRandomPitch)
         {
-            audioSource.pitch = Random.Range(data.minPitch, data.maxPitch);
+            audioSource.pitch = Random.Range(data.MinPitch, data.MaxPitch);
         }
 
-        if (data.useRandomVolume)
+        if (data._useRandomVolume)
         {
-            audioSource.volume = Random.Range(data.minVolume, data.maxVolume);
+            audioSource.volume = Random.Range(data.MinVolume, data.MaxVolume);
         }
 
         audioSource.Play();
 
-        if (data.destroyAfterPlayedOnce)
+        if (data.DestroyAfterPlayedOnce)
         {
             Invoke(nameof(DestroyAfterClipPlayedOnce), audioSource.clip.length);
         }
@@ -72,7 +70,7 @@ public class AudioPrefabObject : MonoBehaviour
 
     private void DestroyOnCall(AudioName audioToDestroy)
     {
-        if(audioToDestroy == data.name)
+        if (audioToDestroy == data.Name)
         {
             Destroy(gameObject);
         }

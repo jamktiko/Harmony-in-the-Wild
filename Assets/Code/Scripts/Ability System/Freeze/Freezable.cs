@@ -5,17 +5,17 @@ using UnityEngine;
 public class Freezable : MonoBehaviour
 {
     [Header("Freeze State")]
-    public bool isFrozen;
+    public bool IsFrozen;
 
     [Header("Freeze Config")]
-    [SerializeField] private float freezeTime;
+    [SerializeField] private float _freezeTime;
 
     //TODO: Rename both of these once purpose is more clear. Now naming implies they're booleans.
     [Header("Needed References")]
-    [SerializeField] private GameObject canBeFrozen;
-    [SerializeField] private Material newFrozenMaterial;
-    [SerializeField] private AudioSource Freeze;
-    [SerializeField] private AudioClip FreezeClip;
+    [SerializeField] private GameObject _canBeFrozen;
+    [SerializeField] private Material _newFrozenMaterial;
+    [SerializeField] private AudioSource _freeze;
+    [SerializeField] private AudioClip _freezeClip;
 
     private Rigidbody rb;
     private Vector3 targetPosition;
@@ -25,11 +25,11 @@ public class Freezable : MonoBehaviour
     {
         TryGetComponent<Rigidbody>(out rb);
 
-        if (canBeFrozen == null)
+        if (_canBeFrozen == null)
         {
-            canBeFrozen = transform.Find("Effects").Find("FreezableRock").gameObject;
+            _canBeFrozen = transform.Find("Effects").Find("FreezableRock").gameObject;
 
-            if (canBeFrozen == null)
+            if (_canBeFrozen == null)
             {
                 Debug.Log("Couldn't find freezable effect reference for " + gameObject.name);
             }
@@ -43,37 +43,37 @@ public class Freezable : MonoBehaviour
             SwapMaterials(false);
         }
 
-        isFrozen = false;
-        canBeFrozen.SetActive(true);
+        IsFrozen = false;
+        _canBeFrozen.SetActive(true);
     }
 
     public void FreezeObject()
     {
         Debug.Log(gameObject.name + " has been frozen.");
-        isFrozen = true;
+        IsFrozen = true;
 
-        if(Freeze != null)
+        if (_freeze != null)
         {
-            Freeze.PlayOneShot(FreezeClip);
+            _freeze.PlayOneShot(_freezeClip);
         }
 
         else
         {
             Debug.LogWarning("No Audio Source assigned for " + gameObject.name + "; no freezing audio played.");
         }
-        
+
         if (rb != null)
         {
             rb.useGravity = false;
             rb.constraints = RigidbodyConstraints.FreezeAll;
-            
+
         }
 
-        if (canBeFrozen != null)
+        if (_canBeFrozen != null)
         {
-            canBeFrozen.SetActive(false);
+            _canBeFrozen.SetActive(false);
         }
-            
+
         // Material swapping
         SwapMaterials(true);
 
@@ -82,9 +82,9 @@ public class Freezable : MonoBehaviour
 
     private IEnumerator FreezeCooldown()
     {
-        yield return new WaitForSeconds(freezeTime);
+        yield return new WaitForSeconds(_freezeTime);
 
-        isFrozen = false;
+        IsFrozen = false;
 
         if (rb != null)
         {
@@ -92,9 +92,9 @@ public class Freezable : MonoBehaviour
             rb.constraints = RigidbodyConstraints.None;
         }
 
-        if (canBeFrozen != null)
-            canBeFrozen.SetActive(true);
-        
+        if (_canBeFrozen != null)
+            _canBeFrozen.SetActive(true);
+
         SwapMaterials(false);
 
         Debug.Log(gameObject.name + " has been unfrozen.");
@@ -125,7 +125,7 @@ public class Freezable : MonoBehaviour
                     }
 
                     // Apply the new material.
-                    childRenderer.material = newFrozenMaterial;
+                    childRenderer.material = _newFrozenMaterial;
                     Debug.Log($"[SwapMaterials] Applied new material to {child.name}.");
                 }
                 else

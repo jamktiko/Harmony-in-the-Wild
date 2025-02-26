@@ -42,7 +42,7 @@ public class ShootingRotatingBoss : MonoBehaviour
         Vector3 currentDirection = player.position - shootingSpot.position;
         RaycastHit hit;
 
-        if(Physics.Raycast(shootingSpot.position, currentDirection, out hit))
+        if (Physics.Raycast(shootingSpot.position, currentDirection, out hit))
         {
             if (hit.collider.CompareTag("Trigger"))
             {

@@ -56,13 +56,13 @@ public class RaceProgressCollider : MonoBehaviour
         if (other.gameObject.CompareTag("Trigger"))
         {
             // if this is a start line, disable trigger
-            if(isStartLine)
+            if (isStartLine)
             {
                 GetComponent<Collider>().isTrigger = false;
             }
 
             // if this is a waypoint for progress tracking, enable invisible wall after player has passed the trigger
-            else if(!isFinishLine)
+            else if (!isFinishLine)
             {
                 transform.GetChild(0).gameObject.SetActive(true);
 
@@ -82,7 +82,7 @@ public class RaceProgressCollider : MonoBehaviour
             return;
         }
 
-        else if(!isFinishLine)
+        else if (!isFinishLine)
         {
             transform.GetChild(0).gameObject.SetActive(false);
         }
@@ -95,20 +95,20 @@ public class RaceProgressCollider : MonoBehaviour
             GetComponent<Collider>().isTrigger = true;
         }
 
-        else if(!isFinishLine)
+        else if (!isFinishLine)
         {
             transform.GetChild(0).gameObject.SetActive(false);
         }
     }
     public void StartAudio()
     {
-        if (!SoundTrackStart.isPlaying&&isStartLine) { SoundTrackStart.Play(); }
+        if (!SoundTrackStart.isPlaying && isStartLine) { SoundTrackStart.Play(); }
     }
 
     private IEnumerator DelayBeforeNextTrigger()
     {
         canTriggerEvents = false;
-        
+
         yield return new WaitForSeconds(1);
 
         canTriggerEvents = true;

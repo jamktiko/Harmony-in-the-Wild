@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class DungeonQuest_QuestStep : QuestStep
 {
     private string dungeonQuestId;
@@ -20,10 +16,10 @@ public class DungeonQuest_QuestStep : QuestStep
     {
         GameEventsManager.instance.questEvents.OnAdvanceDungeonQuest -= CompleteDungeonQuestStep;
     }
-    
+
     private void CompleteDungeonQuestStep(string id)
     {
-        if(id == dungeonQuestId)
+        if (id == dungeonQuestId)
         {
             FinishQuestStep();
         }

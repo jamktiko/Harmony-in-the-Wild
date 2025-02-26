@@ -1,7 +1,4 @@
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.UI;
-using PhotoMode;
 
 namespace PhotoMode
 {

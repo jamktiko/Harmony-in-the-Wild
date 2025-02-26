@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class EnableAbilityManager : MonoBehaviour
 {
-    [SerializeField] private GameObject abilityManager;
+    [SerializeField] private GameObject _abilityManager;
 
     private void OnEnable()
     {
@@ -14,9 +12,9 @@ public class EnableAbilityManager : MonoBehaviour
 
     private void EnableManager(Scene scene, LoadSceneMode mode)
     {
-        if(scene.name == "Tutorial")
+        if (scene.name == "Tutorial")
         {
-            abilityManager.SetActive(true);
+            _abilityManager.SetActive(true);
             Destroy(this);
         }
     }

@@ -30,7 +30,7 @@ public class GraphicsSettingsResolutions : MonoBehaviour
         for (int i = 0; i < resolutions.Length; i++)
         {
             string resOption = resolutions[i].width + " x " + resolutions[i].height;
-            resOptions.Add(new TMPro.TMP_Dropdown.OptionData(resOption,dropDownSprite));
+            resOptions.Add(new TMPro.TMP_Dropdown.OptionData(resOption, dropDownSprite));
 
             //Setting default res
             if (resolutions[i].width == Screen.currentResolution.width &&

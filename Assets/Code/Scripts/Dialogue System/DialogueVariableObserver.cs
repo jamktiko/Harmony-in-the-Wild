@@ -1,5 +1,5 @@
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class DialogueVariableObserver
@@ -39,7 +39,7 @@ public class DialogueVariableObserver
         string[] loadedValues = loadedData.Split(",");
 
         int index = 0;
-        foreach(var key in variables.Keys.ToArray())
+        foreach (var key in variables.Keys.ToArray())
         {
             if (index < loadedValues.Length)
             {
@@ -50,7 +50,7 @@ public class DialogueVariableObserver
         }
 
         Debug.Log("Dialogue variables loaded!");
-        foreach(var kvp in variables)
+        foreach (var kvp in variables)
         {
             Debug.Log($"{kvp.Key}: {kvp.Value}");
         }
@@ -116,9 +116,9 @@ public class DialogueVariableObserver
     {
         string variablesToJSON = "";
 
-        foreach(KeyValuePair<DialogueVariables, bool> value in variables)
+        foreach (KeyValuePair<DialogueVariables, bool> value in variables)
         {
-            if(variablesToJSON == "")
+            if (variablesToJSON == "")
             {
                 variablesToJSON += value.Value;
             }

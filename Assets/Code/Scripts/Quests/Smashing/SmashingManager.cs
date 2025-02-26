@@ -1,7 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class SmashingManager : MonoBehaviour
 {
@@ -47,10 +46,10 @@ public class SmashingManager : MonoBehaviour
 
     private void StartRockSmash(string id)
     {
-        if(currentQuestId == id)
+        if (currentQuestId == id)
         {
             SmashingRockSpawner.instance.SpawnStartingRocks();
-            AbilityManager.instance.UnlockAbility(Abilities.RockDestroying);
+            AbilityManager.Instance.UnlockAbility(Abilities.RockDestroying);
         }
     }
 
@@ -64,7 +63,7 @@ public class SmashingManager : MonoBehaviour
 
     private void FinishRockSmash(string id)
     {
-        if(currentQuestId == id)
+        if (currentQuestId == id)
         {
             SmashingRockSpawner.instance.DestroyRocks();
         }

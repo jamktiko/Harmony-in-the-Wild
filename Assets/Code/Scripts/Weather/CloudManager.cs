@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -32,7 +31,7 @@ public class CloudManager : MonoBehaviour
         if (clouds.Count < 1)
             clouds.Add(AddCloud());
         //else if (clouds.Count > cloudCoverage)
-            //TryRemoveCloud();
+        //TryRemoveCloud();
 
         // NOTE! uncommented for the current build; activate back later
         //MoveClouds();

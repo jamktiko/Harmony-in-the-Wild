@@ -1,16 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class VerticalSlicePenguin : MonoBehaviour
 {
     void Start()
     {
-        AbilityManager.instance.UnlockAbility(Abilities.RockDestroying);
-        AbilityManager.instance.UnlockAbility(Abilities.SnowDiving);
-        AbilityManager.instance.UnlockAbility(Abilities.Freezing);
-        AbilityManager.instance.LockAbility(Abilities.Gliding);
-        AbilityCycle.instance.selectedAbility = Abilities.Freezing;
+        AbilityManager.Instance.UnlockAbility(Abilities.RockDestroying);
+        AbilityManager.Instance.UnlockAbility(Abilities.SnowDiving);
+        AbilityManager.Instance.UnlockAbility(Abilities.Freezing);
+        AbilityManager.Instance.LockAbility(Abilities.Gliding);
+        AbilityCycle.Instance.SelectedAbility = Abilities.Freezing;
     }
 
 }

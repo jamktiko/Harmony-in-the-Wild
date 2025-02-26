@@ -64,7 +64,7 @@ public class PlayerModelToggle : MonoBehaviour
             yield return null;
         }
     }
-    
+
     private void ChangeVFX(bool snow)
     {
         if (snow)
@@ -121,7 +121,7 @@ public class PlayerModelToggle : MonoBehaviour
     {
         if (canTriggerAudioChange)
         {
-            AudioManager.instance.EndCurrentTheme();
+            AudioManager.Instance.EndCurrentTheme();
         }
 
         //if (!initialTransformationPassed)
@@ -189,21 +189,21 @@ public class PlayerModelToggle : MonoBehaviour
     {
         Debug.Log("Waiting for arctic theme transition to be triggered...");
 
-        yield return new WaitUntil(() => AudioManager.instance.themeTransitionOn == false && !AudioManager.instance.themeIsPlaying);
+        yield return new WaitUntil(() => AudioManager.Instance.themeTransitionOn == false && !AudioManager.Instance.themeIsPlaying);
 
         Debug.Log("Arctic theme about to be triggered...");
 
-        AudioManager.instance.StartNewTheme(ThemeName.Theme_Arctic);
+        AudioManager.Instance.StartNewTheme(ThemeName.Theme_Arctic);
     }
 
     private IEnumerator StartForestTheme()
     {
         Debug.Log("Waiting for forest theme transition to be triggered...");
 
-        yield return new WaitUntil(() => AudioManager.instance.themeTransitionOn == false && !AudioManager.instance.themeIsPlaying);
+        yield return new WaitUntil(() => AudioManager.Instance.themeTransitionOn == false && !AudioManager.Instance.themeIsPlaying);
 
         Debug.Log("Forest theme about to be triggered...");
 
-        AudioManager.instance.StartNewTheme(ThemeName.Theme_Forest);
+        AudioManager.Instance.StartNewTheme(ThemeName.Theme_Forest);
     }
 }

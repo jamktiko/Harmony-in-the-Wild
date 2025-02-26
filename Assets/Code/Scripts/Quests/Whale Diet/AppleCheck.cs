@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AppleCheck : MonoBehaviour
@@ -10,7 +8,7 @@ public class AppleCheck : MonoBehaviour
     {
         QuestState questState = QuestManager.instance.CheckQuestState(questSO.id);
 
-        if(questState == QuestState.FINISHED || QuestManager.instance.GetQuestById(questSO.id).GetCurrentQuestStepIndex() > 0)
+        if (questState == QuestState.FINISHED || QuestManager.instance.GetQuestById(questSO.id).GetCurrentQuestStepIndex() > 0)
         {
             gameObject.SetActive(false);
         }

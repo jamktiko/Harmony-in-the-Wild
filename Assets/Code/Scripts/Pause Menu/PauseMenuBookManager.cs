@@ -1,7 +1,4 @@
 using Cinemachine;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -26,20 +23,24 @@ public class PauseMenuBookManager : MonoBehaviour
 
     [SerializeField] CinemachineFreeLook cinemachineFreeLook;
 
-    [SerializeField] Toggle InvertYAxis, 
+    [SerializeField]
+    Toggle InvertYAxis,
                             fullscreen;
 
-    [SerializeField] Slider Mastervolume, 
-                            MusicVolume, 
+    [SerializeField]
+    Slider Mastervolume,
+                            MusicVolume,
                             sensitivity;
 
     [SerializeField] AudioMixer mixer;
 
-    [SerializeField] private float SliderValueMaster, 
-                                   SliderValueMusic, 
+    [SerializeField]
+    private float SliderValueMaster,
+                                   SliderValueMusic,
                                    SliderValue2;
 
-    [SerializeField] public TMP_Text BerryCounter, 
+    [SerializeField]
+    public TMP_Text BerryCounter,
                                      PineconeCounter;
 
     [SerializeField] GameObject[] UIPanels;
@@ -67,7 +68,7 @@ public class PauseMenuBookManager : MonoBehaviour
             }
         }
     }
-    private void OpenPauseMenu() 
+    private void OpenPauseMenu()
     {
         GameEventsManager.instance.playerEvents.ToggleInputActions(false);
         PlayerInputHandler.instance.PauseInput.Enable();
@@ -79,7 +80,7 @@ public class PauseMenuBookManager : MonoBehaviour
         Cursor.visible = true;
         generalMenuPanel.SetActive(true);
 
-        
+
 
         if (QuestMenuManager.trackedQuest != null && !activeQuestUI.gameObject.activeSelf)
         {
@@ -113,9 +114,9 @@ public class PauseMenuBookManager : MonoBehaviour
     }
 
 
-    
+
     #region Buttons & Sliders
-    
+
     public void ChangeSliderMasterVolume(float value)
     {
         SliderValueMaster = value;
@@ -141,7 +142,7 @@ public class PauseMenuBookManager : MonoBehaviour
         //Debug.Log("value changed");
     }
 
-    public void CloseAllPanels() 
+    public void CloseAllPanels()
     {
         foreach (var panel in UIPanels)
         {
@@ -149,7 +150,7 @@ public class PauseMenuBookManager : MonoBehaviour
         }
     }
 
-    public void Resume() 
+    public void Resume()
     {
         Time.timeScale = 1.0f;
         ClosePauseMenu();
@@ -167,7 +168,7 @@ public class PauseMenuBookManager : MonoBehaviour
         }
     }
 
-    public void ExitGame() 
+    public void ExitGame()
     {
         Application.Quit();
     }
@@ -212,7 +213,7 @@ public class PauseMenuBookManager : MonoBehaviour
 
     void InitializeUIElementsList()
     {
-        GameObject[] UIPanelsInit = { 
+        GameObject[] UIPanelsInit = {
                                     generalMenuPanel,
                                     questMenuPanel,
                                     optionsMenuPanel,

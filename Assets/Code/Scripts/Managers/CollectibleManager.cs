@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 
 public class CollectibleManager : MonoBehaviour
@@ -8,17 +5,17 @@ public class CollectibleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (SaveManager.instance.gameData.berryData!="{}" && SaveManager.instance.gameData.PineconeData !="{}")
+        if (SaveManager.instance.gameData.berryData != "{}" && SaveManager.instance.gameData.PineconeData != "{}")
         {
-            int i=0;
-            int x=0;
+            int i = 0;
+            int x = 0;
             PlayerManager.instance.GenerateCollectibleData();
             foreach (var berry in PlayerManager.instance.BerryData)
             {
                 GameObject.Find(berry.Key).transform.GetChild(0).gameObject.SetActive(berry.Value);
 
                 // disable interaction indicator if these berries have already been collected
-                if(berry.Value == false)
+                if (berry.Value == false)
                 {
                     GameObject.Find(berry.Key).transform.GetChild(2).gameObject.SetActive(false);
                 }

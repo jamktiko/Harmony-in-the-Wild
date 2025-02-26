@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
@@ -18,7 +16,7 @@ public class BF_PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = this.GetComponent<Rigidbody>();
-        if(cam == null)
+        if (cam == null)
         {
             cam = Camera.main;
         }
@@ -26,7 +24,7 @@ public class BF_PlayerMovement : MonoBehaviour
     void OnEnable()
     {
         rb = this.GetComponent<Rigidbody>();
-        if(cam == null)
+        if (cam == null)
         {
             cam = Camera.main;
         }
@@ -78,7 +76,7 @@ public class BF_PlayerMovement : MonoBehaviour
     {
         camRot = Quaternion.LookRotation(cam.transform.forward, Vector3.up);
         moveDirection = camRot * new Vector3(Mathf.Clamp(inputDirection.x * 2, -1, 1), 0, Mathf.Clamp(inputDirection.z * 2, -1, 1));
-        rb.AddTorque(moveDirection*22.5f);
-        rb.AddForce(moveDirection*15f,ForceMode.Force);
+        rb.AddTorque(moveDirection * 22.5f);
+        rb.AddForce(moveDirection * 15f, ForceMode.Force);
     }
 }

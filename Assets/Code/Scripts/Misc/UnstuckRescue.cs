@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,7 +23,7 @@ public class UnstuckRescue : MonoBehaviour
     {
         player = FoxMovement.instance.transform;
 
-        if(player == null)
+        if (player == null)
         {
             Debug.LogWarning("No player reference for Unstuck button!");
             return;
@@ -45,7 +44,7 @@ public class UnstuckRescue : MonoBehaviour
             float distanceToPlayer = Vector3.Distance(player.position, rescuePoint.position);
             Debug.Log("Distance to player: " + distanceToPlayer);
 
-            if(distanceToPlayer < smallestDistance || smallestDistance == -1f)
+            if (distanceToPlayer < smallestDistance || smallestDistance == -1f)
             {
                 smallestDistance = distanceToPlayer;
                 newPosition = rescuePoint.position;

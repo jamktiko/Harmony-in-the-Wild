@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class rotateToPlayer : MonoBehaviour
@@ -8,6 +6,6 @@ public class rotateToPlayer : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-       transform.eulerAngles=new Vector3(-90,0,fox.eulerAngles.y);
+        transform.eulerAngles = new Vector3(-90, 0, fox.eulerAngles.y);
     }
 }

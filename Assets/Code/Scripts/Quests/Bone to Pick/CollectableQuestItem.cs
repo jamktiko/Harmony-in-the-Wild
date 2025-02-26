@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CollectableQuestItem : MonoBehaviour
@@ -10,7 +8,7 @@ public class CollectableQuestItem : MonoBehaviour
 
     private void Update()
     {
-        if(PlayerInputHandler.instance.InteractInput.WasPressedThisFrame() && playerIsNear)
+        if (PlayerInputHandler.instance.InteractInput.WasPressedThisFrame() && playerIsNear)
         {
             CollectItem();
         }
@@ -18,7 +16,7 @@ public class CollectableQuestItem : MonoBehaviour
 
     private void CollectItem()
     {
-        if(itemType != QuestItem.Default)
+        if (itemType != QuestItem.Default)
         {
             GameEventsManager.instance.questEvents.CollectQuestItem(itemType);
         }

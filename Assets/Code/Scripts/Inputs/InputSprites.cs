@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -34,7 +33,7 @@ public class InputSprites : MonoBehaviour
 public class KeyDeviceSetup
 {
     public string keyboard;
-    public string gamepad;  
+    public string gamepad;
 
     public KeyDeviceSetup(string keyboard, string gamepad)
     {

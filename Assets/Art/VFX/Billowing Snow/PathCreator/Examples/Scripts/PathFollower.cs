@@ -11,7 +11,8 @@ namespace PathCreation.Examples
         public float speed = 5;
         float distanceTravelled;
 
-        void Start() {
+        void Start()
+        {
             if (pathCreator != null)
             {
                 // Subscribed to the pathUpdated event so that we're notified if the path changes during the game
@@ -31,7 +32,8 @@ namespace PathCreation.Examples
 
         // If the path changes during the game, update the distance travelled so that the follower's position on the new path
         // is as close as possible to its position on the old path
-        void OnPathChanged() {
+        void OnPathChanged()
+        {
             distanceTravelled = pathCreator.path.GetClosestDistanceAlongPath(transform.position);
         }
     }

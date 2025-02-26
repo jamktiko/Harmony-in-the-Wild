@@ -16,7 +16,7 @@ public class WaterExitEventController : MonoBehaviour
 
     public void BeginExitWater()
     {
-            vfxGraph.SendEvent(beginExitWaterEventName);
+        vfxGraph.SendEvent(beginExitWaterEventName);
     }
 
     public void ShakeWaterLeft()

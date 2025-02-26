@@ -23,7 +23,7 @@ public class GrowthTester : MonoBehaviour
     void Update()
     {
         //x + m
-        if (PlayerInputHandler.instance.DebugDeleteSaveInput.WasPerformedThisFrame()&& PlayerInputHandler.instance.DebugDeleteSaveInput.WasPressedThisFrame())
+        if (PlayerInputHandler.instance.DebugDeleteSaveInput.WasPerformedThisFrame() && PlayerInputHandler.instance.DebugDeleteSaveInput.WasPressedThisFrame())
         {
             if (objectToEnable != null)
             {

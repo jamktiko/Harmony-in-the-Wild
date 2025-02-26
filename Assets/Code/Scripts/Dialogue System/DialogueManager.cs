@@ -1,10 +1,10 @@
+using Ink.Runtime;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
-using Ink.Runtime;
-using UnityEngine.UI;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -43,7 +43,7 @@ public class DialogueManager : MonoBehaviour
     {
         // creating the instance for Dialogue Manager
 
-        if(DialogueManager.instance != null)
+        if (DialogueManager.instance != null)
         {
             Debug.LogWarning("There is more than one Dialogue Manager in the scene!");
             Destroy(gameObject);
@@ -57,7 +57,7 @@ public class DialogueManager : MonoBehaviour
 
     private void Start()
     {
-        Invoke(nameof(InitializeDialogueVariables),0.3f);
+        Invoke(nameof(InitializeDialogueVariables), 0.3f);
 
         dialogueCanvas.SetActive(false);
         isDialoguePlaying = false;
@@ -65,7 +65,7 @@ public class DialogueManager : MonoBehaviour
         // initializing choice button texts
         choicesText = new TextMeshProUGUI[choiceButtons.Length];
 
-        for(int i = 0; i < choiceButtons.Length; i++)
+        for (int i = 0; i < choiceButtons.Length; i++)
         {
             choicesText[i] = choiceButtons[i].GetComponentInChildren<TextMeshProUGUI>();
             choiceButtons[i].SetActive(false);
@@ -141,7 +141,7 @@ public class DialogueManager : MonoBehaviour
             }
             else
                 FoxMovement.instance.SetDefaultAnimatorValues();
-            FoxMovement.instance.isSprinting=false;
+            FoxMovement.instance.isSprinting = false;
             FoxMovement.instance.horizontalInput = 0;
             FoxMovement.instance.verticalInput = 0;
 
@@ -173,7 +173,7 @@ public class DialogueManager : MonoBehaviour
     private void DisplayChoices()
     {
         // change bool for input tracking and hide the choice buttons
-        if(currentStory.currentChoices.Count <= 0)
+        if (currentStory.currentChoices.Count <= 0)
         {
             for (int i = 0; i < choiceButtons.Length; i++)
             {
@@ -193,7 +193,7 @@ public class DialogueManager : MonoBehaviour
 
         // check if the UI can hold all the written choice options
 
-        if(currentChoices.Count > choiceButtons.Length)
+        if (currentChoices.Count > choiceButtons.Length)
         {
             Debug.LogWarning("There are more choices written than the UI can hold!");
         }
@@ -202,14 +202,14 @@ public class DialogueManager : MonoBehaviour
 
         int index = 0;
 
-        foreach(Choice choice in currentChoices)
+        foreach (Choice choice in currentChoices)
         {
             choiceButtons[index].SetActive(true);
             choicesText[index].text = choice.text;
             index++;
         }
 
-        for(int i = index; i < choiceButtons.Length; i++)
+        for (int i = index; i < choiceButtons.Length; i++)
         {
             choiceButtons[i].SetActive(false);
         }
@@ -239,11 +239,11 @@ public class DialogueManager : MonoBehaviour
 
     private void HandleTags(List<string> currentTags)
     {
-        foreach(string tag in currentTags)
+        foreach (string tag in currentTags)
         {
             string[] splitTag = tag.Split(":");
 
-            if(splitTag.Length != 2)
+            if (splitTag.Length != 2)
             {
                 Debug.LogWarning("Tag could not be appropriately parsed: " + tag);
             }
@@ -254,9 +254,9 @@ public class DialogueManager : MonoBehaviour
             switch (tagKey)
             {
                 case speaker:
-                    if(tagValue == "Fox")
+                    if (tagValue == "Fox")
                     {
-                        if(PlayerPrefs.GetString("foxName") != "" || PlayerPrefs.GetString("foxName") != null)
+                        if (PlayerPrefs.GetString("foxName") != "" || PlayerPrefs.GetString("foxName") != null)
                         {
                             speakerText.text = PlayerPrefs.GetString("foxName");
                         }
@@ -337,7 +337,7 @@ public class DialogueManager : MonoBehaviour
 
     public string CollectDialogueVariableDataForSaving()
     {
-        if(dialogueVariables != null)
+        if (dialogueVariables != null)
         {
             string dataToJSON = dialogueVariables.ConvertVariablesToString();
 
@@ -365,7 +365,7 @@ public class DialogueManager : MonoBehaviour
 
     private void ResetInteractibilityOnSceneChange(Scene scene, LoadSceneMode mode)
     {
-        if(dialogueCooldown != null)
+        if (dialogueCooldown != null)
         {
             StopCoroutine(dialogueCooldown);
         }

@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using UnityEditor;
 using UnityEngine;
-using UnityEditor;
 
 [ExecuteInEditMode]
 public class BF_SnowTerrain : MonoBehaviour
@@ -45,7 +43,7 @@ public class BF_SnowTerrain : MonoBehaviour
         terrainDataOld = null;
         terrainHeightOld = null;
         isSynced = false;
-        sizeOld = Vector3.one*100f;
+        sizeOld = Vector3.one * 100f;
     }
 
     private void UpdateTerrainData()
@@ -76,7 +74,7 @@ public class BF_SnowTerrain : MonoBehaviour
             terrainMaterial.DisableKeyword("USE_COMPLEX_T");
         }
 
-        if (terrainData.terrainLayers.Length > 4) 
+        if (terrainData.terrainLayers.Length > 4)
         {
             terrainMaterial.EnableKeyword("USE_COMPLEX_T");
             terrainMaterial.SetTexture("_Normal4", terrainData.terrainLayers[4].normalMapTexture);
@@ -121,7 +119,7 @@ public class BF_SnowTerrain : MonoBehaviour
 
     public void CopyTerrainData()
     {
-        if(terrainToCopy != null && terrainToCopy != terrainAsset)
+        if (terrainToCopy != null && terrainToCopy != terrainAsset)
         {
             StoreTerrainData();
 
@@ -172,7 +170,7 @@ public class BF_SnowTerrain : MonoBehaviour
     void OnRenderObject()
     {
 #if UNITY_EDITOR
-        if ((Application.isEditor && !Application.isPlaying)&& terrainToCopy!=null && isSynced)
+        if ((Application.isEditor && !Application.isPlaying) && terrainToCopy != null && isSynced)
         {
             if (Selection.activeGameObject == this.gameObject && selectGO != this.gameObject)
             {

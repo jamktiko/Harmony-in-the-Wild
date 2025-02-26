@@ -17,11 +17,11 @@ public class DungeonAbilityActivator : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
 
-        if(enabledAbility != Abilities.None)
+        if (enabledAbility != Abilities.None)
         {
-            AbilityManager.instance.UnlockAbility(enabledAbility);
+            AbilityManager.Instance.UnlockAbility(enabledAbility);
         }
-        
+
 
         // if enabled ability index is set to -1, enable only minor abilities
         //note: replace with AbilityManager stuff

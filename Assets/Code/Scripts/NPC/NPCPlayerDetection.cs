@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class NPCPlayerDetection : MonoBehaviour
@@ -8,7 +6,7 @@ public class NPCPlayerDetection : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            foreach(Transform child in transform)
+            foreach (Transform child in transform)
             {
                 child.gameObject.SetActive(true);
             }

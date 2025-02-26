@@ -49,7 +49,7 @@ public class NPCController : MonoBehaviour
     private IEnumerator WalkToDestination()
     {
         // make sure there is no overlapping idle coroutines going
-        if(idleCoroutine != null)
+        if (idleCoroutine != null)
         {
             idleCoroutine = null;
         }
@@ -113,10 +113,10 @@ public class NPCController : MonoBehaviour
         {
             playerIsNear = false;
 
-            if(idleCoroutine == null)
+            if (idleCoroutine == null)
             {
                 StartCoroutine(Idle());
-            }        
+            }
         }
     }
 }

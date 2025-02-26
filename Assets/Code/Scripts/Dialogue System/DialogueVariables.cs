@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 // used to track progress in quests where you need to talk to other characters in order to proceed
 // please name in the style of <QUEST_NAME>_<QUEST_STEP_INDEX>

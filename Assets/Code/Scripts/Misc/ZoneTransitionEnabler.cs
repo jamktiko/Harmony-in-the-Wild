@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ZoneTransitionEnabler : MonoBehaviour
@@ -11,7 +9,7 @@ public class ZoneTransitionEnabler : MonoBehaviour
 
     private void EnableZoneTriggers()
     {
-        foreach(Transform child in transform)
+        foreach (Transform child in transform)
         {
             child.gameObject.SetActive(true);
         }

@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 [CreateAssetMenu(fileName = "InputReader", menuName = "Game/Input Reader")]
 public class InputReader : ScriptableObject, PlayerInputActions.IPlayerActions
@@ -54,7 +52,7 @@ public class InputReader : ScriptableObject, PlayerInputActions.IPlayerActions
     [SerializeField] InputReader _inputReader;
     private void OnEnable()
     {
-        if (playerInputActions==null)
+        if (playerInputActions == null)
         {
             playerInputActions = new PlayerInputActions();
             playerInputActions.Player.SetCallbacks(this);

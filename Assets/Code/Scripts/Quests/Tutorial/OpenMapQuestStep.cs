@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class OpenMapQuestStep : QuestStep
@@ -43,7 +40,7 @@ public class OpenMapQuestStep : QuestStep
         mapActionsDone++;
 
         // if map has been both opened and closed, progress in the quest
-        if(mapActionsDone >= 2)
+        if (mapActionsDone >= 2)
         {
             FinishQuestStep();
         }

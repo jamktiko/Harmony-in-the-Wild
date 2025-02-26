@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using static CartoonFX.CFXR_Effect;
-using UnityEngine.InputSystem;
 using UnityEngine.Playables;
 
 public class StartUI : MonoBehaviour

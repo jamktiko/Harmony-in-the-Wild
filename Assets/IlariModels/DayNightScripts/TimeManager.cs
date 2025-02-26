@@ -1,6 +1,6 @@
 using System.Collections;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
@@ -83,7 +83,7 @@ public class TimeManager : MonoBehaviour
     void UpdateLightSettings()
     {
         float dotProduct = Vector3.Dot(lhs: sun.transform.forward, rhs: Vector3.down);
-        sun.intensity = Mathf.Lerp(a:0, b: maxSunIntensity, t: lightIntensityCurve.Evaluate(dotProduct));
+        sun.intensity = Mathf.Lerp(a: 0, b: maxSunIntensity, t: lightIntensityCurve.Evaluate(dotProduct));
         moon.intensity = Mathf.Lerp(a: maxMoonIntensity, b: 0, t: lightIntensityCurve.Evaluate(dotProduct));
         if (colorAdjustments == null) return;
         colorAdjustments.colorFilter.value = Color.Lerp(a: nightAmbientLight, b: dayAmbientLight, t: lightIntensityCurve.Evaluate(dotProduct));
@@ -106,7 +106,7 @@ public class TimeManager : MonoBehaviour
 
     private void ToggleDayNightCycleElements(int hour)
     {
-        if(hour == 18)
+        if (hour == 18)
         {
             Debug.Log("About to show night elements");
             ToggleAuroraVisibility(true);
@@ -114,7 +114,7 @@ public class TimeManager : MonoBehaviour
             StartCoroutine(ChangeStarAlpha(false));
         }
 
-        else if(hour == 6)
+        else if (hour == 6)
         {
             Debug.Log("About to hide night elements");
             ToggleAuroraVisibility(false);
@@ -178,7 +178,7 @@ public class TimeManager : MonoBehaviour
     {
         float elapsedTime = 0f;
 
-        while(elapsedTime < fogTransitionDuration)
+        while (elapsedTime < fogTransitionDuration)
         {
             elapsedTime += Time.deltaTime;
             Color newColor = Color.Lerp(currentColor, targetColor, elapsedTime / fogTransitionDuration);

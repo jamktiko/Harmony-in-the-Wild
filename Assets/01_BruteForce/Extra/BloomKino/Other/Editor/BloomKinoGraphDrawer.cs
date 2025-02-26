@@ -21,8 +21,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
-using UnityEngine;
 using UnityEditor;
+using UnityEngine;
 
 namespace Kino
 {
@@ -31,7 +31,7 @@ namespace Kino
 #if !UNITY_ANDROID && !UNITY_IOS && !UNITY_WEBGL
     public class BloomKinoGraphDrawer
     {
-#region Public Methods
+        #region Public Methods
 
         // Update internal state with a given bloom instance.
         public void Prepare(BloomKino bloom)
@@ -117,9 +117,9 @@ namespace Kino
             }
         }
 
-#endregion
+        #endregion
 
-#region Response Function
+        #region Response Function
 
         float _threshold;
         float _knee;
@@ -132,9 +132,9 @@ namespace Kino
             return Mathf.Max(rq, x - _threshold) * _intensity;
         }
 
-#endregion
+        #endregion
 
-#region Graph Functions
+        #region Graph Functions
 
         // Number of vertices in curve
         const int _curveResolution = 96;
@@ -180,7 +180,7 @@ namespace Kino
             );
         }
 
-#endregion
+        #endregion
     }
 
 #endif

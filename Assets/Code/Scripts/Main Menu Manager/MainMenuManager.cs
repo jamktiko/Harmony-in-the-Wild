@@ -1,8 +1,7 @@
+using System;
 using System.IO;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using System;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -40,10 +39,10 @@ public class MainMenuManager : MonoBehaviour
     private void LoadSavedGame()
     {
         // check if tutorial is still in progress
-        if(QuestManager.instance.CheckQuestState("Tutorial") != QuestState.FINISHED)
+        if (QuestManager.instance.CheckQuestState("Tutorial") != QuestState.FINISHED)
         {
             // check the current quest step state to see if there's still something to be done in Bear Cave
-            if(QuestManager.instance.GetQuestById("Tutorial").GetCurrentQuestStepIndex() < 4)
+            if (QuestManager.instance.GetQuestById("Tutorial").GetCurrentQuestStepIndex() < 4)
             {
                 GameEventsManager.instance.uiEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Tutorial);
             }
@@ -59,7 +58,7 @@ public class MainMenuManager : MonoBehaviour
         else
         {
             GameEventsManager.instance.uiEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Overworld);
-        }      
+        }
     }
 
     private void CheckSavedGame()
@@ -78,7 +77,7 @@ public class MainMenuManager : MonoBehaviour
         //reset the abilities again
         foreach (Abilities ability in Enum.GetValues(typeof(Abilities)))
         {
-            AbilityManager.instance.abilityStatuses[ability] = false;
+            AbilityManager.Instance._abilityStatuses[ability] = false;
         }
 
         //reset the quests again
@@ -159,7 +158,7 @@ public class MainMenuManager : MonoBehaviour
         SceneManagerHelper.LoadScene(SceneManagerHelper.Scene.Credits);
     }
 
-    public void DiscordButton() 
+    public void DiscordButton()
     {
         Application.OpenURL("https://discord.gg/7jwSSEn22M");
     }

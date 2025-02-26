@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -42,10 +41,10 @@ public class CinematicsTigger : MonoBehaviour
 
         currentTreeOfLifeState = TreeOfLifeState.instance.GetTreeOfLifeState();
 
-        if(questsCompleted > currentTreeOfLifeState)
+        if (questsCompleted > currentTreeOfLifeState)
         {
             GameEventsManager.instance.cinematicsEvents.StartCinematics();
-            AudioManager.instance.StartNewTheme(ThemeName.Theme_ToLCinematics);
+            AudioManager.Instance.StartNewTheme(ThemeName.Theme_ToLCinematics);
 
             Debug.Log("Trigger cinematics now!");
         }
@@ -62,7 +61,7 @@ public class CinematicsTigger : MonoBehaviour
         {
             QuestState questState = QuestManager.instance.CheckQuestState(quest.id);
 
-            if(questState == QuestState.FINISHED || questState == QuestState.CAN_FINISH)
+            if (questState == QuestState.FINISHED || questState == QuestState.CAN_FINISH)
             {
                 questsCompleted++;
             }

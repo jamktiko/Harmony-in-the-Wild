@@ -84,7 +84,7 @@ public class GrowthController : MonoBehaviour
         if (isVerticalSliceScene)
         {
             GameEventsManager.instance.uiEvents.ShowLoadingScreen(SceneManagerHelper.Scene.DemoEnd);
-            AudioManager.instance.EndCurrentTheme();
+            AudioManager.Instance.EndCurrentTheme();
         }
     }
 

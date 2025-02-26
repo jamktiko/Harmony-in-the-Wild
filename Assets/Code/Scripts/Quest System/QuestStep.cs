@@ -1,10 +1,8 @@
-using Ink.Parsed;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class QuestStep : MonoBehaviour
 {
-    private bool isFinished =false;
+    private bool isFinished = false;
 
     private string questId;
 
@@ -23,7 +21,7 @@ public abstract class QuestStep : MonoBehaviour
     public string objective;
 
     [Tooltip("Set in the form as 'Apples collected '; rest is autofilled through script")]
-    
+
     public string progress;
 
     public void InitializeQuestStep(string id, int stepIndex, string questStepState)
@@ -32,7 +30,7 @@ public abstract class QuestStep : MonoBehaviour
         this.stepIndex = stepIndex;
 
 
-        if(questStepState != null && questStepState != "")
+        if (questStepState != null && questStepState != "")
         {
             SetQuestStepState(questStepState);
         }
@@ -51,13 +49,13 @@ public abstract class QuestStep : MonoBehaviour
 
     protected void FinishQuestStep()
     {
-        if (!isFinished) 
-        { 
+        if (!isFinished)
+        {
             isFinished = true;
 
             GameEventsManager.instance.questEvents.AdvanceQuest(questId);
             Debug.Log("Finished quest step: " + questId);
-            Invoke("DestroyObject",0);
+            Invoke("DestroyObject", 0);
         }
     }
 

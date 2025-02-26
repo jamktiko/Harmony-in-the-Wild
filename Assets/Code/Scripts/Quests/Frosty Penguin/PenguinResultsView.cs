@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PenguinResultsView : MonoBehaviour
@@ -34,7 +31,7 @@ public class PenguinResultsView : MonoBehaviour
 
     private void ShowView()
     {
-        if(dungeonQuestDialogue != null)
+        if (dungeonQuestDialogue != null)
         {
             if (dungeonQuestDialogue.FinalDialogueCompleted())
             {

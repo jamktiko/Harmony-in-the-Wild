@@ -6,41 +6,44 @@
 // Copyright 2019 NYAHOON GAMES PTE. LTD. All Rights Reserved.
 //
 
-using UnityEngine;
 using UnityEditor;
+using UnityEngine;
 
-namespace DynamicShadowProjector {
-	public class ProjectorShaderGUI : ShaderGUI
+namespace DynamicShadowProjector
+{
+    public class ProjectorShaderGUI : ShaderGUI
 #if UNITY_2019_4_OR_NEWER && !UNITY_2020_3_OR_NEWER
 		, UnityEditor.Build.IPostprocessBuildWithReport
 #endif
-	{
-		private enum ProjectorType {
-			UnityProjector,
-			CustomProjector
-		}
-		static private string ProjectorTypeToKeyword(ProjectorType type)
-		{
-			switch (type) {
-			case ProjectorType.CustomProjector:
-				return "FSR_RECEIVER";
-			case ProjectorType.UnityProjector:
-				return "";
-			}
-			return null;
-		}
-		[System.Flags]
-		private enum TransparentSupport
-		{
-			Cutout = 1 << 0,
-			Transparent = 1 << 1
-		}
-		private enum CullMode
-		{
-			None = 0,
-			CullFrontFace = 1,
-			CullBackFace
-		}
+    {
+        private enum ProjectorType
+        {
+            UnityProjector,
+            CustomProjector
+        }
+        static private string ProjectorTypeToKeyword(ProjectorType type)
+        {
+            switch (type)
+            {
+                case ProjectorType.CustomProjector:
+                    return "FSR_RECEIVER";
+                case ProjectorType.UnityProjector:
+                    return "";
+            }
+            return null;
+        }
+        [System.Flags]
+        private enum TransparentSupport
+        {
+            Cutout = 1 << 0,
+            Transparent = 1 << 1
+        }
+        private enum CullMode
+        {
+            None = 0,
+            CullFrontFace = 1,
+            CullBackFace
+        }
 #if UNITY_2019_4_OR_NEWER && !UNITY_2020_3_OR_NEWER
 		private static int GetUnityMinorVersionNumber(string minorVersionString)
 		{
@@ -111,115 +114,119 @@ namespace DynamicShadowProjector {
 			return supported;
 		}
 #endif
-		public override void OnGUI (MaterialEditor materialEditor, MaterialProperty[] properties)
-		{
-			base.OnGUI (materialEditor, properties);
-			Material material = materialEditor.target as Material;
-			if (string.Compare(material.GetTag("DSPHasEnableFarClipFeature", false), "True", true) == 0)
-			{
-				bool enableFarClip = material.IsKeywordEnabled("DSP_ENABLE_FARCLIP");
-				bool ret = EditorGUILayout.Toggle("Enable Far Clip", enableFarClip);
-				if (ret != enableFarClip)
-				{
-					Undo.RecordObject(material, "Toggle Enable Far Clip");
-					if (ret)
-					{
-						material.EnableKeyword("DSP_ENABLE_FARCLIP");
-					}
-					else
-					{
-						material.DisableKeyword("DSP_ENABLE_FARCLIP");
-					}
-				}
-			}
-			TransparentSupport transparentSupport = 0;
-			if (material.IsKeywordEnabled("DSP_ALPHACUTOFF"))
-			{
-				transparentSupport |= TransparentSupport.Cutout;
-			}
-			if (material.IsKeywordEnabled("DSP_TRANSPARENT"))
-			{
-				transparentSupport |= TransparentSupport.Transparent;
-			}
-			if (material.IsKeywordEnabled("DSP_ALPHACUTOFF_AND_TRANSPARENT"))
-			{
-				transparentSupport |= TransparentSupport.Cutout | TransparentSupport.Transparent;
-			}
-			ProjectorType currentType = ProjectorType.UnityProjector;
-			if (material.IsKeywordEnabled ("FSR_RECEIVER")) {
-				currentType = ProjectorType.CustomProjector;
-			}
-			float oldLabelWidth = EditorGUIUtility.labelWidth;
-			EditorGUIUtility.labelWidth = 150;
-			TransparentSupport newTransparentSupport = (TransparentSupport)EditorGUILayout.EnumFlagsField("Transparent Support", transparentSupport);
-			MaterialProperty cullProperty = FindProperty("_DSPCull", properties);
-			if (cullProperty != null)
-			{
-				CullMode cullMode = (CullMode)cullProperty.floatValue;
-				CullMode newCullMode = (CullMode)EditorGUILayout.EnumPopup("Cull Mode", cullMode);
-				if (cullMode != newCullMode)
-				{
-					materialEditor.RegisterPropertyChangeUndo("Cull Mode");
-					cullProperty.floatValue = (float)newCullMode;
-				}
-			}
-			ProjectorType newType = (ProjectorType)EditorGUILayout.EnumPopup("Projector Type", currentType);
-			EditorGUIUtility.labelWidth = oldLabelWidth;
-			if (newTransparentSupport != transparentSupport)
-			{
-				Undo.RecordObject(material, "Change Transparent Support");
-				material.DisableKeyword("DSP_ALPHACUTOFF");
-				material.DisableKeyword("DSP_TRANSPARENT");
-				material.DisableKeyword("DSP_ALPHACUTOFF_AND_TRANSPARENT");
-				if ((newTransparentSupport & (TransparentSupport.Cutout | TransparentSupport.Transparent)) == (TransparentSupport.Cutout | TransparentSupport.Transparent))
-				{
-					material.EnableKeyword("DSP_ALPHACUTOFF_AND_TRANSPARENT");
-				}
-				else if ((newTransparentSupport & TransparentSupport.Cutout) == TransparentSupport.Cutout)
-				{
-					material.EnableKeyword("DSP_ALPHACUTOFF");
-				}
-				else if ((newTransparentSupport & TransparentSupport.Transparent) == TransparentSupport.Transparent)
-				{
-					material.EnableKeyword("DSP_TRANSPARENT");
-				}
-			}
-			if (newType != currentType) {
-				Undo.RecordObject (material, "Change Projector Type");
-				string keyword = ProjectorTypeToKeyword (currentType);
-				if (!string.IsNullOrEmpty (keyword)) {
-					material.DisableKeyword (keyword);
-				}
-				keyword = ProjectorTypeToKeyword (newType);
-				if (!string.IsNullOrEmpty (keyword)) {
-					material.EnableKeyword (keyword);
-				}
-			}
-			bool forLWRP = material.IsKeywordEnabled("FSR_PROJECTOR_FOR_LWRP");
+        public override void OnGUI(MaterialEditor materialEditor, MaterialProperty[] properties)
+        {
+            base.OnGUI(materialEditor, properties);
+            Material material = materialEditor.target as Material;
+            if (string.Compare(material.GetTag("DSPHasEnableFarClipFeature", false), "True", true) == 0)
+            {
+                bool enableFarClip = material.IsKeywordEnabled("DSP_ENABLE_FARCLIP");
+                bool ret = EditorGUILayout.Toggle("Enable Far Clip", enableFarClip);
+                if (ret != enableFarClip)
+                {
+                    Undo.RecordObject(material, "Toggle Enable Far Clip");
+                    if (ret)
+                    {
+                        material.EnableKeyword("DSP_ENABLE_FARCLIP");
+                    }
+                    else
+                    {
+                        material.DisableKeyword("DSP_ENABLE_FARCLIP");
+                    }
+                }
+            }
+            TransparentSupport transparentSupport = 0;
+            if (material.IsKeywordEnabled("DSP_ALPHACUTOFF"))
+            {
+                transparentSupport |= TransparentSupport.Cutout;
+            }
+            if (material.IsKeywordEnabled("DSP_TRANSPARENT"))
+            {
+                transparentSupport |= TransparentSupport.Transparent;
+            }
+            if (material.IsKeywordEnabled("DSP_ALPHACUTOFF_AND_TRANSPARENT"))
+            {
+                transparentSupport |= TransparentSupport.Cutout | TransparentSupport.Transparent;
+            }
+            ProjectorType currentType = ProjectorType.UnityProjector;
+            if (material.IsKeywordEnabled("FSR_RECEIVER"))
+            {
+                currentType = ProjectorType.CustomProjector;
+            }
+            float oldLabelWidth = EditorGUIUtility.labelWidth;
+            EditorGUIUtility.labelWidth = 150;
+            TransparentSupport newTransparentSupport = (TransparentSupport)EditorGUILayout.EnumFlagsField("Transparent Support", transparentSupport);
+            MaterialProperty cullProperty = FindProperty("_DSPCull", properties);
+            if (cullProperty != null)
+            {
+                CullMode cullMode = (CullMode)cullProperty.floatValue;
+                CullMode newCullMode = (CullMode)EditorGUILayout.EnumPopup("Cull Mode", cullMode);
+                if (cullMode != newCullMode)
+                {
+                    materialEditor.RegisterPropertyChangeUndo("Cull Mode");
+                    cullProperty.floatValue = (float)newCullMode;
+                }
+            }
+            ProjectorType newType = (ProjectorType)EditorGUILayout.EnumPopup("Projector Type", currentType);
+            EditorGUIUtility.labelWidth = oldLabelWidth;
+            if (newTransparentSupport != transparentSupport)
+            {
+                Undo.RecordObject(material, "Change Transparent Support");
+                material.DisableKeyword("DSP_ALPHACUTOFF");
+                material.DisableKeyword("DSP_TRANSPARENT");
+                material.DisableKeyword("DSP_ALPHACUTOFF_AND_TRANSPARENT");
+                if ((newTransparentSupport & (TransparentSupport.Cutout | TransparentSupport.Transparent)) == (TransparentSupport.Cutout | TransparentSupport.Transparent))
+                {
+                    material.EnableKeyword("DSP_ALPHACUTOFF_AND_TRANSPARENT");
+                }
+                else if ((newTransparentSupport & TransparentSupport.Cutout) == TransparentSupport.Cutout)
+                {
+                    material.EnableKeyword("DSP_ALPHACUTOFF");
+                }
+                else if ((newTransparentSupport & TransparentSupport.Transparent) == TransparentSupport.Transparent)
+                {
+                    material.EnableKeyword("DSP_TRANSPARENT");
+                }
+            }
+            if (newType != currentType)
+            {
+                Undo.RecordObject(material, "Change Projector Type");
+                string keyword = ProjectorTypeToKeyword(currentType);
+                if (!string.IsNullOrEmpty(keyword))
+                {
+                    material.DisableKeyword(keyword);
+                }
+                keyword = ProjectorTypeToKeyword(newType);
+                if (!string.IsNullOrEmpty(keyword))
+                {
+                    material.EnableKeyword(keyword);
+                }
+            }
+            bool forLWRP = material.IsKeywordEnabled("FSR_PROJECTOR_FOR_LWRP");
 #if UNITY_2019_3_OR_NEWER
-			bool newLWRP = EditorGUILayout.Toggle("Build for Universal RP", forLWRP);
+            bool newLWRP = EditorGUILayout.Toggle("Build for Universal RP", forLWRP);
 #else
 			bool newLWRP = EditorGUILayout.Toggle("Build for LWRP", forLWRP);
 #endif
-			if (newLWRP != forLWRP)
-			{
-				Undo.RecordObject(material, "Change Target Renderpipeline");
-				if (newLWRP)
-				{
-					material.EnableKeyword("FSR_PROJECTOR_FOR_LWRP");
-				}
-				else
-				{
-					material.DisableKeyword("FSR_PROJECTOR_FOR_LWRP");
-				}
-			}
+            if (newLWRP != forLWRP)
+            {
+                Undo.RecordObject(material, "Change Target Renderpipeline");
+                if (newLWRP)
+                {
+                    material.EnableKeyword("FSR_PROJECTOR_FOR_LWRP");
+                }
+                else
+                {
+                    material.DisableKeyword("FSR_PROJECTOR_FOR_LWRP");
+                }
+            }
 #if UNITY_2019_4_OR_NEWER && !UNITY_2020_3_OR_NEWER
 			if (material.shader != null && material.shader.name.StartsWith("DynamicShadowProjector/Projector/Dynamic/") && !IsDynamicProjectorShaderSupported())
 			{
 				GUILayout.TextArea("<color=red>" + DYNAMIC_SHADER_NOT_SUPPORTED + "</color>", textStyle);
 			}
 #endif
-		}
+        }
 #if UNITY_2019_4_OR_NEWER && !UNITY_2020_3_OR_NEWER
 		public int callbackOrder => 0;
 
@@ -246,5 +253,5 @@ namespace DynamicShadowProjector {
 			}
 		}
 #endif
-	}
+    }
 }

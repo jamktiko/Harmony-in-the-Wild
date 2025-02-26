@@ -1,8 +1,5 @@
 using Cinemachine;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class PreventCameraMovementDuringDialogue : MonoBehaviour
 {
@@ -19,7 +16,7 @@ public class PreventCameraMovementDuringDialogue : MonoBehaviour
     {
         Debug.Log("Camera movement disabled!");
 
-        if(cameraMovement == null)
+        if (cameraMovement == null)
         {
             Debug.Log("No camera movement attached to PreventCameraMovementDuringDialogue!");
         }
@@ -36,7 +33,7 @@ public class PreventCameraMovementDuringDialogue : MonoBehaviour
     {
         Debug.Log("Camera movement enabled!");
 
-        if(cameraMovement == null)
+        if (cameraMovement == null)
         {
             Debug.Log("No camera movement attached to PreventCameraMovementDuringDialogue!");
         }

@@ -1,6 +1,4 @@
 using UnityEditor;
-using UnityEngine;
-using System.Collections;
 
 [InitializeOnLoad]
 public static class SimpleEditorUtils

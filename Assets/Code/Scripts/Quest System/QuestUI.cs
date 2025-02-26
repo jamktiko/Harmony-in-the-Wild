@@ -1,9 +1,7 @@
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
-using UnityEngine.Events;
+using UnityEngine;
 using UnityEngine.InputSystem;
-using System.Runtime.CompilerServices;
 
 public class QuestUI : MonoBehaviour
 {
@@ -40,24 +38,24 @@ public class QuestUI : MonoBehaviour
     {
         string ret = "";
         int index = 0;
-            for (int i = 0; i < text.Length; i++)
+        for (int i = 0; i < text.Length; i++)
+        {
+            if (text[i] == '|')
             {
-                if (text[i] == '|')
+                ret += text.Substring(index, i - index);
+                index = i + 1;
+                while (text[index] != '|')
+                    index++;
+                if (index - 1 > i && InputSprites.instance.keySetups.ContainsKey(text.Substring(i + 1, index - i - 1)))
                 {
-                    ret += text.Substring(index, i - index);
-                    index = i + 1;
-                    while (text[index] != '|')
-                        index++;
-                    if (index - 1 > i && InputSprites.instance.keySetups.ContainsKey(text.Substring(i + 1, index - i - 1)))
-                    {
-                        if (Gamepad.current == null || Keyboard.current.lastUpdateTime > Gamepad.current.lastUpdateTime || Mouse.current.lastUpdateTime > Gamepad.current.lastUpdateTime)
-                            ret += InputSprites.instance.keySetups[text.Substring(i + 1, index - i - 1)].keyboard;
-                        else
-                            ret += InputSprites.instance.keySetups[text.Substring(i + 1, index - i - 1)].gamepad;
-                    }
-                    index++; i = index;
+                    if (Gamepad.current == null || Keyboard.current.lastUpdateTime > Gamepad.current.lastUpdateTime || Mouse.current.lastUpdateTime > Gamepad.current.lastUpdateTime)
+                        ret += InputSprites.instance.keySetups[text.Substring(i + 1, index - i - 1)].keyboard;
+                    else
+                        ret += InputSprites.instance.keySetups[text.Substring(i + 1, index - i - 1)].gamepad;
                 }
+                index++; i = index;
             }
+        }
 
         if (ret.Length < 1) return text;
         return ret;
@@ -73,7 +71,7 @@ public class QuestUI : MonoBehaviour
         transform.GetChild(0).gameObject.SetActive(false);
     }
 
-    public string getCurrentQuestName() 
+    public string getCurrentQuestName()
     {
         return questTextComponents[0].text.ToString();
     }

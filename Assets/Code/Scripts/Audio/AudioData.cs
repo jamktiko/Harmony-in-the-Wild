@@ -1,22 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
 public class AudioData
 {
-    public AudioName name;
-    public AudioClip[] clips;
-    public bool destroyAfterPlayedOnce;
+    public AudioName Name;
+    public AudioClip[] ClipsList;
+    public bool DestroyAfterPlayedOnce;
     [Header("Randomized Values")]
     [Header("Pitch")]
-    public bool useRandomPitch;
-    public float minPitch = 0.5f;
-    public float maxPitch = 1f;
+    public bool UseRandomPitch;
+    public float MinPitch = 0.5f;
+    public float MaxPitch = 1f;
     [Header("Volume")]
-    public bool useRandomVolume;
-    public float minVolume = 0.5f;
-    public float maxVolume = 1f;
+    public bool _useRandomVolume;
+    public float MinVolume = 0.5f;
+    public float MaxVolume = 1f;
 }
 
 [System.Serializable]

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,7 +9,7 @@ public class CollectFlowerQuestStep : QuestStep
 
     private void Awake()
     {
-        if(instance != null)
+        if (instance != null)
         {
             Debug.Log("More than one Collect Flower Quest Steps in the scene!");
         }

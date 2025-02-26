@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class SteamManager : MonoBehaviour
 {
@@ -20,7 +17,7 @@ public class SteamManager : MonoBehaviour
             instance = this;
         }
     }
-        void Start()
+    void Start()
     {
         try
         {
@@ -113,7 +110,7 @@ public class SteamManager : MonoBehaviour
         var stat = new Steamworks.Data.Stat(id);
         stat.Add(1);
 
-        if (stat.GetInt() >=10&& stat.GetInt() != 25)
+        if (stat.GetInt() >= 10 && stat.GetInt() != 25)
         {
             UnlockAchievement("PINE_ACH_1");
         }
@@ -127,9 +124,9 @@ public class SteamManager : MonoBehaviour
         Debug.Log($"Achievement {id} progressed");
     }
 
-    public void GetMasterGathererAchievement() 
+    public void GetMasterGathererAchievement()
     {
-        if (new Steamworks.Data.Stat("stat_2").GetInt()>=25&& new Steamworks.Data.Stat("stat_3").GetInt()>=25)
+        if (new Steamworks.Data.Stat("stat_2").GetInt() >= 25 && new Steamworks.Data.Stat("stat_3").GetInt() >= 25)
         {
             UnlockAchievement("PINE_BERRY_ACH");
         }

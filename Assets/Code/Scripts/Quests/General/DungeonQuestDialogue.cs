@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,13 +16,13 @@ public class DungeonQuestDialogue : MonoBehaviour
     public void PlayStartDungeonDialogue()
     {
         DialogueManager.instance.StartDialogue(startDungeonDialogue[Random.Range(0, startDungeonDialogue.Count)]);
-        AudioManager.instance.PlaySound(audioToPlayOnDialogueStarted, transform);
+        AudioManager.Instance.PlaySound(audioToPlayOnDialogueStarted, transform);
     }
 
     public void PlayFinishDungeonDialogue()
     {
         DialogueManager.instance.StartDialogue(endDungeonDialogue);
-        AudioManager.instance.PlaySound(audioToPlayOnDialogueStarted, transform);
+        AudioManager.Instance.PlaySound(audioToPlayOnDialogueStarted, transform);
 
         hadFinalDialogue = true;
     }

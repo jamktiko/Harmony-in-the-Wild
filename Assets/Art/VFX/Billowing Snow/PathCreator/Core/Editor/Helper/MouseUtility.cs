@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿using PathCreation;
 using UnityEditor;
-using PathCreation;
+using UnityEngine;
 
 namespace PathCreationEditor
 {
@@ -14,7 +14,7 @@ namespace PathCreationEditor
         public static Vector3 GetMouseWorldPosition(PathSpace space, float depthFor3DSpace = 10)
         {
             var mouseRay = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
-            var worldMouse = Physics.Raycast(mouseRay, out var hitInfo, depthFor3DSpace * 2f) ? 
+            var worldMouse = Physics.Raycast(mouseRay, out var hitInfo, depthFor3DSpace * 2f) ?
                 hitInfo.point : mouseRay.GetPoint(depthFor3DSpace);
 
             // Mouse can only move on XY plane

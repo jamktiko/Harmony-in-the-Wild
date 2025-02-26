@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -58,7 +56,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void Awake()
     {
-        if (instance==null)
+        if (instance == null)
         {
             instance = this;
         }
@@ -68,7 +66,7 @@ public class PlayerInputHandler : MonoBehaviour
         }
         AssignInputs();
     }
-    private void AssignInputs() 
+    private void AssignInputs()
     {
         playerInput = GetComponent<PlayerInput>();
         playerInputActionMap = playerInput.actions.FindActionMap("Player");
@@ -91,9 +89,9 @@ public class PlayerInputHandler : MonoBehaviour
         DialogueDownInput = playerInput.actions.FindAction("DialogueDown");
         OpenMapInput = playerInput.actions.FindAction("OpenMap");
         PauseInput = playerInput.actions.FindAction("Pause");
-        TogglePlayerModelInput= playerInput.actions.FindAction("TogglePlayerModel");
-        CinematicCamera= playerInput.actions.FindAction("CinematicCamera");
-        SwitchTimeScale= playerInput.actions.FindAction("SwitchTimeScale");
+        TogglePlayerModelInput = playerInput.actions.FindAction("TogglePlayerModel");
+        CinematicCamera = playerInput.actions.FindAction("CinematicCamera");
+        SwitchTimeScale = playerInput.actions.FindAction("SwitchTimeScale");
         LayInput = playerInput.actions.FindAction("Lay");
         SitInput = playerInput.actions.FindAction("Sit");
 

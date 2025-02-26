@@ -1,7 +1,4 @@
-using System.Collections;
-using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(BoxCollider))]
 public class DungeonEntrance : MonoBehaviour
@@ -26,7 +23,7 @@ public class DungeonEntrance : MonoBehaviour
 
     private void Start()
     {
-        if(dungeonQuest != null)
+        if (dungeonQuest != null)
         {
             questId = dungeonQuest.id;
 
@@ -54,9 +51,9 @@ public class DungeonEntrance : MonoBehaviour
 
         if (other.gameObject.CompareTag("Trigger"))
         {
-            if(currentQuestState == QuestState.CAN_START)
+            if (currentQuestState == QuestState.CAN_START)
             {
-                AbilityManager.instance.UnlockAbility(abilityGrantedForDungeon);
+                AbilityManager.Instance.UnlockAbility(abilityGrantedForDungeon);
                 Debug.Log("Ability " + abilityGrantedForDungeon + " granted for dungeon entrance.");
                 GameEventsManager.instance.questEvents.StartQuest(questId);
 
@@ -70,7 +67,7 @@ public class DungeonEntrance : MonoBehaviour
             else if (currentQuestState == QuestState.IN_PROGRESS)
             {
                 int currentQuestStepIndex = QuestManager.instance.GetQuestById(dungeonQuest.id).GetCurrentQuestStepIndex();
-                AbilityManager.instance.UnlockAbility(abilityGrantedForDungeon);
+                AbilityManager.Instance.UnlockAbility(abilityGrantedForDungeon);
                 RespawnManager.instance.SetRespawnPosition(respawnPoint.position);
 
                 if (currentQuestStepIndex == 0)
@@ -98,7 +95,7 @@ public class DungeonEntrance : MonoBehaviour
 
             else
             {
-                if(currentQuest != null)
+                if (currentQuest != null)
                 {
                     dungeonEnteringPreventedUI.SetActive(true);
                     dungeonEnteringPreventedUI.GetComponent<DungeonEnteringPreventedUI>().SetUIContent(currentQuest);

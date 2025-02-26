@@ -35,14 +35,16 @@ namespace Kino
 
         /// Prefilter threshold (gamma-encoded)
         /// Filters out pixels under this level of brightness.
-        public float thresholdGamma {
+        public float thresholdGamma
+        {
             get { return Mathf.Max(_threshold, 0); }
             set { _threshold = value; }
         }
 
         /// Prefilter threshold (linearly-encoded)
         /// Filters out pixels under this level of brightness.
-        public float thresholdLinear {
+        public float thresholdLinear
+        {
             get { return GammaToLinear(thresholdGamma); }
             set { _threshold = LinearToGamma(value); }
         }
@@ -53,7 +55,8 @@ namespace Kino
 
         /// Soft-knee coefficient
         /// Makes transition between under/over-threshold gradual.
-        public float softKnee {
+        public float softKnee
+        {
             get { return _softKnee; }
             set { _softKnee = value; }
         }
@@ -65,7 +68,8 @@ namespace Kino
         /// Bloom radius
         /// Changes extent of veiling effects in a screen
         /// resolution-independent fashion.
-        public float radius {
+        public float radius
+        {
             get { return _radius; }
             set { _radius = value; }
         }
@@ -77,7 +81,8 @@ namespace Kino
 
         /// Bloom intensity
         /// Blend factor of the result image.
-        public float intensity {
+        public float intensity
+        {
             get { return Mathf.Max(_intensity, 0); }
             set { _intensity = value; }
         }
@@ -88,7 +93,8 @@ namespace Kino
 
         /// High quality mode
         /// Controls filter quality and buffer resolution.
-        public bool highQuality {
+        public bool highQuality
+        {
             get { return _highQuality; }
             set { _highQuality = value; }
         }
@@ -103,7 +109,8 @@ namespace Kino
         [Tooltip("Reduces flashing noise with an additional filter.")]
         bool _antiFlicker = true;
 
-        public bool antiFlicker {
+        public bool antiFlicker
+        {
             get { return _antiFlicker; }
             set { _antiFlicker = value; }
         }

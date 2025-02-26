@@ -1,6 +1,5 @@
 using UnityEditor;
 using UnityEngine;
-using PhotoMode;
 
 namespace PhotoMode
 {

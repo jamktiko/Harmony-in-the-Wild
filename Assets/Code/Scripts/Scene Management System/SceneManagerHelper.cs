@@ -1,6 +1,6 @@
-using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public static class SceneManagerHelper
 {
@@ -51,14 +51,14 @@ public static class SceneManagerHelper
     {
         return sceneNames[scene];
     }
-    
+
     public static Scene GetSceneEnum(string sceneName)
     {
         Scene currentScene = new Scene();
 
-        foreach(var keyValuePair in sceneNames)
+        foreach (var keyValuePair in sceneNames)
         {
-            if(keyValuePair.Value == sceneName)
+            if (keyValuePair.Value == sceneName)
             {
                 currentScene = keyValuePair.Key;
             }

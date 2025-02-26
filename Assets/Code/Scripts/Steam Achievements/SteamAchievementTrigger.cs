@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SteamAchievementTrigger : MonoBehaviour
@@ -13,6 +11,6 @@ public class SteamAchievementTrigger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

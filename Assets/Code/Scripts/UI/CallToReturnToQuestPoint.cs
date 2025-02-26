@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CallToReturnToQuestPoint : MonoBehaviour
@@ -26,7 +24,7 @@ public class CallToReturnToQuestPoint : MonoBehaviour
     private void UpdateQuestUI(string id)
     {
         // if the corresponding quest is being updated to CAN_FINISH state, use this UI
-        if(questId == id)
+        if (questId == id)
         {
             GameEventsManager.instance.questEvents.ShowQuestUI(questId, finalCallToAction, "");
         }

@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 #if ENABLE_INPUT_SYSTEM
-using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 #endif
 
@@ -17,7 +14,7 @@ public class BF_InputSystemSwitcher : MonoBehaviour
 #if ENABLE_INPUT_SYSTEM
         if (eventS.GetComponent<InputSystemUIInputModule>() == null)
         {
-            if(eventS.GetComponent<StandaloneInputModule>() != null)
+            if (eventS.GetComponent<StandaloneInputModule>() != null)
             {
                 Destroy(eventS.GetComponent<StandaloneInputModule>());
             }

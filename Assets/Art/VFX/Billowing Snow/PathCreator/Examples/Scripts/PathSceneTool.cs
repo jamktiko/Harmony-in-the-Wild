@@ -9,19 +9,24 @@ namespace PathCreation.Examples
         public PathCreator pathCreator;
         public bool autoUpdate = true;
 
-        protected VertexPath path {
-            get {
+        protected VertexPath path
+        {
+            get
+            {
                 return pathCreator.path;
             }
         }
 
-        public void TriggerUpdate() {
+        public void TriggerUpdate()
+        {
             PathUpdated();
         }
 
 
-        protected virtual void OnDestroy() {
-            if (onDestroyed != null) {
+        protected virtual void OnDestroy()
+        {
+            if (onDestroyed != null)
+            {
                 onDestroyed();
             }
         }

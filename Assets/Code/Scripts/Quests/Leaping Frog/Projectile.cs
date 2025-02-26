@@ -15,7 +15,7 @@ public class Projectile : MonoBehaviour
 
     private void Update()
     {
-        if(targetPosition != null)
+        if (targetPosition != null)
         {
             if (transform != null)
             {
@@ -46,7 +46,7 @@ public class Projectile : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    
+
     private void DelayDestroy()
     {
         Destroy(gameObject);

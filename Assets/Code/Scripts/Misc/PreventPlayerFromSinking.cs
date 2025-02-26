@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PreventPlayerFromSinking : MonoBehaviour
@@ -15,7 +13,7 @@ public class PreventPlayerFromSinking : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Trigger"))
         {
-            if(other.transform.position.y < transform.position.y)
+            if (other.transform.position.y < transform.position.y)
             {
                 Physics.IgnoreCollision(other.GetComponent<Collider>(), ownCollider, true);
             }

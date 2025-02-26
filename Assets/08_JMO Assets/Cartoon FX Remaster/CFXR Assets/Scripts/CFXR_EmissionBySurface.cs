@@ -88,78 +88,78 @@ namespace CartoonFX
             {
                 case ParticleSystemShapeType.Hemisphere:
                 case ParticleSystemShapeType.Sphere:
-                {
-                    float rX = shapeModule.radius * scaleX;
-                    float rY = shapeModule.radius * scaleY;
-                    float rZ = shapeModule.radius * scaleZ;
-                    float rmX = rX * thicknessPercentage;
-                    float rmY = rY * thicknessPercentage;
-                    float rmZ = rZ * thicknessPercentage;
-                    float volume = (rX * rY * rZ - rmX * rmY * rmZ) * Mathf.PI;
-                    if (shapeModule.shapeType == ParticleSystemShapeType.Hemisphere)
                     {
-                        volume /= 2.0f;
+                        float rX = shapeModule.radius * scaleX;
+                        float rY = shapeModule.radius * scaleY;
+                        float rZ = shapeModule.radius * scaleZ;
+                        float rmX = rX * thicknessPercentage;
+                        float rmY = rY * thicknessPercentage;
+                        float rmZ = rZ * thicknessPercentage;
+                        float volume = (rX * rY * rZ - rmX * rmY * rmZ) * Mathf.PI;
+                        if (shapeModule.shapeType == ParticleSystemShapeType.Hemisphere)
+                        {
+                            volume /= 2.0f;
+                        }
+                        return volume * arcPercentage;
                     }
-                    return volume * arcPercentage;
-                }
                 case ParticleSystemShapeType.Cone:
-                {
-                    float innerDisk = shapeModule.radius * scaleX * thicknessPercentage * shapeModule.radius * scaleY * thicknessPercentage * Mathf.PI;
-                    float outerDisk = shapeModule.radius *scaleX * shapeModule.radius * scaleY * Mathf.PI;
-                    return outerDisk - innerDisk;
-                }
+                    {
+                        float innerDisk = shapeModule.radius * scaleX * thicknessPercentage * shapeModule.radius * scaleY * thicknessPercentage * Mathf.PI;
+                        float outerDisk = shapeModule.radius * scaleX * shapeModule.radius * scaleY * Mathf.PI;
+                        return outerDisk - innerDisk;
+                    }
                 case ParticleSystemShapeType.ConeVolume:
-                {
-                    // cylinder volume, changing the angle doesn't actually extend the area from where the particles are emitted
-                    float innerCylinder = shapeModule.radius * scaleX * thicknessPercentage * shapeModule.radius * scaleY * thicknessPercentage * Mathf.PI * shapeModule.length * scaleZ;
-                    float outerCylinder = shapeModule.radius * scaleX * shapeModule.radius * scaleY * Mathf.PI * shapeModule.length * scaleZ;
-                    return outerCylinder - innerCylinder;
-                }
+                    {
+                        // cylinder volume, changing the angle doesn't actually extend the area from where the particles are emitted
+                        float innerCylinder = shapeModule.radius * scaleX * thicknessPercentage * shapeModule.radius * scaleY * thicknessPercentage * Mathf.PI * shapeModule.length * scaleZ;
+                        float outerCylinder = shapeModule.radius * scaleX * shapeModule.radius * scaleY * Mathf.PI * shapeModule.length * scaleZ;
+                        return outerCylinder - innerCylinder;
+                    }
                 case ParticleSystemShapeType.BoxEdge:
                 case ParticleSystemShapeType.BoxShell:
                 case ParticleSystemShapeType.Box:
-                {
-                    return scaleX * scaleY * scaleZ;
-                }
+                    {
+                        return scaleX * scaleY * scaleZ;
+                    }
                 case ParticleSystemShapeType.Circle:
-                {
-                    float radiusX = shapeModule.radius * scaleX;
-                    float radiusY = shapeModule.radius * scaleY;
+                    {
+                        float radiusX = shapeModule.radius * scaleX;
+                        float radiusY = shapeModule.radius * scaleY;
 
-                    float radiusMinX = radiusX * thicknessPercentage;
-                    float radiusMinY = radiusY * thicknessPercentage;
-                    float area = (radiusX * radiusY - radiusMinX * radiusMinY) * Mathf.PI;
-                    return area * arcPercentage;
-                }
+                        float radiusMinX = radiusX * thicknessPercentage;
+                        float radiusMinY = radiusY * thicknessPercentage;
+                        float area = (radiusX * radiusY - radiusMinX * radiusMinY) * Mathf.PI;
+                        return area * arcPercentage;
+                    }
                 case ParticleSystemShapeType.SingleSidedEdge:
-                {
-                    return shapeModule.radius * scaleX;
-                }
+                    {
+                        return shapeModule.radius * scaleX;
+                    }
                 case ParticleSystemShapeType.Donut:
-                {
-                    float outerDonutVolume = 2 * Mathf.PI * Mathf.PI * shapeModule.donutRadius * shapeModule.donutRadius * shapeModule.radius * arcPercentage;
-                    float innerDonutVolume = 2 * Mathf.PI * Mathf.PI * shapeModule.donutRadius * thicknessPercentage * thicknessPercentage * shapeModule.donutRadius * shapeModule.radius * arcPercentage;
-                    return (outerDonutVolume - innerDonutVolume) * scaleX * scaleY * scaleZ;
-                }
+                    {
+                        float outerDonutVolume = 2 * Mathf.PI * Mathf.PI * shapeModule.donutRadius * shapeModule.donutRadius * shapeModule.radius * arcPercentage;
+                        float innerDonutVolume = 2 * Mathf.PI * Mathf.PI * shapeModule.donutRadius * thicknessPercentage * thicknessPercentage * shapeModule.donutRadius * shapeModule.radius * arcPercentage;
+                        return (outerDonutVolume - innerDonutVolume) * scaleX * scaleY * scaleZ;
+                    }
                 case ParticleSystemShapeType.Rectangle:
-                {
-                    return scaleX * scaleY;
-                }
+                    {
+                        return scaleX * scaleY;
+                    }
                 case ParticleSystemShapeType.Mesh:
                 case ParticleSystemShapeType.SkinnedMeshRenderer:
                 case ParticleSystemShapeType.MeshRenderer:
-                {
-                    Debug.LogWarning( string.Format("[{0}] Calculating volume for a mesh is unsupported.", nameof(CFXR_EmissionBySurface)));
-                    this.active = false;
-                    return 0;
-                }
+                    {
+                        Debug.LogWarning(string.Format("[{0}] Calculating volume for a mesh is unsupported.", nameof(CFXR_EmissionBySurface)));
+                        this.active = false;
+                        return 0;
+                    }
                 case ParticleSystemShapeType.Sprite:
                 case ParticleSystemShapeType.SpriteRenderer:
-                {
-                    Debug.LogWarning( string.Format("[{0}] Calculating volume for a sprite is unsupported.", nameof(CFXR_EmissionBySurface)));
-                    this.active = false;
-                    return 0;
-                }
+                    {
+                        Debug.LogWarning(string.Format("[{0}] Calculating volume for a sprite is unsupported.", nameof(CFXR_EmissionBySurface)));
+                        this.active = false;
+                        return 0;
+                    }
             }
 
             return 0;

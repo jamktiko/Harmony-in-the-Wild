@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace PathCreation
 {
@@ -13,7 +11,7 @@ namespace PathCreation
         [Header("Appearance")]
         public float anchorSize = 10;
         public float controlSize = 7f;
-        
+
         [Tooltip("Should the path still be drawn when behind objects in the scene?")]
         public bool visibleBehindObjects = true;
         [Tooltip("Should the path be drawn even when the path object is not selected?")]
@@ -47,11 +45,12 @@ namespace PathCreation
 
         [Header("Normals")]
         public Color normals = Color.yellow;
-        [Range(0,1)]
+        [Range(0, 1)]
         public float normalsLength = .1f;
 
 #if UNITY_EDITOR
-        public static GlobalDisplaySettings Load() {
+        public static GlobalDisplaySettings Load()
+        {
             string[] guids = UnityEditor.AssetDatabase.FindAssets("t:GlobalDisplaySettings");
             if (guids.Length == 0)
             {
