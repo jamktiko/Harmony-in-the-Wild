@@ -19,7 +19,7 @@ public class ActiveQuestUI : MonoBehaviour
 
     [FormerlySerializedAs("title")] [SerializeField] TMP_Text _title;
     [FormerlySerializedAs("description")] [SerializeField] TMP_Text _description;
-    [FormerlySerializedAs("nextQuestStepDesc")] [SerializeField] TMP_Text _nextQuestStepDesc;
+    [SerializeField] TMP_Text _nextQuestStepDesc;
 
     private void Awake()
     {
