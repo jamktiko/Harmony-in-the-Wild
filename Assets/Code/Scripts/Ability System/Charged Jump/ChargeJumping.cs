@@ -79,9 +79,9 @@ public class ChargeJumping : MonoBehaviour, IAbility
 
                 chargeJumpTimer = chargeJumpTimer + 0.3f;
 
-                FoxMovement.instance.playerAnimator.SetBool(FoxAnimation.Parameter.isChargingJump, true);
-                FoxMovement.instance.playerAnimator.SetFloat(FoxAnimation.Parameter.horMove, FoxMovement.instance.horizontalInput);
-                FoxMovement.instance.playerAnimator.SetFloat(FoxAnimation.Parameter.vertMove, FoxMovement.instance.verticalInput);
+                FoxMovement.instance.playerAnimator.ChargingJump(true);
+                FoxMovement.instance.playerAnimator.HorizontalMove = FoxMovement.instance.horizontalInput;
+                FoxMovement.instance.playerAnimator.VerticalMove = FoxMovement.instance.verticalInput;
             } 
         }
     }
@@ -95,9 +95,7 @@ public class ChargeJumping : MonoBehaviour, IAbility
             chargeJumpAudio.Stop();
 
             FoxMovement.instance.rb.AddForce(transform.up * chargeJumpTimer, ForceMode.Impulse);
-
-            FoxMovement.instance.playerAnimator.SetBool(FoxAnimation.Parameter.isChargingJump, false);
-            FoxMovement.instance.playerAnimator.SetBool(FoxAnimation.Parameter.isJumping, false);
+            FoxMovement.instance.playerAnimator.ChargingJump(false);
             Invoke(nameof(ResetChargeJump), 0); 
         }
     }

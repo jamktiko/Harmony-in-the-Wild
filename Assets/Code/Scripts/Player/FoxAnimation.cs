@@ -6,86 +6,184 @@ public class FoxAnimation : MonoBehaviour
     internal Animator animator;
     public bool MovementRestricted => Restrictors.Count > 0;
     public List<object> Restrictors = new List<object>();
+    internal float speed;
+    private FoxAnimationState _currentState;
+    private FoxAnimationState _requestedState;
 
     // Using a cached hash is more efficient than using a string
-    private readonly static int horMoveHash = Animator.StringToHash("horMove");
-    private readonly static int vertMoveHash = Animator.StringToHash("vertMove");
-    private readonly static int isGlidingHash = Animator.StringToHash("isGliding");
-    private readonly static int isGroundedHash = Animator.StringToHash("isGrounded");
-    private readonly static int isSprintingHash = Animator.StringToHash("isSprinting");
-    private readonly static int isSwimmingHash = Animator.StringToHash("isSwimming");
-    private readonly static int isSittingHash = Animator.StringToHash("isSitting");
-    private readonly static int isLayingHash = Animator.StringToHash("isLaying");
-    private readonly static int upMoveHash = Animator.StringToHash("upMove");
-    private readonly static int isChargingJumpHash = Animator.StringToHash("isChargingJump");
-    private readonly static int isJumpingHash = Animator.StringToHash("isJumping");
-    private readonly static int isFreezingHash = Animator.StringToHash("isFreezing");
-    private readonly static int isSnowDivingHash = Animator.StringToHash("isSnowDiving");
-    private readonly static int doHeadButtHash = Animator.StringToHash("doHeadButt");
+    private readonly static int _stateHash = Animator.StringToHash("State"); // int
+    private readonly static int _statePreviousHash = Animator.StringToHash("PreviousState"); // int
+    private readonly static int _setStateHash = Animator.StringToHash("SetState"); // trigger
 
-    internal float speed;
+    private readonly static int _vertMoveHash = Animator.StringToHash("VerticalMove"); // float
+    private readonly static int _horMoveHash = Animator.StringToHash("HorizontalMove"); // float
+    private readonly static int _upMoveHash = Animator.StringToHash("UpMove"); // float
 
+    private readonly static int _jumpHash = Animator.StringToHash("Jump"); // trigger
+    private readonly static int _headButtHash = Animator.StringToHash("HeadButt"); // trigger
+    private readonly static int _freezingHash = Animator.StringToHash("Freezing"); // Trigger
+    private readonly static int _snowDiveHash = Animator.StringToHash("SnowDive"); // Trigger
+    private readonly static int _collectingFromBushHash = Animator.StringToHash("CollectingFromBush"); // Trigger
+    private readonly static int _collectingFromGroundHash = Animator.StringToHash("CollectingFromGround"); // Trigger
+
+    private readonly static int _isGroundedHash = Animator.StringToHash("isGrounded"); // Bool
+    private readonly static int _isChargingJumpHash = Animator.StringToHash("isChargingJump"); // Bool
+    private readonly static int _isSittingHash = Animator.StringToHash("isSitting"); // Bool
+    private readonly static int _isLayingHash = Animator.StringToHash("isLaying"); // Bool
+    private readonly static int _isGlidingHash = Animator.StringToHash("isGliding"); // Bool
+
+    // Are these used?
+    private readonly static int _isJumpingHash = Animator.StringToHash("isJumping"); // Bool
+    private readonly static int _goingLeftHash = Animator.StringToHash("GoingLeft"); // Bool
+    private readonly static int _isSwimmingHash = Animator.StringToHash("isSwimming"); // Bool
+    private readonly static int _isReadyToShake = Animator.StringToHash("isReadyToShake"); // Bool
+    private readonly static int _isReadyToSwim = Animator.StringToHash("isReadyToSwim"); // Bool
+    private readonly static int _isSnowDivingHash = Animator.StringToHash("isSnowDiving"); // Bool
+    private readonly static int _isFreezingHash = Animator.StringToHash("isFreezing"); // Bool
+
+    private List<AnimatorControllerParameter> animatorBools = new List<AnimatorControllerParameter>();
+
+    #region Unity Callbacks
     private void Awake()
     {
         animator = GetComponent<Animator>();
+    }
+
+    private void Start()
+    {
+        foreach (AnimatorControllerParameter item in animator.parameters)
+        {
+            if (item.type == AnimatorControllerParameterType.Bool)
+            {
+                animatorBools.Add(item);
+            }
+        }
+    }
+
+    private void Update()
+    {
+        if (_currentState == _requestedState)
+        {
+            return;
+        }
+        animator.SetInteger(_stateHash, (int)_requestedState);
+        animator.SetInteger(_statePreviousHash, (int)_currentState);
+        animator.SetTrigger(_setStateHash);
+        _currentState = _requestedState;
+    }
+    #endregion
+
+    /// <summary>
+    /// Drives animator vars. State, PreviousState and SetState
+    /// </summary>
+    internal FoxAnimationState State { get => _currentState; set => _requestedState = value; }
+
+    // Locomotion(0) state specific variables
+    internal float HorizontalMove { get => animator.GetFloat(_horMoveHash); set => animator.SetFloat(_horMoveHash, value * (Sprinting ? 2f : 1f)); }
+    internal float VerticalMove { get => animator.GetFloat(_vertMoveHash); set => animator.SetFloat(_vertMoveHash, value * (Sprinting ? 2f : 1f)); }
+    internal float UpMove { get => animator.GetFloat(_upMoveHash); set => animator.SetFloat(_upMoveHash, value); }
+    public bool Sprinting { get; internal set; } // Multiplies the movement values
+
+    // Resting(2) state specific variables
+    public bool Sitting { get => animator.GetBool(_isSittingHash); internal set => animator.SetTrigger(_isSittingHash); }
+    public bool Laying { get => animator.GetBool(_isLayingHash); internal set => animator.SetTrigger(_isLayingHash); }
+
+    // Actions
+    internal void Jump() => animator.SetTrigger(_jumpHash);
+    internal void ChargingJump(bool v) => animator.SetBool(_isChargingJumpHash, v);
+    internal void HeadButt() => animator.SetTrigger(_headButtHash);
+    internal void Freezing() => animator.SetTrigger(_freezingHash);
+    internal void SnowDive() => animator.SetTrigger(_snowDiveHash);
+    internal void CollectFromBush() => animator.SetTrigger(_collectingFromBushHash);
+    internal void CollectFromGround() => animator.SetTrigger(_collectingFromGroundHash);
+
+    // Conditions
+    public bool IsGrounded { get => animator.GetBool(_isGroundedHash); internal set => animator.SetBool(_isGroundedHash, value); }
+    public bool IsGliding { get => animator.GetBool(_isGlidingHash); internal set => animator.SetBool(_isGlidingHash, value); }
+    public bool IsChargingJump { get => animator.GetBool(_isChargingJumpHash); internal set => animator.SetBool(_isChargingJumpHash, value); }
+    public bool ReadyToSwim { get => animator.GetBool(_isReadyToSwim); internal set => animator.SetBool(_isReadyToSwim, value); }
+
+    #region Backwards compatibility
+    internal void SetBool(Parameter parameter, bool v) => animator.SetBool(ParameterToHash(parameter), v);
+    internal bool GetBool(Parameter parameter) => animator.GetBool(ParameterToHash(parameter));
+    internal void SetFloat(Parameter parameter, float value) => animator.SetFloat(ParameterToHash(parameter), value);
+    internal void SetFloat(Parameter parameter, float value, float dampTime, float deltaTime) => animator.SetFloat(ParameterToHash(parameter), value, dampTime, deltaTime);
+    internal void SetTrigger(Parameter parameter) => animator.SetTrigger(ParameterToHash(parameter));
+
+    [Obsolete("This is for backwards compatibility reasons and will be removed.")]
+    internal void SetBool(string boolName, bool v)
+    {
+        Debug.LogWarning("Using Animator with string");
+        animator.SetBool(boolName, v);
     }
 
     private static int ParameterToHash(Parameter parameter)
     {
         return parameter switch
         {
-            Parameter.horMove => horMoveHash,
-            Parameter.vertMove => vertMoveHash,
-            Parameter.isGliding => isGlidingHash,
-            Parameter.isGrounded => isGroundedHash,
-            Parameter.isSprinting => isSprintingHash,
-            Parameter.isSwimming => isSwimmingHash,
-            Parameter.isSitting => isSittingHash,
-            Parameter.isLaying => isLayingHash,
-            Parameter.upMove => upMoveHash,
-            Parameter.isChargingJump => isChargingJumpHash,
-            Parameter.isJumping => isJumpingHash,
-            Parameter.isFreezing => isFreezingHash,
-            Parameter.isSnowDiving => isSnowDivingHash,
-            Parameter.doHeadButt => doHeadButtHash,
+            Parameter.state => _stateHash,
+            Parameter.statePrevious => _statePreviousHash,
+            Parameter.setState => _setStateHash,
+            Parameter.vertMove => _vertMoveHash, // Still needed by SetFloat
+            Parameter.horMove => _horMoveHash, // Still needed by SetFloat
+            Parameter.upMove => _upMoveHash, // Still needed by SetFloat
+            Parameter.jump => _jumpHash,
+            Parameter.doHeadButt => _headButtHash,
+            Parameter.freezing => _freezingHash,
+            Parameter.snowDive => _snowDiveHash,
+            Parameter.collectingBerry => _collectingFromBushHash,
+            Parameter.collectingPinecone => _collectingFromGroundHash,
+            Parameter.isGrounded => _isGroundedHash,
+            Parameter.isChargingJump => _isChargingJumpHash,
+            Parameter.isSitting => _isSittingHash,
+            Parameter.isLaying => _isLayingHash,
+            Parameter.isGliding => _isGlidingHash,
+            Parameter.isJumping => _isJumpingHash,
+            Parameter.isSwimming => _isSwimmingHash,
+            Parameter.isReadyToSwim => _isReadyToSwim,
+            Parameter.isReadyToShake => _isReadyToShake,
+            Parameter.isSnowDiving => _isSnowDivingHash,
+            Parameter.isFreezing => _isFreezingHash,
+            Parameter.goingLeft => _goingLeftHash,
             _ => throw new NotImplementedException("ParameterToHash " + parameter.ToString()),
         };
     }
 
-    internal void SetBool(Parameter parameter, bool v) => animator.SetBool(ParameterToHash(parameter), v);
-    internal bool GetBool(Parameter parameter) => animator.GetBool(ParameterToHash(parameter));
-    internal void SetFloat(Parameter parameter, float value) => animator.SetFloat(ParameterToHash(parameter), value);
-    internal void SetFloat(Parameter parameter, float verticalInput, float dampTime, float deltaTime) => animator.SetFloat(ParameterToHash(parameter), verticalInput, dampTime, deltaTime);
-    internal void SetTrigger(Parameter parameter) => animator.SetTrigger(ParameterToHash(parameter));
-
-    internal void SetBool(string boolName, bool v)
-    {
-        Debug.LogWarning("Using Animator ");
-        animator.SetBool(boolName, v);
-    }
-
+    [Obsolete("This is for backwards compatibility reasons and will be removed.")]
     public enum Parameter
     {
+        state,
+        statePrevious,
+        setState,
         horMove,
         vertMove,
-        isGliding,
+        upMove,
+        jump,
+        doHeadButt,
+        freezing,
+        snowDive,
+        collectingBerry,
+        collectingPinecone,
         isGrounded,
-        isSprinting,
-        isSwimming,
+        isChargingJump,
         isSitting,
         isLaying,
-        upMove,
-        upMoveisChargingJump,
-        upMoveisJumping,
-        upMoveisGrounded,
-        upMoveisSprinting,
-        isChargingJump,
+        isGliding,
         isJumping,
-        isFreezing,
+        isSwimming,
+        isReadyToSwim,
+        isReadyToShake,
         isSnowDiving,
-        doHeadButt,
-        isCollectingPinecone,
-        isCollectingBerry,
-        isReadyToSwim
+        isFreezing,
+        goingLeft
     }
+    #endregion
+
+}
+
+public enum FoxAnimationState
+{
+    Default = 0,
+    Swimming = 1,
+    Rest = 2
 }

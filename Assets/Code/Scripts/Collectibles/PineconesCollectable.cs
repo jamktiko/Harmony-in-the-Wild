@@ -36,14 +36,15 @@ public class PineconesCollectable : MonoBehaviour
     {
         if (interactable)
         {
-            FoxMovement.instance.playerAnimator.SetBool(FoxAnimation.Parameter.isCollectingPinecone, true);
-
+            FoxMovement.instance.playerAnimator.CollectFromGround();
             Sequence mySequence = DOTween.Sequence();
             mySequence.Append(transform.DOScale(1.3f, 1.3f)).Append(transform.DOScale(0f, 1.3f)).OnComplete(() =>
             {
                 interactionIndicator.SetActive(false);
 
-                FoxMovement.instance.playerAnimator.SetBool(FoxAnimation.Parameter.isCollectingPinecone,false);
+                // TODO: Review this code; using trigger instead of bool
+                // Collecting is now a trigger, no need to reset
+                //FoxMovement.instance.playerAnimator.SetBool(FoxAnimation.Parameter.isCollectingPinecone,false);
 
                 PlayerManager.instance.PineCones++;
                 if (Steamworks.SteamClient.IsValid)
