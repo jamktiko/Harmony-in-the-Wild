@@ -1,0 +1,121 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[RequireComponent(typeof(SphereCollider))]
+public class TutorialBear : MonoBehaviour
+{
+    [Header("Quest")]
+    [SerializeField] private QuestScriptableObject questInfoForPoint;
+
+    [Header("Dialogue Files")]
+    [SerializeField] private AudioName audioToPlayOnDialogueStarted;
+    [SerializeField] private TextAsset dialogueBetweenQuests;
+    [SerializeField] private List<TextAsset> dialogueFiles;
+
+    private bool isInteractable = true;
+    //private int latestCompletedDialogueIndex = 0; // the index of the latest completed dialogue; will help in triggering the next dialogue after the previous one has been completed
+    private int currentDialogueIndex = -2;
+    private bool inkValueUpToDate; // bool to help updating the ink values as they are not currently saved anywhere else; ducktape solution for now
+
+    private string questId;
+    private bool playerIsNear = false;
+    private AudioSource audioSource;
+    private DialogueQuestNPCs character = DialogueQuestNPCs.Bear;
+
+    private void Start()
+    {
+        questId = questInfoForPoint.id;
+        CheckDialogueProgressChanges(questId);
+        InitializeDialogueTracker();
+        audioSource = GetComponent<AudioSource>();
+    }
+
+    private void OnEnable()
+    {
+        GameEventsManager.instance.questEvents.OnAdvanceQuest += CheckDialogueProgressChanges;
+        GameEventsManager.instance.dialogueEvents.OnStartDialogue += ToggleInteraction;
+        GameEventsManager.instance.dialogueEvents.OnEndDialogue += ToggleInteraction;
+    }
+
+    private void OnDisable()
+    {
+        GameEventsManager.instance.questEvents.OnAdvanceQuest -= CheckDialogueProgressChanges;
+        GameEventsManager.instance.dialogueEvents.OnStartDialogue -= ToggleInteraction;
+        GameEventsManager.instance.dialogueEvents.OnEndDialogue -= ToggleInteraction;
+    }
+
+    private void Update()
+    {
+        if (PlayerInputHandler.instance.InteractInput.WasPressedThisFrame() && playerIsNear && isInteractable)
+        {
+            InteractWithBear();
+        }
+    }
+
+    private void InteractWithBear()
+    {
+        if (QuestManager.instance.CheckQuestState(questId) == QuestState.FINISHED)
+        {
+            return;
+        }
+
+        if (dialogueFiles[currentDialogueIndex] != null)
+        {
+            DialogueManager.instance.StartDialogue(dialogueFiles[currentDialogueIndex]);
+        }
+
+        else
+        {
+            DialogueManager.instance.StartDialogue(dialogueBetweenQuests);
+        }
+
+        if (DialogueManager.instance.isDialoguePlaying)
+        {
+            AudioManager.instance.PlaySound(audioToPlayOnDialogueStarted, transform);
+        }
+    }
+
+    private void CheckDialogueProgressChanges(string updatedQuestId)
+    {
+        if(updatedQuestId == questId)
+        {
+            GameEventsManager.instance.dialogueEvents.RegisterPlayerNearNPC(character, playerIsNear);
+
+            Invoke(nameof(UpdateDialogueProgressValues), 0.3f);
+        }
+    }
+
+    private void UpdateDialogueProgressValues()
+    {
+        currentDialogueIndex++;
+    }
+
+    private void InitializeDialogueTracker()
+    {
+        currentDialogueIndex = QuestManager.instance.GetQuestById(questInfoForPoint.id).GetCurrentQuestStepIndex() - 1;
+    }
+
+    private void ToggleInteraction()
+    {
+        isInteractable = !isInteractable;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Trigger"))
+        {
+            playerIsNear = true;
+            GameEventsManager.instance.dialogueEvents.RegisterPlayerNearNPC(character, playerIsNear);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Trigger"))
+        {
+            playerIsNear = false;
+            GameEventsManager.instance.dialogueEvents.RegisterPlayerNearNPC(character, playerIsNear);
+        }
+    }
+}

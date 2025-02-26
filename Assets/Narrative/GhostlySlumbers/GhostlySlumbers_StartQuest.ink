@@ -7,7 +7,7 @@ You... I... Wait...
 === dialogueAfterGreeting ===
 I... I’m Owly. 
 What are you doing here, Owly? Is everything okay? #speaker:Fox
-My... My family. I... I wanted to visit them but... but...
+My... My family. I... I wanted to visit them but... but... #speaker:Owly
 I am afraid.
 Afraid of your family? #speaker:Fox
 Afraid of ghosts. My family members living in here are ghosts. #speaker:Owly

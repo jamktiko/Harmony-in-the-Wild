@@ -2,20 +2,29 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: BallSnow05
   m_Shader: {fileID: 4800000, guid: e52bb9af1fde8f84e978e6e27e785bf8, type: 3}
-  m_ShaderKeywords: IS_ICE USE_AL USE_LS _TESSELLATION_EDGE
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - IS_ICE
+  - USE_AL
+  - USE_FOG
+  - USE_LS
+  - _TESSELLATION_EDGE
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -33,6 +42,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _CrackLayers:
         m_Texture: {fileID: 2800000, guid: eaaf25f9c976c0748aceaced4f56c43f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _CustomTerrainHolesTexture:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -227,6 +240,7 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - _AddSnowStrength: 0.5
     - _BumpScale: 3.44
@@ -255,7 +269,9 @@ Material:
     - _HeightScale: 1
     - _ISADD: 0
     - _ISICE: 1
+    - _ISSNOW: 0
     - _IST: 0
+    - _ISUNLIT: 0
     - _IceScale: 1
     - _IndentDepth: 0.21
     - _IndentStrength: 1.18
@@ -293,6 +309,8 @@ Material:
     - _ParalaxColorScale: 0
     - _Parallax: 0.02
     - _ParallaxStrength: 0
+    - _ProceduralDistance: 5.5
+    - _ProceduralStrength: 1.5
     - _ReflectionOpacity: 0.25
     - _ReflectionStrength: 0.07
     - _RemoveSnowStrength: 0.5
@@ -315,12 +333,16 @@ Material:
     - _TransitionPower: 0.75
     - _TransitionScale: 0.65
     - _TransparencyValue: 1
+    - _USEFOG: 1
     - _USEINTER: 0
+    - _USELOW: 0
     - _USERT: 0
     - _USEWC: 0
+    - _USEWT: 0
     - _UVSec: 0
     - _UpVector: 0
     - _UseAmbientLight: 1
+    - _UsePR: 0
     - _UseSunReflection: 1
     - _UseVR: 0
     - _WireframeSmoothing: 1
@@ -358,3 +380,4 @@ Material:
     - _TopColor: {r: 1, g: 1, b: 1, a: 1}
     - _TransitionColor: {r: 1, g: 1, b: 1, a: 1}
     - _WireframeColor: {r: 0, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []

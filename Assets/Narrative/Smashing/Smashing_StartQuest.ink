@@ -10,7 +10,7 @@ I mean, I could. But I must... think of the next generation. Make sure you know 
 
 === dialogueAfterChoice === 
 ... alright. #speaker:Wild Boar
-I’m now going to teach you know to mine. Pay attention, you child. 
+I’m now going to teach you how to mine. Pay attention, you child. 
 There is an ore inside one of these rocks on the mining area. You must find it. 
 But as you know, time is ticking when you are at work. 
 You need to learn to be effective! You don’t have time to go through all the rocks. That’s why you should find it on couple of attempts. Sense the ore! 
