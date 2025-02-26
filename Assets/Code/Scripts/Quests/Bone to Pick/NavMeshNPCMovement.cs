@@ -53,7 +53,6 @@ public class NavMeshNPCMovement : MonoBehaviour
 
         else if(canMove && !playerIsNear && idleCoroutine == null)
         {
-            Debug.Log("starting to idle");
             idleCoroutine = StartCoroutine(Idle());
         }
 
@@ -69,8 +68,6 @@ public class NavMeshNPCMovement : MonoBehaviour
             SetNewDestination();
         }
     }
-
-
 
     private void EnableMovement(DialogueQuestNPCs questCharacterToMove)
     {
@@ -109,7 +106,6 @@ public class NavMeshNPCMovement : MonoBehaviour
         // otherwise use the first destination as a target to start a new loop
         if (currentTargetDestinationIndex < destinations.Count - 1)
         {
-            Debug.Log("setting new destination");
             currentTargetDestinationIndex++;
 
             currentTargetDestination = destinations[currentTargetDestinationIndex].position;
@@ -117,8 +113,6 @@ public class NavMeshNPCMovement : MonoBehaviour
 
         else
         {
-            Debug.Log("final destination reached");
-
             GameEventsManager.instance.questEvents.ReachTargetDestinationToCompleteQuestStep(questSO.id);
             canMove = false;
 
