@@ -43,8 +43,8 @@ public class Swimming : MonoBehaviour, IAbility
                 FoxMovement.instance.rb.useGravity = true;
             }
 
-            FoxMovement.instance.playerAnimator.SetFloat("horMove", FoxMovement.instance.horizontalInput,0.1f,Time.deltaTime);
-            FoxMovement.instance.playerAnimator.SetFloat("vertMove", FoxMovement.instance.verticalInput,0.1f,Time.deltaTime);
+            FoxMovement.instance.playerAnimator.SetFloat(FoxAnimation.Parameter.horMove, FoxMovement.instance.horizontalInput,0.1f,Time.deltaTime);
+            FoxMovement.instance.playerAnimator.SetFloat(FoxAnimation.Parameter.vertMove, FoxMovement.instance.verticalInput,0.1f,Time.deltaTime);
             //FoxMovement.instance.playerAnimator.SetBool("isJumping", false);
             //FoxMovement.instance.playerAnimator.SetBool("isGrounded", true);
             //FoxMovement.instance.playerAnimator.speed = 0.7f;

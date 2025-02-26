@@ -36,14 +36,14 @@ public class PineconesCollectable : MonoBehaviour
     {
         if (interactable)
         {
-            FoxMovement.instance.playerAnimator.SetBool("isCollectingPinecone", true);
+            FoxMovement.instance.playerAnimator.SetBool(FoxAnimation.Parameter.isCollectingPinecone, true);
 
             Sequence mySequence = DOTween.Sequence();
             mySequence.Append(transform.DOScale(1.3f, 1.3f)).Append(transform.DOScale(0f, 1.3f)).OnComplete(() =>
             {
                 interactionIndicator.SetActive(false);
 
-                FoxMovement.instance.playerAnimator.SetBool("isCollectingPinecone",false);
+                FoxMovement.instance.playerAnimator.SetBool(FoxAnimation.Parameter.isCollectingPinecone,false);
 
                 PlayerManager.instance.PineCones++;
                 if (Steamworks.SteamClient.IsValid)

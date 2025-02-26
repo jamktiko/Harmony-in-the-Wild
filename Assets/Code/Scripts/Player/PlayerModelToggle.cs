@@ -11,7 +11,7 @@ public class PlayerModelToggle : MonoBehaviour
     [SerializeField] private ParticleSystem[] changePSSnow;
     [SerializeField] private ParticleSystem[] changePSAutumn;
 
-    private Animator currentAnimator;
+    private FoxAnimation currentAnimator;
 
     private bool canTriggerVFX = false; // this bool is enabled a bit after the scene is loaded; the point is to prevent VFX being triggered when entering the scene
     private bool canTriggerAudioChange = true;
@@ -95,8 +95,6 @@ public class PlayerModelToggle : MonoBehaviour
             redFox.SetActive(false);
             arcticFox.SetActive(true);
 
-            currentAnimator = arcticFox.GetComponent<Animator>();
-            FoxMovement.instance.playerAnimator = currentAnimator;
             playerCamera.foxObject = arcticFox.transform;
         }
 
@@ -111,8 +109,6 @@ public class PlayerModelToggle : MonoBehaviour
             redFox.SetActive(true);
             arcticFox.SetActive(false);
 
-            currentAnimator = redFox.GetComponent<Animator>();
-            FoxMovement.instance.playerAnimator = currentAnimator;
             playerCamera.foxObject = redFox.transform;
         }
     }

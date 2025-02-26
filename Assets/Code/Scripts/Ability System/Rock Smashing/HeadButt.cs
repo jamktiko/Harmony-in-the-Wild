@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class HeadButt : MonoBehaviour
+public class HeadButtHash : MonoBehaviour
 {
     float force;
     [SerializeField]float finalForce;
@@ -32,7 +32,7 @@ public class HeadButt : MonoBehaviour
     private void TriggerHeadButt() 
     {
         finalForce = force;
-        FoxMovement.instance.playerAnimator.Play("PL_Smashing_ANI");
+        FoxMovement.instance.playerAnimator.SetTrigger(FoxAnimation.Parameter.doHeadButt);
         if (currentRock!=null)
         {
             Vector3 direction = currentRock.position - FoxMovement.instance.foxFront.position;

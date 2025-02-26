@@ -51,7 +51,7 @@ public class SnowDiving : MonoBehaviour, IAbility
         {
             //snowDiveVFX.SendEvent(onEnableSnowDiveID);
 
-            FoxMovement.instance.playerAnimator.SetBool("isGliding", false);
+            FoxMovement.instance.playerAnimator.SetBool(FoxAnimation.Parameter.isGliding, false);
         }
     }
 
@@ -109,7 +109,7 @@ public class SnowDiving : MonoBehaviour, IAbility
 
     IEnumerator MoveObject()
     {
-        FoxMovement.instance.playerAnimator.SetBool("isSnowDiving",true);
+        FoxMovement.instance.playerAnimator.SetBool(FoxAnimation.Parameter.isSnowDiving,true);
         //turn off object to move it
         FoxMovement.instance.rb.isKinematic = true;
         FoxMovement.instance.rb.useGravity = false;
@@ -133,6 +133,6 @@ public class SnowDiving : MonoBehaviour, IAbility
         FoxMovement.instance.rb.isKinematic = false;
         FoxMovement.instance.rb.useGravity = true;
         isClimbing = false;
-        FoxMovement.instance.playerAnimator.SetBool("isSnowDiving", false);
+        FoxMovement.instance.playerAnimator.SetBool(FoxAnimation.Parameter.isSnowDiving, false);
     }
 }

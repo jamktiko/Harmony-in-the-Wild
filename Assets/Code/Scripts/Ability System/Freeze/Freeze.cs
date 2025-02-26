@@ -41,7 +41,7 @@ public class Freeze : MonoBehaviour
         {
             foreach(Collider newObject in foundObjects)
             {
-                FoxMovement.instance.playerAnimator.SetBool("isFreezing", true);
+                FoxMovement.instance.playerAnimator.SetBool(FoxAnimation.Parameter.isFreezing, true);
                 Freezable freezable = newObject.gameObject.GetComponent<Freezable>();
 
                 if (freezable)
@@ -63,7 +63,7 @@ public class Freeze : MonoBehaviour
     private IEnumerator FreezeCooldown()
     {
         yield return new WaitForSeconds(0.01f);
-        FoxMovement.instance.playerAnimator.SetBool("isFreezing", false);
+        FoxMovement.instance.playerAnimator.SetBool(FoxAnimation.Parameter.isFreezing, false);
         hasCooldown = true;
 
         float updateFillAmount = 1 / (cooldownDuration * 100);
