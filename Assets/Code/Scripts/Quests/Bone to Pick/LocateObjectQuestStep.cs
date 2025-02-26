@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LocateObjectQuestStep : QuestStep
@@ -27,11 +25,11 @@ public class LocateObjectQuestStep : QuestStep
 
     private void CheckItemMatch(QuestItem foundItem)
     {
-        if(foundItem == itemToFind)
+        if (foundItem == itemToFind)
         {
             currentAmountOfFoundItems++;
 
-            if(currentAmountOfFoundItems >= amountOfItemsToFind)
+            if (currentAmountOfFoundItems >= amountOfItemsToFind)
             {
                 FinishQuestStep();
             }

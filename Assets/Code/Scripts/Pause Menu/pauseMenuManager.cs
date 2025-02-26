@@ -94,8 +94,8 @@ public class PauseMenuManager : MonoBehaviour
         Cursor.visible = true;
         SliderValueMaster = PlayerPrefs.GetFloat("MasterVolume");
         SliderValueMusic = PlayerPrefs.GetFloat("MusicVolume");
-        BerryCounter.text =  PlayerManager.instance.Berries + " / " + PlayerManager.instance.BerryData.Count;
-        PineconeCounter.text =  PlayerManager.instance.PineCones + " / " + PlayerManager.instance.PineConeData.Count;
+        BerryCounter.text = PlayerManager.instance.Berries + " / " + PlayerManager.instance.BerryData.Count;
+        PineconeCounter.text = PlayerManager.instance.PineCones + " / " + PlayerManager.instance.PineConeData.Count;
     }
 
     private void DisablePauseMenu()
@@ -306,7 +306,7 @@ public class PauseMenuManager : MonoBehaviour
         SliderValueMusic = PlayerPrefs.GetFloat("MusicVolume");
         Mastervolume.value = SliderValueMaster;
         MusicVolume.value = SliderValueMusic;
-        BerryCounter= pauseMenuPanel.transform.Find("BerryCounter").GetChild(1).GetComponent<TMP_Text>();
+        BerryCounter = pauseMenuPanel.transform.Find("BerryCounter").GetChild(1).GetComponent<TMP_Text>();
         PineconeCounter = pauseMenuPanel.transform.Find("PineconeCounter").GetChild(1).GetComponent<TMP_Text>();
         try
         {

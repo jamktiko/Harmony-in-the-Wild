@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,7 +19,7 @@ public class GhostRelatives : MonoBehaviour
     {
         List<GameObject> relatives = new List<GameObject>();
 
-        foreach(Transform child in transform)
+        foreach (Transform child in transform)
         {
             relatives.Add(child.gameObject);
         }

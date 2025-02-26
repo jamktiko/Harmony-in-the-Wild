@@ -18,7 +18,7 @@ public class RespawnManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        else 
+        else
         {
             instance = this;
         }
@@ -33,8 +33,8 @@ public class RespawnManager : MonoBehaviour
     public PositionData GetLatestRespawnPoint()
     {
         PositionData respawnPoint = new PositionData();
-        
-        if(checkpointPosition == Vector3.zero)
+
+        if (checkpointPosition == Vector3.zero)
         {
             respawnPoint.x = defaultStartingPosition.x;
             respawnPoint.y = defaultStartingPosition.y;

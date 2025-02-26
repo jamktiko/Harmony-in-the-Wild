@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class QuestNPCMovement : MonoBehaviour
 {
@@ -29,7 +28,7 @@ public class QuestNPCMovement : MonoBehaviour
 
     private void Start()
     {
-        if(QuestManager.instance.CheckQuestState(questSO.id) == QuestState.CAN_FINISH)
+        if (QuestManager.instance.CheckQuestState(questSO.id) == QuestState.CAN_FINISH)
         {
             transform.position = destinations[destinations.Count - 1].position;
         }
@@ -58,7 +57,7 @@ public class QuestNPCMovement : MonoBehaviour
 
     private void EnableMovement(DialogueQuestNPCs characterToMove)
     {
-        if(character == characterToMove)
+        if (character == characterToMove)
         {
             StartCoroutine(WalkToDestination());
 
@@ -101,7 +100,7 @@ public class QuestNPCMovement : MonoBehaviour
         {
             // move towards the target location
             transform.position = Vector3.MoveTowards(transform.position, currentDestination, moveSpeed * Time.deltaTime);
-            
+
             // rotate towards the target location
             Vector3 direction = (currentDestination - transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(direction);

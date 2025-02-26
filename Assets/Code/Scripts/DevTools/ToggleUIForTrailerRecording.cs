@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,7 +21,7 @@ public class ToggleUIForTrailerRecording : MonoBehaviour
         if (isVisible)
         {
             // hide UI
-            foreach(Transform child in transform)
+            foreach (Transform child in transform)
             {
                 if (!previousObjectsListed && child.gameObject.activeInHierarchy)
                 {
@@ -39,7 +38,7 @@ public class ToggleUIForTrailerRecording : MonoBehaviour
         else
         {
             // show UI
-            foreach(GameObject child in previousObjects)
+            foreach (GameObject child in previousObjects)
             {
                 child.gameObject.SetActive(true);
             }

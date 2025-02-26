@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class DevShortCuts : MonoBehaviour
 {
@@ -17,7 +16,7 @@ public class DevShortCuts : MonoBehaviour
     private string questId;
     private void Start()
     {
-        if(questSO != null)
+        if (questSO != null)
         {
             questId = questSO.id;
         }
@@ -29,7 +28,7 @@ public class DevShortCuts : MonoBehaviour
         {
             //SceneManager.LoadScene("Overworld");
         }
-        if(Input.GetKey(KeyCode.B) && Input.GetKeyDown(KeyCode.S) && questSO != null)
+        if (Input.GetKey(KeyCode.B) && Input.GetKeyDown(KeyCode.S) && questSO != null)
         {
             //GameEventsManager.instance.questEvents.AdvanceDungeonQuest(questId);
             //SceneManager.LoadScene(bossScene);

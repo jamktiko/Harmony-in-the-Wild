@@ -8,7 +8,7 @@ public class FallingRock : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        AudioManager.instance.PlaySound(AudioName.Prop_RockFalling, transform);
+        AudioManager.Instance.PlaySound(AudioName.Prop_RockFalling, transform);
 
         if (other.gameObject.CompareTag("Trigger"))
         {
@@ -27,7 +27,7 @@ public class FallingRock : MonoBehaviour
     {
         yield return new WaitForSeconds(selfDestructionTime);
 
-        Instantiate(destroyEffect, transform.position, Quaternion.identity);      
+        Instantiate(destroyEffect, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 }

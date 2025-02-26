@@ -1,13 +1,13 @@
-﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.SceneManagement;
+﻿using System.Collections;
+using UnityEngine;
 
 [RequireComponent(typeof(Book))]
-public class AutoFlip : MonoBehaviour {
+public class AutoFlip : MonoBehaviour
+{
     public FlipMode Mode;
     //public float TimeBetweenPages = 1;
     //public float DelayBeforeStarting = 0;
-    public bool AutoStartFlip=true;
+    public bool AutoStartFlip = true;
     public Book ControledBook;
     public int AnimationFramesCount = 40;
     bool isFlipping = false;
@@ -26,7 +26,8 @@ public class AutoFlip : MonoBehaviour {
     [SerializeField] private float autoFlipTime = 0.2f;
     [SerializeField] private float regularFlipTime = 1.7f;
 
-    void Start () {
+    void Start()
+    {
 
         StartCoroutine(Delay());
         IEnumerator Delay()
@@ -70,13 +71,13 @@ public class AutoFlip : MonoBehaviour {
         if (isFlipping) return;
         currentSpread++;
 
-        if(currentSpread > maxSpreads)
+        if (currentSpread > maxSpreads)
         {
             GameEventsManager.instance.uiEvents.ShowLoadingScreen(nextScene);
             return;
         }
 
-        
+
         if (ControledBook.currentPage >= ControledBook.TotalPageCount) return;
         isFlipping = true;
         float frameTime = pageFlipTime / AnimationFramesCount;
@@ -84,13 +85,13 @@ public class AutoFlip : MonoBehaviour {
         float xl = ((ControledBook.EndBottomRight.x - ControledBook.EndBottomLeft.x) / 2) * 0.9f;
         //float h =  ControledBook.Height * 0.5f;
         float h = Mathf.Abs(ControledBook.EndBottomRight.y) * 0.9f;
-        float dx = (xl)*2 / AnimationFramesCount;
+        float dx = (xl) * 2 / AnimationFramesCount;
 
         PlayFlipSound();
 
         StartCoroutine(FlipRTL(xc, xl, h, frameTime, dx));
     }
-   
+
     IEnumerator FlipRTL(float xc, float xl, float h, float frameTime, float dx)
     {
         float x = xc + xl;
@@ -152,7 +153,7 @@ public class AutoFlip : MonoBehaviour {
 
     private void PlayFlipSound()
     {
-        AudioManager.instance.PlaySound(AudioName.Prop_StorybookPage, transform);
+        AudioManager.Instance.PlaySound(AudioName.Prop_StorybookPage, transform);
     }
 }
 

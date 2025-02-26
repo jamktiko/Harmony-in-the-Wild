@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnableBear : MonoBehaviour
@@ -11,7 +9,7 @@ public class EnableBear : MonoBehaviour
         QuestState currentState = QuestManager.instance.CheckQuestState(tutorialQuest.id);
 
         // if quest is finished, keep the bear enabled
-        if(currentState == QuestState.FINISHED)
+        if (currentState == QuestState.FINISHED)
         {
             return;
         }

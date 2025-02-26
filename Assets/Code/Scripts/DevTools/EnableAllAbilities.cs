@@ -12,9 +12,9 @@ public class EnableAllAbilities : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
 
-        foreach (Abilities abilities in AbilityManager.instance.abilityStatuses.Keys)
+        foreach (Abilities abilities in AbilityManager.Instance._abilityStatuses.Keys)
         {
-            AbilityManager.instance.abilityStatuses[abilities] = true;
+            AbilityManager.Instance._abilityStatuses[abilities] = true;
         }
 
         SaveManager.instance.SaveGame();

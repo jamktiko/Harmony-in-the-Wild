@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FinishDungeonQuestStepWithTrigger : MonoBehaviour
@@ -35,10 +33,10 @@ public class FinishDungeonQuestStepWithTrigger : MonoBehaviour
             return;
         }
 
-        if(canFinishQuest && other.CompareTag("Trigger"))
+        if (canFinishQuest && other.CompareTag("Trigger"))
         {
             GameEventsManager.instance.questEvents.AdvanceDungeonQuest(questId);
-            
+
             if (isLearningStage)
             {
                 Invoke(nameof(ChangeScene), 0.15f);

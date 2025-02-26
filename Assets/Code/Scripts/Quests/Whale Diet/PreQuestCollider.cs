@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Splines;
 
 public class PreQuestCollider : MonoBehaviour
 {
@@ -13,7 +10,7 @@ public class PreQuestCollider : MonoBehaviour
     {
         CheckQuestProgressStatus();
 
-        if(currentState == QuestState.REQUIREMENTS_NOT_MET || currentState == QuestState.CAN_START)
+        if (currentState == QuestState.REQUIREMENTS_NOT_MET || currentState == QuestState.CAN_START)
         {
             return;
         }
@@ -41,7 +38,7 @@ public class PreQuestCollider : MonoBehaviour
 
     private void DisableQuestColliders()
     {
-        foreach(Transform child in transform)
+        foreach (Transform child in transform)
         {
             child.gameObject.SetActive(false);
         }
@@ -49,7 +46,7 @@ public class PreQuestCollider : MonoBehaviour
 
     private void UpdateQuestProgressStatus(string id)
     {
-        if(id == quest.id)
+        if (id == quest.id)
         {
             CheckQuestProgressStatus();
 

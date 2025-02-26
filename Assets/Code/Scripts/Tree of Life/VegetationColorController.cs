@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 // handles vegetation color changes
@@ -41,7 +40,7 @@ public class VegetationColorController : MonoBehaviour
         leafMaterial.SetColor("_LeafColor", Color.Lerp(deadColor, aliveColor, updateState));
         pineLeafMaterial.SetColor("_LeafColor", Color.Lerp(deadPineColor, aliveColor, updateState));
     }
-    
+
     private void TriggerVegetationColorChanges()
     {
         StartCoroutine(SmoothVegetationColorUpdate());

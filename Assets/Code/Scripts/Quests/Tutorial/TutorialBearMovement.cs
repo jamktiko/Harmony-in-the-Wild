@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -44,12 +42,12 @@ public class TutorialBearMovement : MonoBehaviour
                 gameObject.SetActive(false);
                 canMove = false;
             }
-        }   
+        }
     }
 
     private void CheckMovementActivation(string questId)
     {
-        if(questId == tutorialQuestSO.id)
+        if (questId == tutorialQuestSO.id)
         {
             Invoke(nameof(EnableMovement), 0.5f);
         }
@@ -62,7 +60,7 @@ public class TutorialBearMovement : MonoBehaviour
             canMove = true;
             animator.SetTrigger("walk");
 
-            if(interactionIndicator != null)
+            if (interactionIndicator != null)
             {
                 interactionIndicator.SetActive(false);
             }

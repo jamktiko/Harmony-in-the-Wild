@@ -1,7 +1,4 @@
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
 using TMPro;
 using UnityEngine;
 
@@ -43,7 +40,7 @@ public class PineconesCollectable : MonoBehaviour
             {
                 interactionIndicator.SetActive(false);
 
-                FoxMovement.instance.playerAnimator.SetBool("isCollectingPinecone",false);
+                FoxMovement.instance.playerAnimator.SetBool("isCollectingPinecone", false);
 
                 PlayerManager.instance.PineCones++;
                 if (Steamworks.SteamClient.IsValid)
@@ -54,7 +51,7 @@ public class PineconesCollectable : MonoBehaviour
                 CollectibleNotification(notifText, "Pinecones");
                 Invoke("CollectibleNotificationDisappear", 7f);
                 gameObject.SetActive(false);
-            }); 
+            });
             //transform.DOScale(0f, 0.5f).OnComplete(() =>
             //{
             //    CollectableCount++;

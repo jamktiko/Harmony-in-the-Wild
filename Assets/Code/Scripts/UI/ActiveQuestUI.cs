@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -13,13 +12,13 @@ public struct QuestImage
 public class ActiveQuestUI : MonoBehaviour
 {
 
-    [SerializeField]List<QuestImage> questImages = new List<QuestImage>();
+    [SerializeField] List<QuestImage> questImages = new List<QuestImage>();
 
     [SerializeField] QuestWaypoint questWaypoint;
 
-    [SerializeField]TMP_Text title;
-    [SerializeField]TMP_Text description;
-    [SerializeField]TMP_Text nextQuestStepDesc;
+    [SerializeField] TMP_Text title;
+    [SerializeField] TMP_Text description;
+    [SerializeField] TMP_Text nextQuestStepDesc;
 
     private void Awake()
     {
@@ -32,17 +31,17 @@ public class ActiveQuestUI : MonoBehaviour
         title.text = activeQuest.info.displayName.ToUpper();
 
         description.text = activeQuest.info.description;
-        nextQuestStepDesc.text = activeQuest.state == QuestState.IN_PROGRESS? activeQuest.GetCurrentQuestStepPrefab().GetComponent<QuestStep>().objective:"";
+        nextQuestStepDesc.text = activeQuest.state == QuestState.IN_PROGRESS ? activeQuest.GetCurrentQuestStepPrefab().GetComponent<QuestStep>().objective : "";
 
         //GameEventsManager.instance.questEvents.ShowQuestUI(activeQuest.info.displayName, activeQuest.state == QuestState.IN_PROGRESS ? activeQuest.GetCurrentQuestStepPrefab().GetComponent<QuestStep>().objective : activeQuest.info.description,"");
     }
 
-    public void TrackQuest() 
+    public void TrackQuest()
     {
         var activeQuest = QuestMenuManager.trackedQuest;
 
         questWaypoint.GetNewQuestWaypointPosition();
-        
-        GameEventsManager.instance.questEvents.ShowQuestUI(activeQuest.info.displayName, activeQuest.state == QuestState.IN_PROGRESS ? activeQuest.GetCurrentQuestStepPrefab().GetComponent<QuestStep>().objective : activeQuest.info.description,activeQuest.info.displayName);
+
+        GameEventsManager.instance.questEvents.ShowQuestUI(activeQuest.info.displayName, activeQuest.state == QuestState.IN_PROGRESS ? activeQuest.GetCurrentQuestStepPrefab().GetComponent<QuestStep>().objective : activeQuest.info.description, activeQuest.info.displayName);
     }
 }

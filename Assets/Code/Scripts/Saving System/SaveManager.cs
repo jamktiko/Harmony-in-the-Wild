@@ -1,10 +1,9 @@
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System;
-using Newtonsoft.Json;
 
 //This script handles both saving and loading of gameData.
 
@@ -41,14 +40,14 @@ public class SaveManager : MonoBehaviour
     {
 #if DEBUG
         if (PlayerInputHandler.instance.DebugSaveInput.WasPressedThisFrame())
-            {
-                SaveGame();
-            }
+        {
+            SaveGame();
+        }
 
-            if (PlayerInputHandler.instance.DebugDeleteSaveInput.WasPerformedThisFrame() && PlayerInputHandler.instance.DebugDeleteSaveInput2.WasPressedThisFrame())
-            {
-                DeleteSave();
-            }
+        if (PlayerInputHandler.instance.DebugDeleteSaveInput.WasPerformedThisFrame() && PlayerInputHandler.instance.DebugDeleteSaveInput2.WasPressedThisFrame())
+        {
+            DeleteSave();
+        }
 #endif
     }
 
@@ -72,11 +71,11 @@ public class SaveManager : MonoBehaviour
             dataToSave.dialogueVariableData = gameData.dialogueVariableData;
             dataToSave.activeQuest = QuestManager.instance.GetActiveQuest();
 
-            dataToSave.BerryCollectibles=gameData.BerryCollectibles;
-            dataToSave.PineconeCollectibles= gameData.PineconeCollectibles;
+            dataToSave.BerryCollectibles = gameData.BerryCollectibles;
+            dataToSave.PineconeCollectibles = gameData.PineconeCollectibles;
 
             dataToSave.berryData = gameData.berryData;
-            dataToSave.PineconeData=gameData.PineconeData;
+            dataToSave.PineconeData = gameData.PineconeData;
 
             string jsonData = JsonUtility.ToJson(dataToSave);
             File.WriteAllText(saveFilePath, jsonData);
@@ -102,8 +101,8 @@ public class SaveManager : MonoBehaviour
             gameData.BerryCollectibles = loadedData.BerryCollectibles;
             gameData.PineconeCollectibles = loadedData.PineconeCollectibles;
 
-            gameData.berryData =loadedData.berryData;
-            gameData.PineconeData =loadedData.PineconeData;
+            gameData.berryData = loadedData.berryData;
+            gameData.PineconeData = loadedData.PineconeData;
 
             gameData.activeQuest = loadedData.activeQuest;
             GameEventsManager.instance.questEvents.ChangeActiveQuest(gameData.activeQuest);
@@ -122,7 +121,7 @@ public class SaveManager : MonoBehaviour
         CollectDialogueVariableData();
         CollectBerryCollectibleData();
         CollectPineConeCollectibleData();
-        isSaving=false;
+        isSaving = false;
     }
 
     private void CollectQuestData()
@@ -132,12 +131,12 @@ public class SaveManager : MonoBehaviour
 
     private void CollectAbilityData()
     {
-        gameData.abilityData = AbilityManager.instance.CollectAbilityDataForSaving();
+        gameData.abilityData = AbilityManager.Instance.CollectAbilityDataForSaving();
     }
 
     private void CollectTreeOfLifeState()
     {
-        if(SceneManager.GetActiveScene().name == SceneManagerHelper.GetSceneName(SceneManagerHelper.Scene.Overworld) || SceneManager.GetActiveScene().name == "OverWorld - VS")
+        if (SceneManager.GetActiveScene().name == SceneManagerHelper.GetSceneName(SceneManagerHelper.Scene.Overworld) || SceneManager.GetActiveScene().name == "OverWorld - VS")
         {
             gameData.treeOfLifeState = TreeOfLifeState.instance.GetTreeOfLifeState();
         }
@@ -170,12 +169,12 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-    public void CollectBerryCollectibleData() 
+    public void CollectBerryCollectibleData()
     {
-        gameData.berryData=PlayerManager.instance.CollectBerryDataForSaving();
+        gameData.berryData = PlayerManager.instance.CollectBerryDataForSaving();
     }
 
-    public void CollectPineConeCollectibleData() 
+    public void CollectPineConeCollectibleData()
     {
         gameData.PineconeData = PlayerManager.instance.CollectPineconeDataForSaving();
     }
@@ -213,9 +212,9 @@ public class SaveManager : MonoBehaviour
         return loadedDictionary;
     }
 
-    public Dictionary<string, bool> GetLoadedPineConeDictionary() 
+    public Dictionary<string, bool> GetLoadedPineConeDictionary()
     {
-        Dictionary<string,bool> loadedDictionary = new Dictionary<string,bool>();
+        Dictionary<string, bool> loadedDictionary = new Dictionary<string, bool>();
 
         loadedDictionary = JsonConvert.DeserializeObject<Dictionary<string, bool>>(gameData.PineconeData);
 
@@ -238,7 +237,7 @@ public class SaveManager : MonoBehaviour
                 loadedDictionary.Add(ability, false);
             }
         }
-            return loadedDictionary;
+        return loadedDictionary;
     }
 
     public string GetLoadedDialogueVariables()
@@ -250,11 +249,11 @@ public class SaveManager : MonoBehaviour
     {
         //fetch the saved data from the file if there is a previous save, else it uses default starting position from the GameData/PositionData class
 
-            PositionData data = gameData.playerPositionData;
-            Debug.Log("SM loadplayerpos data: " + data);
+        PositionData data = gameData.playerPositionData;
+        Debug.Log("SM loadplayerpos data: " + data);
 
-            return data;
-        
+        return data;
+
     }
     #endregion
 
@@ -262,7 +261,7 @@ public class SaveManager : MonoBehaviour
     {
         File.Delete(saveFilePath);
         gameData = new GameData();
-        gameData.playerPositionData=new PositionData();
+        gameData.playerPositionData = new PositionData();
 
         Debug.Log("Save file deleted.");
     }

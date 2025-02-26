@@ -1,6 +1,6 @@
-using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CollectableQuestStep : QuestStep
 {
@@ -11,12 +11,12 @@ public class CollectableQuestStep : QuestStep
 
     private void Start()
     {
-        if(SceneManager.GetActiveScene().name.Contains("Overworld", System.StringComparison.CurrentCultureIgnoreCase))
+        if (SceneManager.GetActiveScene().name.Contains("Overworld", System.StringComparison.CurrentCultureIgnoreCase))
         {
             InitializeQuestUI();
             SetAppleObjects();
 
-            if(itemStates.Count <= 0)
+            if (itemStates.Count <= 0)
             {
                 InitializeItemStates();
             }
@@ -40,7 +40,7 @@ public class CollectableQuestStep : QuestStep
             InitializeQuestUI();
             SetAppleObjects();
 
-            if(itemStates.Count <= 0)
+            if (itemStates.Count <= 0)
             {
                 InitializeItemStates();
             }
@@ -55,7 +55,7 @@ public class CollectableQuestStep : QuestStep
     public void CollectableProgress(int itemIndex)
     {
         // don't proceed if the index is falsely set or the corresponding item has already been collected
-        if(itemIndex < 0 || itemStates[itemIndex])
+        if (itemIndex < 0 || itemStates[itemIndex])
         {
             Debug.Log("Invalid item index or corresponding apple has already been collected. Index: " + itemIndex);
             return;
@@ -83,9 +83,9 @@ public class CollectableQuestStep : QuestStep
     {
         apples = AppleDataHolder.instance.GetApples();
 
-        if(apples != null)
+        if (apples != null)
         {
-            for(int i = 0; i < apples.Count; i++)
+            for (int i = 0; i < apples.Count; i++)
             {
                 apples[i].SetActive(!itemStates[i]);
             }
@@ -137,7 +137,7 @@ public class CollectableQuestStep : QuestStep
         string[] stateParts = state.Split(";");
 
         // if there was previously only one saved value (itemsCollected in older version of the game), initialize the apple values to prevent errors
-        if(stateParts.Length == 1)
+        if (stateParts.Length == 1)
         {
             itemsCollected = int.Parse(stateParts[0]);
 

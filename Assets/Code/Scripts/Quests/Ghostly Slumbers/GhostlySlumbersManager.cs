@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,7 +21,7 @@ public class GhostlySlumbersManager : QuestStep
 
         List<GameObject> relatives = GhostRelatives.instance.GetGhostRelatives();
 
-        foreach(GameObject relative in relatives)
+        foreach (GameObject relative in relatives)
         {
             relative.SetActive(true);
         }
@@ -43,7 +42,7 @@ public class GhostlySlumbersManager : QuestStep
             UpdateState();
         }
 
-        else if(relativesSpokenTo >= relativeInteractionStatus.Count)
+        else if (relativesSpokenTo >= relativeInteractionStatus.Count)
         {
             FinishQuestStep();
         }
@@ -59,7 +58,7 @@ public class GhostlySlumbersManager : QuestStep
     {
         string[] splitState = state.Split(new string[] { " " }, System.StringSplitOptions.RemoveEmptyEntries);
 
-        for(int i = 0; i < splitState.Length; i++)
+        for (int i = 0; i < splitState.Length; i++)
         {
             relativeInteractionStatus[i] = System.Convert.ToBoolean(splitState[i]);
         }

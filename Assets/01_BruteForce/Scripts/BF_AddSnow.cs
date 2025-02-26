@@ -1,7 +1,6 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 public class BF_AddSnow : MonoBehaviour
 {
@@ -86,7 +85,7 @@ public class BF_AddSnow : MonoBehaviour
         RaycastHit hit;
         RaycastHit hitIfHit;
 
-        if (Physics.Raycast(transform.position + Vector3.up*5f, Vector3.down, out hit, 200, layerMask))
+        if (Physics.Raycast(transform.position + Vector3.up * 5f, Vector3.down, out hit, 200, layerMask))
         {
             if (hit.transform != this.transform)
             {
@@ -113,7 +112,7 @@ public class BF_AddSnow : MonoBehaviour
                         yIntersection = hitIfHit.point.y + intersectionOffset;
                         //Vector3 tangent = Vector3.ProjectOnPlane(Vector3.down, hitIfHit.normal).normalized;
 
-                        ySlope =  Quaternion.LookRotation(hitIfHit.normal, Vector3.forward);
+                        ySlope = Quaternion.LookRotation(hitIfHit.normal, Vector3.forward);
                         zNormal = ((hitIfHit.normal.normalized.z) + 1f) / 2f;
                         normalHit = hitIfHit.normal.normalized;
 
@@ -184,7 +183,7 @@ public class BF_AddSnow : MonoBehaviour
         int indexNewV = 0;
         foreach (Vector3 v in oldVert)
         {
-            vertexs.Add(v + new Vector3(0,0,0));
+            vertexs.Add(v + new Vector3(0, 0, 0));
             uvs.Add(oldUV[indexNewV]);
 
             indexNewV++;
@@ -202,15 +201,15 @@ public class BF_AddSnow : MonoBehaviour
             int j = 0;
             foreach (Vector3 norm in oldNormWorld)
             {
-                if(j>= oldCol.Length)
+                if (j >= oldCol.Length)
                 {
                     break;
                 }
                 oldCol[j] = Color.red;
                 float theAngle = Vector3.Angle(Vector3.up, norm);
-                if (theAngle < (angle+10f))
+                if (theAngle < (angle + 10f))
                 {
-                    Color lerpedColor = Color.Lerp(Color.white, Color.red, Mathf.Max(0f,theAngle- angle/2f) / (angle / 2f));
+                    Color lerpedColor = Color.Lerp(Color.white, Color.red, Mathf.Max(0f, theAngle - angle / 2f) / (angle / 2f));
                     oldCol[j] = lerpedColor;
                 }
                 j++;
@@ -259,7 +258,7 @@ public class BF_AddSnow : MonoBehaviour
                 float theAngle = Vector3.Angle(Vector3.up, norm);
                 if (theAngle < (angle + 10f))
                 {
-                    Color lerpedColor = Color.Lerp(new Color(1,1,1, updatedColors[j].a), new Color(1, 0, 0, updatedColors[j].a), Mathf.Max(0f, theAngle - angle / 2f) / (angle / 2f));
+                    Color lerpedColor = Color.Lerp(new Color(1, 1, 1, updatedColors[j].a), new Color(1, 0, 0, updatedColors[j].a), Mathf.Max(0f, theAngle - angle / 2f) / (angle / 2f));
                     updatedColors[j].r = lerpedColor.r;
                     updatedColors[j].g = lerpedColor.g;
                     updatedColors[j].b = lerpedColor.b;

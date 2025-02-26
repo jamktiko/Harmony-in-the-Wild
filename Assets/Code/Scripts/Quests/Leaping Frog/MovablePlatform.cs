@@ -26,7 +26,7 @@ public class MovablePlatform : MonoBehaviour
         //elapsedPercentage = Mathf.SmoothStep(0, 1, elapsetPercentage);
         transform.position = Vector3.Lerp(previousWaypoint.position, targetWaypoint.position, elapsedPercentage);
 
-        if(elapsedPercentage >= 1)
+        if (elapsedPercentage >= 1)
         {
             TargetNextWaypoint();
         }

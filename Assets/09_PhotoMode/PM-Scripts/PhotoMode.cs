@@ -1,12 +1,11 @@
+using Cinemachine;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Rendering.Universal;
-using UnityEngine.Rendering;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using Cinemachine;
-using PhotoMode;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.UI;
 
 namespace PhotoMode
 {
@@ -53,7 +52,7 @@ namespace PhotoMode
         [SerializeField] private MinMax saturation = new MinMax(-100f, 100f);
         [SerializeField] private MinMax vignette = new MinMax(-1f, 1f);
         [SerializeField] private MinMax verticalArm = new MinMax(-1f, 1f);
-        [Range(.5f, 2)] [SerializeField] private float verticalArmSpeed = 0.01f;
+        [Range(.5f, 2)][SerializeField] private float verticalArmSpeed = 0.01f;
 
         [Header("Filter Material")]
         [SerializeField] private Material postProcessingMaterial;

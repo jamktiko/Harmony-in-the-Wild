@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [ExecuteInEditMode]
@@ -40,9 +39,9 @@ public class BF_InteractiveEffects : MonoBehaviour
     }
     private void Update()
     {
-        if(isPaced)
+        if (isPaced)
         {
-            if(!paceRunning)
+            if (!paceRunning)
             {
                 waitPace = StartCoroutine(WaitPace());
             }
@@ -62,7 +61,7 @@ public class BF_InteractiveEffects : MonoBehaviour
 
     private IEnumerator WaitPace()
     {
-        for(; ;)
+        for (; ; )
         {
             paceRunning = true;
 

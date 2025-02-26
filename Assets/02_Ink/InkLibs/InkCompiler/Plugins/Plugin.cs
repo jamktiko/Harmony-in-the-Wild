@@ -1,13 +1,11 @@
-﻿using System;
-
-namespace Ink
+﻿namespace Ink
 {
     public interface IPlugin
-    {  
+    {
         // Hooks: if in doubt use PostExport, since the parsedStory is in a more finalised state.
 
         void PreParse(ref string storyContent);
-        
+
         // Hook for immediately after the story has been parsed into its basic Parsed hierarchy.
         // Could be useful for modifying the story before it's exported.
         void PostParse(ref Parsed.Story parsedStory);

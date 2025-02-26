@@ -12,7 +12,7 @@ public class DestroyObject : MonoBehaviour
 
     private void OnDestroy()
     {
-        if(destroyEffect != null)
+        if (destroyEffect != null)
         {
             Instantiate(destroyEffect, transform.position, Quaternion.identity);
         }

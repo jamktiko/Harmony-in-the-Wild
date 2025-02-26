@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -49,7 +48,7 @@ public class MidQuestCollider : MonoBehaviour
 
     private void UpdateQuestProgressStatus(string id)
     {
-        if(id == quest.id)
+        if (id == quest.id)
         {
             CheckQuestProgressStatus();
 

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class mouseUnlock : MonoBehaviour
@@ -8,12 +6,12 @@ public class mouseUnlock : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true ;
+        Cursor.visible = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

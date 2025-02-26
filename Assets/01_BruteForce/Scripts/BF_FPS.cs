@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class BF_FPS : MonoBehaviour
 {
@@ -19,13 +18,13 @@ public class BF_FPS : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Alpha2))
+        if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             ShowFps = !ShowFps;
         }
 
-        if(ShowFps)
-        deltaTime += (Time.unscaledDeltaTime - deltaTime) * 0.1f;
+        if (ShowFps)
+            deltaTime += (Time.unscaledDeltaTime - deltaTime) * 0.1f;
     }
 
     void OnGUI()

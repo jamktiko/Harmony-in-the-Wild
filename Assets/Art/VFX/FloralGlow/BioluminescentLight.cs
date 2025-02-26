@@ -4,7 +4,7 @@ public class BioluminescentLight : MonoBehaviour
 {
     public Light targetLight;
     public float minIntensity = 0f;
-    public float maxIntensity = 1f; 
+    public float maxIntensity = 1f;
     public float cycleDuration = 15f;
 
     private float timer = 0f;

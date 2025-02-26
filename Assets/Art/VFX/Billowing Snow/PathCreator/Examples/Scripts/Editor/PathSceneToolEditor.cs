@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using UnityEditor;
-using PathCreation;
+﻿using UnityEditor;
+using UnityEngine;
 
 namespace PathCreation.Examples
 {
@@ -44,8 +43,10 @@ namespace PathCreation.Examples
         }
 
 
-        void TriggerUpdate() {
-            if (pathTool.pathCreator != null) {
+        void TriggerUpdate()
+        {
+            if (pathTool.pathCreator != null)
+            {
                 pathTool.TriggerUpdate();
             }
         }
@@ -71,13 +72,15 @@ namespace PathCreation.Examples
             }
         }
 
-        void OnToolDestroyed() {
-            if (pathTool != null) {
+        void OnToolDestroyed()
+        {
+            if (pathTool != null)
+            {
                 pathTool.pathCreator.pathUpdated -= OnPathModified;
             }
         }
 
- 
+
         protected virtual void Subscribe()
         {
             if (pathTool.pathCreator != null)

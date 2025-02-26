@@ -1,12 +1,9 @@
-using System;
 using System.Collections;
-using System.IO;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Newtonsoft.Json;
 using UnityEngine.VFX;
-using UnityEngine.InputSystem;
 
 public class FoxMovement : MonoBehaviour
 {
@@ -59,7 +56,7 @@ public class FoxMovement : MonoBehaviour
     //[SerializeField] private Transform arcticFox;
 
     //private float viewDistance = 50f;
-    [SerializeField]private Vector3 boxSize = new Vector3(0f, 2f, 2f);
+    [SerializeField] private Vector3 boxSize = new Vector3(0f, 2f, 2f);
 
     private AbilityCycle abilityCycle;
     private bool isLoaded;
@@ -107,10 +104,10 @@ public class FoxMovement : MonoBehaviour
     }
     void Start()
     {
-        if(SceneManager.GetActiveScene().name.Contains("Overworld") || SceneManager.GetActiveScene().name.Contains("OverWorld"))
+        if (SceneManager.GetActiveScene().name.Contains("Overworld") || SceneManager.GetActiveScene().name.Contains("OverWorld"))
         {
             canMove = true;
-            
+
             if (File.Exists(SaveManager.instance.saveFilePath))
             {
                 Invoke(nameof(LoadPlayerPosition), 0.2f);
@@ -194,54 +191,54 @@ public class FoxMovement : MonoBehaviour
         //gliding
         if (PlayerInputHandler.instance.JumpInput.WasPressedThisFrame() && !grounded && !IsInWater())
         {
-            AbilityManager.instance.ActivateAbilityIfUnlocked(Abilities.Gliding);
+            AbilityManager.Instance.ActivateAbilityIfUnlocked(Abilities.Gliding);
         }
 
         //swimming
-        AbilityManager.instance.ActivateAbilityIfUnlocked(Abilities.Swimming);
+        AbilityManager.Instance.ActivateAbilityIfUnlocked(Abilities.Swimming);
 
         //chargejumping
         if (PlayerInputHandler.instance.JumpInput.WasPressedThisFrame() && grounded)
         {
-            AbilityManager.instance.ActivateAbilityIfUnlocked(Abilities.ChargeJumping);
+            AbilityManager.Instance.ActivateAbilityIfUnlocked(Abilities.ChargeJumping);
         }
 
         //snowdiving
         if (PlayerInputHandler.instance.SnowDiveInput.IsPressed() && IsInSnow())
         {
-            AbilityManager.instance.ActivateAbilityIfUnlocked(Abilities.SnowDiving);
+            AbilityManager.Instance.ActivateAbilityIfUnlocked(Abilities.SnowDiving);
         }
 
         //telegrabbing
         if (PlayerInputHandler.instance.TelegrabGrabInput.WasPressedThisFrame())
         {
-            AbilityManager.instance.ActivateAbilityIfUnlocked(Abilities.TeleGrabbing);
+            AbilityManager.Instance.ActivateAbilityIfUnlocked(Abilities.TeleGrabbing);
         }
     }
     void SelectAbility()
     {
         //chargejump
-        AbilityCycle.instance.activeAbilities.TryGetValue(Abilities.ChargeJumping, out bool isChargeJumpSelected);
+        AbilityCycle.Instance._activeAbilities.TryGetValue(Abilities.ChargeJumping, out bool isChargeJumpSelected);
         if (PlayerInputHandler.instance.UseAbilityInput.WasPressedThisFrame() && isChargeJumpSelected)
         {
-            ChargeJumping.instance.isChargeJumpActivated = !ChargeJumping.instance.isChargeJumpActivated;
+            ChargeJumping.Instance.IsChargeJumpActivated = !ChargeJumping.Instance.IsChargeJumpActivated;
         }
         if (!isChargeJumpSelected)
         {
-            ChargeJumping.instance.isChargeJumpActivated = false;
+            ChargeJumping.Instance.IsChargeJumpActivated = false;
         }
 
         //telegrab
-        AbilityCycle.instance.activeAbilities.TryGetValue(Abilities.TeleGrabbing, out bool isTelegrabSelected);
+        AbilityCycle.Instance._activeAbilities.TryGetValue(Abilities.TeleGrabbing, out bool isTelegrabSelected);
         if (PlayerInputHandler.instance.UseAbilityInput.WasPressedThisFrame() && isTelegrabSelected)
         {
-            TeleGrabbing.instance.ActivateTelegrabCamera();
-            TeleGrabbing.instance.isTelegrabActivated = !TeleGrabbing.instance.isTelegrabActivated;
+            TeleGrabbing.Instance.ActivateTelegrabCamera();
+            TeleGrabbing.Instance.IsTelegrabActivated = !TeleGrabbing.Instance.IsTelegrabActivated;
         }
-        if (!isTelegrabSelected && TeleGrabbing.instance.isTelegrabActivated)
+        if (!isTelegrabSelected && TeleGrabbing.Instance.IsTelegrabActivated)
         {
-            TeleGrabbing.instance.isTelegrabActivated = false;
-            TeleGrabbing.instance.ActivateTelegrabCamera();
+            TeleGrabbing.Instance.IsTelegrabActivated = false;
+            TeleGrabbing.Instance.ActivateTelegrabCamera();
         }
     }
     private void Landing()
@@ -286,7 +283,7 @@ public class FoxMovement : MonoBehaviour
     }
     private void JumpInput()
     {
-        if (PlayerInputHandler.instance.JumpInput.WasPressedThisFrame() && isReadyToJump && IsGrounded() && !ChargeJumping.instance.isChargeJumpActivated&&PlayerInputHandler.instance.JumpInput.enabled)
+        if (PlayerInputHandler.instance.JumpInput.WasPressedThisFrame() && isReadyToJump && IsGrounded() && !ChargeJumping.Instance.IsChargeJumpActivated && PlayerInputHandler.instance.JumpInput.enabled)
         {
             isReadyToJump = false;
             Jump();
@@ -305,12 +302,12 @@ public class FoxMovement : MonoBehaviour
     {
         float speed = 0f;
         float modifier = 1f;
-        AbilityManager.instance.abilityStatuses.TryGetValue(Abilities.SnowDiving, out bool isSnowDiveUnlocked);
+        AbilityManager.Instance._abilityStatuses.TryGetValue(Abilities.SnowDiving, out bool isSnowDiveUnlocked);
 
         SetMovementSpeed(ref speed, ref modifier, isSnowDiveUnlocked);
 
         //On slope
-        if (IsOnSlope()&&!exitingSlope)
+        if (IsOnSlope() && !exitingSlope)
         {
             rb.AddForce(GetSlopeMoveDirection() * moveSpeed * 20f, ForceMode.Force);
 
@@ -331,9 +328,9 @@ public class FoxMovement : MonoBehaviour
     {
 
         //Limit speed on Slope
-        if (IsOnSlope()&&!exitingSlope)
+        if (IsOnSlope() && !exitingSlope)
         {
-            if (rb.velocity.magnitude>moveSpeed&&!isSprinting)
+            if (rb.velocity.magnitude > moveSpeed && !isSprinting)
             {
                 rb.velocity = rb.velocity.normalized * moveSpeed;
             }
@@ -362,34 +359,34 @@ public class FoxMovement : MonoBehaviour
         //Swimming
         if (IsInWater())
         {
-            speed = Swimming.instance.swimSpeed;
+            speed = Swimming.Instance._swimSpeed;
             rb.useGravity = true;
             playerAnimator.SetBool("isSwimming", true);
         }
 
         //In air, Gliding
-        if (!grounded && !IsInWater() && Gliding.instance.isGliding)
+        if (!grounded && !IsInWater() && Gliding.Instance.IsGliding)
         {
             //rb.useGravity = true;
             speed = moveSpeed;
-            modifier = Gliding.instance.glidingMultiplier;
+            modifier = Gliding.Instance.GlidingMultiplier;
         }
 
         //In air, NOT Gliding
-        if (!grounded && !IsInWater() && !Gliding.instance.isGliding)
+        if (!grounded && !IsInWater() && !Gliding.Instance.IsGliding)
         {
             //rb.useGravity = true;
             speed = moveSpeed;
-            modifier = Gliding.instance.airMultiplier;
+            modifier = Gliding.Instance.AirMultiplier;
         }
 
         //Walking on snow
         if (IsInSnow() && grounded && isSnowDiveUnlocked)
         {
-            speed = SnowDiving.instance.snowDiveSpeed;
+            speed = SnowDiving.Instance.SnowDiveSpeed;
         }
 
-        
+
     }
 
     private void Walk()
@@ -398,7 +395,7 @@ public class FoxMovement : MonoBehaviour
         {
             rb.mass = 1f;
             rb.drag = groundDrag;
-            
+
         }
         else
         {
@@ -424,7 +421,7 @@ public class FoxMovement : MonoBehaviour
     {
         if (grounded && isSprinting)
         {
-            if (horizontalInput!=0||verticalInput!=0)
+            if (horizontalInput != 0 || verticalInput != 0)
             {
                 playerAnimator.SetBool("isSprinting", true);
             }
@@ -461,7 +458,7 @@ public class FoxMovement : MonoBehaviour
     }
     public bool IsInWater()
     {
-        return Physics.CheckSphere(foxMiddle.position, boxSize.y*0.9f, waterLayerMask, QueryTriggerInteraction.Ignore);
+        return Physics.CheckSphere(foxMiddle.position, boxSize.y * 0.9f, waterLayerMask, QueryTriggerInteraction.Ignore);
     }
     public bool IsInSnow()
     {
@@ -472,17 +469,17 @@ public class FoxMovement : MonoBehaviour
 
         //return Physics.Raycast(foxMiddle.position, Vector3.down, out SlopeHit, playerHeight + 0.2f) && SlopeHit.normal != Vector3.up;
 
-        if (Physics.Raycast(foxFront.position, Vector3.down, out SlopeHit, playerHeight *0.5f+0.2f))
+        if (Physics.Raycast(foxFront.position, Vector3.down, out SlopeHit, playerHeight * 0.5f + 0.2f))
         {
             float angle = Vector3.Angle(Vector3.up, SlopeHit.normal);
             Debug.DrawRay(foxMiddle.position, Vector3.down, Color.cyan);
             return angle < maxSlopeAngle && angle != 0;
-            
+
         }
         return false;
-        
+
     }
-    private Vector3 GetSlopeMoveDirection() 
+    private Vector3 GetSlopeMoveDirection()
     {
         return Vector3.ProjectOnPlane(moveDirection, SlopeHit.normal).normalized;
     }
@@ -512,7 +509,7 @@ public class FoxMovement : MonoBehaviour
             rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
         }
     }
-    private void SitAndLay() 
+    private void SitAndLay()
     {
         if (PlayerInputHandler.instance.SitInput.WasPerformedThisFrame())
         {
@@ -526,9 +523,9 @@ public class FoxMovement : MonoBehaviour
             playerAnimator.SetBool("isSitting", false);
         }
     }
-    private void AnimationConditions() 
+    private void AnimationConditions()
     {
-        if ((PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Armature|FoxLieDownAni"))|| (PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("PL_StandUp_ANI")) || (PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("PL_Sitting_ANI")) ||(PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("PL_OutOfWater_ANI"))|| (PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("PL_PickUpFromBush_ANI")) || (PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("PL_PickUpFromGround_ANI"))||(PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("PL_EnterWater_ANI"))|| (PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("PL_Playful2_ANI")) || (PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("PL_FreezingAbility_ANI")))
+        if ((PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Armature|FoxLieDownAni")) || (PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("PL_StandUp_ANI")) || (PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("PL_Sitting_ANI")) || (PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("PL_OutOfWater_ANI")) || (PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("PL_PickUpFromBush_ANI")) || (PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("PL_PickUpFromGround_ANI")) || (PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("PL_EnterWater_ANI")) || (PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("PL_Playful2_ANI")) || (PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("PL_FreezingAbility_ANI")))
         {
             PlayerInputHandler.instance.MoveInput.Disable();
             PlayerInputHandler.instance.JumpInput.Disable();
@@ -544,20 +541,20 @@ public class FoxMovement : MonoBehaviour
                         PlayerInputHandler.instance.MoveInput.Enable();
                         PlayerInputHandler.instance.JumpInput.Enable();
                     }
-                    
+
                 }
-                else 
+                else
                 {
                     PlayerInputHandler.instance.MoveInput.Enable();
                     PlayerInputHandler.instance.JumpInput.Enable();
                 }
-                
+
             }
-            
+
         }
     }
 
-    public void CooldownTrigger(string boolName) 
+    public void CooldownTrigger(string boolName)
     {
         playerAnimator.SetBool(boolName, false);
         if (boolName == "isReadyToSwim")
@@ -572,7 +569,7 @@ public class FoxMovement : MonoBehaviour
     }
     IEnumerator StartCooldown(string boolName)
     {
-       
+
         yield return new WaitForSeconds(30f);
         playerAnimator.SetBool(boolName, true);
         if (boolName == "isReadyToSwim")
@@ -635,7 +632,7 @@ public class FoxMovement : MonoBehaviour
     private void EnableMovementAfterDialogue()
     {
         canMove = true;
-        Invoke(nameof(ResetJump), 0.3f);   
+        Invoke(nameof(ResetJump), 0.3f);
     }
 
     private void ToggleMovementBasedOnInputActions(bool movementEnabled)

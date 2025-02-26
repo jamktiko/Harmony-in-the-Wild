@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DungeonQuestProgressChecker : MonoBehaviour
@@ -29,7 +27,7 @@ public class DungeonQuestProgressChecker : MonoBehaviour
     private void MarkQuestAsFinished()
     {
         // if quest is ready to be finished, mark it as finished
-        if(currentState == QuestState.CAN_FINISH)
+        if (currentState == QuestState.CAN_FINISH)
         {
             GameEventsManager.instance.questEvents.FinishQuest(quest.id);
         }
@@ -40,13 +38,13 @@ public class DungeonQuestProgressChecker : MonoBehaviour
         // if quest is still in progress, lock the ability so the player cannot yet use it in Overworld
         if (currentState == QuestState.FINISHED || currentState == QuestState.CAN_FINISH)
         {
-            AbilityManager.instance.UnlockAbility(ability);
+            AbilityManager.Instance.UnlockAbility(ability);
             return;
         }
 
         else
         {
-            AbilityManager.instance.LockAbility(ability);
+            AbilityManager.Instance.LockAbility(ability);
         }
     }
 }

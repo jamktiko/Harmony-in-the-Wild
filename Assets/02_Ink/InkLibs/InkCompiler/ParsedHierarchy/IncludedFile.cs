@@ -5,12 +5,12 @@ namespace Ink.Parsed
     {
         public Parsed.Story includedStory { get; private set; }
 
-        public IncludedFile (Parsed.Story includedStory)
+        public IncludedFile(Parsed.Story includedStory)
         {
             this.includedStory = includedStory;
         }
 
-        public override Runtime.Object GenerateRuntimeObject ()
+        public override Runtime.Object GenerateRuntimeObject()
         {
             // Left to the main story to process
             return null;

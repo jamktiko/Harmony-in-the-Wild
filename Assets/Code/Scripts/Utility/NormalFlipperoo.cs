@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class NormalFlipperoo : MonoBehaviour
@@ -12,8 +10,8 @@ public class NormalFlipperoo : MonoBehaviour
     {
         Mesh mesh;
         Vector3[] newNormals;
-        for (int i = 0; i < flippers.Length; i++) 
-        { 
+        for (int i = 0; i < flippers.Length; i++)
+        {
             mesh = flippers[i].GetComponent<MeshFilter>().sharedMesh;
             newNormals = new Vector3[mesh.normals.Length];
             for (int j = 0; j < mesh.normals.Length; j++)

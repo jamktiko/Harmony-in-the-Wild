@@ -2,7 +2,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
-using UnityEngine.Rendering.Universal;
 
 public class MapOpen : MonoBehaviour
 {

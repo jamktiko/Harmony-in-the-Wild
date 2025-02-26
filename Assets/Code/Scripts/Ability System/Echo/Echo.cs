@@ -1,38 +1,37 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using System;
+using System.Collections;
+using UnityEngine;
 
 public class Echo : MonoBehaviour, IAbility
 {
-    public static Echo instance;
+    public static Echo Instance;
 
-    [HideInInspector] public bool isEchoing = false;
+    [HideInInspector] public bool _isEchoing = false;
 
     [Header("Echo Config")]
-    [SerializeField] private LayerMask searchableLayers;
-    [SerializeField] private float echoRadius = 9f;
-    [SerializeField] private float shockwaveDuration = 1.1f;
-    [SerializeField] private GameObject shockwaveEffect;
-    [SerializeField] private float timeToTriggerEffectForNextFoundObject = 0.8f;
+    [SerializeField] private LayerMask _searchableLayers;
+    [SerializeField] private float _echoRadius = 9f;
+    [SerializeField] private float _shockwaveDuration = 1.1f;
+    [SerializeField] private GameObject _shockwaveEffect;
+    [SerializeField] private float _timeToTriggerEffectForNextFoundObject = 0.8f;
 
     void Awake()
     {
-        if (instance != null && instance != this)
+        if (Instance != null && Instance != this)
         {
             Debug.LogWarning("There is more than one Echo ability.");
             Destroy(gameObject);
             return;
         }
-        instance = this;
+        Instance = this;
     }
 
     private void Start()
     {
-        AbilityManager.instance.RegisterAbility(Abilities.Echo, this);
+        AbilityManager.Instance.RegisterAbility(Abilities.Echo, this);
 
-        AbilityManager.instance.UnlockAbility(Abilities.Echo);
-        AbilityManager.instance.ActivateAbilityIfUnlocked(Abilities.Echo);
+        AbilityManager.Instance.UnlockAbility(Abilities.Echo);
+        AbilityManager.Instance.ActivateAbilityIfUnlocked(Abilities.Echo);
     }
 
     private void Update()
@@ -45,24 +44,24 @@ public class Echo : MonoBehaviour, IAbility
 
     public void Activate()
     {
-        if (!isEchoing)
+        if (!_isEchoing)
         {
             Debug.Log("Echo activated");
-        }     
+        }
     }
 
     private void TriggerShockwave()
     {
-        Instantiate(shockwaveEffect, transform);
+        Instantiate(_shockwaveEffect, transform);
 
-        Invoke(nameof(ShowLocatedObjects), shockwaveDuration);
+        Invoke(nameof(ShowLocatedObjects), _shockwaveDuration);
     }
 
     private void ShowLocatedObjects()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(FoxMovement.instance.transform.position, echoRadius, searchableLayers);
+        Collider[] hitColliders = Physics.OverlapSphere(FoxMovement.instance.transform.position, _echoRadius, _searchableLayers);
 
-        if(hitColliders.Length > 0)
+        if (hitColliders.Length > 0)
         {
             hitColliders = ListObjectsBasedOnDistanceToPlayer(hitColliders);
 
@@ -88,7 +87,7 @@ public class Echo : MonoBehaviour, IAbility
                 echoReceiver.ObjectLocated();
             }
 
-            yield return new WaitForSeconds(timeToTriggerEffectForNextFoundObject);
+            yield return new WaitForSeconds(_timeToTriggerEffectForNextFoundObject);
         }
     }
 }

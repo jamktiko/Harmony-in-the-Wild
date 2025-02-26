@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class DungeonEnteringPreventedUI : MonoBehaviour
 {
@@ -22,17 +22,17 @@ public class DungeonEnteringPreventedUI : MonoBehaviour
 
         Debug.Log(dungeon.info.id + "has " + dungeon.info.questPrerequisites.Length + " quest requirements.");
 
-        foreach(QuestScriptableObject requirement in dungeon.info.questPrerequisites)
+        foreach (QuestScriptableObject requirement in dungeon.info.questPrerequisites)
         {
             QuestState requirementState = QuestManager.instance.CheckQuestState(requirement.id);
 
-            if(requirementState != QuestState.FINISHED)
+            if (requirementState != QuestState.FINISHED)
             {
                 prerequisites.Add(requirement.id);
             }
         }
 
-        foreach(string requirement in prerequisites)
+        foreach (string requirement in prerequisites)
         {
             requirementText.text = requirementText.text + requirement + "\n \n";
         }

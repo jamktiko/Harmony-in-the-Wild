@@ -10,6 +10,6 @@ public class AreYouSureMSG_Naming : MonoBehaviour
     }
     void Update()
     {
-        text.text = "Are you sure you want the name the fox: " + PlayerPrefs.GetString("foxName")+"?";
+        text.text = "Are you sure you want the name the fox: " + PlayerPrefs.GetString("foxName") + "?";
     }
 }

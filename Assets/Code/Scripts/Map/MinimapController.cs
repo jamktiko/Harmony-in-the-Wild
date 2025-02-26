@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -164,7 +163,7 @@ public class MinimapController : MonoBehaviour
 
     private Vector2 WorldPositionToMapPosition(Vector3 worldPos)
     {
-        var pos = new Vector2(worldPos.x, worldPos.z)+Offset;
+        var pos = new Vector2(worldPos.x, worldPos.z) + Offset;
         return transformationMatrix.MultiplyPoint3x4(pos);
     }
 

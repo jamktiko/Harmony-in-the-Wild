@@ -1,42 +1,40 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class HeadButt : MonoBehaviour
 {
-    float force;
-    [SerializeField]float finalForce;
-    [SerializeField]Slider Slider;
-    [SerializeField] Rigidbody currentRock;
+    private float _force;
+    [SerializeField] private float _finalForce;
+    [SerializeField] private Slider _slider;
+    [SerializeField] private Rigidbody _currentRock;
     void FixedUpdate()
     {
-        if (Keyboard.current.eKey.wasPressedThisFrame && force != 0)
+        if (Keyboard.current.eKey.wasPressedThisFrame && _force != 0)
         {
             TriggerHeadButt();
         }
-        else if (Mouse.current.leftButton.isPressed&&force<10)
+        else if (Mouse.current.leftButton.isPressed && _force < 10)
         {
-            force += 0.05f;
-            Slider.value = force;
-            Vector3 direction = currentRock.position-FoxMovement.instance.foxFront.position ;
-            Debug.DrawLine(currentRock.position, direction * 100, Color.green);
+            _force += 0.05f;
+            _slider.value = _force;
+            Vector3 direction = _currentRock.position - FoxMovement.instance.foxFront.position;
+            Debug.DrawLine(_currentRock.position, direction * 100, Color.green);
         }
         else
         {
-            Slider.value -=0.2f;
-            force = Slider.value;
+            _slider.value -= 0.2f;
+            _force = _slider.value;
         }
     }
-    private void TriggerHeadButt() 
+    private void TriggerHeadButt()
     {
-        finalForce = force;
+        _finalForce = _force;
         FoxMovement.instance.playerAnimator.Play("PL_Smashing_ANI");
-        if (currentRock!=null)
+        if (_currentRock != null)
         {
-            Vector3 direction = currentRock.position - FoxMovement.instance.foxFront.position;
-            currentRock.AddForce(direction*finalForce*10,ForceMode.Force);
+            Vector3 direction = _currentRock.position - FoxMovement.instance.foxFront.position;
+            _currentRock.AddForce(direction * _finalForce * 10, ForceMode.Force);
         }
     }
 
@@ -44,13 +42,13 @@ public class HeadButt : MonoBehaviour
     {
         if (other.CompareTag("Rock"))
         {
-            currentRock = other.GetComponent<Rigidbody>();
+            _currentRock = other.GetComponent<Rigidbody>();
         }
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Rock"))
-        currentRock=null;
+            _currentRock = null;
     }
 
 }

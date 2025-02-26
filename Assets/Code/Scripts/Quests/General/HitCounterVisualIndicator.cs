@@ -15,8 +15,8 @@ public class HitCounterVisualIndicator : MonoBehaviour
         currentScene = SceneManager.GetActiveScene().name;
 
         maxHits = playerHitCounter.GetMaxHits();
-        
-        for(int i = 0; i < maxHits; i++)
+
+        for (int i = 0; i < maxHits; i++)
         {
             Instantiate(singleHitIndicator, transform);
         }
@@ -24,7 +24,7 @@ public class HitCounterVisualIndicator : MonoBehaviour
 
     private void OnEnable()
     {
-        if(currentScene == "Dungeon_Penguin")
+        if (currentScene == "Dungeon_Penguin")
         {
             PenguinRaceManager.instance.penguinDungeonEvents.onLapFinished += ResetHealth;
             PenguinRaceManager.instance.penguinDungeonEvents.onLapInterrupted += ResetHealth;
@@ -33,7 +33,7 @@ public class HitCounterVisualIndicator : MonoBehaviour
 
     private void OnDisable()
     {
-        if(currentScene == "Dungeon_Penguin")
+        if (currentScene == "Dungeon_Penguin")
         {
             PenguinRaceManager.instance.penguinDungeonEvents.onLapFinished -= ResetHealth;
             PenguinRaceManager.instance.penguinDungeonEvents.onLapInterrupted -= ResetHealth;
@@ -42,7 +42,7 @@ public class HitCounterVisualIndicator : MonoBehaviour
 
     private void ResetHealth()
     {
-        foreach(Transform child in transform)
+        foreach (Transform child in transform)
         {
             if (!child.gameObject.activeInHierarchy)
             {
@@ -53,7 +53,7 @@ public class HitCounterVisualIndicator : MonoBehaviour
 
     public void UpdateHealth(int currentHits)
     {
-        if(currentHits != 0)
+        if (currentHits != 0)
         {
             transform.GetChild(maxHits - currentHits).gameObject.SetActive(false);
         }

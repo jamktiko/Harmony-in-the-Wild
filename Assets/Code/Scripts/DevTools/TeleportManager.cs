@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +8,7 @@ public class TeleportManager : MonoBehaviour
 
     private void Awake()
     {
-        if(transform.childCount <= 0)
+        if (transform.childCount <= 0)
         {
             foreach (TeleportButtonData location in teleportLocations)
             {

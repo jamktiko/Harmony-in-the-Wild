@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SlidingOnIceAudioTrigger : MonoBehaviour
@@ -56,7 +54,7 @@ public class SlidingOnIceAudioTrigger : MonoBehaviour
 
         if ((horizontalInput != 0 || verticalInput != 0) && FoxMovement.instance.IsGrounded())
         {
-            AudioManager.instance.PlaySound(AudioName.Movement_SlidingOnIce, transform);
+            AudioManager.Instance.PlaySound(AudioName.Movement_SlidingOnIce, transform);
         }
 
         currentTime = 0f;

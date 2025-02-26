@@ -1,7 +1,7 @@
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
- 
+
 [RequireComponent(typeof(Terrain))]
 public class SetTerrainObstacles : MonoBehaviour
 {

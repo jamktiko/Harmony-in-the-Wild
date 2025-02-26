@@ -5,32 +5,32 @@ using UnityEngine.VFX;
 
 public class SnowDiving : MonoBehaviour, IAbility
 {
-    public static SnowDiving instance;
+    public static SnowDiving Instance;
 
-    public float snowDiveSpeed = 15f;
-    public float climbingSpeed = 20f;
-    public float pointDistance = 0.5f;
+    public float SnowDiveSpeed = 15f;
+    public float ClimbingSpeed = 20f;
+    public float PointDistance = 0.5f;
 
-    [SerializeField] private VisualEffect snowDiveVFX;
+    [SerializeField] private VisualEffect _snowDiveVFX;
 
-    private int onEnableSnowDiveID;
-    private bool isClimbing;
-    private List<Transform> movementPoints = new List<Transform>();
+    private int _onEnableSnowDiveID;
+    private bool _isClimbing;
+    private List<Transform> _movementPoints = new List<Transform>();
     void Awake()
     {
-        if (instance != null && instance != this)
+        if (Instance != null && Instance != this)
         {
             Debug.LogWarning("There is more than one SnowDiving ability.");
             Destroy(gameObject);
             return;
         }
-        instance = this;
+        Instance = this;
 
-        onEnableSnowDiveID = Shader.PropertyToID("onSnowDive");
+        _onEnableSnowDiveID = Shader.PropertyToID("onSnowDive");
     }
     private void Start()
     {
-        AbilityManager.instance.RegisterAbility(Abilities.SnowDiving, this);
+        AbilityManager.Instance.RegisterAbility(Abilities.SnowDiving, this);
     }
 
     public void Activate()
@@ -58,22 +58,22 @@ public class SnowDiving : MonoBehaviour, IAbility
     private void ClimbSnowWall(RaycastHit hit)
     {
         Debug.Log("climbsnowwall called");
-        if (!isClimbing)
+        if (!_isClimbing)
         {
-            isClimbing = true;
-            movementPoints.Clear();
+            _isClimbing = true;
+            _movementPoints.Clear();
 
             //climbing animation here (later will make more code for this)
-            snowDiveVFX.transform.position = FoxMovement.instance.transform.Find("SnowDiveVFXPosition").position;
-            snowDiveVFX.SendEvent(onEnableSnowDiveID);
+            _snowDiveVFX.transform.position = FoxMovement.instance.transform.Find("SnowDiveVFXPosition").position;
+            _snowDiveVFX.SendEvent(_onEnableSnowDiveID);
 
-            AudioManager.instance.PlaySound(AudioName.Ability_SnowDive, transform);
+            AudioManager.Instance.PlaySound(AudioName.Ability_SnowDive, transform);
 
             Transform movPointsParent = hit.transform.GetChild(0);
 
             foreach (Transform child in movPointsParent.transform)
             {
-                movementPoints.Add(child);
+                _movementPoints.Add(child);
             }
 
             FindClosestPoint();
@@ -87,7 +87,7 @@ public class SnowDiving : MonoBehaviour, IAbility
         float closestDistance = float.MaxValue;
         Vector3 playerPosition = FoxMovement.instance.gameObject.transform.position;
 
-        foreach (Transform child in movementPoints)
+        foreach (Transform child in _movementPoints)
         {
             float distance = Vector3.Distance(playerPosition, child.position);
             if (distance < closestDistance)
@@ -97,42 +97,42 @@ public class SnowDiving : MonoBehaviour, IAbility
             }
         }
 
-        int targetIndex = movementPoints.IndexOf(closestChild);
+        int targetIndex = _movementPoints.IndexOf(closestChild);
 
         if (targetIndex > 0)
         {
-            movementPoints.RemoveRange(0, targetIndex);
+            _movementPoints.RemoveRange(0, targetIndex);
         }
-        
+
         //Debug.Log($"Closest child to the player is: {closestChild.name} with index {targetIndex}");
     }
 
     IEnumerator MoveObject()
     {
-        FoxMovement.instance.playerAnimator.SetBool("isSnowDiving",true);
+        FoxMovement.instance.playerAnimator.SetBool("isSnowDiving", true);
         //turn off object to move it
         FoxMovement.instance.rb.isKinematic = true;
         FoxMovement.instance.rb.useGravity = false;
 
         //move towards point by list index, stop when gone through all items in the list
-        for (int i = 0; i < movementPoints.Count; i++)
+        for (int i = 0; i < _movementPoints.Count; i++)
         {
             //keep moving object towards the point while it's far from it
-            while (Vector3.Distance(movementPoints[i].position, FoxMovement.instance.gameObject.transform.position) > pointDistance)
+            while (Vector3.Distance(_movementPoints[i].position, FoxMovement.instance.gameObject.transform.position) > PointDistance)
             {
                 //Vector3 direction = (movementPoints[i].position - FoxMovement.instance.gameObject.transform.position).normalized;
                 //FoxMovement.instance.gameObject.transform.Translate(direction * climbingSpeed * Time.deltaTime, Space.World);
-                FoxMovement.instance.gameObject.transform.position = Vector3.MoveTowards(FoxMovement.instance.gameObject.transform.position, movementPoints[i].position, climbingSpeed * Time.deltaTime);
+                FoxMovement.instance.gameObject.transform.position = Vector3.MoveTowards(FoxMovement.instance.gameObject.transform.position, _movementPoints[i].position, ClimbingSpeed * Time.deltaTime);
 
                 yield return new WaitForFixedUpdate();
             }
         }
 
         //turn the object back on after moving it through all points in the list
-        movementPoints.Clear();
+        _movementPoints.Clear();
         FoxMovement.instance.rb.isKinematic = false;
         FoxMovement.instance.rb.useGravity = true;
-        isClimbing = false;
+        _isClimbing = false;
         FoxMovement.instance.playerAnimator.SetBool("isSnowDiving", false);
     }
 }

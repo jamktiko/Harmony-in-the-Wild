@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -160,7 +158,7 @@ public class CinematicMovement : MonoBehaviour
         // normalise input direction
         Vector3 inputDirection = new Vector3(PlayerInputHandler.instance.MoveInput.ReadValue<Vector2>().x, 0.0f, PlayerInputHandler.instance.MoveInput.ReadValue<Vector2>().y).normalized;
 
-        
+
 
         // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
         // if there is a move input rotate player when the player is moving
@@ -178,12 +176,12 @@ public class CinematicMovement : MonoBehaviour
     private void JumpAndGravity()
     {
 
-            // Jump
-            if (PlayerInputHandler.instance.JumpInput.WasPerformedThisFrame()&& PlayerInputHandler.instance.JumpInput.enabled)
-            {
-                // the square root of H * -2 * G = how much velocity needed to reach desired height
-                _verticalVelocity += 1.0f;
-            }
+        // Jump
+        if (PlayerInputHandler.instance.JumpInput.WasPerformedThisFrame() && PlayerInputHandler.instance.JumpInput.enabled)
+        {
+            // the square root of H * -2 * G = how much velocity needed to reach desired height
+            _verticalVelocity += 1.0f;
+        }
         if (PlayerInputHandler.instance.JumpInput.WasReleasedThisFrame())
         {
             // the square root of H * -2 * G = how much velocity needed to reach desired height

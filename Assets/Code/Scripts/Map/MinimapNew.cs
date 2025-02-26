@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MinimapNew : MonoBehaviour
@@ -40,6 +38,6 @@ public class MinimapNew : MonoBehaviour
         Vector3 distance = playerReference.position - mapEdges[0].position;
         Vector2 coordinates = new Vector2(distance.x / areaDimentions.x, distance.z / areaDimentions.y);
         marker.anchoredPosition = new Vector2(coordinates.x * mapDimentions.x, coordinates.y * mapDimentions.y) + offset;
-        marker.rotation = Quaternion.Euler(new Vector3(0, 0, -playerReference.eulerAngles.y+180));
+        marker.rotation = Quaternion.Euler(new Vector3(0, 0, -playerReference.eulerAngles.y + 180));
     }
 }

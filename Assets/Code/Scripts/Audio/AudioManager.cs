@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
-    public static AudioManager instance;
+    public static AudioManager Instance;
 
     [Header("Themes")]
     [SerializeField] private AudioSource themeAudioSource;
@@ -20,7 +19,7 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
-        if(instance != null)
+        if (Instance != null)
         {
             Debug.Log("There is more than one Audio Manager in the scene!");
             Destroy(gameObject);
@@ -28,7 +27,7 @@ public class AudioManager : MonoBehaviour
 
         else
         {
-            instance = this;
+            Instance = this;
         }
     }
 
@@ -37,9 +36,9 @@ public class AudioManager : MonoBehaviour
         AudioObject newAudioData = new AudioObject();
 
         // locate new audio object
-        foreach(AudioObject audioObject in audioList)
+        foreach (AudioObject audioObject in audioList)
         {
-            if(audioObject.name == audioToPlay)
+            if (audioObject.name == audioToPlay)
             {
                 newAudioData = audioObject;
                 break;
@@ -65,7 +64,7 @@ public class AudioManager : MonoBehaviour
 
     public void EndCurrentTheme()
     {
-        if(themeAudioSource.clip == null)
+        if (themeAudioSource.clip == null)
         {
             Debug.Log("No theme clip playing, cannot stop it.");
             return;
@@ -84,9 +83,9 @@ public class AudioManager : MonoBehaviour
 
         ThemeData newThemeData = new ThemeData();
 
-        foreach(ThemeData theme in themeList)
+        foreach (ThemeData theme in themeList)
         {
-            if(theme.name == themeToPlay)
+            if (theme.name == themeToPlay)
             {
                 newThemeData = theme;
                 break;

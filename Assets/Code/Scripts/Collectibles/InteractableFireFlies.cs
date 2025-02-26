@@ -1,7 +1,3 @@
-using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class InteractableFireFlies : MonoBehaviour
@@ -15,7 +11,7 @@ public class InteractableFireFlies : MonoBehaviour
 
     private void Start()
     {
-        PlayerAnimator=FoxMovement.instance.gameObject.GetComponentInChildren<Animator>();
+        PlayerAnimator = FoxMovement.instance.gameObject.GetComponentInChildren<Animator>();
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -39,9 +35,9 @@ public class InteractableFireFlies : MonoBehaviour
             PlayAnimation();
         }
     }
-    private void PlayAnimation() 
+    private void PlayAnimation()
     {
         PlayerAnimator.Play("PL_Playful2_ANI");
-        
+
     }
 }

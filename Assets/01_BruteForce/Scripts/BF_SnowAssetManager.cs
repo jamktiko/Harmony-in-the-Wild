@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 #if ENABLE_INPUT_SYSTEM
@@ -61,7 +60,7 @@ public class BF_SnowAssetManager : MonoBehaviour
         subShowcaseIndex = 0;
         m_ShowcaseChange.Invoke();
 
-        if(showcaseIndex != 0)
+        if (showcaseIndex != 0)
         {
             RenderSettings.fogDensity = 0.001f;
             specialCamera.SetActive(false);

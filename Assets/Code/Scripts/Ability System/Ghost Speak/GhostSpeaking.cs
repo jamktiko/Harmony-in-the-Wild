@@ -4,7 +4,7 @@ public class GhostSpeaking : MonoBehaviour, IAbility
 {
     private void Start()
     {
-        AbilityManager.instance.RegisterAbility(Abilities.GhostSpeaking, this);
+        AbilityManager.Instance.RegisterAbility(Abilities.GhostSpeaking, this);
     }
 
     public void Activate()

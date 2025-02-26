@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 
 namespace Ink.Runtime
@@ -8,20 +7,21 @@ namespace Ink.Runtime
     {
         public static string Join<T>(string separator, List<T> objects)
         {
-            var sb = new StringBuilder ();
+            var sb = new StringBuilder();
 
             var isFirst = true;
-            foreach (var o in objects) {
+            foreach (var o in objects)
+            {
 
                 if (!isFirst)
-                    sb.Append (separator);
+                    sb.Append(separator);
 
-                sb.Append (o.ToString ());
+                sb.Append(o.ToString());
 
                 isFirst = false;
             }
 
-            return sb.ToString ();
+            return sb.ToString();
         }
     }
 }

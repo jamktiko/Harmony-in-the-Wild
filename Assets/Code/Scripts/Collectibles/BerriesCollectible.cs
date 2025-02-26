@@ -1,7 +1,4 @@
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -17,13 +14,13 @@ public class Berries : MonoBehaviour
 
     private void Start()
     {
-        notifText=GameObject.Find("CollectibleNotification").GetComponent<TMP_Text>();
+        notifText = GameObject.Find("CollectibleNotification").GetComponent<TMP_Text>();
     }
 
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag=="Trigger")
+        if (other.gameObject.tag == "Trigger")
         {
             interactable = true;
         }
@@ -35,7 +32,7 @@ public class Berries : MonoBehaviour
             interactable = false;
         }
     }
-    private void CollectBerry() 
+    private void CollectBerry()
     {
         if (interactable)
         {
@@ -54,7 +51,7 @@ public class Berries : MonoBehaviour
                 }
                 PlayerManager.instance.BerryData[transform.parent.name] = false;
                 CollectibleNotification(notifText, "Berries");
-                Invoke("CollectibleNotificationDisappear",7f);
+                Invoke("CollectibleNotificationDisappear", 7f);
                 gameObject.SetActive(false);
             });
         }

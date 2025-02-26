@@ -21,8 +21,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
-using UnityEngine;
 using UnityEditor;
+using UnityEngine;
 
 namespace Kino
 {
@@ -58,7 +58,8 @@ namespace Kino
         {
             serializedObject.Update();
 
-            if (!serializedObject.isEditingMultipleObjects) {
+            if (!serializedObject.isEditingMultipleObjects)
+            {
                 EditorGUILayout.Space();
                 _graph.Prepare((BloomKino)target);
                 _graph.DrawGraph();

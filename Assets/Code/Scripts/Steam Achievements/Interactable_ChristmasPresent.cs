@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,7 +11,7 @@ public class Interactable_ChristmasPresent : MonoBehaviour
     {
         if (PlayerInputHandler.instance.InteractInput.WasPressedThisFrame() && isActive)
         {
-            foreach(GameObject hat in hats)
+            foreach (GameObject hat in hats)
             {
                 hat.SetActive(true);
             }

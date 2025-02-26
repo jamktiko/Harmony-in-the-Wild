@@ -14,7 +14,7 @@ public class HitCounter : MonoBehaviour
     [Header("Needed References")]
     [SerializeField] private Transform startingSpot;
     [SerializeField] private HitCounterVisualIndicator visualIndicator;
- 
+
     private int currentHits;
 
     // missing hit pop up !!
@@ -26,7 +26,7 @@ public class HitCounter : MonoBehaviour
         {
             ReturnPlayerToStart();
 
-            if(deathEvent != null)
+            if (deathEvent != null)
             {
                 deathEvent.Invoke();
             }
@@ -40,13 +40,13 @@ public class HitCounter : MonoBehaviour
             {
                 ReturnPlayerToStart();
 
-                if(deathEvent != null)
+                if (deathEvent != null)
                 {
                     deathEvent.Invoke();
                 }
             }
 
-            else if(hitEvent != null)
+            else if (hitEvent != null)
             {
                 hitEvent.Invoke();
             }

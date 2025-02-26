@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Splines;
 
@@ -17,8 +15,8 @@ public class FixSplineObjectRotation : MonoBehaviour
         int knotCount = spline.Count;
 
         Debug.Log("Spline count is " + knotCount);
-        
-        for(int i = 0; i < knotCount; i++)
+
+        for (int i = 0; i < knotCount; i++)
         {
             var currentKnot = spline.ToArray()[i];
 

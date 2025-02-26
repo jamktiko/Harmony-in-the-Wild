@@ -3,25 +3,25 @@ using UnityEngine;
 
 public class Gliding : MonoBehaviour, IAbility
 {
-    public static Gliding instance;
+    public static Gliding Instance;
 
-    public float glidingMultiplier = 0.4f;
-    public float airMultiplier = 0.7f;
-    public bool isGliding;
-    [SerializeField] private AudioSource glidingAudio;
-    private List<ParticleSystem> glideParticleEmission = new List<ParticleSystem>();
+    public float GlidingMultiplier = 0.4f;
+    public float AirMultiplier = 0.7f;
+    public bool IsGliding;
+    [SerializeField] private AudioSource _glidingAudio;
+    private List<ParticleSystem> _glideParticleEmission = new List<ParticleSystem>();
 
-    private bool allowActivationBasedOnInput = true;
+    private bool _allowActivationBasedOnInput = true;
 
     void Awake()
     {
-        if (instance != null && instance != this)
+        if (Instance != null && Instance != this)
         {
             Debug.LogWarning("There is more than one Gliding ability.");
             Destroy(gameObject);
             return;
         }
-        instance = this;
+        Instance = this;
     }
 
     private void OnEnable()
@@ -36,7 +36,7 @@ public class Gliding : MonoBehaviour, IAbility
 
     void Start()
     {
-        AbilityManager.instance.RegisterAbility(Abilities.Gliding, this);
+        AbilityManager.Instance.RegisterAbility(Abilities.Gliding, this);
     }
     private void Update()
     {
@@ -47,9 +47,9 @@ public class Gliding : MonoBehaviour, IAbility
         {
             DisableGliding();
         }
-        if (glideParticleEmission.Count < 1 || glideParticleEmission[0] == null)
+        if (_glideParticleEmission.Count < 1 || _glideParticleEmission[0] == null)
         {
-            glideParticleEmission.Clear();
+            _glideParticleEmission.Clear();
             Transform player = null;
             foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Player"))
             {
@@ -72,7 +72,7 @@ public class Gliding : MonoBehaviour, IAbility
             ParticleSystem curParticles = cur.gameObject.GetComponent<ParticleSystem>();
             if (curParticles != null)
             {
-                glideParticleEmission.Add(curParticles);
+                _glideParticleEmission.Add(curParticles);
                 var emission = curParticles.emission;
                 emission.enabled = false;
             }
@@ -83,27 +83,27 @@ public class Gliding : MonoBehaviour, IAbility
 
     public void Activate()
     {
-        if (allowActivationBasedOnInput)
+        if (_allowActivationBasedOnInput)
         {
-            isGliding = !isGliding;
+            IsGliding = !IsGliding;
 
             Debug.Log("Gliding activated");
 
-            if (isGliding)
+            if (IsGliding)
             {
-                AudioManager.instance.PlaySound(AudioName.Ability_Gliding_Activated, transform);
+                AudioManager.Instance.PlaySound(AudioName.Ability_Gliding_Activated, transform);
 
-                for (int i = 0; i < glideParticleEmission.Count; i++)
+                for (int i = 0; i < _glideParticleEmission.Count; i++)
                 {
-                    var emission = glideParticleEmission[i].emission;
+                    var emission = _glideParticleEmission[i].emission;
                     emission.enabled = true;
                 }
             }
             else
             {
-                for (int i = 0; i < glideParticleEmission.Count; i++)
+                for (int i = 0; i < _glideParticleEmission.Count; i++)
                 {
-                    var emission = glideParticleEmission[i].emission;
+                    var emission = _glideParticleEmission[i].emission;
                     emission.enabled = false;
                 }
             }
@@ -111,11 +111,11 @@ public class Gliding : MonoBehaviour, IAbility
     }
     private void Glide()
     {
-        if (isGliding)
+        if (IsGliding)
         {
             if (FoxMovement.instance.rb.useGravity)
             {
-                glidingMultiplier = 0.1f;
+                GlidingMultiplier = 0.1f;
                 FoxMovement.instance.rb.velocity = new Vector3(FoxMovement.instance.rb.velocity.x, 0, FoxMovement.instance.rb.velocity.z);
                 FoxMovement.instance.rb.useGravity = false;
                 FoxMovement.instance.rb.velocity = new Vector3(0, -1.5f, 0);
@@ -137,23 +137,23 @@ public class Gliding : MonoBehaviour, IAbility
     {
         if (FoxMovement.instance != null)
         {
-            return FoxMovement.instance.IsGrounded() || FoxMovement.instance.IsInWater() || !isGliding;
+            return FoxMovement.instance.IsGrounded() || FoxMovement.instance.IsInWater() || !IsGliding;
         }
         return true;
     }
 
     private void CalculateGlidingMultiplier()
     {
-        if (glidingMultiplier < 0.5)
+        if (GlidingMultiplier < 0.5)
         {
-            glidingMultiplier += 0.005f;
+            GlidingMultiplier += 0.005f;
         }
     }
 
     private void DisableGliding()
     {
         FoxMovement.instance.playerAnimator.SetBool("isGrounded", false);
-        isGliding = false;
+        IsGliding = false;
 
         if (!FoxMovement.instance.rb.useGravity)
         {
@@ -161,21 +161,21 @@ public class Gliding : MonoBehaviour, IAbility
         }
         FoxMovement.instance.playerAnimator.SetBool("isGliding", false);
 
-        if (glideParticleEmission != null)
+        if (_glideParticleEmission != null)
         {
-            for (int i = 0; i < glideParticleEmission.Count; i++)
+            for (int i = 0; i < _glideParticleEmission.Count; i++)
             {
-                if(glideParticleEmission[i] = null)
+                if (_glideParticleEmission[i] = null)
                 {
-                    var emission = glideParticleEmission[i].emission;
+                    var emission = _glideParticleEmission[i].emission;
                     emission.enabled = false;
-                }          
+                }
             }
         }
     }
 
     private void ToggleActivation(bool enabled)
     {
-        allowActivationBasedOnInput = enabled;
+        _allowActivationBasedOnInput = enabled;
     }
 }

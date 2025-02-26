@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class TeleportButton : MonoBehaviour
 {
@@ -19,9 +17,9 @@ public class TeleportButton : MonoBehaviour
 
         GameObject[] playerTags = GameObject.FindGameObjectsWithTag("Player");
 
-        foreach(GameObject playerOption in playerTags)
+        foreach (GameObject playerOption in playerTags)
         {
-            if(playerOption.gameObject.name == "Player_Spawn")
+            if (playerOption.gameObject.name == "Player_Spawn")
             {
                 player = playerOption.transform;
             }

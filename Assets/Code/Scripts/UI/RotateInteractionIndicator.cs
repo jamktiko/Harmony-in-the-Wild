@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class RotateInteractionIndicator : MonoBehaviour
 {
@@ -51,7 +48,7 @@ public class RotateInteractionIndicator : MonoBehaviour
             TargetInteractionIndicatorTowardsPlayer();
         }
     }
-    
+
     private void TargetInteractionIndicatorTowardsPlayer()
     {
         Vector3 directionToPlayer = new Vector3(cameraOrientation.transform.position.x - interactionIndicatorUI.transform.position.x, 0, cameraOrientation.transform.position.z - interactionIndicatorUI.transform.position.z);
@@ -107,7 +104,7 @@ public class RotateInteractionIndicator : MonoBehaviour
         newCanvasPosition.x *= -1f;
         canvas.localPosition = newCanvasPosition;
 
-        if(canvas.localRotation.y != 0)
+        if (canvas.localRotation.y != 0)
         {
             canvas.localRotation = Quaternion.Euler(0, 0, 0);
         }
@@ -118,7 +115,7 @@ public class RotateInteractionIndicator : MonoBehaviour
         }
 
         // flip the content in the UI box
-        if(boxContent.localRotation.y != 0)
+        if (boxContent.localRotation.y != 0)
         {
             boxContent.localRotation = Quaternion.Euler(0, 0, 0);
         }

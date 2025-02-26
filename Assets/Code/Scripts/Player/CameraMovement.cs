@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    public enum CameraStyle 
+    public enum CameraStyle
     {
         Basic,
         Telegrab,
@@ -54,7 +54,7 @@ public class CameraMovement : MonoBehaviour
         //rotate player object
         if (currentStyle == CameraStyle.Basic)
         {
-            
+
             //foxObject.rotation = Quaternion.Euler(Mathf.Clamp(foxObject.rotation.eulerAngles.x, -20, 20), foxObject.rotation.eulerAngles.y, foxObject.rotation.eulerAngles.z);
             float horizontalInput = PlayerInputHandler.instance.MoveInput.ReadValue<Vector2>().x;
             float verticalInput = PlayerInputHandler.instance.MoveInput.ReadValue<Vector2>().y;
@@ -64,7 +64,7 @@ public class CameraMovement : MonoBehaviour
             if (inputDir != Vector3.zero && !foxMove.IsOnSlope())
             {
                 foxObject.forward = Vector3.Slerp(foxObject.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
-                foxObject.eulerAngles=new Vector3 (0, foxObject.rotation.eulerAngles.y, foxObject.rotation.eulerAngles.z);
+                foxObject.eulerAngles = new Vector3(0, foxObject.rotation.eulerAngles.y, foxObject.rotation.eulerAngles.z);
             }
             else if (inputDir != Vector3.zero && foxMove.IsOnSlope() && slopeForward != Vector3.zero)
             {
@@ -75,9 +75,9 @@ public class CameraMovement : MonoBehaviour
             else if (!foxMove.IsOnSlope())
             {
                 if (foxObject.rotation.eulerAngles.x < 305)
-            {
-                foxObject.rotation = Quaternion.Euler(360, foxObject.rotation.eulerAngles.y, foxObject.rotation.eulerAngles.z);
-            }
+                {
+                    foxObject.rotation = Quaternion.Euler(360, foxObject.rotation.eulerAngles.y, foxObject.rotation.eulerAngles.z);
+                }
             }
 
 
@@ -88,7 +88,7 @@ public class CameraMovement : MonoBehaviour
             Vector3 slopeForward = Vector3.ProjectOnPlane(foxObject.forward, foxMove.SlopeHit.normal).normalized;
             if (foxMove.IsOnSlope())
             {
-                orientation.forward =Vector3.Slerp(orientation.forward, dirtoTelegraphLookAt.normalized + slopeForward, Time.deltaTime * rotationSpeed);
+                orientation.forward = Vector3.Slerp(orientation.forward, dirtoTelegraphLookAt.normalized + slopeForward, Time.deltaTime * rotationSpeed);
                 foxObject.forward = Vector3.Slerp(foxObject.forward, dirtoTelegraphLookAt.normalized + slopeForward, Time.deltaTime * rotationSpeed);
             }
             else
@@ -98,7 +98,7 @@ public class CameraMovement : MonoBehaviour
             }
         }
     }
-    void UpdateCharacterBones() 
+    void UpdateCharacterBones()
     {
         RaycastHit clavicle_hit;
         RaycastHit ButtHit;
@@ -107,7 +107,7 @@ public class CameraMovement : MonoBehaviour
         {
 
         }
-        
+
 
 
     }

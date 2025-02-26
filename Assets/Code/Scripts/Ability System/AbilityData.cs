@@ -1,14 +1,12 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 [System.Serializable]
 public class AbilityData
 {
-    public Dictionary<Abilities, bool> serializedAbilityStatuses;
+    public Dictionary<Abilities, bool> SerializedAbilityStatuses;
 
     public AbilityData()
     {
-        serializedAbilityStatuses = new Dictionary<Abilities, bool>();
+        SerializedAbilityStatuses = new Dictionary<Abilities, bool>();
     }
 }

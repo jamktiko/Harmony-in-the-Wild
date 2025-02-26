@@ -20,7 +20,7 @@ public class OnPlayerTriggerEnter : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.gameObject.CompareTag("Trigger") && disableTriggerAfterEvent)
+        if (other.gameObject.CompareTag("Trigger") && disableTriggerAfterEvent)
         {
             GetComponent<Collider>().isTrigger = false;
         }

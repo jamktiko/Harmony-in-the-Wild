@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayPenguinVictorySound : MonoBehaviour
@@ -23,7 +21,7 @@ public class PlayPenguinVictorySound : MonoBehaviour
 
     public void PlaySoundEffect()
     {
-        if(audioSource != null)
+        if (audioSource != null)
         {
             audioSource.Play();
         }

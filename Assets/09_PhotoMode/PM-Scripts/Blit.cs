@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
-using PhotoMode;
 
 namespace PhotoMode
 {

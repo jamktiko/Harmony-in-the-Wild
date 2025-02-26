@@ -1,7 +1,5 @@
-using System.Collections;
-using System;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class PenguinTimer : MonoBehaviour
 {
@@ -27,7 +25,7 @@ public class PenguinTimer : MonoBehaviour
         {
             currentTime += Time.deltaTime;
 
-            if(currentTime >= maxTime)
+            if (currentTime >= maxTime)
             {
                 raceInProgress = false;
                 PenguinRaceManager.instance.penguinDungeonEvents.TimeRanOut();

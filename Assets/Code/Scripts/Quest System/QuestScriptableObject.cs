@@ -16,10 +16,10 @@ public class QuestScriptableObject : ScriptableObject
     [Header("Requirements")]
     public int levelRequirement;
     public QuestScriptableObject[] questPrerequisites;
-    
+
     [Header("Steps")]
     public GameObject[] questStepPrefabs;
-    
+
     [Header("Rewards")]
     public int experienceReward;
     public Abilities abilityReward;

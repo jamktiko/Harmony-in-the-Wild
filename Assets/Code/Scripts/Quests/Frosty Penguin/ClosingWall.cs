@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Collections;
 using UnityEngine;
 
 public class ClosingWall : MonoBehaviour
@@ -52,19 +51,19 @@ public class ClosingWall : MonoBehaviour
 
     private void Update()
     {
-        if (isPlayerNear && !freezable.isFrozen && canMove)
+        if (isPlayerNear && !freezable.IsFrozen && canMove)
         {
             MoveWall();
         }
 
         // disable collider if the wall has been frozen, so it's not damaging the player when they walk past it
-        if (freezable.isFrozen && coll.isTrigger)
+        if (freezable.IsFrozen && coll.isTrigger)
         {
             //Debug.Log("Disabled collider");
             coll.isTrigger = false;
         }
 
-        else if (!freezable.isFrozen && !coll.isTrigger)
+        else if (!freezable.IsFrozen && !coll.isTrigger)
         {
             //Debug.Log("Enabled collider");
             coll.isTrigger = true;

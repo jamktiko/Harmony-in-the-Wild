@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -85,7 +84,7 @@ public class SmashingAttemptCounter : QuestStep
     {
         yield return new WaitForSeconds(1);
 
-        if(SceneManager.GetActiveScene().name == "Overworld")
+        if (SceneManager.GetActiveScene().name == "Overworld")
         {
             if (QuestManager.instance.CheckQuestState(currentQuestId) == QuestState.IN_PROGRESS)
             {

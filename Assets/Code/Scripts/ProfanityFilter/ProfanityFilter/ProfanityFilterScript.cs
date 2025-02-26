@@ -18,6 +18,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using ProfanityFilter.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -25,7 +26,6 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using ProfanityFilter.Interfaces;
 
 namespace ProfanityFilter
 {
@@ -51,7 +51,7 @@ namespace ProfanityFilter
         /// profanity list.
         /// </summary>
         /// <param name="profanityList">Array of words to add into the filter.</param>
-        public ProfanityFilterScript(string[] profanityList) : base (profanityList)
+        public ProfanityFilterScript(string[] profanityList) : base(profanityList)
         {
             AllowList = new AllowList();
         }
@@ -265,7 +265,7 @@ namespace ProfanityFilter
             }
 
             List<string> potentialProfanities = _profanities.Where(word => word.Length <= term.Length).ToList();
-            
+
             // We might have a very short phrase coming in, resulting in no potential matches even before the regex
             if (potentialProfanities.Count == 0)
             {

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Minimap : MonoBehaviour
@@ -12,7 +10,7 @@ public class Minimap : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-       verticalInput=Input.GetAxisRaw("Mouse X");
+        verticalInput = Input.GetAxisRaw("Mouse X");
     }
     void LateUpdate()
     {

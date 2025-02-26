@@ -1,13 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 public class LilyPuzzle : MonoBehaviour
 {
     public static LilyPuzzle instance;
 
-    [HideInInspector]public int socketsFilled = Mathf.Clamp(0, 0, 3);
+    [HideInInspector] public int socketsFilled = Mathf.Clamp(0, 0, 3);
 
     private Transform[] lilyTransforms;
     private Vector3[] lilyInitialPositions;

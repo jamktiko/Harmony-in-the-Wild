@@ -1,6 +1,6 @@
 using System.Collections;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 using UnityEngine.VFX;
 
 public class QuestCompletedUI : MonoBehaviour
@@ -13,7 +13,7 @@ public class QuestCompletedUI : MonoBehaviour
 
     private void Awake()
     {
-        if(instance != null)
+        if (instance != null)
         {
             Debug.LogWarning("There is more than one Quest Completed UI in the scene!");
             Destroy(gameObject);
@@ -23,8 +23,8 @@ public class QuestCompletedUI : MonoBehaviour
 
         foreach (Transform t in transform)
         {
-            if (t.GetComponent<VisualEffect>()) 
-            { 
+            if (t.GetComponent<VisualEffect>())
+            {
                 completedEffect = t.GetComponent<VisualEffect>();
                 break;
             }

@@ -1,8 +1,6 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class LoadingScene : MonoBehaviour
 {
@@ -20,7 +18,8 @@ public class LoadingScene : MonoBehaviour
         {
             storybookHandler = FindObjectOfType<StorybookHandler>();
         }
-        catch { };
+        catch { }
+        ;
 
         loadingScreen = transform.GetChild(0).gameObject;
 
@@ -43,12 +42,12 @@ public class LoadingScene : MonoBehaviour
     {
         AsyncOperation operation;
 
-        AudioManager.instance.EndCurrentTheme();
+        AudioManager.Instance.EndCurrentTheme();
 
         // wait a while, so the audio has time to fade
         yield return new WaitForSeconds(2f);
 
-        if(sceneName == SceneManagerHelper.Scene.NoName)
+        if (sceneName == SceneManagerHelper.Scene.NoName)
         {
             operation = SceneManagerHelper.LoadSceneAsync(StorybookHandler.instance.GetNextScene());
         }
@@ -81,7 +80,7 @@ public class LoadingScene : MonoBehaviour
     //public void LoadSceneWithBar(int sceneId) 
     //{
     //    StartCoroutine(LoadSceneWithLoadingScreenWithBarFill(sceneId));
-        
+
     //}
 
     //public void LoadSceneWithText(int sceneId)

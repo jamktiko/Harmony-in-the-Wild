@@ -32,18 +32,18 @@ namespace CartoonFX
         [Header("Delay")]
         [SerializeField] float delay = 0.05f;
         [SerializeField] bool cumulativeDelay = false;
-        [Range(0f, 2f)] [SerializeField] float compensateLifetime = 0;
+        [Range(0f, 2f)][SerializeField] float compensateLifetime = 0;
 
         [Header("Misc")]
         [SerializeField] float lifetimeMultiplier = 1f;
-        [Range(-90f, 90f)] [SerializeField] float rotation = -5f;
+        [Range(-90f, 90f)][SerializeField] float rotation = -5f;
         [SerializeField] float sortingFudgeOffset = 0.1f;
 #pragma warning disable 0649
         [SerializeField] CFXR_ParticleTextFontAsset font;
 #pragma warning restore 0649
 
 #if UNITY_EDITOR
-        [HideInInspector] [SerializeField] bool autoUpdateEditor = true;
+        [HideInInspector][SerializeField] bool autoUpdateEditor = true;
 
         void OnValidate()
         {
@@ -376,7 +376,7 @@ namespace CartoonFX
     {
         CFXR_ParticleText CastTarget
         {
-            get { return (CFXR_ParticleText) this.target; }
+            get { return (CFXR_ParticleText)this.target; }
         }
 
         GUIContent GUIContent_AutoUpdateToggle = new GUIContent("Auto-update", "Automatically regenerate the text when a property is changed.");

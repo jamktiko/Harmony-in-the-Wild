@@ -1,5 +1,5 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class FoxGroundTargetSpawner : MonoBehaviour
 {
@@ -97,7 +97,7 @@ public class FoxGroundTargetSpawner : MonoBehaviour
 
             RaycastHit hit;
             float rayLength = 20f;
-            
+
             // Visualizing raycast
             Debug.DrawLine(randomPos, randomPos + Vector3.down * rayLength, Color.blue);
 
@@ -128,7 +128,7 @@ public class FoxGroundTargetSpawner : MonoBehaviour
 
     private GameObject GetObjectFromPool()
     {
-        if(groundTargetPool.TryDequeue(out GameObject target))
+        if (groundTargetPool.TryDequeue(out GameObject target))
         {
             activeTargets.Add(target);
             return target;

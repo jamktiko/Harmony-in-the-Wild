@@ -28,7 +28,7 @@ namespace ProfanityFilter.Interfaces
         ReadOnlyCollection<string> DetectAllProfanities(string sentence);
         ReadOnlyCollection<string> DetectAllProfanities(string sentence, bool removePartialMatches);
         bool ContainsProfanity(string term);
-        
+
         IAllowList AllowList { get; }
         string CensorString(string sentence);
         string CensorString(string sentence, char censorCharacter);
@@ -41,7 +41,7 @@ namespace ProfanityFilter.Interfaces
 
         bool RemoveProfanity(string profanity);
         bool RemoveProfanity(List<string> profanities);
-        bool RemoveProfanity(string [] profanities);
+        bool RemoveProfanity(string[] profanities);
 
         void Clear();
 

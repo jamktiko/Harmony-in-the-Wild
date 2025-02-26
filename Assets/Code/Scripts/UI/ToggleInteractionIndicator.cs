@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -7,16 +5,16 @@ using UnityEngine.UI;
 [RequireComponent(typeof(SphereCollider))]
 public class ToggleInteractionIndicator : MonoBehaviour
 {
-    public Image actionIndicator;
+    public Image ActionIndicator;
     public int actionIndex = 0;
 
-    private RotateInteractionIndicator rotationComponent;
+    private RotateInteractionIndicator _rotationComponent;
 
     private void Start()
     {
-        rotationComponent = GetComponent<RotateInteractionIndicator>();
+        _rotationComponent = GetComponent<RotateInteractionIndicator>();
 
-        if(rotationComponent == null)
+        if (_rotationComponent == null)
         {
             Debug.Log(gameObject.name + " doesn't have RotateInteractionIndicator component which is mandatory for interactable objects. Interaction will be disabled.");
             enabled = false;
@@ -30,10 +28,10 @@ public class ToggleInteractionIndicator : MonoBehaviour
             // locate the player camera and enable interaction indicator
             GameObject camera = other.transform.parent.Find("FreeLook Camera").gameObject;
 
-            if(camera != null)
+            if (camera != null)
             {
                 Debug.Log("Interaction indicator enabled!");
-                rotationComponent.EnableInteractionIndicator(camera.transform);
+                _rotationComponent.EnableInteractionIndicator(camera.transform);
             }
 
             else
@@ -41,12 +39,12 @@ public class ToggleInteractionIndicator : MonoBehaviour
                 Debug.Log("No camera located for the interaction indicator!");
             }
 
-            if(actionIndicator != null)
+            if (ActionIndicator != null)
             {
                 if (Gamepad.current == null || Keyboard.current.lastUpdateTime > Gamepad.current.lastUpdateTime || Mouse.current.lastUpdateTime > Gamepad.current.lastUpdateTime)
-                    actionIndicator.sprite = InputSprites.instance.keyboardIndicators[actionIndex];
+                    ActionIndicator.sprite = InputSprites.instance.keyboardIndicators[actionIndex];
                 else
-                    actionIndicator.sprite = InputSprites.instance.gamepadIndicators[actionIndex];
+                    ActionIndicator.sprite = InputSprites.instance.gamepadIndicators[actionIndex];
             }
         }
     }
@@ -55,7 +53,7 @@ public class ToggleInteractionIndicator : MonoBehaviour
     {
         if (other.CompareTag("Trigger"))
         {
-            rotationComponent.DisableInteractionIndicator();
+            _rotationComponent.DisableInteractionIndicator();
         }
     }
 }

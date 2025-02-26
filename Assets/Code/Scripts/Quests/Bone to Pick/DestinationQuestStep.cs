@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class DestinationQuestStep : QuestStep
 {
     private void Start()
@@ -21,7 +17,7 @@ public class DestinationQuestStep : QuestStep
 
     private void MarkQuestAsCompleted(string id)
     {
-        if(id == GetQuestId())
+        if (id == GetQuestId())
         {
             FinishQuestStep();
         }

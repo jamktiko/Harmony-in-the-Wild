@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class PenguinRaceManager : MonoBehaviour
 {
@@ -33,7 +33,7 @@ public class PenguinRaceManager : MonoBehaviour
         instance = this;
 
         penguinDungeonEvents = new PenguinDungeonEvents();
-        
+
         penguinDungeonEvents.onTimeRanOut += ShowCursor;
     }
 
@@ -61,7 +61,7 @@ public class PenguinRaceManager : MonoBehaviour
     {
         currentLap++;
 
-        if(currentLap <= 2)
+        if (currentLap <= 2)
         {
             penguinDungeonEvents.LapFinished();
             lapCounterText.text = "Lap " + currentLap + "/2";
@@ -108,7 +108,7 @@ public class PenguinRaceManager : MonoBehaviour
         {
             penguinDungeonEvents.RaceFinished();
             GameEventsManager.instance.questEvents.AdvanceDungeonQuest(questSO.id);
-            AudioManager.instance.PlaySound(AudioName.Action_PenguinRaceCompleted, transform);
+            AudioManager.Instance.PlaySound(AudioName.Action_PenguinRaceCompleted, transform);
             TriggerFinishDungeonDialogue();
         }
     }
@@ -186,7 +186,7 @@ public class PenguinDungeonEvents
 
     public void TimeRanOut()
     {
-        if(onTimeRanOut != null)
+        if (onTimeRanOut != null)
         {
             onTimeRanOut();
         }

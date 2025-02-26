@@ -1,7 +1,5 @@
 using UnityEngine;
-using System.Collections;
 using UnityEngine.Events;
-using UnityEngine.UIElements;
 
 public class ZoneTransition : MonoBehaviour
 {
@@ -41,7 +39,7 @@ public class ZoneTransition : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(onTriggerEnterEvent != null)
+        if (onTriggerEnterEvent != null)
         {
             onTriggerEnterEvent.Invoke();
         }

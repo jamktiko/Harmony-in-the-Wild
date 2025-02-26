@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class ExitCaveTrigger : MonoBehaviour
@@ -14,7 +11,7 @@ public class ExitCaveTrigger : MonoBehaviour
         if (other.gameObject.CompareTag("Trigger") && currentQuestStepIndex >= 3)
         {
             ExitCaveQuest.instance.ExitCave();
-            GameEventsManager.instance.uiEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Overworld);            
+            GameEventsManager.instance.uiEvents.ShowLoadingScreen(SceneManagerHelper.Scene.Overworld);
         }
     }
 }

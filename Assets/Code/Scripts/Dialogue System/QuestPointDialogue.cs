@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,7 +24,7 @@ public class QuestPointDialogue : MonoBehaviour
 
     public void RequirementsNotMetDialogue()
     {
-        if(requirementsNotMetDialogue != null)
+        if (requirementsNotMetDialogue != null)
         {
             DialogueManager.instance.StartDialogue(requirementsNotMetDialogue);
         }
@@ -33,7 +32,7 @@ public class QuestPointDialogue : MonoBehaviour
 
     public void StartQuestDialogue()
     {
-        if(startQuestDialogue != null)
+        if (startQuestDialogue != null)
         {
             DialogueManager.instance.StartDialogue(startQuestDialogue);
             PlayDialogueSound();
@@ -69,7 +68,7 @@ public class QuestPointDialogue : MonoBehaviour
 
     public void QuestInProgressDialogue()
     {
-        if(questInProgressDialogue != null)
+        if (questInProgressDialogue != null)
         {
             DialogueManager.instance.StartDialogue(questInProgressDialogue);
         }
@@ -79,7 +78,7 @@ public class QuestPointDialogue : MonoBehaviour
     {
         if (DialogueManager.instance.isDialoguePlaying)
         {
-            AudioManager.instance.PlaySound(audioToPlayOnDialogueStarted, transform);
+            AudioManager.Instance.PlaySound(audioToPlayOnDialogueStarted, transform);
         }
     }
 

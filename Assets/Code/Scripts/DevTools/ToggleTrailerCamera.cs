@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,7 +24,7 @@ public class ToggleTrailerCamera : MonoBehaviour
 
         if (trailerCameraOn)
         {
-            foreach(GameObject camera in playerCameras)
+            foreach (GameObject camera in playerCameras)
             {
                 camera.SetActive(false);
             }

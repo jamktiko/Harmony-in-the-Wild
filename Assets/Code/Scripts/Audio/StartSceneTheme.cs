@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class StartSceneTheme : MonoBehaviour
@@ -8,6 +6,6 @@ public class StartSceneTheme : MonoBehaviour
 
     private void Start()
     {
-        AudioManager.instance.StartNewTheme(themeForScene);
+        AudioManager.Instance.StartNewTheme(themeForScene);
     }
 }

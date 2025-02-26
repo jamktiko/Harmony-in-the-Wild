@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayQuestCompletedSound : MonoBehaviour
@@ -18,7 +16,7 @@ public class PlayQuestCompletedSound : MonoBehaviour
 
     private void PlayQuestCompletedAudio(string id)
     {
-        if(audioPrefab != null)
+        if (audioPrefab != null)
         {
             Instantiate(audioPrefab, transform);
         }

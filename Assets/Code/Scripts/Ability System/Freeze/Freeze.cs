@@ -1,30 +1,30 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Freeze : MonoBehaviour
 {
     public const string DungeonPenguinSceneName = "Dungeon_Penguin";
 
     [Header("Config")]
-    [SerializeField] private float aoeRadius;
-    [SerializeField] private float cooldownDuration;
+    [SerializeField] private float _aoeRadius;
+    [SerializeField] private float _cooldownDuration;
 
-    [SerializeField] private Image coloredCooldownIndicator;
+    [SerializeField] private Image _coloredCooldownIndicator;
 
     [Header("Audio")]
-    [SerializeField] AudioSource freezeAudio;
+    [SerializeField] private AudioSource _freezeAudio;
 
-    private bool hasCooldown;
+    private bool _hasCooldown;
 
     private void Update()
     {
         if (PlayerInputHandler.instance.UseAbilityInput.WasPressedThisFrame())
         {
-            AbilityManager.instance.abilityStatuses.TryGetValue(Abilities.Freezing, out bool isUnlocked);
+            AbilityManager.Instance._abilityStatuses.TryGetValue(Abilities.Freezing, out bool isUnlocked);
 
-            if(isUnlocked && !hasCooldown)
+            if (isUnlocked && !_hasCooldown)
             {
                 ActivateFreezeObject();
             }
@@ -33,13 +33,13 @@ public class Freeze : MonoBehaviour
 
     private void ActivateFreezeObject()
     {
-        
-        Collider[] foundObjects = Physics.OverlapSphere(transform.position, aoeRadius, LayerMask.GetMask("Freezables"));
+
+        Collider[] foundObjects = Physics.OverlapSphere(transform.position, _aoeRadius, LayerMask.GetMask("Freezables"));
         Debug.Log(foundObjects.Length + " freezables found.");
 
-        if(foundObjects != null)
+        if (foundObjects != null)
         {
-            foreach(Collider newObject in foundObjects)
+            foreach (Collider newObject in foundObjects)
             {
                 FoxMovement.instance.playerAnimator.SetBool("isFreezing", true);
                 Freezable freezable = newObject.gameObject.GetComponent<Freezable>();
@@ -48,13 +48,13 @@ public class Freeze : MonoBehaviour
                 {
                     freezable.FreezeObject();
 
-                    AudioManager.instance.PlaySound(AudioName.Ability_Freezing, transform);
+                    AudioManager.Instance.PlaySound(AudioName.Ability_Freezing, transform);
                 }
             }
-            
+
         }
 
-        if(SceneManager.GetActiveScene().name == DungeonPenguinSceneName)
+        if (SceneManager.GetActiveScene().name == DungeonPenguinSceneName)
         {
             StartCoroutine(FreezeCooldown());
         }
@@ -64,18 +64,18 @@ public class Freeze : MonoBehaviour
     {
         yield return new WaitForSeconds(0.01f);
         FoxMovement.instance.playerAnimator.SetBool("isFreezing", false);
-        hasCooldown = true;
+        _hasCooldown = true;
 
-        float updateFillAmount = 1 / (cooldownDuration * 100);
-        coloredCooldownIndicator.fillAmount = 0;
-        
-        while(coloredCooldownIndicator.fillAmount != 1)
+        float updateFillAmount = 1 / (_cooldownDuration * 100);
+        _coloredCooldownIndicator.fillAmount = 0;
+
+        while (_coloredCooldownIndicator.fillAmount != 1)
         {
-            coloredCooldownIndicator.fillAmount += updateFillAmount;
+            _coloredCooldownIndicator.fillAmount += updateFillAmount;
 
             yield return new WaitForSeconds(0.01f);
         }
 
-        hasCooldown = false;
+        _hasCooldown = false;
     }
 }

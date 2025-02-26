@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FinishTutorial : MonoBehaviour
@@ -17,7 +15,7 @@ public class FinishTutorial : MonoBehaviour
         {
             //Debug.Log("Checking whether tutorial can be finished...");
 
-            if(quest.state == QuestState.CAN_FINISH)
+            if (quest.state == QuestState.CAN_FINISH)
             {
                 //Debug.Log("Tutorial can be finished.");
                 GameEventsManager.instance.questEvents.FinishQuest(tutorialQuest.id);

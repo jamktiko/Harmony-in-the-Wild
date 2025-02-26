@@ -4,7 +4,7 @@ public class RockDestroying : MonoBehaviour, IAbility
 {
     private void Start()
     {
-        AbilityManager.instance.RegisterAbility(Abilities.RockDestroying, this);
+        AbilityManager.Instance.RegisterAbility(Abilities.RockDestroying, this);
     }
 
     public void Activate()

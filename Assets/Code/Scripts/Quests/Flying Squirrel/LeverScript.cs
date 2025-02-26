@@ -17,7 +17,7 @@ public class LeverScript : MonoBehaviour
 
     void Update()
     {
-        if (PlayerInputHandler.instance.InteractInput.WasPressedThisFrame() && isActive&&!wasUsed)
+        if (PlayerInputHandler.instance.InteractInput.WasPressedThisFrame() && isActive && !wasUsed)
         {
             wasUsed = true;
             Debug.Log("Lever pulled!");

@@ -19,7 +19,7 @@ public class Quest
         questStepStates = new QuestStepState[info.questStepPrefabs.Length];
 
         // initialize all the quest step states so they won't be null in the beginning
-        for(int i = 0; i < questStepStates.Length; i++)
+        for (int i = 0; i < questStepStates.Length; i++)
         {
             questStepStates[i] = new QuestStepState();
         }
@@ -34,7 +34,7 @@ public class Quest
         this.defaultPosition = info.defaultPos;
         // if the quest step states and prefabs are different lengths,
         // something has changed during development and the saved data is out of sync
-        if(this.questStepStates.Length != this.info.questStepPrefabs.Length)
+        if (this.questStepStates.Length != this.info.questStepPrefabs.Length)
         {
             Debug.LogWarning("Quest Step Prefabs and Quest Step States are " +
                 "of different lengths. This indicates something changed with the " +
@@ -83,7 +83,7 @@ public class Quest
 
     public void StoreQuestStepState(QuestStepState questStepState, int stepIndex)
     {
-        if(stepIndex < questStepStates.Length)
+        if (stepIndex < questStepStates.Length)
         {
             questStepStates[stepIndex].state = questStepState.state;
         }

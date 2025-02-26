@@ -1,38 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UnityEngine;
-using System;
 using UnityEngine.UI;
 
 public class AbilityCycle : MonoBehaviour
 {
-    public static AbilityCycle instance;
+    public static AbilityCycle Instance;
 
-    [SerializeField] private TMP_Text abilityUIText;
-    [SerializeField] private Image abilityBackground;
-    public Dictionary<Abilities, bool> activeAbilities = new Dictionary<Abilities, bool>();
-    private List<Abilities> abilityKeys;
-    public Abilities selectedAbility = Abilities.None;
+    [SerializeField] private TMP_Text _abilityUIText;
+    [SerializeField] private Image _abilityBackground;
+    public Dictionary<Abilities, bool> ActiveAbilities = new Dictionary<Abilities, bool>();
+    private List<Abilities> _abilityKeys;
+    public Abilities SelectedAbility = Abilities.None;
 
-    private bool canInteractWith = true;   // boolean to detect whether you can use the input; not interactable if for example pause menu is opened
+    private bool _canInteractWith = true;   // boolean to detect whether you can use the input; not interactable if for example pause menu is opened
 
     public void Awake()
     {
-        if (instance != null && instance != this)
+        if (Instance != null && Instance != this)
         {
             Debug.LogWarning("There is more than one AbilityCycle.");
             Destroy(gameObject);
             return;
         }
 
-        instance = this;
+        Instance = this;
     }
     void Start()
     {
         InitializeAbilities();
-        abilityKeys = new List<Abilities>(activeAbilities.Keys);
+        _abilityKeys = new List<Abilities>(_activeAbilities.Keys);
     }
 
     private void OnEnable()
@@ -51,51 +49,51 @@ public class AbilityCycle : MonoBehaviour
     }
     public void InitializeAbilities()
     {
-        activeAbilities.Add(Abilities.None, true);
-        activeAbilities.Add(Abilities.ChargeJumping, false);
-        activeAbilities.Add(Abilities.TeleGrabbing, false);
-        activeAbilities.Add(Abilities.Freezing, false);
+        _activeAbilities.Add(Abilities.None, true);
+        _activeAbilities.Add(Abilities.ChargeJumping, false);
+        _activeAbilities.Add(Abilities.TeleGrabbing, false);
+        _activeAbilities.Add(Abilities.Freezing, false);
     }
     private void SwitchAbility()
     {
-        if (PlayerInputHandler.instance.AbilityToggleInput.WasPressedThisFrame() && canInteractWith)
+        if (PlayerInputHandler.instance.AbilityToggleInput.WasPressedThisFrame() && _canInteractWith)
         {
-            activeAbilities.TryGetValue(selectedAbility, out bool isSelected);
+            _activeAbilities.TryGetValue(SelectedAbility, out bool isSelected);
             //Debug.Log("1. Selected ability is: " + selectedAbility + " and it is: " + isSelected);
-            activeAbilities[selectedAbility] = false;
+            _activeAbilities[SelectedAbility] = false;
 
-            int currentIndex = abilityKeys.IndexOf(selectedAbility);
+            int currentIndex = _abilityKeys.IndexOf(SelectedAbility);
 
             if (currentIndex != -1)
             {
                 //this modulo thing wraps back to 0 when it reaches the end of a list
-                currentIndex = (currentIndex + 1) % abilityKeys.Count;
-                selectedAbility = abilityKeys[currentIndex];
+                currentIndex = (currentIndex + 1) % _abilityKeys.Count;
+                SelectedAbility = _abilityKeys[currentIndex];
 
-                bool isSelectedUnlocked = AbilityManager.instance.abilityStatuses[selectedAbility];
+                bool isSelectedUnlocked = AbilityManager.Instance._abilityStatuses[SelectedAbility];
                 if (isSelectedUnlocked)
                 {
-                    activeAbilities[selectedAbility] = true;
+                    _activeAbilities[SelectedAbility] = true;
 
-                    abilityUIText.text = "Selected Ability: " + selectedAbility;
-                    abilityUIText.color = Color.black;
-                    abilityBackground.color = Color.white;
-                    StartCoroutine(DelayFadeTextToFullAlpha(2f, abilityUIText, abilityBackground));
+                    _abilityUIText.text = "Selected Ability: " + SelectedAbility;
+                    _abilityUIText.color = Color.black;
+                    _abilityBackground.color = Color.white;
+                    StartCoroutine(DelayFadeTextToFullAlpha(2f, _abilityUIText, _abilityBackground));
 
                     //activeAbilities.TryGetValue(selectedAbility, out bool isSelected2);
                     //Debug.Log("2. Selected ability is: " + selectedAbility + " and it is: " + isSelected2);
                 }
                 else
                 {
-                    abilityUIText.text = "You haven't unlocked that ability yet.";
-                    abilityUIText.color = Color.black;
-                    abilityBackground.color = Color.white;
-                    StartCoroutine(DelayFadeTextToFullAlpha(2f, abilityUIText, abilityBackground));
+                    _abilityUIText.text = "You haven't unlocked that ability yet.";
+                    _abilityUIText.color = Color.black;
+                    _abilityBackground.color = Color.white;
+                    StartCoroutine(DelayFadeTextToFullAlpha(2f, _abilityUIText, _abilityBackground));
                 }
             }
             else
             {
-                Debug.LogError($"Switching abilities failed. currentIndex: {currentIndex}, selectedAbility: {selectedAbility}");
+                Debug.LogError($"Switching abilities failed. currentIndex: {currentIndex}, selectedAbility: {SelectedAbility}");
             }
         }
     }
@@ -114,6 +112,6 @@ public class AbilityCycle : MonoBehaviour
 
     private void ToggleInteractability(bool enableInteractions)
     {
-        canInteractWith = enableInteractions;
+        _canInteractWith = enableInteractions;
     }
 }

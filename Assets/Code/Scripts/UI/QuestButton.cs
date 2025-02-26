@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public class QuestButton : MonoBehaviour
 {
-    [SerializeField]ActiveQuestUI activeQuestUI;
+    [SerializeField] ActiveQuestUI activeQuestUI;
     private void Awake()
     {
         //In case there are several activeQuestUI objects in the scene, we need to find the right one
@@ -22,8 +20,8 @@ public class QuestButton : MonoBehaviour
     {
         string name = gameObject.name;
         Quest thisQuest;
-        var questList  = QuestManager.instance.questMap.Where(x => name.Contains(x.Value.info.displayName)).Select(x => x.Value).ToList();
-        thisQuest= questList.FirstOrDefault();
+        var questList = QuestManager.instance.questMap.Where(x => name.Contains(x.Value.info.displayName)).Select(x => x.Value).ToList();
+        thisQuest = questList.FirstOrDefault();
 
         QuestMenuManager.trackedQuest = thisQuest;
 

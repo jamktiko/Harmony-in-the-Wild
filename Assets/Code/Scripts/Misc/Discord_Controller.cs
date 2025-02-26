@@ -1,9 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Discord;
-using System.Data;
-using System;
 using UnityEngine.SceneManagement;
 
 [System.Serializable]
@@ -30,12 +25,12 @@ public class Discord_Controller : MonoBehaviour
 
     private void Awake()
     {
-        if (!instanceExists) 
+        if (!instanceExists)
         {
             instanceExists = true;
             DontDestroyOnLoad(gameObject);
         }
-        else if (FindObjectsOfType(GetType()).Length>1) 
+        else if (FindObjectsOfType(GetType()).Length > 1)
         {
             Destroy(gameObject);
         }
@@ -50,7 +45,7 @@ public class Discord_Controller : MonoBehaviour
         UpdateStatus();
     }
 
-    
+
 
     // Update is called once per frame
     void Update()
@@ -59,7 +54,7 @@ public class Discord_Controller : MonoBehaviour
         {
             discord.RunCallbacks();
         }
-        catch 
+        catch
         {
 
             Destroy(gameObject);
@@ -103,20 +98,20 @@ public class Discord_Controller : MonoBehaviour
                     LargeImage = largeImage,
                     LargeText = largeText,
                 },
-                Timestamps = 
+                Timestamps =
                 {
                     Start=time
                 }
             };
-            activityManager.UpdateActivity(activity, (res) => 
+            activityManager.UpdateActivity(activity, (res) =>
             {
-                if (res!=Discord.Result.Ok)
+                if (res != Discord.Result.Ok)
                 {
                     Debug.LogWarning("Failed to connect to Discord!");
                 }
             });
         }
-        catch 
+        catch
         {
 
             Destroy(gameObject);
