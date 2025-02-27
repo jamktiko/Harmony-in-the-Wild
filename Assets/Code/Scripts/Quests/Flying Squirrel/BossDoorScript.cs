@@ -9,12 +9,13 @@ public class BossDoorScript : MonoBehaviour
     [FormerlySerializedAs("isOpen")] public bool IsOpen;
     [FormerlySerializedAs("usedlevers")] public int Usedlevers;
     [FormerlySerializedAs("levers")] public int Levers;
-    [FormerlySerializedAs("usedMat")] [SerializeField] Material _usedMat;
+    [FormerlySerializedAs("usedMat")] [SerializeField]
+    private Material _usedMat;
 
     [FormerlySerializedAs("anim")] public Animator Anim;
     private FinishDungeonQuestStepWithTrigger _finishDungeonQuestStep;
 
-    void Start()
+    private void Start()
     {
         _scripts = FindObjectsOfType<LeverScript>().ToList();
         Usedlevers = _scripts.Where(x => x.WasUsed).Count();
@@ -23,7 +24,7 @@ public class BossDoorScript : MonoBehaviour
         _finishDungeonQuestStep = GetComponent<FinishDungeonQuestStepWithTrigger>();
     }
 
-    void Update()
+    private void Update()
     {
         if (Usedlevers == Levers && IsOpen == false)
         {

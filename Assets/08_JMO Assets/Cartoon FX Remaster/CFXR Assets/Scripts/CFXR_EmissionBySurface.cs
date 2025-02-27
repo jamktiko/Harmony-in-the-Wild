@@ -14,11 +14,11 @@ namespace CartoonFX
         [Tooltip("This is to avoid slowdowns in the Editor if the value gets too high")] public float maxEmissionRate = 5000;
         [HideInInspector] public float density = 0;
 
-        bool attachedToEditor;
-        ParticleSystem ps;
+        private bool attachedToEditor;
+        private ParticleSystem ps;
 
 #if UNITY_EDITOR
-        void OnValidate()
+        private void OnValidate()
         {
             this.hideFlags = HideFlags.DontSaveInBuild;
             CalculateAndUpdateEmission();
@@ -40,7 +40,7 @@ namespace CartoonFX
             attachedToEditor = false;
         }
 
-        void OnEditorUpdate()
+        private void OnEditorUpdate()
         {
             CalculateAndUpdateEmission();
 
@@ -50,7 +50,7 @@ namespace CartoonFX
             }
         }
 
-        void CalculateAndUpdateEmission()
+        private void CalculateAndUpdateEmission()
         {
             if (!active) return;
             if (this == null) return;
@@ -65,7 +65,7 @@ namespace CartoonFX
             }
         }
 
-        float CalculateShapeDensity(ParticleSystem.ShapeModule shapeModule, bool isShapeScaling, Transform transform)
+        private float CalculateShapeDensity(ParticleSystem.ShapeModule shapeModule, bool isShapeScaling, Transform transform)
         {
             float arcPercentage = Mathf.Max(0.01f, shapeModule.arc / 360f);
             float thicknessPercentage = Mathf.Max(0.01f, 1.0f - shapeModule.radiusThickness);
@@ -169,9 +169,9 @@ namespace CartoonFX
 
 #if UNITY_EDITOR
     [CustomEditor(typeof(CFXR_EmissionBySurface))]
-    class CFXR_EmissionBySurface_Editor : Editor
+    internal class CFXR_EmissionBySurface_Editor : Editor
     {
-        CFXR_EmissionBySurface Target { get { return target as CFXR_EmissionBySurface; } }
+        private CFXR_EmissionBySurface Target { get { return target as CFXR_EmissionBySurface; } }
 
         public override void OnInspectorGUI()
         {
@@ -181,12 +181,12 @@ namespace CartoonFX
             EditorGUILayout.HelpBox("Calculated Density: " + Target.density, MessageType.None);
         }
 
-        void OnEnable()
+        private void OnEnable()
         {
             Target.AttachToEditor();
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             Target.DetachFromEditor();
         }

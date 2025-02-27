@@ -506,7 +506,7 @@ namespace Ink
             return identifier;
         }
 
-        void RegisterExpressionOperators()
+        private void RegisterExpressionOperators()
         {
             _maxBinaryOpLength = 0;
             _binaryOperators = new List<InfixOperator>();
@@ -544,14 +544,14 @@ namespace Ink
 
         }
 
-        void RegisterBinaryOperator(string op, int precedence, bool requireWhitespace = false)
+        private void RegisterBinaryOperator(string op, int precedence, bool requireWhitespace = false)
         {
             _binaryOperators.Add(new InfixOperator(op, precedence, requireWhitespace));
             _maxBinaryOpLength = Math.Max(_maxBinaryOpLength, op.Length);
         }
 
-        List<InfixOperator> _binaryOperators;
-        int _maxBinaryOpLength;
+        private List<InfixOperator> _binaryOperators;
+        private int _maxBinaryOpLength;
     }
 }
 

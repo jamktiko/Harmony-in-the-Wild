@@ -14,7 +14,7 @@ namespace DynamicShadowProjector.Editor
     [CustomEditor(typeof(DrawSceneObject))]
     public class DrawSceneObjectEditor : EditorBase
     {
-        void OnEnable()
+        private void OnEnable()
         {
             DrawSceneObject component = target as DrawSceneObject;
             if (component.replacementShader == null)

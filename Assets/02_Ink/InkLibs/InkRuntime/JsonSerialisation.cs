@@ -596,7 +596,7 @@ namespace Ink.Runtime
             writer.WriteArrayEnd();
         }
 
-        static Container JArrayToContainer(List<object> jArray)
+        private static Container JArrayToContainer(List<object> jArray)
         {
             var container = new Container();
             container.content = JArrayToRuntimeObjList(jArray, skipLast: true);
@@ -637,7 +637,7 @@ namespace Ink.Runtime
             return container;
         }
 
-        static Choice JObjectToChoice(Dictionary<string, object> jObj)
+        private static Choice JObjectToChoice(Dictionary<string, object> jObj)
         {
             var choice = new Choice();
             choice.text = jObj["text"].ToString();
@@ -658,7 +658,7 @@ namespace Ink.Runtime
             writer.WriteObjectEnd();
         }
 
-        static void WriteInkList(SimpleJson.Writer writer, ListValue listVal)
+        private static void WriteInkList(SimpleJson.Writer writer, ListValue listVal)
         {
             var rawList = listVal.value;
 
@@ -762,7 +762,7 @@ namespace Ink.Runtime
             }
         }
 
-        static string[] _controlCommandNames;
+        private static string[] _controlCommandNames;
     }
 }
 

@@ -208,7 +208,7 @@ namespace Ink.Runtime
             _snapTotal += Millisecs(_snapWatch);
         }
 
-        double Millisecs(Stopwatch watch)
+        private double Millisecs(Stopwatch watch)
         {
             var ticks = watch.ElapsedTicks;
             return ticks * _millisecsPerTick;
@@ -242,28 +242,29 @@ namespace Ink.Runtime
             }
         }
 
-        Stopwatch _continueWatch = new Stopwatch();
-        Stopwatch _stepWatch = new Stopwatch();
-        Stopwatch _snapWatch = new Stopwatch();
+        private Stopwatch _continueWatch = new Stopwatch();
+        private Stopwatch _stepWatch = new Stopwatch();
+        private Stopwatch _snapWatch = new Stopwatch();
 
-        double _continueTotal;
-        double _snapTotal;
-        double _stepTotal;
+        private double _continueTotal;
+        private double _snapTotal;
+        private double _stepTotal;
 
-        string[] _currStepStack;
-        StepDetails _currStepDetails;
-        ProfileNode _rootNode;
-        int _numContinues;
+        private string[] _currStepStack;
+        private StepDetails _currStepDetails;
+        private ProfileNode _rootNode;
+        private int _numContinues;
 
-        struct StepDetails
+        private struct StepDetails
         {
             public string type;
             public Runtime.Object obj;
             public double time;
         }
-        List<StepDetails> _stepDetails = new List<StepDetails>();
 
-        static double _millisecsPerTick = 1000.0 / Stopwatch.Frequency;
+        private List<StepDetails> _stepDetails = new List<StepDetails>();
+
+        private static double _millisecsPerTick = 1000.0 / Stopwatch.Frequency;
     }
 
 
@@ -328,7 +329,7 @@ namespace Ink.Runtime
             AddSample(stack, -1, duration);
         }
 
-        void AddSample(string[] stack, int stackIdx, double duration)
+        private void AddSample(string[] stack, int stackIdx, double duration)
         {
 
             _totalSampleCount++;
@@ -344,7 +345,7 @@ namespace Ink.Runtime
                 AddSampleToNode(stack, stackIdx + 1, duration);
         }
 
-        void AddSampleToNode(string[] stack, int stackIdx, double duration)
+        private void AddSampleToNode(string[] stack, int stackIdx, double duration)
         {
             var nodeKey = stack[stackIdx];
             if (_nodes == null) _nodes = new Dictionary<string, ProfileNode>();
@@ -372,7 +373,7 @@ namespace Ink.Runtime
             }
         }
 
-        void PrintHierarchy(StringBuilder sb, int indent)
+        private void PrintHierarchy(StringBuilder sb, int indent)
         {
             Pad(sb, indent);
 
@@ -414,7 +415,7 @@ namespace Ink.Runtime
 
         }
 
-        void Pad(StringBuilder sb, int spaces)
+        private void Pad(StringBuilder sb, int spaces)
         {
             for (int i = 0; i < spaces; i++) sb.Append("   ");
         }
@@ -430,11 +431,11 @@ namespace Ink.Runtime
             return sb.ToString();
         }
 
-        Dictionary<string, ProfileNode> _nodes;
-        double _selfMillisecs;
-        double _totalMillisecs;
-        int _selfSampleCount;
-        int _totalSampleCount;
+        private Dictionary<string, ProfileNode> _nodes;
+        private double _selfMillisecs;
+        private double _totalMillisecs;
+        private int _selfSampleCount;
+        private int _totalSampleCount;
     }
 }
 

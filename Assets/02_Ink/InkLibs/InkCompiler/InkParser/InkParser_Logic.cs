@@ -453,7 +453,7 @@ namespace Ink
             return name;
         }
 
-        CharacterSet identifierCharSet
+        private CharacterSet identifierCharSet
         {
             get
             {

@@ -7,7 +7,7 @@ public class NormalFlipperoo : MonoBehaviour
     [FormerlySerializedAs("dir")] public Vector3[] Dir;
     // Flips all normals of the assigned gameobjects' meshes in the requested direction. Good for creating mesh-based particle systems.
     // Operation seems to be PERMANENT, so ONLY use this on duplicate meshes, otherwise you'll screw up the prefab itself!
-    void Start()
+    private void Start()
     {
         for (int i = 0; i < Flippers.Length; i++)
         {

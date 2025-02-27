@@ -13,7 +13,8 @@ public class Minimap : MonoBehaviour
     {
         VerticalInput = Input.GetAxisRaw("Mouse X");
     }
-    void LateUpdate()
+
+    private void LateUpdate()
     {
         Graphics.Blit(null, MinimapTexture);
     }

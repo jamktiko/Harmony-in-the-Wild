@@ -12,7 +12,7 @@ public class MultiTerrainParticleSpawner : MonoBehaviour
     public float yOffset = 5f;
     [Range(0f, 100f)] public float spawnChancePercentage = 100f;
 
-    void Awake()
+    private void Awake()
     {
         if (terrains == null || terrains.Length == 0)
         {
@@ -27,7 +27,7 @@ public class MultiTerrainParticleSpawner : MonoBehaviour
         }
     }
 
-    void Start()
+    private void Start()
     {
         if (particleSystemPrefab == null || container == null)
         {
@@ -37,7 +37,7 @@ public class MultiTerrainParticleSpawner : MonoBehaviour
         SpawnParticlesOnTrees();
     }
 
-    void SpawnParticlesOnTrees()
+    private void SpawnParticlesOnTrees()
     {
         System.Random random = new System.Random();
         foreach (Terrain terrain in terrains)
@@ -72,7 +72,7 @@ public class MultiTerrainParticleSpawner : MonoBehaviour
         }
     }
 
-    void ShuffleList(List<TreeInstance> list, System.Random random)
+    private void ShuffleList(List<TreeInstance> list, System.Random random)
     {
         int count = list.Count;
         for (int i = count - 1; i > 0; i--)

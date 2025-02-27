@@ -5,8 +5,10 @@ using UnityEngine.Serialization;
 
 public class TalkToBearQuestStep : QuestStep
 {
-    [FormerlySerializedAs("dialogueToPassForProgress")] [SerializeField] DialogueVariables _dialogueToPassForProgress;
-    [FormerlySerializedAs("cinematicAnimator")] [SerializeField] Animator _cinematicAnimator;
+    [FormerlySerializedAs("dialogueToPassForProgress")] [SerializeField]
+    private DialogueVariables _dialogueToPassForProgress;
+    [FormerlySerializedAs("cinematicAnimator")] [SerializeField]
+    private Animator _cinematicAnimator;
     [FormerlySerializedAs("animationEvent")] public UnityEvent AnimationEvent;
     private DialogueQuestNpCs _character = DialogueQuestNpCs.Bear;
     private bool _talkedToBear; // this might not be needed here, but to avoid any errors in the other quest code (state of the quest etc.), there's some value to be saved

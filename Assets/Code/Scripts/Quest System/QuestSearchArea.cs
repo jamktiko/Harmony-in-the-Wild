@@ -16,7 +16,7 @@ public class QuestSearchArea : MonoBehaviour
         Invoke("GrabQuestIds", 1f);
     }
 
-    void GrabQuestIds()
+    private void GrabQuestIds()
     {
         int index = 0;
         foreach (string questId in QuestManager.Instance.QuestMap.Keys)
@@ -67,7 +67,7 @@ public class QuestSearchArea : MonoBehaviour
         }
     }
 
-    int GetIndexFromId(string id)
+    private int GetIndexFromId(string id)
     {
         if (_idToIndex.ContainsKey(id))
         {

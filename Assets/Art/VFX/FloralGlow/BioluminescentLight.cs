@@ -9,7 +9,7 @@ public class BioluminescentLight : MonoBehaviour
 
     private float timer = 0f;
 
-    void Update()
+    private void Update()
     {
         PulseLight();
     }

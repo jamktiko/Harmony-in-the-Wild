@@ -51,7 +51,7 @@ namespace Ink.Parsed
 
         public abstract void GenerateIntoContainer(Runtime.Container container);
 
-        Runtime.Container _prototypeRuntimeConstantExpression;
+        private Runtime.Container _prototypeRuntimeConstantExpression;
     }
 
     public class BinaryExpression : Expression
@@ -102,7 +102,7 @@ namespace Ink.Parsed
             }
         }
 
-        string NativeNameForOp(string opName)
+        private string NativeNameForOp(string opName)
         {
             if (opName == "and")
                 return "&&";
@@ -196,7 +196,7 @@ namespace Ink.Parsed
             return nativeNameForOp + innerExpression;
         }
 
-        string nativeNameForOp
+        private string nativeNameForOp
         {
             get
             {
@@ -272,7 +272,7 @@ namespace Ink.Parsed
             }
         }
 
-        string incrementDecrementWord
+        private string incrementDecrementWord
         {
             get
             {
@@ -291,7 +291,7 @@ namespace Ink.Parsed
                 return varIdentifier + (isInc ? "++" : "--");
         }
 
-        Runtime.VariableAssignment _runtimeAssignment;
+        private Runtime.VariableAssignment _runtimeAssignment;
     }
 
     public class MultipleConditionExpression : Expression

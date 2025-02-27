@@ -8,12 +8,12 @@ namespace CartoonFX
     {
         public class CFXR_ShaderPostProcessor : AssetPostprocessor
         {
-            static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
+            private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
             {
                 CleanCFXRShaders(importedAssets);
             }
 
-            static void CleanCFXRShaders(string[] paths)
+            private static void CleanCFXRShaders(string[] paths)
             {
                 foreach (var assetPath in paths)
                 {

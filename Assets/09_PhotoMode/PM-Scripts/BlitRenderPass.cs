@@ -10,10 +10,10 @@ namespace PhotoMode
         public Material blitMaterial = null;
         public RenderTargetIdentifier source;
 
-        RenderTargetHandle temporaryColorTexture;
-        RenderTargetHandle destinationTexture;
+        private RenderTargetHandle temporaryColorTexture;
+        private RenderTargetHandle destinationTexture;
 
-        string profilerTag;
+        private string profilerTag;
 
         //Default constructor for the Blit Render Pass
         public BlitRenderPass(RenderPassEvent renderPassEvent, Material blitMat, string tag)

@@ -11,7 +11,7 @@ namespace PathCreation.Examples
         public bool closedLoop = true;
         public Transform[] waypoints;
 
-        void Start()
+        private void Start()
         {
             if (waypoints.Length > 0)
             {

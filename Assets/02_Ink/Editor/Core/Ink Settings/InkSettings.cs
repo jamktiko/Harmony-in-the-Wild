@@ -26,7 +26,8 @@ namespace Ink.UnityIntegration
                 return _instance != null;
             }
         }
-        static string absoluteSavePath
+
+        private static string absoluteSavePath
         {
             get
             {
@@ -79,7 +80,7 @@ namespace Ink.UnityIntegration
 
         public class AssetSaver : UnityEditor.AssetModificationProcessor
         {
-            static string[] OnWillSaveAssets(string[] paths)
+            private static string[] OnWillSaveAssets(string[] paths)
             {
                 InkSettings.instance.Save(true);
                 return paths;
@@ -131,7 +132,7 @@ namespace Ink.UnityIntegration
         }
 
 
-        void OnEnable()
+        private void OnEnable()
         {
             // Oh gosh Unity never unloads ScriptableObjects once created! We destroy these objects before we recompile so there's only ever one in memory at once.
             AssemblyReloadEvents.beforeAssemblyReload += () =>

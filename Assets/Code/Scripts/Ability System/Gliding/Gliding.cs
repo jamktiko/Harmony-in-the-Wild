@@ -13,7 +13,7 @@ public class Gliding : MonoBehaviour, IAbility
 
     private bool _allowActivationBasedOnInput = true;
 
-    void Awake()
+    private void Awake()
     {
         if (Instance != null && Instance != this)
         {
@@ -34,7 +34,7 @@ public class Gliding : MonoBehaviour, IAbility
         GameEventsManager.instance.PlayerEvents.OnToggleInputActions -= ToggleActivation;
     }
 
-    void Start()
+    private void Start()
     {
         AbilityManager.Instance.RegisterAbility(Abilities.Gliding, this);
     }

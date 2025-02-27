@@ -10,12 +10,12 @@ namespace PathCreationEditor
 
         public const float extraInputRadius = .005f;
 
-        static Vector2 handleDragMouseStart;
-        static Vector2 handleDragMouseEnd;
-        static Vector3 handleDragWorldStart;
+        private static Vector2 handleDragMouseStart;
+        private static Vector2 handleDragMouseEnd;
+        private static Vector3 handleDragWorldStart;
 
-        static int selectedHandleID;
-        static bool mouseIsOverAHandle;
+        private static int selectedHandleID;
+        private static bool mouseIsOverAHandle;
 
         public enum HandleInputType
         {
@@ -26,10 +26,10 @@ namespace PathCreationEditor
             LMBRelease,
         };
 
-        static float dstMouseToDragPointStart;
+        private static float dstMouseToDragPointStart;
 
-        static List<int> ids;
-        static HashSet<int> idHash;
+        private static List<int> ids;
+        private static HashSet<int> idHash;
 
         static PathHandle()
         {
@@ -200,7 +200,7 @@ namespace PathCreationEditor
             }
         }
 
-        static void AddIDs(int upToIndex)
+        private static void AddIDs(int upToIndex)
         {
             int numIDAtStart = ids.Count;
             int numToAdd = (upToIndex - numIDAtStart) + 1;
@@ -231,7 +231,7 @@ namespace PathCreationEditor
             }
         }
 
-        static int GetID(int handleIndex)
+        private static int GetID(int handleIndex)
         {
             if (handleIndex >= ids.Count)
             {

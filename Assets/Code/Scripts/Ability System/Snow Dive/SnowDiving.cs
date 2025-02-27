@@ -16,7 +16,8 @@ public class SnowDiving : MonoBehaviour, IAbility
     private int _onEnableSnowDiveID;
     private bool _isClimbing;
     private List<Transform> _movementPoints = new List<Transform>();
-    void Awake()
+
+    private void Awake()
     {
         if (Instance != null && Instance != this)
         {
@@ -107,7 +108,7 @@ public class SnowDiving : MonoBehaviour, IAbility
         //Debug.Log($"Closest child to the player is: {closestChild.name} with index {targetIndex}");
     }
 
-    IEnumerator MoveObject()
+    private IEnumerator MoveObject()
     {
         FoxMovement.Instance.PlayerAnimator.SetBool("isSnowDiving", true);
         //turn off object to move it

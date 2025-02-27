@@ -121,7 +121,7 @@ namespace PathCreation.Utility
 
         // Finds times of stationary points on curve defined by ax^2 + bx + c.
         // Only times between 0 and 1 are considered as Bezier only uses values in that range
-        static IEnumerable<float> StationaryPointTimes(float a, float b, float c)
+        private static IEnumerable<float> StationaryPointTimes(float a, float b, float c)
         {
             List<float> times = new List<float>();
 

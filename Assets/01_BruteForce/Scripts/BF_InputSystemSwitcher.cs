@@ -8,7 +8,7 @@ public class BF_InputSystemSwitcher : MonoBehaviour
 {
     public GameObject eventS;
     // Start is called before the first frame update
-    void Awake()
+    private void Awake()
     {
 
 #if ENABLE_INPUT_SYSTEM

@@ -71,7 +71,7 @@ namespace Ink.Parsed
             base.ResolveReferences(context);
         }
 
-        Runtime.ControlCommand _reJoinTarget;
+        private Runtime.ControlCommand _reJoinTarget;
     }
 }
 

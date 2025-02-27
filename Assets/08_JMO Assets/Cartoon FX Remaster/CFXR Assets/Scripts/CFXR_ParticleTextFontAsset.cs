@@ -33,7 +33,7 @@ namespace CartoonFX
             public float post = 0f;
         }
 
-        void OnValidate()
+        private void OnValidate()
         {
             this.hideFlags = HideFlags.None;
 
@@ -61,7 +61,7 @@ namespace CartoonFX
 
 #if UNITY_EDITOR
         // [MenuItem("Tools/Create font asset")]
-        static void CreateFontAsset()
+        private static void CreateFontAsset()
         {
             var instance = CreateInstance<CFXR_ParticleTextFontAsset>();
             AssetDatabase.CreateAsset(instance, "Assets/Font.asset");

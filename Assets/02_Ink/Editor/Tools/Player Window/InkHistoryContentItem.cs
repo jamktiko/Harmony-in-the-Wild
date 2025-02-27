@@ -25,9 +25,9 @@ namespace Ink.UnityIntegration.Debugging
         public List<string> tags;
         public ContentType contentType;
         // Creating a datetime from a long is slightly expensive (it can happen many times in a frame). To fix this we cache the result once converted. 
-        [SerializeField] JsonDateTime _serializableTime;
-        [NonSerialized] bool hasDeserializedTime;
-        [NonSerialized] DateTime _time;
+        [SerializeField] private JsonDateTime _serializableTime;
+        [NonSerialized] private bool hasDeserializedTime;
+        [NonSerialized] private DateTime _time;
         public DateTime time
         {
             get
@@ -46,13 +46,14 @@ namespace Ink.UnityIntegration.Debugging
             }
         }
 
-        InkHistoryContentItem(string text, ContentType contentType)
+        private InkHistoryContentItem(string text, ContentType contentType)
         {
             this.content = text;
             this.contentType = contentType;
             this.time = DateTime.Now;
         }
-        InkHistoryContentItem(string text, List<string> tags, ContentType contentType)
+
+        private InkHistoryContentItem(string text, List<string> tags, ContentType contentType)
         {
             this.content = text;
             this.tags = tags;
@@ -97,7 +98,7 @@ namespace Ink.UnityIntegration.Debugging
             return new InkHistoryContentItem(noteText, InkHistoryContentItem.ContentType.DebugNote);
         }
 
-        struct JsonDateTime
+        private struct JsonDateTime
         {
             public long value;
             public static implicit operator DateTime(JsonDateTime jdt)

@@ -7,7 +7,7 @@ using System.Linq;
 using UnityEditor.Build.Reporting;
 #endif
 
-class InkPreBuildValidationCheck :
+internal class InkPreBuildValidationCheck :
 #if UNITY_2018_1_OR_NEWER
 IPreprocessBuildWithReport
 #else
@@ -27,7 +27,7 @@ IPreprocessBuild
 	}
 #endif
 
-    static void PreprocessValidationStep()
+    private static void PreprocessValidationStep()
     {
         // If we're compiling, we've throw an error to cancel the build. Exit out immediately.
         if (!AssertNotCompiling()) return;
@@ -38,7 +38,7 @@ IPreprocessBuild
     // Ideally we'd force it to complete instantly. 
     // It seems you can do this with WaitHandle.WaitAll but I'm out of my depth!
     // Info here - https://stackoverflow.com/questions/540078/wait-for-pooled-threads-to-complete
-    static bool AssertNotCompiling()
+    private static bool AssertNotCompiling()
     {
         if (InkCompiler.executingCompilationStack)
         {
@@ -55,7 +55,7 @@ IPreprocessBuild
     }
 
     // Immediately compile any files that aren't compiled and should be.
-    static void EnsureInkIsCompiled()
+    private static void EnsureInkIsCompiled()
     {
         var filesToRecompile = InkLibrary.GetFilesRequiringRecompile();
         if (filesToRecompile.Any())

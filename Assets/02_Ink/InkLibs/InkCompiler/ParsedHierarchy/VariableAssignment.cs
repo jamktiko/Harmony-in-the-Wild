@@ -130,7 +130,7 @@
             }
         }
 
-        Runtime.VariableAssignment _runtimeAssignment;
+        private Runtime.VariableAssignment _runtimeAssignment;
     }
 }
 

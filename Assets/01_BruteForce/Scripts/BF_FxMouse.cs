@@ -11,17 +11,18 @@ public class BF_FxMouse : MonoBehaviour
     public ParticleSystem psMiddleClick;
     private float raycastSize = 200f;
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         mainCam = this.GetComponent<Camera>();
     }
-    void OnEnable()
+
+    private void OnEnable()
     {
         mainCam = this.GetComponent<Camera>();
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
 #if ENABLE_LEGACY_INPUT_MANAGER
         if (Input.GetMouseButton(0))

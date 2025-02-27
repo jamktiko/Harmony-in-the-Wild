@@ -6,29 +6,28 @@ using UnityEngine.Rendering.Universal;
 
 public class TimeManager : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI timeText;
-    [SerializeField] TimeSettings timeSettings;
+    [SerializeField] private TextMeshProUGUI timeText;
+    [SerializeField] private TimeSettings timeSettings;
 
 
-    [SerializeField] Light sun;
-    [SerializeField] Light moon;
-    [SerializeField] AnimationCurve lightIntensityCurve;
-    [SerializeField] float maxSunIntensity = 1;
-    [SerializeField] float maxMoonIntensity = 0.5f;
+    [SerializeField] private Light sun;
+    [SerializeField] private Light moon;
+    [SerializeField] private AnimationCurve lightIntensityCurve;
+    [SerializeField] private float maxSunIntensity = 1;
+    [SerializeField] private float maxMoonIntensity = 0.5f;
 
-    [SerializeField] Color dayAmbientLight;
-    [SerializeField] Color nightAmbientLight;
-    [SerializeField] Volume volume;
-    [SerializeField] Material skyboxMaterial;
+    [SerializeField] private Color dayAmbientLight;
+    [SerializeField] private Color nightAmbientLight;
+    [SerializeField] private Volume volume;
+    [SerializeField] private Material skyboxMaterial;
 
-    ColorAdjustments colorAdjustments;
-
-
-    [SerializeField] TimeSettings timeSettingss;
+    private ColorAdjustments colorAdjustments;
 
 
+    [SerializeField] private TimeSettings timeSettingss;
 
-    TimeService service;
+
+    private TimeService service;
 
     [Header("Starry Sky Settings")]
     [SerializeField] private Material starMaterial;
@@ -41,7 +40,7 @@ public class TimeManager : MonoBehaviour
     [SerializeField] private Color dayFog;
     [SerializeField] private Color nightFog;
 
-    void Start()
+    private void Start()
     {
         service = new TimeService(timeSettingss);
         volume.profile.TryGet(out colorAdjustments);
@@ -56,7 +55,7 @@ public class TimeManager : MonoBehaviour
         service.currentHour.ValueChanged -= ToggleDayNightCycleElements;
     }
 
-    void Update()
+    private void Update()
     {
         UpdateTimeOfDay();
         RotateSun();
@@ -73,14 +72,14 @@ public class TimeManager : MonoBehaviour
         //}
     }
 
-    void UpdateSkyBlend()
+    private void UpdateSkyBlend()
     {
         float dotProduct = Vector3.Dot(lhs: sun.transform.forward, rhs: Vector3.up);
         float blend = Mathf.Lerp(a: 0, b: 1, t: lightIntensityCurve.Evaluate(dotProduct));
         skyboxMaterial.SetFloat("_Blend", blend);
     }
 
-    void UpdateLightSettings()
+    private void UpdateLightSettings()
     {
         float dotProduct = Vector3.Dot(lhs: sun.transform.forward, rhs: Vector3.down);
         sun.intensity = Mathf.Lerp(a: 0, b: maxSunIntensity, t: lightIntensityCurve.Evaluate(dotProduct));
@@ -89,13 +88,13 @@ public class TimeManager : MonoBehaviour
         colorAdjustments.colorFilter.value = Color.Lerp(a: nightAmbientLight, b: dayAmbientLight, t: lightIntensityCurve.Evaluate(dotProduct));
     }
 
-    void RotateSun()
+    private void RotateSun()
     {
         float rotation = service.CalculateSunAngle();
         sun.transform.rotation = Quaternion.AngleAxis(rotation, Vector3.right);
     }
 
-    void UpdateTimeOfDay()
+    private void UpdateTimeOfDay()
     {
         service.UpdateTime(Time.deltaTime);
         if (timeText != null)

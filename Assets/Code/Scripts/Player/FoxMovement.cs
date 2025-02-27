@@ -106,7 +106,8 @@ public class FoxMovement : MonoBehaviour
                 _landingEffects[3] = t.GetComponent<ParticleSystem>();
         }
     }
-    void Start()
+
+    private void Start()
     {
         if (SceneManager.GetActiveScene().name.Contains("Overworld") || SceneManager.GetActiveScene().name.Contains("OverWorld"))
         {
@@ -155,7 +156,7 @@ public class FoxMovement : MonoBehaviour
         GameEventsManager.instance.PlayerEvents.OnToggleInputActions -= ToggleMovementBasedOnInputActions;
     }
 
-    void Update()
+    private void Update()
     {
         _grounded = IsGrounded();
         Landing();
@@ -190,7 +191,7 @@ public class FoxMovement : MonoBehaviour
         SitAndLay();
     }
 
-    void AbilityInputs()
+    private void AbilityInputs()
     {
         //gliding
         if (PlayerInputHandler.Instance.JumpInput.WasPressedThisFrame() && !_grounded && !IsInWater())
@@ -219,7 +220,8 @@ public class FoxMovement : MonoBehaviour
             AbilityManager.Instance.ActivateAbilityIfUnlocked(Abilities.TeleGrabbing);
         }
     }
-    void SelectAbility()
+
+    private void SelectAbility()
     {
         //chargejump
         AbilityCycle.Instance.ActiveAbilities.TryGetValue(Abilities.ChargeJumping, out bool isChargeJumpSelected);
@@ -571,7 +573,8 @@ public class FoxMovement : MonoBehaviour
         }
         StartCoroutine(StartCooldown(boolName));
     }
-    IEnumerator StartCooldown(string boolName)
+
+    private IEnumerator StartCooldown(string boolName)
     {
 
         yield return new WaitForSeconds(30f);
@@ -588,7 +591,8 @@ public class FoxMovement : MonoBehaviour
         }
 
     }
-    void OnDrawGizmos()
+
+    private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(FoxMiddle.position, _boxSize.y);

@@ -13,7 +13,7 @@ namespace Ink.Parsed
             return _objToWrap;
         }
 
-        T _objToWrap;
+        private T _objToWrap;
     }
 
     // Shorthand for writing Parsed.Wrap<Runtime.Glue> and Parsed.Wrap<Runtime.Tag>

@@ -3,9 +3,11 @@ using UnityEngine.Serialization;
 
 public class CreditsRoll : MonoBehaviour
 {
-    [FormerlySerializedAs("credits")] [SerializeField] GameObject _credits;
+    [FormerlySerializedAs("credits")] [SerializeField]
+    private GameObject _credits;
 
-    [FormerlySerializedAs("move")] [SerializeField] Vector3 _move = new Vector3(0, 5, 0);
+    [FormerlySerializedAs("move")] [SerializeField]
+    private Vector3 _move = new Vector3(0, 5, 0);
 
     private RectTransform _rectTransform;
 

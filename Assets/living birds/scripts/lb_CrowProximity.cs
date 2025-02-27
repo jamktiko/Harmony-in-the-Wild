@@ -2,8 +2,7 @@
 
 public class LBCrowProximity : MonoBehaviour
 {
-
-    void OnTriggerEnter(Collider col)
+    private void OnTriggerEnter(Collider col)
     {
         if (col.tag == "lb_bird")
         {

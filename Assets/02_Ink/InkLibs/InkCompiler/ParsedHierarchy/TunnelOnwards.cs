@@ -14,7 +14,8 @@
                 if (_divertAfter) AddContent(_divertAfter);
             }
         }
-        Divert _divertAfter;
+
+        private Divert _divertAfter;
 
         public override Runtime.Object GenerateRuntimeObject()
         {
@@ -97,7 +98,7 @@
                 _overrideDivertTarget.targetPath = divertAfter.targetContent.runtimePath;
         }
 
-        Runtime.DivertTargetValue _overrideDivertTarget;
+        private Runtime.DivertTargetValue _overrideDivertTarget;
     }
 }
 

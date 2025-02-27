@@ -62,7 +62,7 @@ namespace Ink
             return (Runtime.Story)args[1];
         }
 
-        List<IPlugin> _plugins;
+        private List<IPlugin> _plugins;
     }
 }
 

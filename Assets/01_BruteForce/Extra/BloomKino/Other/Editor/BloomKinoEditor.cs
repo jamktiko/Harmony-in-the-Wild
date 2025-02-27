@@ -32,18 +32,18 @@ namespace Kino
     [CustomEditor(typeof(BloomKino))]
     public class BloomKinoEditor : Editor
     {
-        BloomKinoGraphDrawer _graph;
+        private BloomKinoGraphDrawer _graph;
 
-        SerializedProperty _threshold;
-        SerializedProperty _softKnee;
-        SerializedProperty _radius;
-        SerializedProperty _intensity;
-        SerializedProperty _highQuality;
-        SerializedProperty _antiFlicker;
+        private SerializedProperty _threshold;
+        private SerializedProperty _softKnee;
+        private SerializedProperty _radius;
+        private SerializedProperty _intensity;
+        private SerializedProperty _highQuality;
+        private SerializedProperty _antiFlicker;
 
-        static GUIContent _textThreshold = new GUIContent("Threshold (gamma)");
+        private static GUIContent _textThreshold = new GUIContent("Threshold (gamma)");
 
-        void OnEnable()
+        private void OnEnable()
         {
             _graph = new BloomKinoGraphDrawer();
             _threshold = serializedObject.FindProperty("_threshold");

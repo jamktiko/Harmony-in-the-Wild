@@ -10,12 +10,10 @@ namespace PathCreation
         public event System.Action bezierOrVertexPathModified;
         public event System.Action bezierCreated;
 
-        [SerializeField]
-        BezierPath _bezierPath;
-        VertexPath _vertexPath;
+        [SerializeField] private BezierPath _bezierPath;
+        private VertexPath _vertexPath;
 
-        [SerializeField]
-        bool vertexPathUpToDate;
+        [SerializeField] private bool vertexPathUpToDate;
 
         // vertex path settings
         public float vertexPathMaxAngleError = .3f;
@@ -60,7 +58,7 @@ namespace PathCreation
             CreateBezier(centre, defaultIs2D);
         }
 
-        void CreateBezier(Vector3 centre, bool defaultIs2D = false)
+        private void CreateBezier(Vector3 centre, bool defaultIs2D = false)
         {
             if (_bezierPath != null)
             {
@@ -146,7 +144,7 @@ namespace PathCreation
             }
         }
 
-        void BezierPathEdited()
+        private void BezierPathEdited()
         {
             vertexPathUpToDate = false;
             if (bezierOrVertexPathModified != null)

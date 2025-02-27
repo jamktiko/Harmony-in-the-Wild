@@ -15,7 +15,7 @@ namespace ProjectorForLWRP
 {
     public class CustomRendererPass : ScriptableRenderPass
     {
-        List<ICustomRenderer> m_customRenderers = new List<ICustomRenderer>();
+        private List<ICustomRenderer> m_customRenderers = new List<ICustomRenderer>();
 
         static CustomRendererPass()
         {
@@ -36,7 +36,8 @@ namespace ProjectorForLWRP
         {
             base.Configure(cmd, cameraTextureDescriptor);
         }
-        static ProfilingSampler sampler = new ProfilingSampler("Projector For LWRP");
+
+        private static ProfilingSampler sampler = new ProfilingSampler("Projector For LWRP");
         public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
         {
             CommandBuffer cmd = CommandBufferPool.Get();

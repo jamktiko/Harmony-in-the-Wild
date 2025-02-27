@@ -306,8 +306,9 @@ namespace Ink.UnityIntegration
 
         public static class InkIncludeParser
         {
-            static Regex _includeRegex;
-            static Regex includeRegex
+            private static Regex _includeRegex;
+
+            private static Regex includeRegex
             {
                 get
                 {
@@ -323,7 +324,7 @@ namespace Ink.UnityIntegration
                 return FindIncludes(EliminateComments(inkContents));
             }
 
-            static string EliminateComments(string inkStr)
+            private static string EliminateComments(string inkStr)
             {
                 var sb = new StringBuilder();
                 int idx = 0;
@@ -376,7 +377,8 @@ namespace Ink.UnityIntegration
                 }
                 return sb.ToString();
             }
-            static IEnumerable<string> FindIncludes(string str)
+
+            private static IEnumerable<string> FindIncludes(string str)
             {
                 MatchCollection matches = includeRegex.Matches(str);
                 foreach (Match match in matches)

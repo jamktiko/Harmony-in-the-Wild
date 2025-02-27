@@ -3,8 +3,9 @@ using UnityEngine.Serialization;
 
 public class InteractableFireFlies : MonoBehaviour
 {
-    [FormerlySerializedAs("interactable")] [SerializeField] bool _interactable;
-    [SerializeField] static int _pineCollectableCount;
+    [FormerlySerializedAs("interactable")] [SerializeField]
+    private bool _interactable;
+    [SerializeField] private static int _pineCollectableCount;
     [FormerlySerializedAs("interactionIndicator")] [SerializeField] private GameObject _interactionIndicator;
     [FormerlySerializedAs("PlayerAnimator")] [SerializeField] private Animator _playerAnimator;
 

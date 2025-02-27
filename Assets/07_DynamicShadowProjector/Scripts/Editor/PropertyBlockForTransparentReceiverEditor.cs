@@ -15,34 +15,35 @@ namespace DynamicShadowProjector.Editor
     [CustomEditor(typeof(PropertyBlockForTransparentReceiver))]
     public class PropertyBlockForTransparentReceiverEditor : EditorBase
     {
-        SerializedProperty m_options;
-        SerializedProperty m_mainTexture;
-        SerializedProperty m_mainTextureST_x;
-        SerializedProperty m_mainTextureST_y;
-        SerializedProperty m_mainTextureST_z;
-        SerializedProperty m_mainTextureST_w;
-        SerializedProperty m_baseAlpha;
-        SerializedProperty m_alphaCutoff;
-        SerializedProperty m_mainTextureName;
-        SerializedProperty m_baseColorName;
-        SerializedProperty m_alphaCutoffName;
-        SerializedProperty m_alphaCutoffKeyword;
-        SerializedProperty m_cullModeName;
-        Renderer m_renderer;
-        Material m_material;
-        Shader m_shader;
-        List<string> m_texturePropertyNames;
-        string[] m_texturePropertyDisplayNames;
-        List<string> m_colorPropertyNames;
-        string[] m_colorPropertyDisplayNames;
-        List<string> m_rangePropertyNames;
-        string[] m_rangePropertyDisplayNames;
-        List<string> m_floatPropertyNames;
-        string[] m_floatPropertyDisplayNames;
-        GUIContent m_propertyNameLabel;
-        GUIContent m_valueLabel;
-        GUIContent m_keywordLabel;
-        void UpdateMaterialPropertyList()
+        private SerializedProperty m_options;
+        private SerializedProperty m_mainTexture;
+        private SerializedProperty m_mainTextureST_x;
+        private SerializedProperty m_mainTextureST_y;
+        private SerializedProperty m_mainTextureST_z;
+        private SerializedProperty m_mainTextureST_w;
+        private SerializedProperty m_baseAlpha;
+        private SerializedProperty m_alphaCutoff;
+        private SerializedProperty m_mainTextureName;
+        private SerializedProperty m_baseColorName;
+        private SerializedProperty m_alphaCutoffName;
+        private SerializedProperty m_alphaCutoffKeyword;
+        private SerializedProperty m_cullModeName;
+        private Renderer m_renderer;
+        private Material m_material;
+        private Shader m_shader;
+        private List<string> m_texturePropertyNames;
+        private string[] m_texturePropertyDisplayNames;
+        private List<string> m_colorPropertyNames;
+        private string[] m_colorPropertyDisplayNames;
+        private List<string> m_rangePropertyNames;
+        private string[] m_rangePropertyDisplayNames;
+        private List<string> m_floatPropertyNames;
+        private string[] m_floatPropertyDisplayNames;
+        private GUIContent m_propertyNameLabel;
+        private GUIContent m_valueLabel;
+        private GUIContent m_keywordLabel;
+
+        private void UpdateMaterialPropertyList()
         {
             if (m_renderer != null && m_renderer.sharedMaterial != null)
             {
@@ -120,7 +121,8 @@ namespace DynamicShadowProjector.Editor
                 m_rangePropertyDisplayNames = null;
             }
         }
-        void OnEnable()
+
+        private void OnEnable()
         {
             m_options = serializedObject.FindProperty("m_options");
             m_mainTexture = serializedObject.FindProperty("mainTexture");
@@ -143,8 +145,8 @@ namespace DynamicShadowProjector.Editor
             UpdateMaterialPropertyList();
         }
 
-        static string[] s_sourceOptions = { "Material Property", "Value" };
-        static string[] s_alphaCutoffOptions = { "Disable", "Enable", "Enable By Keyword" };
+        private static string[] s_sourceOptions = { "Material Property", "Value" };
+        private static string[] s_alphaCutoffOptions = { "Disable", "Enable", "Enable By Keyword" };
         public override void OnInspectorGUI()
         {
             UpdateMaterialPropertyList();

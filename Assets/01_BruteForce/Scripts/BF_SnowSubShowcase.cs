@@ -23,7 +23,8 @@ public class BF_SnowSubShowcase : MonoBehaviour
     {
         aM.m_ShowcaseChange.RemoveListener(ChangeIndex);
     }
-    void Update()
+
+    private void Update()
     {
         /*
         if(aM.subShowcaseIndex != oldIndex)

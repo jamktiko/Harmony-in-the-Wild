@@ -12,9 +12,9 @@ namespace ProjectorForLWRP
     {
         public int callbackOrder => 0;
 
-        static bool s_checked = false;
-        static bool s_checkOK;
-        static RenderPipelineAsset s_currentRenderPipelineAsset;
+        private static bool s_checked = false;
+        private static bool s_checkOK;
+        private static RenderPipelineAsset s_currentRenderPipelineAsset;
         public void OnPreprocessBuild(BuildReport report)
         {
             DoCheck();

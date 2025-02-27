@@ -55,7 +55,7 @@ namespace CartoonFX
 
         public class Token
         {
-            static Dictionary<char, KeyValuePair<TokenType, string>> typesDict = new Dictionary<char, KeyValuePair<TokenType, string>>()
+            private static Dictionary<char, KeyValuePair<TokenType, string>> typesDict = new Dictionary<char, KeyValuePair<TokenType, string>>()
             {
                 {'(', new KeyValuePair<TokenType, string>(TokenType.OPEN_PAREN, "(")},
                 {')', new KeyValuePair<TokenType, string>(TokenType.CLOSE_PAREN, ")")},

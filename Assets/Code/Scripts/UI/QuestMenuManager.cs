@@ -7,9 +7,9 @@ using UnityEngine.UI;
 
 public class QuestMenuManager : MonoBehaviour
 {
-    [FormerlySerializedAs("button")] [SerializeField] Button _button;
-    [FormerlySerializedAs("questMenuLayout")] [SerializeField] Transform _questMenuLayout;
-    [SerializeField] List<Quest> _activeQuests;
+    [SerializeField] private Button _button; 
+    private Transform _questMenuLayout;
+    private List<Quest> _activeQuests;
     public static Quest TrackedQuest = null;
     private void OnEnable()
     {

@@ -3,7 +3,8 @@ using UnityEngine.Serialization;
 
 public class Interactable : MonoBehaviour
 {
-    [FormerlySerializedAs("isActive")] [SerializeField] bool _isActive = false;
+    [FormerlySerializedAs("isActive")] [SerializeField]
+    private bool _isActive = false;
     [FormerlySerializedAs("wasUsed")] [SerializeField] public bool WasUsed = false; //Note: does this need to be public? private and method to pass value instead
 
     private int _index;
@@ -13,7 +14,7 @@ public class Interactable : MonoBehaviour
         _index = transform.GetSiblingIndex();
     }
 
-    void Update()
+    private void Update()
     {
         if (PlayerInputHandler.Instance.InteractInput.WasPressedThisFrame() && _isActive && QuestManager.Instance.CheckQuestState("Whale Diet").Equals(QuestState.InProgress))
         {

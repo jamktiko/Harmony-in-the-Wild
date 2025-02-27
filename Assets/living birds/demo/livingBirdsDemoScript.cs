@@ -7,12 +7,12 @@ public class livingBirdsDemoScript : MonoBehaviour
     public Camera camera1;
     public Camera camera2;
 
-    Camera currentCamera;
-    bool cameraDirections = true;
-    Ray ray;
-    RaycastHit[] hits;
+    private Camera currentCamera;
+    private bool cameraDirections = true;
+    private Ray ray;
+    private RaycastHit[] hits;
 
-    void Start()
+    private void Start()
     {
         currentCamera = Camera.main;
         birdControl = GameObject.Find("_livingBirdsController").GetComponent<LBBirdController>();
@@ -20,7 +20,7 @@ public class livingBirdsDemoScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
@@ -45,7 +45,7 @@ public class livingBirdsDemoScript : MonoBehaviour
         }
     }
 
-    void OnGUI()
+    private void OnGUI()
     {
         if (GUI.Button(new Rect(10, 10, 150, 50), "Pause"))
             birdControl.SendMessage("Pause");
@@ -68,13 +68,13 @@ public class livingBirdsDemoScript : MonoBehaviour
         }
     }
 
-    IEnumerator SpawnSomeBirds()
+    private IEnumerator SpawnSomeBirds()
     {
         yield return 2;
         birdControl.SendMessage("SpawnAmount", 10);
     }
 
-    void ChangeCamera()
+    private void ChangeCamera()
     {
         if (camera2.gameObject.activeSelf)
         {

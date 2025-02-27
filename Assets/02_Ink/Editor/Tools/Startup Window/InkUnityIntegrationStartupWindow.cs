@@ -9,19 +9,19 @@ namespace Ink.UnityIntegration
     [InitializeOnLoad]
     public class InkUnityIntegrationStartupWindow : EditorWindow
     {
-        const string editorPrefsKeyForVersionSeen = "Ink Unity Integration Startup Window Version Confirmed";
-        const int announcementVersion = 2;
+        private const string editorPrefsKeyForVersionSeen = "Ink Unity Integration Startup Window Version Confirmed";
+        private const int announcementVersion = 2;
 
-        Vector2 scrollPosition;
-        static int announcementVersionPreviouslySeen;
-        static string changelogText;
+        private Vector2 scrollPosition;
+        private static int announcementVersionPreviouslySeen;
+        private static string changelogText;
 
         static InkUnityIntegrationStartupWindow()
         {
             EditorApplication.delayCall += TryCreateWindow;
         }
 
-        static void TryCreateWindow()
+        private static void TryCreateWindow()
         {
             if (InkSettings.instance.suppressStartupWindow) return;
             announcementVersionPreviouslySeen = EditorPrefs.GetInt(editorPrefsKeyForVersionSeen, -1);
@@ -40,13 +40,13 @@ namespace Ink.UnityIntegration
             EditorPrefs.SetInt(editorPrefsKeyForVersionSeen, announcementVersion);
         }
 
-        void OnEnable()
+        private void OnEnable()
         {
             var packageDirectory = InkEditorUtils.FindAbsolutePluginDirectory();
             changelogText = File.ReadAllText(Path.Combine(packageDirectory, "CHANGELOG.md"));
         }
 
-        void OnGUI()
+        private void OnGUI()
         {
             EditorGUILayout.BeginVertical();
             var areaSize = new Vector2(90, 90);

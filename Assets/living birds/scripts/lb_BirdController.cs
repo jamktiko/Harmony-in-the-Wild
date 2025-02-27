@@ -22,14 +22,14 @@ public class LBBirdController : MonoBehaviour
     [FormerlySerializedAs("goldFinch")] public bool GoldFinch = true;
     [FormerlySerializedAs("crow")] public bool Crow = true;
 
-    bool _pause = false;
-    GameObject[] _myBirds;
-    List<string> _myBirdTypes = new List<string>();
-    List<GameObject> _birdGroundTargets = new List<GameObject>();
-    List<GameObject> _birdPerchTargets = new List<GameObject>();
-    int _activeBirds = 0;
-    int _birdIndex = 0;
-    GameObject[] _featherEmitters = new GameObject[3];
+    private bool _pause = false;
+    private GameObject[] _myBirds;
+    private List<string> _myBirdTypes = new List<string>();
+    private List<GameObject> _birdGroundTargets = new List<GameObject>();
+    private List<GameObject> _birdPerchTargets = new List<GameObject>();
+    private int _activeBirds = 0;
+    private int _birdIndex = 0;
+    private GameObject[] _featherEmitters = new GameObject[3];
 
     public void AllFlee()
     {
@@ -94,7 +94,7 @@ public class LBBirdController : MonoBehaviour
         CurrentCamera = cam;
     }
 
-    void Start()
+    private void Start()
     {
         //find the camera
         if (CurrentCamera == null)
@@ -184,13 +184,13 @@ public class LBBirdController : MonoBehaviour
         }
     }
 
-    void OnEnable()
+    private void OnEnable()
     {
         InvokeRepeating("UpdateBirds", 1, 1);
         StartCoroutine("UpdateTargets");
     }
 
-    Vector3 FindPointInGroundTarget(GameObject target)
+    private Vector3 FindPointInGroundTarget(GameObject target)
     {
         //find a random point within the collider of a ground target that touches the ground
         Vector3 point;
@@ -207,7 +207,7 @@ public class LBBirdController : MonoBehaviour
         return point;
     }
 
-    void UpdateBirds()
+    private void UpdateBirds()
     {
         //this function is called once a second
         if (_activeBirds < IdealNumberOfBirds && AreThereActiveTargets())
@@ -233,7 +233,7 @@ public class LBBirdController : MonoBehaviour
 
     //this function will cycle through targets removing those outside of the unspawnDistance
     //it will also add any new targets that come into range
-    IEnumerator UpdateTargets()
+    private IEnumerator UpdateTargets()
     {
         List<GameObject> gtRemove = new List<GameObject>();
         List<GameObject> ptRemove = new List<GameObject>();
@@ -286,7 +286,7 @@ public class LBBirdController : MonoBehaviour
         }
     }
 
-    bool BirdOffCamera(Vector3 birdPos)
+    private bool BirdOffCamera(Vector3 birdPos)
     {
         Vector3 screenPos = CurrentCamera.WorldToViewportPoint(birdPos);
         if (screenPos.x < 0 || screenPos.x > 1 || screenPos.y < 0 || screenPos.y > 1)
@@ -299,14 +299,14 @@ public class LBBirdController : MonoBehaviour
         }
     }
 
-    void Unspawn(GameObject bird)
+    private void Unspawn(GameObject bird)
     {
         bird.transform.position = Vector3.zero;
         bird.SetActive(false);
         _activeBirds--;
     }
 
-    void SpawnBird()
+    private void SpawnBird()
     {
         if (!_pause)
         {
@@ -344,7 +344,7 @@ public class LBBirdController : MonoBehaviour
         }
     }
 
-    bool AreThereActiveTargets()
+    private bool AreThereActiveTargets()
     {
         if (_birdGroundTargets.Count > 0 || _birdPerchTargets.Count > 0)
         {
@@ -356,7 +356,7 @@ public class LBBirdController : MonoBehaviour
         }
     }
 
-    Vector3 FindPositionOffCamera()
+    private Vector3 FindPositionOffCamera()
     {
         RaycastHit hit;
         float dist = Random.Range(2, 10);
@@ -378,7 +378,7 @@ public class LBBirdController : MonoBehaviour
         return CurrentCamera.transform.position + (ray * dist);
     }
 
-    void BirdFindTarget(GameObject bird)
+    private void BirdFindTarget(GameObject bird)
     {
         //yield return new WaitForSeconds(1);
         GameObject target;
@@ -410,7 +410,7 @@ public class LBBirdController : MonoBehaviour
         }
     }
 
-    void FeatherEmit(Vector3 pos)
+    private void FeatherEmit(Vector3 pos)
     {
         foreach (GameObject fEmit in _featherEmitters)
         {
@@ -424,7 +424,7 @@ public class LBBirdController : MonoBehaviour
         }
     }
 
-    IEnumerator DeactivateFeathers(GameObject featherEmit)
+    private IEnumerator DeactivateFeathers(GameObject featherEmit)
     {
         yield return new WaitForSeconds(4.5f);
         featherEmit.SetActive(false);

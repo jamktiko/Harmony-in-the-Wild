@@ -121,11 +121,11 @@ namespace Kino
 
         #region Response Function
 
-        float _threshold;
-        float _knee;
-        float _intensity;
+        private float _threshold;
+        private float _knee;
+        private float _intensity;
 
-        float ResponseFunction(float x)
+        private float ResponseFunction(float x)
         {
             var rq = Mathf.Clamp(x - _threshold + _knee, 0, _knee * 2);
             rq = rq * rq * 0.25f / _knee;
@@ -137,19 +137,19 @@ namespace Kino
         #region Graph Functions
 
         // Number of vertices in curve
-        const int _curveResolution = 96;
+        private const int _curveResolution = 96;
 
         // Vertex buffers
-        Vector3[] _rectVertices = new Vector3[4];
-        Vector3[] _lineVertices = new Vector3[2];
-        Vector3[] _curveVertices = new Vector3[_curveResolution];
+        private Vector3[] _rectVertices = new Vector3[4];
+        private Vector3[] _lineVertices = new Vector3[2];
+        private Vector3[] _curveVertices = new Vector3[_curveResolution];
 
-        Rect _rectGraph;
-        float _rangeX;
-        float _rangeY;
+        private Rect _rectGraph;
+        private float _rangeX;
+        private float _rangeY;
 
         // Transform a point into the graph rect.
-        Vector3 PointInRect(float x, float y)
+        private Vector3 PointInRect(float x, float y)
         {
             x = Mathf.Lerp(_rectGraph.x, _rectGraph.xMax, x / _rangeX);
             y = Mathf.Lerp(_rectGraph.yMax, _rectGraph.y, y / _rangeY);
@@ -157,7 +157,7 @@ namespace Kino
         }
 
         // Draw a line in the graph rect.
-        void DrawLine(float x1, float y1, float x2, float y2, float grayscale)
+        private void DrawLine(float x1, float y1, float x2, float y2, float grayscale)
         {
             _lineVertices[0] = PointInRect(x1, y1);
             _lineVertices[1] = PointInRect(x2, y2);
@@ -166,7 +166,7 @@ namespace Kino
         }
 
         // Draw a rect in the graph rect.
-        void DrawRect(float x1, float y1, float x2, float y2, float fill, float line)
+        private void DrawRect(float x1, float y1, float x2, float y2, float fill, float line)
         {
             _rectVertices[0] = PointInRect(x1, y1);
             _rectVertices[1] = PointInRect(x2, y1);

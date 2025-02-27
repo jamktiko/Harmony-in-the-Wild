@@ -21,7 +21,7 @@ namespace Ink.Runtime
             return new Reader(text).ToArray();
         }
 
-        class Reader
+        private class Reader
         {
             public Reader(string text)
             {
@@ -43,17 +43,17 @@ namespace Ink.Runtime
                 return (List<object>)_rootObject;
             }
 
-            bool IsNumberChar(char c)
+            private bool IsNumberChar(char c)
             {
                 return c >= '0' && c <= '9' || c == '.' || c == '-' || c == '+' || c == 'E' || c == 'e';
             }
 
-            bool IsFirstNumberChar(char c)
+            private bool IsFirstNumberChar(char c)
             {
                 return c >= '0' && c <= '9' || c == '-' || c == '+';
             }
 
-            object ReadObject()
+            private object ReadObject()
             {
                 var currentChar = _text[_offset];
 
@@ -81,7 +81,7 @@ namespace Ink.Runtime
                 throw new System.Exception("Unhandled object type in JSON: " + _text.Substring(_offset, 30));
             }
 
-            Dictionary<string, object> ReadDictionary()
+            private Dictionary<string, object> ReadDictionary()
             {
                 var dict = new Dictionary<string, object>();
 
@@ -125,7 +125,7 @@ namespace Ink.Runtime
                 return dict;
             }
 
-            List<object> ReadArray()
+            private List<object> ReadArray()
             {
                 var list = new List<object>();
 
@@ -157,7 +157,7 @@ namespace Ink.Runtime
                 return list;
             }
 
-            string ReadString()
+            private string ReadString()
             {
                 Expect("\"");
 
@@ -231,7 +231,7 @@ namespace Ink.Runtime
                 return sb.ToString();
             }
 
-            object ReadNumber()
+            private object ReadNumber()
             {
                 var startOffset = _offset;
 
@@ -268,7 +268,7 @@ namespace Ink.Runtime
                 throw new System.Exception("Failed to parse number value: " + numStr);
             }
 
-            bool TryRead(string textToRead)
+            private bool TryRead(string textToRead)
             {
                 if (_offset + textToRead.Length > _text.Length)
                     return false;
@@ -284,13 +284,13 @@ namespace Ink.Runtime
                 return true;
             }
 
-            void Expect(string expectedStr)
+            private void Expect(string expectedStr)
             {
                 if (!TryRead(expectedStr))
                     Expect(false, expectedStr);
             }
 
-            void Expect(bool condition, string message = null)
+            private void Expect(bool condition, string message = null)
             {
                 if (!condition)
                 {
@@ -308,7 +308,7 @@ namespace Ink.Runtime
                 }
             }
 
-            void SkipWhitespace()
+            private void SkipWhitespace()
             {
                 while (_offset < _text.Length)
                 {
@@ -320,10 +320,10 @@ namespace Ink.Runtime
                 }
             }
 
-            string _text;
-            int _offset;
+            private string _text;
+            private int _offset;
 
-            object _rootObject;
+            private object _rootObject;
         }
 
 
@@ -439,7 +439,7 @@ namespace Ink.Runtime
                 _writer.Write(str);
             }
 
-            void WritePropertyStart<T>(T name)
+            private void WritePropertyStart<T>(T name)
             {
                 Assert(state == State.Object);
 
@@ -457,7 +457,7 @@ namespace Ink.Runtime
 
 
             // allow name to be string or int
-            void WriteProperty<T>(T name, Action<Writer> inner)
+            private void WriteProperty<T>(T name, Action<Writer> inner)
             {
                 WritePropertyStart(name);
 
@@ -561,7 +561,7 @@ namespace Ink.Runtime
                     _writer.Write(str);
             }
 
-            void WriteEscapedString(string str)
+            private void WriteEscapedString(string str)
             {
                 foreach (var c in str)
                 {
@@ -595,7 +595,7 @@ namespace Ink.Runtime
                 }
             }
 
-            void StartNewObject(bool container)
+            private void StartNewObject(bool container)
             {
 
                 if (container)
@@ -613,7 +613,7 @@ namespace Ink.Runtime
                     IncrementChildCount();
             }
 
-            State state
+            private State state
             {
                 get
                 {
@@ -622,7 +622,7 @@ namespace Ink.Runtime
                 }
             }
 
-            int childCount
+            private int childCount
             {
                 get
                 {
@@ -631,7 +631,7 @@ namespace Ink.Runtime
                 }
             }
 
-            void IncrementChildCount()
+            private void IncrementChildCount()
             {
                 Assert(_stateStack.Count > 0);
                 var currEl = _stateStack.Pop();
@@ -642,7 +642,7 @@ namespace Ink.Runtime
             // Shouldn't hit this assert outside of initial JSON development,
             // so it's save to make it debug-only.
             [System.Diagnostics.Conditional("DEBUG")]
-            void Assert(bool condition)
+            private void Assert(bool condition)
             {
                 if (!condition)
                     throw new System.Exception("Assert failed while writing JSON");
@@ -653,7 +653,7 @@ namespace Ink.Runtime
                 return _writer.ToString();
             }
 
-            enum State
+            private enum State
             {
                 None,
                 Object,
@@ -663,14 +663,14 @@ namespace Ink.Runtime
                 String
             };
 
-            struct StateElement
+            private struct StateElement
             {
                 public State type;
                 public int childCount;
             }
 
-            Stack<StateElement> _stateStack = new Stack<StateElement>();
-            TextWriter _writer;
+            private Stack<StateElement> _stateStack = new Stack<StateElement>();
+            private TextWriter _writer;
         }
 
 

@@ -20,32 +20,36 @@ namespace CartoonFX
         public bool isDynamic;
 
         [Header("Text")]
-        [SerializeField] string text;
-        [SerializeField] float size = 1f;
-        [SerializeField] float letterSpacing = 0.44f;
+        [SerializeField]
+        private string text;
+        [SerializeField] private float size = 1f;
+        [SerializeField] private float letterSpacing = 0.44f;
 
         [Header("Colors")]
-        [SerializeField] Color backgroundColor = new Color(0, 0, 0, 1);
-        [SerializeField] Color color1 = new Color(1, 1, 1, 1);
-        [SerializeField] Color color2 = new Color(0, 0, 1, 1);
+        [SerializeField]
+        private Color backgroundColor = new Color(0, 0, 0, 1);
+        [SerializeField] private Color color1 = new Color(1, 1, 1, 1);
+        [SerializeField] private Color color2 = new Color(0, 0, 1, 1);
 
         [Header("Delay")]
-        [SerializeField] float delay = 0.05f;
-        [SerializeField] bool cumulativeDelay = false;
-        [Range(0f, 2f)][SerializeField] float compensateLifetime = 0;
+        [SerializeField]
+        private float delay = 0.05f;
+        [SerializeField] private bool cumulativeDelay = false;
+        [Range(0f, 2f)][SerializeField] private float compensateLifetime = 0;
 
         [Header("Misc")]
-        [SerializeField] float lifetimeMultiplier = 1f;
-        [Range(-90f, 90f)][SerializeField] float rotation = -5f;
-        [SerializeField] float sortingFudgeOffset = 0.1f;
+        [SerializeField]
+        private float lifetimeMultiplier = 1f;
+        [Range(-90f, 90f)][SerializeField] private float rotation = -5f;
+        [SerializeField] private float sortingFudgeOffset = 0.1f;
 #pragma warning disable 0649
-        [SerializeField] CFXR_ParticleTextFontAsset font;
+        [SerializeField] private CFXR_ParticleTextFontAsset font;
 #pragma warning restore 0649
 
 #if UNITY_EDITOR
-        [HideInInspector][SerializeField] bool autoUpdateEditor = true;
+        [HideInInspector][SerializeField] private bool autoUpdateEditor = true;
 
-        void OnValidate()
+        private void OnValidate()
         {
             if (text == null || font == null)
             {
@@ -87,7 +91,7 @@ namespace CartoonFX
         }
 #endif
 
-        void Awake()
+        private void Awake()
         {
             if (!isDynamic)
             {
@@ -98,13 +102,13 @@ namespace CartoonFX
             InitializeFirstParticle();
         }
 
-        float baseLifetime;
-        float baseScaleX;
-        float baseScaleY;
-        float baseScaleZ;
-        Vector3 basePivot;
+        private float baseLifetime;
+        private float baseScaleX;
+        private float baseScaleY;
+        private float baseScaleZ;
+        private Vector3 basePivot;
 
-        void InitializeFirstParticle()
+        private void InitializeFirstParticle()
         {
             if (isDynamic && this.transform.childCount == 0)
             {
@@ -374,13 +378,13 @@ namespace CartoonFX
     [CustomEditor(typeof(CFXR_ParticleText))]
     public class ParticleTextEditor : Editor
     {
-        CFXR_ParticleText CastTarget
+        private CFXR_ParticleText CastTarget
         {
             get { return (CFXR_ParticleText)this.target; }
         }
 
-        GUIContent GUIContent_AutoUpdateToggle = new GUIContent("Auto-update", "Automatically regenerate the text when a property is changed.");
-        GUIContent GUIContent_UpdateTextButton = new GUIContent(" Update Text ", "Regenerate the text and create new letter GameObjects if needed.");
+        private GUIContent GUIContent_AutoUpdateToggle = new GUIContent("Auto-update", "Automatically regenerate the text when a property is changed.");
+        private GUIContent GUIContent_UpdateTextButton = new GUIContent(" Update Text ", "Regenerate the text and create new letter GameObjects if needed.");
 
         public override void OnInspectorGUI()
         {

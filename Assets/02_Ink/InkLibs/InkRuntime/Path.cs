@@ -7,7 +7,7 @@ namespace Ink.Runtime
 {
     public class Path : IEquatable<Path>
     {
-        static string parentId = "^";
+        private static string parentId = "^";
 
         // Immutable Component
         public class Component : IEquatable<Component>
@@ -275,7 +275,8 @@ namespace Ink.Runtime
                 }
             }
         }
-        string _componentsString;
+
+        private string _componentsString;
 
         public override string ToString()
         {
@@ -307,7 +308,7 @@ namespace Ink.Runtime
             return this.ToString().GetHashCode();
         }
 
-        List<Component> _components;
+        private List<Component> _components;
     }
 }
 

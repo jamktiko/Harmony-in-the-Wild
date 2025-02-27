@@ -7,7 +7,7 @@ public class Echo : MonoBehaviour, IAbility
 {
     public static Echo Instance;
 
-    [FormerlySerializedAs("_isEchoing")] [HideInInspector] public bool IsEchoing = false;
+    [HideInInspector] public bool IsEchoing = false;
 
     [Header("Echo Config")]
     [SerializeField] private LayerMask _searchableLayers;
@@ -16,7 +16,7 @@ public class Echo : MonoBehaviour, IAbility
     [SerializeField] private GameObject _shockwaveEffect;
     [SerializeField] private float _timeToTriggerEffectForNextFoundObject = 0.8f;
 
-    void Awake()
+    private void Awake()
     {
         if (Instance != null && Instance != this)
         {

@@ -226,7 +226,7 @@ namespace DynamicShadowProjector
         internal CommandBuffer commandBuffer { get { return m_commandBuffer; } }
 
         // message handlers
-        void Awake()
+        private void Awake()
         {
             m_shadowRenderer = GetComponent<ShadowTextureRenderer>();
             if (m_target != null)
@@ -236,7 +236,7 @@ namespace DynamicShadowProjector
             CreateCommandBuffer();
         }
 
-        void OnValidate()
+        private void OnValidate()
         {
             if (m_commandBuffer != null)
             {
@@ -244,7 +244,7 @@ namespace DynamicShadowProjector
             }
         }
 
-        void OnEnable()
+        private void OnEnable()
         {
             if (m_commandBuffer == null)
             {
@@ -256,7 +256,7 @@ namespace DynamicShadowProjector
             }
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             if (m_shadowRenderer != null && m_commandBuffer != null)
             {
@@ -264,7 +264,7 @@ namespace DynamicShadowProjector
             }
         }
 
-        void OnDestroy()
+        private void OnDestroy()
         {
             if (m_commandBuffer != null)
             {
@@ -281,7 +281,7 @@ namespace DynamicShadowProjector
             }
         }
 
-        void LateUpdate()
+        private void LateUpdate()
         {
 #if UNITY_EDITOR
             if (Application.isEditor)
@@ -319,7 +319,7 @@ namespace DynamicShadowProjector
             }
         }
 
-        void OnVisibilityChanged(bool isVisible)
+        private void OnVisibilityChanged(bool isVisible)
         {
 #if UNITY_EDITOR
             if (m_shadowRenderer == null)
@@ -348,7 +348,7 @@ namespace DynamicShadowProjector
         }
 
         // helper functions
-        void CreateCommandBuffer()
+        private void CreateCommandBuffer()
         {
             m_commandBuffer = new CommandBuffer();
             if (m_shadowRenderer.isProjectorVisible)
@@ -357,7 +357,8 @@ namespace DynamicShadowProjector
             }
             m_isCommandBufferDirty = true;
         }
-        bool IsTargetObjectTreeStructureChanged()
+
+        private bool IsTargetObjectTreeStructureChanged()
         {
             if (!m_isCommandBufferDirty)
             {
@@ -368,7 +369,8 @@ namespace DynamicShadowProjector
             }
             return false;
         }
-        void AddDrawCommandForGameObject(GameObject obj, bool recursive, ref CommandBufferHash commandBufferHash, bool hashOnly)
+
+        private void AddDrawCommandForGameObject(GameObject obj, bool recursive, ref CommandBufferHash commandBufferHash, bool hashOnly)
         {
             if (!obj.activeSelf)
             {
@@ -403,7 +405,8 @@ namespace DynamicShadowProjector
                 }
             }
         }
-        void AddDrawCommand(Renderer renderer, int renderTypeIndex)
+
+        private void AddDrawCommand(Renderer renderer, int renderTypeIndex)
         {
             Material[] materials = renderer.sharedMaterials;
             for (int i = 0; i < materials.Length; ++i)
@@ -465,7 +468,7 @@ namespace DynamicShadowProjector
         }
         private struct CommandBufferHash
         {
-            System.UInt64 hash;
+            private System.UInt64 hash;
             public void Init()
             {
                 hash = 0;

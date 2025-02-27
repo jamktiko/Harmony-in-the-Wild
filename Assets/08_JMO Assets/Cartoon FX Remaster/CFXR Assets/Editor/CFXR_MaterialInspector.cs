@@ -34,19 +34,20 @@ namespace CartoonFX
 
         //--------------------------------------------------------------------------------------------------
 
-        const string kGuiCommandPrefix = "//#";
-        const string kGC_IfKeyword = "IF_KEYWORD";
-        const string kGC_IfProperty = "IF_PROPERTY";
-        const string kGC_EndIf = "END_IF";
-        const string kGC_HelpBox = "HELP_BOX";
-        const string kGC_Label = "LABEL";
+        private const string kGuiCommandPrefix = "//#";
+        private const string kGC_IfKeyword = "IF_KEYWORD";
+        private const string kGC_IfProperty = "IF_PROPERTY";
+        private const string kGC_EndIf = "END_IF";
+        private const string kGC_HelpBox = "HELP_BOX";
+        private const string kGC_Label = "LABEL";
 
-        Dictionary<int, List<GUICommand>> guiCommands = new Dictionary<int, List<GUICommand>>();
+        private Dictionary<int, List<GUICommand>> guiCommands = new Dictionary<int, List<GUICommand>>();
 
-        bool initialized = false;
-        AssetImporter shaderImporter;
-        ulong lastTimestamp;
-        void Initialize(MaterialEditor editor, bool force)
+        private bool initialized = false;
+        private AssetImporter shaderImporter;
+        private ulong lastTimestamp;
+
+        private void Initialize(MaterialEditor editor, bool force)
         {
             if ((!initialized || force) && editor != null)
             {
@@ -191,7 +192,7 @@ namespace CartoonFX
             }
         }
 
-        void AddGUICommand(int propertyIndex, GUICommand command)
+        private void AddGUICommand(int propertyIndex, GUICommand command)
         {
             if (!guiCommands.ContainsKey(propertyIndex))
                 guiCommands.Add(propertyIndex, new List<GUICommand>());
@@ -332,12 +333,12 @@ namespace CartoonFX
             }
         }
 
-        static bool IsPropertyTypeSuitable(MaterialProperty prop)
+        private static bool IsPropertyTypeSuitable(MaterialProperty prop)
         {
             return prop.type == MaterialProperty.PropType.Float || prop.type == MaterialProperty.PropType.Range;
         }
 
-        void SetKeyword(MaterialProperty prop, int index)
+        private void SetKeyword(MaterialProperty prop, int index)
         {
             for (int i = 0; i < keywords.Length; ++i)
             {
@@ -441,7 +442,7 @@ namespace CartoonFX
     internal class GC_Header : GUICommand
     {
         public string label { get; set; }
-        GUIContent guiContent;
+        private GUIContent guiContent;
 
         public override void OnGUI()
         {
@@ -455,7 +456,7 @@ namespace CartoonFX
     internal class GC_Label : GUICommand
     {
         public string label { get; set; }
-        GUIContent guiContent;
+        private GUIContent guiContent;
 
         public override void OnGUI()
         {
@@ -488,7 +489,7 @@ namespace CartoonFX
 
     internal class GC_IfProperty : GUICommand
     {
-        string _expression;
+        private string _expression;
         public string expression
         {
             get { return _expression; }
@@ -502,7 +503,7 @@ namespace CartoonFX
             MaterialInspector.PushShowProperty(show);
         }
 
-        bool EvaluatePropertyExpression(string expr)
+        private bool EvaluatePropertyExpression(string expr)
         {
             //expression is expected to be in the form of: property operator value
             var reader = new StringReader(expr);

@@ -55,7 +55,7 @@ namespace Ink.UnityIntegration
         }
 #endif
 
-        static void DrawSettings(InkSettings settings)
+        private static void DrawSettings(InkSettings settings)
         {
             EditorGUI.BeginChangeCheck();
 
@@ -93,7 +93,7 @@ namespace Ink.UnityIntegration
             }
         }
 
-        static void DrawSettings(SerializedObject settings)
+        private static void DrawSettings(SerializedObject settings)
         {
             DrawVersions();
             EditorGUILayout.Separator();
@@ -126,7 +126,7 @@ namespace Ink.UnityIntegration
         }
 
 
-        static void DrawVersions()
+        private static void DrawVersions()
         {
             EditorGUILayout.LabelField(new GUIContent("Version Info"), EditorStyles.boldLabel);
             EditorGUI.BeginDisabledGroup(true);
@@ -141,7 +141,7 @@ namespace Ink.UnityIntegration
             }
         }
 
-        static void DrawRequestButton()
+        private static void DrawRequestButton()
         {
             EditorGUILayout.LabelField(new GUIContent("Support + Requests"), EditorStyles.boldLabel);
 
@@ -160,7 +160,7 @@ namespace Ink.UnityIntegration
             // EditorGUILayout.EndVertical();
         }
 
-        static void DrawTemplateMissingWarning()
+        private static void DrawTemplateMissingWarning()
         {
             EditorGUILayout.HelpBox("Template not found. Ink files created via Assets > Create > Ink will be blank.", MessageType.Info);
         }

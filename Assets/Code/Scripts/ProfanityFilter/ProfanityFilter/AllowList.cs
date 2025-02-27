@@ -27,7 +27,7 @@ namespace ProfanityFilter
 {
     public class AllowList : IAllowList
     {
-        List<string> _allowList;
+        private List<string> _allowList;
 
         public AllowList()
         {

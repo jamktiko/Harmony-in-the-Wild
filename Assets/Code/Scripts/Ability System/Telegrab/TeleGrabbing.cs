@@ -19,7 +19,7 @@ public class TeleGrabbing : MonoBehaviour, IAbility
 
     //note: remove this script and use a dictionary somehow instead cus extra scripts = stinky
     //private List<TelegrabObject> telegrabObjects = new List<TelegrabObject>();
-    void Awake()
+    private void Awake()
     {
         if (Instance != null && Instance != this)
         {
@@ -141,7 +141,7 @@ public class TeleGrabbing : MonoBehaviour, IAbility
         }
     }
 
-    IEnumerator TelegrabVFXControl()
+    private IEnumerator TelegrabVFXControl()
     {
         _telegrabGlow.gameObject.SetActive(true);
         _telegrabGlow.transform.SetParent(_grabbedGameObject.transform);

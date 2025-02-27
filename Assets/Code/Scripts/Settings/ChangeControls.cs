@@ -11,9 +11,11 @@ using UnityEngine.UI;
 public class ChangeControls : MonoBehaviour
 {
 
-    [FormerlySerializedAs("buttons")] [SerializeField] List<Button> _buttons = new List<Button>();
-    InputAction[] _actionArray;
-    Button _currentButton;
+    [FormerlySerializedAs("buttons")] [SerializeField]
+    private List<Button> _buttons = new List<Button>();
+
+    private InputAction[] _actionArray;
+    private Button _currentButton;
     private InputActionRebindingExtensions.RebindingOperation _rebindOperation;
     private void Start()
     {
@@ -63,7 +65,7 @@ public class ChangeControls : MonoBehaviour
         }
     }
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (_rebindOperation != null)
         {

@@ -15,9 +15,9 @@ public class DiscordController : MonoBehaviour
 
 
     [FormerlySerializedAs("detailsValues")] [SerializeField]
-    string[] _detailsValues;
+    private string[] _detailsValues;
 
-    Rigidbody _rb;
+    private Rigidbody _rb;
     private long _time;
 
     private static bool _instanceExists;
@@ -37,7 +37,7 @@ public class DiscordController : MonoBehaviour
         }
     }
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         Discord = new Discord.Discord(ApplicationID, (System.UInt64)global::Discord.CreateFlags.NoRequireDiscord);
 
@@ -49,7 +49,7 @@ public class DiscordController : MonoBehaviour
 
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         try
         {

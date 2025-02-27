@@ -8,7 +8,7 @@ public class ToggleUIForTrailerRecording : MonoBehaviour
 
     private List<GameObject> _previousObjects = new List<GameObject>();
 
-    void Update()
+    private void Update()
     {
         //if (PlayerInputHandler.instance.DebugHideUI.WasPressedThisFrame())
         //{

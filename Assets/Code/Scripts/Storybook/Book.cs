@@ -28,7 +28,7 @@ public class Book : MonoBehaviour
 {
     [FormerlySerializedAs("canvas")] public Canvas Canvas;
     [FormerlySerializedAs("BookPanel")] [SerializeField]
-    RectTransform _bookPanel;
+    private RectTransform _bookPanel;
     [FormerlySerializedAs("background")] public Sprite Background;
     [FormerlySerializedAs("bookPages")] public Sprite[] BookPages;
     [FormerlySerializedAs("interactable")] public bool Interactable = true;
@@ -63,23 +63,25 @@ public class Book : MonoBehaviour
     public Image Right;
     public Image RightNext;
     public UnityEvent OnFlip;
-    float _radius1, _radius2;
+
+    private float _radius1, _radius2;
     //Spine Bottom
-    Vector3 _sb;
+    private Vector3 _sb;
     //Spine Top
-    Vector3 _st;
+    private Vector3 _st;
     //corner of the page
-    Vector3 _c;
+    private Vector3 _c;
     //Edge Bottom Right
-    Vector3 _ebr;
+    private Vector3 _ebr;
     //Edge Bottom Left
-    Vector3 _ebl;
+    private Vector3 _ebl;
     //follow point 
-    Vector3 _f;
-    bool _pageDragging = false;
+    private Vector3 _f;
+
+    private bool _pageDragging = false;
     //current flip mode
-    FlipMode _mode;
-    Coroutine _currentCoroutine;
+    private FlipMode _mode;
+    private Coroutine _currentCoroutine;
 
     [FormerlySerializedAs("storybookSections")]
     [Header("Config")]
@@ -91,7 +93,7 @@ public class Book : MonoBehaviour
     [Header("Instructions")]
     [SerializeField] private GameObject _instructions;
 
-    void Start()
+    private void Start()
     {
         StartCoroutine(Delay());
         IEnumerator Delay()
@@ -324,7 +326,7 @@ public class Book : MonoBehaviour
         StartCoroutine(StartPageDelay());
     }
 
-    void UpdateSprites()
+    private void UpdateSprites()
     {
         LeftNext.sprite = (CurrentPage > 0 && CurrentPage <= BookPages.Length) ? BookPages[CurrentPage - 1] : Background;
         RightNext.sprite = (CurrentPage >= 0 && CurrentPage < BookPages.Length) ? BookPages[CurrentPage] : Background;
@@ -336,7 +338,8 @@ public class Book : MonoBehaviour
         else
             _currentCoroutine = StartCoroutine(TweenTo(_ebr, 0.15f, () => { Flip(); }));
     }
-    void Flip()
+
+    private void Flip()
     {
         if (_mode == FlipMode.RightToLeft)
             CurrentPage += 2;

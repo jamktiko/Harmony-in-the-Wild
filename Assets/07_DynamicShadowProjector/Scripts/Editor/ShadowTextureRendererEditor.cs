@@ -14,11 +14,11 @@ namespace DynamicShadowProjector.Editor
     [CustomEditor(typeof(ShadowTextureRenderer))]
     public class ShadowTextureRendererEditor : EditorBase
     {
-        static bool s_showAdvancedOptions = false;
-        static ShadowTextureRenderer s_lastInstance = null;
+        private static bool s_showAdvancedOptions = false;
+        private static ShadowTextureRenderer s_lastInstance = null;
 #if UNITY_2019_1_OR_NEWER
         [System.Flags]
-        enum URPSupportState
+        private enum URPSupportState
         {
             UsingSRP = 1 << 0,
             UsingURP = 1 << 1,
@@ -27,9 +27,10 @@ namespace DynamicShadowProjector.Editor
             HasProjectorForLWRPComponent = 1 << 4,
             HasExtensionForLWRP = 1 << 5,
         }
-        URPSupportState m_urpSupportStarte;
-        System.Type m_projectorForLWRPType = null;
-        static bool IsType(System.Type typeToCheck, string fullnameOfType)
+
+        private URPSupportState m_urpSupportStarte;
+        private System.Type m_projectorForLWRPType = null;
+        private static bool IsType(System.Type typeToCheck, string fullnameOfType)
         {
             while (typeToCheck != null)
             {
@@ -42,26 +43,27 @@ namespace DynamicShadowProjector.Editor
             return false;
         }
 #endif
-        SerializedProperty m_shadowColor;
-        SerializedProperty m_textureWidth;
-        SerializedProperty m_textureHeight;
-        SerializedProperty m_multiSampling;
-        SerializedProperty m_superSampling;
-        SerializedProperty m_blurLevel;
-        SerializedProperty m_blurSize;
-        SerializedProperty m_singlePassMipmapBlur;
-        SerializedProperty m_mipLevel;
-        SerializedProperty m_mipmapBlurSize;
-        SerializedProperty m_testViewClip;
-        SerializedProperty m_camerasForViewClipTest;
-        SerializedProperty m_blurFilter;
-        SerializedProperty m_mipmapFalloff;
-        SerializedProperty m_customMipmapFalloff;
-        SerializedProperty m_blurShader;
-        SerializedProperty m_downsampleShader;
-        SerializedProperty m_copyMipmapShader;
-        SerializedProperty m_preferredTextureFormats;
-        void OnEnable()
+        private SerializedProperty m_shadowColor;
+        private SerializedProperty m_textureWidth;
+        private SerializedProperty m_textureHeight;
+        private SerializedProperty m_multiSampling;
+        private SerializedProperty m_superSampling;
+        private SerializedProperty m_blurLevel;
+        private SerializedProperty m_blurSize;
+        private SerializedProperty m_singlePassMipmapBlur;
+        private SerializedProperty m_mipLevel;
+        private SerializedProperty m_mipmapBlurSize;
+        private SerializedProperty m_testViewClip;
+        private SerializedProperty m_camerasForViewClipTest;
+        private SerializedProperty m_blurFilter;
+        private SerializedProperty m_mipmapFalloff;
+        private SerializedProperty m_customMipmapFalloff;
+        private SerializedProperty m_blurShader;
+        private SerializedProperty m_downsampleShader;
+        private SerializedProperty m_copyMipmapShader;
+        private SerializedProperty m_preferredTextureFormats;
+
+        private void OnEnable()
         {
             ShadowTextureRenderer shadowRenderer = target as ShadowTextureRenderer;
             bool modified = false;
@@ -359,7 +361,8 @@ namespace DynamicShadowProjector.Editor
 #endif
         }
         private Material m_blitMaterial;
-        void OnSceneGUI()
+
+        private void OnSceneGUI()
         {
             ShadowTextureRenderer shadowRenderer = target as ShadowTextureRenderer;
             if (shadowRenderer.shadowTexture == null || shadowRenderer.GetComponent<Projector>().material == null)

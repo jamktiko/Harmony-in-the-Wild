@@ -43,7 +43,7 @@ public class PlayerModelToggle : MonoBehaviour
         StartCoroutine(TogglePlayerModel(model));
     }
 
-    IEnumerator TogglePlayerModel(int model)
+    private IEnumerator TogglePlayerModel(int model)
     {
         bool snow = false;
         if (model == 0 && !RedFox.activeInHierarchy || model == 2)
@@ -53,7 +53,7 @@ public class PlayerModelToggle : MonoBehaviour
         yield return null;
     }
 
-    IEnumerator MaintainRotation(float duration)
+    private IEnumerator MaintainRotation(float duration)
     {
         while (duration > 0)
         {

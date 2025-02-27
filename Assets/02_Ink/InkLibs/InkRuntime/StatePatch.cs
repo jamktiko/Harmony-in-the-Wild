@@ -62,9 +62,9 @@ namespace Ink.Runtime
             return _turnIndices.TryGetValue(container, out index);
         }
 
-        Dictionary<string, Runtime.Object> _globals;
-        HashSet<string> _changedVariables = new HashSet<string>();
-        Dictionary<Container, int> _visitCounts = new Dictionary<Container, int>();
-        Dictionary<Container, int> _turnIndices = new Dictionary<Container, int>();
+        private Dictionary<string, Runtime.Object> _globals;
+        private HashSet<string> _changedVariables = new HashSet<string>();
+        private Dictionary<Container, int> _visitCounts = new Dictionary<Container, int>();
+        private Dictionary<Container, int> _turnIndices = new Dictionary<Container, int>();
     }
 }

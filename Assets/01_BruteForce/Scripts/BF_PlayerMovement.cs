@@ -13,7 +13,7 @@ public class BF_PlayerMovement : MonoBehaviour
     private Vector3 inputDirection;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         rb = this.GetComponent<Rigidbody>();
         if (cam == null)
@@ -21,7 +21,8 @@ public class BF_PlayerMovement : MonoBehaviour
             cam = Camera.main;
         }
     }    // Start is called before the first frame update
-    void OnEnable()
+
+    private void OnEnable()
     {
         rb = this.GetComponent<Rigidbody>();
         if (cam == null)
@@ -31,7 +32,7 @@ public class BF_PlayerMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         inputDirection = Vector3.zero;
 #if ENABLE_INPUT_SYSTEM

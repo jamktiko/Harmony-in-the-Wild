@@ -4,7 +4,7 @@ using UnityEngine.Serialization;
 
 public class LBBird : MonoBehaviour
 {
-    enum BirdBehaviors
+    private enum BirdBehaviors
     {
         Sing,
         Preen,
@@ -23,51 +23,53 @@ public class LBBird : MonoBehaviour
 
     [FormerlySerializedAs("fleeCrows")] public bool FleeCrows = true;
 
-    Animator _anim;
-    LBBirdController _controller;
+    private Animator _anim;
+    private LBBirdController _controller;
 
-    bool _paused = false;
-    bool _idle = true;
-    bool _flying = false;
-    bool _landing = false;
-    bool _perched = false;
-    bool _onGround = true;
-    bool _dead = false;
-    BoxCollider _birdCollider;
-    Vector3 _bColCenter;
-    Vector3 _bColSize;
-    SphereCollider _solidCollider;
-    float _distanceToTarget = 0.0f;
-    float _agitationLevel = .5f;
-    float _originalAnimSpeed = 1.0f;
-    Vector3 _originalVelocity = Vector3.zero;
+    private bool _paused = false;
+    private bool _idle = true;
+    private bool _flying = false;
+    private bool _landing = false;
+    private bool _perched = false;
+    private bool _onGround = true;
+    private bool _dead = false;
+    private BoxCollider _birdCollider;
+    private Vector3 _bColCenter;
+    private Vector3 _bColSize;
+    private SphereCollider _solidCollider;
+    private float _distanceToTarget = 0.0f;
+    private float _agitationLevel = .5f;
+    private float _originalAnimSpeed = 1.0f;
+    private Vector3 _originalVelocity = Vector3.zero;
 
     //hash variables for the animation states and animation properties
-    int _idleAnimationHash;
-    int _singAnimationHash;
-    int _ruffleAnimationHash;
-    int _preenAnimationHash;
-    int _peckAnimationHash;
-    int _hopForwardAnimationHash;
-    int _hopBackwardAnimationHash;
-    int _hopLeftAnimationHash;
-    int _hopRightAnimationHash;
-    int _worriedAnimationHash;
-    int _landingAnimationHash;
-    int _flyAnimationHash;
-    int _hopIntHash;
-    int _flyingBoolHash;
-    //int perchedBoolHash;
-    int _peckBoolHash;
-    int _ruffleBoolHash;
-    int _preenBoolHash;
-    //int worriedBoolHash;
-    int _landingBoolHash;
-    int _singTriggerHash;
-    int _flyingDirectionHash;
-    int _dieTriggerHash;
+    private int _idleAnimationHash;
+    private int _singAnimationHash;
+    private int _ruffleAnimationHash;
+    private int _preenAnimationHash;
+    private int _peckAnimationHash;
+    private int _hopForwardAnimationHash;
+    private int _hopBackwardAnimationHash;
+    private int _hopLeftAnimationHash;
+    private int _hopRightAnimationHash;
+    private int _worriedAnimationHash;
+    private int _landingAnimationHash;
+    private int _flyAnimationHash;
+    private int _hopIntHash;
 
-    void OnEnable()
+    private int _flyingBoolHash;
+    //int perchedBoolHash;
+    private int _peckBoolHash;
+    private int _ruffleBoolHash;
+
+    private int _preenBoolHash;
+    //int worriedBoolHash;
+    private int _landingBoolHash;
+    private int _singTriggerHash;
+    private int _flyingDirectionHash;
+    private int _dieTriggerHash;
+
+    private void OnEnable()
     {
         _birdCollider = gameObject.GetComponent<BoxCollider>();
         _bColCenter = _birdCollider.center;
@@ -105,7 +107,7 @@ public class LBBird : MonoBehaviour
         }
     }
 
-    void PauseBird()
+    private void PauseBird()
     {
         if (!_dead)
         {
@@ -118,7 +120,7 @@ public class LBBird : MonoBehaviour
         }
     }
 
-    void UnPauseBird()
+    private void UnPauseBird()
     {
         if (!_dead)
         {
@@ -129,7 +131,7 @@ public class LBBird : MonoBehaviour
         }
     }
 
-    IEnumerator FlyToTarget(Vector3 target)
+    private IEnumerator FlyToTarget(Vector3 target)
     {
         if (Random.value < .5)
         {
@@ -404,14 +406,14 @@ public class LBBird : MonoBehaviour
     }
 
     //Sets a variable between -1 and 1 to control the left and right banking animation
-    float FindBankingAngle(Vector3 birdForward, Vector3 dirToTarget)
+    private float FindBankingAngle(Vector3 birdForward, Vector3 dirToTarget)
     {
         Vector3 cr = Vector3.Cross(birdForward, dirToTarget);
         float ang = Vector3.Dot(cr, Vector3.up);
         return ang;
     }
 
-    void OnGroundBehaviors()
+    private void OnGroundBehaviors()
     {
         _idle = _anim.GetCurrentAnimatorStateInfo(0).nameHash == _idleAnimationHash;
         if (!GetComponent<Rigidbody>().isKinematic)
@@ -473,7 +475,7 @@ public class LBBird : MonoBehaviour
         }
     }
 
-    void DisplayBehavior(BirdBehaviors behavior)
+    private void DisplayBehavior(BirdBehaviors behavior)
     {
         _idle = false;
         switch (behavior)
@@ -505,7 +507,7 @@ public class LBBird : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider col)
+    private void OnTriggerEnter(Collider col)
     {
         if (col.tag == "lb_bird")
         {
@@ -513,7 +515,7 @@ public class LBBird : MonoBehaviour
         }
     }
 
-    void OnTriggerExit(Collider col)
+    private void OnTriggerExit(Collider col)
     {
         //if bird has hopped out of the target area lets fly
         if (_onGround && (col.tag == "lb_groundTarget" || col.tag == "lb_perchTarget"))
@@ -522,7 +524,7 @@ public class LBBird : MonoBehaviour
         }
     }
 
-    void AbortFlyToTarget()
+    private void AbortFlyToTarget()
     {
         StopCoroutine("FlyToTarget");
         _solidCollider.enabled = false;
@@ -535,7 +537,7 @@ public class LBBird : MonoBehaviour
         FlyAway();
     }
 
-    void FlyAway()
+    private void FlyAway()
     {
         if (!_dead)
         {
@@ -545,7 +547,7 @@ public class LBBird : MonoBehaviour
         }
     }
 
-    void Flee()
+    private void Flee()
     {
         if (!_dead)
         {
@@ -558,7 +560,7 @@ public class LBBird : MonoBehaviour
         }
     }
 
-    void CrowIsClose()
+    private void CrowIsClose()
     {
         if (FleeCrows && !_dead)
         {
@@ -613,7 +615,7 @@ public class LBBird : MonoBehaviour
         }
     }
 
-    void Revive()
+    private void Revive()
     {
         if (_dead)
         {
@@ -633,17 +635,17 @@ public class LBBird : MonoBehaviour
         }
     }
 
-    void SetController(LBBirdController cont)
+    private void SetController(LBBirdController cont)
     {
         _controller = cont;
     }
 
-    void ResetHopInt()
+    private void ResetHopInt()
     {
         _anim.SetInteger(_hopIntHash, 0);
     }
 
-    void ResetFlyingLandingVariables()
+    private void ResetFlyingLandingVariables()
     {
         if (_flying || _landing)
         {
@@ -652,7 +654,7 @@ public class LBBird : MonoBehaviour
         }
     }
 
-    void PlaySong()
+    private void PlaySong()
     {
         if (!_dead)
         {
@@ -667,7 +669,7 @@ public class LBBird : MonoBehaviour
         }
     }
 
-    void Update()
+    private void Update()
     {
         if (_onGround && !_paused && !_dead)
         {

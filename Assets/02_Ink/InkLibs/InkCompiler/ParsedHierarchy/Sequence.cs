@@ -185,7 +185,7 @@ namespace Ink.Parsed
             return container;
         }
 
-        void AddDivertToResolve(Runtime.Divert divert, Runtime.Object targetContent)
+        private void AddDivertToResolve(Runtime.Divert divert, Runtime.Object targetContent)
         {
             _sequenceDivertsToResove.Add(new SequenceDivertToResolve()
             {
@@ -204,12 +204,13 @@ namespace Ink.Parsed
             }
         }
 
-        class SequenceDivertToResolve
+        private class SequenceDivertToResolve
         {
             public Runtime.Divert divert;
             public Runtime.Object targetContent;
         }
-        List<SequenceDivertToResolve> _sequenceDivertsToResove;
+
+        private List<SequenceDivertToResolve> _sequenceDivertsToResove;
     }
 }
 

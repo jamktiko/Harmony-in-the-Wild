@@ -80,13 +80,13 @@ namespace Ink.UnityIntegration
             InkCompiler.OnCompileInk -= OnCompileInk;
         }
 
-        void OnCompileInk(InkFile[] inkFiles)
+        private void OnCompileInk(InkFile[] inkFiles)
         {
             // We could probably be smarter about when we rebuild - only rebuilding if the file that's shown in the inspector is in the list - but it's not frequent or expensive so it's not important!
             Rebuild();
         }
 
-        void Rebuild()
+        private void Rebuild()
         {
             cachedTrimmedFileContents = "";
             string assetPath = AssetDatabase.GetAssetPath(target);
@@ -110,7 +110,7 @@ namespace Ink.UnityIntegration
                 cachedTrimmedFileContents += "...\n\n<...etc...>";
         }
 
-        void CreateIncludeList()
+        private void CreateIncludeList()
         {
             List<DefaultAsset> includeTextAssets = inkFile.includes;
             includesFileList = new ReorderableList(includeTextAssets, typeof(DefaultAsset), false, true, false, false);
@@ -159,7 +159,7 @@ namespace Ink.UnityIntegration
             };
         }
 
-        void CreateMastersList()
+        private void CreateMastersList()
         {
             List<DefaultAsset> mastersTextAssets = inkFile.masterInkAssets;
             mastersFileList = new ReorderableList(mastersTextAssets, typeof(DefaultAsset), false, true, false, false);
@@ -225,7 +225,7 @@ namespace Ink.UnityIntegration
             };
         }
 
-        ReorderableList CreateErrorList()
+        private ReorderableList CreateErrorList()
         {
             var reorderableList = new ReorderableList(inkFile.errors, typeof(string), false, true, false, false);
             reorderableList.drawHeaderCallback = (Rect rect) =>
@@ -237,7 +237,7 @@ namespace Ink.UnityIntegration
             return reorderableList;
         }
 
-        ReorderableList CreateWarningList()
+        private ReorderableList CreateWarningList()
         {
             var reorderableList = new ReorderableList(inkFile.warnings, typeof(string), false, true, false, false);
             reorderableList.drawHeaderCallback = (Rect rect) =>
@@ -249,7 +249,7 @@ namespace Ink.UnityIntegration
             return reorderableList;
         }
 
-        ReorderableList CreateTodoList()
+        private ReorderableList CreateTodoList()
         {
             var reorderableList = new ReorderableList(inkFile.todos, typeof(string), false, true, false, false);
             reorderableList.drawHeaderCallback = (Rect rect) =>
@@ -261,7 +261,7 @@ namespace Ink.UnityIntegration
             return reorderableList;
         }
 
-        void DrawLogItem(Rect rect, int index, bool isActive, bool isFocused, List<InkCompilerLog> logsList)
+        private void DrawLogItem(Rect rect, int index, bool isActive, bool isFocused, List<InkCompilerLog> logsList)
         {
             Rect logRect = new Rect(rect.x, rect.y, rect.width - 80, 16);
             Rect locationRect = new Rect(rect.x, rect.y + 16, rect.width - 80, 10);
@@ -275,8 +275,10 @@ namespace Ink.UnityIntegration
                 InkEditorUtils.OpenInEditor(inkFile, log);
             }
         }
-        static GUIStyle _filePathAndLineNumberStyle;
-        static GUIStyle filePathAndLineNumberStyle
+
+        private static GUIStyle _filePathAndLineNumberStyle;
+
+        private static GUIStyle filePathAndLineNumberStyle
         {
             get
             {
@@ -406,7 +408,7 @@ namespace Ink.UnityIntegration
             serializedObject.ApplyModifiedProperties();
         }
 
-        void DrawMasterFileHeader()
+        private void DrawMasterFileHeader()
         {
             EditorGUILayout.LabelField(new GUIContent("Master File", "This file is a master file and can be compiled"), EditorStyles.boldLabel);
 
@@ -454,7 +456,7 @@ namespace Ink.UnityIntegration
             //				}
         }
 
-        void DrawListOfMasterFiles()
+        private void DrawListOfMasterFiles()
         {
             if (mastersFileList != null && mastersFileList.count > 0)
             {
@@ -462,7 +464,7 @@ namespace Ink.UnityIntegration
             }
         }
 
-        void DrawEditAndCompileDates(InkFile masterInkFile)
+        private void DrawEditAndCompileDates(InkFile masterInkFile)
         {
             string editAndCompileDateString = "";
             DateTime lastEditDate = inkFile.lastEditDate;
@@ -494,7 +496,7 @@ namespace Ink.UnityIntegration
             }
         }
 
-        void DrawIncludedFiles()
+        private void DrawIncludedFiles()
         {
             if (includesFileList != null && includesFileList.count > 0)
             {
@@ -502,7 +504,7 @@ namespace Ink.UnityIntegration
             }
         }
 
-        void DrawCompileErrors()
+        private void DrawCompileErrors()
         {
             if (inkFile.unhandledCompileErrors.Count == 0)
                 return;
@@ -525,7 +527,7 @@ namespace Ink.UnityIntegration
             EditorGUILayout.EndVertical();
         }
 
-        void DrawErrors()
+        private void DrawErrors()
         {
             if (errorList != null && errorList.count > 0)
             {
@@ -533,7 +535,7 @@ namespace Ink.UnityIntegration
             }
         }
 
-        void DrawWarnings()
+        private void DrawWarnings()
         {
             if (warningList != null && warningList.count > 0)
             {
@@ -541,7 +543,7 @@ namespace Ink.UnityIntegration
             }
         }
 
-        void DrawTODOList()
+        private void DrawTODOList()
         {
             if (todosList != null && todosList.count > 0)
             {
@@ -549,7 +551,7 @@ namespace Ink.UnityIntegration
             }
         }
 
-        void DrawFileContents()
+        private void DrawFileContents()
         {
             float width = EditorGUIUtility.currentViewWidth - 50;
             float height = EditorStyles.wordWrappedLabel.CalcHeight(new GUIContent(cachedTrimmedFileContents), width);

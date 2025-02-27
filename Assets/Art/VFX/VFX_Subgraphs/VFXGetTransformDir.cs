@@ -9,7 +9,7 @@ public class VFXGetTransformDir : MonoBehaviour
     private float angle;
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (transform.position.x != oldPos.x || transform.position.z != oldPos.y)
         {

@@ -9,20 +9,34 @@ using UnityEngine.UI;
 public class PauseMenuManager : MonoBehaviour
 {
     [FormerlySerializedAs("pauseMenuPanel")] [SerializeField] public GameObject PauseMenuPanel;
-    [FormerlySerializedAs("OptionsMenuPanel")] [SerializeField] GameObject _optionsMenuPanel;
-    [FormerlySerializedAs("options")] [SerializeField] GameObject _options;
-    [FormerlySerializedAs("MovementControlsMenuPanel")] [SerializeField] GameObject _movementControlsMenuPanel;
-    [FormerlySerializedAs("GamePlayControlsMenuPanel")] [SerializeField] GameObject _gamePlayControlsMenuPanel;
-    [FormerlySerializedAs("SettingsMenuPanel")] [SerializeField] GameObject _settingsMenuPanel;
-    [FormerlySerializedAs("restartQuestPanel")] [SerializeField] GameObject _restartQuestPanel;
-    [FormerlySerializedAs("exitQuestPanel")] [SerializeField] GameObject _exitQuestPanel;
-    [FormerlySerializedAs("cinemachineFreeLook")] [SerializeField] CinemachineFreeLook _cinemachineFreeLook;
-    [FormerlySerializedAs("InvertYAxis")] [SerializeField] Toggle _invertYAxis;
-    [FormerlySerializedAs("fullscreen")] [SerializeField] Toggle _fullscreen;
-    [FormerlySerializedAs("Mastervolume")] [SerializeField] Slider _mastervolume;
-    [FormerlySerializedAs("MusicVolume")] [SerializeField] Slider _musicVolume;
-    [FormerlySerializedAs("sensitivity")] [SerializeField] Slider _sensitivity;
-    [FormerlySerializedAs("mixer")] [SerializeField] AudioMixer _mixer;
+    [FormerlySerializedAs("OptionsMenuPanel")] [SerializeField]
+    private GameObject _optionsMenuPanel;
+    [FormerlySerializedAs("options")] [SerializeField]
+    private GameObject _options;
+    [FormerlySerializedAs("MovementControlsMenuPanel")] [SerializeField]
+    private GameObject _movementControlsMenuPanel;
+    [FormerlySerializedAs("GamePlayControlsMenuPanel")] [SerializeField]
+    private GameObject _gamePlayControlsMenuPanel;
+    [FormerlySerializedAs("SettingsMenuPanel")] [SerializeField]
+    private GameObject _settingsMenuPanel;
+    [FormerlySerializedAs("restartQuestPanel")] [SerializeField]
+    private GameObject _restartQuestPanel;
+    [FormerlySerializedAs("exitQuestPanel")] [SerializeField]
+    private GameObject _exitQuestPanel;
+    [FormerlySerializedAs("cinemachineFreeLook")] [SerializeField]
+    private CinemachineFreeLook _cinemachineFreeLook;
+    [FormerlySerializedAs("InvertYAxis")] [SerializeField]
+    private Toggle _invertYAxis;
+    [FormerlySerializedAs("fullscreen")] [SerializeField]
+    private Toggle _fullscreen;
+    [FormerlySerializedAs("Mastervolume")] [SerializeField]
+    private Slider _mastervolume;
+    [FormerlySerializedAs("MusicVolume")] [SerializeField]
+    private Slider _musicVolume;
+    [FormerlySerializedAs("sensitivity")] [SerializeField]
+    private Slider _sensitivity;
+    [FormerlySerializedAs("mixer")] [SerializeField]
+    private AudioMixer _mixer;
     [FormerlySerializedAs("SliderValueMaster")] [SerializeField] private float _sliderValueMaster;
     [FormerlySerializedAs("SliderValueMusic")] [SerializeField] private float _sliderValueMusic;
     [FormerlySerializedAs("SliderValue2")] [SerializeField] private float _sliderValue2;
@@ -42,7 +56,7 @@ public class PauseMenuManager : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    void Start()
+    private void Start()
     {
 
         PopulateFields();

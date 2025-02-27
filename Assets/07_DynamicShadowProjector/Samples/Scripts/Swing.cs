@@ -10,13 +10,14 @@ namespace DynamicShadowProjector.Sample
 
         private Quaternion m_initialRotation;
         private float m_swing;
-        void Start()
+
+        private void Start()
         {
             m_initialRotation = transform.rotation;
             m_swing = 0.0f;
         }
 
-        void Update()
+        private void Update()
         {
             m_swing += m_swingSpeed * Time.deltaTime;
             m_swing -= Mathf.Floor(m_swing);

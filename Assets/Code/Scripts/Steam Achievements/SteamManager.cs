@@ -17,7 +17,8 @@ public class SteamManager : MonoBehaviour
             Instance = this;
         }
     }
-    void Start()
+
+    private void Start()
     {
         try
         {

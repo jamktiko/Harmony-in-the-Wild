@@ -72,7 +72,7 @@ namespace ProjectorForLWRP
             return s_currentInstance != null;
         }
 #endif
-        static ObjectPool<Collections.AutoClearList<ScriptableRenderPass>>.Map<Camera> s_renderPassList = new ObjectPool<Collections.AutoClearList<ScriptableRenderPass>>.Map<Camera>();
+        private static ObjectPool<Collections.AutoClearList<ScriptableRenderPass>>.Map<Camera> s_renderPassList = new ObjectPool<Collections.AutoClearList<ScriptableRenderPass>>.Map<Camera>();
         public static void AddRenderPass(Camera camera, ScriptableRenderPass pass)
         {
 #if UNITY_EDITOR

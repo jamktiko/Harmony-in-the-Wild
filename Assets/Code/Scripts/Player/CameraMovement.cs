@@ -30,12 +30,15 @@ public class CameraMovement : MonoBehaviour
     [FormerlySerializedAs("freeLookCam")] [SerializeField] public GameObject FreeLookCam;
     [FormerlySerializedAs("telegrabCam")] [SerializeField] public GameObject TelegrabCam;
 
-    [FormerlySerializedAs("horizontalInput")] [SerializeField] float _horizontalInput;
-    [FormerlySerializedAs("verticalInput")] [SerializeField] float _verticalInput;
-    [FormerlySerializedAs("mouseInput")] [SerializeField] Vector2 _mouseInput;
+    [FormerlySerializedAs("horizontalInput")] [SerializeField]
+    private float _horizontalInput;
+    [FormerlySerializedAs("verticalInput")] [SerializeField]
+    private float _verticalInput;
+    [FormerlySerializedAs("mouseInput")] [SerializeField]
+    private Vector2 _mouseInput;
 
 
-    void Start()
+    private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -43,7 +46,7 @@ public class CameraMovement : MonoBehaviour
         FoxObject = transform.parent.GetComponentInChildren<Animator>().transform;
     }
 
-    void Update()
+    private void Update()
     {
         //rotate orientation
         Vector3 viewDir = Fox.position - new Vector3(transform.position.x, Fox.position.y, transform.position.z);
@@ -99,7 +102,8 @@ public class CameraMovement : MonoBehaviour
             }
         }
     }
-    void UpdateCharacterBones()
+
+    private void UpdateCharacterBones()
     {
         RaycastHit clavicleHit;
         RaycastHit buttHit;

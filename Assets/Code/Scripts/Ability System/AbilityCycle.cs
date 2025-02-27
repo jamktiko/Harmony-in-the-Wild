@@ -27,7 +27,8 @@ public class AbilityCycle : MonoBehaviour
 
         Instance = this;
     }
-    void Start()
+
+    private void Start()
     {
         InitializeAbilities();
         _abilityKeys = new List<Abilities>(ActiveAbilities.Keys);
@@ -43,7 +44,7 @@ public class AbilityCycle : MonoBehaviour
         GameEventsManager.instance.PlayerEvents.OnToggleInputActions -= ToggleInteractability;
     }
 
-    void Update()
+    private void Update()
     {
         SwitchAbility();
     }

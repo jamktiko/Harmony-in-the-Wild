@@ -19,7 +19,8 @@ public class LilyPuzzle : MonoBehaviour
         }
         Instance = this;
     }
-    void Start()
+
+    private void Start()
     {
         //collect The Children.
         int childCount = transform.childCount;
@@ -60,7 +61,8 @@ public class LilyPuzzle : MonoBehaviour
 
         Debug.Log("Progress is: " + _correctLilies);
     }
-    void ResetPuzzle()
+
+    private void ResetPuzzle()
     {
         for (int i = 0; i < _lilyTransforms.Length; i++)
         {

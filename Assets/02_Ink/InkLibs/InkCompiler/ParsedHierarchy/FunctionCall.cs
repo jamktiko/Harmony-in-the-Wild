@@ -272,9 +272,9 @@ namespace Ink.Parsed
             return string.Format("{0}({1})", name, strArgs);
         }
 
-        Parsed.Divert _proxyDivert;
-        Parsed.DivertTarget _divertTargetToCount;
-        Parsed.VariableReference _variableReferenceToCount;
+        private Parsed.Divert _proxyDivert;
+        private Parsed.DivertTarget _divertTargetToCount;
+        private Parsed.VariableReference _variableReferenceToCount;
     }
 }
 

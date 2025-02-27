@@ -229,16 +229,17 @@ namespace ProjectorForLWRP
             }
             EditorGUILayout.EndFoldoutHeaderGroup();
         }
-        static bool s_showProjectorGUI = true;
-        SerializedObject m_serializedProjectorObject = null;
-        SerializedProperty m_nearClipProperty = null;
-        SerializedProperty m_farClipProperty = null;
-        SerializedProperty m_fieldOfViewProperty = null;
-        SerializedProperty m_aspectRatioProperty = null;
-        SerializedProperty m_orthographicProperty = null;
-        SerializedProperty m_orthographicSizeProperty = null;
-        SerializedProperty m_materialProperty = null;
-        SerializedProperty m_ignoreLayersProperty = null;
+
+        private static bool s_showProjectorGUI = true;
+        private SerializedObject m_serializedProjectorObject = null;
+        private SerializedProperty m_nearClipProperty = null;
+        private SerializedProperty m_farClipProperty = null;
+        private SerializedProperty m_fieldOfViewProperty = null;
+        private SerializedProperty m_aspectRatioProperty = null;
+        private SerializedProperty m_orthographicProperty = null;
+        private SerializedProperty m_orthographicSizeProperty = null;
+        private SerializedProperty m_materialProperty = null;
+        private SerializedProperty m_ignoreLayersProperty = null;
         private void DrawUnityProjectorGUI()
         {
             if (m_serializedProjectorObject == null)

@@ -82,7 +82,7 @@ namespace Ink
             return sequenceType;
         }
 
-        CharacterSet _sequenceTypeSymbols = new CharacterSet("!&~$");
+        private CharacterSet _sequenceTypeSymbols = new CharacterSet("!&~$");
 
         protected object SequenceTypeWordAnnotation()
         {

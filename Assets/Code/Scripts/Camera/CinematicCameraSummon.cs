@@ -3,13 +3,16 @@ using UnityEngine.Serialization;
 
 public class CinematicCameraSummon : MonoBehaviour
 {
-    [FormerlySerializedAs("cinCam")] [SerializeField] GameObject _cinCam;
-    [FormerlySerializedAs("instance")] [SerializeField] GameObject _instance;
+    [FormerlySerializedAs("cinCam")] [SerializeField]
+    private GameObject _cinCam;
+    [FormerlySerializedAs("instance")] [SerializeField]
+    private GameObject _instance;
     private void Update()
     {
         //StartCinematicCamera();
     }
-    void StartCinematicCamera()
+
+    private void StartCinematicCamera()
     {
         if (PlayerInputHandler.Instance.CinematicCamera.WasPressedThisFrame() && _instance == null)
         {

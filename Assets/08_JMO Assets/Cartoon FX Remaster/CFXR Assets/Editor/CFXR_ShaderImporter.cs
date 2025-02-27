@@ -19,7 +19,7 @@ namespace CartoonFX
 {
     namespace CustomShaderImporter
     {
-        static class Utils
+        internal static class Utils
         {
             public static bool IsUsingURP()
             {
@@ -45,7 +45,7 @@ namespace CartoonFX
             public ulong variantCount;
             public ulong variantCountUsed;
 
-            enum ComparisonOperator
+            private enum ComparisonOperator
             {
                 Equal,
                 Greater,
@@ -55,7 +55,7 @@ namespace CartoonFX
             }
 
 #if UNITY_2022_2_OR_NEWER
-            const int URP_VERSION = 14;
+            private const int URP_VERSION = 14;
 #elif UNITY_2021_2_OR_NEWER
             const int URP_VERSION = 12;
 #elif UNITY_2021_1_OR_NEWER
@@ -66,7 +66,7 @@ namespace CartoonFX
             const int URP_VERSION = 7;
 #endif
 
-            static ComparisonOperator ParseComparisonOperator(string symbols)
+            private static ComparisonOperator ParseComparisonOperator(string symbols)
             {
                 switch (symbols)
                 {
@@ -79,7 +79,7 @@ namespace CartoonFX
                 }
             }
 
-            static bool CompareWithOperator(int value1, int value2, ComparisonOperator comparisonOperator)
+            private static bool CompareWithOperator(int value1, int value2, ComparisonOperator comparisonOperator)
             {
                 switch (comparisonOperator)
                 {
@@ -92,7 +92,7 @@ namespace CartoonFX
                 }
             }
 
-            bool StartsOrEndWithSpecialTag(string line)
+            private bool StartsOrEndWithSpecialTag(string line)
             {
                 bool startsWithTag = (line.Length > 4 && line[0] == '/' && line[1] == '*' && line[2] == '*' && line[3] == '*');
                 if (startsWithTag) return true;
@@ -225,10 +225,10 @@ namespace CartoonFX
             [CustomEditor(typeof(CFXR_ShaderImporter)), CanEditMultipleObjects]
             public class TCP2ShaderImporter_Editor : Editor
             {
-                CFXR_ShaderImporter Importer => (CFXR_ShaderImporter)this.target;
+                private CFXR_ShaderImporter Importer => (CFXR_ShaderImporter)this.target;
 
                 // From: UnityEditor.ShaderInspectorPlatformsPopup
-                static string FormatCount(ulong count)
+                private static string FormatCount(ulong count)
                 {
                     bool flag = count > 1000000000uL;
                     string result;
@@ -259,8 +259,9 @@ namespace CartoonFX
                     return result;
                 }
 
-                static GUIStyle _HelpBoxRichTextStyle;
-                static GUIStyle HelpBoxRichTextStyle
+                private static GUIStyle _HelpBoxRichTextStyle;
+
+                private static GUIStyle HelpBoxRichTextStyle
                 {
                     get
                     {
@@ -346,7 +347,7 @@ namespace CartoonFX
                     serializedObject.ApplyModifiedProperties();
                 }
 
-                void ReimportShader()
+                private void ReimportShader()
                 {
                     foreach (UnityEngine.Object t in targets)
                     {

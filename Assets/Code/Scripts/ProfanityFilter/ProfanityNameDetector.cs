@@ -7,8 +7,10 @@ public class ProfanityNameDetector : MonoBehaviour
 {
     //NOTE: Consider implementing something like https://github.com/stephenhaunts/ProfanityDetector instead of creating our own library?
 
-    [FormerlySerializedAs("sureMessage")] [SerializeField] GameObject _sureMessage;
-    [FormerlySerializedAs("inappropriateMessage")] [SerializeField] GameObject _inappropriateMessage;
+    [FormerlySerializedAs("sureMessage")] [SerializeField]
+    private GameObject _sureMessage;
+    [FormerlySerializedAs("inappropriateMessage")] [SerializeField]
+    private GameObject _inappropriateMessage;
 
     private string _foxNameInput;
 

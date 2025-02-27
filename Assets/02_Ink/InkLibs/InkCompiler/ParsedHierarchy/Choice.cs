@@ -291,17 +291,17 @@
             }
         }
 
-        Runtime.ChoicePoint _runtimeChoice;
-        Runtime.Container _innerContentContainer;
-        Runtime.Container _outerContainer;
-        Runtime.Container _startContentRuntimeContainer;
-        Runtime.Divert _divertToStartContentOuter;
-        Runtime.Divert _divertToStartContentInner;
-        Runtime.Container _r1Label;
-        Runtime.Container _r2Label;
-        Runtime.DivertTargetValue _returnToR1;
-        Runtime.DivertTargetValue _returnToR2;
-        Expression _condition;
+        private Runtime.ChoicePoint _runtimeChoice;
+        private Runtime.Container _innerContentContainer;
+        private Runtime.Container _outerContainer;
+        private Runtime.Container _startContentRuntimeContainer;
+        private Runtime.Divert _divertToStartContentOuter;
+        private Runtime.Divert _divertToStartContentInner;
+        private Runtime.Container _r1Label;
+        private Runtime.Container _r2Label;
+        private Runtime.DivertTargetValue _returnToR1;
+        private Runtime.DivertTargetValue _returnToR2;
+        private Expression _condition;
     }
 
 }

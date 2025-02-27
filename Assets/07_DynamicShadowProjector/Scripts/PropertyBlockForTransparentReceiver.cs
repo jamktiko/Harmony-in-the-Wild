@@ -141,11 +141,11 @@ namespace DynamicShadowProjector
         private Renderer m_renderer = null;
         private MaterialPropertyBlock m_propertyBlock = null;
 
-        static int s_dspBaseAlphaId;
-        static int s_dspCullModeId;
+        private static int s_dspBaseAlphaId;
+        private static int s_dspCullModeId;
 #if UNITY_2017_1_OR_NEWER
-        static int s_dspMainTexId;
-        static int s_dspMainTexStId;
+        private static int s_dspMainTexId;
+        private static int s_dspMainTexStId;
         static PropertyBlockForTransparentReceiver()
         {
             StaticInitialize();
@@ -154,7 +154,7 @@ namespace DynamicShadowProjector
 		static int s_dspMainTexId = -1;
 		static int s_dspMainTexStId = -1;
 #endif
-        static void StaticInitialize()
+        private static void StaticInitialize()
         {
             s_dspMainTexId = Shader.PropertyToID("_DSPMainTex");
             s_dspMainTexStId = Shader.PropertyToID("_DSPMainTex_ST");
@@ -297,14 +297,14 @@ namespace DynamicShadowProjector
             m_renderer.SetPropertyBlock(m_propertyBlock);
         }
 
-        void Initialize()
+        private void Initialize()
         {
             m_renderer = GetComponent<Renderer>();
             m_propertyBlock = new MaterialPropertyBlock();
             m_mainTextureSTName = mainTextureName + "_ST";
         }
 
-        void Awake()
+        private void Awake()
         {
 #if !UNITY_2017_1_OR_NEWER
 			if (s_mainTexId == -1 && s_mainTexStId == -1)
@@ -322,16 +322,16 @@ namespace DynamicShadowProjector
             Initialize();
         }
 
-        void Start()
+        private void Start()
         {
             UpdatePropertyBlock();
         }
 
 #if UNITY_EDITOR
-        static string[] s_mainTextureNames = { "_BaseColorMap", "_MainTex" };
-        static string[] s_baseColorNames = { "_BaseColor", "_Color" };
-        static string[] s_alphaCutoffNames = { "_Cutoff" };
-        static string[] s_cullModeNames = { "_Cull" };
+        private static string[] s_mainTextureNames = { "_BaseColorMap", "_MainTex" };
+        private static string[] s_baseColorNames = { "_BaseColor", "_Color" };
+        private static string[] s_alphaCutoffNames = { "_Cutoff" };
+        private static string[] s_cullModeNames = { "_Cull" };
         public void SetDefaultPropertyNames()
         {
             if (m_renderer == null)
@@ -479,7 +479,8 @@ namespace DynamicShadowProjector
 
             UpdatePropertyBlock();
         }
-        void Update()
+
+        private void Update()
         {
             if (m_renderer == null)
             {
