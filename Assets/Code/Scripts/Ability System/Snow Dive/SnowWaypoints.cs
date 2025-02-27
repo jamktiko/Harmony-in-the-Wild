@@ -100,7 +100,7 @@ public class SnowWaypoints : MonoBehaviour
         meshObject.AddComponent<MeshRenderer>();
     }
 
-    void CollectChildPositions()
+    private void CollectChildPositions()
     {
         VertList.Clear();
         foreach (Transform t in transform)

@@ -8,7 +8,7 @@ namespace Ink
             : this(str, filenameForMetadata, externalErrorHandler, null, fileHandler)
         { }
 
-        InkParser(string str, string inkFilename = null, Ink.ErrorHandler externalErrorHandler = null, InkParser rootParser = null, IFileHandler fileHandler = null) : base(str)
+        private InkParser(string str, string inkFilename = null, Ink.ErrorHandler externalErrorHandler = null, InkParser rootParser = null, IFileHandler fileHandler = null) : base(str)
         {
             _filename = inkFilename;
             RegisterExpressionOperators();
@@ -170,7 +170,7 @@ namespace Ink
             TagActive = 0x2
         }
 
-        void OnStringParserError(string message, int index, int lineIndex, bool isWarning)
+        private void OnStringParserError(string message, int index, int lineIndex, bool isWarning)
         {
             var warningType = isWarning ? "WARNING:" : "ERROR:";
             string fullMessage;
@@ -194,11 +194,11 @@ namespace Ink
             }
         }
 
-        IFileHandler _fileHandler;
+        private IFileHandler _fileHandler;
 
-        Ink.ErrorHandler _externalErrorHandler;
+        private Ink.ErrorHandler _externalErrorHandler;
 
-        string _filename;
+        private string _filename;
     }
 }
 

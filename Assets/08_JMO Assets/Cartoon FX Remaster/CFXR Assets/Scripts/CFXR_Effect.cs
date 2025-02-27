@@ -26,11 +26,11 @@ namespace CartoonFX
     public partial class CFXR_Effect : MonoBehaviour
     {
         // Change this value to easily tune the camera shake strength for all effects
-        const float GLOBAL_CAMERA_SHAKE_MULTIPLIER = 1.0f;
+        private const float GLOBAL_CAMERA_SHAKE_MULTIPLIER = 1.0f;
 
 #if UNITY_EDITOR
         [InitializeOnLoadMethod]
-        static void InitGlobalOptions()
+        private static void InitGlobalOptions()
         {
             AnimatedLight.editorPreview = EditorPrefs.GetBool("CFXR Light EditorPreview", true);
 #if !DISABLE_CAMERA_SHAKE
@@ -155,38 +155,38 @@ namespace CartoonFX
             [CustomPropertyDrawer(typeof(AnimatedLight))]
             public class AnimatedLightDrawer : PropertyDrawer
             {
-                SerializedProperty light;
+                private SerializedProperty light;
 
-                SerializedProperty loop;
+                private SerializedProperty loop;
 
-                SerializedProperty animateIntensity;
-                SerializedProperty intensityStart;
-                SerializedProperty intensityEnd;
-                SerializedProperty intensityDuration;
-                SerializedProperty intensityCurve;
-                SerializedProperty perlinIntensity;
-                SerializedProperty perlinIntensitySpeed;
-                SerializedProperty fadeIn;
-                SerializedProperty fadeInDuration;
-                SerializedProperty fadeOut;
-                SerializedProperty fadeOutDuration;
+                private SerializedProperty animateIntensity;
+                private SerializedProperty intensityStart;
+                private SerializedProperty intensityEnd;
+                private SerializedProperty intensityDuration;
+                private SerializedProperty intensityCurve;
+                private SerializedProperty perlinIntensity;
+                private SerializedProperty perlinIntensitySpeed;
+                private SerializedProperty fadeIn;
+                private SerializedProperty fadeInDuration;
+                private SerializedProperty fadeOut;
+                private SerializedProperty fadeOutDuration;
 
-                SerializedProperty animateRange;
-                SerializedProperty rangeStart;
-                SerializedProperty rangeEnd;
-                SerializedProperty rangeDuration;
-                SerializedProperty rangeCurve;
-                SerializedProperty perlinRange;
-                SerializedProperty perlinRangeSpeed;
+                private SerializedProperty animateRange;
+                private SerializedProperty rangeStart;
+                private SerializedProperty rangeEnd;
+                private SerializedProperty rangeDuration;
+                private SerializedProperty rangeCurve;
+                private SerializedProperty perlinRange;
+                private SerializedProperty perlinRangeSpeed;
 
-                SerializedProperty animateColor;
-                SerializedProperty colorGradient;
-                SerializedProperty colorDuration;
-                SerializedProperty colorCurve;
-                SerializedProperty perlinColor;
-                SerializedProperty perlinColorSpeed;
+                private SerializedProperty animateColor;
+                private SerializedProperty colorGradient;
+                private SerializedProperty colorDuration;
+                private SerializedProperty colorCurve;
+                private SerializedProperty perlinColor;
+                private SerializedProperty perlinColorSpeed;
 
-                void fetchProperties(SerializedProperty property)
+                private void fetchProperties(SerializedProperty property)
                 {
                     light = property.FindPropertyRelative("light");
 
@@ -220,21 +220,21 @@ namespace CartoonFX
                     perlinColorSpeed = property.FindPropertyRelative("perlinColorSpeed");
                 }
 
-                static GUIContent[] ModePopupLabels = new GUIContent[] { new GUIContent("Curve"), new GUIContent("Perlin Noise") };
-                static GUIContent IntensityModeLabel = new GUIContent("Intensity Mode");
-                static GUIContent RangeModeLabel = new GUIContent("Range Mode");
-                static GUIContent ColorModeLabel = new GUIContent("Color Mode");
+                private static GUIContent[] ModePopupLabels = new GUIContent[] { new GUIContent("Curve"), new GUIContent("Perlin Noise") };
+                private static GUIContent IntensityModeLabel = new GUIContent("Intensity Mode");
+                private static GUIContent RangeModeLabel = new GUIContent("Range Mode");
+                private static GUIContent ColorModeLabel = new GUIContent("Color Mode");
 
-                const float INDENT_WIDTH = 15f;
-                const float PADDING = 4f;
+                private const float INDENT_WIDTH = 15f;
+                private const float PADDING = 4f;
 
-                void startIndent(ref Rect rect)
+                private void startIndent(ref Rect rect)
                 {
                     EditorGUIUtility.labelWidth -= INDENT_WIDTH;
                     rect.xMin += INDENT_WIDTH;
                 }
 
-                void endIndent(ref Rect rect)
+                private void endIndent(ref Rect rect)
                 {
                     EditorGUIUtility.labelWidth += INDENT_WIDTH;
                     rect.xMin -= INDENT_WIDTH;
@@ -452,10 +452,10 @@ namespace CartoonFX
         [Tooltip("Defines which Particle System to track to trigger light fading out.\nLeave empty if not using fading out.")]
         public ParticleSystem fadeOutReference;
 
-        float time;
-        ParticleSystem rootParticleSystem;
-        [System.NonSerialized] MaterialPropertyBlock materialPropertyBlock;
-        [System.NonSerialized] Renderer particleRenderer;
+        private float time;
+        private ParticleSystem rootParticleSystem;
+        [System.NonSerialized] private MaterialPropertyBlock materialPropertyBlock;
+        [System.NonSerialized] private Renderer particleRenderer;
 
         // ================================================================================================================================
 
@@ -484,7 +484,7 @@ namespace CartoonFX
         }
 
 #if !DISABLE_CAMERA_SHAKE || !DISABLE_CLEAR_BEHAVIOR
-        void Awake()
+        private void Awake()
         {
 #if !DISABLE_CAMERA_SHAKE
             if (cameraShake != null && cameraShake.enabled)
@@ -504,7 +504,7 @@ namespace CartoonFX
         }
 #endif
 
-        void OnEnable()
+        private void OnEnable()
         {
             foreach (var animLight in animatedLights)
             {
@@ -519,16 +519,16 @@ namespace CartoonFX
             }
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             ResetState();
         }
 
 #if !DISABLE_LIGHTS || !DISABLE_CAMERA_SHAKE || !DISABLE_CLEAR_BEHAVIOR
-        const int CHECK_EVERY_N_FRAME = 20;
-        static int GlobalStartFrameOffset = 0;
-        int startFrameOffset;
-        void Update()
+        private const int CHECK_EVERY_N_FRAME = 20;
+        private static int GlobalStartFrameOffset = 0;
+        private int startFrameOffset;
+        private void Update()
         {
 #if !DISABLE_LIGHTS || !DISABLE_CAMERA_SHAKE
             time += Time.deltaTime;
@@ -603,8 +603,8 @@ namespace CartoonFX
 #endif
 
 #if !DISABLE_LIGHTS
-        bool isFadingOut;
-        float fadingOutStartTime;
+        private bool isFadingOut;
+        private float fadingOutStartTime;
         public void FadeOut(float time)
         {
             if (animatedLights == null)
@@ -629,8 +629,9 @@ namespace CartoonFX
         // Editor preview
         // Detect when the Particle System is previewing and trigger this animation too
 
-        [System.NonSerialized] ParticleSystem _parentParticle;
-        ParticleSystem parentParticle
+        [System.NonSerialized] private ParticleSystem _parentParticle;
+
+        private ParticleSystem parentParticle
         {
             get
             {
@@ -643,11 +644,11 @@ namespace CartoonFX
         }
         [System.NonSerialized] public bool editorUpdateRegistered;
 
-        [System.NonSerialized] bool particleWasStopped;
-        [System.NonSerialized] float particleTime;
-        [System.NonSerialized] float particleTimeUnwrapped;
+        [System.NonSerialized] private bool particleWasStopped;
+        [System.NonSerialized] private float particleTime;
+        [System.NonSerialized] private float particleTimeUnwrapped;
 
-        void OnDestroy()
+        private void OnDestroy()
         {
             UnregisterEditorUpdate();
         }
@@ -680,7 +681,7 @@ namespace CartoonFX
             ResetState();
         }
 
-        void onEditorUpdate()
+        private void onEditorUpdate()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode)
             {
@@ -760,11 +761,12 @@ namespace CartoonFX
     [CanEditMultipleObjects]
     public class CFXR_Effect_Editor : Editor
     {
-        bool? lightEditorPreview;
-        bool? shakeEditorPreview;
+        private bool? lightEditorPreview;
+        private bool? shakeEditorPreview;
 
-        GUIStyle _PaddedRoundedRect;
-        GUIStyle PaddedRoundedRect
+        private GUIStyle _PaddedRoundedRect;
+
+        private GUIStyle PaddedRoundedRect
         {
             get
             {
@@ -788,7 +790,7 @@ namespace CartoonFX
             base.OnInspectorGUI();
         }
 
-        void GlobalOptionsGUI()
+        private void GlobalOptionsGUI()
         {
             EditorGUILayout.BeginVertical(PaddedRoundedRect);
             {
@@ -823,7 +825,7 @@ namespace CartoonFX
             EditorGUILayout.EndVertical();
         }
 
-        void OnEnable()
+        private void OnEnable()
         {
             if (this.targets == null)
             {
@@ -844,7 +846,7 @@ namespace CartoonFX
             }
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             if (this.targets == null)
             {
@@ -866,7 +868,7 @@ namespace CartoonFX
             }
         }
 
-        static bool isPrefabSource(GameObject gameObject)
+        private static bool isPrefabSource(GameObject gameObject)
         {
             var assetType = PrefabUtility.GetPrefabAssetType(gameObject);
             var prefabType = PrefabUtility.GetPrefabInstanceStatus(gameObject);

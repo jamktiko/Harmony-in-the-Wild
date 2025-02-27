@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ZoneTransitionEnabler : MonoBehaviour
 {
-    void Start()
+    private void Start()
     {
         Invoke(nameof(EnableZoneTriggers), 0.4f);
     }

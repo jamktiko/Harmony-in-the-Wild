@@ -15,7 +15,8 @@ namespace DynamicShadowProjector
         public int m_textureHeight = 64;
         public Shader m_tex2DlodCheckShader;
         public Shader m_glslCheckShader;
-        void Awake()
+
+        private void Awake()
         {
             Projector projector = GetComponent<Projector>();
             if (projector == null || projector.material == null)

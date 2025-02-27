@@ -14,7 +14,7 @@ public class StartUI : MonoBehaviour
     protected bool _mInPause;
     protected PlayableDirector[] _mDirectors;
 
-    void Start()
+    private void Start()
     {
         if (!AlwaysDisplayMouse)
         {
@@ -51,7 +51,7 @@ public class StartUI : MonoBehaviour
         SwitchPauseState();
     }
 
-    void Update()
+    private void Update()
     {
         if (PlayerInputHandler.Instance.PauseInput != null && PlayerInputHandler.Instance.PauseInput.WasPressedThisFrame())
         {

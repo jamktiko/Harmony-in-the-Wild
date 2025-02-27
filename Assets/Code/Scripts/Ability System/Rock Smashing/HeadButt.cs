@@ -8,7 +8,8 @@ public class HeadButt : MonoBehaviour
     [SerializeField] private float _finalForce;
     [SerializeField] private Slider _slider;
     [SerializeField] private Rigidbody _currentRock;
-    void FixedUpdate()
+
+    private void FixedUpdate()
     {
         if (Keyboard.current.eKey.wasPressedThisFrame && _force != 0)
         {

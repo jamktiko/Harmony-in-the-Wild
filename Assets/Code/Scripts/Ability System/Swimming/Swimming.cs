@@ -9,7 +9,7 @@ public class Swimming : MonoBehaviour, IAbility
 
     private bool _swimmingAudioPlaying = false;
 
-    void Awake()
+    private void Awake()
     {
         if (Instance != null && Instance != this)
         {

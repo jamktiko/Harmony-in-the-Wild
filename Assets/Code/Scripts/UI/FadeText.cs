@@ -5,9 +5,12 @@ using UnityEngine.Serialization;
 
 public class FadeText : MonoBehaviour
 {
-    [FormerlySerializedAs("isDisclaimer")] [SerializeField] bool _isDisclaimer;
-    [FormerlySerializedAs("isText")] [SerializeField] bool _isText;
-    void Start()
+    [FormerlySerializedAs("isDisclaimer")] [SerializeField]
+    private bool _isDisclaimer;
+    [FormerlySerializedAs("isText")] [SerializeField]
+    private bool _isText;
+
+    private void Start()
     {
         if (_isDisclaimer)
             StartCoroutine(FadeTextToFullAlpha(1f, GetComponent<TMP_Text>()));

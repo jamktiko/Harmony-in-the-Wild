@@ -17,15 +17,16 @@ public class CameraMove : MonoBehaviour
     [SerializeField] public float X = 0.0f;
     [SerializeField] public float Y = 0.0f;
 
-    [FormerlySerializedAs("animator")] [SerializeField] Animator _animator;
+    [FormerlySerializedAs("animator")] [SerializeField]
+    private Animator _animator;
 
-    void Start()
+    private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         _animator = GetComponentInParent<Animator>();
     }
 
-    void LateUpdate()
+    private void LateUpdate()
     {
 
         _currentX += Input.GetAxis("Mouse X") * Sensivity * Time.deltaTime;

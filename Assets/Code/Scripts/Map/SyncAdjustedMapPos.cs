@@ -13,7 +13,7 @@ public class SyncAdjustedMapPos : MonoBehaviour
     [FormerlySerializedAs("playerRed")] public Transform PlayerRed;
     [FormerlySerializedAs("playerArctic")] public Transform PlayerArctic;
 
-    Matrix4x4 _transformationMatrix;
+    private Matrix4x4 _transformationMatrix;
     private Transform _activeTransform;
 
     private void Start()

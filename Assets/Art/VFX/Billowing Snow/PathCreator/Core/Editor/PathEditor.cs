@@ -16,54 +16,54 @@ namespace PathCreationEditor
         #region Fields
 
         // Interaction:
-        const float segmentSelectDistanceThreshold = 10f;
-        const float screenPolylineMaxAngleError = .3f;
-        const float screenPolylineMinVertexDst = .01f;
+        private const float segmentSelectDistanceThreshold = 10f;
+        private const float screenPolylineMaxAngleError = .3f;
+        private const float screenPolylineMinVertexDst = .01f;
 
         // Help messages:
-        const string helpInfo = "Shift-click to add or insert new points. Control-click to delete points. For more detailed infomation, please refer to the documentation.";
-        static readonly string[] spaceNames = { "3D (xyz)", "2D (xy)", "Top-down (xz)" };
-        static readonly string[] tabNames = { "Bézier Path", "Vertex Path" };
-        const string constantSizeTooltip = "If true, anchor and control points will keep a constant size when zooming in the editor.";
+        private const string helpInfo = "Shift-click to add or insert new points. Control-click to delete points. For more detailed infomation, please refer to the documentation.";
+        private static readonly string[] spaceNames = { "3D (xyz)", "2D (xy)", "Top-down (xz)" };
+        private static readonly string[] tabNames = { "Bézier Path", "Vertex Path" };
+        private const string constantSizeTooltip = "If true, anchor and control points will keep a constant size when zooming in the editor.";
 
         // Display
-        const int inspectorSectionSpacing = 10;
-        const float constantHandleScale = .01f;
-        const float normalsSpacing = .2f;
-        GUIStyle boldFoldoutStyle;
+        private const int inspectorSectionSpacing = 10;
+        private const float constantHandleScale = .01f;
+        private const float normalsSpacing = .2f;
+        private GUIStyle boldFoldoutStyle;
 
         // References:
-        PathCreator creator;
-        Editor globalDisplaySettingsEditor;
-        ScreenSpacePolyLine screenSpaceLine;
-        ScreenSpacePolyLine.MouseInfo pathMouseInfo;
-        GlobalDisplaySettings globalDisplaySettings;
-        PathHandle.HandleColours splineAnchorColours;
-        PathHandle.HandleColours splineControlColours;
-        Dictionary<GlobalDisplaySettings.HandleType, Handles.CapFunction> capFunctions;
-        ArcHandle anchorAngleHandle = new ArcHandle();
-        VertexPath normalsVertexPath;
+        private PathCreator creator;
+        private Editor globalDisplaySettingsEditor;
+        private ScreenSpacePolyLine screenSpaceLine;
+        private ScreenSpacePolyLine.MouseInfo pathMouseInfo;
+        private GlobalDisplaySettings globalDisplaySettings;
+        private PathHandle.HandleColours splineAnchorColours;
+        private PathHandle.HandleColours splineControlColours;
+        private Dictionary<GlobalDisplaySettings.HandleType, Handles.CapFunction> capFunctions;
+        private ArcHandle anchorAngleHandle = new ArcHandle();
+        private VertexPath normalsVertexPath;
 
         // State variables:
-        int selectedSegmentIndex;
-        int draggingHandleIndex;
-        int mouseOverHandleIndex;
-        int handleIndexToDisplayAsTransform;
+        private int selectedSegmentIndex;
+        private int draggingHandleIndex;
+        private int mouseOverHandleIndex;
+        private int handleIndexToDisplayAsTransform;
 
-        bool shiftLastFrame;
-        bool hasUpdatedScreenSpaceLine;
-        bool hasUpdatedNormalsVertexPath;
-        bool editingNormalsOld;
+        private bool shiftLastFrame;
+        private bool hasUpdatedScreenSpaceLine;
+        private bool hasUpdatedNormalsVertexPath;
+        private bool editingNormalsOld;
 
-        Vector3 transformPos;
-        Vector3 transformScale;
-        Quaternion transformRot;
+        private Vector3 transformPos;
+        private Vector3 transformScale;
+        private Quaternion transformRot;
 
-        Color handlesStartCol;
+        private Color handlesStartCol;
 
         // Constants
-        const int bezierPathTab = 0;
-        const int vertexPathTab = 1;
+        private const int bezierPathTab = 0;
+        private const int vertexPathTab = 1;
 
         #endregion
 
@@ -106,7 +106,7 @@ namespace PathCreationEditor
             }
         }
 
-        void DrawBezierPathInspector()
+        private void DrawBezierPathInspector()
         {
             using (var check = new EditorGUI.ChangeCheckScope())
             {
@@ -249,7 +249,7 @@ namespace PathCreationEditor
             }
         }
 
-        void DrawVertexPathInspector()
+        private void DrawVertexPathInspector()
         {
 
             GUILayout.Space(inspectorSectionSpacing);
@@ -292,7 +292,7 @@ namespace PathCreationEditor
             }
         }
 
-        void DrawGlobalDisplaySettingsInspector()
+        private void DrawGlobalDisplaySettingsInspector()
         {
             using (var check = new EditorGUI.ChangeCheckScope())
             {
@@ -314,7 +314,7 @@ namespace PathCreationEditor
 
         #region Scene GUI
 
-        void OnSceneGUI()
+        private void OnSceneGUI()
         {
             if (!globalDisplaySettings.visibleBehindObjects)
             {
@@ -359,7 +359,7 @@ namespace PathCreationEditor
             SetTransformState();
         }
 
-        void DrawVertexPathSceneEditor()
+        private void DrawVertexPathSceneEditor()
         {
 
             Color bezierCol = globalDisplaySettings.bezierPath;
@@ -402,7 +402,7 @@ namespace PathCreationEditor
             }
         }
 
-        void ProcessBezierPathInput(Event e)
+        private void ProcessBezierPathInput(Event e)
         {
             // Find which handle mouse is over. Start by looking at previous handle index first, as most likely to still be closest to mouse
             int previousMouseOverHandleIndex = (mouseOverHandleIndex == -1) ? 0 : mouseOverHandleIndex;
@@ -512,7 +512,7 @@ namespace PathCreationEditor
 
         }
 
-        void DrawBezierPathSceneEditor()
+        private void DrawBezierPathSceneEditor()
         {
 
             bool displayControlPoints = data.displayControlPoints && (bezierPath.ControlPointMode != BezierPath.ControlMode.Automatic || !globalDisplaySettings.hideAutoControls);
@@ -598,7 +598,7 @@ namespace PathCreationEditor
             }
         }
 
-        void DrawHandle(int i)
+        private void DrawHandle(int i)
         {
             Vector3 handlePosition = MathUtility.TransformPoint(bezierPath[i], creator.transform, bezierPath.Space);
 
@@ -713,12 +713,12 @@ namespace PathCreationEditor
 
         #region Internal methods
 
-        void OnDisable()
+        private void OnDisable()
         {
             Tools.hidden = false;
         }
 
-        void OnEnable()
+        private void OnEnable()
         {
             creator = (PathCreator)target;
             bool in2DEditorMode = EditorSettings.defaultBehaviorMode == EditorBehaviorMode.Mode2D;
@@ -735,7 +735,7 @@ namespace PathCreationEditor
             SetTransformState(true);
         }
 
-        void SetTransformState(bool initialize = false)
+        private void SetTransformState(bool initialize = false)
         {
             Transform t = creator.transform;
             if (!initialize)
@@ -750,7 +750,7 @@ namespace PathCreationEditor
             transformRot = t.rotation;
         }
 
-        void OnUndoRedo()
+        private void OnUndoRedo()
         {
             hasUpdatedScreenSpaceLine = false;
             hasUpdatedNormalsVertexPath = false;
@@ -759,13 +759,13 @@ namespace PathCreationEditor
             Repaint();
         }
 
-        void TabChanged()
+        private void TabChanged()
         {
             SceneView.RepaintAll();
             RepaintUnfocusedSceneViews();
         }
 
-        void LoadDisplaySettings()
+        private void LoadDisplaySettings()
         {
             globalDisplaySettings = GlobalDisplaySettings.Load();
 
@@ -775,7 +775,7 @@ namespace PathCreationEditor
             capFunctions.Add(GlobalDisplaySettings.HandleType.Square, Handles.CubeHandleCap);
         }
 
-        void UpdateGlobalDisplaySettings()
+        private void UpdateGlobalDisplaySettings()
         {
             var gds = globalDisplaySettings;
             splineAnchorColours = new PathHandle.HandleColours(gds.anchor, gds.anchorHighlighted, gds.anchorSelected, gds.handleDisabled);
@@ -787,7 +787,7 @@ namespace PathCreationEditor
             anchorAngleHandle.angleHandleColor = Color.white;
         }
 
-        void ResetState()
+        private void ResetState()
         {
             selectedSegmentIndex = -1;
             draggingHandleIndex = -1;
@@ -803,7 +803,7 @@ namespace PathCreationEditor
             EditorApplication.QueuePlayerLoopUpdate();
         }
 
-        void OnPathModifed()
+        private void OnPathModifed()
         {
             hasUpdatedScreenSpaceLine = false;
             hasUpdatedNormalsVertexPath = false;
@@ -811,7 +811,7 @@ namespace PathCreationEditor
             RepaintUnfocusedSceneViews();
         }
 
-        void RepaintUnfocusedSceneViews()
+        private void RepaintUnfocusedSceneViews()
         {
             // If multiple scene views are open, repaint those which do not have focus.
             if (SceneView.sceneViews.Count > 1)
@@ -826,7 +826,7 @@ namespace PathCreationEditor
             }
         }
 
-        void UpdatePathMouseInfo()
+        private void UpdatePathMouseInfo()
         {
 
             if (!hasUpdatedScreenSpaceLine || (screenSpaceLine != null && screenSpaceLine.TransformIsOutOfDate()))
@@ -837,7 +837,7 @@ namespace PathCreationEditor
             pathMouseInfo = screenSpaceLine.CalculateMouseInfo();
         }
 
-        float GetHandleDiameter(float diameter, Vector3 handlePosition)
+        private float GetHandleDiameter(float diameter, Vector3 handlePosition)
         {
             float scaledDiameter = diameter * constantHandleScale;
             if (data.keepConstantHandleSize)
@@ -847,7 +847,7 @@ namespace PathCreationEditor
             return scaledDiameter;
         }
 
-        BezierPath bezierPath
+        private BezierPath bezierPath
         {
             get
             {
@@ -855,7 +855,7 @@ namespace PathCreationEditor
             }
         }
 
-        PathCreatorData data
+        private PathCreatorData data
         {
             get
             {
@@ -863,7 +863,7 @@ namespace PathCreationEditor
             }
         }
 
-        bool editingNormals
+        private bool editingNormals
         {
             get
             {

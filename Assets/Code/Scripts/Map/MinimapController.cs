@@ -11,39 +11,39 @@ public class MinimapController : MonoBehaviour
     public static MinimapController Instance;
 
     [FormerlySerializedAs("worldSize")] [SerializeField]
-    Vector2 _worldSize;
+    private Vector2 _worldSize;
 
     [FormerlySerializedAs("fullScreenDimensions")] [SerializeField]
-    Vector2 _fullScreenDimensions = new Vector2(1000, 1000);
+    private Vector2 _fullScreenDimensions = new Vector2(1000, 1000);
 
     [FormerlySerializedAs("zoomSpeed")] [SerializeField]
-    float _zoomSpeed = 0.1f;
+    private float _zoomSpeed = 0.1f;
 
     [FormerlySerializedAs("maxZoom")] [SerializeField]
-    float _maxZoom = 10f;
+    private float _maxZoom = 10f;
 
     [FormerlySerializedAs("minZoom")] [SerializeField]
-    float _minZoom = 1f;
+    private float _minZoom = 1f;
 
     [FormerlySerializedAs("scrollViewRectTransform")] [SerializeField]
-    RectTransform _scrollViewRectTransform;
+    private RectTransform _scrollViewRectTransform;
 
     [FormerlySerializedAs("contentRectTransform")] [SerializeField]
-    RectTransform _contentRectTransform;
+    private RectTransform _contentRectTransform;
 
     [FormerlySerializedAs("minimapIconPrefab")] [SerializeField]
-    MinimapIcon _minimapIconPrefab;
+    private MinimapIcon _minimapIconPrefab;
 
     [FormerlySerializedAs("Offset")] [SerializeField]
-    Vector2 _offset;
+    private Vector2 _offset;
 
-    Matrix4x4 _transformationMatrix;
+    private Matrix4x4 _transformationMatrix;
 
     private MinimapMode _currentMiniMapMode = MinimapMode.Mini;
     private MinimapIcon _followIcon;
     private Vector2 _scrollViewDefaultSize;
     private Vector2 _scrollViewDefaultPosition;
-    Dictionary<MinimapWorldObject, MinimapIcon> _miniMapWorldObjectsLookup = new Dictionary<MinimapWorldObject, MinimapIcon>();
+    private Dictionary<MinimapWorldObject, MinimapIcon> _miniMapWorldObjectsLookup = new Dictionary<MinimapWorldObject, MinimapIcon>();
     private void Awake()
     {
         Instance = this;

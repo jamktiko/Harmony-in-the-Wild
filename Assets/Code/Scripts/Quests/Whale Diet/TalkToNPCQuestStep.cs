@@ -4,7 +4,8 @@ using UnityEngine.Serialization;
 
 public class TalkToNpcQuestStep : QuestStep
 {
-    [FormerlySerializedAs("dialogueToPassForProgress")] [SerializeField] DialogueVariables _dialogueToPassForProgress;
+    [FormerlySerializedAs("dialogueToPassForProgress")] [SerializeField]
+    private DialogueVariables _dialogueToPassForProgress;
     [FormerlySerializedAs("midQuestDialogueIndex")] [SerializeField] private int _midQuestDialogueIndex = 0;
     [FormerlySerializedAs("character")] [SerializeField] private DialogueQuestNpCs _character = DialogueQuestNpCs.Whale;
     private bool _canProgressQuest;

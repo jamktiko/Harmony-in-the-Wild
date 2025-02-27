@@ -3,16 +3,16 @@ using UnityEngine;
 
 public class TimeService
 {
-    readonly TimeSettings settings;
-    DateTime currentTime;
-    readonly TimeSpan sunriseTime;
-    readonly TimeSpan sunsetTime;
+    private readonly TimeSettings settings;
+    private DateTime currentTime;
+    private readonly TimeSpan sunriseTime;
+    private readonly TimeSpan sunsetTime;
 
     public event Action OnSunrise = delegate { };
     public event Action OnSunset = delegate { };
     public event Action OnHourChange = delegate { };
 
-    readonly Observable<bool> isDayTime;
+    private readonly Observable<bool> isDayTime;
     public readonly Observable<int> currentHour;
 
     public TimeService(TimeSettings settings)
@@ -53,7 +53,7 @@ public class TimeService
     public DateTime CurrentTime => currentTime;
     public bool IsDayTime() => currentTime.TimeOfDay > sunriseTime && currentTime.TimeOfDay < sunsetTime;
 
-    TimeSpan CalculateDifference(TimeSpan from, TimeSpan to)
+    private TimeSpan CalculateDifference(TimeSpan from, TimeSpan to)
     {
         TimeSpan difference = to - from;
         return difference.TotalHours < 0 ? difference + TimeSpan.FromHours(24) : difference;

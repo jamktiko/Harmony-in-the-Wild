@@ -44,24 +44,26 @@ public class PauseMenuBookManager : MonoBehaviour
     [FormerlySerializedAs("pineConePanel")] [SerializeField]
     public GameObject PineConePanel;
 
-    [FormerlySerializedAs("cinemachineFreeLook")] [SerializeField] CinemachineFreeLook _cinemachineFreeLook;
+    [FormerlySerializedAs("cinemachineFreeLook")] [SerializeField]
+    private CinemachineFreeLook _cinemachineFreeLook;
 
     [FormerlySerializedAs("InvertYAxis")] [SerializeField]
-    Toggle _invertYAxis;
+    private Toggle _invertYAxis;
 
     [FormerlySerializedAs("fullscreen")] [SerializeField]
-    Toggle _fullscreen;
+    private Toggle _fullscreen;
 
     [FormerlySerializedAs("Mastervolume")] [SerializeField]
-    Slider _mastervolume;
+    private Slider _mastervolume;
 
     [FormerlySerializedAs("MusicVolume")] [SerializeField]
-    Slider _musicVolume;
+    private Slider _musicVolume;
 
     [FormerlySerializedAs("sensitivity")] [SerializeField]
-    Slider _sensitivity;
+    private Slider _sensitivity;
 
-    [FormerlySerializedAs("mixer")] [SerializeField] AudioMixer _mixer;
+    [FormerlySerializedAs("mixer")] [SerializeField]
+    private AudioMixer _mixer;
 
     [FormerlySerializedAs("SliderValueMaster")] [SerializeField]
     private float _sliderValueMaster;
@@ -76,8 +78,10 @@ public class PauseMenuBookManager : MonoBehaviour
     public TMP_Text BerryCounter,
                                      PineconeCounter;
 
-    [FormerlySerializedAs("UIPanels")] [SerializeField] GameObject[] _uiPanels;
-    [FormerlySerializedAs("activeQuestUI")] [SerializeField] ActiveQuestUI _activeQuestUI;
+    [FormerlySerializedAs("UIPanels")] [SerializeField]
+    private GameObject[] _uiPanels;
+    [FormerlySerializedAs("activeQuestUI")] [SerializeField]
+    private ActiveQuestUI _activeQuestUI;
 
     private void Awake()
     {
@@ -126,7 +130,7 @@ public class PauseMenuBookManager : MonoBehaviour
         PineconeCounter.text = PlayerManager.Instance.PineCones + " / " + PlayerManager.Instance.PineConeData.Count;
     }
 
-    void ClosePauseMenu()
+    private void ClosePauseMenu()
     {
         GameEventsManager.instance.PlayerEvents.ToggleInputActions(true);
 
@@ -244,7 +248,7 @@ public class PauseMenuBookManager : MonoBehaviour
 
     #region Initializers
 
-    void InitializeUIElementsList()
+    private void InitializeUIElementsList()
     {
         GameObject[] uiPanelsInit = {
                                     GeneralMenuPanel,

@@ -77,7 +77,7 @@ namespace DynamicShadowProjector
         private Vector3 m_localTargetPosition;
 
         // message handlers
-        void Awake()
+        private void Awake()
         {
             if (m_target != null)
             {
@@ -85,7 +85,7 @@ namespace DynamicShadowProjector
             }
         }
 
-        void LateUpdate()
+        private void LateUpdate()
         {
 #if UNITY_EDITOR
             if (!Application.isPlaying)
@@ -99,7 +99,7 @@ namespace DynamicShadowProjector
             }
         }
 
-        void OnPreCull()
+        private void OnPreCull()
         {
 #if UNITY_EDITOR
             if (!Application.isPlaying)

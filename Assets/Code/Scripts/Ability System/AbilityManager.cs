@@ -23,6 +23,7 @@ public class AbilityManager : MonoBehaviour
             Instance = this;
         }
 
+        _abilityPartsChild = transform.GetChild(0).gameObject;
 
         _abilities = new Dictionary<Abilities, IAbility>();
 
@@ -104,7 +105,7 @@ public class AbilityManager : MonoBehaviour
         AbilityStatuses = SaveManager.Instance.GetLoadedAbilityDictionary();
     }
 
-    void KeepAbilityPartsAtPlayer()
+    private void KeepAbilityPartsAtPlayer()
     {
         if (FoxMovement.Instance != null && FoxMovement.Instance.gameObject.transform.position != null)
         {

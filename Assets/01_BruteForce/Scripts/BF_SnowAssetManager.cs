@@ -23,7 +23,7 @@ public class BF_SnowAssetManager : MonoBehaviour
 
     [HideInInspector] public UnityEvent m_ShowcaseChange = new UnityEvent();
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         maxIndex = showcasesGO.Count - 1;
         SwitchShowcase(0);

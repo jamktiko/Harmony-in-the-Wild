@@ -48,7 +48,7 @@ namespace Ink.Runtime
         // TODO: Come up with some clever solution for not having
         // to have debug metadata on the object itself, perhaps
         // for serialisation purposes at least.
-        DebugMetadata _debugMetadata;
+        private DebugMetadata _debugMetadata;
 
         public int? DebugLineNumberOfPath(Path path)
         {
@@ -119,7 +119,8 @@ namespace Ink.Runtime
                 return _path;
             }
         }
-        Path _path;
+
+        private Path _path;
 
         public SearchResult ResolvePath(Path path)
         {

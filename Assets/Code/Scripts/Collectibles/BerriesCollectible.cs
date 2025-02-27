@@ -6,8 +6,9 @@ using UnityEngine.Serialization;
 
 public class Berries : MonoBehaviour
 {
-    [FormerlySerializedAs("interactable")] [SerializeField] bool _interactable;
-    [SerializeField] static int _berryCollectableCount;
+    [FormerlySerializedAs("interactable")] [SerializeField]
+    private bool _interactable;
+    [SerializeField] private static int _berryCollectableCount;
     [FormerlySerializedAs("interactionIndicator")] [SerializeField] private GameObject _interactionIndicator;
     [FormerlySerializedAs("notifText")] [SerializeField] private TMP_Text _notifText;
 

@@ -7,7 +7,7 @@ namespace PathCreation.Examples
     public class PathSceneToolEditor : Editor
     {
         protected PathSceneTool pathTool;
-        bool isSubscribed;
+        private bool isSubscribed;
 
         public override void OnInspectorGUI()
         {
@@ -43,7 +43,7 @@ namespace PathCreation.Examples
         }
 
 
-        void TriggerUpdate()
+        private void TriggerUpdate()
         {
             if (pathTool.pathCreator != null)
             {
@@ -72,7 +72,7 @@ namespace PathCreation.Examples
             }
         }
 
-        void OnToolDestroyed()
+        private void OnToolDestroyed()
         {
             if (pathTool != null)
             {
@@ -91,7 +91,7 @@ namespace PathCreation.Examples
             }
         }
 
-        bool TryFindPathCreator()
+        private bool TryFindPathCreator()
         {
             // Try find a path creator in the scene, if one is not already assigned
             if (pathTool.pathCreator == null)

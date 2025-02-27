@@ -15,12 +15,11 @@ namespace PathCreation.Examples
         public Material undersideMaterial;
         public float textureTiling = 1;
 
-        [SerializeField, HideInInspector]
-        GameObject meshHolder;
+        [SerializeField, HideInInspector] private GameObject meshHolder;
 
-        MeshFilter meshFilter;
-        MeshRenderer meshRenderer;
-        Mesh mesh;
+        private MeshFilter meshFilter;
+        private MeshRenderer meshRenderer;
+        private Mesh mesh;
 
         protected override void PathUpdated()
         {
@@ -32,7 +31,7 @@ namespace PathCreation.Examples
             }
         }
 
-        void CreateRoadMesh()
+        private void CreateRoadMesh()
         {
             Vector3[] verts = new Vector3[path.NumPoints * 8];
             Vector2[] uvs = new Vector2[verts.Length];
@@ -125,7 +124,7 @@ namespace PathCreation.Examples
         }
 
         // Add MeshRenderer and MeshFilter components to this gameobject if not already attached
-        void AssignMeshComponents()
+        private void AssignMeshComponents()
         {
 
             if (meshHolder == null)
@@ -156,7 +155,7 @@ namespace PathCreation.Examples
             meshFilter.sharedMesh = mesh;
         }
 
-        void AssignMaterials()
+        private void AssignMaterials()
         {
             if (roadMaterial != null && undersideMaterial != null)
             {

@@ -13,7 +13,7 @@ namespace ProjectorForLWRP
     public static class ObjectPool<T> where T : new()
     {
         public static System.Action<T> clearFunction;
-        static Stack<T> m_pool = new Stack<T>();
+        private static Stack<T> m_pool = new Stack<T>();
         public static T Get()
         {
             if (0 < m_pool.Count)
@@ -119,7 +119,7 @@ namespace ProjectorForLWRP
 
         public class Map<KeyType>
         {
-            Dictionary<KeyType, T> baseMap = new Dictionary<KeyType, T>();
+            private Dictionary<KeyType, T> baseMap = new Dictionary<KeyType, T>();
             public T this[KeyType key]
             {
                 get

@@ -4,7 +4,7 @@ using UnityEngine;
 public class BF_TerrainEdit : Editor
 {
     [CustomEditor(typeof(BF_SnowTerrain))]
-    class DecalMeshHelperEditor : Editor
+    private class DecalMeshHelperEditor : Editor
     {
         private GUIStyle style;
         public override void OnInspectorGUI()

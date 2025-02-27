@@ -22,7 +22,8 @@ namespace Ink.Runtime
                 return _items;
             }
         }
-        Dictionary<InkListItem, int> _items;
+
+        private Dictionary<InkListItem, int> _items;
 
         public int ValueForItem(InkListItem item)
         {
@@ -71,11 +72,11 @@ namespace Ink.Runtime
             _itemNameToValues = items;
         }
 
-        string _name;
+        private string _name;
 
         // The main representation should be simple item names rather than a RawListItem,
         // since we mainly want to access items based on their simple name, since that's
         // how they'll be most commonly requested from ink.
-        Dictionary<string, int> _itemNameToValues;
+        private Dictionary<string, int> _itemNameToValues;
     }
 }

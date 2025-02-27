@@ -49,7 +49,8 @@ public class InputReader : ScriptableObject, PlayerInputActions.IPlayerActions
     public event UnityAction OnSitEvent = delegate { };
     private PlayerInputActions _playerInputActions;
     [Header("Input reader object")]
-    [SerializeField] InputReader _inputReader;
+    [SerializeField]
+    private InputReader _inputReader;
     private void OnEnable()
     {
         if (_playerInputActions == null)

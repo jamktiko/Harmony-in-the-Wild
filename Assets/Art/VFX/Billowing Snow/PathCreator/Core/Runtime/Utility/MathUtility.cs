@@ -155,7 +155,7 @@ namespace PathCreation.Utility
             return signedArea >= 0;
         }
 
-        static void ConstrainPosRot(ref Vector3 pos, ref Quaternion rot, PathSpace space)
+        private static void ConstrainPosRot(ref Vector3 pos, ref Quaternion rot, PathSpace space)
         {
             if (space == PathSpace.xy)
             {
@@ -177,7 +177,7 @@ namespace PathCreation.Utility
             }
         }
 
-        static void ConstrainRot(ref Quaternion rot, PathSpace space)
+        private static void ConstrainRot(ref Quaternion rot, PathSpace space)
         {
             if (space == PathSpace.xy)
             {

@@ -3,9 +3,10 @@ using UnityEngine.Serialization;
 
 public class RotateToPlayer : MonoBehaviour
 {
-    [FormerlySerializedAs("fox")] [SerializeField] Transform _fox;
+    [FormerlySerializedAs("fox")] [SerializeField]
+    private Transform _fox;
     // Update is called once per frame
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         transform.eulerAngles = new Vector3(-90, 0, _fox.eulerAngles.y);
     }

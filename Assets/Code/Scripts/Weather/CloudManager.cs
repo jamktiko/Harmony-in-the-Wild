@@ -19,13 +19,13 @@ public class CloudManager : MonoBehaviour
     private Vector2 _wind;
     private float _cloudDespawnDist;
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
 
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         //wind = new Vector2(Mathf.PerlinNoise(.25f, Time.time * windChangeTimeScale) - .5f, Mathf.PerlinNoise(.75f, Time.time * windChangeTimeScale) - .5f);
         //cloudCoverage = (int)(Mathf.PerlinNoise(.5f, Time.time * cloudinessChangeTimeScale) * 15);
@@ -108,7 +108,7 @@ public class CloudManager : MonoBehaviour
         }
     }
 
-    IEnumerator LightningFlash(VisualEffect lightning)
+    private IEnumerator LightningFlash(VisualEffect lightning)
     {
         yield return new WaitForSeconds(4);
         lightning.SetFloat("RenderAlpha", 1);

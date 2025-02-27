@@ -69,7 +69,8 @@ namespace Ink.Runtime
                     _prototype = _nativeFunctions[_name];
             }
         }
-        string _name;
+
+        private string _name;
 
         public int numberOfParameters
         {
@@ -90,7 +91,7 @@ namespace Ink.Runtime
             }
         }
 
-        int _numberOfParameters;
+        private int _numberOfParameters;
 
         public Runtime.Object Call(List<Runtime.Object> parameters)
         {
@@ -144,7 +145,7 @@ namespace Ink.Runtime
             return null;
         }
 
-        Value Call<T>(List<Value> parametersOfSingleType)
+        private Value Call<T>(List<Value> parametersOfSingleType)
         {
             Value param1 = (Value)parametersOfSingleType[0];
             ValueType valType = param1.valueType;
@@ -195,7 +196,7 @@ namespace Ink.Runtime
             }
         }
 
-        Value CallBinaryListOperation(List<Runtime.Object> parameters)
+        private Value CallBinaryListOperation(List<Runtime.Object> parameters)
         {
             // List-Int addition/subtraction returns a List (e.g. "alpha" + 1 = "beta")
             if ((name == "+" || name == "-") && parameters[0] is ListValue && parameters[1] is IntValue)
@@ -219,7 +220,7 @@ namespace Ink.Runtime
             throw new StoryException("Can not call use '" + name + "' operation on " + v1.valueType + " and " + v2.valueType);
         }
 
-        Value CallListIncrementOperation(List<Runtime.Object> listIntParams)
+        private Value CallListIncrementOperation(List<Runtime.Object> listIntParams)
         {
             var listVal = (ListValue)listIntParams[0];
             var intVal = (IntValue)listIntParams[1];
@@ -259,7 +260,7 @@ namespace Ink.Runtime
             return new ListValue(resultRawList);
         }
 
-        List<Value> CoerceValuesToSingleType(List<Runtime.Object> parametersIn)
+        private List<Value> CoerceValuesToSingleType(List<Runtime.Object> parametersIn)
         {
             ValueType valType = ValueType.Int;
 
@@ -345,7 +346,7 @@ namespace Ink.Runtime
         }
 
         // Only called internally to generate prototypes
-        NativeFunctionCall(string name, int numberOfParameters)
+        private NativeFunctionCall(string name, int numberOfParameters)
         {
             _isPrototype = true;
             this.name = name;
@@ -355,12 +356,12 @@ namespace Ink.Runtime
         // For defining operations that do nothing to the specific type
         // (but are still supported), such as floor/ceil on int and float
         // cast on float.
-        static object Identity<T>(T t)
+        private static object Identity<T>(T t)
         {
             return t;
         }
 
-        static void GenerateNativeFunctionsIfNecessary()
+        private static void GenerateNativeFunctionsIfNecessary()
         {
             if (_nativeFunctions == null)
             {
@@ -481,7 +482,7 @@ namespace Ink.Runtime
             }
         }
 
-        void AddOpFuncForType(ValueType valType, object op)
+        private void AddOpFuncForType(ValueType valType, object op)
         {
             if (_operationFuncs == null)
             {
@@ -491,7 +492,7 @@ namespace Ink.Runtime
             _operationFuncs[valType] = op;
         }
 
-        static void AddOpToNativeFunc(string name, int args, ValueType valType, object op)
+        private static void AddOpToNativeFunc(string name, int args, ValueType valType, object op)
         {
             NativeFunctionCall nativeFunc = null;
             if (!_nativeFunctions.TryGetValue(name, out nativeFunc))
@@ -503,37 +504,37 @@ namespace Ink.Runtime
             nativeFunc.AddOpFuncForType(valType, op);
         }
 
-        static void AddIntBinaryOp(string name, BinaryOp<int> op)
+        private static void AddIntBinaryOp(string name, BinaryOp<int> op)
         {
             AddOpToNativeFunc(name, 2, ValueType.Int, op);
         }
 
-        static void AddIntUnaryOp(string name, UnaryOp<int> op)
+        private static void AddIntUnaryOp(string name, UnaryOp<int> op)
         {
             AddOpToNativeFunc(name, 1, ValueType.Int, op);
         }
 
-        static void AddFloatBinaryOp(string name, BinaryOp<float> op)
+        private static void AddFloatBinaryOp(string name, BinaryOp<float> op)
         {
             AddOpToNativeFunc(name, 2, ValueType.Float, op);
         }
 
-        static void AddStringBinaryOp(string name, BinaryOp<string> op)
+        private static void AddStringBinaryOp(string name, BinaryOp<string> op)
         {
             AddOpToNativeFunc(name, 2, ValueType.String, op);
         }
 
-        static void AddListBinaryOp(string name, BinaryOp<InkList> op)
+        private static void AddListBinaryOp(string name, BinaryOp<InkList> op)
         {
             AddOpToNativeFunc(name, 2, ValueType.List, op);
         }
 
-        static void AddListUnaryOp(string name, UnaryOp<InkList> op)
+        private static void AddListUnaryOp(string name, UnaryOp<InkList> op)
         {
             AddOpToNativeFunc(name, 1, ValueType.List, op);
         }
 
-        static void AddFloatUnaryOp(string name, UnaryOp<float> op)
+        private static void AddFloatUnaryOp(string name, UnaryOp<float> op)
         {
             AddOpToNativeFunc(name, 1, ValueType.Float, op);
         }
@@ -543,16 +544,17 @@ namespace Ink.Runtime
             return "Native '" + name + "'";
         }
 
-        delegate object BinaryOp<T>(T left, T right);
-        delegate object UnaryOp<T>(T val);
+        private delegate object BinaryOp<T>(T left, T right);
 
-        NativeFunctionCall _prototype;
-        bool _isPrototype;
+        private delegate object UnaryOp<T>(T val);
+
+        private NativeFunctionCall _prototype;
+        private bool _isPrototype;
 
         // Operations for each data type, for a single operation (e.g. "+")
-        Dictionary<ValueType, object> _operationFuncs;
+        private Dictionary<ValueType, object> _operationFuncs;
 
-        static Dictionary<string, NativeFunctionCall> _nativeFunctions;
+        private static Dictionary<string, NativeFunctionCall> _nativeFunctions;
 
     }
 }

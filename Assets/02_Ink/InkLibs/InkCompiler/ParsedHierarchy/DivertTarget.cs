@@ -185,8 +185,8 @@ namespace Ink.Parsed
             return targetStr.GetHashCode();
         }
 
-        Runtime.DivertTargetValue _runtimeDivertTargetValue;
-        Runtime.Divert _runtimeDivert;
+        private Runtime.DivertTargetValue _runtimeDivertTargetValue;
+        private Runtime.Divert _runtimeDivert;
     }
 }
 

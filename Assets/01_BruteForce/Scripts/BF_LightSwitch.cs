@@ -5,7 +5,7 @@ public class BF_LightSwitch : MonoBehaviour
     public GameObject lightScene;
     public Material skyboxScene;
 
-    void OnEnable()
+    private void OnEnable()
     {
         if (lightScene != null)
         {
@@ -17,7 +17,7 @@ public class BF_LightSwitch : MonoBehaviour
         }
     }
 
-    void OnDisable()
+    private void OnDisable()
     {
         if (lightScene != null)
         {

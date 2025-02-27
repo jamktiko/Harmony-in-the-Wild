@@ -10,14 +10,14 @@ public class TrailerCameraDevTool : MonoBehaviour
     private float _pitch = 0f;  // Vertical rotation (up and down)
     private float _yaw = 0f;    // Horizontal rotation (left and right)
 
-    void Start()
+    private void Start()
     {
         // Lock the cursor to the game window
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
-    void Update()
+    private void Update()
     {
         float horizontalInput = PlayerInputHandler.Instance.MoveInput.ReadValue<Vector2>().x;
         float verticalInput = PlayerInputHandler.Instance.MoveInput.ReadValue<Vector2>().y;

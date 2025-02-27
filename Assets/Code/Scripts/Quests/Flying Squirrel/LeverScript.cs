@@ -3,10 +3,13 @@ using UnityEngine.Serialization;
 
 public class LeverScript : MonoBehaviour
 {
-    [FormerlySerializedAs("isActive")] [SerializeField] bool _isActive = false;
+    [FormerlySerializedAs("isActive")] [SerializeField]
+    private bool _isActive = false;
     [FormerlySerializedAs("wasUsed")] [SerializeField] public bool WasUsed = false; //TODO: Check usecase and fix this being public.
-    [FormerlySerializedAs("usedMat")] [SerializeField] Material _usedMat;
-    [FormerlySerializedAs("questName")] [SerializeField] string _questName;
+    [FormerlySerializedAs("usedMat")] [SerializeField]
+    private Material _usedMat;
+    [FormerlySerializedAs("questName")] [SerializeField]
+    private string _questName;
     private BossDoorScript _bossDoorScript;
 
     [FormerlySerializedAs("anim")] public Animator Anim; //NOTE: Why is this public?
@@ -16,7 +19,7 @@ public class LeverScript : MonoBehaviour
         _bossDoorScript = FindObjectOfType<BossDoorScript>();
     }
 
-    void Update()
+    private void Update()
     {
         if (PlayerInputHandler.Instance.InteractInput.WasPressedThisFrame() && _isActive && !WasUsed)
         {

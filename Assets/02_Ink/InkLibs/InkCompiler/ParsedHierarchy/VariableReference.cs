@@ -33,7 +33,8 @@ namespace Ink.Parsed
                 return _singleIdentifier;
             }
         }
-        Identifier _singleIdentifier;
+
+        private Identifier _singleIdentifier;
 
         public List<Identifier> pathIdentifiers;
         public List<string> path { get; private set; }
@@ -160,7 +161,7 @@ namespace Ink.Parsed
             return string.Join(".", path.ToArray());
         }
 
-        Runtime.VariableReference _runtimeVarRef;
+        private Runtime.VariableReference _runtimeVarRef;
     }
 }
 

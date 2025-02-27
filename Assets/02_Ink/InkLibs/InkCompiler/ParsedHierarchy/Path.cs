@@ -55,7 +55,8 @@ namespace Ink.Parsed
                 return _dotSeparatedComponents;
             }
         }
-        string _dotSeparatedComponents;
+
+        private string _dotSeparatedComponents;
 
         public List<Identifier> components { get; }
 
@@ -119,7 +120,7 @@ namespace Ink.Parsed
 
         // Find the root object from the base, i.e. root from:
         //    root.sub1.sub2
-        Parsed.Object ResolveBaseTarget(Parsed.Object originalContext)
+        private Parsed.Object ResolveBaseTarget(Parsed.Object originalContext)
         {
             var firstComp = firstComponent;
 
@@ -150,7 +151,7 @@ namespace Ink.Parsed
 
         // Find the final child from path given root, i.e.:
         //   root.sub.finalChild
-        Parsed.Object ResolveTailComponents(Parsed.Object rootTarget)
+        private Parsed.Object ResolveTailComponents(Parsed.Object rootTarget)
         {
             Parsed.Object foundComponent = rootTarget;
             for (int i = 1; i < components.Count; ++i)
@@ -177,7 +178,7 @@ namespace Ink.Parsed
         // Can either be a named knot/stitch (a FlowBase) or a weave point within a Weave (Choice or Gather)
         // This function also ignores any other object types that are neither FlowBase nor Weave.
         // Called from both ResolveBase (force deep) and ResolveTail for the individual components.
-        Parsed.Object TryGetChildFromContext(Parsed.Object context, string childName, FlowLevel? minimumLevel, bool forceDeepSearch = false)
+        private Parsed.Object TryGetChildFromContext(Parsed.Object context, string childName, FlowLevel? minimumLevel, bool forceDeepSearch = false)
         {
             // null childLevel means that we don't know where to find it
             bool ambiguousChildLevel = minimumLevel == null;
@@ -204,7 +205,7 @@ namespace Ink.Parsed
             return null;
         }
 
-        FlowLevel? _baseTargetLevel;
+        private FlowLevel? _baseTargetLevel;
     }
 }
 

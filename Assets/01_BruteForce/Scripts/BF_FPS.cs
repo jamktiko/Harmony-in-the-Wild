@@ -2,7 +2,7 @@
 
 public class BF_FPS : MonoBehaviour
 {
-    float deltaTime = 0.0f;
+    private float deltaTime = 0.0f;
 
     private GUIStyle style = null;
 
@@ -16,7 +16,7 @@ public class BF_FPS : MonoBehaviour
         style.normal.textColor = new Color(1.0f, 0.0f, 0.0f, 1.0f);
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
@@ -27,7 +27,7 @@ public class BF_FPS : MonoBehaviour
             deltaTime += (Time.unscaledDeltaTime - deltaTime) * 0.1f;
     }
 
-    void OnGUI()
+    private void OnGUI()
     {
         if (ShowFps)
         {

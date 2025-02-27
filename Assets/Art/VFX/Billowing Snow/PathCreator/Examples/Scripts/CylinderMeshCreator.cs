@@ -14,12 +14,11 @@ namespace PathCreation.Examples
 
         public Material material;
 
-        [SerializeField, HideInInspector]
-        GameObject meshHolder;
+        [SerializeField, HideInInspector] private GameObject meshHolder;
 
-        MeshFilter meshFilter;
-        MeshRenderer meshRenderer;
-        Mesh mesh;
+        private MeshFilter meshFilter;
+        private MeshRenderer meshRenderer;
+        private Mesh mesh;
 
         protected override void PathUpdated()
         {
@@ -31,7 +30,7 @@ namespace PathCreation.Examples
             }
         }
 
-        void CreateMesh()
+        private void CreateMesh()
         {
             List<Vector3> verts = new List<Vector3>();
             List<int> triangles = new List<int>();
@@ -89,7 +88,7 @@ namespace PathCreation.Examples
         }
 
         // Add MeshRenderer and MeshFilter components to this gameobject if not already attached
-        void AssignMeshComponents()
+        private void AssignMeshComponents()
         {
 
             if (meshHolder == null)
@@ -120,7 +119,7 @@ namespace PathCreation.Examples
             meshFilter.sharedMesh = mesh;
         }
 
-        void AssignMaterials()
+        private void AssignMaterials()
         {
             if (material != null)
             {

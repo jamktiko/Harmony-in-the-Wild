@@ -23,7 +23,7 @@ namespace Ink.UnityIntegration
         public static System.Version inkVersionCurrent = new System.Version(1, 1, 1);
         public static System.Version unityIntegrationVersionCurrent = new System.Version(1, 1, 8);
 
-        static string absoluteSavePath
+        private static string absoluteSavePath
         {
             get
             {
@@ -85,7 +85,7 @@ namespace Ink.UnityIntegration
 
         public class AssetSaver : UnityEditor.AssetModificationProcessor
         {
-            static string[] OnWillSaveAssets(string[] paths)
+            private static string[] OnWillSaveAssets(string[] paths)
             {
                 instance.Save(true);
                 return paths;
@@ -93,7 +93,7 @@ namespace Ink.UnityIntegration
         }
 
         public List<InkFile> inkLibrary = new List<InkFile>();
-        Dictionary<DefaultAsset, InkFile> inkLibraryDictionary = new Dictionary<DefaultAsset, InkFile>();
+        private Dictionary<DefaultAsset, InkFile> inkLibraryDictionary = new Dictionary<DefaultAsset, InkFile>();
 
         public int Count
         {
@@ -123,7 +123,7 @@ namespace Ink.UnityIntegration
             return inkLibrary.GetEnumerator();
         }
 
-        void OnValidate()
+        private void OnValidate()
         {
             BuildLookupDictionary();
             // This is experimental! I'd like to see if it fixes the issue where assets have not yet been imported.
@@ -133,7 +133,7 @@ namespace Ink.UnityIntegration
             };
         }
         // After recompile, the data associated with the object is fetched (or whatever happens to it) by this point. 
-        void OnEnable()
+        private void OnEnable()
         {
             // Deletes the persistent version of this asset that we used to use prior to 0.9.71
             if (!Application.isPlaying && EditorUtility.IsPersistent(this))
@@ -151,7 +151,7 @@ namespace Ink.UnityIntegration
             }
         }
 
-        static void BuildLookupDictionary()
+        private static void BuildLookupDictionary()
         {
             instance.inkLibraryDictionary.Clear();
             foreach (var inkFile in instance.inkLibrary)
@@ -183,7 +183,7 @@ namespace Ink.UnityIntegration
         /// This occassionally occurs from source control.
         /// This is a fairly performant check.
         /// </summary>
-        static bool RequiresRebuild()
+        private static bool RequiresRebuild()
         {
 #if !UNITY_2020_1_OR_NEWER
 			EnsureCreated();
@@ -236,7 +236,7 @@ namespace Ink.UnityIntegration
             return wasDirty;
         }
 
-        static void Add(InkFile inkFile)
+        private static void Add(InkFile inkFile)
         {
             instance.inkLibrary.Add(inkFile);
             SortInkLibrary();
@@ -248,7 +248,8 @@ namespace Ink.UnityIntegration
             instance.inkLibrary.RemoveAt(index);
             instance.inkLibraryDictionary.Remove(inkFile.inkAsset);
         }
-        static void SortInkLibrary()
+
+        private static void SortInkLibrary()
         {
             instance.inkLibrary = instance.inkLibrary.OrderBy(x => x.filePath).ToList();
         }

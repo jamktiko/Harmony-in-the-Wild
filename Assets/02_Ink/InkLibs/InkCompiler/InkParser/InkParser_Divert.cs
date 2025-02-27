@@ -179,7 +179,7 @@ namespace Ink
             return divert;
         }
 
-        List<Identifier> DotSeparatedDivertPathComponents()
+        private List<Identifier> DotSeparatedDivertPathComponents()
         {
             return Interleave<Identifier>(Spaced(IdentifierWithMetadata), Exclude(String(".")));
         }

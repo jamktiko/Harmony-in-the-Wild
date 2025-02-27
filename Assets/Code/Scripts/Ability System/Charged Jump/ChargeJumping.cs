@@ -17,7 +17,7 @@ public class ChargeJumping : MonoBehaviour, IAbility
     private int _onDisableChargeJumpID;
     private bool _vfxPlaying;
 
-    void Awake()
+    private void Awake()
     {
         if (Instance != null && Instance != this)
         {

@@ -10,7 +10,7 @@ namespace ProjectorForLWRP
 {
     public static class StencilMaskAllocator
     {
-        const int STENCIL_BIT_COUNT = 8;
+        private const int STENCIL_BIT_COUNT = 8;
         private static int s_availableBits = 0xFF;
         private static int s_allocateCount = 0;
         private static bool s_loopFlag = false;

@@ -23,7 +23,8 @@ namespace Ink.Runtime
         // v10: dynamic tags
         // v9:  multi-flows
         public const int kInkSaveStateVersion = 10;
-        const int kMinCompatibleLoadVersion = 8;
+
+        private const int kMinCompatibleLoadVersion = 8;
 
         /// <summary>
         /// Callback for when a state is loaded
@@ -338,7 +339,8 @@ namespace Ink.Runtime
                 return _currentText;
             }
         }
-        string _currentText;
+
+        private string _currentText;
 
         // Cleans inline whitespace in the following way:
         //  - Removes all whitespace from the start and end of line (including just before a \n)
@@ -451,7 +453,8 @@ namespace Ink.Runtime
                 return _currentTags;
             }
         }
-        List<string> _currentTags;
+
+        private List<string> _currentTags;
 
         public string currentFlowName
         {
@@ -496,7 +499,7 @@ namespace Ink.Runtime
             }
         }
 
-        List<string> _aliveFlowNames;
+        private List<string> _aliveFlowNames;
 
         public bool inExpressionEvaluation
         {
@@ -691,13 +694,13 @@ namespace Ink.Runtime
             _patch = null;
         }
 
-        void ApplyCountChanges(Container container, int newCount, bool isVisit)
+        private void ApplyCountChanges(Container container, int newCount, bool isVisit)
         {
             var counts = isVisit ? _visitCounts : _turnIndices;
             counts[container.path.ToString()] = newCount;
         }
 
-        void WriteJson(SimpleJson.Writer writer)
+        private void WriteJson(SimpleJson.Writer writer)
         {
             writer.WriteObjectStart();
 
@@ -750,7 +753,7 @@ namespace Ink.Runtime
         }
 
 
-        void LoadJsonObj(Dictionary<string, object> jObject)
+        private void LoadJsonObj(Dictionary<string, object> jObject)
         {
             object jSaveVersion = null;
             if (!jObject.TryGetValue("inkSaveVersion", out jSaveVersion))
@@ -910,7 +913,7 @@ namespace Ink.Runtime
         //
         //  - If no splitting is necessary, null is returned.
         //  - A newline on its own is returned in a list for consistency.
-        List<Runtime.StringValue> TrySplittingHeadTailWhitespace(Runtime.StringValue single)
+        private List<Runtime.StringValue> TrySplittingHeadTailWhitespace(Runtime.StringValue single)
         {
             string str = single.value;
 
@@ -992,7 +995,7 @@ namespace Ink.Runtime
             return listTexts;
         }
 
-        void PushToOutputStreamIndividual(Runtime.Object obj)
+        private void PushToOutputStreamIndividual(Runtime.Object obj)
         {
             var glue = obj as Runtime.Glue;
             var text = obj as Runtime.StringValue;
@@ -1115,7 +1118,7 @@ namespace Ink.Runtime
             }
         }
 
-        void TrimNewlinesFromOutputStream()
+        private void TrimNewlinesFromOutputStream()
         {
             int removeWhitespaceFrom = -1;
 
@@ -1165,7 +1168,7 @@ namespace Ink.Runtime
         }
 
         // Only called when non-whitespace is appended
-        void RemoveExistingGlue()
+        private void RemoveExistingGlue()
         {
             for (int i = outputStream.Count - 1; i >= 0; i--)
             {
@@ -1318,7 +1321,7 @@ namespace Ink.Runtime
         // We always trim the start and end of the text that a function produces.
         // The start whitespace is discard as it is generated, and the end
         // whitespace is trimmed in one go here when we pop the function.
-        void TrimWhitespaceFromFunctionEnd()
+        private void TrimWhitespaceFromFunctionEnd()
         {
             Debug.Assert(callStack.currentElement.type == PushPopType.Function);
 
@@ -1476,7 +1479,7 @@ namespace Ink.Runtime
             }
         }
 
-        void OutputStreamDirty()
+        private void OutputStreamDirty()
         {
             _outputStreamTextDirty = true;
             _outputStreamTagsDirty = true;
@@ -1487,17 +1490,17 @@ namespace Ink.Runtime
         // REMEMBER! REMEMBER! REMEMBER!
 
 
-        Dictionary<string, int> _visitCounts;
-        Dictionary<string, int> _turnIndices;
-        bool _outputStreamTextDirty = true;
-        bool _outputStreamTagsDirty = true;
+        private Dictionary<string, int> _visitCounts;
+        private Dictionary<string, int> _turnIndices;
+        private bool _outputStreamTextDirty = true;
+        private bool _outputStreamTagsDirty = true;
 
-        StatePatch _patch;
+        private StatePatch _patch;
 
-        Flow _currentFlow;
-        Dictionary<string, Flow> _namedFlows;
-        const string kDefaultFlowName = "DEFAULT_FLOW";
-        bool _aliveFlowNamesDirty = true;
+        private Flow _currentFlow;
+        private Dictionary<string, Flow> _namedFlows;
+        private const string kDefaultFlowName = "DEFAULT_FLOW";
+        private bool _aliveFlowNamesDirty = true;
     }
 }
 

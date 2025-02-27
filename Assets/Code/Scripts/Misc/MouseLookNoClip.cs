@@ -3,11 +3,13 @@ using UnityEngine.Serialization;
 
 public class MouseLookNoClip : MonoBehaviour
 {
-    [FormerlySerializedAs("rotation")] [SerializeField] Vector2 _rotation = Vector2.zero;
+    [FormerlySerializedAs("rotation")] [SerializeField]
+    private Vector2 _rotation = Vector2.zero;
     [FormerlySerializedAs("speed")] public float Speed = 3;
-    [FormerlySerializedAs("player")] [SerializeField] Transform _player;
+    [FormerlySerializedAs("player")] [SerializeField]
+    private Transform _player;
 
-    void Update()
+    private void Update()
     {
         _rotation.y += PlayerInputHandler.Instance.LookInput.ReadValue<Vector2>().x;
         _rotation.x += -PlayerInputHandler.Instance.LookInput.ReadValue<Vector2>().y;

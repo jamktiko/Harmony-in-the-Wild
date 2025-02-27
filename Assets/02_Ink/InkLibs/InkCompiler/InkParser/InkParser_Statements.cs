@@ -64,7 +64,7 @@ namespace Ink
             return breakRuleResult;
         }
 
-        void GenerateStatementLevelRules()
+        private void GenerateStatementLevelRules()
         {
             var levels = Enum.GetValues(typeof(StatementLevel)).Cast<StatementLevel>().ToList();
 
@@ -167,8 +167,8 @@ namespace Ink
         }
 
 
-        ParseRule[][] _statementRulesAtLevel;
-        ParseRule[][] _statementBreakRulesAtLevel;
+        private ParseRule[][] _statementRulesAtLevel;
+        private ParseRule[][] _statementBreakRulesAtLevel;
     }
 }
 

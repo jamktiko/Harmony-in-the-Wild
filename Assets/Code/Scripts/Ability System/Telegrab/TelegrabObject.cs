@@ -4,7 +4,7 @@ public class TelegrabObject : MonoBehaviour
 {
     public Material TelegrabMaterial;
 
-    void Start()
+    private void Start()
     {
         TelegrabMaterial = gameObject.GetComponent<MeshRenderer>().material;
     }

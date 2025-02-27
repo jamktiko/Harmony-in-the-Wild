@@ -6,9 +6,12 @@ using UnityEngine.UI;
 
 public class MapOpen : MonoBehaviour
 {
-    [FormerlySerializedAs("mapPanel")] [SerializeField] GameObject _mapPanel;
-    [FormerlySerializedAs("mapCam")] [SerializeField] GameObject _mapCam;
-    [FormerlySerializedAs("PlayerDisplayCanvas")] [SerializeField] GameObject _playerDisplayCanvas;
+    [FormerlySerializedAs("mapPanel")] [SerializeField]
+    private GameObject _mapPanel;
+    [FormerlySerializedAs("mapCam")] [SerializeField]
+    private GameObject _mapCam;
+    [FormerlySerializedAs("PlayerDisplayCanvas")] [SerializeField]
+    private GameObject _playerDisplayCanvas;
     [FormerlySerializedAs("globalVolume")] [SerializeField] internal Volume _globalVolume;
 
     [FormerlySerializedAs("mapQuestMarkers")]
@@ -17,7 +20,7 @@ public class MapOpen : MonoBehaviour
 
     private UnityEngine.Rendering.Universal.DepthOfField _depthOfField;
 
-    void Start()
+    private void Start()
     {
         CheckDepthOfField();
         StartCoroutine(ReEnableMarkers());
@@ -36,7 +39,7 @@ public class MapOpen : MonoBehaviour
         }
     }
 
-    void Update()
+    private void Update()
     {
         HandleMapToggle();
         HandleDebugFeatures();

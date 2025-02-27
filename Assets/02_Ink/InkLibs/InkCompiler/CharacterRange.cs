@@ -38,16 +38,16 @@ namespace Ink
         public char start { get { return _start; } }
         public char end { get { return _end; } }
 
-        CharacterRange(char start, char end, IEnumerable<char> excludes)
+        private CharacterRange(char start, char end, IEnumerable<char> excludes)
         {
             _start = start;
             _end = end;
             _excludes = excludes == null ? new HashSet<char>() : new HashSet<char>(excludes);
         }
 
-        char _start;
-        char _end;
-        ICollection<char> _excludes;
-        CharacterSet _correspondingCharSet = new CharacterSet();
+        private char _start;
+        private char _end;
+        private ICollection<char> _excludes;
+        private CharacterSet _correspondingCharSet = new CharacterSet();
     }
 }

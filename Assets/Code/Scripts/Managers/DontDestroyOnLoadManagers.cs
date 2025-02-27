@@ -3,10 +3,13 @@ using UnityEngine.Serialization;
 
 public class DontDestroyOnLoadManagers : MonoBehaviour
 {
-    [FormerlySerializedAs("pauseMenuManager")] [SerializeField] GameObject _pauseMenuManager;
-    [FormerlySerializedAs("PauseMenuPanel")] [SerializeField] GameObject _pauseMenuPanel;
+    [FormerlySerializedAs("pauseMenuManager")] [SerializeField]
+    private GameObject _pauseMenuManager;
+    [FormerlySerializedAs("PauseMenuPanel")] [SerializeField]
+    private GameObject _pauseMenuPanel;
     public static DontDestroyOnLoadManagers Instance;
-    void Awake()
+
+    private void Awake()
     {
         if (Instance == null)
         {

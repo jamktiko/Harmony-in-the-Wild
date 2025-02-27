@@ -8,53 +8,53 @@ using UnityEngine;
 
 public class CFXEasyEditor : EditorWindow
 {
-    static CFXEasyEditor SingleWindow;
+    private static CFXEasyEditor SingleWindow;
 
-    const float MIN_WIDTH = 520;
-    const float MAX_WIDTH = 1500;
+    private const float MIN_WIDTH = 520;
+    private const float MAX_WIDTH = 1500;
 
     [MenuItem("Tools/Cartoon FX Easy Editor")]
-    static void ShowWindow()
+    private static void ShowWindow()
     {
         CFXEasyEditor window = EditorWindow.GetWindow<CFXEasyEditor>(EditorPrefs.GetBool("CFX_ShowAsToolbox", true), "Easy Editor", true);
         window.minSize = new Vector2(MIN_WIDTH, 8);
         window.maxSize = new Vector2(MAX_WIDTH, 8);
     }
 
-    int SelectedParticleSystemsCount;
+    private int SelectedParticleSystemsCount;
 
     //Change Start Color
-    bool AffectAlpha = true;
-    Color ColorValue = Color.white;
-    Color ColorValue2 = Color.white;
+    private bool AffectAlpha = true;
+    private Color ColorValue = Color.white;
+    private Color ColorValue2 = Color.white;
 
     //Scale
-    float ScalingValue = 2.0f;
-    float LTScalingValue = 1.0f;
+    private float ScalingValue = 2.0f;
+    private float LTScalingValue = 1.0f;
 
     //Delay
-    float DelayValue = 1.0f;
+    private float DelayValue = 1.0f;
 
     //Duration
-    float DurationValue = 5.0f;
+    private float DurationValue = 5.0f;
 
     //Tint
-    bool TintStartColor = true;
-    bool TintColorModule = true;
-    bool TintColorSpeedModule = true;
-    bool TintTrailsModule = true;
-    bool TintCustomData1 = true;
-    bool TintCustomData2 = true;
-    bool TintLights = true;
-    Color TintColorValue = Color.white;
+    private bool TintStartColor = true;
+    private bool TintColorModule = true;
+    private bool TintColorSpeedModule = true;
+    private bool TintTrailsModule = true;
+    private bool TintCustomData1 = true;
+    private bool TintCustomData2 = true;
+    private bool TintLights = true;
+    private Color TintColorValue = Color.white;
 
     //Change Lightness
-    int LightnessStep = 10;
+    private int LightnessStep = 10;
 
     //Module copying system
-    ParticleSystem copyModulesSourceParticleSystem;
+    private ParticleSystem copyModulesSourceParticleSystem;
 
-    class ParticleSystemModule
+    private class ParticleSystemModule
     {
         public string name;
         //public bool selected;
@@ -83,11 +83,11 @@ public class CFXEasyEditor : EditorWindow
         }
     }
 
-    ParticleSystemModule[] modulesToCopy = null;
-    List<string> initialModuleExtraProperties = null;
-    GUIContent[] modulesLabels = null;
+    private ParticleSystemModule[] modulesToCopy = null;
+    private List<string> initialModuleExtraProperties = null;
+    private GUIContent[] modulesLabels = null;
 
-    static readonly Dictionary<string, string> ModulesInternalToDisplayNames = new()
+    private static readonly Dictionary<string, string> ModulesInternalToDisplayNames = new()
     {
         { "Initial", "Main" },
         { "Velocity", "Velocity over Lifetime" },
@@ -109,9 +109,10 @@ public class CFXEasyEditor : EditorWindow
         { "CustomData", "Custom Data" },
     };
 
-    ParticleSystem selectedParticleSystem;
-    bool[] selectedModules;
-    bool[] enabledModules;
+    private ParticleSystem selectedParticleSystem;
+    private bool[] selectedModules;
+
+    private bool[] enabledModules;
     /*
 	bool[] selectedModulesMutate;
 	bool[] enabledModulesMutate;
@@ -120,17 +121,18 @@ public class CFXEasyEditor : EditorWindow
 	*/
 
     //Foldouts
-    bool basicFoldout = false;
-    bool colorFoldout = false;
-    bool copyFoldout = false;
+    private bool basicFoldout = false;
+    private bool colorFoldout = false;
+
+    private bool copyFoldout = false;
     //bool mutateFoldout = false;
 
     //Editor Prefs
-    bool pref_ShowAsToolbox;
-    bool pref_IncludeChildren;
-    bool pref_HideDisabledModulesCopy;
+    private bool pref_ShowAsToolbox;
+    private bool pref_IncludeChildren;
+    private bool pref_HideDisabledModulesCopy;
 
-    void OnEnable()
+    private void OnEnable()
     {
         //Load Settings
         pref_ShowAsToolbox = EditorPrefs.GetBool("CFX_ShowAsToolbox", true);
@@ -156,7 +158,7 @@ public class CFXEasyEditor : EditorWindow
         OnSelectionChange();
     }
 
-    void OnSelectionChange()
+    private void OnSelectionChange()
     {
         UpdateSelectionCount();
         this.Repaint();
@@ -168,7 +170,7 @@ public class CFXEasyEditor : EditorWindow
         }
     }
 
-    void FetchParticleSystemModules(ParticleSystem ps)
+    private void FetchParticleSystemModules(ParticleSystem ps)
     {
         // Fetch the modules list from a Particle System
         if (modulesToCopy == null && ps != null)
@@ -209,7 +211,7 @@ public class CFXEasyEditor : EditorWindow
         }
     }
 
-    void OnDisable()
+    private void OnDisable()
     {
         //Save Settings
         EditorPrefs.SetBool("CFX_BasicFoldout", basicFoldout);
@@ -218,7 +220,7 @@ public class CFXEasyEditor : EditorWindow
         //EditorPrefs.SetBool("CFX_MutateFoldout", mutateFoldout);
     }
 
-    void UpdateSelectionCount()
+    private void UpdateSelectionCount()
     {
         SelectedParticleSystemsCount = 0;
         foreach (var go in Selection.gameObjects)
@@ -233,7 +235,7 @@ public class CFXEasyEditor : EditorWindow
         }
     }
 
-    void OnGUI()
+    private void OnGUI()
     {
         GUILayout.Space(4);
 
@@ -756,9 +758,9 @@ public class CFXEasyEditor : EditorWindow
         }
     }
 
-    float lastHeight = 0;
+    private float lastHeight = 0;
 
-    void DrawSelectableModules(ref bool[] selected, ref bool[] enabled, ParticleSystem target)
+    private void DrawSelectableModules(ref bool[] selected, ref bool[] enabled, ParticleSystem target)
     {
         if (modulesToCopy != null)
         {
@@ -908,7 +910,7 @@ public class CFXEasyEditor : EditorWindow
         }
     }
 
-    void RefreshCurrentlyEnabledModules(ParticleSystem source, ref bool[] enabledModules)
+    private void RefreshCurrentlyEnabledModules(ParticleSystem source, ref bool[] enabledModules)
     {
         if (modulesToCopy == null)
         {
@@ -939,7 +941,7 @@ public class CFXEasyEditor : EditorWindow
     }
 
     //Loop effects
-    void loopEffect(bool setLoop)
+    private void loopEffect(bool setLoop)
     {
         foreach (GameObject go in Selection.gameObjects)
         {
@@ -960,7 +962,7 @@ public class CFXEasyEditor : EditorWindow
     }
 
     //Prewarm effects
-    void prewarmEffect(bool setPrewarm)
+    private void prewarmEffect(bool setPrewarm)
     {
         foreach (GameObject go in Selection.gameObjects)
         {
@@ -981,7 +983,7 @@ public class CFXEasyEditor : EditorWindow
     }
 
     //Scale Size
-    void applyScale()
+    private void applyScale()
     {
         Undo.IncrementCurrentGroup();
         int groupId = Undo.GetCurrentGroup();
@@ -1017,7 +1019,7 @@ public class CFXEasyEditor : EditorWindow
     }
 
     //Change Color
-    void applyColor()
+    private void applyColor()
     {
         foreach (GameObject go in Selection.gameObjects)
         {
@@ -1047,33 +1049,33 @@ public class CFXEasyEditor : EditorWindow
 
     //TINT COLORS ================================================================================================================================
 
-    void tintColor()
+    private void tintColor()
     {
         float hue = HSLColor.FromRGBA(TintColorValue).h;
         GenericProcessColors(color => HSLColor.FromRGBA(color).ColorWithHue(hue, false));
     }
 
-    void hueShift(float shift)
+    private void hueShift(float shift)
     {
         GenericProcessColors(color => HSLColor.FromRGBA(color).ColorWithHue(shift, true));
     }
 
-    void satShift(float shift)
+    private void satShift(float shift)
     {
         GenericProcessColors(color => HSLColor.FromRGBA(color).ColorWithSaturationOffset(shift / 100f));
     }
 
-    void valShift(float shift)
+    private void valShift(float shift)
     {
         GenericProcessColors(color => HSLColor.FromRGBA(color).ColorWithLightnessOffset(shift / 100f));
     }
 
-    void GenericTintColorProperty(SerializedProperty colorProperty, float hue, bool shift)
+    private void GenericTintColorProperty(SerializedProperty colorProperty, float hue, bool shift)
     {
         GenericEditColorProperty(colorProperty, color => HSLColor.FromRGBA(color).ColorWithHue(hue, shift));
     }
 
-    void GenericEditGradient(SerializedProperty gradientProperty, System.Func<Color, Color> callback)
+    private void GenericEditGradient(SerializedProperty gradientProperty, System.Func<Color, Color> callback)
     {
         gradientProperty.FindPropertyRelative("key0").colorValue = callback(gradientProperty.FindPropertyRelative("key0").colorValue);
         gradientProperty.FindPropertyRelative("key1").colorValue = callback(gradientProperty.FindPropertyRelative("key1").colorValue);
@@ -1085,17 +1087,17 @@ public class CFXEasyEditor : EditorWindow
         gradientProperty.FindPropertyRelative("key7").colorValue = callback(gradientProperty.FindPropertyRelative("key7").colorValue);
     }
 
-    void gammaToLinear()
+    private void gammaToLinear()
     {
         GenericProcessColors(color => color.gamma);
     }
 
-    void linearToGamma()
+    private void linearToGamma()
     {
         GenericProcessColors(color => color.linear);
     }
 
-    void GenericProcessColors(System.Func<Color, Color> callback)
+    private void GenericProcessColors(System.Func<Color, Color> callback)
     {
         foreach (GameObject go in Selection.gameObjects)
         {
@@ -1153,7 +1155,7 @@ public class CFXEasyEditor : EditorWindow
         }
     }
 
-    void GenericEditColorProperty(SerializedProperty colorProperty, System.Func<Color, Color> callback)
+    private void GenericEditColorProperty(SerializedProperty colorProperty, System.Func<Color, Color> callback)
     {
         int state = colorProperty.FindPropertyRelative("minMaxState").intValue;
         switch (state)
@@ -1184,7 +1186,7 @@ public class CFXEasyEditor : EditorWindow
 
     //LIGHTNESS OFFSET ================================================================================================================================
 
-    void addLightness(bool substract)
+    private void addLightness(bool substract)
     {
         if (!TintStartColor && !TintColorModule && !TintColorSpeedModule)
         {
@@ -1223,7 +1225,7 @@ public class CFXEasyEditor : EditorWindow
         }
     }
 
-    void GenericAddLightness(SerializedProperty colorProperty, float lightness)
+    private void GenericAddLightness(SerializedProperty colorProperty, float lightness)
     {
         int state = colorProperty.FindPropertyRelative("minMaxState").intValue;
         switch (state)
@@ -1252,7 +1254,7 @@ public class CFXEasyEditor : EditorWindow
         }
     }
 
-    void AddLightnessGradient(SerializedProperty gradientProperty, float lightness)
+    private void AddLightnessGradient(SerializedProperty gradientProperty, float lightness)
     {
         gradientProperty.FindPropertyRelative("key0").colorValue = HSLColor.FromRGBA(gradientProperty.FindPropertyRelative("key0").colorValue).ColorWithLightnessOffset(lightness);
         gradientProperty.FindPropertyRelative("key1").colorValue = HSLColor.FromRGBA(gradientProperty.FindPropertyRelative("key1").colorValue).ColorWithLightnessOffset(lightness);
@@ -1265,7 +1267,7 @@ public class CFXEasyEditor : EditorWindow
     }
 
     //RGB / HSL Conversions
-    struct HSLColor
+    private struct HSLColor
     {
         public float h;
         public float s;
@@ -1339,7 +1341,7 @@ public class CFXEasyEditor : EditorWindow
             return new HSLColor(h, s, l, a);
         }
 
-        Color ToRGBA()
+        private Color ToRGBA()
         {
             float r, g, b, a;
             a = this.a;
@@ -1363,7 +1365,7 @@ public class CFXEasyEditor : EditorWindow
             return new Color(r, g, b, a);
         }
 
-        static float Value(float n1, float n2, float hue)
+        private static float Value(float n1, float n2, float hue)
         {
             hue = Mathf.Repeat(hue, 360f);
 
@@ -1438,7 +1440,7 @@ public class CFXEasyEditor : EditorWindow
     }
 
     //Scale Lifetime only
-    void applySpeed()
+    private void applySpeed()
     {
         foreach (GameObject go in Selection.gameObjects)
         {
@@ -1462,7 +1464,7 @@ public class CFXEasyEditor : EditorWindow
     }
 
     //Set Duration
-    void applyDuration()
+    private void applyDuration()
     {
         foreach (GameObject go in Selection.gameObjects)
         {
@@ -1483,7 +1485,7 @@ public class CFXEasyEditor : EditorWindow
     }
 
     //Change delay
-    void applyDelay()
+    private void applyDelay()
     {
         foreach (GameObject go in Selection.gameObjects)
         {
@@ -1507,7 +1509,7 @@ public class CFXEasyEditor : EditorWindow
     }
 
     //Copy Selected Modules
-    void CopyModules(ParticleSystem source, ParticleSystem dest)
+    private void CopyModules(ParticleSystem source, ParticleSystem dest)
     {
         if (source == null)
         {
@@ -1646,7 +1648,7 @@ public class CFXEasyEditor : EditorWindow
 	*/
 
     //Scale System
-    void ScaleParticleValues(ParticleSystem ps, GameObject parent)
+    private void ScaleParticleValues(ParticleSystem ps, GameObject parent)
     {
         //Particle System
         if (ps.gameObject != parent)
@@ -1695,7 +1697,7 @@ public class CFXEasyEditor : EditorWindow
     }
 
     //Properties to scale, with per-version differences
-    string[] PropertiesToScale = new string[]
+    private string[] PropertiesToScale = new string[]
     {
 		//Initial
 		"InitialModule.startSize.scalar",
@@ -1800,7 +1802,7 @@ public class CFXEasyEditor : EditorWindow
 #endif
 	};
 
-    void GUISeparator()
+    private void GUISeparator()
     {
         GUILayout.Space(4);
         if (EditorGUIUtility.isProSkin)
@@ -1816,7 +1818,7 @@ public class CFXEasyEditor : EditorWindow
         GUILayout.Space(4);
     }
 
-    static void GUILine(Color color, float height = 2f)
+    private static void GUILine(Color color, float height = 2f)
     {
         Rect position = GUILayoutUtility.GetRect(0f, float.MaxValue, height, height, LineStyle);
 
@@ -1829,8 +1831,9 @@ public class CFXEasyEditor : EditorWindow
         }
     }
 
-    static GUIStyle _LineStyle;
-    static GUIStyle LineStyle
+    private static GUIStyle _LineStyle;
+
+    private static GUIStyle LineStyle
     {
         get
         {

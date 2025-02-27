@@ -59,23 +59,23 @@ namespace Ink
             return new IncludedFile(includedStory);
         }
 
-        bool FilenameIsAlreadyOpen(string fullFilename)
+        private bool FilenameIsAlreadyOpen(string fullFilename)
         {
             return _rootParser._openFilenames.Contains(fullFilename);
         }
 
-        void AddOpenFilename(string fullFilename)
+        private void AddOpenFilename(string fullFilename)
         {
             _rootParser._openFilenames.Add(fullFilename);
         }
 
-        void RemoveOpenFilename(string fullFilename)
+        private void RemoveOpenFilename(string fullFilename)
         {
             _rootParser._openFilenames.Remove(fullFilename);
         }
 
-        InkParser _rootParser;
-        HashSet<string> _openFilenames;
+        private InkParser _rootParser;
+        private HashSet<string> _openFilenames;
     }
 }
 

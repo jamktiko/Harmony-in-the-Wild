@@ -42,7 +42,7 @@ public class DungeonInstructionPanel : MonoBehaviour
         Invoke(nameof(EnableHidingInstructions), _timeToEnableHidingInstructions);
     }
 
-    void Update()
+    private void Update()
     {
         if (PlayerInputHandler.Instance.CloseUIInput.WasPerformedThisFrame() && _canHideInstructions)
         {

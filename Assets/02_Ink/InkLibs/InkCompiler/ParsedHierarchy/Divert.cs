@@ -183,7 +183,7 @@ namespace Ink.Parsed
         }
 
 
-        void ResolveTargetContent()
+        private void ResolveTargetContent()
         {
             if (isEmpty || isEnd)
             {
@@ -299,7 +299,7 @@ namespace Ink.Parsed
         }
 
         // Returns false if there's an error
-        void CheckArgumentValidity()
+        private void CheckArgumentValidity()
         {
             if (isEmpty)
                 return;
@@ -410,7 +410,7 @@ namespace Ink.Parsed
             return;
         }
 
-        void CheckExternalArgumentValidity(Story context)
+        private void CheckExternalArgumentValidity(Story context)
         {
             string externalName = target.firstComponent;
             ExternalDeclaration external = null;

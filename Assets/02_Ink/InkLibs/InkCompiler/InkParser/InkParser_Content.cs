@@ -6,7 +6,7 @@ namespace Ink
 {
     public partial class InkParser
     {
-        void TrimEndWhitespace(List<Parsed.Object> mixedTextAndLogicResults, bool terminateWithSpace)
+        private void TrimEndWhitespace(List<Parsed.Object> mixedTextAndLogicResults, bool terminateWithSpace)
         {
             // Trim whitespace from end
             if (mixedTextAndLogicResults.Count > 0)
@@ -223,10 +223,10 @@ namespace Ink
 
         }
 
-        CharacterSet _nonTextPauseCharacters;
-        CharacterSet _nonTextEndCharacters;
-        CharacterSet _notTextEndCharactersChoice;
-        CharacterSet _notTextEndCharactersString;
+        private CharacterSet _nonTextPauseCharacters;
+        private CharacterSet _nonTextEndCharacters;
+        private CharacterSet _notTextEndCharactersChoice;
+        private CharacterSet _notTextEndCharactersString;
 
 
 

@@ -51,7 +51,7 @@ namespace Kino
 
         [SerializeField]
         [Tooltip("Filters out pixels under this level of brightness.")]
-        float _threshold = 0.8f;
+        private float _threshold = 0.8f;
 
         /// Soft-knee coefficient
         /// Makes transition between under/over-threshold gradual.
@@ -63,7 +63,7 @@ namespace Kino
 
         [SerializeField, Range(0, 1)]
         [Tooltip("Makes transition between under/over-threshold gradual.")]
-        float _softKnee = 0.5f;
+        private float _softKnee = 0.5f;
 
         /// Bloom radius
         /// Changes extent of veiling effects in a screen
@@ -77,7 +77,7 @@ namespace Kino
         [SerializeField, Range(1, 7)]
         [Tooltip("Changes extent of veiling effects\n" +
                  "in a screen resolution-independent fashion.")]
-        float _radius = 2.5f;
+        private float _radius = 2.5f;
 
         /// Bloom intensity
         /// Blend factor of the result image.
@@ -89,7 +89,7 @@ namespace Kino
 
         [SerializeField]
         [Tooltip("Blend factor of the result image.")]
-        float _intensity = 0.8f;
+        private float _intensity = 0.8f;
 
         /// High quality mode
         /// Controls filter quality and buffer resolution.
@@ -101,13 +101,13 @@ namespace Kino
 
         [SerializeField]
         [Tooltip("Controls filter quality and buffer resolution.")]
-        bool _highQuality = true;
+        private bool _highQuality = true;
 
         /// Anti-flicker filter
         /// Reduces flashing noise with an additional filter.
         [SerializeField]
         [Tooltip("Reduces flashing noise with an additional filter.")]
-        bool _antiFlicker = true;
+        private bool _antiFlicker = true;
 
         public bool antiFlicker
         {
@@ -119,16 +119,15 @@ namespace Kino
 
         #region Private Members
 
-        [SerializeField, HideInInspector]
-        Shader _shader;
+        [SerializeField, HideInInspector] private Shader _shader;
 
-        Material _material;
+        private Material _material;
 
-        const int kMaxIterations = 16;
-        RenderTexture[] _blurBuffer1 = new RenderTexture[kMaxIterations];
-        RenderTexture[] _blurBuffer2 = new RenderTexture[kMaxIterations];
+        private const int kMaxIterations = 16;
+        private RenderTexture[] _blurBuffer1 = new RenderTexture[kMaxIterations];
+        private RenderTexture[] _blurBuffer2 = new RenderTexture[kMaxIterations];
 
-        float LinearToGamma(float x)
+        private float LinearToGamma(float x)
         {
 #if UNITY_5_3_OR_NEWER
             return Mathf.LinearToGammaSpace(x);
@@ -140,7 +139,7 @@ namespace Kino
 #endif
         }
 
-        float GammaToLinear(float x)
+        private float GammaToLinear(float x)
         {
 #if UNITY_5_3_OR_NEWER
             return Mathf.GammaToLinearSpace(x);
@@ -156,19 +155,19 @@ namespace Kino
 
         #region MonoBehaviour Functions
 
-        void OnEnable()
+        private void OnEnable()
         {
             var shader = _shader ? _shader : Shader.Find("Hidden/Kino/BloomKino");
             _material = new Material(shader);
             _material.hideFlags = HideFlags.DontSave;
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             DestroyImmediate(_material);
         }
 
-        void OnRenderImage(RenderTexture source, RenderTexture destination)
+        private void OnRenderImage(RenderTexture source, RenderTexture destination)
         {
             var useRGBM = Application.isMobilePlatform;
 

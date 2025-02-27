@@ -3,14 +3,16 @@ using UnityEngine.Serialization;
 
 public class InteractableKey : MonoBehaviour
 {
-    [FormerlySerializedAs("isActive")] [SerializeField] bool _isActive = false;
+    [FormerlySerializedAs("isActive")] [SerializeField]
+    private bool _isActive = false;
     [FormerlySerializedAs("wasUsed")] [SerializeField] public bool WasUsed = false; //TODO: check what usecase is and fix accordingly
     [FormerlySerializedAs("doorToOpen")] [SerializeField] private GameObject _doorToOpen;
     //[SerializeField] int keyNumber;
-    [FormerlySerializedAs("keySoundAudioSource")] [SerializeField] AudioSource _keySoundAudioSource;
+    [FormerlySerializedAs("keySoundAudioSource")] [SerializeField]
+    private AudioSource _keySoundAudioSource;
     [FormerlySerializedAs("keyCounter")] [SerializeField] private SquirrelBossKeyCounter _keyCounter;
 
-    void Update()
+    private void Update()
     {
         if (PlayerInputHandler.Instance.InteractInput.WasPressedThisFrame() && _isActive && !WasUsed)
         {

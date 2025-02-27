@@ -127,14 +127,14 @@ namespace ProjectorForLWRP
             }
         }
 
-        void Initialize()
+        private void Initialize()
         {
             m_projectorForLWRP = GetComponent<ProjectorForLWRP>();
             m_actionOnAddProjectorToRenderer = AddRenderer;
             UpdateShaderTagIdList();
         }
 
-        void OnValidate()
+        private void OnValidate()
         {
             if (m_projectorForLWRP == null)
             {
@@ -146,8 +146,9 @@ namespace ProjectorForLWRP
             }
         }
 
-        System.Action<Camera> m_actionOnAddProjectorToRenderer;
-        void OnEnable()
+        private System.Action<Camera> m_actionOnAddProjectorToRenderer;
+
+        private void OnEnable()
         {
             if (m_projectorForLWRP == null)
             {
@@ -156,12 +157,12 @@ namespace ProjectorForLWRP
             parentProjector.onAddProjectorToRenderer += m_actionOnAddProjectorToRenderer;
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             parentProjector.onAddProjectorToRenderer -= m_actionOnAddProjectorToRenderer;
         }
 
-        void AddRenderer(Camera camera)
+        private void AddRenderer(Camera camera)
         {
             CustomRendererPassManager.staticInstance.AddCustomRenderer(camera, this);
         }
@@ -186,7 +187,7 @@ namespace ProjectorForLWRP
             renderStateBlock = parentProjector.GetDefaultRenderStateBlock(useStencilTest, m_stencilTestOptions);
         }
 
-        Material m_runtimeStencilPassMaterial = null;
+        private Material m_runtimeStencilPassMaterial = null;
         public void Render(ScriptableRenderContext context, ref UnityEngine.Rendering.Universal.RenderingData renderingData)
         {
             CullingResults cullingResults;

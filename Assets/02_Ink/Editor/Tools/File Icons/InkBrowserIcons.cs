@@ -142,7 +142,7 @@ namespace Ink.UnityIntegration
             EditorApplication.projectWindowItemOnGUI += OnDrawProjectWindowItem;
         }
 
-        static void OnDrawProjectWindowItem(string guid, Rect rect)
+        private static void OnDrawProjectWindowItem(string guid, Rect rect)
         {
             string path = AssetDatabase.GUIDToAssetPath(guid);
             if (InkEditorUtils.IsInkFile(path))
@@ -152,7 +152,7 @@ namespace Ink.UnityIntegration
             }
         }
 
-        static void DrawInkFile(InkFile inkFile, Rect rect)
+        private static void DrawInkFile(InkFile inkFile, Rect rect)
         {
             bool isSmall = rect.width > rect.height;
             if (isSmall)
@@ -173,7 +173,7 @@ namespace Ink.UnityIntegration
             }
         }
 
-        static void DrawLarge(InkFile inkFile, Rect rect)
+        private static void DrawLarge(InkFile inkFile, Rect rect)
         {
             var offset = (rect.width - largeIconSize) * 0.5f;
             rect = new Rect(rect.x + offset, rect.y + offset, largeIconSize, largeIconSize);
@@ -209,7 +209,7 @@ namespace Ink.UnityIntegration
             }
         }
 
-        static void DrawSmall(InkFile inkFile, Rect rect)
+        private static void DrawSmall(InkFile inkFile, Rect rect)
         {
             if (inkFileIcon != null)
                 GUI.DrawTexture(rect, inkFileIcon);

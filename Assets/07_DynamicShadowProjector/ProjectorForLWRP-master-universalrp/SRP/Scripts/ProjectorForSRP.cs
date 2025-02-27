@@ -226,11 +226,12 @@ namespace ProjectorForSRP
                 }
                 return Matrix4x4.zero;
             }
-            Dictionary<int, float> m_floatProperties;
-            Dictionary<int, Color> m_colorProperties;
-            Dictionary<int, Vector4> m_vectorProperties;
-            Dictionary<int, Matrix4x4> m_matrixProperties;
-            Dictionary<int, Texture> m_textureProperties;
+
+            private Dictionary<int, float> m_floatProperties;
+            private Dictionary<int, Color> m_colorProperties;
+            private Dictionary<int, Vector4> m_vectorProperties;
+            private Dictionary<int, Matrix4x4> m_matrixProperties;
+            private Dictionary<int, Texture> m_textureProperties;
         }
         // serialize field
         [Header("Receiver Object Filter")]
@@ -548,7 +549,8 @@ namespace ProjectorForSRP
         private static bool s_isInitialized = false;
         private static int s_shaderPropIdFsrWorldToProjector = -1;
         private static int s_shaderPropIdFsrWorldProjectDir = -1;
-        static readonly int[] s_frustumTriangles = {
+
+        private static readonly int[] s_frustumTriangles = {
             0, 1, 2, 2, 1, 3, // near plane
  			0, 4, 1, 1, 4, 5, // left
  			1, 5, 3, 3, 5, 7, // top
@@ -609,7 +611,8 @@ namespace ProjectorForSRP
                 }
             }
         }
-        static ulong CalculateProjectorFrustumHash(Projector projector)
+
+        private static ulong CalculateProjectorFrustumHash(Projector projector)
         {
             ulong hash = (ulong)projector.nearClipPlane.GetHashCode();
             hash = (hash << 16) | (hash >> 48);
@@ -967,7 +970,7 @@ namespace ProjectorForSRP
             return true;
         }
 
-        static bool IsStereoEnabled(Camera camera)
+        private static bool IsStereoEnabled(Camera camera)
         {
             bool isGameCamera = (camera.cameraType == CameraType.Game || camera.cameraType == CameraType.VR);
             bool isCompatWithXRDimension = true;

@@ -18,7 +18,7 @@ namespace CartoonFX
 
         //================================================================================================================================
         // (x) close button
-        static GUIStyle _closeCrossButton;
+        private static GUIStyle _closeCrossButton;
         public static GUIStyle CloseCrossButton
         {
             get
@@ -44,7 +44,7 @@ namespace CartoonFX
 
         //================================================================================================================================
         // Shuriken Toggle with label alignment fix
-        static GUIStyle _shurikenToggle;
+        private static GUIStyle _shurikenToggle;
         public static GUIStyle ShurikenToggle
         {
             get
@@ -73,7 +73,7 @@ namespace CartoonFX
 
         //================================================================================================================================
         // Bold mini-label (the one from EditorStyles isn't actually "mini")
-        static GUIStyle _miniBoldLabel;
+        private static GUIStyle _miniBoldLabel;
         public static GUIStyle MiniBoldLabel
         {
             get
@@ -90,7 +90,7 @@ namespace CartoonFX
 
         //================================================================================================================================
         // Bold mini-foldout
-        static GUIStyle _miniBoldFoldout;
+        private static GUIStyle _miniBoldFoldout;
         public static GUIStyle MiniBoldFoldout
         {
             get
@@ -108,7 +108,7 @@ namespace CartoonFX
 
         //================================================================================================================================
         // Gray right-aligned label for Orderable List (Material Animator)
-        static GUIStyle _PropertyTypeLabel;
+        private static GUIStyle _PropertyTypeLabel;
         public static GUIStyle PropertyTypeLabel
         {
             get
@@ -125,7 +125,7 @@ namespace CartoonFX
         }
 
         // Dark Gray right-aligned label for Orderable List (Material Animator)
-        static GUIStyle _PropertyTypeLabelFocused;
+        private static GUIStyle _PropertyTypeLabelFocused;
         public static GUIStyle PropertyTypeLabelFocused
         {
             get
@@ -143,7 +143,7 @@ namespace CartoonFX
 
         //================================================================================================================================
         // Rounded Box
-        static GUIStyle _roundedBox;
+        private static GUIStyle _roundedBox;
         public static GUIStyle RoundedBox
         {
             get
@@ -158,7 +158,7 @@ namespace CartoonFX
 
         //================================================================================================================================
         // Center White Label ("Editing Spline" label in Scene View)
-        static GUIStyle _CenteredWhiteLabel;
+        private static GUIStyle _CenteredWhiteLabel;
         public static GUIStyle CenteredWhiteLabel
         {
             get
@@ -193,7 +193,7 @@ namespace CartoonFX
 
         //================================================================================================================================
         // HelpBox with rich text formatting support
-        static GUIStyle _HelpBoxRichTextStyle;
+        private static GUIStyle _HelpBoxRichTextStyle;
         static public GUIStyle HelpBoxRichTextStyle
         {
             get
@@ -331,9 +331,9 @@ namespace CartoonFX
         }
 
         //built-in console icons, also used in help box
-        static Texture2D warnIcon;
-        static Texture2D infoIcon;
-        static Texture2D errorIcon;
+        private static Texture2D warnIcon;
+        private static Texture2D infoIcon;
+        private static Texture2D errorIcon;
 
         static public void HelpBoxRichText(Rect position, string message, MessageType msgType)
         {

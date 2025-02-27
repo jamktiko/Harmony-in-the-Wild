@@ -113,7 +113,7 @@ namespace Ink
             return result;
         }
 
-        CommandLineInputResult ExecuteImmediateStatement(Parsed.Object parsedObj)
+        private CommandLineInputResult ExecuteImmediateStatement(Parsed.Object parsedObj)
         {
             var result = new CommandLineInputResult();
 
@@ -177,7 +177,7 @@ namespace Ink
             }
         }
 
-        Runtime.DebugMetadata DebugMetadataForContentAtOffset(int offset)
+        private Runtime.DebugMetadata DebugMetadataForContentAtOffset(int offset)
         {
             int currOffset = 0;
 
@@ -205,7 +205,7 @@ namespace Ink
 
         // Need to wrap the error handler so that we know
         // when there was a critical error between parse and codegen stages
-        void OnParseError(string message, ErrorType errorType)
+        private void OnParseError(string message, ErrorType errorType)
         {
             if (errorType == ErrorType.Error)
                 _hadParseError = true;
@@ -216,18 +216,18 @@ namespace Ink
                 throw new System.Exception(message);
         }
 
-        string _inputString;
-        Options _options;
+        private string _inputString;
+        private Options _options;
 
 
-        InkParser _parser;
-        Parsed.Story _parsedStory;
-        Runtime.Story _runtimeStory;
+        private InkParser _parser;
+        private Parsed.Story _parsedStory;
+        private Runtime.Story _runtimeStory;
 
-        PluginManager _pluginManager;
+        private PluginManager _pluginManager;
 
-        bool _hadParseError;
+        private bool _hadParseError;
 
-        List<DebugSourceRange> _debugSourceRanges = new List<DebugSourceRange>();
+        private List<DebugSourceRange> _debugSourceRanges = new List<DebugSourceRange>();
     }
 }

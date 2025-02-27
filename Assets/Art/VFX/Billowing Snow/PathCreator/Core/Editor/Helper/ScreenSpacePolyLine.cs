@@ -8,29 +8,29 @@ namespace PathCreationEditor
 {
     public class ScreenSpacePolyLine
     {
-        const int accuracyMultiplier = 10;
+        private const int accuracyMultiplier = 10;
         // dont allow vertices to be spaced too far apart, as screenspace-worldspace conversion can then be noticeably off
-        const float intermediaryThreshold = .2f;
+        private const float intermediaryThreshold = .2f;
 
         public readonly List<Vector3> verticesWorld;
         // For each point in the polyline, says which bezier segment it belongs to
-        readonly List<int> vertexToPathSegmentMap;
+        private readonly List<int> vertexToPathSegmentMap;
         // Stores the index in the vertices list where the start point of each segment is
-        readonly int[] segmentStartIndices;
+        private readonly int[] segmentStartIndices;
 
-        readonly float pathLengthWorld;
-        readonly float[] cumululativeLengthWorld;
+        private readonly float pathLengthWorld;
+        private readonly float[] cumululativeLengthWorld;
 
-        Vector2[] points;
+        private Vector2[] points;
 
-        Vector3 prevCamPos;
-        Quaternion prevCamRot;
-        bool prevCamIsOrtho;
+        private Vector3 prevCamPos;
+        private Quaternion prevCamRot;
+        private bool prevCamIsOrtho;
 
-        readonly Transform transform;
-        readonly Vector3 transformPosition;
-        readonly Quaternion transformRotation;
-        readonly Vector3 transformScale;
+        private readonly Transform transform;
+        private readonly Vector3 transformPosition;
+        private readonly Quaternion transformRotation;
+        private readonly Vector3 transformScale;
 
         public ScreenSpacePolyLine(BezierPath bezierPath, Transform transform, float maxAngleError, float minVertexDst, float accuracy = 1)
         {
@@ -131,7 +131,7 @@ namespace PathCreationEditor
 
         }
 
-        void ComputeScreenSpace()
+        private void ComputeScreenSpace()
         {
             if (Camera.current.transform.position != prevCamPos || Camera.current.transform.rotation != prevCamRot || Camera.current.orthographic != prevCamIsOrtho)
             {

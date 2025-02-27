@@ -469,7 +469,7 @@ namespace DynamicShadowProjector
             m_camera.RemoveCommandBuffer(CameraEvent.BeforeImageEffectsOpaque, commandBuffer);
         }
 
-        bool useIntermediateTexture
+        private bool useIntermediateTexture
         {
             get
             {
@@ -481,7 +481,8 @@ namespace DynamicShadowProjector
 #endif
         partial void PartialInitialize();
         partial void OnRenderTextureCreated();
-        bool Initialize()
+
+        private bool Initialize()
         {
 #if !UNITY_2017_1_OR_NEWER
             if (!s_staticInitialized)
@@ -541,17 +542,17 @@ namespace DynamicShadowProjector
             return true;
         }
 
-        bool IsInitialized()
+        private bool IsInitialized()
         {
             return m_projector != null && m_camera != null;
         }
 
-        void Awake()
+        private void Awake()
         {
             Initialize();
         }
 
-        void OnEnable()
+        private void OnEnable()
         {
             if (m_camera != null)
             {
@@ -559,7 +560,7 @@ namespace DynamicShadowProjector
             }
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             if (m_camera != null)
             {
@@ -567,7 +568,7 @@ namespace DynamicShadowProjector
             }
         }
 
-        void Start()
+        private void Start()
         {
 #if UNITY_EDITOR
 #if UNITY_2018_3_OR_NEWER
@@ -636,7 +637,8 @@ namespace DynamicShadowProjector
         {
             return IsPrefabAsset(this);
         }
-        void OnValidate()
+
+        private void OnValidate()
         {
             // check custom mipmap falloff
             if (m_mipmapFalloff == MipmapFalloff.Custom && 0 < m_mipLevel)
@@ -727,8 +729,9 @@ namespace DynamicShadowProjector
             }
         }
         private static HashSet<Material> s_sharedMaterials;
-        const HideFlags CLONED_MATERIAL_HIDE_FLAGS = HideFlags.HideAndDontSave;
-        void CloneProjectorMaterialIfShared()
+        private const HideFlags CLONED_MATERIAL_HIDE_FLAGS = HideFlags.HideAndDontSave;
+
+        private void CloneProjectorMaterialIfShared()
         {
 #if UNITY_EDITOR
             if (!Application.isPlaying)
@@ -775,7 +778,7 @@ namespace DynamicShadowProjector
             m_projectorMaterial = m_projector.material;
         }
 
-        void OnDestroy()
+        private void OnDestroy()
         {
             if (m_projectorMaterial != null)
             {
@@ -809,7 +812,7 @@ namespace DynamicShadowProjector
             m_isVisible = false;
         }
 
-        bool IsReadyToExecute()
+        private bool IsReadyToExecute()
         {
             if (m_projector == null || m_projector.material == null)
             {
@@ -840,7 +843,7 @@ namespace DynamicShadowProjector
             return true;
         }
 
-        void SetVisible(bool isVisible)
+        private void SetVisible(bool isVisible)
         {
             m_isVisible = isVisible;
             SendMessage("OnVisibilityChanged", isVisible);
@@ -857,9 +860,10 @@ namespace DynamicShadowProjector
                 return m_postProcessCommands;
             }
         }
-        static int[] s_temporaryRenderTargetNameIds;
-        static RenderTargetIdentifier[] s_temporaryRenderTargetIdentifiers;
-        static void StaticInitialize()
+
+        private static int[] s_temporaryRenderTargetNameIds;
+        private static RenderTargetIdentifier[] s_temporaryRenderTargetIdentifiers;
+        private static void StaticInitialize()
         {
             s_falloffParamID = Shader.PropertyToID("_Falloff");
             s_blurOffsetHParamID = Shader.PropertyToID("_OffsetH");
@@ -891,8 +895,9 @@ namespace DynamicShadowProjector
             StaticInitialize();
         }
 #endif
-        RenderTexture m_temporaryRenderTarget = null;
-        void CreateTemporaryRenderTarget()
+        private RenderTexture m_temporaryRenderTarget = null;
+
+        private void CreateTemporaryRenderTarget()
         {
             if (useIntermediateTexture)
             {
@@ -903,7 +908,8 @@ namespace DynamicShadowProjector
                 m_temporaryRenderTarget.filterMode = FilterMode.Bilinear;
             }
         }
-        void ReleaseTemporaryRenderTarget()
+
+        private void ReleaseTemporaryRenderTarget()
         {
             if (m_temporaryRenderTarget != null)
             {
@@ -911,13 +917,16 @@ namespace DynamicShadowProjector
                 m_temporaryRenderTarget = null;
             }
         }
-        List<MaterialPropertyBlock> m_propertyBlockPool = new List<MaterialPropertyBlock>();
-        int m_propetyBlockCount = 0;
-        void ClearPropertyBlockPool()
+
+        private List<MaterialPropertyBlock> m_propertyBlockPool = new List<MaterialPropertyBlock>();
+        private int m_propetyBlockCount = 0;
+
+        private void ClearPropertyBlockPool()
         {
             m_propetyBlockCount = 0;
         }
-        MaterialPropertyBlock AllocatePropertyBlock()
+
+        private MaterialPropertyBlock AllocatePropertyBlock()
         {
             if (m_propetyBlockCount == m_propertyBlockPool.Count)
             {
@@ -925,7 +934,8 @@ namespace DynamicShadowProjector
             }
             return m_propertyBlockPool[m_propetyBlockCount++];
         }
-        void AddPostRenderPassCommands(CommandBuffer cmd, RenderTargetIdentifier srcId)
+
+        private void AddPostRenderPassCommands(CommandBuffer cmd, RenderTargetIdentifier srcId)
         {
             RenderTargetIdentifier finalDstId = new RenderTargetIdentifier(shadowTexture);
             int tempRTIndex = 0;
@@ -1136,9 +1146,11 @@ namespace DynamicShadowProjector
                 }
             }
         }
-        static Dictionary<int, Mesh> s_borderMeshCache = new Dictionary<int, Mesh>();
-        static readonly int[] s_borderMeshIndices = { 0, 1, 2, 3, 4, 5, 6, 7 };
-        void AddEraseShadowOnBorderCommand(CommandBuffer cmd, int w, int h)
+
+        private static Dictionary<int, Mesh> s_borderMeshCache = new Dictionary<int, Mesh>();
+        private static readonly int[] s_borderMeshIndices = { 0, 1, 2, 3, 4, 5, 6, 7 };
+
+        private void AddEraseShadowOnBorderCommand(CommandBuffer cmd, int w, int h)
         {
             int key = w << 16 + h;
             Mesh mesh = null;
@@ -1162,8 +1174,10 @@ namespace DynamicShadowProjector
             }
             cmd.DrawMesh(mesh, Matrix4x4.identity, m_eraseShadowShader);
         }
-        static Mesh s_fullScreenQuad = null;
-        void AddBlitToCurrentTargetCommand(CommandBuffer cmd, RenderTargetIdentifier srcId, Material mat, int pass, MaterialPropertyBlock properties)
+
+        private static Mesh s_fullScreenQuad = null;
+
+        private void AddBlitToCurrentTargetCommand(CommandBuffer cmd, RenderTargetIdentifier srcId, Material mat, int pass, MaterialPropertyBlock properties)
         {
             if (s_fullScreenQuad == null)
             {
@@ -1185,7 +1199,8 @@ namespace DynamicShadowProjector
             cmd.SetGlobalTexture(s_blitSrcTexParamID, srcId);
             cmd.DrawMesh(s_fullScreenQuad, Matrix4x4.identity, mat, 0, pass, properties);
         }
-        void Update()
+
+        private void Update()
         {
             if (!IsReadyToExecute())
             {
@@ -1206,7 +1221,7 @@ namespace DynamicShadowProjector
 #endif
         }
 
-        void OnPreCull()
+        private void OnPreCull()
         {
             if (m_projector.material != m_projectorMaterial)
             {
@@ -1318,12 +1333,12 @@ namespace DynamicShadowProjector
             }
         }
 
-        bool HasShadowColor()
+        private bool HasShadowColor()
         {
             return m_shadowColor.a < 1.0f || 0.0f < (m_shadowColor.r + shadowColor.g + shadowColor.b);
         }
 
-        void PrepareRendering()
+        private void PrepareRendering()
         {
             shadowTexture.DiscardContents();
             m_shadowTextureValid = true;
@@ -1333,7 +1348,8 @@ namespace DynamicShadowProjector
             postProcessCommandBuffer.Clear();
             AddPostRenderPassCommands(postProcessCommandBuffer, new RenderTargetIdentifier(m_temporaryRenderTarget));
         }
-        void OnPreRender()
+
+        private void OnPreRender()
         {
             PrepareRendering();
             if (useIntermediateTexture)
@@ -1348,7 +1364,7 @@ namespace DynamicShadowProjector
             m_camera.clearFlags = CameraClearFlags.Color;
         }
 
-        void OnPostRender()
+        private void OnPostRender()
         {
             Graphics.ExecuteCommandBuffer(postProcessCommandBuffer);
             m_camera.targetTexture = shadowTexture;
@@ -1357,13 +1373,15 @@ namespace DynamicShadowProjector
         }
         private const int MAX_BLUR_TAP_SIZE = 7;
         private static float[] s_blurWeights = new float[MAX_BLUR_TAP_SIZE];
-        struct BlurParam
+
+        private struct BlurParam
         {
             public int tap;
             public Vector4 offset;
             public Vector4 weight;
         };
-        static BlurParam GetBlurParam(float blurSize, BlurFilter filter)
+
+        private static BlurParam GetBlurParam(float blurSize, BlurFilter filter)
         {
             BlurParam param = new BlurParam();
 
@@ -1451,7 +1469,8 @@ namespace DynamicShadowProjector
             }
             return param;
         }
-        static BlurParam GetDownsampleBlurParam(float blurSize, BlurFilter filter)
+
+        private static BlurParam GetDownsampleBlurParam(float blurSize, BlurFilter filter)
         {
             BlurParam param = new BlurParam();
             param.tap = 4;
@@ -1517,7 +1536,8 @@ namespace DynamicShadowProjector
 
             return param;
         }
-        void SetBlurShaderProperties(MaterialPropertyBlock dst, out BlurParam blurH, out BlurParam blurV)
+
+        private void SetBlurShaderProperties(MaterialPropertyBlock dst, out BlurParam blurH, out BlurParam blurV)
         {
             // adjust blur size according to texel aspect
             float texelAspect = (m_projector.aspectRatio * m_textureHeight) / (float)m_textureWidth;
@@ -1541,7 +1561,8 @@ namespace DynamicShadowProjector
             dst.SetVector(s_blurWeightHParamID, blurH.weight);
             dst.SetVector(s_blurWeightVParamID, blurV.weight);
         }
-        void GetMipmapBlurParams(ref BlurParam blurH, ref BlurParam blurV)
+
+        private void GetMipmapBlurParams(ref BlurParam blurH, ref BlurParam blurV)
         {
             // adjust blur size according to texel aspect
             float texelAspect = (m_projector.aspectRatio * m_textureHeight) / (float)m_textureWidth;
@@ -1569,7 +1590,8 @@ namespace DynamicShadowProjector
                 blurV.tap = (blurV.tap - 3) + 1; // index of pass
             }
         }
-        void SetMipmapBlurShaderProperties(MaterialPropertyBlock dst, BlurParam blurH, BlurParam blurV)
+
+        private void SetMipmapBlurShaderProperties(MaterialPropertyBlock dst, BlurParam blurH, BlurParam blurV)
         {
             // blur parameters
             dst.SetVector(s_blurOffsetHParamID, blurH.offset);
@@ -1577,7 +1599,8 @@ namespace DynamicShadowProjector
             dst.SetVector(s_blurWeightHParamID, blurH.weight);
             dst.SetVector(s_blurWeightVParamID, blurV.weight);
         }
-        void SetMipmapDownsampleWithBlurProperties(MaterialPropertyBlock dst, BlurParam blurH, BlurParam blurV, int w, int h)
+
+        private void SetMipmapDownsampleWithBlurProperties(MaterialPropertyBlock dst, BlurParam blurH, BlurParam blurV, int w, int h)
         {
             float invW = 0.5f / w;
             float invH = 0.5f / h;

@@ -291,7 +291,7 @@ namespace Ink.Parsed
             return found;
         }
 
-        void FindAll<T>(FindQueryFunc<T> queryFunc, List<T> foundSoFar) where T : class
+        private void FindAll<T>(FindQueryFunc<T> queryFunc, List<T> foundSoFar) where T : class
         {
             var tObj = this as T;
             if (tObj != null && (queryFunc == null || queryFunc(tObj) == true))
@@ -406,8 +406,8 @@ namespace Ink.Parsed
             return base.GetHashCode();
         }
 
-        bool _alreadyHadError;
-        bool _alreadyHadWarning;
+        private bool _alreadyHadError;
+        private bool _alreadyHadWarning;
     }
 }
 

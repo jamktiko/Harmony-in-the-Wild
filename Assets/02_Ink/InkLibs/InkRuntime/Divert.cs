@@ -25,7 +25,8 @@ namespace Ink.Runtime
                 _targetPointer = Pointer.Null;
             }
         }
-        Path _targetPath;
+
+        private Path _targetPath;
 
         public Pointer targetPointer
         {
@@ -48,7 +49,8 @@ namespace Ink.Runtime
                 return _targetPointer;
             }
         }
-        Pointer _targetPointer;
+
+        private Pointer _targetPointer;
 
 
         public string targetPathString

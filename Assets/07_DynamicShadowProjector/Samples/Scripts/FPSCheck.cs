@@ -4,9 +4,9 @@ namespace DynamicShadowProjector.Sample
 {
     public class FPSCheck : MonoBehaviour
     {
-        int frameCount = -1;
-        float startTime = 0;
-        float fps = 0;
+        private int frameCount = -1;
+        private float startTime = 0;
+        private float fps = 0;
         public UnityEngine.UI.Text text;
         private void Update()
         {

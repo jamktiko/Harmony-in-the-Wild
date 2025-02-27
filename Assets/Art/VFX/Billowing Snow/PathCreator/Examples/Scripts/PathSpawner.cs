@@ -10,7 +10,7 @@ namespace PathCreation.Examples
         public PathFollower followerPrefab;
         public Transform[] spawnPoints;
 
-        void Start()
+        private void Start()
         {
             foreach (Transform t in spawnPoints)
             {

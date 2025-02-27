@@ -3,7 +3,7 @@ using UnityEngine;
 public class CollectibleManager : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         if (SaveManager.Instance.GameData.BerryData != "{}" && SaveManager.Instance.GameData.PineconeData != "{}")
         {

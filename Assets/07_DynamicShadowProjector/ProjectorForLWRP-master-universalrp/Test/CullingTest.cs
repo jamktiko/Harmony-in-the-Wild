@@ -57,7 +57,8 @@ namespace ProjectorForLWRP.Test
         private float m_cameraAngleY;
         private float m_distance;
         private Vector3 m_mousePosition;
-        enum MouseButtonState
+
+        private enum MouseButtonState
         {
             Normal,
             LeftButtonDown,

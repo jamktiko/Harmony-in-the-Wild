@@ -17,10 +17,11 @@ namespace DynamicShadowProjector.Editor
         protected static int[] s_textureSizeOption = new int[] { 16, 32, 64, 128, 256, 512 };
         protected static GUIContent[] s_blurLevelDisplayOption = new GUIContent[] { new GUIContent("0"), new GUIContent("1"), new GUIContent("2 (Not Recommended)"), new GUIContent("3 (Not Recommended)") };
         protected static int[] s_blurLevelOption = new int[] { 0, 1, 2, 3 };
-        GUIStyle m_errorTextStyle;
-        GUIStyle m_normalTextStyle;
-        GUIStyle m_hyperlinkTextStyle;
-        static GUIStyle CreateGUIStyle(Color textColor)
+        private GUIStyle m_errorTextStyle;
+        private GUIStyle m_normalTextStyle;
+        private GUIStyle m_hyperlinkTextStyle;
+
+        private static GUIStyle CreateGUIStyle(Color textColor)
         {
             GUIStyle style = new GUIStyle();
             style.richText = true;

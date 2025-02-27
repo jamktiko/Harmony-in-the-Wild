@@ -17,8 +17,8 @@ namespace PhotoMode
 
         private EventSystem projectEventSystem;
         private CinemachineBrain projectCinemachineBrain;
-        CinemachineBrain.UpdateMethod project_cm_update;
-        CinemachineBlendDefinition.Style project_cm_blend;
+        private CinemachineBrain.UpdateMethod project_cm_update;
+        private CinemachineBlendDefinition.Style project_cm_blend;
 
         [Header("Character Reference")]
         [SerializeField] private GameObject playerObject;

@@ -24,7 +24,8 @@ namespace DynamicShadowProjector.Editor
         private SerializedProperty m_targetDirection;
         private SerializedProperty m_shadowShader;
         private SerializedProperty m_replacementShaders;
-        void OnEnable()
+
+        private void OnEnable()
         {
             DrawTargetObject component = target as DrawTargetObject;
             if (component.shadowShader == null && (component.replacementShaders == null || component.replacementShaders.Length == 0))
@@ -49,7 +50,8 @@ namespace DynamicShadowProjector.Editor
             m_shadowShader = serializedObject.FindProperty("m_shadowShader");
             m_replacementShaders = serializedObject.FindProperty("m_replacementShaders");
         }
-        static bool s_showAdvancedOptions = false;
+
+        private static bool s_showAdvancedOptions = false;
         public override void OnInspectorGUI()
         {
             EditorGUILayout.BeginHorizontal();

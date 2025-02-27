@@ -27,7 +27,8 @@
                 _pathOnChoice = value;
             }
         }
-        Path _pathOnChoice;
+
+        private Path _pathOnChoice;
 
         public Container choiceTarget
         {

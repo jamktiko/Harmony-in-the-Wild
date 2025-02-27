@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class VerticalSlicePenguin : MonoBehaviour
 {
-    void Start()
+    private void Start()
     {
         AbilityManager.Instance.UnlockAbility(Abilities.RockDestroying);
         AbilityManager.Instance.UnlockAbility(Abilities.SnowDiving);

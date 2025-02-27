@@ -3,13 +3,16 @@ using UnityEngine.Serialization;
 
 public class NoClipMovement : MonoBehaviour
 {
-    [FormerlySerializedAs("rotation")] [SerializeField] Vector2 _rotation;
+    [FormerlySerializedAs("rotation")] [SerializeField]
+    private Vector2 _rotation;
     [FormerlySerializedAs("horizontalInput")] [SerializeField] private float _horizontalInput;
     [FormerlySerializedAs("verticalInput")] [SerializeField] private float _verticalInput;
     [FormerlySerializedAs("upDownInput")] [SerializeField] private float _upDownInput;
     [FormerlySerializedAs("speed")] [SerializeField] private float _speed;
-    [FormerlySerializedAs("rb")] [SerializeField] Rigidbody _rb;
-    [FormerlySerializedAs("FpsCamera")] [SerializeField] Transform _fpsCamera;
+    [FormerlySerializedAs("rb")] [SerializeField]
+    private Rigidbody _rb;
+    [FormerlySerializedAs("FpsCamera")] [SerializeField]
+    private Transform _fpsCamera;
     [FormerlySerializedAs("speed2")] [SerializeField] private float _speed2;
 
     private void Start()
@@ -18,7 +21,7 @@ public class NoClipMovement : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         _rotation.y += UnityEngine.InputSystem.Mouse.current.delta.ReadValue().x;
         _rotation.x += -UnityEngine.InputSystem.Mouse.current.delta.ReadValue().y;
@@ -31,7 +34,8 @@ public class NoClipMovement : MonoBehaviour
         transform.eulerAngles = (Vector2)_rotation * _speed2;
         PauseTimeScale();
     }
-    void PauseTimeScale()
+
+    private void PauseTimeScale()
     {
         if (PlayerInputHandler.Instance.SwitchTimeScale.WasPressedThisFrame())
         {

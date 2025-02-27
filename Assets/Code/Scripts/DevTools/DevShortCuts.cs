@@ -26,7 +26,7 @@ public class DevShortCuts : MonoBehaviour
         }
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.GetKey(KeyCode.Tab) && Input.GetKeyDown(KeyCode.R))
         {

@@ -33,8 +33,9 @@ namespace DynamicShadowProjector.Editor
         private SerializedProperty m_textureHeight;
         private SerializedProperty m_multiSampling;
         private SerializedProperty m_superSampling;
-        const string s_defaultFallbackShader = "DynamicShadowProjector/Projector/Shadow With Linear Falloff";
-        void OnEnable()
+        private const string s_defaultFallbackShader = "DynamicShadowProjector/Projector/Shadow With Linear Falloff";
+
+        private void OnEnable()
         {
             MipmappedShadowFallback fallback = target as MipmappedShadowFallback;
             m_projector = fallback.GetComponent<Projector>();
@@ -68,7 +69,8 @@ namespace DynamicShadowProjector.Editor
             m_multiSampling = serializedObject.FindProperty("m_multiSampling");
             m_superSampling = serializedObject.FindProperty("m_superSampling");
         }
-        void TestFallback()
+
+        private void TestFallback()
         {
             if (!m_testFallback)
             {
@@ -88,7 +90,8 @@ namespace DynamicShadowProjector.Editor
                 shadowRenderer.hideFlags |= HideFlags.NotEditable;
             }
         }
-        void RestoreShadowTextureRenderer()
+
+        private void RestoreShadowTextureRenderer()
         {
             if (m_testFallback)
             {
@@ -111,7 +114,8 @@ namespace DynamicShadowProjector.Editor
                 }
             }
         }
-        void OnDisable()
+
+        private void OnDisable()
         {
             RestoreShadowTextureRenderer();
         }

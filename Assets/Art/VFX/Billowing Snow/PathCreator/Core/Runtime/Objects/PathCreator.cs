@@ -10,12 +10,10 @@ namespace PathCreation
 
         public event System.Action pathUpdated;
 
-        [SerializeField, HideInInspector]
-        PathCreatorData editorData;
-        [SerializeField, HideInInspector]
-        bool initialized;
+        [SerializeField, HideInInspector] private PathCreatorData editorData;
+        [SerializeField, HideInInspector] private bool initialized;
 
-        GlobalDisplaySettings globalEditorDisplaySettings;
+        private GlobalDisplaySettings globalEditorDisplaySettings;
 
         // Vertex path created from the current bezier path
         public VertexPath path
@@ -87,7 +85,7 @@ namespace PathCreation
 #if UNITY_EDITOR
 
         // Draw the path when path objected is not selected (if enabled in settings)
-        void OnDrawGizmos()
+        private void OnDrawGizmos()
         {
 
             // Only draw path gizmo if the path object is not selected

@@ -63,7 +63,7 @@ namespace DynamicShadowProjector
             }
         }
 
-        void OnValidate()
+        private void OnValidate()
         {
             shadowTextureRenderer.SetReplacementShader(m_replacementShader, "RenderType");
             if (shadowTextureRenderer.isProjectorVisible)
@@ -72,19 +72,19 @@ namespace DynamicShadowProjector
             }
         }
 
-        void OnEnable()
+        private void OnEnable()
         {
             shadowTextureRenderer.cameraCullingMask = m_cullingMask;
             shadowTextureRenderer.SetReplacementShader(m_replacementShader, "RenderType");
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             shadowTextureRenderer.cameraCullingMask = 0;
             shadowTextureRenderer.SetReplacementShader(null, null);
         }
 
-        void OnVisibilityChanged(bool isVisible)
+        private void OnVisibilityChanged(bool isVisible)
         {
             if (isVisible)
             {

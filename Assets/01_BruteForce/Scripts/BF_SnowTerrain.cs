@@ -18,11 +18,12 @@ public class BF_SnowTerrain : MonoBehaviour
     private GameObject selectGO;
     private bool isSynced = false;
 
-    void Start()
+    private void Start()
     {
         UpdateTerrainData();
     }
-    void OnEnable()
+
+    private void OnEnable()
     {
         UpdateTerrainData();
     }
@@ -167,7 +168,7 @@ public class BF_SnowTerrain : MonoBehaviour
         }
     }
 
-    void OnRenderObject()
+    private void OnRenderObject()
     {
 #if UNITY_EDITOR
         if ((Application.isEditor && !Application.isPlaying) && terrainToCopy != null && isSynced)

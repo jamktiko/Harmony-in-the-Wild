@@ -52,7 +52,7 @@ namespace Ink.Runtime
             return val;
         }
 
-        Dictionary<string, Runtime.ListDefinition> _lists;
-        Dictionary<string, ListValue> _allUnambiguousListValueCache;
+        private Dictionary<string, Runtime.ListDefinition> _lists;
+        private Dictionary<string, ListValue> _allUnambiguousListValueCache;
     }
 }

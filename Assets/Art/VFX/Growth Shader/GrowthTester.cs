@@ -12,7 +12,7 @@ public class GrowthTester : MonoBehaviour
     public GrowthController growthController;
     public CinematicCameraRotator cameraRotator;
 
-    void Start()
+    private void Start()
     {
         if (objectToEnable == null || growthController == null || cameraRotator == null)
         {
@@ -20,7 +20,7 @@ public class GrowthTester : MonoBehaviour
         }
     }
 
-    void Update()
+    private void Update()
     {
         //x + m
         if (PlayerInputHandler.Instance.DebugDeleteSaveInput.WasPerformedThisFrame() && PlayerInputHandler.Instance.DebugDeleteSaveInput.WasPressedThisFrame())

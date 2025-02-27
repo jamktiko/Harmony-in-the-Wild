@@ -33,7 +33,7 @@ public class BF_AddSnow : MonoBehaviour
     private List<Vector2> uvs = new List<Vector2>();
     private List<Color> cols = new List<Color>();
 
-    void Start()
+    private void Start()
     {
         CheckValues();
         BuildInitialGeometry();

@@ -29,7 +29,7 @@ public class MeshTrail : MonoBehaviour
     }
 
     // Coroutine to activate and manage the visual trail effect for a given duration.
-    IEnumerator ActivateTrail(float timeActive)
+    private IEnumerator ActivateTrail(float timeActive)
     {
         // Loop for the duration of the trail activity.
         while (timeActive > 0)
@@ -84,7 +84,7 @@ public class MeshTrail : MonoBehaviour
     }
 
     // Coroutine to gradually fade out the material of a mesh by animating a shader property.
-    IEnumerator MeshTrailFadeOut(Material _Material, float goal, float rate, float refreshRate)
+    private IEnumerator MeshTrailFadeOut(Material _Material, float goal, float rate, float refreshRate)
     {
         // Retrieve the current value of the shader property to be animated.
         float valueToAnimate = _Material.GetFloat(shaderVarRef);

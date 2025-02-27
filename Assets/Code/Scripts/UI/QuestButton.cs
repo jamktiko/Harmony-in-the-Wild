@@ -4,7 +4,8 @@ using UnityEngine.Serialization;
 
 public class QuestButton : MonoBehaviour
 {
-    [FormerlySerializedAs("activeQuestUI")] [SerializeField] ActiveQuestUI _activeQuestUI;
+    [FormerlySerializedAs("activeQuestUI")] [SerializeField]
+    private ActiveQuestUI _activeQuestUI;
     private void Awake()
     {
         //In case there are several activeQuestUI objects in the scene, we need to find the right one

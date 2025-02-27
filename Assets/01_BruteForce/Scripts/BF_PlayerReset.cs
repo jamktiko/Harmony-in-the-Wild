@@ -5,11 +5,12 @@ public class BF_PlayerReset : MonoBehaviour
     public GameObject player;
     public Transform playerPos;
 
-    void OnEnable()
+    private void OnEnable()
     {
         player.transform.position = playerPos.position;
     }
-    void Start()
+
+    private void Start()
     {
         player.transform.position = playerPos.position;
     }

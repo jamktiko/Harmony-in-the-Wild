@@ -23,28 +23,18 @@ namespace PathCreation
 
         #region Fields
 
-        [SerializeField, HideInInspector]
-        List<Vector3> points;
-        [SerializeField, HideInInspector]
-        bool isClosed;
-        [SerializeField, HideInInspector]
-        PathSpace space;
-        [SerializeField, HideInInspector]
-        ControlMode controlMode;
-        [SerializeField, HideInInspector]
-        float autoControlLength = .3f;
-        [SerializeField, HideInInspector]
-        bool boundsUpToDate;
-        [SerializeField, HideInInspector]
-        Bounds bounds;
+        [SerializeField, HideInInspector] private List<Vector3> points;
+        [SerializeField, HideInInspector] private bool isClosed;
+        [SerializeField, HideInInspector] private PathSpace space;
+        [SerializeField, HideInInspector] private ControlMode controlMode;
+        [SerializeField, HideInInspector] private float autoControlLength = .3f;
+        [SerializeField, HideInInspector] private bool boundsUpToDate;
+        [SerializeField, HideInInspector] private Bounds bounds;
 
         // Normals settings
-        [SerializeField, HideInInspector]
-        List<float> perAnchorNormalsAngle;
-        [SerializeField, HideInInspector]
-        float globalNormalsAngle;
-        [SerializeField, HideInInspector]
-        bool flipNormals;
+        [SerializeField, HideInInspector] private List<float> perAnchorNormalsAngle;
+        [SerializeField, HideInInspector] private float globalNormalsAngle;
+        [SerializeField, HideInInspector] private bool flipNormals;
 
         #endregion
 
@@ -593,7 +583,7 @@ namespace PathCreation
         #region Internal methods and accessors
 
         /// Update the bounding box of the path
-        void UpdateBounds()
+        private void UpdateBounds()
         {
             if (boundsUpToDate)
             {
@@ -621,7 +611,7 @@ namespace PathCreation
         }
 
         /// Determines good positions (for a smooth path) for the control points affected by a moved/inserted anchor point
-        void AutoSetAllAffectedControlPoints(int updatedAnchorIndex)
+        private void AutoSetAllAffectedControlPoints(int updatedAnchorIndex)
         {
             for (int i = updatedAnchorIndex - 3; i <= updatedAnchorIndex + 3; i += 3)
             {
@@ -635,7 +625,7 @@ namespace PathCreation
         }
 
         /// Determines good positions (for a smooth path) for all control points
-        void AutoSetAllControlPoints()
+        private void AutoSetAllControlPoints()
         {
             if (NumAnchorPoints > 2)
             {
@@ -649,7 +639,7 @@ namespace PathCreation
         }
 
         /// Calculates good positions (to result in smooth path) for the controls around specified anchor
-        void AutoSetAnchorControlPoints(int anchorIndex)
+        private void AutoSetAnchorControlPoints(int anchorIndex)
         {
             // Calculate a vector that is perpendicular to the vector bisecting the angle between this anchor and its two immediate neighbours
             // The control points will be placed along that vector
@@ -684,7 +674,7 @@ namespace PathCreation
         }
 
         /// Determines good positions (for a smooth path) for the control points at the start and end of a path
-        void AutoSetStartAndEndControls()
+        private void AutoSetStartAndEndControls()
         {
             if (isClosed)
             {
@@ -724,7 +714,7 @@ namespace PathCreation
 
         /// Update point positions for new path space
         /// (for example, if changing from xy to xz path, y and z axes will be swapped so the path keeps its shape in the new space)
-        void UpdateToNewPathSpace(PathSpace previousSpace)
+        private void UpdateToNewPathSpace(PathSpace previousSpace)
         {
             // If changing from 3d to 2d space, first find the bounds of the 3d path.
             // The axis with the smallest bounds will be discarded.
@@ -774,7 +764,7 @@ namespace PathCreation
         }
 
         /// Add/remove the extra 2 controls required for a closed path
-        void UpdateClosedState()
+        private void UpdateClosedState()
         {
             if (isClosed)
             {
@@ -809,7 +799,7 @@ namespace PathCreation
         }
 
         /// Loop index around to start/end of points array if out of bounds (useful when working with closed paths)
-        int LoopIndex(int i)
+        private int LoopIndex(int i)
         {
             return (i + points.Count) % points.Count;
         }

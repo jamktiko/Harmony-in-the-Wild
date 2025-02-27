@@ -34,10 +34,10 @@ namespace PathCreation
         public readonly Vector3 up;
 
         // Default values and constants:
-        const int accuracy = 10; // A scalar for how many times bezier path is divided when determining vertex positions
-        const float minVertexSpacing = .01f;
+        private const int accuracy = 10; // A scalar for how many times bezier path is divided when determining vertex positions
+        private const float minVertexSpacing = .01f;
 
-        Transform transform;
+        private Transform transform;
 
         #endregion
 
@@ -59,7 +59,7 @@ namespace PathCreation
         { }
 
         /// Internal contructor
-        VertexPath(BezierPath bezierPath, VertexPathUtility.PathSplitData pathSplitData, Transform transform)
+        private VertexPath(BezierPath bezierPath, VertexPathUtility.PathSplitData pathSplitData, Transform transform)
         {
             this.transform = transform;
             space = bezierPath.Space;
@@ -294,7 +294,7 @@ namespace PathCreation
 
         /// For a given value 't' between 0 and 1, calculate the indices of the two vertices before and after t.
         /// Also calculate how far t is between those two vertices as a percentage between 0 and 1.
-        TimeOnPathData CalculatePercentOnPathData(float t, EndOfPathInstruction endOfPathInstruction)
+        private TimeOnPathData CalculatePercentOnPathData(float t, EndOfPathInstruction endOfPathInstruction)
         {
             // Constrain t based on the end of path instruction
             switch (endOfPathInstruction)
@@ -346,7 +346,7 @@ namespace PathCreation
         }
 
         /// Calculate time data for closest point on the path from given world point
-        TimeOnPathData CalculateClosestPointOnPathData(Vector3 localPoint)
+        private TimeOnPathData CalculateClosestPointOnPathData(Vector3 localPoint)
         {
             float minSqrDst = float.MaxValue;
             Vector3 closestPoint = Vector3.zero;

@@ -11,7 +11,8 @@ public class AutoFlip : MonoBehaviour
     public bool AutoStartFlip = true;
     public Book ControledBook;
     public int AnimationFramesCount = 40;
-    bool _isFlipping = false;
+
+    private bool _isFlipping = false;
     // Use this for initialization
 
     private AudioSource _audioSource;
@@ -28,7 +29,7 @@ public class AutoFlip : MonoBehaviour
     [FormerlySerializedAs("autoFlipTime")] [SerializeField] private float _autoFlipTime = 0.2f;
     [FormerlySerializedAs("regularFlipTime")] [SerializeField] private float _regularFlipTime = 1.7f;
 
-    void Start()
+    private void Start()
     {
 
         StartCoroutine(Delay());
@@ -63,7 +64,7 @@ public class AutoFlip : MonoBehaviour
         }
     }
 
-    void PageFlipped()
+    private void PageFlipped()
     {
         _isFlipping = false;
     }
@@ -94,7 +95,7 @@ public class AutoFlip : MonoBehaviour
         StartCoroutine(FlipRtl(xc, xl, h, frameTime, dx));
     }
 
-    IEnumerator FlipRtl(float xc, float xl, float h, float frameTime, float dx)
+    private IEnumerator FlipRtl(float xc, float xl, float h, float frameTime, float dx)
     {
         float x = xc + xl;
         float y = (-h / (xl * xl)) * (x - xc) * (x - xc);
@@ -112,7 +113,7 @@ public class AutoFlip : MonoBehaviour
         ControledBook.ReleasePage();
     }
 
-    IEnumerator AutoFlipToDungeonEnding()
+    private IEnumerator AutoFlipToDungeonEnding()
     {
         yield return new WaitForSeconds(_delayBeforeAutoFlipStart);
 

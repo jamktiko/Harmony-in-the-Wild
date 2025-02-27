@@ -10,7 +10,7 @@ public class Geyser : MonoBehaviour
 
     private Rigidbody _rb;
 
-    void Start()
+    private void Start()
     {
         _rb = GetComponent<Rigidbody>();
 
@@ -20,7 +20,7 @@ public class Geyser : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         _timePassed += Time.deltaTime; //NOTE: Changed 1f with Time.deltaTime to make it non-framerate dependant.
 

@@ -83,7 +83,7 @@ namespace Ink
                 this.customFlags = fromElement.customFlags;
             }
 
-            static int _uniqueIdCounter;
+            private static int _uniqueIdCounter;
         }
 
         public StringParserState()

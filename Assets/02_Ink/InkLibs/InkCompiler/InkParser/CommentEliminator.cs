@@ -28,12 +28,12 @@ namespace Ink
             }
         }
 
-        string MainInk()
+        private string MainInk()
         {
             return ParseUntil(CommentsAndNewlines, _commentOrNewlineStartCharacter, null);
         }
 
-        string CommentsAndNewlines()
+        private string CommentsAndNewlines()
         {
             var newlines = Interleave<string>(Optional(ParseNewline), Optional(ParseSingleComment));
 
@@ -49,12 +49,12 @@ namespace Ink
 
         // Valid comments always return either an empty string or pure newlines,
         // which we want to keep so that line numbers stay the same
-        string ParseSingleComment()
+        private string ParseSingleComment()
         {
             return (string)OneOf(EndOfLineComment, BlockComment);
         }
 
-        string EndOfLineComment()
+        private string EndOfLineComment()
         {
             if (ParseString("//") == null)
             {
@@ -66,7 +66,7 @@ namespace Ink
             return "";
         }
 
-        string BlockComment()
+        private string BlockComment()
         {
             if (ParseString("/*") == null)
             {
@@ -96,9 +96,9 @@ namespace Ink
             }
         }
 
-        CharacterSet _commentOrNewlineStartCharacter = new CharacterSet("/\r\n");
-        CharacterSet _commentBlockEndCharacter = new CharacterSet("*");
-        CharacterSet _newlineCharacters = new CharacterSet("\n\r");
+        private CharacterSet _commentOrNewlineStartCharacter = new CharacterSet("/\r\n");
+        private CharacterSet _commentBlockEndCharacter = new CharacterSet("*");
+        private CharacterSet _newlineCharacters = new CharacterSet("\n\r");
     }
 }
 

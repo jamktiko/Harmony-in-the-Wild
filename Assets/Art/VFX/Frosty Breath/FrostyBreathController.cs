@@ -5,7 +5,7 @@ public class FrostBreathController : MonoBehaviour
 {
     public VisualEffect visualEffect; // Reference to the VisualEffect component
 
-    void Start()
+    private void Start()
     {
         // Check if the VisualEffect component is assigned
         if (visualEffect == null)

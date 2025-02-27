@@ -11,13 +11,13 @@ public class FoxGroundTargetSpawner : MonoBehaviour
     [SerializeField] private bool spawnOnUpdate;
 
     [Header("References")]
-    public Collider groundTriggerCollider; // Assign the fox’s ground trigger collider in the Inspector
+    public Collider groundTriggerCollider; // Assign the foxï¿½s ground trigger collider in the Inspector
     public Transform groundTargetContainer; // Parent object for hierarchy cleanliness
 
     private Queue<GameObject> groundTargetPool = new Queue<GameObject>(); // Object pool
     private HashSet<GameObject> activeTargets = new HashSet<GameObject>(); // Track active targets
 
-    void Start()
+    private void Start()
     {
         if (groundTriggerCollider == null)
         {
@@ -47,7 +47,7 @@ public class FoxGroundTargetSpawner : MonoBehaviour
         }
     }
 
-    void InitializeObjectPool()
+    private void InitializeObjectPool()
     {
         for (int i = 0; i < maxGroundTargets; i++)
         {
@@ -62,7 +62,7 @@ public class FoxGroundTargetSpawner : MonoBehaviour
         }
     }
 
-    void PlaceGroundTargets()
+    private void PlaceGroundTargets()
     {
         Vector3 foxPosition = transform.position;
         activeTargets.Clear();
@@ -85,7 +85,7 @@ public class FoxGroundTargetSpawner : MonoBehaviour
         }
     }
 
-    Vector3 GetRandomGroundPosition(Vector3 center)
+    private Vector3 GetRandomGroundPosition(Vector3 center)
     {
         for (int i = 0; i < 10; i++) // Try multiple times to find a valid ground point
         {
@@ -110,7 +110,7 @@ public class FoxGroundTargetSpawner : MonoBehaviour
         return Vector3.zero; // No valid position found
     }
 
-    void OnTriggerExit(Collider other)
+    private void OnTriggerExit(Collider other)
     {
         if (other != groundTriggerCollider) return; // Ensure it's the correct collider
         if (other.CompareTag("lb_bird")) return;

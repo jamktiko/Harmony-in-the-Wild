@@ -5,13 +5,20 @@ using UnityEngine.UI;
 
 public class VolumeController : MonoBehaviour
 {
-    [FormerlySerializedAs("masterVolumeSlider")] [SerializeField] Slider _masterVolumeSlider; //Note: Does this have to be public? could this be [SerializeField] private and get method instead?
-    [FormerlySerializedAs("musicVolumeSlider")] [SerializeField] Slider _musicVolumeSlider; //Note: Does this have to be public? could this be [SerializeField] private and get method instead?
-    [FormerlySerializedAs("MasterSliderValue")] [SerializeField] float _masterSliderValue;
-    [FormerlySerializedAs("MusicSliderValue")] [SerializeField] float _musicSliderValue;
-    [FormerlySerializedAs("mixer")] [SerializeField] AudioMixer _mixer;
-    [FormerlySerializedAs("masterVolume")] [SerializeField] AudioMixerGroup _masterVolume; //Note: Does this have to be public? could this be [SerializeField] private and get method instead?
-    [FormerlySerializedAs("musicVolume")] [SerializeField] AudioMixerGroup _musicVolume; //Note: Does this have to be public? could this be [SerializeField] private and get method instead?
+    [FormerlySerializedAs("masterVolumeSlider")] [SerializeField]
+    private Slider _masterVolumeSlider; //Note: Does this have to be public? could this be [SerializeField] private and get method instead?
+    [FormerlySerializedAs("musicVolumeSlider")] [SerializeField]
+    private Slider _musicVolumeSlider; //Note: Does this have to be public? could this be [SerializeField] private and get method instead?
+    [FormerlySerializedAs("MasterSliderValue")] [SerializeField]
+    private float _masterSliderValue;
+    [FormerlySerializedAs("MusicSliderValue")] [SerializeField]
+    private float _musicSliderValue;
+    [FormerlySerializedAs("mixer")] [SerializeField]
+    private AudioMixer _mixer;
+    [FormerlySerializedAs("masterVolume")] [SerializeField]
+    private AudioMixerGroup _masterVolume; //Note: Does this have to be public? could this be [SerializeField] private and get method instead?
+    [FormerlySerializedAs("musicVolume")] [SerializeField]
+    private AudioMixerGroup _musicVolume; //Note: Does this have to be public? could this be [SerializeField] private and get method instead?
 
     public void Start()
     {

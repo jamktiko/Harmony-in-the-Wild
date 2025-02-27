@@ -10,13 +10,13 @@ public class CinematicCameraRotator : MonoBehaviour
     public GameObject objectToEnable;
     public GrowthController growthController;
 
-    void Start()
+    private void Start()
     {
         originalRotation = transform.rotation;
         StartRotation();
     }
 
-    void Update()
+    private void Update()
     {
         if (rotating)
         {

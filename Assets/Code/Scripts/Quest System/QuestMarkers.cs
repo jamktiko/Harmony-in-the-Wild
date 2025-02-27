@@ -19,7 +19,8 @@ public class QuestMarkers : MonoBehaviour
     {
         Invoke("GrabQuestIds", 1f);
     }
-    void GrabQuestIds()
+
+    private void GrabQuestIds()
     {
         int index = 0;
         foreach (string questId in QuestManager.Instance.QuestMap.Keys)
@@ -38,7 +39,8 @@ public class QuestMarkers : MonoBehaviour
     {
         GameEventsManager.instance.QuestEvents.OnFinishQuest -= UnlockMapTeleport;
     }
-    void UnlockMapTeleport(string id)
+
+    private void UnlockMapTeleport(string id)
     {
         //Debug.Log("string id is: " + id);
 
@@ -74,7 +76,7 @@ public class QuestMarkers : MonoBehaviour
         //}
     }
 
-    int GetIndexFromId(string id)
+    private int GetIndexFromId(string id)
     {
         if (_idToIndex.ContainsKey(id))
         {

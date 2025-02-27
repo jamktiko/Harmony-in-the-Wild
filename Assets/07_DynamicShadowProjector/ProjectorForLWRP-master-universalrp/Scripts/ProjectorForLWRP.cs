@@ -162,10 +162,11 @@ namespace ProjectorForLWRP
             BothSide = 1,
             BackfaceOnly = 2,
         }
-        StencilTestState m_stencilTestState = StencilTestState.None;
-        static Mesh s_fullScreenMesh = null;
-        static Material s_fullScreenClearStencilMaterial = null;
-        Material m_runtimeStencilPassMaterial = null;
+
+        private StencilTestState m_stencilTestState = StencilTestState.None;
+        private static Mesh s_fullScreenMesh = null;
+        private static Material s_fullScreenClearStencilMaterial = null;
+        private Material m_runtimeStencilPassMaterial = null;
         private void ClearFullscreenStencil(CommandBuffer commandBuffer)
         {
             if (s_fullScreenClearStencilMaterial == null)

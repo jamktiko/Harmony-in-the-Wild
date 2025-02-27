@@ -10,7 +10,7 @@ public class Oscillator : MonoBehaviour
     private float curValue;
     private float curSpeed;
 
-    void Awake()
+    private void Awake()
     {
         step = 2;
         curSpeed = 2;
@@ -18,7 +18,7 @@ public class Oscillator : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (curValue > 0) curSpeed -= step * Time.deltaTime * frequency;
         else curSpeed += step * Time.deltaTime * frequency;
