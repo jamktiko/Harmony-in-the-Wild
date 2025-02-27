@@ -38,13 +38,12 @@ public class Berries : MonoBehaviour
     {
         if (_interactable)
         {
-            FoxMovement.Instance.PlayerAnimator.SetBool("isCollectingBerry", true);
+            // TODO: Review this code; using trigger instead of bool
+            FoxMovement.Instance.playerAnimator.CollectFromBush();
             Sequence mySequence = DOTween.Sequence();
             mySequence.Append(transform.DOScale(95f, 0.5f)).Append(transform.DOScale(50f, 0.5f)).OnComplete(() =>
             {
                 _interactionIndicator.SetActive(false);
-
-                FoxMovement.Instance.PlayerAnimator.SetBool("isCollectingBerry", false);
 
                 PlayerManager.Instance.Berries++;
                 if (Steamworks.SteamClient.IsValid)

@@ -43,8 +43,8 @@ public class Swimming : MonoBehaviour, IAbility
                 FoxMovement.Instance.Rb.useGravity = true;
             }
 
-            FoxMovement.Instance.PlayerAnimator.SetFloat("horMove", FoxMovement.Instance.HorizontalInput, 0.1f, Time.deltaTime);
-            FoxMovement.Instance.PlayerAnimator.SetFloat("vertMove", FoxMovement.Instance.VerticalInput, 0.1f, Time.deltaTime);
+            FoxMovement.Instance.playerAnimator.SetFloat(FoxAnimation.Parameter.horMove, FoxMovement.Instance.HorizontalInput,0.1f,Time.deltaTime);
+            FoxMovement.Instance.playerAnimator.SetFloat(FoxAnimation.Parameter.vertMove, FoxMovement.Instance.VerticalInput,0.1f,Time.deltaTime);
             //FoxMovement.instance.playerAnimator.SetBool("isJumping", false);
             //FoxMovement.instance.playerAnimator.SetBool("isGrounded", true);
             //FoxMovement.instance.playerAnimator.speed = 0.7f;
