@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.VFX;
 public class ChargeJumping : MonoBehaviour, IAbility
 {
-    public static ChargeJumping instance;
+    public static ChargeJumping Instance;
 
     public bool isChargeJumpActivated;
     public bool isChargingJump;
@@ -19,20 +19,20 @@ public class ChargeJumping : MonoBehaviour, IAbility
 
     void Awake()
     {
-        if (instance != null && instance != this)
+        if (Instance != null && Instance != this)
         {
             Debug.LogWarning("There is more than one ChargeJumping ability.");
             Destroy(gameObject);
             return;
         }
-        instance = this;
+        Instance = this;
 
         onEnableChargeJumpID = Shader.PropertyToID("OnChargeJumpStart");
         onDisableChargeJumpID = Shader.PropertyToID("OnChargeJumpStop");
     }
     private void Start()
     {
-        AbilityManager.instance.RegisterAbility(Abilities.ChargeJumping, this);
+        AbilityManager.Instance.RegisterAbility(Abilities.ChargeJumping, this);
     }
 
     public void Activate()
@@ -51,7 +51,7 @@ public class ChargeJumping : MonoBehaviour, IAbility
                 ChargeJump();
             }
 
-            if (chargeJumpTimer != 14 && PlayerInputHandler.instance.ChargeJumpInput.WasReleasedThisFrame())
+            if (chargeJumpTimer != 14 && PlayerInputHandler.Instance.ChargeJumpInput.WasReleasedThisFrame())
             {
                 ReleaseChargedJump();
             }
@@ -59,7 +59,7 @@ public class ChargeJumping : MonoBehaviour, IAbility
     }
     private void ChargeJump()
     {
-        if (FoxMovement.instance != null)
+        if (FoxMovement.Instance != null)
         {
             if (!vfxPlaying)
             {
@@ -68,7 +68,7 @@ public class ChargeJumping : MonoBehaviour, IAbility
             }
             
 
-            FoxMovement.instance.rb.velocity = new Vector3(0f, 0f, 0f);
+            FoxMovement.Instance.Rb.velocity = new Vector3(0f, 0f, 0f);
 
             if (chargeJumpTimer < chargeJumpHeight)
             {
@@ -79,23 +79,23 @@ public class ChargeJumping : MonoBehaviour, IAbility
 
                 chargeJumpTimer = chargeJumpTimer + 0.3f;
 
-                FoxMovement.instance.playerAnimator.ChargingJump(true);
-                FoxMovement.instance.playerAnimator.HorizontalMove = FoxMovement.instance.horizontalInput;
-                FoxMovement.instance.playerAnimator.VerticalMove = FoxMovement.instance.verticalInput;
+                FoxMovement.Instance.playerAnimator.ChargingJump(true);
+                FoxMovement.Instance.playerAnimator.HorizontalMove = FoxMovement.Instance.HorizontalInput;
+                FoxMovement.Instance.playerAnimator.VerticalMove = FoxMovement.Instance.VerticalInput;
             } 
         }
     }
     private void ReleaseChargedJump()
     {
-        if (FoxMovement.instance != null)
+        if (FoxMovement.Instance != null)
         {
             isChargingJump = false;
             chargeJumpVFX.SendEvent(onDisableChargeJumpID);
             vfxPlaying = false;
             chargeJumpAudio.Stop();
 
-            FoxMovement.instance.rb.AddForce(transform.up * chargeJumpTimer, ForceMode.Impulse);
-            FoxMovement.instance.playerAnimator.ChargingJump(false);
+            FoxMovement.Instance.Rb.AddForce(transform.up * chargeJumpTimer, ForceMode.Impulse);
+            FoxMovement.Instance.playerAnimator.ChargingJump(false);
             Invoke(nameof(ResetChargeJump), 0); 
         }
     }

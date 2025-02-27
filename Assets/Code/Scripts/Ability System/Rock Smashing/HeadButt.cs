@@ -30,9 +30,9 @@ public class HeadButtHash : MonoBehaviour
     }
     private void TriggerHeadButt()
     {
-        finalForce = force;
-        FoxMovement.instance.playerAnimator.HeadButt();
-        if (currentRock!=null)
+        _finalForce = _force;
+        FoxMovement.Instance.playerAnimator.HeadButt();
+        if (_currentRock!=null)
         {
             Vector3 direction = _currentRock.position - FoxMovement.Instance.FoxFront.position;
             _currentRock.AddForce(direction * _finalForce * 10, ForceMode.Force);

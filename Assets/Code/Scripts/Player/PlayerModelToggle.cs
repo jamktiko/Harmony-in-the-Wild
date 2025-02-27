@@ -96,7 +96,7 @@ public class PlayerModelToggle : MonoBehaviour
             RedFox.SetActive(false);
             _arcticFox.SetActive(true);
 
-            playerCamera.foxObject = arcticFox.transform;
+            _playerCamera.FoxObject = _arcticFox.transform;
         }
 
         else
@@ -110,7 +110,7 @@ public class PlayerModelToggle : MonoBehaviour
             RedFox.SetActive(true);
             _arcticFox.SetActive(false);
 
-            playerCamera.foxObject = redFox.transform;
+            _playerCamera.FoxObject = RedFox.transform;
         }
     }
 

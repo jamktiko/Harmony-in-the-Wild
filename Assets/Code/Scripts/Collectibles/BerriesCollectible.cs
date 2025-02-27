@@ -39,13 +39,13 @@ public class Berries : MonoBehaviour
         if (_interactable)
         {
             // TODO: Review this code; using trigger instead of bool
-            FoxMovement.instance.playerAnimator.CollectFromBush();
+            FoxMovement.Instance.playerAnimator.CollectFromBush();
             Sequence mySequence = DOTween.Sequence();
             mySequence.Append(transform.DOScale(95f, 0.5f)).Append(transform.DOScale(50f, 0.5f)).OnComplete(() =>
             {
                 _interactionIndicator.SetActive(false);
 
-                PlayerManager.instance.Berries++;
+                PlayerManager.Instance.Berries++;
                 if (Steamworks.SteamClient.IsValid)
                 {
                     SteamManager.Instance.AchievementProgressBerry("stat_2");

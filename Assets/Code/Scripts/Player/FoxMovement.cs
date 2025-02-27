@@ -125,12 +125,12 @@ public class FoxMovement : MonoBehaviour
             _canMove = true;
         }
 
-        rb.freezeRotation = true;
-        abilityCycle = GetComponent<AbilityCycle>();
+        Rb.freezeRotation = true;
+        _abilityCycle = GetComponent<AbilityCycle>();
         playerAnimator = GetComponent<FoxAnimation>();
         if (SceneManager.GetActiveScene().name.Contains("Overworld"))
         {
-            CinematicCamAnimator = GameObject.Find("IntroCamera").GetComponent<Animator>();
+            cinematicCamAnimator = GameObject.Find("IntroCamera").GetComponent<Animator>();
         }
 
     }
@@ -220,11 +220,11 @@ public class FoxMovement : MonoBehaviour
         AbilityCycle.Instance.ActiveAbilities.TryGetValue(Abilities.ChargeJumping, out bool isChargeJumpSelected);
         if (PlayerInputHandler.Instance.UseAbilityInput.WasPressedThisFrame() && isChargeJumpSelected)
         {
-            ChargeJumping.Instance.IsChargeJumpActivated = !ChargeJumping.Instance.IsChargeJumpActivated;
+            ChargeJumping.Instance.isChargeJumpActivated = !ChargeJumping.Instance.isChargeJumpActivated;
         }
         if (!isChargeJumpSelected)
         {
-            ChargeJumping.Instance.IsChargeJumpActivated = false;
+            ChargeJumping.Instance.isChargeJumpActivated = false;
         }
 
         //telegrab
@@ -282,7 +282,7 @@ public class FoxMovement : MonoBehaviour
     }
     private void JumpInput()
     {
-        if (PlayerInputHandler.Instance.JumpInput.WasPressedThisFrame() && IsReadyToJump && IsGrounded() && !ChargeJumping.Instance.IsChargeJumpActivated && PlayerInputHandler.Instance.JumpInput.enabled)
+        if (PlayerInputHandler.Instance.JumpInput.WasPressedThisFrame() && IsReadyToJump && IsGrounded() && !ChargeJumping.Instance.isChargeJumpActivated && PlayerInputHandler.Instance.JumpInput.enabled)
         {
             IsReadyToJump = false;
             Jump();
@@ -320,7 +320,7 @@ public class FoxMovement : MonoBehaviour
 
         Rb.AddForce(_moveDirection.normalized * speed * 10f * modifier, ForceMode.Force);
 
-        playerAnimator.UpMove = rb.velocity.y;
+        playerAnimator.UpMove = Rb.velocity.y;
     }
 
     private void SetMovementSpeed(ref float speed, ref float modifier, bool isSnowDiveUnlocked)
@@ -358,8 +358,8 @@ public class FoxMovement : MonoBehaviour
         //Swimming
         if (IsInWater())
         {
-            speed = Swimming.instance.swimSpeed;
-            rb.useGravity = true;
+            speed = Swimming.Instance.SwimSpeed;
+            Rb.useGravity = true;
             playerAnimator.State = FoxAnimationState.Swimming;
         }
 
@@ -404,7 +404,7 @@ public class FoxMovement : MonoBehaviour
         if (_grounded)
         {
             //walking animation here
-            PlayerAnimator.speed = 1f;
+            playerAnimator.speed = 1f;
 
             SetDefaultAnimatorValues();
         }
@@ -420,7 +420,7 @@ public class FoxMovement : MonoBehaviour
     {
         if (_grounded && IsSprinting)
         {
-            if (horizontalInput != 0 || verticalInput != 0)
+            if (HorizontalInput != 0 || VerticalInput != 0)
                 playerAnimator.Sprinting = true;
         }
     }
@@ -444,8 +444,8 @@ public class FoxMovement : MonoBehaviour
         // TODO: Review this code
         // Jumping is now trigger and doesn't need to be reset
         //playerAnimator.SetBool(FoxAnimation.Parameter.isJumping, false);
-        isReadyToJump = true;
-        exitingSlope = false;
+        IsReadyToJump = true;
+        _exitingSlope = false;
     }
     #endregion
     #region CHECKS
@@ -492,8 +492,8 @@ public class FoxMovement : MonoBehaviour
     {
         playerAnimator.State = FoxAnimationState.Default;
         // TODO: This part needs refactoring, currently FoxAnimation doesn't support this kind of calls properly
-        playerAnimator.SetFloat(FoxAnimation.Parameter.horMove, horizontalInput, 0.1f, Time.deltaTime);
-        playerAnimator.SetFloat(FoxAnimation.Parameter.vertMove, verticalInput, 0.1f, Time.deltaTime);
+        playerAnimator.SetFloat(FoxAnimation.Parameter.horMove, HorizontalInput, 0.1f, Time.deltaTime);
+        playerAnimator.SetFloat(FoxAnimation.Parameter.vertMove, VerticalInput, 0.1f, Time.deltaTime);
         playerAnimator.IsGrounded = true;
     }
     private void SpeedControl()
@@ -527,7 +527,7 @@ public class FoxMovement : MonoBehaviour
     }
     private void AnimationConditions()
     {
-        if (PlayerInputHandler.instance.MoveInput.enabled && playerAnimator.MovementRestricted)
+        if (PlayerInputHandler.Instance.MoveInput.enabled && playerAnimator.MovementRestricted)
 
 
         {
@@ -540,7 +540,7 @@ public class FoxMovement : MonoBehaviour
             {
                 if (SceneManager.GetActiveScene().name.Contains("Overworld"))
                 {
-                    if (!CinematicCamAnimator.enabled)
+                    if (!cinematicCamAnimator.enabled)
                     {
                         PlayerInputHandler.Instance.MoveInput.Enable();
                         PlayerInputHandler.Instance.JumpInput.Enable();
@@ -560,7 +560,7 @@ public class FoxMovement : MonoBehaviour
 
     public void CooldownTrigger(string boolName)
     {
-        PlayerAnimator.SetBool(boolName, false);
+        playerAnimator.SetBool(boolName, false);
         if (boolName == "isReadyToSwim")
         {
             IsReadyToSwim = false;
@@ -575,16 +575,16 @@ public class FoxMovement : MonoBehaviour
     private IEnumerator StartCooldown(string boolName)
     {
         yield return new WaitForSeconds(30f);
-        PlayerAnimator.SetBool(boolName, true);
+        playerAnimator.SetBool(boolName, true);
         if (boolName == "isReadyToSwim")
         {
             IsReadyToSwim = true;
-            PlayerAnimator.SetBool(boolName, true);
+            playerAnimator.SetBool(boolName, true);
         }
         else
         {
             IsReadyToShake = true;
-            PlayerAnimator.SetBool(boolName, true);
+            playerAnimator.SetBool(boolName, true);
         }
     }
 

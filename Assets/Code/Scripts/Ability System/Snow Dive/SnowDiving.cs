@@ -52,7 +52,7 @@ public class SnowDiving : MonoBehaviour, IAbility
         {
             //snowDiveVFX.SendEvent(onEnableSnowDiveID);
 
-            FoxMovement.instance.playerAnimator.IsGliding = false;
+            FoxMovement.Instance.playerAnimator.IsGliding = false;
         }
     }
 
@@ -110,7 +110,7 @@ public class SnowDiving : MonoBehaviour, IAbility
 
     private IEnumerator MoveObject()
     {
-        FoxMovement.instance.playerAnimator.SnowDive();
+        FoxMovement.Instance.playerAnimator.SnowDive();
         //turn off object to move it
         FoxMovement.Instance.Rb.isKinematic = true;
         FoxMovement.Instance.Rb.useGravity = false;
@@ -130,10 +130,10 @@ public class SnowDiving : MonoBehaviour, IAbility
         }
 
         //turn the object back on after moving it through all points in the list
-        movementPoints.Clear();
-        FoxMovement.instance.rb.isKinematic = false;
-        FoxMovement.instance.rb.useGravity = true;
-        isClimbing = false;
+        _movementPoints.Clear();
+        FoxMovement.Instance.Rb.isKinematic = false;
+        FoxMovement.Instance.Rb.useGravity = true;
+        _isClimbing = false;
 
         Debug.Log("Review this part of the code");
         // TODO: Review this code

@@ -35,7 +35,7 @@ public class PineconesCollectable : MonoBehaviour
     {
         if (_interactable)
         {
-            FoxMovement.instance.playerAnimator.CollectFromGround();
+            FoxMovement.Instance.playerAnimator.CollectFromGround();
             Sequence mySequence = DOTween.Sequence();
             mySequence.Append(transform.DOScale(1.3f, 1.3f)).Append(transform.DOScale(0f, 1.3f)).OnComplete(() =>
             {

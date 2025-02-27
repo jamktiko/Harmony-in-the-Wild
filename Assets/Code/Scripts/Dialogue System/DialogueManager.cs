@@ -141,8 +141,8 @@ public class DialogueManager : MonoBehaviour
 
             if (FoxMovement.Instance.IsInWater())
             {
-                FoxMovement.instance.playerAnimator.ReadyToSwim = false;
-                FoxMovement.instance.playerAnimator.State = FoxAnimationState.Swimming;
+                FoxMovement.Instance.playerAnimator.ReadyToSwim = false;
+                FoxMovement.Instance.playerAnimator.State = FoxAnimationState.Swimming;
             }
             else
                 FoxMovement.Instance.SetDefaultAnimatorValues();

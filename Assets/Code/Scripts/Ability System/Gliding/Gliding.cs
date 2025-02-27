@@ -128,8 +128,8 @@ public class Gliding : MonoBehaviour, IAbility
 
             FoxMovement.Instance.Rb.velocity = new Vector3(FoxMovement.Instance.Rb.velocity.x, -1.5f, FoxMovement.Instance.Rb.velocity.z);
 
-            FoxMovement.instance.playerAnimator.IsGrounded = false;
-            FoxMovement.instance.playerAnimator.IsGliding = true;
+            FoxMovement.Instance.playerAnimator.IsGrounded = false;
+            FoxMovement.Instance.playerAnimator.IsGliding = true;
         }
     }
 
@@ -152,14 +152,14 @@ public class Gliding : MonoBehaviour, IAbility
 
     private void DisableGliding()
     {
-        FoxMovement.instance.playerAnimator.IsGrounded = false;
-        isGliding = false;
+        FoxMovement.Instance.playerAnimator.IsGrounded = false;
+        IsGliding = false;
 
         if (!FoxMovement.Instance.Rb.useGravity)
         {
             FoxMovement.Instance.Rb.useGravity = true;
         }
-        FoxMovement.instance.playerAnimator.IsGliding = false;
+        FoxMovement.Instance.playerAnimator.IsGliding = false;
 
         if (_glideParticleEmission != null)
         {
