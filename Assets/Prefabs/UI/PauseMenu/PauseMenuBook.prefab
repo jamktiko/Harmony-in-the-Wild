@@ -351,10 +351,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cea4da421a0db44aade3f6536d725e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questImages: []
-  title: {fileID: 4125746144353240201}
-  description: {fileID: 1312789452567796592}
-  nextQuestStepDesc: {fileID: 9058119325488658156}
+  _questImages: []
+  _questWaypoint: {fileID: 0}
+  _title: {fileID: 0}
+  _description: {fileID: 0}
+  _nextQuestStepDesc: {fileID: 0}
+  _trackQuestButton: {fileID: 0}
+  _untrackQuestButton: {fileID: 0}
 --- !u!1 &473846832002094113
 GameObject:
   m_ObjectHideFlags: 0
@@ -705,11 +708,11 @@ RectTransform:
   m_Children:
   - {fileID: 3850158457735988094}
   - {fileID: 8465186056827898030}
-  m_Father: {fileID: 1185508876350621206}
+  m_Father: {fileID: 7944499832532099101}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -223, y: 80}
+  m_AnchoredPosition: {x: 385.5705, y: 80}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 0}
 --- !u!1 &1059809085543457795
@@ -746,6 +749,7 @@ RectTransform:
   - {fileID: 4230607539402263554}
   - {fileID: 3474369464273828294}
   - {fileID: 4779251797908607674}
+  - {fileID: 4174396868464404315}
   m_Father: {fileID: 1647823395773408930}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3978,7 +3982,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7049856118257502524}
-  - {fileID: 4174396868464404315}
   - {fileID: 235078710166101839}
   - {fileID: 3476901062189598139}
   - {fileID: 8373962598746938809}
@@ -5532,8 +5535,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a0aa0108c646d24f92663d64940f1d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  button: {fileID: 2309527910685022639, guid: ea7250e7792d4024e808a592fcf674be, type: 3}
-  questMenuLayout: {fileID: 0}
+  _button: {fileID: 0}
 --- !u!1 &6086271366407954564
 GameObject:
   m_ObjectHideFlags: 0
