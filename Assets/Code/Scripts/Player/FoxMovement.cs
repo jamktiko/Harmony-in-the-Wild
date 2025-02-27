@@ -491,11 +491,12 @@ public class FoxMovement : MonoBehaviour
     public void SetDefaultAnimatorValues()
     {
         playerAnimator.State = FoxAnimationState.Default;
-        // TODO: This part needs refactoring, currently FoxAnimation doesn't support this kind of calls properly
-        playerAnimator.SetFloat(FoxAnimation.Parameter.horMove, HorizontalInput, 0.1f, Time.deltaTime);
-        playerAnimator.SetFloat(FoxAnimation.Parameter.vertMove, VerticalInput, 0.1f, Time.deltaTime);
+        playerAnimator.SetMovement(HorizontalInput, VerticalInput, 0.1f, Time.deltaTime);
+        playerAnimator.IsGliding = false;
         playerAnimator.IsGrounded = true;
+        playerAnimator.Sprinting = false;
     }
+
     private void SpeedControl()
     {
         Vector3 flatVel = new Vector3(Rb.velocity.x, 0f, Rb.velocity.z);
