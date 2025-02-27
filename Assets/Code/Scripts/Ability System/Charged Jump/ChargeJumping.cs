@@ -2,56 +2,56 @@ using UnityEngine;
 using UnityEngine.VFX;
 public class ChargeJumping : MonoBehaviour, IAbility
 {
-    public static ChargeJumping Instance;
+    public static ChargeJumping instance;
 
-    public bool IsChargeJumpActivated;
-    public bool IsChargingJump;
-    [SerializeField] private float _chargeJumpHeight = 24f;
-    [SerializeField] private AudioSource _chargeJumpAudio;
-    [SerializeField] private AudioSource _chargeJumpLandingAudio;
-    [SerializeField] private VisualEffect _chargeJumpVFX;
+    public bool isChargeJumpActivated;
+    public bool isChargingJump;
+    [SerializeField] private float chargeJumpHeight = 24f;
+    [SerializeField] private AudioSource chargeJumpAudio;
+    [SerializeField] private AudioSource chargeJumpLandingAudio;
+    [SerializeField] private VisualEffect chargeJumpVFX;
 
-    private float _chargeJumpTimer;
+    private float chargeJumpTimer;
 
-    private int _onEnableChargeJumpID;
-    private int _onDisableChargeJumpID;
-    private bool _vfxPlaying;
+    private int onEnableChargeJumpID;
+    private int onDisableChargeJumpID;
+    private bool vfxPlaying;
 
-    private void Awake()
+    void Awake()
     {
-        if (Instance != null && Instance != this)
+        if (instance != null && instance != this)
         {
             Debug.LogWarning("There is more than one ChargeJumping ability.");
             Destroy(gameObject);
             return;
         }
-        Instance = this;
+        instance = this;
 
-        _onEnableChargeJumpID = Shader.PropertyToID("OnChargeJumpStart");
-        _onDisableChargeJumpID = Shader.PropertyToID("OnChargeJumpStop");
+        onEnableChargeJumpID = Shader.PropertyToID("OnChargeJumpStart");
+        onDisableChargeJumpID = Shader.PropertyToID("OnChargeJumpStop");
     }
     private void Start()
     {
-        AbilityManager.Instance.RegisterAbility(Abilities.ChargeJumping, this);
+        AbilityManager.instance.RegisterAbility(Abilities.ChargeJumping, this);
     }
 
     public void Activate()
     {
-        if (IsChargeJumpActivated && !IsChargingJump)
+        if (isChargeJumpActivated && !isChargingJump)
         {
-            IsChargingJump = true;
+            isChargingJump = true;
         }
     }
     private void Update()
     {
-        if (IsChargeJumpActivated)
+        if (isChargeJumpActivated)
         {
-            if (IsChargingJump)
+            if (isChargingJump)
             {
                 ChargeJump();
             }
 
-            if (_chargeJumpTimer != 14 && PlayerInputHandler.Instance.ChargeJumpInput.WasReleasedThisFrame())
+            if (chargeJumpTimer != 14 && PlayerInputHandler.instance.ChargeJumpInput.WasReleasedThisFrame())
             {
                 ReleaseChargedJump();
             }
@@ -59,51 +59,49 @@ public class ChargeJumping : MonoBehaviour, IAbility
     }
     private void ChargeJump()
     {
-        if (FoxMovement.Instance != null)
+        if (FoxMovement.instance != null)
         {
-            if (!_vfxPlaying)
+            if (!vfxPlaying)
             {
-                _chargeJumpVFX.SendEvent(_onEnableChargeJumpID);
-                _vfxPlaying = true;
+                chargeJumpVFX.SendEvent(onEnableChargeJumpID);
+                vfxPlaying = true;
             }
+            
 
+            FoxMovement.instance.rb.velocity = new Vector3(0f, 0f, 0f);
 
-            FoxMovement.Instance.Rb.velocity = new Vector3(0f, 0f, 0f);
-
-            if (_chargeJumpTimer < _chargeJumpHeight)
+            if (chargeJumpTimer < chargeJumpHeight)
             {
-                if (!_chargeJumpAudio.isPlaying)
+                if (!chargeJumpAudio.isPlaying)
                 {
-                    _chargeJumpAudio.Play();
+                    chargeJumpAudio.Play();
                 }
 
-                _chargeJumpTimer = _chargeJumpTimer + 0.3f;
+                chargeJumpTimer = chargeJumpTimer + 0.3f;
 
-                FoxMovement.Instance.PlayerAnimator.SetBool("isChargingJump", true);
-                FoxMovement.Instance.PlayerAnimator.SetFloat("horMove", FoxMovement.Instance.HorizontalInput);
-                FoxMovement.Instance.PlayerAnimator.SetFloat("vertMove", FoxMovement.Instance.VerticalInput);
-            }
+                FoxMovement.instance.playerAnimator.ChargingJump(true);
+                FoxMovement.instance.playerAnimator.HorizontalMove = FoxMovement.instance.horizontalInput;
+                FoxMovement.instance.playerAnimator.VerticalMove = FoxMovement.instance.verticalInput;
+            } 
         }
     }
     private void ReleaseChargedJump()
     {
-        if (FoxMovement.Instance != null)
+        if (FoxMovement.instance != null)
         {
-            IsChargingJump = false;
-            _chargeJumpVFX.SendEvent(_onDisableChargeJumpID);
-            _vfxPlaying = false;
-            _chargeJumpAudio.Stop();
+            isChargingJump = false;
+            chargeJumpVFX.SendEvent(onDisableChargeJumpID);
+            vfxPlaying = false;
+            chargeJumpAudio.Stop();
 
-            FoxMovement.Instance.Rb.AddForce(transform.up * _chargeJumpTimer, ForceMode.Impulse);
-
-            FoxMovement.Instance.PlayerAnimator.SetBool("isChargingJump", false);
-            FoxMovement.Instance.PlayerAnimator.SetBool("isJumping", false);
-            Invoke(nameof(ResetChargeJump), 0);
+            FoxMovement.instance.rb.AddForce(transform.up * chargeJumpTimer, ForceMode.Impulse);
+            FoxMovement.instance.playerAnimator.ChargingJump(false);
+            Invoke(nameof(ResetChargeJump), 0); 
         }
     }
     private void ResetChargeJump()
     {
-        _chargeJumpTimer = 14;
-        IsChargingJump = false;
+        chargeJumpTimer = 14;
+        isChargingJump = false;
     }
 }

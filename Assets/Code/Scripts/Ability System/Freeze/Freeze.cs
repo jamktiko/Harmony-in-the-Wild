@@ -41,7 +41,7 @@ public class Freeze : MonoBehaviour
         {
             foreach (Collider newObject in foundObjects)
             {
-                FoxMovement.Instance.PlayerAnimator.SetBool("isFreezing", true);
+                FoxMovement.instance.playerAnimator.Freezing();
                 Freezable freezable = newObject.gameObject.GetComponent<Freezable>();
 
                 if (freezable)
@@ -63,8 +63,11 @@ public class Freeze : MonoBehaviour
     private IEnumerator FreezeCooldown()
     {
         yield return new WaitForSeconds(0.01f);
-        FoxMovement.Instance.PlayerAnimator.SetBool("isFreezing", false);
-        _hasCooldown = true;
+        Debug.Log("Review this part of the code");
+        // TODO: Review this code
+        // Freezing is a trigger that doesn't need reset
+        //FoxMovement.instance.playerAnimator.SetBool(FoxAnimation.Parameter.isFreezing, false);
+        hasCooldown = true;
 
         float updateFillAmount = 1 / (_cooldownDuration * 100);
         _coloredCooldownIndicator.fillAmount = 0;
