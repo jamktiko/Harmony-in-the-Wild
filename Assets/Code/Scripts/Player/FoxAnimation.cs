@@ -83,6 +83,17 @@ public class FoxAnimation : MonoBehaviour
     internal float VerticalMove { get => animator.GetFloat(_vertMoveHash); set => animator.SetFloat(_vertMoveHash, value * (Sprinting ? 2f : 1f)); }
     internal float UpMove { get => animator.GetFloat(_upMoveHash); set => animator.SetFloat(_upMoveHash, value); }
     public bool Sprinting { get; internal set; } // Multiplies the movement values
+    public void SetMovement(float horizontalInput, float verticalInput)
+    {
+        animator.SetFloat(_horMoveHash, horizontalInput * (Sprinting ? 2f : 1f));
+        animator.SetFloat(_vertMoveHash, verticalInput * (Sprinting ? 2f : 1f));
+    }
+    public void SetMovement(float horizontalInput, float verticalInput, float dampTime, float deltaTime)
+    {
+        animator.SetFloat(_horMoveHash, horizontalInput * (Sprinting ? 2f : 1f), dampTime, deltaTime);
+        animator.SetFloat(_vertMoveHash, verticalInput * (Sprinting ? 2f : 1f), dampTime, deltaTime);
+    }
+
 
     // Resting(2) state specific variables
     public bool Sitting { get => animator.GetBool(_isSittingHash); internal set => animator.SetTrigger(_isSittingHash); }
